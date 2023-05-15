@@ -1,0 +1,3 @@
+/* PARAM(_key,_field,_type,_help) */
+PARAM("enable_pat_pmt",				bInsertPatPmt,				bool,		"\n\tEnable PAT/PMT (0=disable, 1=enable)")
+#undef PARAM

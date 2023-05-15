@@ -1,0 +1,52 @@
+#########################################################
+#					MW Common Components Configuration					#
+#########################################################
+
+comment "MW Common Components Configuration. (MWC_XXX)"
+
+	config MWC_STRING_DECOMPRESS_300468
+		bool "MWC_STRING_DECOMPRESS_300468 - Support compressed string in SI"
+		default n
+
+	config MWC_STRING_DECOMPRESS_HUFFMAN_DTG1
+		depends on MWC_STRING_DECOMPRESS_300468
+		bool "MWC_STRING_DECOMPRESS_HUFFMAN_DTG1 - Released by UK DTG for Freesat"
+		default n
+
+	config MWC_EMPHASIS_CHAR
+		bool "MWC_EMPHASIS_CHAR - Use the emphasis On/Off Character in the service name, etc."
+		default n
+
+	config MWC_ARABIC_CHARCODE
+		bool "MWC_ARABIC_CHARCODE - Support Arabic and Persian language processing"
+		default n
+
+	config MWC_CODEPAGE
+		bool "MWC_CODEPAGE - (ASCII & 8859 & 6937)=n(default) + Other Codepage & Codepate = y"
+		default n
+
+		config MWC_CODEPAGE_JAPAN
+			depends on MWC_CODEPAGE
+			bool "JAPAN Codepage & Codetable"
+			default n
+
+		config MWC_CODEPAGE_KOREA
+			depends on MWC_CODEPAGE
+			bool "KOREA Codepage & Codetable"
+			default n
+
+		config MWC_CODEPAGE_WINCP
+			depends on MWC_CODEPAGE
+			bool "WIN Code page"
+			default n
+
+	config MWC_RM_CUSTOMIZABLE
+		bool "MWC_RM_CUSTOMIZABLE - Support the customizable Resource Map"
+		default y
+
+	config MWC_PIPE
+		bool "MWC_PIPE - enable the PIPE for controlling the resources"
+		default n
+
+	source "./Kconfigs/mwc/config.osd"
+

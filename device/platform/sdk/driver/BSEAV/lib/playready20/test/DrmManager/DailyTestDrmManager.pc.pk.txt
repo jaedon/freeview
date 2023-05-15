@@ -1,0 +1,71 @@
+10731:BVT:Symmetrically optimized XML license in WMDRM-PD response
+If(WMDRMSupported)
+TestManagerReinitialize( Reset, TRUE, FALSE)
+TestManagerInitialize( Dump, devcert.dat )
+TestManagerSetRights( Play )
+TestManagerInitResponse
+LoadResponseFromFile( WMDRMPDILAResponse.dat )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+VerifySymmetricOptimizations( lbmCh6haEE+5Z86EDmEudA==, {036E65EA-F98C-410F-9725-D3A1F4A64E33},3 DRM_SYMMOPT_STATUS_COMPLETE )
+TestManagerSetKID( lbmCh6haEE+5Z86EDmEudA== ) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+TestManagerUninitialize
+EndIf
+
+11488:BVT: get device property. DRM_DGP_SECURITY_VERSION
+If(WMDRMSupported)
+TestManagerGetDeviceProperty(5,"2.4.111.101")
+TestManagerReinitialize( Reset, FALSE, FALSE)
+EndIf
+
+' Chained XML Licenses Security Level Tests
+
+52026:FUNC:Bind to SL150 XML Content using SL100 PR cert
+If(WMDRMSupported)
+TestManagerUninitialize
+TestManagerInitialize( Normal Appcontext, NULL, files\bgroupcert100.dat, files\zgpriv100.dat )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+EndIf
+
+
+52027:FUNC:Bind to SL100 XML Content using SL100 WMDRM Cert and SL150 PR Cert
+If(WMDRMSupported)
+TestManagerUninitialize
+TestManagerInitialize( Normal Appcontext, NULL, NULL, NULL, files\devcerttemplate100.dat, files\priv100.dat )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 100?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+EndIf
+
+
+52028:FUNC:Bind to SL150 XML Content using SL100 WMDRM Cert and SL150 PR Cert Should Fail
+If(WMDRMSupported)
+TestManagerUninitialize
+TestManagerInitialize( Normal Appcontext, NULL, NULL, NULL, files\devcerttemplate100.dat, files\priv100.dat )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)=DRM_E_RIGHTSNOTAVAILABLE
+EndIf
+
+
+52029:FUNC:Consume an XMR license using a V2 header (Silverlight requires this scenario)
+TestManagerSetRights(Play)
+TestManagerAddXMRLicense(isVVM+1IM0Cn6NTqoJBWmw==, RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetHeader(NORMAL,uplinkHeaderV2.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump,Dump, NULL)

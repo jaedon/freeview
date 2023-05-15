@@ -1,0 +1,105 @@
+############################################################
+#     Copyright (c) 2003-2012, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.kni $
+# $brcm_Revision: 1 $
+# $brcm_Date: 9/13/12 6:31p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /BSEAV/linux/driver/build/97205CB/Makefile.kni $
+# 
+# 1   9/13/12 6:31p mphillip
+# SW7425-3739: Merge symlink removal to main
+# 
+# SW7425-3739/1   9/13/12 12:38p mphillip
+# SW7425-3739: Remove symlinks for linux/driver/build subdirectories and
+# dependencies
+# 
+# 5   10/20/09 11:36a erickson
+# SW7405-3154: reorg 2.6.31 support to support power driver with same
+# include
+#
+# 4   4/27/09 8:00p katrep
+# PR53480: DBG is now required for KNI
+#
+# 3   1/30/07 11:15a erickson
+# PR25902: remove unneeded Rules.make
+#
+# 2   1/29/07 12:33p erickson
+# PR25902: rework linux drivers to remove duplication
+#
+# 1   1/12/07 7:12a erickson
+# PR25902: rework kernelmode driver to use separate kni driver, no longer
+# use ../common directory (which had legacy stuff)
+#
+############################################################
+
+LINUX ?= /opt/brcm/linux
+LINUX_VER_GE_2_6 ?= $(shell (grep 'PATCHLEVEL = 6' ${LINUX}/Makefile >/dev/null && echo 'y'))
+ifeq ($(LINUX_VER_GE_2_6),y)
+LINUX_VER_EQ_2_6_31 := $(shell (grep 'SUBLEVEL = 31' ${LINUX}/Makefile >/dev/null && echo 'y'))
+endif
+
+BUILDDIR=$(shell pwd)
+TARGET = bcmkni
+DRIVERS=$(BCM_OBJ_DIR)/$(TARGET).ko
+
+.PHONY: $(DRIVERS)
+all: checkdirs driver
+
+SYSTEM := linuxkernel
+
+ifeq ($(LINUX_VER_EQ_2_6_31),y)
+include Common.2.6.31.make
+else
+include Common.make
+endif
+
+# needed for PLATFORM->CHIP
+include ${BSEAV}/api/include/api.mak
+
+driver: checkdirs ${DRIVERS}
+
+CFLAGS += ${B_REFSW_LINUXKERNEL_CFLAGS}
+CFLAGS += ${BSETTOP_CFLAGS} ${B_REFSW_MAGNUM_INCLUDE_DIRS}
+CFLAGS += -DKBUILD_MODNAME=${TARGET}
+
+OBJS += \
+	bcmkni_driver.o \
+	bcmkni.mod.o \
+	bkni.o \
+	bdbg.o \
+	bdbg_os_priv.o\
+	bdbg_output.o
+
+
+ifeq ($(VERBOSE),)
+MAKEFLAGS += -s
+endif
+
+vpath %.c $(BSEAV)/linux/driver/97038
+vpath %.c $(BSEAV)/../magnum/basemodules/kni/linuxkernel
+vpath %.c $(BSEAV)/../magnum/basemodules/dbg/linuxkernel
+vpath %.c $(BSEAV)/../magnum/basemodules/dbg
+
+${OBJS}: ${LINUX_INC} checkdirs
+
+$(BCM_OBJ_DIR)/%.o: %.c
+	@echo [Compile... $(notdir $<)]
+	${Q_}$(CC) -MMD -c $(CFLAGS) $< -o $@
+
+${BCM_OBJ_DIR}/$(TARGET).ko: $(addprefix ${BCM_OBJ_DIR}/, ${OBJS})
+	@echo [Linking... $(notdir $@)]
+	${Q_}$(LD) -Map $(BCM_OBJ_DIR)/$(TARGET).map -r $^  -o $@ $(LDFLAGS)
+
+-include $(BCM_OBJ_DIR)/*.d
+

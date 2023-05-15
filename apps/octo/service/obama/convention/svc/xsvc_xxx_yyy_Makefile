@@ -1,0 +1,7 @@
+#obj-y		+= xsvc_xxx_yyy.o
+
+# Basic include path
+include $(OCTO_PLUGIN_INCLUDE_DIR)/Makefile.include.xsvc
+
+# Additional include path
+#ccflags-y += -I$(OCTO_TVMANAGER_DIR)/svc/xxx/local_include

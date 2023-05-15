@@ -1,0 +1,30 @@
+32100:FUNC:P1:Oem_Clock_SystemTimeToFileTime and Oem_Clock_FileTimeToSystemTime do not drop milliseconds in coversion of valid times
+TestOEMSystemTimeFileTimeConversion(FIXED)
+TestOEMSystemTimeFileTimeConversion(CURRENT)
+TestOEMSystemTimeFileTimeConversion(FIXED, 1980, 4, 0, 27, 6, 13, 50, 349)
+
+32120:FUNC:P1:Check that OEM_SECURE_ZERO_MEMORY actually zeros out memory
+TestOEM_SECURE_ZERO_MEMORY
+
+32130:FUNC:P1:Verify DRM_STR_StringCchCopyNW copies to the destination buffer, truncating if neccessary
+TestOEMStringCchCopyN(This string has 29 characters, 30)
+TestOEMStringCchCopyN(This string has 29 characters, 29)
+TestOEMStringCchCopyN(This string has 29 characters, 28)
+TestOEMStringCchCopyN(This string has 29 characters, 15)
+TestOEMStringCchCopyN(This string has 29 characters, 35) 
+
+32140:FUNC:P1:Verify correct behavior of Oem_File_GetSize
+TestOEMGetFileSize(files\invaliddevcert.dat, 0x11f0)
+
+32170:FUNC:P1:Verify that OEM_MemRealloc doesn't erase data in the buffer
+TestOEMMemRealloc(10, 20)
+TestOEMMemRealloc(10, 10)
+TestOEMMemRealloc(20, 10)
+TestOEMMemRealloc(0, 20)
+'This last test is disabled because the behavior of Oem_MemRealloc with a Size of 0 is currently undefined
+'ANSI realloc frees the memory and returns a NULL pointer, Win32 HeapRealloc does not.
+'TestOEMMemRealloc(10, 0)
+
+32180:FUNC:Verify that OEM_SECURE_ARE_EQUAL compares properly
+TestOEM_SECURE_ARE_EQUAL
+

@@ -1,0 +1,9 @@
+##########################################
+# DI MMC configuration menu
+##########################################
+
+config MMC
+	bool
+	prompt "MMC"
+	default n
+	

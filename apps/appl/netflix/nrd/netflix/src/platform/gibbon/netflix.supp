@@ -1,0 +1,237 @@
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   ...
+   fun:_ZN3JSC4Heap7collectENS0_11SweepToggleE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value4
+   ...
+   fun:_ZN3JSC4Heap7collectENS0_11SweepToggleE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN3JSC14NumericStrings3addEi
+   ...
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value4
+   fun:_ZN3JSC14NumericStrings3addEi
+   ...
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN3JSC14NumericStrings3addEd
+   ...
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value4
+   fun:_ZN3JSC14NumericStrings3addEd
+   ...
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN3JSC14NumericStrings3addEj
+   ...
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value4
+   fun:_ZN3JSC14NumericStrings3addEj
+   ...
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value4
+   obj:/usr/lib/i386-linux-gnu/libstdc++.so.6.0.16
+   obj:*
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   obj:/usr/lib/i386-linux-gnu/libstdc++.so.6.0.16
+   obj:*
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   ...
+   fun:_ZN3JSC4Heap13shouldCollectEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value4
+   ...
+   fun:_ZN3JSC4Heap13shouldCollectEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   ...
+   fun:_ZN3JSC17ConservativeRoots3addEPvS1_
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value4
+   ...
+   fun:_ZN3JSC17ConservativeRoots3addEPvS1_
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   ...
+   fun:_ZN3JSC15MarkedAllocator16allocateSlowCaseEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value4
+   ...
+   fun:_ZN3JSC15MarkedAllocator16allocateSlowCaseEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:ASN1_STRING_set
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value4
+   fun:ASN1_STRING_set
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   ...
+   fun:_ZN3JSC4callEPNS_9ExecStateENS_7JSValueENS_8CallTypeERKNS_8CallDataES2_RKNS_7ArgListE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value4
+   ...
+   fun:_ZN3JSC4callEPNS_9ExecStateENS_7JSValueENS_8CallTypeERKNS_8CallDataES2_RKNS_7ArgListE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   ...
+   fun:_ZN3JSC5LexerItE3lexEPNS_11JSTokenDataEPNS_11JSTokenInfoEjb
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value4
+   ...
+   fun:_ZN3JSC5LexerItE3lexEPNS_11JSTokenDataEPNS_11JSTokenInfoEjb
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   ...
+   fun:_ZN3JSC8JSObject17putDirectInternalILNS0_7PutModeE0EEEbRNS_12JSGlobalDataERKNS_10IdentifierENS_7JSValueEjRNS_15PutPropertySlotEPNS_6JSCellE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value4
+   ...
+   fun:_ZN3JSC8JSObject17putDirectInternalILNS0_7PutModeE0EEEbRNS_12JSGlobalDataERKNS_10IdentifierENS_7JSValueEjRNS_15PutPropertySlotEPNS_6JSCellE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   ...
+   fun:_ZN3JSCL13visitChildrenERNS_11SlotVisitorEPKNS_6JSCellE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value4
+   ...
+   fun:_ZN3JSCL13visitChildrenERNS_11SlotVisitorEPKNS_6JSCellE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Param
+   writev(vector[...])
+   fun:writev
+   obj:/usr/lib/i386-linux-gnu/libX11.so.6.3.0
+   fun:_XSend
+   obj:*
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Param
+   writev(vector[...])
+   fun:writev
+   obj:/usr/lib/i386-linux-gnu/libX11.so.6.3.0
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   ...
+   fun:_ZN3JSC11SlotVisitor5drainEv
+   ...
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value4
+   ...
+   fun:_ZN3JSC11SlotVisitor5drainEv
+   ...
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_ZN3JSC4Heap29reportExtraMemoryCostSlowCaseEj
+   ...
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value4
+   fun:_ZN3JSC4Heap29reportExtraMemoryCostSlowCaseEj
+   ...
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   ...
+   fun:_ZN3JSC11CopiedSpace19tryAllocateSlowCaseEjPPv
+   ...
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value4
+   ...
+   fun:_ZN3JSC11CopiedSpace19tryAllocateSlowCaseEjPPv
+   ...
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Param
+   writev(vector[...])
+   fun:writev
+   obj:*
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Param
+   writev(vector[...])
+   fun:writev
+   obj:*
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Param
+   semctl(IPC_SET, arg.buf)
+   fun:semctl@@GLIBC_2.2
+   obj:*
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Param
+   writev(vector[...])
+   fun:writev
+}

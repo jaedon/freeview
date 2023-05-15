@@ -1,0 +1,28 @@
+' This file tests xxx when PFD_MAX_CONTENT_SESSIONS == 1
+
+' NOTE:
+' If these tests are failing, it's probably because they are being run when PFD_MAX_CONTENT_SESSIONS != 1.
+' Look at FunctionalTest-MaxContentSessions-5.pc.pk.ce.txt for an example of how to test that case.
+
+1168: Open media session when another session is already open without force
+Test_DRM_PFD_Initialize(sample.hds)
+Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+Test_SetCertificate(files\\DeviceTestCert1.crt)
+Test_SetPrivateKeyDirectly(files\\DeviceRSAPrivKey1.bin)
+Test_Drm_Pfd_Registration_ProcessRequest()
+Test_Drm_Pfd_Registration_GenerateResponse()
+Test_Proximity(0)
+Test_Drm_Pfd_Aavt_OpenMediaSession(jazz1.wma,0,47361,jazz1output.wma)
+Test_Drm_Pfd_Aavt_OpenMediaSession(jazz_clear.wma,0,47361,jazz2output.wma)=0x8004CE05 DRM_E_MEDIA_SESSION_LIMIT_REACHED
+
+1175: Open media session when another session is already open with force
+Test_DRM_PFD_Initialize(sample.hds)
+Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+Test_SetCertificate(files\DeviceTestCert1.crt)
+Test_SetPrivateKeyDirectly(files\DeviceRSAPrivKey1.bin)
+Test_Drm_Pfd_Registration_ProcessRequest()
+Test_Drm_Pfd_Registration_GenerateResponse()
+Test_Proximity(0)
+Test_Drm_Pfd_Aavt_OpenMediaSession(jazz1.wma,0,47361,jazz1output.wma)
+Test_Drm_Pfd_Aavt_OpenMediaSession(jazz_clear.wma,1,47361,jazz_clear_output.wma)
+

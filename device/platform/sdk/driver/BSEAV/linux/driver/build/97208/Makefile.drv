@@ -1,0 +1,42 @@
+############################################################
+#     Copyright (c) 2003-2012, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.drv $
+# $brcm_Revision: 2 $ 
+# $brcm_Date: 9/17/12 4:37p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /BSEAV/linux/driver/build/97208/Makefile.drv $
+# 
+# 2   9/17/12 4:37p mphillip
+# SW7425-3739: Update legacy driver target directories to match new
+# hierarchy
+# 
+# 1   9/13/12 6:23p mphillip
+# SW7425-3739: Merge symlink removal changes to main
+# 
+# SW7425-3739/1   9/13/12 12:38p mphillip
+# SW7425-3739: Remove symlinks for linux/driver/build subdirectories and
+# dependencies
+# 
+# 1   9/28/09 2:42p lwhite
+# SW7468-6: Support for 7468
+# 
+# 
+############################################################
+
+# Check for SMP vs. non-SMP kernel configuration
+DEFCONFIG = arch/mips/configs/bcm${PLATFORM}${PLATFORM_VERSION}${ENDIAN_STRING}_defconfig
+
+# Remainder comes from 97400
+include ../97400/Makefile.drv
+

@@ -1,0 +1,24 @@
+
+	comment "Select Supported Function (CONFIG_FUNC_EPG_USE_SVCUID)"
+
+	config FUNC_EPG_USE_SVCUID
+		bool "FUNC_EPG_USE_SVCUID"
+		default y
+
+	comment "Select Supported Function (CONFIG_FUNC_RFEPG_USE_KEYWORDSEARCH)"
+
+	config FUNC_RFEPG_USE_KEYWORDSEARCH
+		bool "FUNC_RFEPG_USE_KEYWORDSEARCH"
+		default n
+
+	comment "Select Supported Function (FUNC_USE_DECRYPTCOPY)"
+
+	config FUNC_USE_DECRYPTCOPY
+		bool "FUNC_USE_DECRYPTCOPY"
+		default n
+
+	comment "Select Supported Function (FUNC_USE_DAPI_DIRECT_QUERY)"
+
+	config FUNC_USE_DAPI_DIRECT_QUERY
+		bool "FUNC_USE_DAPI_DIRECT_QUERY"
+		default n

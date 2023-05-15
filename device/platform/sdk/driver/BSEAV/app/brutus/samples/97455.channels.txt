@@ -1,0 +1,34 @@
+# Dynamic Channel List for Brutus
+# Documentation can be found in BSEAV/app/brutus/docs/BrutusUsageGuide.doc.
+#
+# Tab or space separated fields, case insensitive
+# '#' marks the beginning of a line comment, all characters after
+# are ignored.
+
+# Default input is TS_IN (streamer input)
+STREAMER 0 0
+
+# QAM with 3517 or daughter card
+QAM64       0  765.0  
+QAM256      0  777.0 
+QAM64       0  789.0 
+QAM64       0  801.0 
+
+########################################
+# Other samples
+
+# This is an example of setting a non-default
+# symbol rate and a non-default Annex.
+#QAM64      0  610.0   4.87  AnnexA
+
+# Samples of specifying video and audio formats instead of scanning
+#STREAMER 0 0
+#PROGRAM PIDS video=0x11 video_type=AVC pcr=0x11
+#PROGRAM PIDS video=0x11 video_type=VC1 pcr=0x11
+#PROGRAM PIDS video=0x11 audio=0x14 audio_type=AC3+
+#PROGRAM PIDS video=0x11 video_type=MPEG2 audio=0x14 audio_type=AAC
+
+# DSS streamer examples
+#STREAMER       0       0 DSS_ES
+#STREAMER       0       0 DSS_PES
+

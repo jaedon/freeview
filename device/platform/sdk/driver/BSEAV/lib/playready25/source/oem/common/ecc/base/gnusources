@@ -1,0 +1,14 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=oemeccbase
+TARGETTYPE=LIBRARY
+
+SOURCES =                  \
+    oemeccp160.c           \
+    oemeccp256.c           \
+

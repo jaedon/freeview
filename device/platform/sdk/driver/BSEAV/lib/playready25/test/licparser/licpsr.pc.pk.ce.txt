@@ -1,0 +1,308 @@
+72763:LicenseGetAttribute should be able to retrieve all predefined attributes from a license
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseGetAttribute(NULL, 1 DRM_LICENSE_ATTRIB_VERSION, NORMAL, 2.0.0.0)
+Test_API_LicenseGetAttribute(NULL, 2 DRM_LICENSE_ATTRIB_KID, NORMAL, QCl1EY0ISE2qXlCDaIMJ0A==)
+Test_API_LicenseGetAttribute(NULL, 3 DRM_LICENSE_ATTRIB_LID, NORMAL, {00000507-0000-0010-8000-00AA006D2EA4})
+Test_API_LicenseGetAttribute(NULL, 5 DRM_LICENSE_ATTRIB_ISSUEDATE, NORMAL, 20000102 23:20:14Z)
+Test_API_LicenseGetAttribute(NULL, 6 DRM_LICENSE_ATTRIB_CONTENTPUBKEY, NORMAL, 7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==)
+Test_API_LicenseGetAttribute(NULL, 9 DRM_LICENSE_ATTRIB_PRIORITY, NORMAL, 15)
+
+
+72764:LicenseGetAttribute should be able to retrieve a non standard attribute from a license
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, <MyAttribute>My Value</MyAttribute>)
+Test_API_LicenseGetAttribute(MyAttribute, 8 DRM_LICENSE_ATTRIB_OTHER, NORMAL, My Value)
+
+
+72765:LicenseGetAttribute should return an error if the requested attribute does not exist in the license
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseGetAttribute(NoSuchAttribute, 8 DRM_LICENSE_ATTRIB_OTHER, NORMAL, NULL)=! 0 DRM_SUCCESS
+
+
+72769:LicenseGetAttribute can retrieve meta attribute
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, <META><MyAttr>My Value</MyAttr></META>)
+Test_API_LicenseGetAttribute(MyAttr, 7 DRM_LICENSE_ATTRIB_META_ATTRIBUTE, NORMAL, My Value)
+
+
+72779:LicenseGetEvent should be able to retrieve the condition and action strings of an event
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseGetEvent(ONSTORE, NULL, NORMAL, NORMAL, 1, "!exists(secstate.MinAppSecLevel)?secstate.MinAppSecLevel=150:1")
+
+
+72801:LicenseGetEnablingBits should return enabling bits in the license
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseGetEnablingBits(NORMAL, 1, NULL, NORMAL, NORMAL, NULL, NORMAL, NULL, NULL)
+
+
+72803:LicenseGetEnablingBits should be able to return the enabling bits from a restored license
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(128 OP_LICGEN_RESTORE, NULL)
+Test_API_LicenseGetEnablingBits(NORMAL, 1, NULL, NORMAL, NORMAL, NULL, NORMAL, NULL, NULL)
+
+
+710328:DRM_WMDRM_LIC_GetAttribute should retrieve uplinkKid from a leaf license
+SkipTestIf(!WMDRMSupported)
+Test_SetTestKey(LICENSE_UPLINK_KID, myuplink)
+Test_MakeLicense(0, NULL, 1 MAKE_LEAF_LICENSE)
+Test_API_LicenseGetAttribute(NULL, 11 DRM_LICENSE_ATTRIB_CHAINEDKID, NORMAL, myuplink)
+
+
+710329:DRM_WMDRM_LIC_GetEnablingBits should get the encrypted content key from a leaf license
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, NULL, 1 MAKE_LEAF_LICENSE)
+Test_API_LicenseGetEnablingBits(NORMAL, 1, 2 eMSDRM_CK, NORMAL, NORMAL, NULL, NORMAL, NORMAL, NULL)
+
+
+710330:DRM_WMDRM_LIC_GetEnablingBits should get the encrypted DES key from a root license
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, NULL, 2 MAKE_ROOT_LICENSE)
+Test_API_LicenseGetEnablingBits(NORMAL, 1, 1 eMSDRM_PK, NORMAL, NORMAL, NULL, NORMAL, NORMAL, NULL)
+
+
+710331:DRM_WMDRM_LIC_GetEnablingBits should get the encrypted DES key from a restored license
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(128 OP_LICGEN_RESTORE, NULL, 2 MAKE_ROOT_LICENSE)
+Test_API_LicenseGetEnablingBits(NORMAL, 1, 1 eMSDRM_PK, NORMAL, NORMAL, NULL, NORMAL, NORMAL, NULL)
+
+
+-------------------BVT ends here--------------------------
+
+72766:LicenseGetAttribute allows '.' in attribute name
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, <My.Attribute.Name>My Dot Value</My.Attribute.Name>)
+Test_API_LicenseGetAttribute(My.Attribute.Name, 8 DRM_LICENSE_ATTRIB_OTHER, NORMAL, My Dot Value)
+
+
+72767:LicenseGetAttribute supports the xpath syntax on attribute name
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, <MyAttr><MyPath1>Path1</MyPath1><MyPath>My Path Value</MyPath></MyAttr>)
+Test_API_LicenseGetAttribute(MyAttr/MyPath, 8 DRM_LICENSE_ATTRIB_OTHER, NORMAL, My Path Value)
+
+
+72768:LicenseGetAttribute supports the xpath syntax on attribute name in metadata
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, <META><MyAttr><MyPath1>Path1</MyPath1><MyPath>My Path Value</MyPath></MyAttr></META>)
+Test_API_LicenseGetAttribute(MyAttr/MyPath, 7 DRM_LICENSE_ATTRIB_META_ATTRIBUTE, NORMAL, My Path Value)
+
+
+72770:LicenseGetAttribute should check null parameters
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseGetAttribute(NULL, 1 DRM_LICENSE_ATTRIB_VERSION, NULL, NULL)=-2147024809(0X80070057, E_INVALIDARG)
+
+
+72771:LicenseGetAttribute should return an error if the license is not a valid xml string
+SkipTestIf(!WMDRMSupported)
+Test_SetLicenseString(This is not a valid xml)
+Test_API_LicenseGetAttribute(NULL, 1 DRM_LICENSE_ATTRIB_VERSION, NORMAL, NULL)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+
+
+72772:LicenseGetAttribute should check bad combinations of parameters
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, <META><MyAttr>My Value</MyAttr></META>)
+Test_API_LicenseGetAttribute(NULL, 7 DRM_LICENSE_ATTRIB_META_ATTRIBUTE, NORMAL, NULL)=-2147024809(0X80070057, E_INVALIDARG)
+Test_API_LicenseGetAttribute(NULL, 8 DRM_LICENSE_ATTRIB_OTHER, NORMAL, NULL)=-2147024809(0X80070057, E_INVALIDARG)
+Test_API_LicenseGetAttribute(NonNull, 1 DRM_LICENSE_ATTRIB_VERSION, NORMAL, NULL)=-2147024809(0X80070057, E_INVALIDARG)
+Test_API_LicenseGetAttribute(NonNull, 2 DRM_LICENSE_ATTRIB_KID, NORMAL, NULL)=-2147024809(0X80070057, E_INVALIDARG)
+Test_API_LicenseGetAttribute(NonNull, 3 DRM_LICENSE_ATTRIB_LID, NORMAL, NULL)=-2147024809(0X80070057, E_INVALIDARG)
+Test_API_LicenseGetAttribute(NonNull, 4 DRM_LICENSE_ATTRIB_REVOCATION, NORMAL, NULL)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+Test_API_LicenseGetAttribute(NonNull, 5 DRM_LICENSE_ATTRIB_ISSUEDATE, NORMAL, NULL)=-2147024809(0X80070057, E_INVALIDARG)
+Test_API_LicenseGetAttribute(NonNull, 6 DRM_LICENSE_ATTRIB_CONTENTPUBKEY, NORMAL, NULL)=-2147024809(0X80070057, E_INVALIDARG)
+Test_API_LicenseGetAttribute(NonNull, 9 DRM_LICENSE_ATTRIB_PRIORITY, NORMAL, NULL)=-2147024809(0X80070057, E_INVALIDARG)
+Test_API_LicenseGetAttribute(EMPTY, 7 DRM_LICENSE_ATTRIB_META_ATTRIBUTE, NORMAL, NULL)=-2147024809(0X80070057, E_INVALIDARG)
+Test_API_LicenseGetAttribute(EMPTY, 8 DRM_LICENSE_ATTRIB_OTHER, NORMAL, NULL)=-2147024809(0X80070057, E_INVALIDARG)
+
+
+72777:LicenseGetEvent should be able to retrieve the condition string of an event
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseGetEvent(ONSELECT, NULL, NORMAL CONDITION, NULL, "(!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))", NULL)
+
+
+72778:LicenseGetEvent should be able to retrieve the action string of an event
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseGetEvent(ONSTORE, NULL, NULL, NORMAL ACTION, NULL, "!exists(secstate.MinAppSecLevel)?secstate.MinAppSecLevel=150:1")
+
+
+72780:LicenseGetEvent can retrieve info on specific type for the ONACTION event
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseGetEvent(ONACTION, Restore, NORMAL, NORMAL, 1, 2)
+
+
+72781:LicenseGetEvent should return an error if the event does not exist in the license
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseGetEvent(ONCLOCKROLLBACK, NULL, NORMAL, NORMAL, NULL, NULL)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+
+
+72911:LicenseGetEvent should return empty condition or action if the event does not have condition or action in the license
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, <ONDUMMY></ONDUMMY>)
+Test_API_LicenseGetEvent(ONACTION, Play, NORMAL, NORMAL, 1, EMPTY)
+Test_API_LicenseGetEvent(ONACTION, Backup, NORMAL, NORMAL, EMPTY, 1)
+Test_API_LicenseGetEvent(ONDUMMY, NULL, NORMAL, NORMAL, EMPTY, EMPTY)
+
+
+72799:LicenseGetEvent should check null parameters
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseGetEvent(NULL, ONACTION, Play, NULL, NULL, NULL)=-2147024809(0X80070057, E_INVALIDARG)
+Test_API_LicenseGetEvent(NULL, Play, NULL, NULL, NULL, NULL)=-2147024809(0X80070057, E_INVALIDARG)
+
+
+72800:LicenseGetEvent should return an error if the license is not a valid xml string
+SkipTestIf(!WMDRMSupported)
+Test_SetLicenseString(This is not a valid xml)
+Test_API_LicenseGetEvent(ONACTION, Play, NORMAL, NORMAL, NULL, NULL)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+
+
+72804:LicenseGetEnablingBits should be able to get the algorithm string in enabling bits
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseGetEnablingBits(NORMAL, 1, 1 MSDRM, NORMAL, NORMAL, NULL, NORMAL, NULL, NULL)
+
+
+72806:LicenseGetEnablingBits should check null parameters
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseGetEnablingBits(NULL, 1, NULL, NORMAL, NORMAL, NULL, NORMAL, NULL, NULL)=-2147024809(0X80070057, E_INVALIDARG)
+Test_API_LicenseGetEnablingBits(NORMAL, 1, NULL, NULL, NORMAL, NULL, NORMAL, NULL, NULL)=-2147216893(0X80041203, DRM_E_LIC_PARAM_NOT_OPTIONAL)
+Test_API_LicenseGetEnablingBits(NORMAL, 1, NULL, NORMAL, NULL, NULL, NORMAL, NULL, NULL)=-2147216893(0X80041203, DRM_E_LIC_PARAM_NOT_OPTIONAL)
+Test_API_LicenseGetEnablingBits(NORMAL, 1, NULL, NORMAL, NORMAL, NULL, NULL, NULL, NULL)=-2147216893(0X80041203, DRM_E_LIC_PARAM_NOT_OPTIONAL)
+
+
+72812:LicenseVerifySignature should verify a properly signed license
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseVerifySignature(NORMAL, NORMAL, 1)
+
+
+72813:LicenseVerifySignature should verify a properly signed license with restore info
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(128 OP_LICGEN_RESTORE, NULL)
+Test_API_LicenseVerifySignature(NORMAL, NORMAL, 1)
+
+
+72814:LicenseVerifySignature should deny a license if its data is modified
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(3 OP_LICGEN_TAMPER_DATA, NULL)
+Test_API_LicenseVerifySignature(NORMAL, NORMAL, 0)
+
+
+72815:LicenseVerifySignature should deny a license if a bad restore info block is added to the license
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(147 OP_LICGEN_RESTORE|OP_LICGEN_TEST_RESTORE_SIGNATURE|OP_LICGEN_TAMPER_DATA, NULL)
+Test_API_LicenseVerifySignature(NORMAL, NORMAL, 0)
+
+
+72816:LicenseVerifySignature should deny a license with a bad signature even if the restore info is good
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(131 OP_LICGEN_RESTORE|OP_LICGEN_TAMPER_DATA, NULL)
+Test_API_LicenseVerifySignature(NORMAL, NORMAL, 0)
+
+
+72817:LicenseVerifySignature should deny a license if its signature section is missing
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(4 OP_LICGEN_MISSING_SIGNATURE, NULL)
+Test_API_LicenseVerifySignature(NORMAL, NORMAL, 0)=-2147216889(0X80041207, DRM_E_LIC_UNSUPPORTED_VALUE)
+
+
+72818:LicenseVerifySignature should return an error if the signature or hashing algorithm are not supported
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(1 OP_LICGEN_UNKNOWN_HASH_ALGORITHM, NULL)
+Test_API_LicenseVerifySignature(NORMAL, NORMAL, 0)=-2147216889(0X80041207, DRM_E_LIC_UNSUPPORTED_VALUE)
+Test_MakeLicense(2 OP_LICGEN_UNKNOWN_SIGN_ALGORITHM, NULL)
+Test_API_LicenseVerifySignature(NORMAL, NORMAL, 0)=-2147216889(0X80041207, DRM_E_LIC_UNSUPPORTED_VALUE)
+
+
+72819:LicenseVerifySignature should return an error if the signature or hashing algorithm attributes are missing
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(9 OP_LICGEN_MISSING_SIGN_ALGORITHM, NULL)
+Test_API_LicenseVerifySignature(NORMAL, NORMAL, 0)=-2147216889(0X80041207, DRM_E_LIC_UNSUPPORTED_VALUE)
+Test_MakeLicense(8 OP_LICGEN_MISSING_HASH_ALGORITHM, NULL)
+Test_API_LicenseVerifySignature(NORMAL, NORMAL, 0)=-2147216889(0X80041207, DRM_E_LIC_UNSUPPORTED_VALUE)
+
+
+72820:LicenseVerifySignature should return an error if the license has an incomplete restoreinfo section
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(384 OP_LICGEN_RESTORE|OP_LICGEN_EMPTY_RESTOREINFO, NULL)
+Test_API_LicenseVerifySignature(NORMAL, NORMAL, 0)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+
+Test_MakeLicense(148 OP_LICGEN_RESTORE|OP_LICGEN_TEST_RESTORE_SIGNATURE|OP_LICGEN_MISSING_SIGNATURE, NULL)
+Test_API_LicenseVerifySignature(NORMAL, NORMAL, 0)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+
+Test_MakeLicense(640 OP_LICGEN_RESTORE|OP_LICGEN_NO_RESTORE_LID, NULL)
+Test_API_LicenseVerifySignature(NORMAL, NORMAL, 0)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+
+
+72821:LicenseVerifySignature should return an error if the certchain is missing
+SkipTestIf(!WMDRMSupported)
+Test_SetTestKey(LICENSE_SERVER_CERT_ROOT, NULL)
+Test_SetTestKey(LICENSE_SERVER_CERT_LS, NULL)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseVerifySignature(NORMAL, NORMAL, 0)=-2147216891(0x80041205, DRM_E_LIC_INVALID_LICENSE)
+
+
+72823:LicenseVerifySignature should return an error if the LID in restoreinfo section does not match the LID in the license.
+SkipTestIf(!WMDRMSupported)
+Test_MakeLicense(1152 OP_LICGEN_RESTORE|OP_LICGEN_TAMPER_RESTORE_LID, NULL)
+Test_API_LicenseVerifySignature(NORMAL, NORMAL, 0)=-2147216891(0x80041205, DRM_E_LIC_INVALID_LICENSE)
+
+
+72824:LicenseVerifyCertChain should verify valid certs if fCheckExpiry is true
+SkipTestIf(!WMDRMSupported)
+Test_SetTestKeyByName(LICENSE_SERVER_SIGNINGKEY, LSPRVKEY)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseVerifyCertChain(1 TRUE, NORMAL, NORMAL, 1)
+
+
+72825:LicenseVerifyCertChain should verify expired certs if fCheckExpiry is false
+SkipTestIf(!WMDRMSupported)
+Test_SetTestKeyByName(LICENSE_SERVER_SIGNINGKEY, LSPRVKEY)
+' These are expired certs
+Test_SetTestKeyByName(LICENSE_SERVER_CERT_ROOT, EXPIREDCERTROOT)
+Test_SetTestKeyByName(LICENSE_SERVER_CERT_LS, EXPIREDCERTLS)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseVerifyCertChain(0 FALSE, NORMAL, NORMAL, 1)
+
+
+72826:LicenseVerifyCertChain should verify certchain section with more than 3 certs
+SkipTestIf(!WMDRMSupported)
+Test_SetTestKeyByName(LICENSE_SERVER_CERT_LS0, CERT0)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseVerifyCertChain(1 TRUE, NORMAL, NORMAL, 1)
+
+
+72827:LicenseVerifyCertChain should deny expired certs if fCheckExpiry is true
+SkipTestIf(!WMDRMSupported)
+Test_SetTestKeyByName(LICENSE_SERVER_SIGNINGKEY, LSPRVKEY)
+' These are expired certs
+Test_SetTestKeyByName(LICENSE_SERVER_CERT_ROOT, EXPIREDCERTROOT)
+Test_SetTestKeyByName(LICENSE_SERVER_CERT_LS, EXPIREDCERTLS)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseVerifyCertChain(1 TRUE, NORMAL, NORMAL, 0)=-2147184634(0X80049006, DRM_E_EXPIRED_CERT)
+
+
+72828:LicenseVerifyCertChain should deny bad certs
+SkipTestIf(!WMDRMSupported)
+Test_SetTestKey(LICENSE_SERVER_SIGNINGKEY, dsml2vSSmIIkNScihY5niY95fSQ=)
+Test_SetTestKey(LICENSE_SERVER_CERT_ROOT, AAEAADgAAABHnuWu79pRyZdeXjZXr4JZk2xSEmij3MFnPjIXIwvHWZNKoouCVINgVWFIY4OXRRTFYhONF455W9o5!gbPlNB50yKXGyMeBnPkg*FGf1aaNxQECB8AAAAJAAAAAQAAAAE=)
+Test_SetTestKey(LICENSE_SERVER_CERT_LS, AAEAADgAAAAc0PxXzxT372KnwUj4GAV4NszqN7TigP1iBVL!XpSor!osxfFC!U4i7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMhQEBRQAADQTAAAAAgAAbUM=)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseVerifyCertChain(0 FALSE, NORMAL, NORMAL, 1)=-2147184633(0X80049007, DRM_E_DRMUTIL_INVALID_CERT)
+
+
+72829:LicenseVerifyCertChain should return an error if the license does not contain the certificatechain section.
+SkipTestIf(!WMDRMSupported)
+Test_SetTestKey(LICENSE_SERVER_CERT_ROOT, NULL)
+Test_SetTestKey(LICENSE_SERVER_CERT_LS, NULL)
+Test_MakeLicense(0, NULL)
+Test_API_LicenseVerifyCertChain(1 TRUE, NORMAL, NORMAL, 0)=-2147216891(0X80041205, DRM_E_LIC_INVALID_LICENSE)
+

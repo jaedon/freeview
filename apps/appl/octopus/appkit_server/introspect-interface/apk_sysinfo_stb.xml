@@ -1,0 +1,127 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Sysinfo/Stb">   
+    <interface name="Octopus.Appkit.Sysinfo.Stb">
+
+    <method name="GetModelName">
+    	<arg type="s" name="modelName" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="GetUpdatedList">
+    	<arg type="s" name="updateList" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetSoftwareVersion">
+    	<arg type="s" name="softwareVersion" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetLoaderName">
+    	<arg type="s" name="loaderName" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+    
+    <method name="GetLoaderVersion">
+    	<arg type="s" name="loaderVersion" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+    <method name="GetManufacturerName">
+    	<arg type="s" name="manufacturerName" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="GetSystemId">
+    	<arg type="s" name="systemId" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+    <method name="GetDeviceId">
+    	<arg type="s" name="deviceId" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="GetChipId">
+    	<arg type="s" name="chipId" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetObamaVersion">
+    	<arg type="s" name="obamaVersion" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetMicomVersion">
+    	<arg type="s" name="micomVersion" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetUpdateDate">
+    	<arg type="s" name="updateDate" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+    
+    <method name="GetSerialNumber">
+    	<arg type="s" name="serialNo" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+    
+    <method name="GetCustomCode">
+    	<arg type="u" name="customCode" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>      
+        
+    <method name="GetColdBootDone">
+    	<arg type="b" name="checkColdBootDone" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>        
+    
+    <method name="SetFirstBootOnProduction">
+    	<arg type="b" name="firstBootOnProduction" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="GetFirstBootOnProduction">
+    	<arg type="b" name="firstBootOnProduction" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>      
+            
+    <method name="SetAntennaPower">
+    	<arg type="b" name="antPower" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="GetAntennaPower">
+    	<arg type="b" name="antPower" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="SetServiceUpdateFlag">
+    	<arg type="b" name="enable" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="GetServiceUpdateFlag">
+    	<arg type="b" name="enable" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>      
+    
+    <method name="GetNandBadBlocks">
+    	<arg type="(uuu)" name="info" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>         
+        
+    <method name="GetFusingInfo">
+    	<arg type="(yyyy)" name="info" direction="out" />
+    	 	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>         
+                                                                                    
+
+    <signal name="event">
+    </signal>
+
+
+  </interface>
+</node>

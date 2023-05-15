@@ -1,0 +1,106 @@
+999012:BVT: Keyfile upgrade - Acquire licenses then change HWID (XML)
+TestManagerUninitialize
+TestManagerSetRobustnessVersion(0.0.0.1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,NULL)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(SIMPLE001g4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(ROOT001aVg4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(LEAF001aVg4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,ROOT001aVg4eXCzWqPUBBA==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerSetRights(Play)
+TestManagerSetKID( LEAF001aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE001g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerUninitialize
+
+TestManagerSetHardwareID(BADHARDWAREIDINBASE64aaa)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,TRUE)
+
+'Old licenses from before the HWID changed should no longer work
+TestManagerSetRights(Play)
+TestManagerSetKID( LEAF001aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)=0x80048007 DRM_E_LIC_KEY_DECODE_FAILURE
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE001g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)=0x80048007 DRM_E_LIC_KEY_DECODE_FAILURE
+
+'Acquire new licenses and they should work
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(SIMPLE001g4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(ROOT001aVg4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(LEAF001aVg4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,ROOT001aVg4eXCzWqPUBBA==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetRights(Play)
+TestManagerSetKID( LEAF001aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE001g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+
+'Clean up
+TestManagerUninitialize
+TestManagerFreeKeyfileKeys
+
+
+
+999013:BVT: Keyfile upgrade - Acquire licenses then change HWID (XMR)
+TestManagerUninitialize
+TestManagerSetRobustnessVersion(0.0.0.1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,NULL)
+TestManagerAddXMRLicense( SIMPLE001g4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( ROOT001aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( LEAF001aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT001aVg4eXCzWqPUBBA== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetRights(Play)
+TestManagerSetKID( LEAF001aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE001g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerUninitialize
+
+TestManagerSetHardwareID(BADHARDWAREIDINBASE64aaa)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,TRUE)
+
+'Old licenses from before the HWID changed should no longer work
+TestManagerSetRights(Play)
+TestManagerSetKID( LEAF001aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)=0x80048007 DRM_E_LIC_KEY_DECODE_FAILURE
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE001g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)=0x80048007 DRM_E_LIC_KEY_DECODE_FAILURE
+
+'Acquire new licenses and they should work
+TestManagerAddXMRLicense( SIMPLE001g4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( ROOT001aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( LEAF001aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT001aVg4eXCzWqPUBBA== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetRights(Play)
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( LEAF001aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE001g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+
+'Clean up
+TestManagerUninitialize
+TestManagerFreeKeyfileKeys
+

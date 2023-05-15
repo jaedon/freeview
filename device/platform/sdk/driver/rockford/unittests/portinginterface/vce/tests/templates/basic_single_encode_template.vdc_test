@@ -1,0 +1,21 @@
+custom
+load_rts 1
+pb
+c${vdc_compositor_id_0} ovc ${vdc_display_id_0} ${vdc_stg_id_0} 0 ${encode_nrt_mode_0}
+cf ${vdc_display_fmt_0} x${decode_instance_0} m${decode_feeder_0} os ${vdc_refresh_rate_0} 0 ow
+dm 1
+de ${source_file_0} ${source_pid_video_0} ${source_pid_pcr_0} ${source_type_0} ${source_protocol_0} 
+sleep
+inite
+sae ${encode_instance_0} ${encode_channel_0} oe oech ${encode_multi_channel_mode_0}
+fe 1
+sae ${encode_instance_0} ${encode_channel_0} enc 107 frame_rate:${encode_frame_rate_0} bitrate_max:${encode_bitrate_0} protocol:${encode_protocol_0} profile:${encode_profile_0} level:${encode_level_0} gop_number_of_p:${encode_gop_number_of_p_0} gop_number_of_b:${encode_gop_number_of_b_0} end:0
+break ${encode_time_0}
+sae ${encode_instance_0} ${encode_channel_0} xenc ${encode_stop_immediately_0}
+break 5
+sae ${encode_instance_0} ${encode_channel_0} se
+fe
+sae ${encode_instance_0} ${encode_channel_0} cech
+ce
+inite
+q

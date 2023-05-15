@@ -1,0 +1,7 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=LIBRARY
+TARGETNAME=CryptoTestAPI_asm
+
+SOURCES = \
+    ..\amd64\setacx64.asm \

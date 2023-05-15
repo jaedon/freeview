@@ -1,0 +1,71 @@
+##########################################
+# DI FLASH configuration menu
+##########################################
+
+config NOR_FLASH
+	bool
+	prompt "NOR_FLASH"
+	default n
+
+config NVRAM_IN_NORFLASH
+	bool
+	prompt "NVRAM_IN_NORFLASH"
+	default n
+	depends on NOR_FLASH
+
+config OTP_LOCK_NORFLASH
+	bool
+	prompt "OTP_LOCK_NORFLASH"
+	default n
+	depends on NOR_FLASH
+
+config NAND_FLASH
+	bool
+	prompt "NAND_FLASH"
+	default y
+
+config NAND_FLASH_NULL
+	bool
+	prompt "Nand Null feature"
+	default y if !NAND_FLASH
+
+config EMMC_FLASH
+	bool
+	prompt "select y if using emmc flash"
+	default n
+	
+config WRITE_FLASH
+	bool
+	prompt "WRITE_FLASH"
+	default n
+	
+config PK_IN_CONFIG
+	bool
+	prompt "PK_IN_CONFIG"
+	default n
+	
+config NAND_TOTAL_SIZE
+	int
+	prompt "NAND Total Size(MB)"
+	default 0
+	depends on NAND_FLASH
+
+config NAND_PEB_SIZE
+        int
+        prompt "NAND PEB Size(KiB)"
+        default 0
+        depends on NAND_FLASH
+
+config NAND_LEB_SIZE
+	int
+	prompt "NAND LEB Size(KiB)"
+	default 0
+	depends on NAND_FLASH
+
+config NAND_IO_SIZE
+	int
+	prompt "NAND IO Size(Byte)"
+	default 0
+	depends on NAND_FLASH
+	
+

@@ -1,0 +1,4 @@
+ts_muxer_dev TsList_example.txt
+
+
+TsList_example.txt에는 TS파일 개수, 각 OTA용 TS 파일명, 각 OTA용 TS파일 내에서 DSMCC의 PID에 해당하는 PMT의 component tag를 기입

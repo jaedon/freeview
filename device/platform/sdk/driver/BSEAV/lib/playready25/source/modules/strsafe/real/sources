@@ -1,0 +1,11 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmstrsafereal
+TARGETTYPE=LIBRARY
+
+C_DEFINES=$(C_DEFINES)    \
+    -DDRM_BUILDING_DRMSTRSAFE_LIB
+
+SOURCES =                  \
+      drmstrsafeimplreal.c
+

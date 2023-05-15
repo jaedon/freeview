@@ -1,0 +1,13 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmsecureclockexternal
+TARGETTYPE=LIBRARY
+
+!include ..\common.src
+
+SOURCES =                      \
+    drmsecurelockmgrextern.c   \
+    drmsecurelockrequextern.c  \
+    drmsecurelockrespextern.c  \
+    drmsecurelockutilextern.c  \
+

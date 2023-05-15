@@ -1,0 +1,238 @@
+#hubDlg {
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  background-color: rgba(0, 0, 0, 0.498039);
+  opacity: 0;
+  &.show {
+    opacity: 1;
+    &.termsAndConditions {
+      &::after {
+        left: 61px;
+        top: 35px;
+        background: url(../images/614_FVC_logo02.png) no-repeat;
+        content: " ";
+        position: fixed;
+        width: 220px;
+        height: 56px;
+      }
+    }
+  }
+  .container {
+    width: inherit;
+    height: inherit;
+    opacity: 0;
+    background: url(../images/105_BG_HUB.png) no-repeat;
+    background-position: bottom left;
+    &.show {
+      opacity: 1;
+    }
+    .disconnectIcon {
+      height: 95px;
+      left: 580px;
+      position: absolute;
+      text-align: center;
+      top: 486px;
+      width: 120px;
+      background: url(../images/614_H_Disconnected.png) no-repeat center;
+    }
+    .disconnectMsg {
+      color: #FFFFFF;
+      font-size: 20px;
+      height: 52px;
+      line-height: 26px;
+      position: absolute;
+      text-align: center;
+      top: 598px;
+      width: 1280px;
+    }
+  }
+}
+.topArea {
+  color: #FFFFFF;
+  height: 72px;
+  left: 424px !important;
+  opacity: 1;
+  position: absolute;
+  top: 54px;
+  width: 889px;
+  &::before {
+    background: rgba(0, 0, 0, 0.9);
+    border-bottom: 2px solid rgba(0, 149, 230, 0.3);
+    content: " ";
+    height: 124px;
+    left: 0px;
+    position: fixed;
+    top: 0px;
+    width: 1280px;
+  }
+  .-f {
+    text-align: center;
+    font-family: PrismFontB;
+    font-size: 28px;
+    height: 62px;
+    &.-afd-leaf {
+      color: #2eb2ff;
+      border-bottom: 10px solid #2EB2FF;
+    }
+  }
+  &.disable {
+    color: #646464;
+  }
+}
+.bottomArea {
+  position: absolute;
+  top: 276px;
+  width: inherit;
+  height: 444px;
+  -o-transition: all 0.3s linear;
+  -webkit-transition: all 0.3s linear;
+  &::before {
+    content: '';
+    position: fixed;
+    width: 1280px;
+    height: 97px;
+    bottom: 0px;
+    background: url(../images/105_BG_HUB_App.png) no-repeat center;
+  }
+  &.disable {
+    opacity: 0.8;
+  }
+  &.-afd {
+    .appList {
+      .-afd-leaf {
+        background-color: #2eb2ff;
+      }
+    }
+    .contentList {
+      .-afd-leaf {
+        &:not(.moreVideo)::after {
+          position: absolute;
+          height: 52px;
+          width: 178px;
+          border-top: solid 5px #2EB2FF;
+          border-bottom: solid 53px #2EB2FF;
+          content: '';
+        }
+        .contentTitle {
+          color: #000000;
+          font-family: "PrismFontB";
+          top: 56px;
+        }
+        .contentMore {
+          background-color: #2eb2ff;
+          color: #000000;
+        }
+      }
+    }
+  }
+}
+.appList {
+  left: 56px;
+  top : 276px;
+  opacity: 0.8;
+  .-list-item {
+    height: 110px;
+    width: 110px;
+  }
+  &.active {
+    opacity: 1;
+  }
+}
+.appItem {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 100px;
+  height: 100px;
+  background-position: center;
+  background-size: 100px 100px;
+  .fvcThumbnail {
+    position: absolute;
+    left: 2px;
+    top: 22px;
+    width: 96px;
+  }
+}
+.contentView {
+  left: 61px;
+  top : 131px;
+  //width: 1219px;
+  width: 1116px;
+  height: 139px;
+  opacity: 0.8;
+  p.title {
+    font-size: 24px;
+    color: #eaeaea;
+    top: -28px;
+    position: absolute;
+  }
+  &.active {
+    opacity: 1;
+  }
+}
+.contentList {
+  top : 28px !important;
+  .-list-item {
+    height: 110px;
+    width: 178px;
+  }
+}
+.contentItem {
+  position: absolute;
+  overflow: hidden;
+  top: 5px;
+  left: 0px;
+  width: 178px;
+  height: 100px;
+  .contentImg {
+    width: inherit;
+    height : inherit;
+  }
+  .contentLogo {
+    position: absolute;
+    right: 4px;
+    top: 5px;
+  }
+  &::before {
+    position: absolute;
+    content: '';
+    left: 0px;
+    top: 0px;
+    width: 178px;
+    height: 100px;
+    background: url(../images/614_H_Dim_Thumb.png) no-repeat;
+  }
+}
+.contentTitle {
+  position: absolute;
+  color: #DDDDDD;
+  font-size: 20px;
+  font-family: "PrismFontL";
+  top: 73px;
+  left: 5px;
+  width: 168px;
+  height: 45px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  z-index: 1;
+  .contentSecondary {
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+.contentMore {
+  position: absolute;
+  top: 5px;
+  width: 178px;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: rgba(255, 255, 255, 0.3);
+  font-size: 20px;
+  color: #ffffff;
+}

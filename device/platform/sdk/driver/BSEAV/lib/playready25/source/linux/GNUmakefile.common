@@ -1,0 +1,455 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+# Common makefile for the PlayReady Porting Kit.
+#
+# This file is NOT generated
+#
+# --*/
+
+include $(PLAYREADY_DIR)/tools.mak
+
+SHELL = /bin/bash
+
+INCLUDE_DIRS = 
+
+#ifeq "$(PLAYREADY_GXX)" ""
+#    GXX = g++
+#else
+#    GXX = $(PLAYREADY_GXX)
+#endif
+#AR = ar
+
+NEXUS_PLATFORM ?= $(PLATFORM)
+NEXUS_TOP = $(PLAYREADY_ROOT)/../../../nexus
+
+include $(NEXUS_TOP)/platforms/$(NEXUS_PLATFORM)/build/platform_app.inc
+include $(NEXUS_TOP)/../BSEAV/lib/media/playready25.inc
+
+NEXUS_CFLAGS := -DBDBG_DEBUG_BUILD=1 -DNEXUS_SERVER_SUPPORT=1 -D_GNU_SOURCE=1 -DLINUX -pipe -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DBSTD_CPU_ENDIAN=BSTD_ENDIAN_LITTLE -DUCLIBC_VERSION="libuClibc*" -DNEXUS_PLATFORM_LEGACY_PARSER_BAND -DNEXUS_PLATFORM_LEGACY_TIMEBASE -DNEXUS_HAS_SPI_FRONTPANEL=1
+
+NEXUS_CFLAGS += $(addprefix -D,$(NEXUS_APP_DEFINES)) $(addprefix -I,$(NEXUS_APP_INCLUDE_PATHS))
+NEXUS_CFLAGS += $(addprefix -D,$(BMEDIA_DEFINES))
+NEXUS_CFLAGS += $(addprefix -I,$(BMEDIA_INCLUDES))
+NEXUS_CFLAGS += -I$(NEXUS_TOP)/../BSEAV/lib/security/common_crypto/include
+NEXUS_CFLAGS += -I$(NEXUS_TOP)/../magnum/basemodules/std
+NEXUS_CFLAGS += -I$(NEXUS_TOP)/../magnum/basemodules/std/config
+NEXUS_CFLAGS += -I$(NEXUS_TOP)/../magnum/basemodules/dbg
+NEXUS_CFLAGS += -I$(NEXUS_TOP)/../magnum/basemodules/err
+NEXUS_CFLAGS += -I$(NEXUS_TOP)/../magnum/basemodules/mem
+NEXUS_CFLAGS += -I$(NEXUS_TOP)/../magnum/basemodules/chp
+NEXUS_CFLAGS += -I$(NEXUS_TOP)/../magnum/commonutils/lst
+NEXUS_CFLAGS += -I$(NEXUS_TOP)/../magnum/basemodules/reg
+
+DRM_INC += -I$(NEXUS_TOP)/extensions/security/keyladder/include
+DRM_INC += -I$(NEXUS_TOP)/extensions/security/usercmd/include
+DRM_INC += -I$(NEXUS_TOP)/modules/security/include
+DRM_INC += -I$(NEXUS_TOP)/modules/core/include
+DRM_INC += -I$(NEXUS_TOP)/base/include
+DRM_INC += -I$(NEXUS_TOP)/base/include/public
+
+DRM_INC += -I${PLAYREADY_DIR}/../blackbox -I${PLAYREADY_DIR}/../modules/prnd/real -I${PLAYREADY_DIR}/../results/checkedin -I${PLAYREADY_DIR}/../oem/linux/bcm -I${PLAYREADY_DIR}/../oem/common/hal/oemimpl -I${PLAYREADY_DIR}/../oem/common/hal/shared -I${PLAYREADY_DIR}/../inc -I${PLAYREADY_DIR}/../results -I${PLAYREADY_DIR}/../certs -I${PLAYREADY_DIR}/../xmr -I${PLAYREADY_DIR}/../ndtinc -I${PLAYREADY_DIR}/../keyfile -I${PLAYREADY_DIR}/../keyfileformat -I${PLAYREADY_DIR}/../oem/common/inc -I${PLAYREADY_DIR}/../oem/ansi/inc -I${PLAYREADY_DIR}/../oem/ansi/trace -I${PLAYREADY_DIR}/../oem/ansi/bcm -I${PLAYREADY_DIR}/../tools/common
+
+#PRDY_ROBUSTNESS_ENABLE = y
+ifeq ($(PRDY_ROBUSTNESS_ENABLE),y)
+DRM_CFLAGS += -DPRDY_ROBUSTNESS=1
+endif
+
+#PRDY_NETFLIX_SECURESTOP_ENABLE
+ifeq ($(PRDY_NETFLIX_SECURESTOP_ENABLE),y)
+DRM_CFLAGS += -DTEE=1
+endif
+
+ifeq ($(PRDY_HWDECRYPT_ENABLE),y)
+DRM_CFLAGS += -DHWDECODING
+endif
+
+
+BINDIR = $(PLAYREADY_ROOT)/output/bin/playready
+ifeq ($(PRDY_ROBUSTNESS_ENABLE), y)
+LIBDIR = $(PLAYREADY_ROOT)/output/lib/playready_robust
+else
+LIBDIR = $(PLAYREADY_ROOT)/output/lib/playready
+endif
+
+ifeq ($(CONFIG_SECURITY_EXTENSION), y)
+DRM_CFLAGS += -DCONFIG_SECURITY_EXTENSION
+endif
+
+DRM_INCLUDE_FILES = $(PLAYREADY_ROOT)/source/blackbox/*.h				\
+					$(PLAYREADY_ROOT)/source/certs/*.h					\
+					$(PLAYREADY_ROOT)/source/inc/*.h					\
+					$(PLAYREADY_ROOT)/source/keyfile/*.h				\
+					$(PLAYREADY_ROOT)/source/keyfileformat/*.h			\
+					$(PLAYREADY_ROOT)/source/modules/prnd/real/*.h		\
+					$(PLAYREADY_ROOT)/source/results/*.h				\
+					$(PLAYREADY_ROOT)/source/ndtinc/*.h					\
+					$(PLAYREADY_ROOT)/source/oem/ansi/inc/*.h			\
+					$(PLAYREADY_ROOT)/source/oem/linux/bcm/*.h			\
+					$(PLAYREADY_ROOT)/source/oem/common/inc/*.h			\
+					$(PLAYREADY_ROOT)/source/oem/common/hal/oemimpl/*.h	\
+					$(PLAYREADY_ROOT)/source/xmr/*.h					\
+                                        $(PLAYREADY_ROOT)/source/tee/*.h                                        \
+
+
+# -Wno-comment is there to disable warnings about comments spanning multiple lines, or having /* inside comments
+# -Wno-missing-field-initializers supresses warnings about missing filed initializers when we do something like struct x = {0}
+# -Wno-unused-value is there to suppress warnings about statements that have no effect
+# -Wall turns on all code-related warnings (-Wextra turns on even more warnings) and -Werror makes the warnings errors
+WARNING_CFLAGS = -Wall -Wno-missing-field-initializers -Wno-comment -Wno-unused-value 
+
+CFLAGS = $(WARNING_CFLAGS) -pipe -finline-functions -fmessage-length=0 -O$(GCC_OPTIMIZATION_LEVEL) -fPIC -DPIC -D_FORTIFY_SOURCE=2 -pie $(C_DEFINES) -fshort-wchar -DLINUX_BUILD=1
+
+# -fpermissive == Downgrade some diagnostics about nonconformant code from errors to warnings. Thus, using -fpermissive will allow some nonconforming code to compile.
+ifneq "$(PLAYREADY_TEST)" ""
+CFLAGS += -DPLAYREADY_TEST -DDRM_TEST_USE_OFFSET_CLOCK -fpermissive 
+endif
+
+ifeq "$(PLAYREADY_BUILD_TYPE)" "CHK"
+CFLAGS += -v -g -DDBG=1 -DDEBUG -DDEBUG_BUILD
+endif
+
+CFLAGS += -DHUMAX_PLATFORM_BASE
+
+ALLCFLAGS = $(REQUIRED_CFLAGS) $(CFLAGS) $(DRM_CFLAGS)
+ALLCFLAGS += $(NEXUS_CFLAGS) $(DRM_INC)
+
+
+#
+# Build target settings
+#
+ifneq "$(PLAYREADY_TEST)" "1"
+    OBJ_DIR=$(subst $(PLAYREADY_ROOT), $(LIBDIR)/obj, $(realpath .))
+    BUILD_PRODUCT_DIR = $(LIBDIR)/obj
+else
+    OBJ_DIR=$(subst $(PLAYREADY_ROOT), $(LIBDIR)/obj_test, $(realpath .))
+    BUILD_PRODUCT_DIR = $(LIBDIR)/obj_test
+endif
+
+#
+# Source files we are looking at
+#
+
+# Fix up path separators to be UNIX legal
+C_SRCS := $(subst \,/,$(C_SRCS))
+
+#
+# Generate our necessary object files list
+#
+# No matter where the sources are, intermediate build products
+# will always be in $(OBJ_DIR)
+#
+
+C_NAMES = $(notdir $(C_SRCS:.c=.o))
+C_OBJS = $(patsubst %, $(OBJ_DIR)/%, $(C_NAMES))
+OBJS = $(C_OBJS)
+
+# Static library
+STATIC_LIB_EXTENSION = .a
+
+# Shared library
+SHARED_LIB_EXTENSION = .so
+
+#
+# Recursive make
+#
+
+#
+# If no TARGETS_CLEAN specified then set that to TARGETS
+#
+ifeq "$(TARGETS_CLEAN)" ""
+	TARGETS_CLEAN := $(TARGETS)
+endif
+    
+#
+# Make phony names so we don't conflict with the
+# $(TARGETS) build item
+#
+TARGETS_CLEAN := $(patsubst %, clean_%, $(TARGETS_CLEAN))
+
+#
+# If no POST_TARGETS_CLEAN specified then set that to POST_TARGETS
+#
+ifeq "$(POST_TARGETS_CLEAN)" ""
+	POST_TARGETS_CLEAN := $(POST_TARGETS)
+endif
+
+#
+# Make phony names so we don't conflict with the
+# $(POST_TARGETS) build item
+#
+POST_TARGETS_CLEAN := $(patsubst %, clean_%, $(POST_TARGETS_CLEAN))
+
+ifeq "" "$(MODULE_PATH)"
+
+ifeq "STATIC_LIBRARY" "$(TARGETTYPE)"
+	MODULE_PATH = $(BUILD_PRODUCT_DIR)/lib
+else ifeq "SHARED_LIBRARY" "$(TARGETTYPE)"
+	MODULE_PATH = $(BUILD_PRODUCT_DIR)/so_lib
+else
+	MODULE_PATH = $(BUILD_PRODUCT_DIR)
+endif
+
+endif
+
+#
+# These are our binary target definitions.
+#
+TARGET_NAME = $(MODULE_PATH)/$(MODULE_NAME)
+STATIC_LIB_NAME = $(TARGET_NAME)$(STATIC_LIB_EXTENSION)
+SHARED_LIB_NAME = $(TARGET_NAME)$(SHARED_LIB_EXTENSION)
+ARCHIVE_NAME = $(TARGET_NAME).o
+PROGRAM_NAME = $(TARGET_NAME).exe
+
+BINPLACE_DIR:=$(PLAYREADY_ROOT)/output/bin # root of build products final location
+
+ifneq "" "$(strip $(BINFOLDER))" # top level folder under root for this target
+	BINPLACE_DIR := $(strip $(BINPLACE_DIR))/$(BINFOLDER)
+endif
+
+ifneq "" "$(strip $(BINPLACE))" # This overrides the default locations below
+	BINPLACE_DIR := $(strip $(BINPLACE_DIR))/$(BINPLACE)
+else # default locations
+ifeq "STATIC_LIBRARY" "$(TARGETTYPE)"
+	 BINPLACE_DIR := $(strip $(BINPLACE_DIR))/lib
+else ifeq "SHARED_LIBRARY" "$(TARGETTYPE)"
+	 BINPLACE_DIR := $(strip $(BINPLACE_DIR))/so_lib
+else ifeq "LIBRARY" "$(TARGETTYPE)"
+	 BINPLACE_DIR := $(strip $(BINPLACE_DIR))/obj
+else ifeq "PROGRAM" "$(TARGETTYPE)"
+	 BINPLACE_DIR := $(strip $(BINPLACE_DIR))/exe
+endif
+
+endif
+
+
+TARGET_OBJ=
+PASS1_TARGET_OBJ=
+PASS2_TARGET_OBJ=
+PASS3_TARGET_OBJ=
+
+ifeq "STATIC_LIBRARY" "$(TARGETTYPE)"
+	 TARGET_OBJ := $(STATIC_LIB_NAME)
+	 PASS2_TARGET_OBJ := $(TARGET_OBJ)
+else ifeq "SHARED_LIBRARY" "$(TARGETTYPE)"
+	 TARGET_OBJ := $(SHARED_LIB_NAME)
+	 PASS2_TARGET_OBJ := $(TARGET_OBJ)
+else ifeq "LIBRARY" "$(TARGETTYPE)"
+	 TARGET_OBJ := $(ARCHIVE_NAME)
+	 PASS1_TARGET_OBJ := $(TARGET_OBJ)
+else ifeq "PROGRAM" "$(TARGETTYPE)"
+	 TARGET_OBJ := $(PROGRAM_NAME)
+	 PASS3_TARGET_OBJ := $(TARGET_OBJ)
+endif
+
+
+#
+# Common custom function for binplacing a file
+#
+# First argument is the binpalce folder and the
+# Second argument is the filename to place
+#
+
+binplace = 	\
+	if [ ! -e "$(1)" ]; then mkdir -p "$(1)";  fi && \
+	echo Binplacing to $(1)... && \
+	cp $(2) "$(1)"
+
+cleanbinplace = \
+    if [ -e "$(1)" ]; then pushd "$(1)" > /dev/null; rm -f $(2); popd > /dev/null; fi
+
+#
+# Definition of the binaries we will link against for our targets.
+#
+
+LIB_OBJS = $(TARGET_OBJS)
+
+.SUFFIXES:
+.SUFFIXES: .c .o
+
+.PHONY: all \
+	pre_targets targets post_targets $(PRE_TARGETS) $(TARGETS) $(POST_TARGETS) $(PRE_TARGET) $(POST_TARGET) \ # recursive targets build
+	clean \
+	pre_targets_clean targets_clean post_targets_clean $(PRE_TARGETS_CLEAN) $(TARGETS_CLEAN) $(POST_TARGETS_CLEAN) \ # recursive targets to clean
+	target_clean # target to clean
+
+# Targets
+# =======
+all:
+	@echo ================================== Beginning Pass0 ==================================
+	@$(MAKE) --f GNUmakefile pass0
+	@echo ================================== Beginning Pass1 ==================================
+	@$(MAKE) --f GNUmakefile pass1
+	@echo ================================== Beginning Pass2 ==================================
+	@$(MAKE) --f GNUmakefile pass2
+	@echo ================================== Beginning Pass3 ==================================
+	@$(MAKE) --f GNUmakefile pass3
+ifneq ($(INSTALL_DIR),)
+	@ if [ ! -e "$(INSTALL_DIR)/lib" ]; then \
+		mkdir -p "$(INSTALL_DIR)/lib";\
+	fi
+	@ if [ ! -e "$(INSTALL_DIR)/include" ]; then \
+		mkdir -p "$(INSTALL_DIR)/include";\
+	fi
+ifeq "STATIC_LIBRARY" "$(TARGETTYPE)"
+	$(CP) $(STATIC_LIB_NAME) $(INSTALL_DIR)/lib
+else
+	$(CP) $(SHARED_LIB_NAME) $(INSTALL_DIR)/lib
+endif
+	$(CP) $(DRM_INCLUDE_FILES) $(INSTALL_DIR)/include
+endif
+
+pass0: PASSNUM = pass0
+pass0: createobjdir pre_targets $(PASS0) targets
+
+pass1: PASSNUM = pass1
+pass1: targets pass1_target
+
+pass2: PASSNUM = pass2
+pass2: targets pass2_target
+
+pass3: PASSNUM = pass3
+pass3: targets pass3_target post_targets
+
+#
+# Recursive targets
+#
+pre_targets: $(PRE_TARGETS)
+
+targets: $(TARGETS)
+
+$(TARGETS):
+	@if [ -e  "$@/GNUmakefile" ]; then \
+		echo Making $@ in $(PASSNUM) ... 1>&2; \
+		${MAKE} -C "$@"  --silent --file=GNUmakefile $(PASSNUM); \
+	fi
+
+post_targets: $(POST_TARGETS)
+
+$(STATIC_LIB_NAME):$(strip $(LIB_OBJS))
+	@ echo Linking $(MODULE_NAME)$(STATIC_LIB_EXTENSION)... 1>&2
+	@ if [ ! -e "$(MODULE_PATH)" ]; then \
+		mkdir -p "$(MODULE_PATH)"; \
+	fi
+	@ $(AR) -rcs "$@" $(LIB_OBJS)
+ifneq "" "$(BINPLACE_DIR)"
+	@ $(call binplace,$(BINPLACE_DIR),$@)
+endif
+
+$(SHARED_LIB_NAME):$(strip $(LIB_OBJS))
+	@ echo Linking $(MODULE_NAME)$(SHARED_LIB_EXTENSION)... 1>&2
+	@ if [ ! -e "$(MODULE_PATH)" ]; then \
+		mkdir -p "$(MODULE_PATH)"; \
+	fi
+	@ $(CC) -shared $(LIB_OBJS) -o "$@" 
+ifneq "" "$(BINPLACE_DIR)"
+	@ $(call binplace,$(BINPLACE_DIR),$@)
+endif
+
+$(ARCHIVE_NAME): $(strip $(OBJS))
+#perform partial link to aggregate all object files in a single one
+	@ echo Partial linking $(notdir $@) to $(ARCHIVE_NAME)... 1>&2
+	@ if [ ! -e $(dir $@) ]; then \
+		mkdir -p $(dir $@);   \
+	fi
+	@ $(call binplace,$(BUILD_PRODUCT_DIR),$(OBJS))
+
+$(PROGRAM_NAME): $(TARGETLIBS) $(strip $(OBJS))
+	@ echo Linking $(PROGRAM_NAME) from $(TARGETLIBS) $(strip $(OBJS)) ... 1>&2
+	$(CC) -v -o $(PROGRAM_NAME) $(TARGETLIBS) $(strip $(OBJS)) $(LIBPATHS) $(LIBS) -lrt
+ifneq "" "$(BINPLACE_DIR)"
+	@ $(call binplace,$(BINPLACE_DIR),$@)
+endif
+
+#
+# Primary target
+#
+pre_target: $(PRE_TARGET)
+pass1_target: $(PASS1_TARGET_OBJ)
+pass2_target: $(PASS2_TARGET_OBJ)
+pass3_target: $(PASS3_TARGET_OBJ)
+post_target: $(POST_TARGET)
+
+
+#
+# distclean
+#
+distclean : clean
+	$(RM) -rf $(BINDIR)
+	$(RM) -rf $(LIBDIR)
+ifeq "STATIC_LIBRARY" "$(TARGETTYPE)"
+	$(RM) $(STATIC_LIB_NAME)
+else
+	$(RM) $(SHARED_LIB_NAME)
+endif
+ifneq ($(INSTALL_DIR),)
+	$(RM) -rf $(INSTALL_DIR)
+endif
+
+#
+# Clean target
+#
+clean: pre_targets_clean targets_clean post_targets_clean target_clean
+
+
+
+
+#
+# Recursive clean targets
+#
+pre_targets_clean: $(PRE_TARGETS_CLEAN)
+
+targets_clean: $(TARGETS_CLEAN)
+
+$(TARGETS_CLEAN):
+	@if [ -e  "$(subst clean_,,$@)/GNUmakefile" ]; then \
+		echo Cleaning $(subst clean_,,$@)... 1>&2; \
+		${MAKE} -C "$(subst clean_,,$@)" --file=GNUmakefile clean; \
+	fi
+
+post_targets_clean: $(POST_TARGETS_CLEAN)
+
+
+#
+# Primary clean target
+#
+
+# Delete all target files.
+target_clean:
+	@ echo Cleaning $(MODULE_NAME)... 1>&2
+	@ rm -f $(OBJ_DIR)/*.o
+	@if [ -e "$(STATIC_LIB_NAME)" ]; then \
+		rm -f $(STATIC_LIB_NAME); \
+	fi
+	@if [ -e "$(SHARED_LIB_NAME)" ]; then \
+		rm -f $(SHARED_LIB_NAME); \
+	fi
+	@ $(call cleanbinplace,$(BUILD_PRODUCT_DIR),$(C_NAMES))
+ifneq "" "$(BINPLACE_DIR)"
+ifneq "" "$(MODULE_NAME)"
+	@ rm -rf $(BINPLACE_DIR)/$(MODULE_NAME).*
+endif
+endif
+
+#
+# creates leaf object directories for all dirs
+# during pass0
+#
+createobjdir:
+	@mkdir -p $(OBJ_DIR)
+
+#
+# Suffix mapping override
+#
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@ echo ">>>>> Compiling $< ... 1>&2"
+	@ $(CC) -v -c $(ALLCFLAGS) $(INCLUDE_DIRS) $(LOCAL_INCLUDE_DIRS) -o $@ $<
+	
+$(OBJ_DIR)/%.o: $(SRC_DIR)/../%.c
+	@ echo ">>>>> Compiling $< ... 1>&2"
+	@ $(CC) -v -c $(ALLCFLAGS) $(INCLUDE_DIRS) $(LOCAL_INCLUDE_DIRS) -o $@ $<
+

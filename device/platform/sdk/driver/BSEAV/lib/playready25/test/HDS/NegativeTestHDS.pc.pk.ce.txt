@@ -1,0 +1,553 @@
+-------------------BVT ends here--------------------------
+
+'************************************************************************
+'Negative test cases. Procedural error  
+
+9591:Repeatedly create store with the same parameters  
+TestHdsCreateStore(HashStoreName.hds,65535,1,Dump,1,0)
+TestHdsCreateStore(HashStoreName.hds,65535,1,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsCloseStore(Dump,0)
+  
+9592:Repeatedly create store with the different parameters  
+TestHdsCreateStore(HashStoreName.hds,65535,1,Dump,1,0)
+TestHdsCreateStore(HashStoreName.hds,3000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsCloseStore(Dump,0)
+TestHdsCreateStore(HashStoreName.hds,500,4,Dump,1,0)
+ 
+'this has been manually tested. 
+'comment out other stores since current test code only removes one store
+9593:create multiple stores with the different names  
+TestHdsCreateStore(HashStoreName1.hds,65535,1,Dump,1,0)
+'TestHdsCreateStore(HashStoreName2.hds,65535,1,Dump,1,0)
+'TestHdsCreateStore(HashStoreName3.hds,3000,2,Dump,1,0)
+'TestHdsCreateStore(HashStoreName4.hds,5000,4,Dump,0)
+ 
+9594:open the store while the store has not been created 
+TestDeleteFile(HashStoreName_9594.hds)
+TestHdsOpenStore(HashStoreName_9594.hds,Dump,0)=-2147287038
+TestHdsCreateStore(HashStoreName_9594.hds,65535,1,Dump,1,0)
+TestHdsOpenStore(HashStoreName_9594.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+'this one has been manually tested. Comment out this test case
+'since the deleted file is still in the buffer. 
+9596:open the store while it has already been deleted
+
+TestHdsCreateStore(HashStoreName.hds,65535,1,Dump,1,0)
+
+ 
+'This test case has been manually tested. Comment out since the
+'test code does not automatically switch the store to read only
+9597:open the store while the store is read only 
+
+TestHdsCreateStore(HashStoreName.hds,65535,1,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+
+9598:commit changes while the store ha been closed 
+
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsCloseStore(Dump,0)
+TestHdsCommitStore(Dump,0)=-2147024809
+ 
+
+9599:commit changes while there is no new change 
+
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsCloseStore(Dump,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsCommitStore(Dump,0)
+TestHdsCloseStore(Dump,0)
+ 
+
+9600:close the store repeatedly 
+
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsCloseStore(Dump,0)
+TestHdsCloseStore(Dump,0)=-2147024809
+ 
+ 
+9601:create the same name space multiple times 
+
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsCommitStore(Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsCloseStore(Dump,0)
+ 
+ 
+9604:repeatedly delete the same name space 
+
+TestHdsCreateStore(HashStoreName.hds,3000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsDeleteNamespace(NULL,ThisIsANamespace0000000,0)
+'TestHdsDeleteNamespace(NULL,ThisIsANamespace0000000,0)=-2147172317
+TestHdsCloseStore(Dump,0)
+ 
+9606:delete a name space while the store has been closed 
+
+TestHdsCreateStore(HashStoreName.hds,3000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,200,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseStore(Dump,0)
+'TestHdsDeleteNamespace(NULL,ThisIsANamespace0000000,0)=-2147024809
+ 
+
+9607:open a name space while the name space does not exist 
+
+TestHdsCreateStore(HashStoreName.hds,3000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,2, 16, Dump,0,0)=-2147172317
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,200,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseStore(Dump,0)
+
+9610:close a name space repeatedly 
+
+TestHdsCreateStore(HashStoreName.hds,3000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseNamespace(Dump,0,0)=-2147024809
+TestHdsCloseStore(Dump,0)
+ 
+
+9611:close a name space while it has been deleted 
+
+TestHdsCreateStore(HashStoreName.hds,3000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsDeleteNamespace(NULL,ThisIsANamespace0000000,0)
+'TestHdsCommitStore(Dump,0)
+'TestHdsCloseNamespace(Dump,0,0)=-2147172317
+'TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,Dump,0,0)=-2147172317
+TestHdsCloseStore(Dump,0)
+ 
+
+9612:close a name space while the store has been closed 
+
+TestHdsCreateStore(HashStoreName.hds,3000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsCloseStore(Dump,0)
+'TestHdsCloseNamespace(Dump,0,0)=-2147024809
+ 
+
+9614:open the slot while it has been deleted 
+
+TestHdsCreateStore(HashStoreName.hds,3000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsDeleteSlot(Dump,00001FullHashKey,001FullUniqueKey,0,0)
+TestHdsOpenSlot(Dump,8192,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)=-2147172316
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+ 
+
+9615:open the slot while the name space has been closed 
+
+TestHdsCreateStore(HashStoreName.hds,3000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsOpenSlot(Dump,8192,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)=-2147024809
+TestHdsCloseStore(Dump,0)
+ 
+  
+9621:delete the data slot repeatedly 
+
+TestHdsCreateStore(HashStoreName.hds,3000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsDeleteSlot(Dump,00001FullHashKey,001FullUniqueKey,0,0)
+TestHdsDeleteSlot(Dump,00001FullHashKey,001FullUniqueKey,0,0)=-2147172316
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8192,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsDeleteSlot(Dump,00001FullHashKey,001FullUniqueKey,0,0)
+TestHdsDeleteSlot(Dump,00001FullHashKey,001FullUniqueKey,0,0)=-2147172316
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+ 
+ 
+9622:delete the data slot while name space has been closed
+
+TestHdsCreateStore(HashStoreName.hds,3000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsDeleteSlot(Dump,00001FullHashKey,001FullUniqueKey,0,0)=-2147024809
+TestHdsCloseStore(Dump,0)
+  
+9637:repeatedly initialize enum context
+
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,004FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0)
+TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0)
+TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,0,00001FullHashKey,NULL,120,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,0,00001FullHashKey,NULL,120,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,0,00001FullHashKey,NULL,120,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,0,00001FullHashKey,NULL,120,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,0,00001FullHashKey,NULL,120,0)=-2147024637
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+
+9638:initialize enum context while the name space has been closed
+
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,004FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0)=-2147024809
+TestHdsCloseStore(Dump,0)
+
+
+9639:initialize enum context while the store has been closed
+
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,004FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseStore(Dump,0)
+TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0)=-2147024809
+
+
+'9642 is also covered
+9640:initialize enum context while the name space has not slot 
+
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0)
+TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,0,NULL,NULL,NULL,0)=-2147024637
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9643:repeatedly enum next while there is only one slot 
+
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0)
+TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,0,00001FullHashKey,001FullUniqueKey,120,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,0,NULL,NULL,NULL,0)=-2147024637
+TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,0,NULL,NULL,NULL,0)=-2147024637
+'TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0)
+'TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,0,00001FullHashKey,001FullUniqueKey,120,0)
+'TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,0,NULL,NULL,NULL,0)=-2147024637
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+
+9644:enum next while the name space has been closed 
+
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,0,00001FullHashKey,001FullUniqueKey,120,0)=-2147024809
+TestHdsCloseStore(Dump,0)
+
+ 
+9647:enum next while the data slot has been deleted 
+
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0)
+TestHdsDeleteSlot(Dump,00001FullHashKey,001FullUniqueKey,0,0)
+TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,0,00001FullHashKey,001FullUniqueKey,120,0)=-2147024637
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,2, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsDeleteSlot(Dump,00001FullHashKey,001FullUniqueKey,0,0)
+TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0)
+TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,0,00001FullHashKey,001FullUniqueKey,120,0)=-2147024637
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+ 
+9649:resize a data slot while the name space has been closed 
+
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,HashKey100000000,UniqueKey1000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey200000000,UniqueKey2000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey300000000,UniqueKey3000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey300000000,UniqueKey4000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8192,HashKey300000000,UniqueKey4000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+'TestHdsSlotResize(Dump,130,0)=-2147024809
+TestHdsCloseStore(Dump,0)
+
+
+9652:resize (enlarge and reduce the size) a data slot repeatedly 
+
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,HashKey100000000,UniqueKey1000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey200000000,UniqueKey2000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey300000000,UniqueKey3000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey300000000,UniqueKey4000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,HashKey300000000,UniqueKey3000000,120,Dump,0,0)
+TestHdsSlotResize(Dump,130,0)
+TestHdsSlotResize(Dump,140,0)
+TestHdsSlotResize(Dump,150,0)
+TestHdsSlotResize(Dump,160,0)
+TestHdsSlotResize(Dump,150,0)
+TestHdsSlotResize(Dump,140,0)
+TestHdsSlotResize(Dump,130,0)
+TestHdsSlotResize(Dump,120,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+
+ 
+9655:seek a position while the name space has been closed 
+
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,HashKey100000000,UniqueKey1000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey200000000,UniqueKey2000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey300000000,UniqueKey3000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey300000000,UniqueKey4000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8192,HashKey300000000,UniqueKey3000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+'TestHdsSlotSeek(Dump,4,3,NULL,0)=-2147024809
+TestHdsCloseStore(Dump,0)
+
+
+ 
+9657:seek repeatedly in different modes 
+
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,HashKey100000000,UniqueKey1000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey200000000,UniqueKey2000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey300000000,UniqueKey3000000,40,Dump,0,0)
+TestHdsSlotWrite(Dump,40,abcdefghijklmnopqrstuvwxyz0123456789ABCD,0,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey300000000,UniqueKey4000000,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8192,HashKey300000000,UniqueKey3000000,40,Dump,0,0)
+TestHdsSlotSeek(Dump,1,3,NULL,0)
+TestHdsSlotRead(Dump,4,xxxx,0,bcde,0) 
+TestHdsSlotRead(Dump,4,xxxx,0,fghi,0) 
+TestHdsSlotSeek(Dump,39,3,NULL,0)
+TestHdsSlotRead(Dump,1,x,0,D,0) 
+TestHdsSlotSeek(Dump,-1,2,NULL,0)
+TestHdsSlotRead(Dump,1,x,0,D,0) 
+TestHdsSlotSeek(Dump,-1,1,NULL,0)
+TestHdsSlotRead(Dump,1,x,0,D,0) 
+TestHdsSlotSeek(Dump,-40,1,NULL,0)
+TestHdsSlotRead(Dump,4,xxxx,0,abcd,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+ 
+9659:read while name space has been closed 
+
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,HashKey100000000,UniqueKey1000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey200000000,UniqueKey2000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey300000000,UniqueKey3000000,40,Dump,0,0)
+TestHdsSlotWrite(Dump,40,abcdefghijklmnopqrstuvwxyz0123456789ABCD,0,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey300000000,UniqueKey4000000,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8192,HashKey300000000,UniqueKey3000000,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+'TestHdsSlotRead(Dump,4,xxxx,0,abcd,0)=-2147024809
+TestHdsCloseStore(Dump,0)
+
+
+9662:write while the data slot has been deleted 
+
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,HashKey100000000,UniqueKey1000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey200000000,UniqueKey2000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey300000000,UniqueKey3000000,40,Dump,0,0)
+TestHdsSlotWrite(Dump,40,abcdefghijklmnopqrstuvwxyz0123456789ABCD,0,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey300000000,UniqueKey4000000,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8192,HashKey300000000,UniqueKey3000000,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsDeleteSlot(Dump,HashKey300000000,UniqueKey3000000,0,0)
+'TestHdsSlotWrite(Dump,40,abcdefghijklmnopqrstuvwxyz0123456789ABCD,0,0)=-2147172316
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+
+9663:write while the data slot has been closed
+
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,HashKey100000000,UniqueKey1000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey200000000,UniqueKey2000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey300000000,UniqueKey3000000,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey300000000,UniqueKey4000000,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8192,HashKey100000000,UniqueKey1000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+'TestHdsSlotWrite(Dump,40,abcdefghijklmnopqrstuvwxyz0123456789ABCD,0,0)=-2147024809
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+
+9665:write while the store has been closed
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,HashKey100000000,UniqueKey1000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey200000000,UniqueKey2000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey300000000,UniqueKey3000000,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,HashKey300000000,UniqueKey4000000,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8192,HashKey100000000,UniqueKey1000000,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+'TestHdsSlotWrite(Dump,40,abcdefghijklmnopqrstuvwxyz0123456789ABCD,0,0)=-2147024809
+TestHdsCloseStore(Dump,0)
+
+9667:commit namespace changes while the namespace or store has been closed 
+
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,Namespace1000000,1, 16, Dump,0,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestCommitNamespace(Dump,0,0)=-2147024809
+TestHdsCloseStore(Dump,0)
+TestCommitNamespace(Dump,0,0)=-2147024809
+ 
+
+9668:commit namespace changes while there is no new change 
+
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,Namespace1000000,1, 16, Dump,0,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,Namespace1000000,1, 16, Dump,0,0)
+TestCommitNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+
+'************************************************************************
+'This PC-only test is archived here while NegativeTestHDS.pc.txt was deleted
+'to avoid reporting the test as missing.
+'PC-only negative test case. Procedural error
+'9605:delete a name space while there is some outstanding changes 
+'TestHdsCreateStore(HashStoreName.hds,3000,2,Dump,1,0)
+'TestHdsOpenStore(HashStoreName.hds,Dump,0)
+'TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+'TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,200,Dump,0,0)
+'TestHdsDeleteNamespace(NULL,ThisIsANamespace0000000,0)=-2147172298(0X8004C036, DRM_E_DST_LOCK_FAILED)
+'TestHdsCloseSlot(Dump,0)
+'TestHdsDeleteNamespace(NULL,ThisIsANamespace0000000,0)
+'TestHdsCloseStore(Dump,0)

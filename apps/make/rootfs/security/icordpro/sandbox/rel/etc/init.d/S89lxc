@@ -1,0 +1,37 @@
+#!/bin/sh
+
+. /lib/lsb/init-functions
+. /etc/default/rcS
+if [ "$VERBOSE" != no ]; then
+	log_begin_msg "Creating LXC..."
+fi
+
+set -x
+
+#chown settop:settop /var/lib/humaxtv
+#chown settop:settop -R /var/lib/humaxtv/cas
+#chown hama:hama /var/lib/humaxtv/registry.reg
+#chown dama:dama /var/lib/humaxtv/dlogger/*
+
+#newmount --make-shared /media 
+#mount  --rbind /mnt /mnt
+#newmount --make-rshared /mnt
+
+mkfs.ext4 /dev/mtdblock1
+mount -t ext4 /dev/mtdblock1 /home
+mkdir -p /home/lxc/rootfs
+mkdir -p /home/lxc/cache/lxc
+mkdir -p /home/lxc/lib/lxc
+cp -dprf /home1/corsair/ /home1/imma/ /home1/homma/ /home1/ipepg/ /home1/mheg/ /home/
+
+/usr/local/bin/lxc-create -n imma -f /home/imma/config 
+/usr/local/bin/lxc-create -n corsair -f /home/corsair/config 
+/usr/local/bin/lxc-create -n homma -f /home/homma/config 
+/usr/local/bin/lxc-create -n ipepg -f /home/ipepg/config
+/usr/local/bin/lxc-create -n mheg -f /home/mheg/config
+
+brctl addbr br0
+brctl setfd br0 0
+ifconfig br0 10.255.128.200 netmask 255.255.255.0 promisc up
+echo 1 > /proc/sys/net/ipv4/ip_forward
+

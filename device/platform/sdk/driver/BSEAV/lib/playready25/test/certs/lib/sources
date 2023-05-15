@@ -1,0 +1,30 @@
+!include ..\..\reftest.cmn
+
+TARGETNAME=BCertTestAPI
+TARGETTYPE=LIBRARY
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS)   \
+    $(_DRM_TC_LIBS)        \
+    $(_DRM_TOOLS_COMMON_DIR)\drmtoolscommon.lib \
+
+INCLUDES = \
+    $(INCLUDES);                           \
+    $(_DRM_SOURCE_PATH)\certs;             \
+    $(_DRM_SOURCE_PATH)\tools\common;      \
+
+# Allow the test code to access test functionality in the blackbox and oem hal
+# Note: This is required for testing but should not be used for
+# production code
+INCLUDES = \
+    $(INCLUDES);                                \
+    $(_DRM_SOURCE_PATH)\blackbox;               \
+    $(_DRM_SOURCE_PATH)\oem\common\hal\oemimpl; \
+
+
+SOURCES =                     \
+    ..\TestBCert.c            \
+    ..\TestBCertBuilder.c     \
+    ..\TestBCertParser.c      \
+    ..\TestNDCert.c           \
+    ..\TestRSAKeys.c          \

@@ -1,0 +1,27 @@
+DIRS = 	\
+	certs \
+	constants \
+	modules \
+	blackbox \
+	results \
+	core \
+	devicedevcert \
+	oem \
+	drmmanager \
+	cmdlnpars \
+	wmdrmcert \
+	xmr \
+	keyfile \
+	keyfileformat \
+	ndt \
+	ndtmgr \
+	ndtasf \
+	ndr \
+	initiators 
+
+#	tools 
+#	test
+	
+	
+
+

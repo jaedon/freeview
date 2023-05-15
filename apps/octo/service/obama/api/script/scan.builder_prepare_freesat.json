@@ -1,0 +1,34 @@
+"builder":
+{
+	"target":"none",
+	"operation":"set",
+	"property":
+	{
+		"action":
+		[
+			{
+				"name":"name0",
+				"tunertype":"sat",
+				"mode":"do_prepare",
+				"option":
+				{
+					"do_network_scan":true,
+					"with_network_id":false,
+					"network_id":12345
+				},
+				"extern":
+				{
+					"antid":2,
+					"sattype":"astra2"
+				},
+				"tpinfo":
+				[
+					{
+						"frequency":11428,
+						"symbolrate":27500
+					}
+				]
+			}
+		]
+	}
+}

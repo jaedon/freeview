@@ -1,0 +1,13 @@
+diff -Bru ../iperf-2.0.5_org/configure ./configure
+--- ../iperf-2.0.5_org/configure	2010-04-10 15:23:05.000000000 -0400
++++ ./configure	2012-03-21 21:02:13.039743140 -0400
+@@ -6564,8 +6564,6 @@
+ esac
+ 
+ 
+-$as_echo "#define malloc rpl_malloc" >>confdefs.h
+-
+ fi
+ 
+ 
+Only in .: iperf-2.0.5

@@ -1,0 +1,7 @@
+"meta" : {
+	"operation" : "get",
+	"target" : "schedule",
+	"property" : {
+		"method"	: "list"
+	}
+}

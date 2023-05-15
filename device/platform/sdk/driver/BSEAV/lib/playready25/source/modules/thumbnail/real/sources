@@ -1,0 +1,8 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmthumbnailreal
+TARGETTYPE=LIBRARY
+
+SOURCES =               \
+    thumbnailutilreal.c \
+

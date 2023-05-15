@@ -1,0 +1,11 @@
+#!/bin/sh
+sid=sid
+srec=./srec
+
+SRC="."
+DEST=".."
+size=49152
+
+echo -n "converting ${sid}.hex ..." &&
+${srec} -hex ${SRC}/${sid}.hex -out ${DEST}/bsid_fw.c -prefix BSID_IMG_Sid -template ${SRC}/bsid_fw_prot.c -size ${size} -endian LE && 
+echo ' done'

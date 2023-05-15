@@ -1,0 +1,115 @@
+DVB-SSU TS 작성 방법
+
+<작성자: B2B그룹-SW1팀 박서림>
+B2C-SW2 고석하: 내용 추가함.
+
+
+
+0. OpenCaster3.1.4.tar 압축을 풀고 리눅스에 설치한다.
+   기타 필요한 package는 아래와 같다.
+   apt-get install --no-install-recommends binutils gcc gcc-4.3 libc6-dev libgomp1 linux-libc-dev make python-dev python2.6-dev zlib1g-dev python-dateutil
+
+
+
+
+
+0.5. 아래 수정은 revision 67587, 67588에 반영되어 있음. 
+   : 설치 전, 동봉되어 있는 loops.py 파일을 \OpenCaster3.1.4\libs\dvbobjects\dvbobjects\DVB\ 에 덮어쓰고 
+     \OpenCaster3.1.4\ 에서 빌드 (make) 및 설치(make install)한다.
+     
+       해당 파일 수정은, private data가 GroupInfoIndication class 에 정의되어 있어서, 
+     여러 개의 group을 add할 경우 마지막 group에만 private data가 들어가는 문제점을 수정한 것이다.
+     즉, private data를 GroupInco class에서 정의함.
+
+
+   :  Descriptors.py 파일을 \OpenCaster3.1.4\libs\dvbobjects\dvbobjects\DVB\ 에 덮어쓰고 
+     \OpenCaster3.1.4\ 에서 빌드 (make) 및 설치(make install)한다.
+     
+       해당 파일 수정은, UNT의 operational loop 에 update_descriptor를 추가할 수 있도록 수정하였음.
+      update_descriptor 추가하는 방법은 unt.py 를 참고
+      update_descriptor에는 update_flag 2bit, update_method 4bit, update_priority 2bit 가 들어가므로
+     총 1byte 의 update_flag 로 위의 8bit를 표현하도록 수정하였음.
+     즉 update_flag 가 01b, update_method가 0, update_prirority가 0이라면 
+	update_descriptor(
+		update_flag = 0x40,
+		private_data_bytes = "",
+	),
+
+
+
+
+1. DVB-SSU 섹션 데이터 생성
+  \OpenCaster3.1.4\tutorials\ssu\ssu-data-generation.py 을 필요에 따라 수정한다.
+  (pid 포함여부, 
+
+  실행: 
+	python ssu-data-generation.py
+
+  결과: 
+   	\OpenCaster3.1.4\tutorials\ssu 
+		--> pat, pmt, nit, sdt 등 섹션과 ts가 생성된다.
+   	\OpenCaster3.1.4\tutorials\ssu\datacarousel 
+		--> DII, DSI, DDB 섹션들이 생성된다.
+
+
+
+
+1.5  (tool\insertsec 툴을 /usr/local/bin 에 복사한다.
+      필요하면 수행, 이 과정을 수행하지 않으면 DSI/DII가 TS 시작에만 있게됨)
+  \OpenCaster3.1.4\tutorials\ssu 에서
+  실행: 
+  		insertsec unt.sec 150  ##(unt를 사용할경우)
+			insertsec DSI.sec 150
+			insertsec DII-1.sec 200
+			insertsec DII-2.sec 190    
+  결과:
+    OpenCaster3.1.4\tutorials\ssu\datacarousel 디렉토리에 DDB 섹션 200 개마다 DSI/DII 섹션이 추가
+DSI/DII 의 bitrate 를 조정하기 위해서는 DDB 섹션 몇 개마다 넣을지 개수를 변경
+
+
+
+
+
+2. datacarousel ts 생성
+  실행: 
+	ssu-update.sh datacarousel 2003 0 
+
+  결과:
+	\OpenCaster3.1.4\tutorials\ssu\datacarousel.ts 생성
+
+
+
+
+
+3.OTA 용 TS 생성
+  실행:
+	예) tscbrmuxer b:7520 firstpat.ts b:7520 firstpmt.ts b:150 firstnit.ts c:1000000 datacarousel.ts o:1048576 null.ts > OTA_dsmcc.ts	
+
+        tscbrmuxer사용에 관해서는 주의가 필요합니다.
+        
+	각 옵션에 대한 설명은 소스 내에 적혀 있습니다.
+	\OpenCaster3.1.4\tools\tscbrmuxer\tscbrmuxer.c
+
+        "Usage: 'tscbrmuxer b:bitrate_pat pat.ts b:bitrate_cat cat.ts b:pmt1_bitrate pmt1.ts b:nit_bitrate nit.ts ... where bitrate in 'b:bitrate file.ts' is in bit per second"
+	"Usage: 'o:bitrate null.ts can be used to specify final output ts bit rate, must be the last parameter"
+	"Usage: 'c:bitrate file.ts can be used to specify that when the file.ts ends the mux stops"
+
+        b: 옵션으로 먹싱하려는 각 ts 에 대한 bitrate 지정
+        c: 옵션으로 최종으로 포함할 TS 지정 
+           --> c 옵션 없이 사용하면 만들어지는 ts 는 ts muxing 이 무한정 반복되어 size 가 계속 늘어납니다.
+        o: 옵션으로 최종 output ts 에 대한 bit rate 지정
+
+
+	예) tscbrmuxer b:7520 firstpat.ts b:7520 firstpmt.ts b:150 firstnit.ts c:1000000 datacarousel.ts o:1048576 null.ts > OTA_dsmcc.ts
+           --> OTA_dsmcc.ts 를 스트림 플레이어에서 1Mbps 로 플레이 시
+               PAT, PMT 는 0.2초 주기로 전송  (firstpat.ts 의 크기가 188 bytes 이므로 188*8 = 1504 bit)
+               NIT 는 10초 주기로 전송
+               dsmcc 전송 bitrate 는 datacarousel.ts 의 bitrate를 조정하면 됩니다.
+
+
+        예) tscbrmuxer b:7520 firstpat.ts b:7520 firstpmt.ts b:150 firstnit.ts b:100000 datacarousel_jc-4000.ts b:100000 datacarousel_jc-4100.ts b:120000 datacarousel_jc-5100.ts b:120000 datacarousel_jc-5000.ts c:540000 datacarousel_wa-7000.ts o:1048576 null.ts > OTA_merged_dsmcc.ts
+           --> 여러 개 모델의 OTS용 TS 를 merging, 이 때 가장 hdf 사이즈가 큰 모델의 ts를 c: 옵션으로 지정해야 DDB 블록들의 손실이 없습니다.
+               
+                        
+     tscbrmuxer b:7520 firstpat.ts b:7520 firstpmt.ts b:152 firstnit.ts b:2000 firstsdt.ts c:1000000 datacarousel.ts o:1048576 null.ts > OTA_dsmcc_809C7800_142_809C7801_199.ts
+     

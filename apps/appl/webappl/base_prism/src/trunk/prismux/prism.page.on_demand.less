@@ -1,0 +1,816 @@
+//TODO: remove !important
+@ZINDEX_10: 10;
+@SCREEN_WIDTH: 1280px;
+@SCREEN_HEIGHT: 720px;
+@COLOR_FOCUSABLE: #414141;
+@COLOR_FOCUSED: #2eb2ff;
+@COLOR_HISTORY_FOCUSED: rgba(46,178,255,.3);
+.fPageTitle {
+  width: 1160px;
+  height: 70px;
+  line-height: 70px;
+  margin: 27px 60px 16px;
+  font-size: 60px;
+  border-bottom: 1px solid rgba(255, 255, 255, .3);
+}
+#on-demand {
+  position: absolute;
+  width: @SCREEN_WIDTH;
+  height: @SCREEN_HEIGHT;
+  //background: rgba(0, 0, 0, .8);
+  div {
+    position: inherit;
+    width: inherit;
+    height: inherit;
+  }
+  .-layer {
+    &.-layer-main {
+      /*background: rgba(0, 0, 0, .1);*/
+    }
+    .-top {
+      height: 132px;
+      /*background: rgba(0, 0, 0, .4);*/
+      .-logo {
+        height: 56px;
+        left: 61px;
+        top: 35px;
+        width: 847px;
+        img {
+          &.-logo-fvc {
+            background-image: url(../images/614_FVC_logo02.png);
+            background-size: cover;
+            width: 220px;
+            height: 56px;
+          }
+        }
+      }
+    }
+    .-banner-humax-apps {
+      top: 306px;
+      left: 61px;
+      font-size: 32px;
+      line-height: 50px;
+      -webkit-transition: all linear 500ms;
+      -o-transition: all linear 500ms;
+      display: none;
+      &.-show {
+        display: block;
+      }
+    }
+    .-group-view {
+      position: absolute;
+      left:0px;
+      &.-profile {
+        width: 280px;
+        height: 80px;
+        top: 45px;
+        left: 1150px;
+        .-group-view-container {
+          height: 80px;
+          .-user-info {
+            width: 86px;
+            height: 76px;
+            margin-left: 15px;
+            >div {
+              width: 54px;
+              height: 54px;
+              background-repeat: no-repeat;
+              background: url(../images/614_OD_BTN_Guide_N.png);
+              >div {
+                display: none;
+                top: 55px;
+                color: @COLOR_FOCUSED;
+                font-size: 18px;
+                text-align: center;
+              }
+            }
+          }
+        }
+        &.-fd {
+          .-group-view-container {
+            .-user-info {
+              &.-fd>div {
+                background: url(../images/614_OD_BTN_Guide_C.png);
+              }
+            }
+          }
+        }
+      }
+      &.-player {
+        top: 126px;
+        >.-group-view-container {
+          top: 5px !important;
+        }
+        .-title {
+          top: 145px;
+          left: 58px;
+          width: 1160px;
+          height: 32px;
+          font-size: 32px;
+          color: #ffffff;
+        }
+        .-list {
+          left: 61px;
+          height: 340px;
+          .-list-item {
+            height: 146px;
+            width: 260px;
+            &.-unload {
+              background-image: url(../images/614_OD_Default01.png);
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
+            >img {
+              -webkit-transition: all linear 500ms;
+              -o-transition: all linear 500ms;
+              width: 260px;
+              height: 146px;
+              opacity: 0;
+            }
+            >div {
+              display: none;
+            }
+          }
+        }
+        &.-fd {
+          .-list .-list-item {
+            &.-fd {
+              &::before {
+                border: 5px solid @COLOR_FOCUSED;
+                content: "";
+                height: 136px;
+                position: absolute;
+                width: 250px;
+              }
+              >div {
+                display: block;
+                top: 121px;
+                font-size: 24px;
+                text-align: center;
+                color: black;
+              }
+            }
+          }
+        }
+        &.-humax-app-player {
+          top: 353px;
+        }
+      }
+      &.-tv-apps {
+        //TODO: to show half object at left side;
+        left: 61px;
+        overflow: visible !important;
+        width: @SCREEN_WIDTH - 61px;
+        .-list {
+          top: 527px !important;
+          height: 150px;
+          .-list-item {
+            width: 104px;
+            height: 104px;
+            background-size: cover;
+            background-color: #999999;
+            >div {
+              display: none;
+            }
+          }
+        }
+        &.-fd {
+          &.-mode-move {
+            .-list .-list-item {
+              &.-fd .-mode-move {
+                position: absolute;
+                top: -23px;
+                left: -23px;
+                width: 150px;
+                height: 132px;
+                background-image: url(../images/614_OD_Cursor02_Move.png);
+                z-index: @ZINDEX_10;
+              }
+            }
+          }
+          .-list .-list-item {
+            &.-fd {
+              border: 5px solid @COLOR_FOCUSED;
+              margin: -5px -5px;
+              >div {
+                display: block;
+                top: 114px;
+                font-size: 20px;
+                text-align: center;
+                color: @COLOR_FOCUSED;
+              }
+            }
+          }
+        }
+      }
+    }
+    &.-layer-info {
+      background-color: rgba(0,0,0,.9);
+      .-ondemand-info {
+        .-title {
+          .fPageTitle();
+        }
+        .-menu {
+          top: 125px;
+          left: 60px;
+          width: 230px;
+          height: 720-125px;
+          .-list-item {
+            height: 58px;
+            > div {
+              width: 205px;
+              line-height: 60px;
+              padding-left: 25px;
+              font-size: 24px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+            &.-fd {
+              background-color: @COLOR_HISTORY_FOCUSED;
+            }
+          }
+          &.-fd {
+            .-list-item.-fd {
+              background-color: @COLOR_FOCUSED;
+              .-marquee {
+                overflow: visible;
+                display: inline-block;
+                padding-left: 100%;
+                animation: marquee 5s linear infinite;
+              }
+            }
+            @keyframes marquee {
+              from {transform: translate(0, 0);}
+              to {transform: translate(-150%, 0);}
+            }
+          }
+        }
+        .-view {
+          top: 125px;
+          left: 240px;
+          width: 1280-240px;
+          height: 720-204-15*2px;
+          padding: 15px 105px;
+          background-image: url(../images/105_BG_Contents.png);
+          background-repeat: no-repeat;
+          overflow: hidden;
+          .-scroll-bar {
+            display: none;
+            left: 905px;
+            top: 30px;
+            width: 40px;
+            height: 74px;
+            background-image: url(../images/111_Scroll_Arrow_N.png);
+            background-repeat: no-repeat;
+            &.-show {
+              display: block;
+            }
+          }
+          .-text {
+            width: 785px;
+            height: auto;
+          }
+          &.-fd {
+            .-scroll-bar {
+              background-image: url(../images/111_Scroll_Arrow_C.png);
+            }
+          }
+        }
+      }
+    }
+  }
+  .-modal-selective {
+    position: relative;
+    background-image: url(../images/107_Line_DW_White.png);
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, .8);
+    left: 240px;
+    top: 512px;
+    width: 800px;
+    height: 208px;
+    text-align: center;
+    .-title {
+      top: 40px;
+      height: 108px;
+      //line-height: 100px;
+    }
+    .-f {
+      position: relative;
+      width: 220px;
+      height: 50px;
+      line-height: 50px;
+      left: (800-220*2-20)/2px;
+      background-color: @COLOR_FOCUSABLE;
+      float: left;
+      margin-right: 20px;
+      &.-fd {
+        background-color: @COLOR_FOCUSED;
+      }
+    }
+  }
+  .-modal-confirm {
+    position: relative;
+    background-image: url(../images/107_Line_DW_White.png);
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, .8);
+    left: 240px;
+    top: 512px;
+    width: 800px;
+    height: 208px;
+    text-align: center;
+    .-title {
+      height: 100px;
+      line-height: 100px;
+    }
+    .-f {
+      position: relative;
+      width: 220px;
+      height: 50px;
+      line-height: 50px;
+      left: (800-220)/2px;
+      background-color: @COLOR_FOCUSABLE;
+      float: left;
+      margin-right: 20px;
+      &.-fd {
+        background-color: @COLOR_FOCUSED;
+      }
+    }
+    &.-three-line {
+      height: 312px;
+      top: 408px;
+      .-title {
+        left: 50px;
+        top: 50px;
+        width: 700px;
+        line-height: 34px;
+        height: 222px;
+      }
+    }
+  }
+}
+.-button-option-menu {
+  display: none;
+  &.-show {
+    display: block;
+    &::before {
+      position: absolute;
+      left: 5px;
+      top: 5px;
+      content: "";
+      background-image: url(../images/201_Option.png);
+      background-repeat:  no-repeat;
+      width: 25px;
+      height: 25px;
+    }
+    top: 645px;
+    left: 985px;
+    padding-left: 38px;
+    color: #A0A0A0;
+  }
+}
+.-layer-modal {
+  background-color: rgba(0,0,0,.8);
+  &.-no-dim {
+    background-color: rgba(0,0,0,0);
+  }
+
+}
+.-ctrl-modal {
+  #ctrl-slider {
+    position: absolute;
+    top: 86px;
+    width: 836px;
+    height: 531px;
+    left: 222px;
+    background-color: #333;
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+    >div {
+      position: absolute;
+      color: #fff;
+    }
+    .-fadeIn {
+      animation: fadeIn .4s;
+    }
+    .-fadeOut {
+      animation: fadeOut .4s;
+    }
+    .-arrow {
+      top: 237px;
+      width: 36px;
+      height: 53px;
+      opacity: 0;
+      &.-left {
+        left: -54px;
+      }
+      &.-right {
+        left: 853px;
+      }
+      &.-show {
+        opacity: 1;
+      }
+    }
+    .-title {
+      width: 650px;
+      height: 400px;
+      font-size: 36px;
+    }
+    .-container {
+      opacity: 0;
+      .-img {
+        top: 100px;
+        left: 23px;
+        width: 790px;
+        height: 289px;
+      }
+      .-desc {
+        top: 400px;
+        left: 50px;
+        width: 790px;
+        height: 120px;
+        font-size: 24px;
+        text-align: center;
+        font-family: PrismFontL;
+      }
+      &.-on {
+        opacity: 1;
+      }
+      &.-nextOut {
+        animation: nextOut .4s;
+      }
+      &.-nextIn {
+        animation: nextIn .4s;
+      }
+      &.-prevOut {
+        animation: prevOut .4s;
+      }
+      &.-prevIn {
+        animation: prevIn .4s;
+      }
+      @keyframes nextOut {
+        from {
+          opacity: 1;
+          left: 0;
+        }
+        to {
+          opacity: 0;
+          left: -30px;
+        }
+      }
+      @keyframes nextIn {
+        from {
+          opacity: 0;
+          left: 70px;
+        }
+        to {
+          opacity: 1;
+          left: 0;
+        }
+      }
+      @keyframes prevOut {
+        from {
+          opacity: 1;
+          left: 0;
+        }
+        to {
+          opacity: 0;
+          left: 30px;
+        }
+      }
+      @keyframes prevIn {
+        from {
+          opacity: 0;
+          left: -70px;
+        }
+        to {
+          opacity: 1;
+          left: 0;
+        }
+      }
+    }
+    .-exit {
+      opacity: 0;
+      top: 30px;
+      right: 30px;
+      width: 39px;
+      height: 39px;
+      background: url(../images/312_Help_BTN_Close.png) no-repeat;
+      &.-show {
+        opacity: 1;
+      }
+    }
+  }
+  #ctrl-help {
+    .-fadeIn {
+      animation: fadeIn .6s;
+    }
+    .-step {
+      color: #444444;
+      font-size: 85px;
+      font-weight: 400;
+      line-height: 105px;
+      margin: 0px 23px;
+      font-family: PrismFontL;
+    }
+    .-title {
+      top: 28px;
+      left: 118px;
+    }
+    .-line {
+      border-top: 1px solid rgba(68, 68, 68, 0.702);
+      display: block;
+      font-size: 1px;
+      margin: 72px 23px;
+      width: 791px;
+    }
+    .-indicator {
+      position: relative;
+      left: 0px;
+      top: 543px;
+      width: 836px;
+      height: 23px;
+      text-align: center;
+      .-button {
+        width: 20px;
+        height: 23px;
+        margin: -3px -3px 3px;
+        padding: 0px;
+        display: inline-block;
+        text-align: center;
+        background: url(../images/312_Help_Indicator_N.png) no-repeat;
+        &.-on {
+          background: url(../images/312_Help_Indicator_C.png) no-repeat;
+        }
+      }
+    }
+  }
+  #ctrl-popup {
+    .-title {
+      top: 40px;
+      left: 23px;
+    }
+    .-line {
+      top: 95px;
+      left: 18px;
+      border-top: 1px solid rgba(68, 68, 68, 0.702);
+      width: 791px;
+    }
+    .-container {
+      .-desc {
+        top: 420px;
+        left: 23px;
+      }
+    }
+  }
+  &#dlg-privacy-policy {
+    position: absolute;
+    left: 125px;
+    top: 122px;
+    width: 1031px;
+    height: 602px;
+    background-color: rgba(0,0,0,.8);
+    //padding: 35px 49px 0 49px;
+    #ctrl-scroll-group {
+      .-ctrl-privacy-policy {
+        position: absolute;
+        left: 57px;
+        top: 40px;
+        width: 449px;
+        height: 415px;
+        .-title {
+          width: 449px;
+          height: 26px;
+          font-size: 26px;
+          font-family: PrismFontB;
+          text-align: left;
+        }
+        .-view {
+          top: 38px;
+          width: 449px;
+          height: 338px;
+          background: rgba(0, 0, 0, .15);
+          overflow: hidden;
+          padding-bottom: 14px;
+          border: solid 1px grey;
+          .-text {
+            //padding: 12px 10px 12px 12px;
+            width: 379px;
+            height: auto;
+            font-size: 18px;
+            font-family: PrismFontL;
+            text-align: left;
+            line-height: 24px;
+            margin: 14px 16px 14px 14px;
+            //white-space: nowrap;
+          }
+          .-scroll-bar {
+            display: none;
+            left: 397px;
+            top: 14px;
+            width: 40px;
+            height: 74px;
+            background-image: url(../images/111_Scroll_Arrow_N.png);
+            background-repeat: no-repeat;
+            &.-show {
+              display: block;
+            }
+          }
+        }
+        .-ctrl-checkbox-group {
+          top: 405px;
+          left: 45px;
+          width: 361px;
+          height: 32px;
+          .-ctrl-checkbox {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background: url(../images/112_DIA_Check_Off.png) no-repeat;
+            &.-checked{
+              background: url(../images/112_DIA_Check_On.png) no-repeat;
+            }
+          }
+          .-text {
+            position: absolute;
+            left: 42px;
+            top: 5px;
+            width: 490px;
+            height: 32px;
+            line-height: 21px;
+            font-family: PrismFontB;
+            font-size: 22px;
+            color: #ffffff;
+          }
+        }
+      }
+      .-ctrl-terms-and-conditions {
+        position: absolute;
+        left: 524px;
+        top: 40px;
+        width: 449px;
+        height: 415px;
+        .-title {
+          width: 449px;
+          height: 26px;
+          font-size: 26px;
+          font-family: PrismFontB;
+          text-align: left;
+        }
+        .-view {
+          top: 38px;
+          width: 449px;
+          height: 338px;
+          background: rgba(0, 0, 0, .15);
+          overflow: hidden;
+          padding-bottom: 14px;
+          border: solid 1px grey;
+          .-text {
+            //padding: 12px 10px 12px 12px;
+            width: 379px;
+            height: auto;
+            font-size: 18px;
+            font-family: PrismFontL;
+            text-align: left;
+            line-height: 24px;
+            margin: 14px 16px 14px 14px;
+            //white-space: nowrap;
+          }
+          .-scroll-bar {
+            display: none;
+            left: 397px;
+            top: 14px;
+            width: 40px;
+            height: 74px;
+            background-image: url(../images/111_Scroll_Arrow_N.png);
+            background-repeat: no-repeat;
+            &.-show {
+              display: block;
+            }
+          }
+        }
+        .-ctrl-checkbox-group {
+          top: 405px;
+          left: 45px;
+          width: 361px;
+          height: 32px;
+          .-ctrl-checkbox {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background: url(../images/112_DIA_Check_Off.png) no-repeat;
+            &.-checked{
+              background: url(../images/112_DIA_Check_On.png) no-repeat;
+            }
+          }
+          .-text {
+            position: absolute;
+            left: 42px;
+            top: 5px;
+            width: 490px;
+            height: 32px;
+            line-height: 21px;
+            font-family: PrismFontB;
+            font-size: 22px;
+            color: #ffffff;
+          }
+        }
+      }
+      &.-fd {
+        >.-ctrl-privacy-policy {
+          &.-fd {
+            >.-view {
+              &.-fd {
+                .-scroll-bar {
+                  background-image: url(../images/111_Scroll_Arrow_C.png);
+                }
+              }
+            }
+          }
+        }
+      }
+      &.-fd {
+        >.-ctrl-terms-and-conditions {
+          &.-fd {
+            >.-view {
+              &.-fd {
+                .-scroll-bar {
+                  background-image: url(../images/111_Scroll_Arrow_C.png);
+                }
+              }
+            }
+          }
+        }
+      }
+      &.-fd {
+        >.-ctrl-privacy-policy {
+          &.-fd {
+            >.-ctrl-checkbox-group {
+              &.-fd {
+                .-text {
+                  color: #2ebeff;
+                }
+              }
+            }
+          }
+        }
+      }
+      &.-fd {
+        >.-ctrl-terms-and-conditions {
+          &.-fd {
+            >.-ctrl-checkbox-group {
+              &.-fd {
+                .-text {
+                  color: #2ebeff;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .-ctrl-button-group {
+      position: absolute;
+      width: 225px;
+      height: 50px;
+      top: 488px;
+      left: 405px;
+      >div {
+        position: relative;
+        float: left;
+        width: 220px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        margin: 0 5px;
+      }
+      &.-fd {
+        .-fd {
+          background-color: @COLOR_FOCUSED;
+          color: #000;
+        }
+      }
+      .-f {
+        background-color: @COLOR_FOCUSABLE;
+        .-fd {
+          background-color: @COLOR_HISTORY_FOCUSED;
+        }
+      }
+    }
+  }
+}
+

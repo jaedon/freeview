@@ -1,0 +1,47 @@
+13: register/register/get next device
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+Test_Oem_DeviceStore_RegisterDevice(this is another device id)
+Test_Oem_DeviceStore_GetFirstDevice
+Test_Oem_DeviceStore_GetNextDevice
+Test_ChkVar_OEM_NDTDeviceStore_DeviceHandle
+Test_Oem_DeviceStore_GetNextDevice=-2147024637(DRM_E_NOMORE)
+
+17: setdeviceattr
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr, this is a test value)
+Test_Oem_DeviceStore_GetDeviceAttr(testattr)
+Test_ChkVar_OEM_NDTDeviceStore_AttrValue(this is a test value)
+
+18: setdeviceattr x 2
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr, this is a test value)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr2, this is another test value)
+Test_Oem_DeviceStore_GetDeviceAttr(testattr)
+Test_ChkVar_OEM_NDTDeviceStore_AttrValue(this is a test value)
+Test_Oem_DeviceStore_GetDeviceAttr(testattr2)
+Test_ChkVar_OEM_NDTDeviceStore_AttrValue(this is another test value)
+
+19: setdeviceattr x 3
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr, this is a test value)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr2, this is another test value)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr3, third test value)
+Test_Oem_DeviceStore_GetDeviceAttrCount(2)=-2147467259(DRM_E_FAIL)
+Test_Oem_DeviceStore_GetDeviceAttrCount(3)
+
+20: setdeviceattr x 4
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr, this is a test value)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr2, this is another test value)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr3, third test value)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr4, final test value)
+Test_Oem_DeviceStore_GetDeviceAttrByIndex(0)
+Test_Oem_DeviceStore_GetDeviceAttrByIndex(1)
+Test_Oem_DeviceStore_GetDeviceAttrByIndex(2)
+Test_Oem_DeviceStore_GetDeviceAttrByIndex(3)
+Test_Oem_DeviceStore_GetDeviceAttrByIndex(4)=-2147024637(DRM_E_NOMORE)

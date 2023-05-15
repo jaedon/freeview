@@ -1,0 +1,6 @@
+
+TARGETTYPE=LIBRARY
+TARGETNAME=PKCommonTestAPI
+
+SOURCES = \
+	../PKCommonTestAPI.c \

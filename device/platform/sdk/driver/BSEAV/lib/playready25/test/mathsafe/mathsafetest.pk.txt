@@ -1,0 +1,12 @@
+8900:BVT:TestMathSafeConversion
+TestMathSafeConversion()
+
+8901:BVT:TestMathSafeSubtraction
+TestMathSafeSubtraction()
+
+8902:BVT:TestMathSafeAddition
+TestMathSafeAddition()
+
+8903:BVT:TestMathSafeMultiplication
+TestMathSafeMultiplication()
+

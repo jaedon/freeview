@@ -1,0 +1,11 @@
+
+TARGETTYPE=LIBRARY
+TARGETNAME=NetIOTestAPI
+
+INCLUDES =                    \
+    $(INCLUDES)               \
+
+
+SOURCES = \
+    ../NetIOTestAPI.c \
+

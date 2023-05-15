@@ -1,0 +1,22 @@
+<Transmitter>
+    <TransmitterPort>10000</TransmitterPort>
+    <MediaStreamerPort>15000</MediaStreamerPort>
+    <TransmitterUPnPDeviceName Enabled="false">PRND Test Transmitter</TransmitterUPnPDeviceName>
+    <ClearContent Archive="false">C:\Transmitter</ClearContent>
+    <EncryptedContent Archive="false">C:\Transmitter</EncryptedContent>
+    <EncryptorTrace Enabled="false">C:\Transmitter\EncryptorTrace.log</EncryptorTrace>
+    <VRoots>
+        <VRoot>\\foo-server\Media\Video</VRoot>
+        <VRoot>\\bar-server\http\media\TS</VRoot>
+    </VRoots>
+    <Channels>
+        <Channel Name="StitchedFile" Type="TSFile">
+            <TSFile>\\bar-server\http\media\TS\stitch0.ts</TSFile>
+            <TSFile>\\bar-server\http\media\TS\stitch1.ts</TSFile>
+        </Channel>
+        <Channel Name="LocalFile" Type="TSFile">
+            <TSFile>C:\SavedFile.ts</TSFile>
+        </Channel>
+        <Channel Name="StreamingChannel1" Type="Http">http://bar-server/TSStreaming/1</Channel>
+    </Channels>
+</Transmitter>

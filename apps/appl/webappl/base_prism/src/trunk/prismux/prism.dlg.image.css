@@ -1,0 +1,72 @@
+/*
+ *  image Dialog
+ */
+.imageDlg {
+  position: absolute;
+  top: 86px;
+  left: 0px !important;
+  right: 0px !important;
+  width: 836px;
+  height: 531px;
+  margin: auto;
+  background: #333;
+  box-shadow: 0 0 10px 6px rgba(0, 0, 0, 0.25);
+}
+.imageDlg .TVAppsTitle {
+  color: #FFFFFF;
+  font-family: "PrismFontB";
+  font-size: 36px;
+  left: 23px !important;
+  position: absolute;
+  top: 40px;
+  width: 600px;
+}
+.imageDlg .TVAppsTitle span {
+  display: table-cell;
+  vertical-align: middle;
+  line-height: 105px;
+}
+.imageDlg .closeBtn {
+  height: 39px;
+  left: 150px;
+  position: absolute;
+  right: 23px;
+  top: 30px;
+  width: 39px;
+  background: url(../images/312_Help_BTN_Close.png) no-repeat;
+}
+.imageDlg .closeBtn.-afd-leaf {
+  background: #2EB2FF;
+  color: black;
+}
+.imageDlg .edgeImage {
+  border-bottom: 1px solid rgba(68, 68, 68, 0.702);
+  left: 20px !important;
+  top: 80px;
+  width: 800px;
+}
+.imageDlg .msgImage {
+  background: url(../images/312_Help_Promotion_TA01.png) no-repeat center;
+  position: absolute;
+  top: 80px;
+  left: 23px !important;
+  width: 790px;
+  height: 300px;
+}
+.imageDlg .errMsg {
+  color: #FFFFFF;
+  vertical-align: baseline;
+  overflow: hidden;
+  position: absolute;
+  top: 380px;
+  left: 23px !important;
+  width: 790px;
+  height: 80px;
+  font-size: 24px;
+  font-family: PrismFontL;
+  text-align: center;
+}
+.imageDlg .row {
+  width: 750px;
+  vertical-align: middle;
+}

@@ -1,0 +1,10 @@
+1532:FUNC:delete a namespace while there are some outstanding changes 
+
+TestHdsCreateStore(HashStoreName.hds,3000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,200,Dump,0,0)
+TestHdsDeleteNamespace(NULL,ThisIsANamespace0000000,0)=0X8004C036 DRM_E_DST_LOCK_FAILED
+TestHdsCloseSlot(Dump,0)
+TestHdsDeleteNamespace(NULL,ThisIsANamespace0000000,0)
+TestHdsCloseStore(Dump,0)

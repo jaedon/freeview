@@ -1,0 +1,129 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Util/Exe">   
+    <interface name="Octopus.Appkit.Util.Exe">
+
+    <method name="BATCH_Stop">
+			<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="BGEIT_Start_FreeSat">
+			<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="BGEIT_Stop_FreeSat">
+			<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>      
+
+    <method name="FTP_Start">
+			<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="FTP_Stop">
+			<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="FTP_GetStatus">
+			<arg type="b" name="ftpRun" direction="out" />
+			<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+         
+    <method name="StartFactoryDefault">
+			<arg type="u" name="factoryDefaultMode" direction="in" />
+			<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+                                                                                
+    <method name="RemoveLcnUpdateInfo">
+    	<arg type="b" name="syncMode" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="BML_Set">
+    	<arg type="b" name="BMLKeyControlMode" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="RFVOD_Start">
+    	<arg type="b" name="vodMode" direction="in" />
+    	<arg type="s" name="url" direction="in" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="RFVOD_Stop">
+			<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+        
+    <method name="MHEG_Start">
+    	<arg type="u" name="wndId" direction="in" />
+    	<arg type="u" name="stillWndId" direction="in" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="MHEG_SetKey">
+    	<arg type="u" name="key" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+    
+    <method name="MHEG_DeepLink">
+			<arg type="s" name="url" direction="in" />   
+			<arg type="u" name="prevLcn" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="MHEG_ControlOP">
+    	<arg type="b" name="control" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+
+    <method name="MHEGIB_RequestFile">
+    	<arg type="u" name="sessionId" direction="in" />
+    	<arg type="i" name="requestNameLen" direction="in" />
+    	<arg type="s" name="requestName" direction="in" />    	    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="MHEGIB_RequestData">
+    	<arg type="u" name="sessionId" direction="in" />
+    	<arg type="i" name="requestNameLen" direction="in" />
+    	<arg type="s" name="requestName" direction="in" />    	    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="MHEGIB_AbortByUser">
+    	<arg type="u" name="sessionId" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="MHEGIB_AbortBySystem">
+    	<arg type="u" name="sessionId" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="StartSatRecord">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="TVTVEPG_Initdirectory">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>      
+
+    <method name="Load_BaseEPG">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+    
+    <method name="Load_TVTVEPG">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+    
+                            
+    <signal name="event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+
+  </interface>
+</node>

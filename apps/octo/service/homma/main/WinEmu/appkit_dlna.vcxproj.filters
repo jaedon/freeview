@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\..\appkit_dlna\Makefile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="dlna">
+      <UniqueIdentifier>{a51c55ec-5f0b-4930-802b-d946435c3625}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{99d0bcdd-5f6b-4db7-97c7-1180f74d1dd6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\appkit\dlna\apk_dlna_woonserver.c">
+      <Filter>dlna</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\appkit\dlna\apk_dlna_dial.c">
+      <Filter>dlna</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\appkit\dlna\apk_dlna_dmp.c">
+      <Filter>dlna</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\appkit\dlna\apk_dlna_dmr.c">
+      <Filter>dlna</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\appkit\dlna\apk_dlna_dms.c">
+      <Filter>dlna</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\appkit\dlna\apk_dlna_satip.c">
+      <Filter>dlna</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\appkit\include\apk.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_airplay.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_builder.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_cas_action.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_cas_ci.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_cas_irdeto.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_cas_mmi.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_cas_nagra.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_db.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_deprecated.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_dlna.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_drmagent.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_dsmcc.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_event.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_exe.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_filemgr.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_filemgr_ftpserver.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_filemgr_sambaclient.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_filemgr_sambaserver.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_filemgr_storage.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_media_play.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_media_record.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_meta_antenna.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_meta_mail.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_meta_query.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_meta_record.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_meta_schedule.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_meta_search.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_meta_service.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_network.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_output_audio.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_output_hdmi.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_output_panel.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_output_video.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_power.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_scenario.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_scenario_pincode.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_swupdate.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_sysinfo_stb.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\appkit\include\apk_sysinfo_tuner.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

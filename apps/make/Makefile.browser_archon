@@ -1,0 +1,99 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+#
+
+## this is temporary configuration. i have to delete below line... -_-!!!!
+-include $(HUMAX_MAKE_DIR)/.config
+
+BROWSER4_WORK_DIR := $(HUMAX_TOP_DIR)/apps/appl/browser/archon/base-2.0/build/
+#HUMAX_NFS_INSTALL_DIR := $(strip $(subst ",,/nfsroot/$(USER)/$(CONFIG_PRODUCT_NAME)/root))
+
+BROWSER_DIR=$(BROWSER4_WORK_DIR)/out/
+HUMAX_PACKAGE_DIR=$(HUMAX_TOP_DIR)/packages
+
+HUMAX_APP_STAGGING_TOP_DIR=$(HUMAX_MAKE_DIR)/_gen_rootfs
+HUMAX_APP_STAGGING_ROOT_DIR=$(HUMAX_APP_STAGGING_TOP_DIR)/root
+HUMAX_APP_STAGGING_IMG_DIR=$(HUMAX_APP_STAGGING_TOP_DIR)/image
+
+ifeq ($(CONFIG_ENHANCED_SECURITY),y)
+HUMAX_SUDO := sudo
+else
+HUMAX_SUDO :=
+endif
+
+ap_browser-stag:
+	@if [ ! -d $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/browser ]; then \
+		mkdir -p $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/browser/;	\
+	fi;\
+
+	@if [ ! -d $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/fonts ]; then \
+		mkdir -p $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/fonts/;	\
+	fi;\
+
+	@if [ -d $(BROWSER4_WORK_DIR) ]; then \
+		make -C $(BROWSER4_WORK_DIR) || exit -1;		\
+		cp -af $(BROWSER4_WORK_DIR)/out/lib/*.so*	$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/;	\
+		mv -f $(BROWSER4_WORK_DIR)/out/runtime/opera_dir/fonts/*	$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/fonts/;	\
+		cp -af $(BROWSER4_WORK_DIR)/out/runtime/opera_dir $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/browser/;	\
+		cp -af $(BROWSER4_WORK_DIR)/out/runtime/opera_home $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/browser/;	\
+		mkdir -p $(HUMAX_APP_STAGGING_ROOT_DIR)/home/archon;	\
+		cp -af $(BROWSER4_WORK_DIR)/out/bin/archon $(HUMAX_APP_STAGGING_ROOT_DIR)/home/archon/;		\
+		cp -af $(BROWSER4_WORK_DIR)/out/bin/*.sh $(HUMAX_APP_STAGGING_ROOT_DIR)/home/archon/;		\
+	fi;
+
+ap_browser_simple :
+	@if [ -d $(BROWSER4_WORK_DIR) ]; then \
+		make -C $(BROWSER4_WORK_DIR) simple || exit -1;		\
+		cp -af $(BROWSER4_WORK_DIR)/out/scripts/run_opera.sh $(HUMAX_NFS_INSTALL_DIR)/home/archon/; \
+		cp -af $(BROWSER4_WORK_DIR)/out/utils $(HUMAX_NFS_INSTALL_DIR)/home/archon/; \
+		cp -rf $(BROWSER4_WORK_DIR)/out/runtime/opera_dir $(HUMAX_NFS_INSTALL_DIR)/usr/browser/;	\
+		cp -af $(BROWSER4_WORK_DIR)/out/bin/simple $(HUMAX_NFS_INSTALL_DIR)/home/archon/;		\
+	fi;
+	
+ap_browser : ap_browser-stag FORCE
+	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser ]; then \
+		$(HUMAX_SUDO) mkdir -p $(HUMAX_NFS_INSTALL_DIR)/usr/browser/;	\
+	fi;\
+
+	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/usr/fonts ]; then \
+#		$(HUMAX_SUDO) rm -rf $(HUMAX_NFS_INSTALL_DIR)/usr/fonts;   \
+		$(HUMAX_SUDO) mkdir -p $(HUMAX_NFS_INSTALL_DIR)/usr/fonts/;	\
+	fi;\
+
+	-@if [ -d $(BROWSER4_WORK_DIR) ]; then \
+		$(HUMAX_SUDO) cp -af $(BROWSER4_WORK_DIR)/out/lib/*.so*	$(HUMAX_NFS_INSTALL_DIR)/usr/lib/;	\
+		$(HUMAX_SUDO) cp -drpf $(HUMAX_PACKAGE_DIR)/libmpg123/lib/*.so* $(HUMAX_NFS_INSTALL_DIR)/usr/lib/; \
+		$(HUMAX_SUDO) cp -dprf $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/fonts/* $(HUMAX_NFS_INSTALL_DIR)/usr/fonts/;	\
+		$(HUMAX_SUDO) cp -dprf $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/browser/opera_dir $(HUMAX_NFS_INSTALL_DIR)/usr/browser/;	\
+		$(HUMAX_SUDO) cp -dprf $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/browser/opera_home $(HUMAX_NFS_INSTALL_DIR)/usr/browser/;	\
+		$(HUMAX_SUDO) mkdir -p $(HUMAX_NFS_INSTALL_DIR)/home/archon;	\
+		$(HUMAX_SUDO) cp -dprf $(HUMAX_APP_STAGGING_ROOT_DIR)/home/archon/archon $(HUMAX_NFS_INSTALL_DIR)/home/archon/;	\
+		$(HUMAX_SUDO) cp -dprf $(HUMAX_APP_STAGGING_ROOT_DIR)/home/archon/*.sh $(HUMAX_NFS_INSTALL_DIR)/usr/bin/;	\
+	fi;
+# for debugging, java script error log.
+# default is disabled, if you want this function, you have to change "DISABLE" to "y", in below line.
+ifeq ($(CONFIG_DEBUG),DISABLE)
+#ifeq ($(CONFIG_DEBUG),y)
+		@echo == enable window.console.log DOM object to serial ==
+		$(HUMAX_SUDO) cp $(HUMAX_MAKE_DIR)/rootfs/basefiles-dbg/usr/browser/opera_dir/jsplugins/jsplugins.json \
+				$(HUMAX_NFS_INSTALL_DIR)/usr/browser/opera_dir/jsplugins/jsplugins.json;
+endif
+
+ap_browser_simple_clean :
+	@if [ -d $(BROWSER4_WORK_DIR) ]; then \
+		make -C $(BROWSER4_WORK_DIR)/src/src/simple  clean;	\
+	fi;
+	find $(APPLTOP_SRC_DIR)/browser/archon/base-2.0/humax-impl/simple -name "*.d" -or -name "*.o" | xargs rm -f
+
+ap_browser_clean :
+	@if [ -d $(BROWSER4_WORK_DIR) ]; then \
+		make -C $(BROWSER4_WORK_DIR) clean;	\
+	fi;
+	find $(APPLTOP_SRC_DIR)/browser/archon/base-2.0 -name "*.d" -or -name "*.o" | xargs rm -f
+
+ap_browser_distclean : ap_browser_clean
+	@if [ -d $(BROWSER4_WORK_DIR) ]; then \
+		make -C $(BROWSER4_WORK_DIR) distclean;	\
+	fi;

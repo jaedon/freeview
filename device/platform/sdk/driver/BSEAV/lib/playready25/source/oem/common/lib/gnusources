@@ -1,0 +1,25 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=oem_common
+TARGETTYPE=LIBRARY
+
+ifneq "" "$(LINUX_BUILD)"
+SOURCES =                   \
+    oeminfo_common.c        \
+    oemimpl_common.c        \
+    oemndr.c                \
+    oemndt.c                \
+    oemxmlhash.c
+else
+SOURCES =                   \
+    oeminfo_common.c        \
+    oemimpl_common.c        \
+    oemndt.c                \
+    oemxmlhash.c
+endif
+

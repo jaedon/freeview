@@ -1,0 +1,475 @@
+300:FUNC:Binary cert parser accepts premade cert chain headers, returns expected values 
+Test_ParseChainHeader(basicDEVchain.dat, 1, 908 bytes in chain, 0, 2 certs, 20 size of header)
+Test_ParseChainHeader(flaggedDEVchain.dat, 1, 832 bytes in chain, 4660 chain header flags, 2 certs, 20 size of header)
+
+301:FUNC:Binary cert parser accepts certs from premade chain, returns expected values
+Test_ParseCertificate(basicDEVchain.dat, TRUE, 0, 2 device, Devcert190123456, SNum012345678912)
+Test_ParseCertificate(flaggedDEVchain.dat, TRUE, 0, 2 device, Devcert190123456, SNum012345678912)
+
+302:FUNC:Binary cert parser can parse an entire premade cert chain
+Test_ParseCertificateChain(basicchain.dat, testrootpubkey.dat, 1)
+Test_VerifyCertFromChain(0 first cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 Key, 240 Indiv Device Link and Domain usages)
+
+303:FUNC:Binary cert parser accepts certs from premade chain, looks for DRM_BCERT_OBJTYPE_BASIC object in a leaf cert
+Test_FindObjectInCertByType(basicDEVchain.dat, TRUE, 0, 1 DRM_BCERT_OBJTYPE_BASIC)
+
+304:FUNC:Binary cert parser accepts certs from premade chain, looks for DRM_BCERT_OBJTYPE_MANUFACTURER object in a leaf cert
+Test_FindObjectInCertByType(basicDEVchain.dat, TRUE, 0, 7 DRM_BCERT_OBJTYPE_MANUFACTURER)
+
+305:FUNC:Binary cert parser accepts certs from premade chain, looks for DRM_BCERT_OBJTYPE_SIGNATURE object in a leaf cert
+Test_FindObjectInCertByType(basicDEVchain.dat, TRUE, 0, 8 DRM_BCERT_OBJTYPE_SIGNATURE)
+
+306:FUNC:Binary cert parser accepts certs from premade chain, looks for DRM_BCERT_OBJTYPE_DOMAIN object in a leaf cert and expected to fail
+Test_FindObjectInCertByType(flaggedDEVchain.dat, TRUE, 0, 2 DRM_BCERT_OBJTYPE_DOMAIN)=-2147024637(0x80070103 DRM_E_NOMORE)
+
+307:FUNC:Binary cert parser accepts certs from premade chain, looks for object of an invalid type and expected to fail
+Test_FindObjectInCertByType(flaggedDEVchain.dat, TRUE, 0, 20 invalid type)=-2147024809(0x80070057 E_INVALIDARG)
+
+' parser rejects malformed certs/chains
+310:FUNC:Parser will reject certs with higher security levels than the issuing cert
+Test_ParseCertificateChain(InvalidSecChain.dat, testrootpubkey.dat, 2)=0x8004C80B(DRM_E_BCERT_INVALID_SECURITY_LEVEL)
+
+311:FUNC:Parser will reject not signed with issuer cert's keys (valid signature with wrong keys)
+Test_ParseCertificateChain(InvalidSignerChain.dat, testrootpubkey.dat, 2)= 0X800480CF (DRM_E_INVALID_SIGNATURE)
+
+312:FUNC:Parser can handle domain certs w/ NULL domain/account id
+Test_ParseCertificateChain(DomNullAccount.dat, testrootpubkey.dat, 2)
+
+313:FUNC:Parser will accept Device leaf certs which do not support one of the features: Transmitter, Reciever, Shared Certificate, Secure Clock, Anti-Rollback Clock, CRLs
+' No Symmetric optimizations or antirollback
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(267 all but antirollback and obsolete features, 4 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_VerifyCertFromChain(0 leaf cert, 2 device type, 267 all but antirollback and obsolete features, 0xFFFFFFFF, DevManufacturer, DevModel, Dev1234567890, 1 Key, 3 Sign and Encrypt usage)
+' No Sync or secure clock
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(275 all but sec slock and obsolete features, 4 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_VerifyCertFromChain(0 leaf cert, 2 device type, 275 all but sec slock and obsolete features, 0xFFFFFFFF, DevManufacturer, DevModel, Dev1234567890, 1 Key, 3 Sign and Encrypt usage)
+' No metering or sec clock 
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(275 all but sec slock and obsolete features, 4 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_VerifyCertFromChain(0 leaf cert, 2 device type, 275 all but sec slock and obsolete features, 0xFFFFFFFF, DevManufacturer, DevModel, Dev1234567890, 1 Key, 3 Sign and Encrypt usage)
+' No antirollback
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(267 all but antirollback and obsolete features, 4 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_VerifyCertFromChain(0 leaf cert, 2 device type, 267 all but antirollback and obsolete features, 0xFFFFFFFF, DevManufacturer, DevModel, Dev1234567890, 1 Key, 3 Sign and Encrypt usage)
+' No sec clock 
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(275 all but sec slock and obsolete features, 4 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_VerifyCertFromChain(0 leaf cert, 2 device type, 275 all but sec slock and obsolete features, 0xFFFFFFFF, DevManufacturer, DevModel, Dev1234567890, 1 Key, 3 Sign and Encrypt usage)
+' No receiver or antirollback
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(265 all but receiver and antirollback, 3 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_VerifyCertFromChain(0 leaf cert, 2 device type, 265 all but receiver and antirollback, 0xFFFFFFFF, DevManufacturer, DevModel, Dev1234567890, 1 Key, 3 Sign and Encrypt usage)
+' No transmitter or sec clock 
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(274 all but transmit and secclock, 3 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_VerifyCertFromChain(0 leaf cert, 2 device type, 274 all but transmit and secclock, 0xFFFFFFFF, DevManufacturer, DevModel, Dev1234567890, 1 Key, 3 Sign and Encrypt usage)
+
+314:FUNC:Parser will allow Metering feature in valid, non-device cert chains (regression test)
+Test_SetDefaultBuilderData(IssuerPC1, 4 Issuer, pubkey1.dat, 1 Key usages, 16 Indiv, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_SetBuilderFlagData(1234 chain header flag, 0 basic info flag, 0 key flag, 0 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerPC2, 4 Issuer, pubkey2.dat, 1 Key usages, 16 Indiv, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetManufacturerInfo(PCManufacturer, PCModel, PC1234567890))
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey3.dat, 2 Key usages, 3 Sign and Encrypt, privkey2.dat, pubkey2.dat, 0 use key handle)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 3)
+Test_VerifyCertFromChain(0 leaf cert, 1 PC type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 Key, 3 Sign and Encrypt usage)
+Test_VerifyCertFromChain(1 middle cert, 4 Issuer type, 0 no features, 0xFFFFFFFF, PCManufacturer, PCModel, PC1234567890, 1 Key, 16 Indiv)
+
+320:FUNC:Parser will reject PC leaf certs which have both SecureClock and Anti-Rollback Clock features set which is an invalid combination
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_SetManufacturerInfo(PCManufacturer, PCModel, PC1234567890))
+Test_SetFeatureInfo(286 all but transmit, 5 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = DRM_E_BCERT_INVALID_KEY_USAGE
+
+321:FUNC:Parser will allow Device leaf certs which include non-Device features: Shared cert
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(4 shared cert, 1 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+322:FUNC:Parser will allow Domain leaf certs which include non-Domain features: any feature
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(DomCert1, 3 Domain Type, pubkey2.dat, 1 Key usages, 2 Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDomainBuilderData(ServiceID123, DomainID, 12345 Revision, ClientID, http://www.bad.contoso.com, 27 bytes counting null terminator)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(256 crl support, 1 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+323:FUNC:Parser will allow PC leaf certs which have key usage flags sets which include non-PC key usages: SignCRL, Issuer-All, Issuer-Indiv, Issuer-Device, Issuer-Link, Issuer-Domain
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 1 Key usages, 16 issuer-indiv, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_SetManufacturerInfo(PCManufacturer, PCModel, PC1234567890))
+Test_SetFeatureInfo(1 transmit, 1 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+324:FUNC:Parser will allow Device leaf certs which include non-Device key usages: SignCRL, Issuer-All, Issuer-Indiv, Issuer-Device, Issuer-Link, Issuer-Domain
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 6 Key usages, 252 SignCRL and every Issuer usage, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(1 transmitter, 1 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+325:FUNC:Parser will allow Domain leaf certs which include non-Domain key usages: Sign, SignCRL, Issuer-All, Issuer-Indiv, Issuer-Device, Issuer-Link, Issuer-Domain
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(DomCert1, 3 Domain Type, pubkey2.dat, 1 Key usages, 253 Sign SignCRL and every Issuer usage, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDomainBuilderData(ServiceID123, DomainID, 12345 Revision, ClientID, http://www.bad.contoso.com, 27 bytes counting null terminator)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+326:FUNC:Parser will reject certificate chains with PC leaf certs which also contain another cert which does not support Issuer-Indiv or Issuer-All key usages
+Test_SetDefaultBuilderData(IssuerDevLinkDom, 4 Issuer, pubkey1.dat, 3 Key usages, 224 Device Link and Domain Issuer, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_SetBuilderFlagData(1234 chain header flag, 0 basic info flag, 0 key flag, 0 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 1 Key usages, 2 Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_AddKeyToBuilderData( pubkey3.dat, 1 Key Usages, 1 Sign )
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE
+
+327:FUNC:Parser will reject certificate chains with Device leaf certs which also contain another cert which does not support Issuer-Device or Issuer-All key usages
+Test_SetDefaultBuilderData(IssuerPCLinkDom, 4 Issuer, pubkey1.dat, 3 Key usages, 208 Indiv Link and Domain Issuer, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_SetBuilderFlagData(1234 chain header flag, 0 basic info flag, 0 key flag, 0 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 1 Key usages, 1 Sign, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 1 Key Usages, 2 Encrypt)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE
+
+328:FUNC:Parser will reject certificate chains with Domain leaf certs which also contain another cert which does not support Issuer-Device or Issuer-All key usages
+Test_SetDefaultBuilderData(IssuerPCDevLink, 4 Issuer, pubkey1.dat, 3 Key usages, 112 Indiv Device and Link, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_SetBuilderFlagData(1234 chain header flag, 0 basic info flag, 0 key flag, 0 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(Domain1, 3 Domain Type, pubkey2.dat, 1 Key usages, 2 Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDomainBuilderData(ServiceID123, DomainID, 12345 Revision, ClientID, http://www.contoso.com, 27 bytes counting null terminator)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE
+
+329:FUNC:Parser will reject certificate chains where an Issuer cert is issued by a cert which does not support Issuer-Link or Issuer-All key usages
+Test_SetDefaultBuilderData(IssuerPCDevDom, 4 Issuer, pubkey1.dat, 3 Key usages, 176 Indiv Device and Domain Issuer, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_SetBuilderFlagData(1234 chain header flag, 0 basic info flag, 0 key flag, 0 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer Type, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetManufacturerInfo(IssuerManu, IssuerModel, ISN1234567890)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE
+
+330:FUNC:Parser will reject cert chains where the leaf cert is expired
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 1 Key usages, 1 Sign, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 1 Key Usages, 2 Encrypt)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_SetExpiration(0x1)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004C81C DRM_E_BCERT_BASICINFO_CERT_EXPIRED
+
+331:FUNC:Parser will reject cert chains where any of the issuing certs are expired
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer, pubkey1.dat, 1 key usages, 8 Issuer-All, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerCert2, 4 Issuer, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerCert3, 4 Issuer, pubkey3.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey2.dat, pubkey2.dat, 0 use key handle)
+Test_SetExpiration(0x1)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerCert4, 4 Issuer, pubkey4.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey3.dat, pubkey3.dat, 0 use key handle)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerCert5, 4 Issuer, pubkey5.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey4.dat, pubkey4.dat, 0 use key handle)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 5) = 0X8004C81C DRM_E_BCERT_BASICINFO_CERT_EXPIRED
+
+350:FUNC:Parser can locate manufacturer info if present
+'With Manufacturer strings 
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 1 Key usages, 1 Sign, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 1 Key Usages, 2 Encrypt)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(267 all but antirollback, 4 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_VerifyCertFromChain(0 leaf cert, 2 device type, 267 all but antirollback, 0xFFFFFFFF, DevManufacturer, DevModel, Dev1234567890, 2 Keys, 1 Signing Key, 2 Encrypt Key )
+Test_FindObjectInCertByType(basicDEVchain.dat, TRUE, 0, 7 manufacturer object type, 524 location of end of cert, 340 expected offset of manufacturer data)
+
+'Without manufacturer strings
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 1 Key usages, 1 Sign, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 1 Key Usages, 2 Encrypt)
+Test_SetFeatureInfo(267 all but antirollback, 4 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_VerifyCertFromChain(0 leaf cert, 2 device type, 267 all but antirollback, 0xFFFFFFFF, NULL, NULL, NULL, 2 key, 1 Sign, 2 Encrypt )
+Test_FindObjectInCertByType(NULL, TRUE, 0, 7 manufacturer object type, 856 location of end of cert, 856 expected offset) = 0x80070103 DRM_E_NOMORE
+
+
+351:FUNC:When getting the chain header, parser will return appropriate error code if header is missing
+Test_ParseChainHeader(testrootpubkey.dat, 0, 0, 0, 0, 0) = 0X8004C821 DRM_E_BCERT_INVALID_CHAIN_HEADER_TAG
+
+353:FUNC:Parser rejects chains of length > 6
+Test_ParseCertificateChain(chainwith7certs.dat, testrootpubkey.dat, 7)= 0X8004C80A DRM_E_BCERT_INVALID_MAX_LICENSE_CHAIN_DEPTH
+
+354:FUNC:Parser verification succeeds for expired cert when expiration time is not specified
+'Expired leaf cert
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer Type, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetManufacturerInfo(IssuerManu, IssuerModel, ISN1234567890)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey3.dat, 1 Key usages, 1 Sign, privkey2.dat, pubkey2.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey4.dat, 1 Key Usages, 2 Encrypt)
+Test_SetExpiration(0x1234)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 3, 2, TRUE)
+
+'Expired non-leaf cert
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer Type, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetManufacturerInfo(IssuerManu, IssuerModel, ISN1234567890)
+Test_SetExpiration(0x1234)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey3.dat, 1 Key usages, 1 Sign, privkey2.dat, pubkey2.dat, 0 use key handle)
+Test_SignAndAddCert(NoManuDEVchain.dat)
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 3, 2, TRUE)
+
+355:FUNC:Parser verification succeeds for chain signed with any “root public key” when the root public key is not specified
+Test_ParseCertificateChain(basicchain.dat, NULL, 1)
+
+356:FUNC:Parser rejects non-NULL-terminated manufacturer strings
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer Type, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SignAndAddCert(BadManuStrChain.dat)
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004C819 DRM_E_BCERT_STRING_NOT_NULL_TERMINATED
+
+357:FUNC:Parser rejects non-UTF-8 manufacturer strings
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer Type, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SignAndAddCert(BadManuStrChain2.dat)
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004CA01 DRM_E_UTF_INVALID_CODE
+
+358:FUNC:Parser rejects non-UTF-8 URLs
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer Type, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SignAndAddCert(BadURLChain.dat)
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004CA01 DRM_E_UTF_INVALID_CODE
+
+359:FUNC:Parser rejects certificate with object of unknown type and "must understand" flag
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer Type, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SignAndAddCert(unknownobj_mustunderstand.dat)
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004C81D DRM_E_BCERT_BASICINFO_UNEXPECTED_OBJECT_HEADER
+
+360:FUNC:Parser verifies successfully certificate with object of unknown type and "optional" flag
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer Type, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SignAndAddCert(unknownobj_optional.dat)
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+361:FUNC:Parser will allow PC leaf certs which have legacy feature flags (metering, or license sync, or symmetric optimization)
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_SetManufacturerInfo(PCManufacturer, PCModel, PC1234567890))
+Test_SetFeatureInfo(32 metering, 1 feature)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_SetManufacturerInfo(PCManufacturer, PCModel, PC1234567890))
+Test_SetFeatureInfo(64 license sync, 1 feature)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_SetManufacturerInfo(PCManufacturer, PCModel, PC1234567890))
+Test_SetFeatureInfo(128 symm opt, 1 feature)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+362:FUNC:Parser will allow Device leaf certs which have legacy feature flags (metering, or license sync, or symmetric optimization)
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(32 metering, 1 feature)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(64 license sync, 1 feature)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(128 symm opt, 1 feature)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+
+1311:FUNC:Parser will NOT reject cert with wrong signature if told to ignore signature verification but will detect key mismatch and invalid security level
+Test_ParseCertificateChain(InvalidSignerChain.dat, testrootpubkey.dat, 2, NULL, NULL, NULL, FALSE, NULL, NULL, NULL, 1 num of errors, 0x8004C81E DRM_E_BCERT_ISSUERKEY_KEYINFO_MISMATCH)
+
+1310:FUNC: (same as 310 but treat as non-fatal parsing error) Parser will reject certs with higher security levels than the issuing cert
+Test_ParseCertificateChain(InvalidSecChain.dat, testrootpubkey.dat, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1 num of errors, 0x8004C80B DRM_E_BCERT_INVALID_SECURITY_LEVEL )
+
+1327:FUNC:(same as 327 but treat as non-fatal parsing error) Parser will fail verification of certificate chain with Device leaf certs which contains Issuer cert with incorrect key usage (cannot issue device certs). Also secure clock feature in child cert is not allowed if parent has not issuer-device key usage.with one invalid (Sign) key usage
+Test_SetDefaultBuilderData(IssuerPCLinkDom, 4 Issuer, pubkey1.dat, 3 Key usages, 208 Indiv Link and Domain Issuer, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_SetBuilderFlagData(1234 chain header flag, 0 basic info flag, 0 key flag, 0 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 1 Key usages, 1 Sign, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 1 Key Usages, 2 Encrypt)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2 num of errors, 0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE )
+
+1328:FUNC:(same as 328 but treat as non-fatal parsing error) Parser will reject certificate chains with Device leaf certs which contains Issuer cert with one invalid (Sign) key usage
+Test_SetDefaultBuilderData(IssuerPCDevLink, 4 Issuer, pubkey1.dat, 3 Key usages, 112 Indiv Device and Link, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_SetBuilderFlagData(1234 chain header flag, 0 basic info flag, 0 key flag, 0 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(Domain1, 3 Domain Type, pubkey2.dat, 1 Key usages, 2 Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDomainBuilderData(ServiceID123, DomainID, 12345 Revision, ClientID, http://www.contoso.com, 27 bytes counting null terminator)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1 num of errors, 0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE )
+
+1329:FUNC:(same as 329 but treat as non-fatal parsing error) Parser will reject certificate chains where an Issuer cert is issued by a cert which does not support Issuer-Link or Issuer-All key usages.
+Test_SetDefaultBuilderData(IssuerPCDevDom, 4 Issuer, pubkey1.dat, 3 Key usages, 176 Indiv Device and Domain Issuer, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_SetBuilderFlagData(1234 chain header flag, 0 basic info flag, 0 key flag, 0 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer Type, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetManufacturerInfo(IssuerManu, IssuerModel, ISN1234567890)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1 num of errors, 0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE )
+
+'1353:FUNC:(same as 353 but treat as non-fatal parsing error) Parser rejects chains of length > 6
+'Test_ParseCertificateChain(chainwith7certs.dat, testrootpubkey.dat, 7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1 num of errors, 0X8004C80A DRM_E_BCERT_INVALID_MAX_LICENSE_CHAIN_DEPTH )
+
+1356:FUNC:(same as 356 but treat as non-fatal parsing error) Parser rejects non-NULL-terminated manufacturer strings
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer Type, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SignAndAddCert(BadManuStrChain.dat)
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3 num of errors, 0X8004C819 DRM_E_BCERT_STRING_NOT_NULL_TERMINATED)
+
+1357:FUNC:(same as 357 but treat as non-fatal parsing error) Parser rejects non-UTF-8 manufacturer strings
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer Type, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SignAndAddCert(BadManuStrChain2.dat)
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1 num of errors, 0X8004CA01 DRM_E_UTF_INVALID_CODE)
+
+1358:FUNC:(same as 358 but treat as non-fatal parsing error) Parser rejects non-UTF-8 URLs
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer Type, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SignAndAddCert(BadURLChain.dat)
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1 num of errors, 0X8004CA01 DRM_E_UTF_INVALID_CODE)
+

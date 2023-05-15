@@ -1,0 +1,11 @@
+custom c3 ovc 3 5 0 0 cf 2 
+x1 m2 os 0 0 ow pb de /data/videos/cnnticker.mpg 21 21 0 1 
+dnr 30 2 80 2 90 2 70
+mad 1 1 1 0 0 1 18 bvncb sleep
+scfmt 100 
+sleep bvncb 
+sleep 
+pb sleep 
+c3 cw 
+cs cd 
+q

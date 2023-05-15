@@ -1,0 +1,22 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmcrtreal
+TARGETTYPE=LIBRARY
+
+ifneq "" "$(LINUX_BUILD)"
+SOURCES =                         \
+    crtimplreal.c                 \
+    crtutilreal.c                 \
+    ..\drmcrtcommon.c
+else
+SOURCES =        
+    drmcrtcommonstub.c            \
+    crtimplreal.c                 \
+    crtutilreal.c
+endif
+

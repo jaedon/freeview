@@ -1,0 +1,328 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+# 
+
+TARGETS += vkernel 
+
+ifeq ($(CONFIG_RF4CE_MOTION_TOUCH_UEI_HILCREST),y)
+UEI_HILCREST_DRIVER_PATH = $(HUMAX_DRIVER_DIR)/di/drv/hilcrest/uei_hilcrest
+UEI_HILCREST_LIBLIST = libuapi.so libMotionEngine-bundle.so libMotionEngine-bundle.so.1 libMotionEngine-bundle.so.1.6.0 \
+                       libMotionEngine-core.so libMotionEngine-core.so.1 libMotionEngine-core.so.1.6.0 \
+		       libMotionEngine-ext.so libMotionEngine-ext.so.1 libMotionEngine-ext.so.1.6.0 \
+		       libfreespace-hid.so libfreespace-hid.so.0 libfreespace-hid.so.0.6.1
+
+UEI_HILCREST_LIBS_TO_COPY = $(foreach files, $(UEI_HILCREST_LIBLIST), $(UEI_HILCREST_DRIVER_PATH)/$(files))
+UEI_HILCREST_LIBS_TO_REMOVE = $(foreach files, $(UEI_HILCREST_LIBLIST), $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/$(files))
+TARGETS += uei_hilcrest
+endif
+
+V=
+
+ifeq ($(CONFIG_CAS_NA),y)
+ifeq ($(BCHP_CHIP),7241)
+BCHP_CHIP := 7429
+endif
+endif
+
+DI_COMPILE_FLAGS = \
+	CONFIG_TOOLCHAIN_PATH=$(CONFIG_TOOLCHAIN_PATH) \
+	PLATFORM=$(PLATFORM) \
+	BCHP_VER=$(BCHP_VER) \
+	BCHP_CHIP=$(BCHP_CHIP) \
+	CONFIG_PRODUCT_NAME=$(CONFIG_PRODUCT_NAME) \
+	CONFIG_BOARD_REVISION=$(CONFIG_BOARD_REVISION) \
+	HUMAX_PRODUCT_CONFIG_DIR=$(HUMAX_PRODUCT_CONFIG_DIR) \
+	HUMAX_PORTING_MAKE_DIR=$(HUMAX_PORTING_MAKE_DIR) \
+	HUMAX_WORK_DIR=$(HUMAX_WORK_DIR) \
+	HUMAX_DRIVER_DIR=$(HUMAX_DRIVER_DIR) \
+	HUMAX_PLATFORM_CONFIG_DIR=$(HUMAX_PLATFORM_CONFIG_DIR) \
+	HUMAX_MAKE_DIR=$(HUMAX_MAKE_DIR) \
+	HUMAX_KCONFIG_TOOL_DIR=$(HUMAX_KCONFIG_TOOL_DIR) \
+	DIRECTFB_VER=$(DIRECTFB_VER) \
+	HUMAX_OUTPUT_DIR=$(HUMAX_OUTPUT_DIR) \
+	HUMAX_PREPARE_ROOT_DIR=$(HUMAX_PREPARE_ROOT_DIR)
+
+define build_driver
+	$(HUMAX_MAKE) -C $(HUMAX_DRIVER_DIR) $(DI_COMPILE_FLAGS) V=$(V) $(1)
+endef
+ 
+driver:
+	@echo $(call build_driver, driver)
+
+driver-clean:
+	$(call build_driver, clean_driver)
+
+driver-distclean:
+	$(call build_driver, clean_driver)
+
+############# Vkernel for Shared Library #################
+vkernel:
+	$(call build_driver, vkernel)
+	@cp -rf $(HUMAX_OUTPUT_DIR)/lib/*.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+
+vkernel-clean:
+	$(call build_driver, vkernel-clean)
+
+vkernel-distclean:
+	$(call build_driver, vkernel-distclean)
+
+############# DBUS Volume Manager for Shared Library #################
+dbus_lib_volmgr:
+	$(call build_driver, dbus_lib_volmgr)
+	@cp -rf $(HUMAX_OUTPUT_DIR)/lib/*.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+
+dbus_lib_volmgr-clean:
+	$(call build_driver, dbus_lib_volmgr-clean)
+
+dbus_lib_volmgr-distclean:
+	$(call build_driver, dbus_lib_volmgr-distclean)	
+
+ifdef CONFIG_CALYPSO
+############# Shared Library for MI #################
+mi:
+	$(call build_driver, mi)
+	@cp -rf $(HUMAX_OUTPUT_DIR)/lib/*.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+
+mi-clean:
+	$(call build_driver, mi-clean)
+
+mi-distclean:
+	$(call build_driver, mi-distclean)
+
+endif
+
+ifdef CONFIG_DI_DEMUX_EXT
+############# Shared Library for DI Demux Extension #################
+didemux_ext:
+	$(call build_driver, didemux_ext)
+	@cp -rf $(HUMAX_OUTPUT_DIR)/lib/*.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+
+didemux_ext-clean:
+	$(call build_driver, didemux_ext-clean)
+
+didemux_ext-distclean:
+	$(call build_driver, didemux_ext-distclean)
+endif
+
+ifdef CONFIG_DI_SHARED_LIB
+############# Shared Library for Scure DI #################
+di_so:
+	$(call build_driver, di_so)
+	@cp -rf $(HUMAX_OUTPUT_DIR)/lib/*.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+
+di_so-clean:
+	$(call build_driver, di_so-clean)
+
+di_so-distclean:
+	$(call build_driver, di_so-distclean)
+endif
+
+
+############ DI Module Shared Library ###################
+## Network ########################################
+
+di_so_network:
+	$(call build_driver, di_so_network)
+	@cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdi_network.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@-cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdi_network.so $(HUMAX_NFS_INSTALL_DIR)/usr/lib
+
+di_so_network-clean:
+	$(call build_driver, di_so_network-clean)
+
+di_so_network-distclean:
+	$(call build_driver, di_so_network-distclean)
+
+## WIFI ##########################################
+di_so_wifi:
+	$(call build_driver, di_so_wifi)
+	@cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdi_wifi.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@-cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdi_wifi.so $(HUMAX_NFS_INSTALL_DIR)/usr/lib
+
+di_so_wifi-clean:
+	$(call build_driver, di_so_wifi-clean)
+
+di_so_wifi-distclean:
+	$(call build_driver, di_so_wifi-distclean)
+
+## BT ############################################
+di_so_bt:
+	$(call build_driver, di_so_bt)
+	@cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdi_bt.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@-cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdi_bt.so $(HUMAX_NFS_INSTALL_DIR)/usr/lib
+
+di_so_bt-clean:
+	$(call build_driver, di_so_bt-clean)
+
+di_so_bt-distclean:
+	$(call build_driver, di_so_bt-distclean)
+
+## PPPOE ############################################
+di_so_pppoe:
+	$(call build_driver, di_so_pppoe)
+	@cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdi_pppoe.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@-cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdi_pppoe.so $(HUMAX_NFS_INSTALL_DIR)/usr/lib
+
+di_so_pppoe-clean:
+	$(call build_driver, di_so_pppoe-clean)
+
+di_so_pppoe-distclean:
+	$(call build_driver, di_so_pppoe-distclean)
+
+## Fs ############################################	
+di_so_fs:
+	$(call build_driver, di_so_fs)
+	@cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdi_fs.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@-cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdi_fs.so $(HUMAX_NFS_INSTALL_DIR)/usr/lib
+
+di_so_fs-clean:
+	$(call build_driver, di_so_fs-clean)
+
+di_so_fs-distclean:
+	$(call build_driver, di_so_fs-distclean)
+
+## CRYPT #########################################
+di_so_crypt:
+	$(call build_driver, di_so_crypt)
+	@cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdi_crypt.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@-cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdi_crypt.so $(HUMAX_NFS_INSTALL_DIR)/usr/lib
+
+di_so_crypt-clean:
+	$(call build_driver, di_so_wifi-clean)
+
+di_so_crypt-distclean:
+	$(call build_driver, di_so_wifi-distclean)
+
+
+## DRV_HOTPLUG ####################################
+
+drv_so_hotplug:
+	$(call build_driver, drv_so_hotplug)
+	@cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdrv_hotplug.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@-cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdrv_hotplug.so $(HUMAX_NFS_INSTALL_DIR)/usr/lib
+
+drv_so_hotplug-clean:
+	$(call build_driver, drv_so_hotplug-clean)
+
+drv_so_hotplug-distclean:
+	$(call build_driver, drv_so_hotplug-distclean)		
+
+
+## MMC ############################################
+di_so_mmc:
+	$(call build_driver, di_so_mmc)
+	@cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdi_mmc.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@-cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdi_mmc.so $(HUMAX_NFS_INSTALL_DIR)/usr/lib
+
+di_so_mmc-clean:
+	$(call build_driver, di_so_mmc-clean)
+
+di_so_mmc-distclean:
+	$(call build_driver, di_so_mmc-distclean)	
+	
+
+## USB ############################################
+di_so_usb:
+	$(call build_driver, di_so_usb)
+	@cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdi_usb.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@-cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdi_usb.so $(HUMAX_NFS_INSTALL_DIR)/usr/lib
+
+di_so_usb-clean:
+	$(call build_driver, di_so_usb-clean)
+
+di_so_usb-distclean:
+	$(call build_driver, di_so_usb-distclean)
+
+
+## HDD ############################################
+di_so_hdd:
+	$(call build_driver, di_so_hdd)
+	@cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdi_hdd.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@-cp -rf $(HUMAX_OUTPUT_DIR)/lib/libdi_hdd.so $(HUMAX_NFS_INSTALL_DIR)/usr/lib
+
+di_so_hdd-clean:
+	$(call build_driver, di_so_hdd-clean)
+
+di_so_hdd-distclean:
+	$(call build_driver, di_so_hdd-distclean)
+	
+
+ifeq ($(CONFIG_RF4CE_MOTION_TOUCH_UEI_HILCREST),y)
+############# Hilcrest Library from UEI #################
+uei_hilcrest:
+	@echo -- Hilcrest from UEI
+	@cp $(UEI_HILCREST_LIBS_TO_COPY) $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+
+uei_hilcrest-clean:
+	@rm -f $(UEI_HILCREST_LIBS_TO_REMOVE)
+
+uei_hilcrest-distclean:
+	@rm -f $(UEI_HILCREST_LIBS_TO_REMOVE)
+endif
+
+###############################################
+# Build TNTFS Driver
+###############################################
+TNTFS_USER=humax
+TNTFS_PASS=VmrVV7Kb88
+TNTFS_CHP=$(BCHP_CHIP)
+TNTFS_KERNEL_VER=${shell echo $(KERNELRELEASE)}
+
+ifeq ($(filter-out 2.6%,$(TNTFS_KERNEL_VER)),)
+	# in case of using Linux kernel 2.6.37, mipsel, toolchain stbgcc 4.5.3-2.4
+	TNTFS_CHP=7429
+else ifeq ($(filter-out 3.3%,$(TNTFS_KERNEL_VER)),)
+	# in case of using Linux kernel 3.3, mipsel, toolchain stbgcc 4.5.4-2.6
+	TNTFS_CHP=7435
+else ifeq ($(filter-out 3.8%,$(TNTFS_KERNEL_VER)),)
+	# in case of using Linux kernel 3.8, armlinux, toolchain stbgcc 4.5.4-2.6
+	TNTFS_CHP=7445
+endif
+
+tntfs-install: TNFTS_FILENAME=${shell ls tuxera-ntfs* | grep .tgz}
+tntfs-install:
+	@echo "-----------------------------------------"
+	@echo "-- Install TNTFS Driver for $(BCHP_CHIP)"
+	@echo "-----------------------------------------"
+	@tar -xvzf $(TNFTS_FILENAME)
+ifeq 	($(CONFIG_PRODUCT_IMAGE_FACTORY),y)
+ifeq	($(CONFIG_PRODUCT_IMAGE_RELEASE),y)
+	@-cp -rf ${subst .tgz,,$(TNFTS_FILENAME)}/* $(HUMAX_WORK_DIR)/platform/sdk/os/drivers/fs/ntfs/initramfs_release
+else
+	@-cp -rf ${subst .tgz,,$(TNFTS_FILENAME)}/* $(HUMAX_WORK_DIR)/platform/sdk/os/drivers/fs/ntfs/initramfs_debug
+endif
+else
+ifeq	($(CONFIG_PRODUCT_KERNEL_DEBUG_LOG),y)
+	@-cp -rf ${subst .tgz,,$(TNFTS_FILENAME)}/* $(HUMAX_WORK_DIR)/platform/sdk/os/drivers/fs/ntfs/debug
+else
+	@-cp -rf ${subst .tgz,,$(TNFTS_FILENAME)}/* $(HUMAX_WORK_DIR)/platform/sdk/os/drivers/fs/ntfs/release
+endif
+endif
+
+tntfs-build:
+	@echo "-----------------------------------------"
+	@echo "-- Build TNTFS Driver for $(BCHP_CHIP)"
+	@echo "-- Linux Kernel Version:$(TNTFS_KERNEL_VER)"
+	@echo "-----------------------------------------"
+	@sh $(HUMAX_MAKE_DIR)/tuxera_update.sh -a --target target/humax.d/bcm$(TNTFS_CHP) --user $(TNTFS_USER) --pass $(TNTFS_PASS) --source-dir $(HUMAX_WORK_DIR)/platform/sdk/os/kernel
+
+tntfs: tntfs-build tntfs-install
+	
+tntfs-clean:
+	@-rm $(HUMAX_MAKE_DIR)/kheaders.tar.bz2
+	@-rm $(HUMAX_MAKE_DIR)/tmp.Fv*
+	@-rm -rf $(HUMAX_MAKE_DIR)/tuxera-ntfs*
+
+tntfs-distclean: tntfs-clean
+
+########################################################
+## Executable
+########################################################
+di_exec:
+	$(call build_driver, $@)
+
+di_exec-clean:
+	$(call build_driver, $@)
+
+di_exec-distclean: di_exec-clean

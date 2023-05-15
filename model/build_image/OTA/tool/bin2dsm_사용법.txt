@@ -1,0 +1,5 @@
+S/W이미지(verupfile_v04407.oad) 사이즈가 60M 였을 때, 14M 짜리 4개의 모듈로 나뉘도록 TS를 만드는 방법
+DDB block의 사이즈가 4000 바이트고, DII moduel id가 #0 ~ #3 을 가지는 TS가 생성
+
+
+bin2dsm -ojc8500br_bd.dsm -nz -n4 -b4000 -z14000 -s"OUI=000378 mdl=0.0.0.0 ver=0.0.0.0" -h"OUI=000378 mdl=0.0.0.0 ver=0.0.0.0" verupfile_v04407.oad

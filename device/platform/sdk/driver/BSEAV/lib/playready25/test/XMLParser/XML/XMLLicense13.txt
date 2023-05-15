@@ -1,0 +1,1 @@
+<CONDITION><![CDATA[(!exists(secstate.deleted)&&(app.minseclevel>=500?1:(secstate.drmreason=3;0)))]]></CONDITION> 

@@ -1,0 +1,8 @@
+#obj-y		+= xom_xxx_yyy.o
+
+# Basic include path
+include $(OCTO_PLUGIN_INCLUDE_DIR)/Makefile.include.xoapimgr
+
+# Additional include path
+ccflags-y += -I$(OCTO_DIR)/main/oxserver
+

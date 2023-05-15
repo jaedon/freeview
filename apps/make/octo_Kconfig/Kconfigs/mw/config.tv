@@ -1,0 +1,35 @@
+################################################
+#					MW/TV Configuration					#
+################################################
+
+comment "MW/TV Configuration. (MW_TV_XXX)"
+
+
+	config DTV
+		bool "DTV - Specify this product as TV."
+		default n
+
+	if	(DTV = y)
+
+		config FRC_DEMO
+			bool "FRC_DEMO - FRC demonstration in model supporting FRC chip."
+			default n
+
+		config DTV_UART_COMM
+			bool "DTV_UART_COMM - UART communication for 2-Chip Solution"
+			default n
+
+		config DVD
+			bool "DVD - Support DVD module"
+			default n
+
+		config EXT_AV_PROC
+			bool "EXT_AV_PROC - Support external AV processor(like 7103...)"
+			default n
+
+		config SIMPLE_APP_LOADER
+			bool "SIMPLE_APP_LOADER - HDF file update in USB"
+			default n
+
+	endif
+

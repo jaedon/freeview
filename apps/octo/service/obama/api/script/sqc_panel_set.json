@@ -1,0 +1,1 @@
+"sysctl":{"target":"panel","operation":"set","property":{"global":"on","dimlevel":100,"time":"off","string":{"used":true,"priority":3,"string":"Test Panel String"},"led":[{"used":true,"id":"tv","status":"on","extra":0},{"used":true,"id":"rec","status":"on","extra":0}]}}

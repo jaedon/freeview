@@ -1,0 +1,22 @@
+"meta" : {
+	"operation" : "get",
+	"target" : "schedule",
+	"property" : {
+		"method"	: "add",
+		"param"		: {
+			"eventbase" : false,
+			"starttime"	: 12345678,
+			"duration"	: 3600,
+			"svcuid"	: 303,
+			"action"	: "watch",
+			"repeat"	: {
+				"every"	: "week",
+				"on"	: ["sun", "tue", "sat"]
+			},
+			"watch"	: {
+				"programid"	: 222,
+				"seriesid"	: 333
+			}
+		}
+	}
+}

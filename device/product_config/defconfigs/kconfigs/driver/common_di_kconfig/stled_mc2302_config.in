@@ -1,0 +1,44 @@
+	
+choice
+	prompt "Select Interface Type"
+	depends on STLED_MC2302
+	default STLED_MC2302_NEXUS_SPI
+	config STLED_MC2302_NEXUS_SPI
+		bool
+		prompt "uses NEXUS SPI"
+
+		config STLED_MC2302_NEXUS_SPI_USING_GPIO_FOR_STROBE
+			depends on STLED_MC2302_NEXUS_SPI
+			bool
+			prompt "Use GPIO for STROBE signal"
+			default n
+
+	config STLED_MC2302_NEXUS_GPIO
+		bool
+		prompt "uses NEXUS GPIO as SPI"
+endchoice
+
+config STLED_MC2302_KEY_SCAN
+	bool
+	prompt "Use key scan function"
+	depends on STLED_MC2302
+	default n
+
+choice
+	prompt "Select Key Scan Type"
+	depends on STLED_MC2302_KEY_SCAN
+	default STLED_MC2302_KEY_SCAN_POLLING
+	config STLED_MC2302_KEY_SCAN_POLLING
+		bool
+		prompt "uses polling for scanning key"
+	config STLED_MC2302_KEY_SCAN_INTERRUPT
+		bool
+		prompt "uses interrupt for scanning key"
+endchoice
+	
+config STLED_NUM_LED
+	string	
+	depends on STLED
+	prompt "STLED_NUM_LED"
+	default "0"
+

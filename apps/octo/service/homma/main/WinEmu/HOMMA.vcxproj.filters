@@ -1,0 +1,524 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="cmd">
+      <UniqueIdentifier>{e5364c34-5c20-489b-ab92-d4ad657e254b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{49913cf7-de6f-42a0-8eb5-a15a8a687803}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="int_bus">
+      <UniqueIdentifier>{44312832-b1ca-4681-b85a-d8525392b1c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ipc_server">
+      <UniqueIdentifier>{64b1a6e8-5c2f-4f83-a0ac-4ad92bbcb1d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ipc_system">
+      <UniqueIdentifier>{892b0a2b-c378-4202-8e41-d1ab070a86d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module">
+      <UniqueIdentifier>{3017070d-fb69-47ba-8dea-f73c4f69c4cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="service">
+      <UniqueIdentifier>{4dba3e45-a6b7-49a2-bac6-9d97fe407c7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module\airplay">
+      <UniqueIdentifier>{2199e2ef-0515-43ef-8e04-4ca328209457}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module\common">
+      <UniqueIdentifier>{d8ad4b72-0a7d-4803-8774-a9e2b3c0d89c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module\dial">
+      <UniqueIdentifier>{1904e1eb-ae0b-421e-aba9-979532627137}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module\dmp">
+      <UniqueIdentifier>{2be2fcfe-6b9e-4411-9fbf-9cdb6915c3ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module\dmr">
+      <UniqueIdentifier>{28668db0-4cbe-4923-b91a-cf9a2b034e60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module\dms">
+      <UniqueIdentifier>{cbcd5c52-6689-4506-83a8-2b8a2fa6f308}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module\include">
+      <UniqueIdentifier>{c45f1f76-afe6-4082-9326-32607448c595}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module\satip">
+      <UniqueIdentifier>{7c325f11-43b0-4d6d-a2fa-24771929ba0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module\woon">
+      <UniqueIdentifier>{a4c22f76-b581-42cd-8816-0e366e69c3ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="service\airplay">
+      <UniqueIdentifier>{580b0965-f2e4-4793-9e8c-c2bf06179a3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="service\common">
+      <UniqueIdentifier>{f1c5a9c6-b30e-4c25-966f-aa54dfe5b92a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="service\dial">
+      <UniqueIdentifier>{39c28a34-e710-4e82-85c2-b27ff9452ce3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="service\dmp">
+      <UniqueIdentifier>{06a938d6-627f-46b2-a441-ec880e25b06a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="service\dmr">
+      <UniqueIdentifier>{22c51a62-fca9-4e0a-8109-8da76e0d7b5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="service\dms">
+      <UniqueIdentifier>{bc8932a5-3e5b-4343-b790-68276592a38f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="service\include">
+      <UniqueIdentifier>{1c6e221a-9838-4674-890e-fc3c8a587eb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="service\satip">
+      <UniqueIdentifier>{4a0e1b5f-3415-49b7-a804-a76cf18a086d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="service\woon">
+      <UniqueIdentifier>{2fcf730e-bf51-4947-a484-27cb7d4f59e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module\common\streaming">
+      <UniqueIdentifier>{8a26a5e3-c3f9-4431-b06b-0cb550989375}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module\common\streaming\init_include">
+      <UniqueIdentifier>{c7ca58de-2afe-4853-b8fa-772b23a3f7fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module\common\streaming\mode">
+      <UniqueIdentifier>{f01dd72d-3afc-4286-8020-565fffb8f8e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module\common\streaming\util">
+      <UniqueIdentifier>{69d4f099-9b99-48f9-8de7-4613d918f956}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module\common\streaming\mode\bypass">
+      <UniqueIdentifier>{cc38e72b-f95a-43b3-bef8-c9f9ce9ca51d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module\common\streaming\mode\hls">
+      <UniqueIdentifier>{34e04e11-f7c5-459c-9758-fbd618c3f78c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module\common\streaming\mode\satip">
+      <UniqueIdentifier>{c0e5eddd-4e82-4404-94ea-dd0ac58ed950}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\cmd\cmd_airplay.c">
+      <Filter>cmd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cmd\cmd_dial.c">
+      <Filter>cmd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cmd\cmd_dmp.c">
+      <Filter>cmd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cmd\cmd_dmr.c">
+      <Filter>cmd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cmd\cmd_dms.c">
+      <Filter>cmd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cmd\cmd_satip.c">
+      <Filter>cmd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cmd\cmd_woonserver.c">
+      <Filter>cmd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\int_bus\hom_airplay.c">
+      <Filter>int_bus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\int_bus\hom_dial.c">
+      <Filter>int_bus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\int_bus\hom_dmp.c">
+      <Filter>int_bus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\int_bus\hom_dmr.c">
+      <Filter>int_bus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\int_bus\hom_dms.c">
+      <Filter>int_bus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\int_bus\hom_satip.c">
+      <Filter>int_bus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\int_bus\hom_woons.c">
+      <Filter>int_bus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\int_bus\homma_bus.c">
+      <Filter>int_bus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ipc_server\homma_ipc_session.c">
+      <Filter>ipc_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ipc_server\homma_server.c">
+      <Filter>ipc_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ipc_system\homma_system.c">
+      <Filter>ipc_system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\airplay\pl_airplay.c">
+      <Filter>module\airplay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\pl_ch_list.c">
+      <Filter>module\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\pl_common.c">
+      <Filter>module\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\pl_crypt.c">
+      <Filter>module\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\pl_fs.c">
+      <Filter>module\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\pl_op.c">
+      <Filter>module\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\pl_pvr.c">
+      <Filter>module\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\pl_res_table.c">
+      <Filter>module\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\pl_userdata.c">
+      <Filter>module\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\dial\pl_dial.c">
+      <Filter>module\dial</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\dial\pl_rest_svc.c">
+      <Filter>module\dial</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\dmp\pl_dmp.c">
+      <Filter>module\dmp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\dmp\pl_dmp_jp.c">
+      <Filter>module\dmp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\dmp\pl_dmp_upload.c">
+      <Filter>module\dmp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\dmr\pl_dmr.c">
+      <Filter>module\dmr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\dms\pl_dms.c">
+      <Filter>module\dms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\dms\pl_dms_fsop.c">
+      <Filter>module\dms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\dms\pl_dms_scan.c">
+      <Filter>module\dms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\dms\pl_dms_scan_epg.c">
+      <Filter>module\dms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\woon\pl_woons.c">
+      <Filter>module\woon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\satip\pl_satip.c">
+      <Filter>module\satip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\service\airplay\airplay.c">
+      <Filter>service\airplay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\service\common\svc_common.c">
+      <Filter>service\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\service\dial\dial.c">
+      <Filter>service\dial</Filter>
+    </ClCompile>
+    <ClCompile Include="..\service\dmp\dmp.c">
+      <Filter>service\dmp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\service\dmr\dmr.c">
+      <Filter>service\dmr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\service\dms\dms.c">
+      <Filter>service\dms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\service\woon\woons.c">
+      <Filter>service\woon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\service\satip\satip.c">
+      <Filter>service\satip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\homma.c" />
+    <ClCompile Include="..\..\api\hom_api.c" />
+    <ClCompile Include="..\module\common\streaming\pl_streaming.c">
+      <Filter>module\common\streaming</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\streaming\pl_streaming_callback.c">
+      <Filter>module\common\streaming</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\streaming\pl_streaming_context.c">
+      <Filter>module\common\streaming</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\streaming\pl_streaming_debug.c">
+      <Filter>module\common\streaming</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\streaming\pl_streaming_init.c">
+      <Filter>module\common\streaming</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\streaming\pl_streaming_receive.c">
+      <Filter>module\common\streaming</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\streaming\pl_streaming_resource.c">
+      <Filter>module\common\streaming</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\streaming\util\pl_m3u8.c">
+      <Filter>module\common\streaming\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\streaming\util\pl_mediaprofile.c">
+      <Filter>module\common\streaming\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\streaming\util\pl_ringbuf_context.c">
+      <Filter>module\common\streaming\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\streaming\util\pl_streaming_spec.c">
+      <Filter>module\common\streaming\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\streaming\util\pl_streamingkey.c">
+      <Filter>module\common\streaming\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\streaming\mode\bypass\pl_streaming_modebypass.c">
+      <Filter>module\common\streaming\mode\bypass</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\streaming\mode\hls\pl_streaming_modehls.c">
+      <Filter>module\common\streaming\mode\hls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\module\common\streaming\mode\satip\pl_streaming_modesatip.c">
+      <Filter>module\common\streaming\mode\satip</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\cmd\Makefile">
+      <Filter>cmd</Filter>
+    </None>
+    <None Include="..\int_bus\Makefile">
+      <Filter>int_bus</Filter>
+    </None>
+    <None Include="..\ipc_server\Makefile">
+      <Filter>ipc_server</Filter>
+    </None>
+    <None Include="..\ipc_system\Makefile">
+      <Filter>ipc_system</Filter>
+    </None>
+    <None Include="..\service\Makefile">
+      <Filter>service</Filter>
+    </None>
+    <None Include="..\module\airplay\Makefile">
+      <Filter>module\airplay</Filter>
+    </None>
+    <None Include="..\module\common\Makefile">
+      <Filter>module\common</Filter>
+    </None>
+    <None Include="..\module\dial\Makefile">
+      <Filter>module\dial</Filter>
+    </None>
+    <None Include="..\module\dmp\Makefile">
+      <Filter>module\dmp</Filter>
+    </None>
+    <None Include="..\module\dmr\Makefile">
+      <Filter>module\dmr</Filter>
+    </None>
+    <None Include="..\module\dms\Makefile">
+      <Filter>module\dms</Filter>
+    </None>
+    <None Include="..\module\include\Makefile.include.mxlib">
+      <Filter>module\include</Filter>
+    </None>
+    <None Include="..\module\woon\Makefile">
+      <Filter>module\woon</Filter>
+    </None>
+    <None Include="..\module\satip\Makefile">
+      <Filter>module\satip</Filter>
+    </None>
+    <None Include="..\service\airplay\Makefile">
+      <Filter>service\airplay</Filter>
+    </None>
+    <None Include="..\service\common\Makefile">
+      <Filter>service\common</Filter>
+    </None>
+    <None Include="..\service\dial\Makefile">
+      <Filter>service\dial</Filter>
+    </None>
+    <None Include="..\service\dmp\Makefile">
+      <Filter>service\dmp</Filter>
+    </None>
+    <None Include="..\service\dmr\Makefile">
+      <Filter>service\dmr</Filter>
+    </None>
+    <None Include="..\service\dms\Makefile">
+      <Filter>service\dms</Filter>
+    </None>
+    <None Include="..\service\woon\Makefile">
+      <Filter>service\woon</Filter>
+    </None>
+    <None Include="..\service\satip\Makefile">
+      <Filter>service\satip</Filter>
+    </None>
+    <None Include="..\Makefile" />
+    <None Include="..\..\api\Makefile" />
+    <None Include="..\module\common\streaming\Makefile">
+      <Filter>module\common\streaming</Filter>
+    </None>
+    <None Include="..\module\common\streaming\Makefile.include.streaming">
+      <Filter>module\common\streaming</Filter>
+    </None>
+    <None Include="..\module\common\streaming\mode\Makefile">
+      <Filter>module\common\streaming\mode</Filter>
+    </None>
+    <None Include="..\module\common\streaming\util\Makefile">
+      <Filter>module\common\streaming\util</Filter>
+    </None>
+    <None Include="..\module\common\streaming\mode\bypass\Makefile">
+      <Filter>module\common\streaming\mode\bypass</Filter>
+    </None>
+    <None Include="..\module\common\streaming\mode\hls\Makefile">
+      <Filter>module\common\streaming\mode\hls</Filter>
+    </None>
+    <None Include="..\module\common\streaming\mode\satip\Makefile">
+      <Filter>module\common\streaming\mode\satip</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\common.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\define.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\hom_int.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\homma_bus.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\homma_int.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\homma_ipc_decode.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\homma_server.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\homma_system.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\dial\pl_rest_svc.h">
+      <Filter>module\dial</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\include\pl_airplay.h">
+      <Filter>module\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\include\pl_ch_list.h">
+      <Filter>module\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\include\pl_common.h">
+      <Filter>module\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\include\pl_crypt.h">
+      <Filter>module\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\include\pl_dial.h">
+      <Filter>module\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\include\pl_dmp.h">
+      <Filter>module\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\include\pl_dmr.h">
+      <Filter>module\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\include\pl_dms.h">
+      <Filter>module\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\include\pl_fs.h">
+      <Filter>module\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\include\pl_op.h">
+      <Filter>module\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\include\pl_pvr.h">
+      <Filter>module\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\include\pl_satip.h">
+      <Filter>module\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\include\pl_streaming.h">
+      <Filter>module\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\include\pl_woons.h">
+      <Filter>module\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\service\include\airplay.h">
+      <Filter>service\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\service\include\dial.h">
+      <Filter>service\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\service\include\dmp.h">
+      <Filter>service\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\service\include\dmr.h">
+      <Filter>service\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\service\include\dms.h">
+      <Filter>service\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\service\include\satip.h">
+      <Filter>service\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\service\include\svc_common.h">
+      <Filter>service\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\service\include\woons.h">
+      <Filter>service\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\hom_api.h" />
+    <ClInclude Include="..\..\include\hom_api_airplay.h" />
+    <ClInclude Include="..\..\include\hom_api_dial.h" />
+    <ClInclude Include="..\..\include\hom_api_dmp.h" />
+    <ClInclude Include="..\..\include\hom_api_dmr.h" />
+    <ClInclude Include="..\..\include\hom_api_dms.h" />
+    <ClInclude Include="..\..\include\hom_api_satip.h" />
+    <ClInclude Include="..\..\include\hom_api_woonserver.h" />
+    <ClInclude Include="..\module\common\streaming\int_streaming.h">
+      <Filter>module\common\streaming</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_m3u8.h">
+      <Filter>module\common\streaming\init_include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_mediaprofile.h">
+      <Filter>module\common\streaming\init_include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_mode_bypass.h">
+      <Filter>module\common\streaming\init_include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_mode_hls.h">
+      <Filter>module\common\streaming\init_include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_mode_satip.h">
+      <Filter>module\common\streaming\init_include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_ringbuf_context.h">
+      <Filter>module\common\streaming\init_include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_streaming_callback.h">
+      <Filter>module\common\streaming\init_include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_streaming_context.h">
+      <Filter>module\common\streaming\init_include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_streaming_receive.h">
+      <Filter>module\common\streaming\init_include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_streaming_resource.h">
+      <Filter>module\common\streaming\init_include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_streaming_spec.h">
+      <Filter>module\common\streaming\init_include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_streamingkey.h">
+      <Filter>module\common\streaming\init_include</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

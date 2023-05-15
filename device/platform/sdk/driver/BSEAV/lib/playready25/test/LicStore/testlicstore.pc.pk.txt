@@ -1,0 +1,94 @@
+-------------------BVT ends here--------------------------
+  
+'************************************************************************
+'Below are performance test cases.  
+
+'For performance testing, we may need to add more licenses ( just uncomment
+'the adding actions.
+
+8877:Add multiple licenses with unique kid 
+SkipTestIf(!WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+TestLicStoreLog( 0, Results of Performance Testing to License Store )
+TestLicStoreLog( 1, NULL )
+TestLicStoreAddMultiLicenses( XML LS Context, perflicense1.txt, 10, 1, 16 )
+TestLicStoreLog( 2, Added the first 10 unique licenses to the store )
+TestLicStoreLog( 1, NULL )
+'TestLicStoreAddMultiLicenses( XML LS Context, perflicense1.txt, 2000, 1, 16 )
+'TestLicStoreLog( 2, Added the first 2000 unique licenses to the store )
+'TestLicStoreLog( 1, NULL )
+'TestLicStoreAddMultiLicenses( XML LS Context, perflicense1.txt, 10000, 10001, 16 )
+'TestLicStoreLog( 2, Added the second 10000 unique licenses to the store )
+'TestLicStoreLog( 1, NULL )
+'TestLicStoreAddMultiLicenses( XML LS Context, perflicense1.txt, 10000, 20001, 16 )
+'TestLicStoreLog( 2, Added the third 10000 unique licenses to the store )
+'TestLicStoreLog( 1, NULL )
+'TestLicStoreAddMultiLicenses( XML LS Context, perflicense1.txt, 10000, 30001, 16 )
+'TestLicStoreLog( 2, Added the fourth 10000 unique licenses to the store )
+'TestLicStoreLog( 1, NULL )
+'TestLicStoreAddMultiLicenses( XML LS Context, perflicense1.txt, 10000, 40001, 16 )
+'TestLicStoreLog( 2, Added the fifth 10000 unique licenses to the store )
+'TestLicStoreLog( 1, NULL )
+'TestLicStoreAddMultiLicenses( XML LS Context, perflicense1.txt, 10000, 50001, 16 )
+'TestLicStoreLog( 2, Added the sixth 10000 unique licenses to the store )
+'TestLicStoreLog( 1, NULL )
+'TestLicStoreAddMultiLicenses( XML LS Context, perflicense1.txt, 10000, 60001, 16 )
+'TestLicStoreLog( 2, Added the seventh 10000 unique licenses to the store )
+'TestLicStoreLog( 1, NULL )
+'TestLicStoreAddMultiLicenses( XML LS Context, perflicense1.txt, 10000, 70001, 16 )
+'TestLicStoreLog( 2, Added the eigth 10000 unique licenses to the store )
+'TestLicStoreLog( 1, NULL )
+'TestLicStoreAddMultiLicenses( XML LS Context, perflicense1.txt, 10000, 80001, 16 )
+'TestLicStoreLog( 2, Added the ninth 10000 unique licenses to the store )
+'TestLicStoreLog( 1, NULL )
+'TestLicStoreAddMultiLicenses( XML LS Context, perflicense1.txt, 10000, 90001, 16 )
+'TestLicStoreLog( 2, Added the tenth 10000 unique licenses to the store )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+TestLicStoreReinitialize( 0 )
+
+
+'**********************************************************************************
+'The following actions are operated on top of the large license base created above
+
+TestLicStoreLog( 3, The following actions are operated on top of the above base licenses in the store )
+
+'Add multiple licenses with the same kid 
+TestLicStoreReinitialize( 0 )
+TestLicStoreLog( 1, NULL )
+Test_DRM_LST_Open( XML LS Context, Valid HDS )
+TestLicStoreAddMultiLicenses( XML LS Context, perflicense1.txt, 200, 200000, 0 )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+TestLicStoreLog( 2, Added the 200 licenses of the same KID )
+TestLicStoreReinitialize( 0 )
+
+'Get an existed license from this base
+TestLicStoreReinitialize( 0 )
+TestLicStoreLog( 1, NULL )
+Test_DRM_LST_Open( XML LS Context, Valid HDS )
+Test_DRM_LST_AddLicense( XML LS Context, 0, perflicense2.txt, 4 )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+Test_DRM_LST_Open( XML LS Context, Valid HDS )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, perflicense2.txt )
+Test_DRM_LST_GetLicense( XML LS Context, Dump, Dump, NULL, 0, 4 )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+TestLicStoreLog( 2, Got a license )
+TestLicStoreReinitialize( 0 )
+
+'enumerate licenses
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL)
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL)
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL)
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL)
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL)
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL)
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+
+'this action will remove the perflog file. For the daily run, we
+'don't keep this file of performance testing
+TestLicStoreLog( 4, NULL )
+

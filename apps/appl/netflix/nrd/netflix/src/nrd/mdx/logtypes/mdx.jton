@@ -1,0 +1,33 @@
+// mdx
+//
+// Description
+
+import logcommon;
+
+mdx = {   "#mandatory" : [ "type", "sev", "esn", "xid" ],
+          "#extensible" : true,
+          "type" : "enum(mdx)",
+          "sev" : sev,
+          "esn" : esn,
+          "xid" : xid,
+          "url" : "string",
+          "iname" : "string",
+          "role" : "enum(CONTROLLER|TARGET)",
+          "disc" : "boolean",
+          "revealed" : "boolean",
+          "dropped" : "integer",
+          "devices" : [mdxdeviceobj]
+      };
+
+mdxdeviceobj = { "#mandatory" : ["url", "uuid", "paired", "fname", "sid", "targetuserid", "controlleruserid", "sent", "recvd" ],
+                 "#extensible" : false,
+                 "url" : "string",
+                 "uuid" : "string",
+                 "paired" : "boolean",
+                 "fname" : "string",
+                 "sid" : "integer",
+                 "targetuserid" : "string",
+                 "controlleruserid" : "string",
+                 "sent" : "integer",
+                 "recvd" : "integer"
+               };

@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+<!--
+		<link rel="stylesheet" type="text/css" href="/mystyle.css">
+-->
+		<script language="javascript" type="text/javascript" src="/jquery-1.7.1.min.js"></script>
+		<script language="javascript" type="text/javascript" src="/ScheduleInfo.js"></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script type="text/javascript">
+			google.charts.load("current", {packages:["timeline"]});
+			google.charts.setOnLoadCallback(drawChart);
+
+			var timeline_schedule;
+			var timeline_recording;
+
+			var schedule_data = [];
+			var recording_data = [];
+
+			var options_schedule = {
+				width: 1000
+			};
+			var options_recording= {
+				width: 1000
+			};
+
+			function drawChart() {
+				timeline_schedule = new google.visualization.Timeline(document.getElementById('schedule_timeline'));
+				timeline_recording = new google.visualization.Timeline(document.getElementById('recording_timeline'));
+			}
+
+			function drawScheduleTimeline() {
+				var data = new google.visualization.DataTable();
+				data.addColumn({type: 'string', id: 'SVCName'});
+				data.addColumn({type: 'string', id: 'EventName'});
+				data.addColumn({type: 'date', id:'StartTime'});
+				data.addColumn({type: 'date', id:'EndTime'});
+				data.addRows(schedule_data);
+
+				console.log('draw timeline!!');
+				timeline_schedule.draw(data, options_schedule);
+
+			}
+			function drawRecordingTimeline() {
+				var data = new google.visualization.DataTable();
+				data.addColumn({type: 'string', id: 'SVCName'});
+				data.addColumn({type: 'string', id: 'ContentName'});
+				data.addColumn({type: 'date', id:'StartTime'});
+				data.addColumn({type: 'date', id:'EndTime'});
+				data.addRows(recording_data);
+
+				console.log('draw timeline!!');
+				timeline_recording.draw(data, options_recording);
+
+			}
+		</script>
+
+		<!-- Set WebSocket ############################## -->
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			window.onload = startSocketIO;
+		</script>
+		<!-- Set WebSocket ############################## -->
+
+		<style scoped>
+			.half_width { width: 50%; }
+			.full_width { width: 100%; }
+		</style>
+	</head>
+	<body>
+		<div>
+			<h1>Schedule & Recording Timeline</h1>
+			<FORM>
+				<INPUT type="BUTTON" class="button rosy" value="Schedule Info" onclick='scheduleInfoButtonClicked()'/>
+				<INPUT type="BUTTON" class="button rosy" value="Recording Info" onclick='recordingInfoButtonClicked()'/>
+			</FORM>
+		</div>
+		<hr/>
+		<div style='overflow:scroll;'>
+			<FORM>
+				<select id="sch_name_select" onchange="schItemSelected()">
+					<option> event_name
+					<option> event_id
+					<option> type
+					<option> seriesId
+					<option> programId
+					<option> seriesCRID
+					<option> programCRID
+				</select>
+
+				<FORM>
+					<input type=range class=half_width width=1000 id=sch_range min=600 value=1000 max=100000 step=100 oninput="sch_outputUpdate(value)">
+					<output for=sch_range id=sch_width>width : 1000</output>
+				</FORM>
+				<h3> Schedule Info </h3>
+				<div id="schedule_timeline" style="height: 500px;"></div>
+
+			</FORM>
+		</div>
+		<hr/>
+		<div style='overflow:scroll;'>
+			<FORM>
+				<select id="rec_name_select" onchange="recItemSelected()">
+					<option> content_name 
+					<option> content_id
+					<option> content_url
+					<option> rec_status
+					<option> rec_endreason
+					<option> video_type
+				</select>
+
+				<FORM>
+					<input type=range class=half_width width=1000 id=rec_range min=600 value=1000 max=100000 step=100 oninput="rec_outputUpdate(value)">
+					<output for=rec_range id=rec_width>width : 1000</output>
+				</FORM>
+				<h3> Recording Info </h3>
+				<div id="recording_timeline" style="height: 500px;"></div>
+			</FORM>
+		</div>
+	</body>
+</html>
+

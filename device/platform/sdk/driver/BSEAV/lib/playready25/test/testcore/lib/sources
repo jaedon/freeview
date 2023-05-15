@@ -1,0 +1,12 @@
+!include ..\..\reftest.cmn
+
+TARGETNAME=PKTestCore
+TARGETTYPE=LIBRARY
+
+
+SOURCES = \
+	..\apiParams.c \
+	..\logger.c \
+	..\tclib.c \
+	..\TestVariableArray.c \
+	..\drmtestrsautils.c \

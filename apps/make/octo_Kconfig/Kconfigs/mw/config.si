@@ -1,0 +1,86 @@
+#############################################
+#					MW/SI Configuration					#
+#############################################
+
+comment "MW/SI Configuration. (MW_SI_XXX)"
+
+comment "Operator Specification"
+
+	config MW_SI_OP_COMMON
+		bool "MW_SI_OP_COMMON - The common SI modules, which uses the eu_sat, eu_cab, eu_sat"
+		default y
+
+comment "Functions"
+
+	config MW_SI_IGNORE_AVC_DES
+		bool "MW_SI_IGNORE_AVC_DES - Ignore AVC descriptor and make hard coding of related parameters. (From UK)"
+		default n
+
+	config MW_SI_AUDIO_DESCRIPTION
+		bool "MW_SI_AUDIO_DESCRIPTION - Support audio description."
+		default n
+
+	config MW_SI_HOME_CHANNEL
+		bool "MW_SI_HOME_CHANNEL - Support Barker EPG"
+		default n
+
+	config MW_SI_DOWNLOAD
+		bool "MW_SI_DOWNLOAD - Download SI"
+		default y
+
+	config MW_SI_OBJ_CAROUSEL
+		bool "MW_SI_OBJ_CAROUSEL - Support OBJECT_CAROUSEL"
+		default n
+
+	config MW_SI_XML
+		bool "MW_SI_XML - Support the XML parser"
+		default n
+
+	config MW_SI_TOT
+		bool "MW_SI_TOT - Use TOT primary"
+		default n
+		
+	config MW_SI_LOCALTIME
+		bool "MW_SI_LOCALTIME - if it is selected, using localtime insted of TZ, it must be enabled on GCLIBC"
+		default n
+		
+	config MW_SI_TIMEZONEDB_BYTOT
+		depends on MW_SI_LOCALTIME
+		bool "MW_SI_TIMEZONEDB_BYTOT - if it is selected, no using zoneinfo/tzdatabase files."
+		default n
+
+	config MW_SI_EIT_CACHING_LIVE
+		bool "MW_SI_EIT_CACHING_LIVE - cache the EIT ACT p/f of the other services for enhancing the zapping speed."
+		default n
+
+	config MW_SI_MULTINETID
+		bool "MW_SI_MULTINETID - Support multiple network Id in sky service configuration fil(xml)"
+		default n
+
+	config MW_SI_AIT
+		bool "MW_SI_AIT - Support AIT"
+		default n
+
+	config MW_SI_RCT
+		bool "MW_SI_RCT - Support RCT"
+		default n
+
+	config MW_SI_PMT_RATING
+		bool "MW_SI_PMT_RATING - Parental rating is in PMT"
+		default n
+
+	config MW_SI_TVANYTIME_SERIES_REC
+		bool "MW_SI_TVANYTIME_SERIES_REC - Support TV-Anytime series recording"
+		default n
+
+	config USE_DXREC_USE_TVA_SERIES_REC
+		bool "CONFIG_USE_DXREC_USE_TVA_SERIES_REC - Support TV-Anytime series recording"
+		default n
+
+	config MW_SI_CH_MASKING
+		bool "MW_SI_CH_MASKING - Ch Masking "
+		default n
+		
+	config MW_SI_UPDATE_ALLSDT
+		bool "MW_SI_LIVE_UPDATE_ALLSDT - Update All Service Info in SDT on live"
+		default n

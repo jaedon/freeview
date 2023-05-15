@@ -1,0 +1,159 @@
+############################################################
+#     Copyright (c) 2003-2006, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.encoder $
+# $brcm_Revision: 7 $
+# $brcm_Date: 8/25/06 2:12p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# Created: 02/09/2001 by Marcus Kellerman
+#
+# $brcm_Log: /BSEAV/api/build/Makefile.encoder $
+# 
+# 7   8/25/06 2:12p erickson
+# PR21875: convert to BCHP_VER
+# 
+# 6   7/5/06 5:01p ahulse
+# PR20504: Conditionally compile support for vpp settings in 7042
+# 
+# 5   8/5/05 2:46p erickson
+# PR16583: use BUILD_SYSTEM=proxy for proxy builds so that PLATFORM
+# information is available in the proxy layer
+# 
+# 4   6/1/05 4:53p dlwin
+# PR 14402: Use 7042 as the default encoder for 97038 platforms going
+# forward.  Only Ax and Bx boards will have support for 7041.
+# 
+# 3   3/9/05 7:45p vsilyaev
+# PR 14402: Added support for 7042.
+# 
+# 2   2/18/05 11:52a mphillip
+# PR14193: Disable 7041 on 7038 C0
+# 
+# 1   2/7/05 6:54p dlwin
+# Merge down for release 2005_REFSW_MERGETOMAIN:
+# 
+# Irvine_BSEAVSW_Devel/21   1/27/05 4:36p erickson
+# PR13908: updated proxy
+# 
+# Irvine_BSEAVSW_Devel/20   1/25/05 5:42p erickson
+# PR13908: makefile rework
+# 
+# Irvine_BSEAVSW_Devel/19   1/25/05 5:11p erickson
+# PR13908: Settop API makefile rework
+# 
+############################################################
+
+# Default to n, must be explicitly turned on below
+MPEGENCODER_CHIP=n
+
+# Single encoder, used with 7115
+ifeq (${BCM_BOARD}, bcm97115)
+MPEGENCODER_CHIP = 7040
+CFLAGS += -DBCM704X_EBI_BUS=1 -DUSE_KFIR_I2CBUS=0
+endif
+
+# Dual encoder, used with 7110
+ifeq ($(BCM_BOARD), bcm97110)
+ifneq ($(PLATFORM), 97111)
+MPEGENCODER_CHIP = 7041
+CFLAGS += -DBCM704X_EBI_BUS=1 -DUSE_KFIR_I2CBUS=0
+endif
+endif
+
+# Dual encoder, used with venom2
+ifeq (${BCM_BOARD}, bcm93740)
+MPEGENCODER_CHIP=7041
+CFLAGS += -DUSE_KFIR_I2CBUS=0
+endif
+
+# Dual encoder, used with 7038
+ifeq (${BCM_BOARD}, bcm97038)
+ifeq ($(findstring $(BCHP_VER),A0 B0 B1 B2), $(BCHP_VER))
+MPEGENCODER_CHIP=7041
+CFLAGS += -DUSE_KFIR_I2CBUS=0
+else
+MPEGENCODER_CHIP=7042
+endif
+endif
+
+# NOTE: No encoder support on bcm97395 because some pins were reused
+# for 7411 support.
+ifneq (,$(filter-out vxworks linux linuxkernel, ${SYSTEM}))
+MPEGENCODER_CHIP=n
+endif
+ifeq ($(BUILD_SYSTEM),proxy)
+MPEGENCODER_CHIP=n
+endif
+
+
+ifneq ($(MPEGENCODER_CHIP),n)
+
+SRCS += bsettop_encode.c
+CFLAGS += -DBENC_CHIP=${MPEGENCODER_CHIP} 
+
+ifeq (${BUILD_SYSTEM},legacy)
+MPEGENCODER_ROOT = ${MPEGENCODER}/bcm${MPEGENCODER_CHIP}/kfirddk
+vpath %.c ${MPEGENCODER}
+SRCS += bcmmpegenc.c
+else
+#Magnum
+ifeq (${MPEGENCODER_CHIP},7042)
+
+# Only set this if you have special 7042 firmware that 
+# supports user configurable vpp settings              
+ifeq ($(VPP_7042_SUPPORT),y)
+CFLAGS += -DVPP_7042_SUPPORT
+endif
+
+include  $(ROCKFORD)/modules/${MPEGENCODER_CHIP}/enc.inc
+else
+# 7041 or 7040
+MPEGENCODER = ${MAGNUM}/portinginterface/enc
+MPEGENCODER_ROOT = ${MPEGENCODER}/${MPEGENCODER_CHIP}/kfirddk
+vpath %.c ${MPEGENCODER}
+SRCS += benc.c
+CFLAGS += -I${MPEGENCODER}
+endif
+endif
+
+ifneq (${MPEGENCODER_CHIP},7042)
+
+vpath %.c ${MPEGENCODER_ROOT}/common
+SRCS += board.c encoder.c global.c kfir.c kfir_i2c.c \
+		params.c sparams.c util.c vidproc.c status.c 
+
+ifeq (${MPEGENCODER_CHIP}, 7041)
+SRCS += saa7115.c
+endif
+
+vpath %.c ${MPEGENCODER_ROOT}/library
+SRCS +=  lib_init.c lib_ucod.c
+
+ifeq (${SYSTEM}, linux)
+SRCS += driver.c asyncio.c lib_util.c
+vpath %.c ${MPEGENCODER_ROOT}/unix
+SRCS += os.c
+endif
+
+CFLAGS += \
+		-I${MPEGENCODER_ROOT}/include 
+
+endif
+
+else
+# No encoder
+ifneq ($(BUILD_SYSTEM),proxy)
+SRCS += bsettop_encode_stub.c
+endif
+endif
+

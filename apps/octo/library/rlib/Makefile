@@ -1,0 +1,2 @@
+obj-y += rlib.o
+

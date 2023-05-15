@@ -1,0 +1,51 @@
+
+# set variables
+width=1400
+height=600
+interval=3
+outimagename="smaps_analysis.png"
+finalSummary="test7/summary/finalSummary.txt"
+categories="00_netflix(file) 01_JSC_or_Qt(file) 02_Other_3rd_lib(file) 03_Unknown_in_general_heap 04_ResourceCache_w/o_headers 05_JSC_or_Qt 06_DFB 07_StreamingNetworkBuffer 08_VideoDecoderRenderer 09_AudioDecoderRenderer 10_owner_not_found 11_maps_analyzer(exclude_this) Others(unreported)"
+
+# set color schemes
+colors="#5555aa #55aa55 #aa5555 #aaaa55 #55aaaa #aa55aa #3333cc #33cc33 #cc3333 #cccc33 #33cccc #cc33cc #cccccc"
+
+# set terminal
+set terminal wxt size width, height noraise title "monitored smaps analysis on " . finalSummary
+
+# set legends
+set key outside;
+
+# set axis and grid
+set xdata time
+set timefmt "%Y%m%d-%H%M%S"
+set format x "%H:%M:%S"
+set ytics 10
+set grid front xtics ytics
+set ylabel "Resident Set Size (MB)"
+
+# plot
+plot \
+finalSummary every ::1 using 1:($2 + $3 + $4 + $5 + $6 + $7 + $8 + $9 + $10 + $11 + $12 + $13 + $14) t word(categories, 13) w filledcurves x1 lc rgb word(colors, 13), \
+finalSummary every ::1 using 1:($2 + $3 + $4 + $5 + $6 + $7 + $8 + $9 + $10 + $11 + $12 + $13) t word(categories, 12) w filledcurves x1 lc rgb word(colors, 12), \
+finalSummary every ::1 using 1:($2 + $3 + $4 + $5 + $6 + $7 + $8 + $9 + $10 + $11 + $12) t word(categories, 11) w filledcurves x1 lc rgb word(colors, 11), \
+finalSummary every ::1 using 1:($2 + $3 + $4 + $5 + $6 + $7 + $8 + $9 + $10 + $11) t word(categories, 10) w filledcurves x1 lc rgb word(colors, 10), \
+finalSummary every ::1 using 1:($2 + $3 + $4 + $5 + $6 + $7 + $8 + $9 + $10) t word(categories, 9) w filledcurves x1 lc rgb word(colors, 9), \
+finalSummary every ::1 using 1:($2 + $3 + $4 + $5 + $6 + $7 + $8 + $9) t word(categories, 8) w filledcurves x1 lc rgb word(colors, 8), \
+finalSummary every ::1 using 1:($2 + $3 + $4 + $5 + $6 + $7 + $8) t word(categories, 7) w filledcurves x1 lc rgb word(colors, 7), \
+finalSummary every ::1 using 1:($2 + $3 + $4 + $5 + $6 + $7) t word(categories, 6) w filledcurves x1 lc rgb word(colors, 6), \
+finalSummary every ::1 using 1:($2 + $3 + $4 + $5 + $6) t word(categories, 5) w filledcurves x1 lc rgb word(colors, 5), \
+finalSummary every ::1 using 1:($2 + $3 + $4 + $5) t word(categories, 4) w filledcurves x1 lc rgb word(colors, 4), \
+finalSummary every ::1 using 1:($2 + $3 + $4) t word(categories, 3) w filledcurves x1 lc rgb word(colors, 3), \
+finalSummary every ::1 using 1:($2 + $3) t word(categories, 2) w filledcurves x1 lc rgb word(colors, 2), \
+finalSummary every ::1 using 1:($2) t word(categories, 1) w filledcurves x1 lc rgb word(colors, 1)
+
+# save the image
+set terminal png size width, height
+set output outimagename
+replot
+
+# pause and reload
+pause interval
+reread
+

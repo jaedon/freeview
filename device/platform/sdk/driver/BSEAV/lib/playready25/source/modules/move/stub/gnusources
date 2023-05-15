@@ -1,0 +1,14 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmmovestub
+TARGETTYPE=LIBRARY
+
+SOURCES =             \
+    drmmoveimplstub.c \
+    moveutilstub.c
+

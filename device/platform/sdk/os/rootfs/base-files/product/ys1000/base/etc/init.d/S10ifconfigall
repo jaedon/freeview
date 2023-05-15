@@ -1,0 +1,11 @@
+#! /bin/sh
+
+for x in `ls /sys/class/net`; do
+	echo "Configuring $x interface"
+	if [[ "x$x" == "xeth1" ]]; then
+		/sbin/ifconfig $x up
+	else
+		/sbin/ifconfig $x up
+	fi
+done
+

@@ -1,0 +1,7 @@
+"sysctl":{
+	"target":"massstorage",
+	"operation":"get",
+	"property":{
+		"get_action":"storage_list"
+	}
+}

@@ -1,0 +1,1744 @@
+'Daily test cases
+'''''''''''''''''''''''''''''''''''''''''''''
+' DRTs
+
+19119:DRT: Data Store Namespace APIs: Open, Commit, Close, Delete (HDS implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCheckESTDirtyBit( FALSE )
+TestDatastoreCreateStore
+TestDatastoreCheckESTDirtyBit( TRUE )
+TestDatastoreOpenStore
+TestDatastoreCommitStore
+TestDatastoreCheckESTDirtyBit( FALSE )
+TestDatastoreCloseStore
+
+' Check that creating a slot sets the dirty Flag
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreCheckESTDirtyBit( FALSE )
+TestDatastoreOpenSlot = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCheckESTDirtyBit( TRUE )
+TestDatastoreCloseSlot
+TestDatastoreCloseNamespace
+TestDatastoreCommitStore
+TestDatastoreCheckESTDirtyBit( FALSE )
+TestDatastoreCloseStore
+
+' Check That Writing to a slot sets the Dirty Flag
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreCheckESTDirtyBit( FALSE )
+TestDatastoreOpenSlot
+TestDatastoreCheckESTDirtyBit( FALSE )
+TestDatastoreSlotWrite( ThisIsTheStringIAmWritingToTheSlot )
+TestDatastoreCheckESTDirtyBit( TRUE )
+TestDatastoreCloseSlot
+TestDatastoreCloseNamespace
+TestDatastoreCommitStore
+TestDatastoreCheckESTDirtyBit( FALSE )
+
+' Check That Deleting a Slot sets the Dirty Flag
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreCheckESTDirtyBit( FALSE )
+TestDatastoreDeleteSlot
+TestDatastoreCheckESTDirtyBit( TRUE )
+TestDatastoreCloseNamespace
+TestDatastoreCommitStore
+TestDatastoreCheckESTDirtyBit( FALSE )
+TestDatastoreUninit
+TestDatastoreCheckESTDirtyBit( FALSE )
+
+'************************************************************************
+'BVT test cases
+
+1056: Init/Uninit (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreUninit
+
+1106: Init/Uninit (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreUninit
+
+1073: Data Store APIs: Create, Commit, Close, Open (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreCommitStore
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1116: Data Store APIs: Create, Commit, Close, Open (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreCommitStore
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1345: Data Store Namespace APIs: Open, Commit, Close, Delete (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreCommitNamespace
+TestDatastoreCloseNamespace
+' TestDatastoreDeleteNamespace( NAMESPACE )
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1122: Data Store Namespace APIs: Open, Commit, Close, Delete (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreCommitNamespace
+TestDatastoreCloseNamespace
+' TestDatastoreDeleteNamespace( NAMESPACE )
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1354: Slot Management APIs with default parameters: Open, MakeSlotHint, Close, Delete (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot
+TestDatastoreOpenSlot
+TestDatastoreMakeSlotHint
+TestDatastoreCloseSlot
+TestDatastoreDeleteSlot
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1475: Slot Management APIs with default parameters: Open, MakeSlotHint, Close, Delete (Embedded implementation)
+' Embedded implementation
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot
+TestDatastoreOpenSlot
+TestDatastoreMakeSlotHint
+TestDatastoreCloseSlot
+TestDatastoreDeleteSlot
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1085: Slot Enumeration APIs with default parameters: InitEnum, EnumNext, EnumReloadCurrent, EnumDeleteCurrent (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot
+TestDatastoreInitSlotEnum
+TestDatastoreSlotEnumNext
+TestDatastoreCloseSlot
+TestDatastoreSlotEnumReloadCurrent
+TestDatastoreSlotEnumDeleteCurrent
+TestDatastoreSlotEnumNext=0x80070103 ( DRM_E_NOMORE )
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1128: Slot Enumeration APIs with default parameters: InitEnum, EnumNext, EnumReloadCurrent, EnumDeleteCurrent (Embedded implementation)
+' Embedded implementation
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot
+TestDatastoreInitSlotEnum
+TestDatastoreSlotEnumNext
+TestDatastoreCloseSlot
+TestDatastoreSlotEnumReloadCurrent
+TestDatastoreSlotEnumDeleteCurrent
+TestDatastoreSlotEnumNext=0x80070103 ( DRM_E_NOMORE )
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+' 1006: BlockScanDelete
+' 2006: BlockScanDelete
+' This is not required for license store implementation. The HDS implementation is already tested in the HDS test area.
+' For any implementation used for a Meter Store, this will need to be tested.
+
+1480: Slot APIs with default parameters: Seek, Read, Write, Resize (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 50 )
+TestDatastoreSlotWrite( ThisIsTheStringIAmWritingToTheSlot )
+TestDatastoreSlotSeek( 0, eDRM_DST_SEEKSET ) ' Seek back to beginning
+TestDatastoreSlotRead( ThisIsTheStringIAmWritingToTheSlot )
+TestDatastoreSlotSeek( 5, eDRM_DST_SEEKSET )
+TestDatastoreSlotRead( sTheString )
+TestDatastoreSlotSeek( 5 )
+TestDatastoreSlotRead( itingToThe )
+TestDatastoreCloseSlot
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1645: Slot APIs with default parameters: Seek, Read, Write, Resize (Embedded implementation)
+' Embedded implementation
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 50 )
+TestDatastoreSlotWrite( ThisIsTheStringIAmWritingToTheSlot )
+TestDatastoreSlotSeek( 0, eDRM_DST_SEEKSET ) ' Seek back to beginning
+TestDatastoreSlotRead( ThisIsTheStringIAmWritingToTheSlot )
+TestDatastoreSlotSeek( 5, eDRM_DST_SEEKSET )
+TestDatastoreSlotRead( sTheString )
+TestDatastoreSlotSeek( 5 )
+TestDatastoreSlotRead( itingToThe )
+TestDatastoreCloseSlot
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1482: Multiple slot operations: Create, Open, Close, Resize, Write, Seek, Read, Delete (Embedded implementation)
+' Embedded implementation
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 2222222200000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000 )
+TestDatastoreSlotResize( 20, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( Slot1Data )
+TestDatastoreSlotSeek( 0, eDRM_DST_SEEKSET ) ' Seek back to beginning
+TestDatastoreSlotRead( Slot1Data )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 2222222200000000 )
+TestDatastoreSlotWrite( Slot2Data )
+TestDatastoreSlotSeek( 0, eDRM_DST_SEEKSET ) ' Seek back to beginning
+TestDatastoreSlotRead( Slot2Data )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, CCCCCCCC00000000, 3333333300000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotWrite( Slot3Data )
+TestDatastoreSlotSeek( 0, eDRM_DST_SEEKSET ) ' Seek back to beginning
+TestDatastoreSlotRead( Slot3Data )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000, NULL, 20 )
+TestDatastoreSlotResize( 30, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000, 1111111100000000 )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, BBBBBBBB00000000, 2222222200000000 )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, CCCCCCCC00000000, 3333333300000000 )
+TestDatastoreSlotRead( Slot3Data )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, 0x2000, AAAAAAAA00000000, 1111111100000000 ) = 0x8004c024 ( DRM_E_DSTSLOTNOTFOUND ) ' Open a deleted slot should fail.
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, 0x2000, BBBBBBBB00000000, 2222222200000000 ) = 0x8004c024 ( DRM_E_DSTSLOTNOTFOUND ) ' Open a deleted slot should fail.
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, CCCCCCCC00000000, 3333333300000000 )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, 0x2000, CCCCCCCC00000000, 3333333300000000 ) = 0x8004c024 ( DRM_E_DSTSLOTNOTFOUND ) ' Open a deleted slot should fail.
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, DDDDDDDD00000000, 4444444400000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1236: Multiple slot operations: Mixture of Resize, Write, Read (Embedded implementation)
+' Embedded implementation
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( aaaaaaaaaa )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 2222222200000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( bbbbbbbbbb )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, CCCCCCCC00000000, 3333333300000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( cccccccccc )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 2222222200000000, NULL, 10 )
+TestDatastoreSlotResize( 15, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( bbbbbbbbbb11111 )
+TestDatastoreSlotResize( 20, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( bbbbbbbbbb1111122222 )
+TestDatastoreSlotResize( 12, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotResize( 0, NORMAL pDST, NORMAL pSlotContext ) = 0x80070057 ( DRM_E_INVALIDARG ) ' Cannot resize a slot to 0
+TestDatastoreSlotResize( 0x1000, NORMAL pDST, NORMAL pSlotContext ) = 0x8007007a ( DRM_E_BUFFERTOOSMALL ) 'Cannot resize a slot beyond the store limit
+TestDatastoreSlotResize( 12, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000, NULL, 10 )
+TestDatastoreSlotRead( aaaaaaaaaa )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 2222222200000000, NULL, 12 )
+TestDatastoreSlotRead( bbbbbbbbbb11 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, CCCCCCCC00000000, 3333333300000000, NULL, 10 )
+TestDatastoreSlotRead( cccccccccc )
+TestDatastoreSlotResize( 1, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotRead( c )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1241: Multiple slot operations: Write more data than the size of the slot should not overwrite neighboring slots (Embedded implementation)
+' Embedded implementation
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( aaaaaaaaaa )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 2222222200000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( bbbbbbbbbb )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, CCCCCCCC00000000, 3333333300000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( cccccccccc )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 2222222200000000, NULL, 10 )
+TestDatastoreSlotWrite( bbbbbbbbbb11111, NULL, 10 )
+TestDatastoreSlotSeek( 0, eDRM_DST_SEEKSET ) ' Seek back to beginning
+TestDatastoreSlotWrite( bbbbbbbbbb1111122222, NULL, 10 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000, NULL, 10 )
+TestDatastoreSlotRead( aaaaaaaaaa )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 2222222200000000, NULL, 10 )
+TestDatastoreSlotRead( bbbbbbbbbb )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, CCCCCCCC00000000, 3333333300000000, NULL, 10 )
+TestDatastoreSlotRead( cccccccccc )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1246: Multiple slot operations: Create a store with slots. Reopen it and do Resize, Write, Read (Embedded implementation)
+' Embedded implementation
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( aaaaaaaaaa )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 2222222200000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 15, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( bbbbbbbbbbbbbbb )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, CCCCCCCC00000000, 3333333300000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 20, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( cccccccccccccccccccc )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 2222222200000000, NULL, 15 )
+TestDatastoreSlotResize( 25, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( bbbbbbbbbbbbbbb1111111111 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000, NULL, 10 )
+TestDatastoreSlotRead( aaaaaaaaaa )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 2222222200000000, NULL, 25 )
+TestDatastoreSlotRead( bbbbbbbbbbbbbbb1111111111 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, CCCCCCCC00000000, 3333333300000000, NULL, 20 )
+TestDatastoreSlotRead( cccccccccccccccccccc )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1253: Multiple slot operations: Create a store fully filled with multiple slots. Create additional slot should fail. (Embedded implementation)
+' Embedded implementation
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore( NORMAL pDST, NORMAL pbStoreData, 216 ) '12 bytes are accounted for the store header overhead
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000, NULL, 14 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotWrite( aaaaaaaaaaaaaa )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 2222222200000000, NULL, 14 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotWrite( bbbbbbbbbbbbbb )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, CCCCCCCC00000000, 3333333300000000, NULL, 14 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotWrite( cccccccccccccc )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, DDDDDDDD00000000, 4444444400000000, NULL, 14 ) = 0x8004c01d ( DRM_E_DSTSTOREFULL )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, EEEEEEEE00000000, 5555555500000000, NULL, 5 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotWrite( eeeeeeeeee, NULL, 5 ) ' Create a small slot should succeed
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1258: Multiple slot operations: Create multiple slots and then delete them only using secondary key (Embedded implementation)
+' Embedded implementation
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 2222222200000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 20, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( bbbbbbbbbb )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 3333333300000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 30, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( cccccccccc )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, NULL, 1111111100000000 )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, NULL, 2222222200000000 )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, NULL, 3333333300000000 )
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1486: Multiple slot enuemrations: A single primary key is used (Embedded implementation)
+' Embedded implementation
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( aaaaaaaaaa )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 2222222200000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 15, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( bbbbbbbbbb )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 3333333300000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 20, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( cccccccccc )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreInitSlotEnum( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 1111111100000000, 10 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 2222222200000000, 15 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 3333333300000000, 20 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, NULL, NULL, NULL ) = 0x80070103 ( DRM_E_NOMORE )
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1490: Multiple slot enuemrations: Multiple primary keys are used (Embedded implementation)
+' Embedded implementation
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( aaaaaaaaa1 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 1111111100000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( aaaaaaaaa2 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 2222222200000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 15, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( bbbbbbbbb1 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 2222222200000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 15, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( bbbbbbbbb2 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 3333333300000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 20, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( ccccccccc1 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 3333333300000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 20, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( ccccccccc2 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreInitSlotEnum( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 1111111100000000, 10 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 2222222200000000, 15 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 3333333300000000, 20 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, NULL, NULL, NULL ) = 0x80070103 ( DRM_E_NOMORE )
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1494: Multiple slot enuemrations: A single primary key is used with reload current tested (Embedded implementation)
+' Embedded implementation
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( aaaaaaaaaa )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 2222222200000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 15, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( bbbbbbbbbb )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 3333333300000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 20, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( cccccccccc )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreInitSlotEnum( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 1111111100000000, 10 )
+TestDatastoreSlotEnumReloadCurrent( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 1111111100000000, 10 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 2222222200000000, 15 )
+TestDatastoreSlotEnumReloadCurrent( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 2222222200000000, 15 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 3333333300000000, 20 )
+TestDatastoreSlotEnumReloadCurrent( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 3333333300000000, 20 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, NULL, NULL, NULL ) = 0x80070103 ( DRM_E_NOMORE )
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1497: Multiple slot enuemrations: A single primary key is used with delete current tested (Embedded implementation)
+' Embedded implementation
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( aaaaaaaaaa )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 2222222200000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 15, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( bbbbbbbbbb )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 3333333300000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 20, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( cccccccccc )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreInitSlotEnum( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 1111111100000000, 10 )
+TestDatastoreSlotEnumDeleteCurrent( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext )
+TestDatastoreSlotEnumReloadCurrent( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, NULL, NULL, NULL ) = 0x80070103 ( DRM_E_NOMORE ) 'Reload the currenrt slot after deletion should fail.
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 2222222200000000, 15 )
+TestDatastoreSlotEnumDeleteCurrent( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext )
+TestDatastoreSlotEnumReloadCurrent( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, NULL, NULL, NULL ) = 0x80070103 ( DRM_E_NOMORE ) 'Reload the currenrt slot after deletion should fail.
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 3333333300000000, 20 )
+TestDatastoreSlotEnumDeleteCurrent( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext )
+TestDatastoreSlotEnumReloadCurrent( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, NULL, NULL, NULL ) = 0x80070103 ( DRM_E_NOMORE ) 'Reload the currenrt slot after deletion should fail.
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, NULL, NULL, NULL ) = 0x80070103 ( DRM_E_NOMORE )
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1499: Multiple slot enuemrations: Multiple primary keys are used with reload current tested (Embedded implementation)
+' Embedded implementation
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( aaaaaaaaa1 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 1111111100000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( aaaaaaaaa2 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 2222222200000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 15, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( bbbbbbbbb1 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 2222222200000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 15, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( bbbbbbbbb2 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 3333333300000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 20, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( ccccccccc1 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 3333333300000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 20, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( ccccccccc2 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreInitSlotEnum( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 1111111100000000, 10 )
+TestDatastoreSlotEnumReloadCurrent( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 1111111100000000, 10 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 2222222200000000, 15 )
+TestDatastoreSlotEnumReloadCurrent( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 2222222200000000, 15 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 3333333300000000, 20 )
+TestDatastoreSlotEnumReloadCurrent( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 3333333300000000, 20 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, NULL, NULL, NULL ) = 0x80070103 ( DRM_E_NOMORE )
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1510: Multiple slot enuemrations: Multiple primary keys are used with delete current tested (Embedded implementation)
+' Embedded implementation
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( aaaaaaaaa1 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 1111111100000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( aaaaaaaaa2 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 2222222200000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 15, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( bbbbbbbbb1 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 2222222200000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 15, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( bbbbbbbbb2 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 3333333300000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 20, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( ccccccccc1 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 3333333300000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 20, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( ccccccccc2 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreInitSlotEnum( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 1111111100000000, 10 )
+TestDatastoreSlotEnumDeleteCurrent( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext)
+TestDatastoreSlotEnumReloadCurrent( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, NULL, NULL, NULL ) = 0x80070103 ( DRM_E_NOMORE ) 'Reload the currenrt slot after deletion should fail.
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 2222222200000000, 15 )
+TestDatastoreSlotEnumDeleteCurrent( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext)
+TestDatastoreSlotEnumReloadCurrent( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, NULL, NULL, NULL ) = 0x80070103 ( DRM_E_NOMORE ) 'Reload the currenrt slot after deletion should fail.
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 3333333300000000, 20 )
+TestDatastoreSlotEnumDeleteCurrent( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext)
+TestDatastoreSlotEnumReloadCurrent( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, NULL, NULL, NULL ) = 0x80070103 ( DRM_E_NOMORE ) 'Reload the currenrt slot after deletion should fail.
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, NULL, NULL, NULL ) = 0x80070103 ( DRM_E_NOMORE )
+TestDatastoreInitSlotEnum( NORMAL pDST, NORMAL pNSContext, BBBBBBBB00000000 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, BBBBBBBB00000000, 1111111100000000, 10 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, BBBBBBBB00000000, 2222222200000000, 15 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, BBBBBBBB00000000, 3333333300000000, 20 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, NULL, NULL, NULL ) = 0x80070103 ( DRM_E_NOMORE )
+TestDatastoreInitSlotEnum( NORMAL pDST, NORMAL pNSContext, CCCCCCCC00000000 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext) = 0x80070103 ( DRM_E_NOMORE ) 'Try to enumerate a non-existing slot should fail
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, CCCCCCCC00000000, 1111111100000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreInitSlotEnum( NORMAL pDST, NORMAL pNSContext, NULL ) ' Try to do enumeration using a NULL primary key
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, BBBBBBBB00000000, 1111111100000000, 10 ) 'The first available slot should be enumerated
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, BBBBBBBB00000000, 2222222200000000, 15 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, BBBBBBBB00000000, 3333333300000000, 20 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, CCCCCCCC00000000, 1111111100000000)
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, NULL, NULL, NULL ) = 0x80070103 ( DRM_E_NOMORE )
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+
+500: API Tests for DRM_DST_Init
+TestDatastoreInit( INVALID datastore type )=0x80004001 DRM_E_NOTIMPL
+
+'(HDS implementation)
+'Attempt to initialize an hds datastore with a NULL DSTContext pointer
+TestDatastoreInit( eDRM_DST_HDS, NULL )= 0x80070057 (DRM_E_INVALIDARG)
+'Attempt to initialize an hds datastore with a NULL datastore pointer
+TestDatastoreInit( eDRM_DST_HDS, Dump, Dump, NULL )= 0x80070057 (DRM_E_INVALIDARG)
+'Attempt to initialize an hds datastore with a cbDSTConext of 0
+TestDatastoreInit( eDRM_DST_HDS, Dump, 0)= 0x80070057 (DRM_E_INVALIDARG)
+
+'(Embedded implementation)
+'Attempt to initialize an embedded datastore with a NULL DSTContext pointer
+TestDatastoreInit( eDRM_DST_EMBEDDED, NULL )= 0x80070057 (DRM_E_INVALIDARG)
+'Attempt to initialize an embedded datastore with a NULL datastore pointer
+TestDatastoreInit( eDRM_DST_EMBEDDED, Dump, Dump, NULL )= 0x80070057 (DRM_E_INVALIDARG)
+'Attempt to initialize an embedded datastore with a cbDSTConext of 0
+TestDatastoreInit( eDRM_DST_EMBEDDED, Dump, 0)= 0x80070057 (DRM_E_INVALIDARG)
+
+501: API Tests for DRM_DST_Unit
+'Attempt to uninitialize a store using an uninitialized DataStore pointer
+TestDatastoreUninit( NULL ) = 0x80070057 (DRM_E_INVALIDARG)
+
+1708:Create a store with different valid names (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, 1234567890abcdefghijklmnopqrstuvwxyz.hds, NULL, 65535 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, 1234567890abcdefghijklmnopqrstuvwxyz.hds )
+TestDatastoreCloseStore
+TestDatastoreUninit
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, 12asVTU dgs7657.hds, NULL, 65535 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, 12asVTU dgs7657.hds )
+TestDatastoreCloseStore
+
+1105:Create a store, open and close a store repeatedly. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreCommitStore
+TestDatastoreCloseStore
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreCloseStore
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreCloseStore
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+
+1969:Create a store, open and close a store repeatedly. (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreCommitStore
+TestDatastoreCloseStore
+TestDatastoreOpenStore
+TestDatastoreCloseStore
+TestDatastoreOpenStore
+TestDatastoreCloseStore
+TestDatastoreOpenStore
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1107:Attempt to close the same store repeatedly. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreCommitStore
+TestDatastoreCloseStore
+TestDatastoreCloseStore= 0x80070057 (DRM_E_INVALIDARG)
+TestDatastoreUninit
+
+1010:Close a store with an open name space. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1133:Close a store with an open name space. (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+
+1111:commit a change. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreDeleteNamespace( NAMESPACE )
+TestDatastoreCommitStore
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+
+1970:Create and delete a name space. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreCommitNamespace
+TestDatastoreDeleteNamespace( NAMESPACE )
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1971:Create and close a name space. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1147:Create and close a name space. (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+
+
+1972:Create and close multiple name spaces. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 1)
+TestDatastoreOpenNamespace( Namespace2000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 2)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0 )
+TestDatastoreOpenNamespace( Namespace3000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 3)
+TestDatastoreOpenNamespace( Namespace4000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 4)
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 1 )
+TestDatastoreCloseNamespace( Namespace2000000, NORMAL, 2 )
+TestDatastoreCloseNamespace( Namespace3000000, NORMAL, 3 )
+TestDatastoreCloseNamespace( Namespace4000000, NORMAL, 4 )
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1973:Create commit and close a namespace. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreCommitNamespace
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1160:Create commit and close a namespace. (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreCommitNamespace
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+
+1974:Create commit and close a multiple namespaces. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 1)
+TestDatastoreCommitNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCommitNamespace( Namespace1000000, NORMAL, 1)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace2000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 2)
+TestDatastoreCommitNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 1)
+TestDatastoreCloseNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1167:Create commit and close a multiple namespaces. (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 1)
+TestDatastoreCommitNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCommitNamespace( Namespace1000000, NORMAL, 1)
+TestDatastoreOpenNamespace( Namespace2000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 2)
+TestDatastoreCommitNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 1)
+TestDatastoreCloseNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1516:Create commit and close and delete multiple namespaces. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 1)
+TestDatastoreCommitNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCommitNamespace( Namespace1000000, NORMAL, 1)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace2000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 2)
+TestDatastoreDeleteNamespace( Namespace0000000 )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreCommitNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreDeleteNamespace( Namespace1000000 )
+TestDatastoreCloseNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreDeleteNamespace( Namespace2000000 )
+TestDatastoreCommitNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+
+1520:Create commit close and reopen a namespace. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreCommitNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1182:Create commit close and reopen a namespace. (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreCommitNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1524:Create commit close and reopen multiple namespaces. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreCommitNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 1)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCommitNamespace( Namespace1000000, NORMAL, 1)
+TestDatastoreOpenNamespace( Namespace2000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 2)
+TestDatastoreOpenNamespace( Namespace3000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 3)
+TestDatastoreCommitNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 1)
+TestDatastoreCloseNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreCommitNamespace( Namespace3000000, NORMAL, 3)
+TestDatastoreOpenNamespace( Namespace4000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 4)
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 1)
+TestDatastoreCommitNamespace( Namespace4000000, NORMAL, 4)
+TestDatastoreCloseNamespace( Namespace3000000, NORMAL, 3)
+TestDatastoreCloseNamespace( Namespace4000000, NORMAL, 4)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 1)
+TestDatastoreOpenNamespace( Namespace2000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 2)
+TestDatastoreOpenNamespace( Namespace3000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 3)
+TestDatastoreOpenNamespace( Namespace4000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 4)
+TestDatastoreCloseNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreCloseNamespace( Namespace3000000, NORMAL, 3)
+TestDatastoreCloseNamespace( Namespace4000000, NORMAL, 4)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+
+1189:Create commit close and reopen multiple namespaces. (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreCommitNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 1)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCommitNamespace( Namespace1000000, NORMAL, 1)
+TestDatastoreOpenNamespace( Namespace2000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 2)
+TestDatastoreOpenNamespace( Namespace3000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 3)
+TestDatastoreCommitNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 1)
+TestDatastoreCloseNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreCommitNamespace( Namespace3000000, NORMAL, 3)
+TestDatastoreOpenNamespace( Namespace4000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 4)
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 1)
+TestDatastoreCommitNamespace( Namespace4000000, NORMAL, 4)
+TestDatastoreCloseNamespace( Namespace3000000, NORMAL, 3)
+TestDatastoreCloseNamespace( Namespace4000000, NORMAL, 4)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 1)
+TestDatastoreOpenNamespace( Namespace2000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 2)
+TestDatastoreOpenNamespace( Namespace3000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 3)
+TestDatastoreOpenNamespace( Namespace4000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 4)
+TestDatastoreCloseNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreCloseNamespace( Namespace3000000, NORMAL, 3)
+TestDatastoreCloseNamespace( Namespace4000000, NORMAL, 4)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+1861: Create commit close reopen and delete a namespace. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( Namespace4000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 4)
+TestDatastoreCommitNamespace( Namespace4000000, NORMAL, 4)
+TestDatastoreCloseNamespace( Namespace4000000, NORMAL, 4)
+TestDatastoreOpenNamespace( Namespace4000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 4)
+TestDatastoreDeleteNamespace( Namespace4000000 )
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+3110: Create commit close reopen and delete multiple namespaces. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreCommitNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 1)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCommitNamespace( Namespace1000000, NORMAL, 1)
+TestDatastoreOpenNamespace( Namespace2000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 2)
+TestDatastoreOpenNamespace( Namespace3000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 3)
+TestDatastoreCommitNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 1)
+TestDatastoreCloseNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreCommitNamespace( Namespace3000000, NORMAL, 3)
+TestDatastoreOpenNamespace( Namespace4000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 4)
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 1)
+TestDatastoreCommitNamespace( Namespace4000000, NORMAL, 4)
+TestDatastoreCloseNamespace( Namespace3000000, NORMAL, 3)
+TestDatastoreCloseNamespace( Namespace4000000, NORMAL, 4)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 1)
+TestDatastoreOpenNamespace( Namespace2000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 2)
+TestDatastoreDeleteNamespace( Namespace0000000 )
+TestDatastoreDeleteNamespace( Namespace1000000 )
+TestDatastoreOpenNamespace( Namespace3000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 3)
+TestDatastoreOpenNamespace( Namespace4000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 4)
+TestDatastoreCloseNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreCloseNamespace( Namespace3000000, NORMAL, 3)
+TestDatastoreDeleteNamespace( Namespace2000000 )
+TestDatastoreDeleteNamespace( Namespace3000000 )
+TestDatastoreCloseNamespace( Namespace4000000, NORMAL, 4)
+TestDatastoreDeleteNamespace( Namespace4000000 )
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+3444:create a name space. Different names, different lengths. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 32000 BlockNumSize, eDRM_DSTBLKNUM_DWORD )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 32000 BlockNumSize, eDRM_DSTBLKNUM_DWORD )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( 1234567890abcxyz, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 32000 BlockNumSize, eDRM_DSTBLKNUM_DWORD )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( ABCXYZ, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 32000 BlockNumSize, eDRM_DSTBLKNUM_DWORD )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( A, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreCloseStore
+
+
+
+4444:create a name space. Different names, different lengths. (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 32000 BlockNumSize, eDRM_DSTBLKNUM_DWORD )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( 1234567890abcxyz, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 32000 BlockNumSize, eDRM_DSTBLKNUM_DWORD )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( ABCXYZ, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 32000 BlockNumSize, eDRM_DSTBLKNUM_DWORD )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( A, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreCloseStore
+
+3448:delete a name space at different contexts. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 32000 BlockNumSize, eDRM_DSTBLKNUM_DWORD )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreCloseStore
+TestDatastoreUninit
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreDeleteNamespace( NAMESPACE )
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+3050:Attempt to Repeatedly delete the same namespace (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreCommitNamespace
+TestDatastoreCloseNamespace
+TestDatastoreDeleteNamespace( NAMESPACE )
+TestDatastoreDeleteNamespace( NAMESPACE )=0x8004c023 (DRM_E_DSTNAMESPACENOTFOUND)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+
+3051:Attempt to close a name space after it has been deleted. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreCommitNamespace
+TestDatastoreDeleteNamespace( NAMESPACE )
+TestDatastoreCloseNamespace
+Test_EnsureAsserted
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+3052:Attempt to delete a name space while the store has been closed. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreCommitNamespace
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreDeleteNamespace( NAMESPACE )= 0x80070057 (DRM_E_INVALIDARG)
+TestDatastoreUninit
+
+3053:Close a name space repeatedly. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreCommitNamespace
+TestDatastoreCloseNamespace
+TestDatastoreCloseNamespace= 0x80070057 (DRM_E_INVALIDARG)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+4053:Close a name space repeatedly. (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreCommitNamespace
+TestDatastoreCloseNamespace
+TestDatastoreCloseNamespace= 0x80070057 (DRM_E_INVALIDARG)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+3054:Create and delete multiple name spaces. (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 1)
+TestDatastoreOpenNamespace( Namespace2000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 2)
+TestDatastoreOpenNamespace( Namespace3000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 3)
+TestDatastoreDeleteNamespace( Namespace0000000 )
+TestDatastoreDeleteNamespace( Namespace1000000 )
+TestDatastoreDeleteNamespace( Namespace2000000 )
+TestDatastoreDeleteNamespace( Namespace3000000 )
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+5050:Close a name space with an open data slot (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, hdsfile.hds, NULL, 400 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, hdsfile.hds )
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+6050:Close a name space with an open data slot (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+5456:create and delete data slot  (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, HashStoreName.hds, NULL, 500 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, HashStoreName.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000, NULL, 20, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000, 1111111100000000, NULL, TRUE, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+6456:create and delete data slot  (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000, NULL, 20, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000, 1111111100000000, NULL, TRUE, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+5457:create and delete multiple data slots (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, HashStoreName.hds, NULL, 500 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, HashStoreName.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 2222111100000000, NULL, 20, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000, 2222111100000000, NULL, TRUE, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111222200000000, NULL, 20, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000, 1111222200000000, NULL, TRUE, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAABBBB00000000, 1111111100000000, NULL, 20, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, AAAABBBB00000000, 1111111100000000, NULL, TRUE, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAABBBB00000000, 1111111100000000, NULL, 20, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, AAAABBBB00000000, 1111111100000000, NULL, TRUE, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+6457:create and delete multiple data slots  (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 2222111100000000, NULL, 20, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000, 2222111100000000, NULL, TRUE, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111222200000000, NULL, 20, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000, 1111222200000000, NULL, TRUE, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAABBBB00000000, 1111111100000000, NULL, 20, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, AAAABBBB00000000, 1111111100000000, NULL, TRUE, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAABBBB00000000, 1111111100000000, NULL, 20, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, AAAABBBB00000000, 1111111100000000, NULL, TRUE, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+5458:delete data slot at different contexts  (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, HashStoreName.hds, NULL, 500 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, HashStoreName.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 2222111100000000, NULL, 20, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCommitStore
+TestDatastoreCloseStore
+TestDatastoreUninit
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreOpenStore( NORMAL pDST, HashStoreName.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 2222111100000000, NULL, 20, NORMAL, 0 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000, 2222111100000000, NULL, TRUE, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+6458:delete data slot at different contexts  (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 2222111100000000, NULL, 20, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCommitStore
+TestDatastoreCloseStore
+TestDatastoreUninit
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_OPEN_EXISTING, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 2222111100000000, NULL, 20, NORMAL, 0 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000, 2222111100000000, NULL, TRUE, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+5459:add multiple data slots with same KID to overflow more than one bucket (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, HashStoreName.hds, NULL, 500 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, HashStoreName.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey100000000, UniqueKey1000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey2000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey3000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey400000000, UniqueKey4000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey4000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey5000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+6459:add multiple data slots with same KID to overflow more than one bucket  (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey100000000, UniqueKey1000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey2000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey3000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey400000000, UniqueKey4000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey4000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey5000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+5460:empty the leaf buckets  (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, HashStoreName.hds, NULL, 500 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, HashStoreName.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey100000000, UniqueKey1000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey2000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey3000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey400000000, UniqueKey4000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey4000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey5000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey400000000, UniqueKey4000000, NULL, 120, NORMAL, 0 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey300000000, UniqueKey5000000, NULL, TRUE, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+6460:empty the leaf buckets (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey100000000, UniqueKey1000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey2000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey3000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey400000000, UniqueKey4000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey4000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey5000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey400000000, UniqueKey4000000, NULL, 120, NORMAL, 0 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey400000000, UniqueKey4000000, NULL, TRUE, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey5000000, NULL, 120, NORMAL, 0 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey300000000, UniqueKey5000000, NULL, TRUE, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+5461:empty the non-leaf buckets  (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, HashStoreName.hds, NULL, 500 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, HashStoreName.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey100000000, UniqueKey1000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey2000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey3000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey400000000, UniqueKey4000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey4000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey5000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey3000000, NULL, 120, NORMAL, 0 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey300000000, UniqueKey3000000, NULL, TRUE, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey4000000, NULL, 120, NORMAL, 0 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey300000000, UniqueKey4000000, NULL, TRUE, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+6461:empty the non-leaf buckets  (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey100000000, UniqueKey1000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey2000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey3000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey400000000, UniqueKey4000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey4000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey5000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey3000000, NULL, 120, NORMAL, 0 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey300000000, UniqueKey3000000, NULL, TRUE, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey4000000, NULL, 120, NORMAL, 0 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey300000000, UniqueKey4000000, NULL, TRUE, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+5464:create data slots in multi name spaces environments (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, HashStoreName.hds, NULL, 500 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, HashStoreName.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCommitStore
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, 1234567800000000, 1234567800000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace2000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, 1234567890123456, 1234567890123456, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot
+TestDatastoreCloseNamespace( Namespace2000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+6464:create data slots in multi name spaces environments (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCommitStore
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, 1234567800000000, 1234567800000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace2000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, 1234567890123456, 1234567890123456, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseNamespace( Namespace2000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+5465:create data slots when multiple namespaces are opened (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, HashStoreName.hds, NULL, 500 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, HashStoreName.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 1)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, 1234567800000000, 1234567800000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot
+TestDatastoreOpenNamespace( Namespace2000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 2)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, 1234567890123456, 1234567890123456, NULL, 120, NORMAL, 2 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 1)
+TestDatastoreCloseNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+6465:create data slots when multiple namespaces are opened  (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 1)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, 1234567800000000, 1234567800000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreOpenNamespace( Namespace2000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 2)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, 1234567890123456, 1234567890123456, NULL, 120, NORMAL, 2 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 1)
+TestDatastoreCloseNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+
+5466:create and delete data slots to/from multiple name spaces (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, HashStoreName.hds, NULL, 500 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, HashStoreName.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 1)
+TestDatastoreOpenNamespace( Namespace2000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 2)
+TestDatastoreOpenNamespace( Namespace3000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 3)
+TestDatastoreOpenNamespace( Namespace4000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 4)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey0000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey100000000, UniqueKey1000000, NULL, 120, NORMAL, 1 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey2000000, NULL, 120, NORMAL, 2 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey3000000, NULL, 120, NORMAL, 3 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey400000000, UniqueKey4000000, NULL, 120, NORMAL, 4 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey300000000, UniqueKey3000000, NULL, TRUE, 3)
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey400000000, UniqueKey4000000, NULL, TRUE, 4)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 1)
+TestDatastoreCloseNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreCloseNamespace( Namespace3000000, NORMAL, 3)
+TestDatastoreCloseNamespace( Namespace4000000, NORMAL, 4)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+6466:create and delete data slots to/from multiple name spaces (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 1)
+TestDatastoreOpenNamespace( Namespace2000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 2)
+TestDatastoreOpenNamespace( Namespace3000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 3)
+TestDatastoreOpenNamespace( Namespace4000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 4)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey0000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey100000000, UniqueKey1000000, NULL, 120, NORMAL, 1 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey2000000, NULL, 120, NORMAL, 2 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey300000000, UniqueKey3000000, NULL, 120, NORMAL, 3 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey400000000, UniqueKey4000000, NULL, 120, NORMAL, 4 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey300000000, UniqueKey3000000, NULL, TRUE, 3)
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey400000000, UniqueKey4000000, NULL, TRUE, 4)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 1)
+TestDatastoreCloseNamespace( Namespace2000000, NORMAL, 2)
+TestDatastoreCloseNamespace( Namespace3000000, NORMAL, 3)
+TestDatastoreCloseNamespace( Namespace4000000, NORMAL, 4)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+5467:block is freed from one name space and is reused by another namespace (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, HashStoreName.hds, NULL, 500 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, HashStoreName.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey0000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey1000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey2000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey3000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey4000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey000000000, UniqueKey2000000, NULL, TRUE, 0)
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey000000000, UniqueKey3000000, NULL, TRUE, 0)
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey000000000, UniqueKey4000000, NULL, TRUE, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCommitStore
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey5000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey6000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey7000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+6467:block is freed from one name space and is reused by another namespace(Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey0000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey1000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey2000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey3000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey4000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey000000000, UniqueKey2000000, NULL, TRUE, 0)
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey000000000, UniqueKey3000000, NULL, TRUE, 0)
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey000000000, UniqueKey4000000, NULL, TRUE, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCommitStore
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey5000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey6000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey7000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+5468:data only block is freed from one name space and is reused by another namespace (HDS implementation)
+TestDatastoreInit( eDRM_DST_HDS )
+TestDatastoreCreateStore( NORMAL pDST, HashStoreName.hds, NULL, 500 BlockNumSize )
+TestDatastoreOpenStore( NORMAL pDST, HashStoreName.hds )
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey0000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey1000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey2000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey3000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey4000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey000000000, UniqueKey2000000, NULL, TRUE, 0)
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey000000000, UniqueKey3000000, NULL, TRUE, 0)
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey000000000, UniqueKey4000000, NULL, TRUE, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCommitStore
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey5000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey6000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey7000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+6468:data only block is freed from one name space and is reused by another namespace (Embedded implementation)
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( Namespace0000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey0000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey1000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey2000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey3000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey000000000, UniqueKey4000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey000000000, UniqueKey2000000, NULL, TRUE, 0)
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, HashKey000000000, UniqueKey3000000, NULL, TRUE, 0)
+TestDatastoreCloseNamespace( Namespace0000000, NORMAL, 0)
+TestDatastoreCommitStore
+TestDatastoreOpenNamespace( Namespace1000000, NORMAL, eDRM_DST_CREATE_NEW, 16, 1000, NORMAL, 0)
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey0000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey1000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, HashKey200000000, UniqueKey2000000, NULL, 120, NORMAL, 0 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreCloseNamespace( Namespace1000000, NORMAL, 0)
+TestDatastoreCloseStore
+TestDatastoreUninit
+
+
+6469: Delete slots while enumeration is in progress (Embedded implementation)
+' Embedded implementation
+TestDatastoreInit( eDRM_DST_EMBEDDED )
+TestDatastoreCreateStore
+TestDatastoreOpenStore
+TestDatastoreOpenNamespace( NAMESPACE )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 1111111100000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( aaaaaaaaa1 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 1111111100000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 10, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( aaaaaaaaa2 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 2222222200000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 15, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( bbbbbbbbb1 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 2222222200000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 15, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( bbbbbbbbb2 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, AAAAAAAA00000000, 3333333300000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 20, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( ccccccccc1 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, BBBBBBBB00000000, 3333333300000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreSlotResize( 20, NORMAL pDST, NORMAL pSlotContext )
+TestDatastoreSlotWrite( ccccccccc2 )
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreInitSlotEnum( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 1111111100000000, 10 )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000, 1111111100000000 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 2222222200000000, 15 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, AAAAAAAA00000000, 3333333300000000, 20 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, NULL, NULL, NULL ) = 0x80070103 ( DRM_E_NOMORE )
+TestDatastoreInitSlotEnum( NORMAL pDST, NORMAL pNSContext, BBBBBBBB00000000 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, BBBBBBBB00000000, 1111111100000000, 10 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, BBBBBBBB00000000, 2222222200000000, 15 )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000, 2222222200000000 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, BBBBBBBB00000000, 1111111100000000, 10 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, BBBBBBBB00000000, 2222222200000000, 15 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, BBBBBBBB00000000, 3333333300000000, 20 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, NULL, NULL, NULL ) = 0x80070103 ( DRM_E_NOMORE )
+TestDatastoreInitSlotEnum( NORMAL pDST, NORMAL pNSContext, CCCCCCCC00000000 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext) = 0x80070103 ( DRM_E_NOMORE ) 'Try to enumerate a non-existing slot should fail
+TestDatastoreOpenSlot( NORMAL pDST, NORMAL pNSContext, NULL, CCCCCCCC00000000, 1111111100000000 ) = 0x1 ( DRM_S_FALSE ) ' Indicates that a slot was created
+TestDatastoreCloseSlot( NORMAL pDST, NORMAL pNSContext )
+TestDatastoreInitSlotEnum( NORMAL pDST, NORMAL pNSContext, NULL ) ' Try to do enumeration using a NULL primary key
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, BBBBBBBB00000000, 1111111100000000, 10 ) 'The first available slot should be enumerated
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, AAAAAAAA00000000, 3333333300000000 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, BBBBBBBB00000000, 1111111100000000, 10 ) 'The first available slot should be enumerated
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, BBBBBBBB00000000, 2222222200000000, 15 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, BBBBBBBB00000000, 3333333300000000, 20 )
+TestDatastoreDeleteSlot( NORMAL pDST, NORMAL pNSContext, BBBBBBBB00000000, 1111111100000000 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, BBBBBBBB00000000, 2222222200000000, 15 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, BBBBBBBB00000000, 3333333300000000, 20 )
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, CCCCCCCC00000000, 1111111100000000)
+TestDatastoreSlotEnumNext( NORMAL pDST, NORMAL pContextEnum, NORMAL pSlotContext, NULL, NULL, NULL ) = 0x80070103 ( DRM_E_NOMORE )
+TestDatastoreCloseNamespace
+TestDatastoreCloseStore
+TestDatastoreUninit
+

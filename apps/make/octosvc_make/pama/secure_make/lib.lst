@@ -1,0 +1,1 @@
+HUMAX_LIB_LIST := -lse_pama 

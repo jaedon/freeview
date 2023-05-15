@@ -1,0 +1,90 @@
+Overview
+--------
+
+    To assist development and testing of the application suspend/resume functionality, Netflix has developed
+    a very simple application manager that partners can use to see how to hook up Netflix APIs into partner
+    application managers.
+
+    There are four entities in play:
+        The application manager
+        The application manager controller
+        The application manager client
+        The application
+
+    The three entities are grouped into three processes:
+        The application manager
+        The application manager controller
+        The application + application manager client
+
+    On a partner device an application manager is in control of application lifecycle, providing key marshalling
+    and other integral functionality.  Platforms are expected to have this running in a seperate process to provide
+    security, isolation from other applications and stability.
+    
+    The application manager controller is used to control the application manager.  This is provided as a standalone
+    application to allow scripting via standard *nix shells like sh, ash or bash.
+
+    The application (Netflix) has the application manager client compiled into the application.  The client connects
+    to the application manager and accepts and sends data via IPC to respect the application manager lifecycle.
+
+
+Building
+--------
+
+    Configure the build with --gibbon-platform=application-manager.
+    ex: configure --toolchain=/usr/local/i686-netflix-linux-gnu-4.1 --gibbon-platform=application-manager --nrdapp=gibbon --dpi=reference
+
+    The executables will be in $(YOUR_OUTPUT_FOLDER)/src/platform/gibbon
+
+
+Running the application manager
+-------------------------------
+
+    The arguments passed to the application manager will be the application the application manager uses to
+    create.  Setting the environment variable NF_ONLY_SUSPEND will remove 'background' state support.  The
+    appliction will share the same console as the application manager.
+
+    ex:
+    netflix@netflix-VirtualBox:~/4.1-output/src/platform/gibbon$ ./am
+    NF_ONLY_SUSPEND is set.  Background state is not supported by the application manager.
+    Usage: am <netflix application and arguments>
+        ex: am ./netflix -U "https://tenfootui.netflix.com/htmltvui"
+
+
+    Example usage of running:
+    netflix@netflix-VirtualBox:~/4.1-output/src/platform/gibbon$ ./am ./netflix -U "https://tenfootui.netflix.com/htmltvui/tests/gcirino/debug-tvui22026-background/13_3/p/720p/gibbon/darwin.js?env=stg"
+    NF_ONLY_SUSPEND is set.  Background state is not supported by the application manager.
+
+
+
+Controlling the application manager (and application)
+-----------------------------------------------------
+
+    The controller accepts various commands and sends them to the application manager.  The
+    application manager in most cases will send a command to the application client which
+    will make calls into the application.
+
+    ex:
+    netflix@netflix-VirtualBox:~/4.1-output/src/platform/gibbon$ ./amcontroller
+    Usage: amcontroller <command>
+       ex: amcontroller start_foreground
+
+    Supported commands are:
+        start_foreground  Start the application in 'foreground' state.
+           start_suspend  Start the application in 'suspend' state.
+                 suspend  Tell the application to move into 'suspend' state.
+              background  Tell the application into 'background' state.
+                  resume  Tell the application to resume from 'background' or 'suspend' state.
+             resume_link  Tell the application to resume from 'background' or 'suspend' state with an asset to play.
+          stop_resources  Tell the application to self terminate because of an existing or anticipated resource constraint.
+               stop_user  Tell the application to self terminate because the user explicity requests it.
+               stop_dial  Tell the application to self terminate because of a DIAL stop.
+                    exit  Exit the application and the application manager.
+                 sigkill  Send the SIGKILL signal to the application to simulate a crash.
+                    left  Send the 'left' key pair (press/release) to the application.
+                   right  Send the 'right' key pair (press/release) to the application.
+                      up  Send the 'up' key pair (press/release) to the application.
+                    down  Send the 'down' key pair (press/release) to the application.
+                   enter  Send the 'enter' key pair (press/release) to the application.
+                   sleep  Send the 'sleep' event to the application for logging.
+                    wake  Send the 'wake' event to the application for logging.
+

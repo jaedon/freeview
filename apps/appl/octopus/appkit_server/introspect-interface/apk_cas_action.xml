@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Cas/Action">   
+    <interface name="Octopus.Appkit.Cas.Action">
+
+    <method name="GetActionType">
+    	<arg type="u" name="actionType" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="GetSlotId">
+    	<arg type="u" name="slotId" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                        
+
+    <method name="GetCasId">
+    	<arg type="u" name="casId" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                        
+
+    <method name="GetData">
+    	<arg type="ay" name="data" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                        
+
+    <signal name="event">
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+
+  </interface>
+</node>

@@ -1,0 +1,1 @@
+"sysctl":{"target":"network","operation":"set","property":{"net_num":1,"network":{"used":true,"index":0,"accessmode":"scan"}}}

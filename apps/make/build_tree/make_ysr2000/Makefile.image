@@ -1,0 +1,187 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+NO_INSTALL_FLAGS=
+ifeq ($(CONFIG_PRODUCT_IMAGE_OCTO20),y)
+	NO_INSTALL_FLAGS=y
+endif
+ifeq ($(CONFIG_PRODUCT_IMAGE_NOAPP),y)
+	NO_INSTALL_FLAGS=y
+endif
+ifeq ($(NO_INSTALL_FLAGS),)
+	TARGETS += install-image
+endif
+TARGETS += image
+
+CONFIG_CHIP_NUM=$(shell echo $(CONFIG_PLATFORM) | sed 's/.\(.*\)/\1/')
+KERNELVERSION=`cat $(KERNEL_DIR)/include/config/kernel.release | awk '{ print $1 }'`
+HUMAX_IMAGE_DIR=$(HUMAX_WORK_DIR)/images
+HUMAX_PREPARE_ROOT_TAR_DIR=$(HUMAX_PREPARE_DIR)/root
+HUMAX_DEVICE_NOD_DIR=$(HUMAX_WORK_DIR)/platform/sdk/os/rootfs/target_device
+
+UEI_HILCREST_LIBS_TO_ROOTFS = 
+ifeq ($(CONFIG_RF4CE_MOTION_TOUCH_UEI_HILCREST),y)
+	UEI_HILCREST_LIBLIST = libuapi.so libMotionEngine-bundle.so libMotionEngine-bundle.so.1 libMotionEngine-bundle.so.1.6.0 \
+	                       libMotionEngine-core.so libMotionEngine-core.so.1 libMotionEngine-core.so.1.6.0 \
+			       libMotionEngine-ext.so libMotionEngine-ext.so.1 libMotionEngine-ext.so.1.6.0 \
+			       libfreespace-hid.so libfreespace-hid.so.0 libfreespace-hid.so.0.6.1
+	UEI_HILCREST_LIBS_TO_ROOTFS = $(foreach files, $(UEI_HILCREST_LIBLIST), root/usr/lib/$(files))
+endif
+
+install-image:
+	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR) ]; then\
+		mkdir $(HUMAX_NFS_INSTALL_DIR); \
+	fi
+	@cp -rf $(HUMAX_PREPARE_ROOT_DIR)/* $(HUMAX_NFS_INSTALL_DIR)
+
+ifneq ($(CONFIG_KERNEL_DEVTMPFS),y)
+	@cp $(HUMAX_DEVICE_NOD_DIR)/device_table.txt $(HUMAX_NFS_INSTALL_DIR)/dev
+	@$(HUMAX_DEVICE_NOD_DIR)/gendev.sh $(HUMAX_NFS_INSTALL_DIR)
+	@$(HUMAX_DEVICE_NOD_DIR)/gendev-usb.sh $(HUMAX_NFS_INSTALL_DIR)
+endif	
+
+install-image-clean:
+	@-rm -rf $(HUMAX_NFS_INSTALL_DIR)/*
+
+install-image-distclean: install-image-clean
+
+
+image:
+	@if [ ! -d $(HUMAX_PREPARE_ROOT_TAR_DIR) ]; then \
+		mkdir $(HUMAX_PREPARE_ROOT_TAR_DIR); \
+	fi
+
+	@cp -rf $(HUMAX_PREPARE_ROOT_DIR)/* $(HUMAX_PREPARE_ROOT_TAR_DIR)
+
+ifneq ($(CONFIG_KERNEL_DEVTMPFS),y)
+	@sudo cp $(HUMAX_DEVICE_NOD_DIR)/device_table.txt $(HUMAX_PREPARE_ROOT_TAR_DIR)/dev
+	@$(HUMAX_DEVICE_NOD_DIR)/gendev.sh $(HUMAX_PREPARE_ROOT_TAR_DIR)
+	@$(HUMAX_DEVICE_NOD_DIR)/gendev-usb.sh $(HUMAX_PREPARE_ROOT_TAR_DIR)
+endif	
+
+	@rm -rf $(HUMAX_PREPARE_ROOT_TAR_DIR)/lib/modules/$(KERNELVERSION)/source
+	@rm -rf $(HUMAX_PREPARE_ROOT_TAR_DIR)/lib/modules/$(KERNELVERSION)/build
+
+	@sudo chown -R 500 $(HUMAX_PREPARE_ROOT_TAR_DIR)
+	@sudo chown -R root $(HUMAX_PREPARE_ROOT_TAR_DIR)/dev/*
+	@sudo chown -R 500 $(HUMAX_PREPARE_ROOT_TAR_DIR)/usr
+	@sudo find $(HUMAX_PREPARE_ROOT_TAR_DIR) -type f -exec sudo chmod 600 {} \;
+	@sudo find $(HUMAX_PREPARE_ROOT_TAR_DIR)/usr -type f -exec sudo chmod 600 {} \;
+	@sudo find $(HUMAX_PREPARE_ROOT_TAR_DIR)/usr/bin -type f -exec sudo chmod 700 {} \;
+	@sudo find $(HUMAX_PREPARE_ROOT_TAR_DIR)/bin/busybox -exec sudo chmod 700 {} \;
+
+ifeq ($(CONFIG_DEVICE_LIB_STATIC),y)						
+ifeq ($(CONFIG_DEVICE_MODE_USER),y)
+ifeq ($(CONFIG_PRODUCT_IMAGE_OCTO),y)
+		@sudo tar -C $(HUMAX_PREPARE_DIR) -cvzf $(HUMAX_PREPARE_DIR)/libs.tar.gz  \
+			root/lib/modules/$(KERNELVERSION)/bcm$(CONFIG_CHIP_NUM)/bcmdriver.ko \
+			$(UEI_HILCREST_LIBS_TO_ROOTFS) \
+			root/usr/lib/libvkernel.so
+else
+		@sudo tar -C $(HUMAX_PREPARE_DIR) -cvzf $(HUMAX_PREPARE_DIR)/libs.tar.gz  \
+			root/lib/modules/$(KERNELVERSION)/bcm$(CONFIG_CHIP_NUM)/bcmdriver.ko \
+			$(UEI_HILCREST_LIBS_TO_ROOTFS)\
+			root/usr/lib/libvkernel.so
+endif
+else
+	@sudo tar -C $(HUMAX_PREPARE_DIR) -cvzf $(HUMAX_PREPARE_DIR)/libs.tar.gz  \
+		root/lib/modules/$(KERNELVERSION)/bcm$(CONFIG_CHIP_NUM)/nexus.ko \
+		$(UEI_HILCREST_LIBS_TO_ROOTFS) \
+		root/usr/lib/libvkernel.so
+endif
+else
+ifeq ($(CONFIG_DEVICE_MODE_USER),y)
+ifeq ($(CONFIG_PRODUCT_IMAGE_OCTO),y)
+		@sudo tar -C $(HUMAX_PREPARE_DIR) -cvzf $(HUMAX_PREPARE_DIR)/libs.tar.gz  \
+			root/lib/modules/$(KERNELVERSION)/bcm$(CONFIG_CHIP_NUM)/bcmdriver.ko \
+			root/usr/lib/libnexus.so $(UEI_HILCREST_LIBS_TO_ROOTFS) \
+			root/usr/lib/libvkernel.so
+else
+		@sudo tar -C $(HUMAX_PREPARE_DIR) -cvzf $(HUMAX_PREPARE_DIR)/libs.tar.gz  \
+			root/lib/modules/$(KERNELVERSION)/bcm$(CONFIG_CHIP_NUM)/bcmdriver.ko \
+			root/usr/lib/libnexus.so \
+			root/usr/lib/libnexus_client.so $(UEI_HILCREST_LIBS_TO_ROOTFS)\
+			root/usr/lib/libvkernel.so
+endif
+else
+	@sudo tar -C $(HUMAX_PREPARE_DIR) -cvzf $(HUMAX_PREPARE_DIR)/libs.tar.gz  \
+		root/lib/modules/$(KERNELVERSION)/bcm$(CONFIG_CHIP_NUM)/nexus.ko \
+		root/usr/lib/libnexus.so $(UEI_HILCREST_LIBS_TO_ROOTFS) \
+		root/usr/lib/libvkernel.so
+endif
+endif
+ifeq ($(CONFIG_DEVICE_MODE_USER),y)
+	@sudo rm -rf $(HUMAX_PREPARE_ROOT_TAR_DIR)/lib/modules/$(KERNELVERSION)/bcm$(CONFIG_CHIP_NUM)/bcmdriver.ko
+ifeq ($(CONFIG_PRODUCT_IMAGE_OCTO),y)
+else
+	@sudo rm -rf $(HUMAX_PREPARE_ROOT_TAR_DIR)/usr/lib/libnexus_client.so
+endif
+else
+	@sudo rm -rf $(HUMAX_PREPARE_ROOT_TAR_DIR)/lib/modules/$(KERNELVERSION)/bcm$(CONFIG_CHIP_NUM)/nexus.ko
+endif
+	@sudo rm -rf $(HUMAX_PREPARE_ROOT_TAR_DIR)/usr/lib/libnexus.so
+
+	@sudo tar -C $(HUMAX_PREPARE_DIR) -cvzf $(HUMAX_PREPARE_DIR)/rootfs.tar.gz root
+
+	@sudo rm -rf $(HUMAX_PREPARE_ROOT_TAR_DIR)
+
+	@if [ -f $(HUMAX_PREPARE_DIR)/vmlinuz-$(HUMAX_PRODUCT_BUILD_NAME) ]; then\
+		sudo rm $(HUMAX_PREPARE_DIR)/vmlinuz-$(HUMAX_PRODUCT_BUILD_NAME); \
+	fi
+
+ifneq ($(CONFIG_INITRAMFS_LINUX),y)
+ifeq ($(CONFIG_ARM), y)
+	@cp -f $(KERNEL_DIR)/arch/arm/boot/zImage $(HUMAX_PREPARE_DIR)/vmlinuz-$(HUMAX_PRODUCT_BUILD_NAME)
+else
+	@cp $(KERNEL_DIR)/vmlinux_wo_symbol $(KERNEL_DIR)/vmlinux
+	@gzip --best -cfv $(KERNEL_DIR)/vmlinux > $(HUMAX_PREPARE_DIR)/vmlinuz-$(HUMAX_PRODUCT_BUILD_NAME)
+endif
+ifneq ($(CONFIG_PRODUCT_IMAGE_NOAPP),y)
+	@cp $(HUMAX_PREPARE_DIR)/vmlinuz-$(HUMAX_PRODUCT_BUILD_NAME) $(HUMAX_NFS_DIR)/image/vmlinuz
+endif
+	@sudo chown root:root $(HUMAX_PREPARE_DIR)/vmlinuz-$(HUMAX_PRODUCT_BUILD_NAME)
+endif
+
+ifeq ($(CONFIG_CABLE_MODEM),y)
+	@sudo cp $(HUMAX_OUTPUT_DIR)/lib/libdsgcc.a $(HUMAX_PREPARE_DIR)
+	@sudo chown root:root $(HUMAX_PREPARE_DIR)/libdsgcc.a
+endif
+
+ifeq ($(CONFIG_CAS_NA),y)
+	@sudo cp $(HUMAX_OUTPUT_DIR)/lib/libnocs.a $(HUMAX_PREPARE_DIR)
+	@sudo chown root:root $(HUMAX_PREPARE_DIR)/libnocs.a
+endif
+
+ifeq ($(CONFIG_PRODUCT_IMAGE_RELEASE),y)
+	@-sudo cp $(HUMAX_PREPARE_DIR)/rootfs.tar.gz $(HUMAX_IMAGE_DIR)/$(HUMAX_PRODUCT_BUILD_NAME)/platforms/release/
+	@-sudo cp $(HUMAX_PREPARE_DIR)/libs.tar.gz $(HUMAX_IMAGE_DIR)/$(HUMAX_PRODUCT_BUILD_NAME)/platforms/release/
+	@-sudo cp $(HUMAX_PREPARE_DIR)/vmlinuz-$(HUMAX_PRODUCT_BUILD_NAME) $(HUMAX_IMAGE_DIR)/$(HUMAX_PRODUCT_BUILD_NAME)/platforms/release/
+ifeq ($(CONFIG_CABLE_MODEM),y)
+	@-sudo cp $(HUMAX_PREPARE_DIR)/libdsgcc.a $(HUMAX_IMAGE_DIR)/$(HUMAX_PRODUCT_BUILD_NAME)/libs/release/
+endif
+ifeq ($(CONFIG_CAS_NA),y)
+	@-sudo cp $(HUMAX_PREPARE_DIR)/libnocs.a $(HUMAX_IMAGE_DIR)/$(HUMAX_PRODUCT_BUILD_NAME)/libs/release/
+endif
+
+else
+	@-sudo cp $(HUMAX_PREPARE_DIR)/rootfs.tar.gz $(HUMAX_IMAGE_DIR)/$(HUMAX_PRODUCT_BUILD_NAME)/platforms/debug/
+	@-sudo cp $(HUMAX_PREPARE_DIR)/libs.tar.gz $(HUMAX_IMAGE_DIR)/$(HUMAX_PRODUCT_BUILD_NAME)/platforms/debug/
+	@-sudo cp $(HUMAX_PREPARE_DIR)/vmlinuz-$(HUMAX_PRODUCT_BUILD_NAME) $(HUMAX_IMAGE_DIR)/$(HUMAX_PRODUCT_BUILD_NAME)/platforms/debug/
+ifeq ($(CONFIG_CABLE_MODEM),y)
+	@-sudo cp $(HUMAX_PREPARE_DIR)/libdsgcc.a $(HUMAX_IMAGE_DIR)/$(HUMAX_PRODUCT_BUILD_NAME)/libs/debug/
+endif
+ifeq ($(CONFIG_CAS_NA),y)
+	@-sudo cp $(HUMAX_PREPARE_DIR)/libnocs.a $(HUMAX_IMAGE_DIR)/$(HUMAX_PRODUCT_BUILD_NAME)/libs/debug/
+endif
+endif
+
+image-clean:
+	@-sudo rm -f \
+		$(HUMAX_PREPARE_DIR)/rootfs.tar.gz \
+		$(HUMAX_PREPARE_DIR)/libs.tar.gz \
+		$(HUMAX_PREPARE_DIR)/vmlinuz*
+	@-sudo rm -rf $(HUMAX_PREPARE_ROOT_TAR_DIR)
+	@-rm -rf $(HUMAX_PREPARE_ROOT_DIR)
+
+image-distclean: image-clean

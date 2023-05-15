@@ -1,0 +1,19 @@
+/tmp /home/imma/root/tmp none defaults,bind 0 0
+/home1/sechdlr/root/media /home/imma/root/media none defaults,bind 0 0
+/opt /home/imma/root/opt none defaults,bind 0 0
+/home1/sechdlr/root/mnt /home/imma/root/mnt none defaults,bind 0 0
+/bin /home/imma/root/bin none defaults,bind 0 0
+/sbin /home/imma/root/sbin none defaults,bind 0 0
+/etc /home/imma/root/etc none defaults,bind 0 0
+/usr/bin /home/imma/root/usr/bin none defaults,bind 0 0
+/usr/sbin /home/imma/root/usr/sbin none defaults,bind 0 0
+/usr/local /home/imma/root/usr/local none defaults,bind 0 0
+/usr/fonts /home/imma/root/usr/fonts none defaults,bind 0 0
+/usr/drm /home/imma/root/usr/drm none defaults,bind 0 0
+/var /home/imma/root/var none rbind,create=dir 0 0
+/dev /home/imma/root/dev none defaults,bind 0 0
+/dev/nexus /home/imma/root/dev/nexus tmpfs rw,bind 0 0
+
+none /home/imma/root/dev/pts devpts defaults 0 0
+none /home/imma/root/proc proc defaults 0 0
+none /home/imma/root/sys sysfs defaults 0 0

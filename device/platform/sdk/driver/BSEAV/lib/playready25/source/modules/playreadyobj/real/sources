@@ -1,0 +1,12 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmplayreadyobjreal
+TARGETTYPE=LIBRARY
+
+C_DEFINES=$(C_DEFINES)    \
+    -DDRM_BUILDING_DRMPLAYREADYOBJ_LIB
+
+SOURCES =             \
+    drmplayreadyobj.c \
+    drmprochecksum.c  \
+

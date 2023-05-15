@@ -1,0 +1,20 @@
+PLATFORMS="97112 97115"
+FILE=refsw.sizes
+rm -f $FILE
+
+for debug in y n; do
+	export DEBUG=$debug
+	for platform in $PLATFORMS; do
+		export PLATFORM=$platform
+		rm -rf $BSEAV/bin/*
+		make
+		mipsel-uclibc-strip --strip-all $BSEAV/bin/brutus
+		mipsel-uclibc-strip --strip-all $BSEAV/bin/libsettop*
+
+		# output sizes
+		echo "--------------------------" >>$FILE
+		echo "PLATFORM=$platform DEBUG=$debug" >>$FILE
+		ls -l $BSEAV/bin/* >>$FILE
+	done
+done
+

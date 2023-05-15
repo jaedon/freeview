@@ -1,0 +1,206 @@
+	comment "Select Deploying Countries (PROD_COUNTRY_XXX)"
+
+ 	config PROD_COUNTRY_AUSTRALIA
+		bool "PROD_COUNTRY_AUSTRALIA"
+		default n
+
+ 	config PROD_COUNTRY_AUSTRIA
+		bool "PROD_COUNTRY_AUSTRIA"
+		default n
+
+ 	config PROD_COUNTRY_BULGARIA
+		bool "PROD_COUNTRY_BULGARIA"
+		default n
+
+ 	config PROD_COUNTRY_CAMEROON
+		bool "PROD_COUNTRY_CAMEROON"
+		default n
+
+ 	config PROD_COUNTRY_CROATIA
+		bool "PROD_COUNTRY_CROATIA"
+		default n
+
+ 	config PROD_COUNTRY_CZECH
+		bool "PROD_COUNTRY_CZECH"
+		default n
+
+ 	config PROD_COUNTRY_DENMARK
+		bool "PROD_COUNTRY_DENMARK"
+		default n
+
+ 	config PROD_COUNTRY_ENGLAND
+		bool "PROD_COUNTRY_ENGLAND"
+		default n
+
+ 	config PROD_COUNTRY_ESTONIA
+		bool "PROD_COUNTRY_ESTONIA"
+		default n
+
+ 	config PROD_COUNTRY_FINLAND
+		bool "PROD_COUNTRY_FINLAND"
+		default n
+
+ 	config PROD_COUNTRY_FRANCE
+		bool "PROD_COUNTRY_FRANCE"
+		default n
+
+ 	config PROD_COUNTRY_GERMANY
+		bool "PROD_COUNTRY_GERMANY"
+		default n
+
+ 	config PROD_COUNTRY_GREECE
+		bool "PROD_COUNTRY_GREECE"
+		default n
+
+ 	config PROD_COUNTRY_HUNGARY
+		bool "PROD_COUNTRY_HUNGARY"
+		default n
+
+ 	config PROD_COUNTRY_IRELAND
+		bool "PROD_COUNTRY_IRELAND"
+		default n
+
+ 	config PROD_COUNTRY_ITALY
+		bool "PROD_COUNTRY_ITALY"
+		default n
+
+ 	config PROD_COUNTRY_JAPAN
+		bool "PROD_COUNTRY_JAPAN"
+		default n
+
+ 	config PROD_COUNTRY_KOREA
+		bool "PROD_COUNTRY_KOREA"
+		default n
+
+ 	config PROD_COUNTRY_LATVIA
+		bool "PROD_COUNTRY_LATVIA"
+		default n
+
+ 	config PROD_COUNTRY_LITHUANIA
+		bool "PROD_COUNTRY_LITHUANIA"
+		default n
+
+ 	config PROD_COUNTRY_NETHERLANDS
+		bool "PROD_COUNTRY_NETHERLANDS"
+		default n
+
+ 	config PROD_COUNTRY_NORWAY
+		bool "PROD_COUNTRY_NORWAY"
+		default n
+
+ 	config PROD_COUNTRY_POLAND
+		bool "PROD_COUNTRY_POLAND"
+		default n
+
+ 	config PROD_COUNTRY_PORTUGAL
+		bool "PROD_COUNTRY_PORTUGAL"
+		default n
+
+ 	config PROD_COUNTRY_RUSSIA
+		bool "PROD_COUNTRY_RUSSIA"
+		default n
+
+ 	config PROD_COUNTRY_SERBIA
+		bool "PROD_COUNTRY_SERBIA"
+		default n
+
+ 	config PROD_COUNTRY_SINGAPORE
+		bool "PROD_COUNTRY_SINGAPORE"
+		default n
+
+ 	config PROD_COUNTRY_SLOVAKIA
+		bool "PROD_COUNTRY_SLOVAKIA"
+		default n
+
+ 	config PROD_COUNTRY_SLOVENIA
+		bool "PROD_COUNTRY_SLOVENIA"
+		default n
+
+ 	config PROD_COUNTRY_SPAIN
+		bool "PROD_COUNTRY_SPAIN"
+		default n
+
+ 	config PROD_COUNTRY_SWEDEN
+		bool "PROD_COUNTRY_SWEDEN"
+		default n
+
+	config PROD_COUNTRY_TURKEY
+		bool "PROD_COUNTRY_TURKEY"
+		default n
+
+ 	config PROD_COUNTRY_UKRAINE
+		bool "PROD_COUNTRY_UKRAINE"
+		default n
+
+ 	config PROD_COUNTRY_USA
+		bool "PROD_COUNTRY_USA"
+		default n
+
+ 	config PROD_COUNTRY_VIETNAM
+		bool "PROD_COUNTRY_VIETNAM"
+		default n
+
+ 	config PROD_COUNTRY_BELGIUM
+		bool "PROD_COUNTRY_BELGIUM"
+		default n
+
+	config PROD_COUNTRY_SWITZERLAND
+		bool "PROD_COUNTRY_SWITZERLAND"
+		default n
+
+	config PROD_COUNTRY_LUXEMBOURG
+		bool "PROD_COUNTRY_LUXEMBOURG"
+		default n
+
+	config PROD_COUNTRY_ROMANIA
+		bool "PROD_COUNTRY_ROMANIA"
+		default n
+
+	config PROD_COUNTRY_KAZAKHSTAN
+		bool "PROD_COUNTRY_KAZAKHSTAN"
+		default n
+
+	config PROD_COUNTRY_THAILAND
+		bool "PROD_COUNTRY_THAILAND"
+		default n
+
+	config PROD_COUNTRY_UAE
+		bool "PROD_COUNTRY_UAE"
+		default n
+
+	config PROD_COUNTRY_BAHRAIN
+		bool "PROD_COUNTRY_BAHRAIN"
+		default n
+
+	config PROD_COUNTRY_EGYPT
+		bool "PROD_COUNTRY_EGYPT"
+		default n
+
+	config PROD_COUNTRY_IRAN
+		bool "PROD_COUNTRY_IRAN"
+		default n
+
+	config PROD_COUNTRY_IRAQ
+		bool "PROD_COUNTRY_IRAQ"
+		default n
+
+	config PROD_COUNTRY_KUWAIT
+		bool "PROD_COUNTRY_KUWAIT"
+		default n
+
+	config PROD_COUNTRY_OMAN
+		bool "PROD_COUNTRY_OMAN"
+		default n
+
+	config PROD_COUNTRY_QATAR
+		bool "PROD_COUNTRY_QATAR"
+		default n
+
+	config PROD_COUNTRY_SAUDIARABIA
+		bool "PROD_COUNTRY_SAUDIARABIA"
+		default n
+
+	config PROD_COUNTRY_OTHER
+		bool "PROD_COUNTRY_OTHER"
+		default n
+

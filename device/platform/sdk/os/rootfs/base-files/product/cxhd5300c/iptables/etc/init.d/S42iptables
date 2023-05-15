@@ -1,0 +1,76 @@
+#!/bin/sh
+
+export LD_LIBRARY_PATH=/usr/libexec/xtables
+export PATH=$PATH:/usr/local/sbin
+
+IP4T="iptables"
+
+# Clean out tables and rules
+
+$IP4T -F
+$IP4T -X
+$IP4T -Z
+
+# Set filter chain policies to ensure fail-secure behavior
+# Default is therefore to ALWAYS drop all packets
+$IP4T -P INPUT DROP
+$IP4T -P OUTPUT DROP
+$IP4T -P FORWARD DROP
+
+# Drop some invalid packet types
+# Drop packets with invalid connection state
+$IP4T -A INPUT -m state --state INVALID -j DROP
+$IP4T -A OUTPUT -m state --state INVALID -j DROP
+
+# Loopback rules
+$IP4T -A INPUT -i lo -j ACCEPT
+$IP4T -A OUTPUT -o lo -j ACCEPT
+
+# Allow some types of outgoing TCP connections
+# DNS client
+$IP4T -A INPUT -p udp --sport 53 -m state --state ESTABLISHED -j ACCEPT
+$IP4T -A OUTPUT -p udp --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+# HTTP client
+$IP4T -A INPUT -p tcp --sport 80 --dport 1024:65535 -m state --state ESTABLISHED -j ACCEPT
+$IP4T -A OUTPUT -p tcp --sport 1024:65535 --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+$IP4T -A INPUT -p tcp --sport 8080 --dport 1024:65535 -m state --state ESTABLISHED -j ACCEPT
+$IP4T -A OUTPUT -p tcp --sport 1024:65535 --dport 8080 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+# HTTPS client
+$IP4T -A INPUT -p tcp --sport 443 --dport 1024:65535 -m state --state ESTABLISHED -j ACCEPT
+$IP4T -A OUTPUT -p tcp --sport 1024:65535 --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+# DHCP client
+$IP4T -A OUTPUT -p udp --sport 68 --dport 67 -m state --state NEW,ESTABLISHED -j ACCEPT
+$IP4T -A INPUT -p udp --sport 67 --dport 68 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+# DLNA DMP of SSDP
+$IP4T -A INPUT -p udp --dport 1900 -m state --state NEW,ESTABLISHED -j ACCEPT
+$IP4T -A OUTPUT -p udp --sport 1900 -m state --state ESTABLISHED -j ACCEPT
+
+# DLNA DMS of valups
+# $IP4T -A INPUT -p tcp --dport 9000 -m state --state NEW,ESTABLISHED -j ACCEPT
+# $IP4T -A INPUT -p tcp --dport 9001 -m state --state NEW,ESTABLISHED -j ACCEPT
+# $IP4T -A INPUT -p tcp --dport 9002 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+# DLNA DMP for Windows Media Server port
+$IP4T -A OUTPUT -p tcp --dport 2869 -m state --state NEW,ESTABLISHED -j ACCEPT
+$IP4T -A INPUT -p udp --dport 3702 -m state --state ESTABLISHED -j ACCEPT
+
+# ICMP for IPv4
+$IP4T -A INPUT -p icmp --icmp-type echo-reply -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IP4T -A OUTPUT -p icmp --icmp-type echo-reply -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IP4T -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+$IP4T -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
+
+# Allow outgoing traffic for DMP which try to commnunicate general media server in new & established state
+$IP4T -A OUTPUT -p TCP --dport 1024:65535 -m state --state NEW,ESTABLISHED -j ACCEPT
+$IP4T -A OUTPUT -p UDP --dport 1024:65535 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+# Allow input traffic for DMP which try to commnunicate general media server only in established state
+$IP4T -A INPUT -p TCP --sport 1024:65535 -m state --state ESTABLISHED -j ACCEPT
+$IP4T -A INPUT -p UDP --sport 1024:65535 -m state --state ESTABLISHED -j ACCEPT
+
+# For M-SEARCH
+$IP4T -A INPUT -p UDP --dport 50000:65000 -m state --state NEW,ESTABLISHED -j ACCEPT

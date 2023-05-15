@@ -1,0 +1,122 @@
+﻿
+// Author : Park, Doyu.
+
+#pragma once
+
+#include "mxapi_define.h"
+#include "mxlib_config.h"
+#include "mxtypes.h"
+
+#include "mxrtsp.h"
+
+typedef enum _MXRTSP_MESSSAGE {
+	MXRTSP_MESSAGE_OPTIONS,
+	MXRTSP_MESSAGE_DESCRIBE,
+	MXRTSP_MESSAGE_SETUP,
+	MXRTSP_MESSAGE_TEARDOWN,
+	MXRTSP_MESSAGE_PLAY,
+} MXRTSP_MESSSAGE;
+
+typedef void* MXRTSP_SERVER_HANDLE;
+
+typedef struct _MXRTSP_REQUEST_DATA 
+{
+	MXRTSP_MESSSAGE message;
+	struct HLibRtspServer_Session *socket_session;
+	struct packetheader *p;
+
+	char *url;
+	char *Session;
+	char *com_ses_streamID;
+	char *Range;
+
+	char *Transport;
+	char *Transport_client_port;
+	char *Transport_type;
+
+	int CSeq;
+
+	char *SrcIP;
+	char *DestIP;
+
+	int DestRtpPort;
+	int DestRtcpPort;
+
+	struct _RTSPSERVER_OBJECT_DATA *parent;
+	
+	char *User_Agent;
+
+} MXRTSP_REQUEST_DATA;
+
+typedef struct _MXRTSP_RESPONSE_SETUP_DATA
+{
+	char *Session;
+	int timeout;
+
+	char *Transport_source;
+	char *Transport_server_port;
+
+	char *Transport_destination;			// multicast 인 경우
+	int Transport_ttl;
+
+	char *com_ses_streamID;
+
+} MXRTSP_RESPONSE_SETUP_DATA;
+	
+typedef struct _MXRTSP_RESPONSE_SDP_DATA 
+{
+
+	char *SDP;
+	int SDP_length;
+	char *Content_Base;
+
+} MXRTSP_RESPONSE_SDP_DATA;
+
+typedef void* MXRTSP_PARENT_HANDLE;
+
+// 순서가 바뀌면 안됩니다. 
+// _MXRTSP_SERVER_STATUS_CODE_STRUCT와 연관됨.
+typedef enum _MXRTSP_SERVER_STATUS_CODE 
+{
+	MXRTSP_SERVER_STATUS_CODE_CONTINUE = 0,
+	MXRTSP_SERVER_STATUS_CODE_OK,
+	MXRTSP_SERVER_STATUS_CODE_BAD_REQUEST,
+	MXRTSP_SERVER_STATUS_CODE_FORBIDDEN,
+	MXRTSP_SERVER_STATUS_CODE_NOT_FOUND,
+	MXRTSP_SERVER_STATUS_CODE_METHOD_NOT_ALLOWED,
+	MXRTSP_SERVER_STATUS_CODE_NOT_ACCEPTABLE,
+	MXRTSP_SERVER_STATUS_CODE_REQUEST_TIMEOUT,
+	MXRTSP_SERVER_STATUS_CODE_REQUEST_URL_TOO_LONG,
+	MXRTSP_SERVER_STATUS_CODE_NOT_ENOUGH_BANDWINTH,
+	MXRTSP_SERVER_STATUS_CODE_SESSION_NOT_FOUND,
+	MXRTSP_SERVER_STATUS_CODE_METHOD_NOT_VAILD_IN_THIS_STATE,
+	MXRTSP_SERVER_STATUS_CODE_UNSUPPORTED_TRANSPORT,
+	MXRTSP_SERVER_STATUS_CODE_INTERNAL_SERVER_ERROR,
+	MXRTSP_SERVER_STATUS_CODE_NOT_IMPLEMENTED,
+	MXRTSP_SERVER_STATUS_CODE_SERVICE_UNAVAILBLE,
+	MXRTSP_SERVER_STATUS_CODE_RTSP_VERSION_NOT_SUPPORTED,
+	MXRTSP_SERVER_STATUS_CODE_OPTION_NOT_SUPPORTED,
+	MXRTSP_SERVER_STATUS_CODE_MAX
+} MXRTSP_SERVER_STATUS_CODE;
+
+typedef MXRTSP_SERVER_STATUS_CODE (*MXRTSP_CALLBACK_CREATE_SESSION_ID)(MXRTSP_PARENT_HANDLE handle, MXRTSP_REQUEST_DATA *in_request_data, MXRTSP_RESPONSE_SETUP_DATA *out_respose_data);
+typedef MXRTSP_SERVER_STATUS_CODE (*MXRTSP_CALLBACK_CHECK_SESSION_ID)(MXRTSP_PARENT_HANDLE handle, MXRTSP_REQUEST_DATA *in_request_data, MXRTSP_RESPONSE_SETUP_DATA *out_respose_data);
+typedef MXRTSP_SERVER_STATUS_CODE (*MXRTSP_CALLBACK_GET_SDP)(MXRTSP_PARENT_HANDLE handle, MXRTSP_REQUEST_DATA *in_request_data, MXRTSP_RESPONSE_SDP_DATA *out_sdp_data);
+typedef MXRTSP_SERVER_STATUS_CODE (*MXRTSP_CALLBACK_TEARDOWN)(MXRTSP_PARENT_HANDLE handle, MXRTSP_REQUEST_DATA *in_request_data);
+typedef MXRTSP_SERVER_STATUS_CODE (*MXRTSP_CALLBACK_PLAY)(MXRTSP_PARENT_HANDLE handle, MXRTSP_REQUEST_DATA *in_request_data, char **out_RTP_info);
+typedef MX_RETURN (*MXRTSP_CALLBACK_TIMEOUT)(MXRTSP_PARENT_HANDLE handle, char *in_Session);
+
+__MXAPI MXRTSP_SERVER_HANDLE mxrtsp_server_create(
+	void *parent_handle,
+	int rtsp_port ,int rtsp_max_connection, 
+	MXRTSP_CALLBACK_CREATE_SESSION_ID cb_create_session_id,
+	MXRTSP_CALLBACK_CHECK_SESSION_ID cb_check_session_id, 
+	MXRTSP_CALLBACK_GET_SDP cb_get_sdp,
+	MXRTSP_CALLBACK_TEARDOWN cb_teardown,
+	MXRTSP_CALLBACK_PLAY cb_play,
+	MXRTSP_CALLBACK_TIMEOUT cb_timeout
+);
+
+__MXAPI MX_RETURN mxrtsp_server_destroy(MXRTSP_SERVER_HANDLE handle);
+
+#define MXRTSP_SERVER_DEFAULT_TIME_OUT		60

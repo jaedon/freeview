@@ -1,0 +1,34 @@
+<c:CertificateCollection xmlns:c="http://schemas.microsoft.com/DRM/2004/02/cert" c:Version="2.0"><c:Certificate c:Version="2.0" xmlns:c="http://schemas.microsoft.com/DRM/2004/02/cert"><c:Data xmlns="http://schemas.microsoft.com/DRM/2004/02/cert" xmlns:m="http://www.microsoft.com/DRM/2004/11/mslp"><c:PublicKey><KeyValue><RSAKeyValue><Modulus>r88Uvn96CHspVeqVl67owA0w3pG9fnIP6pl3AVkDog6kUA3WEmijaFtw5OGIiytcnIbbeJw05Wg63xbClvHL6hotAnSldGNxPZkG+fLPzFSo5sgjqhziX7C9lyVFshitgfLKRmKuVPPIMB0aStUjthhWCqM4g8ORjElfb1Z64nM=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue></c:PublicKey><c:ManufacturerData>
+  <c:ManufacturerName>Contoso</c:ManufacturerName>
+  <NAME>CoolNewDevice</NAME>
+  <MANUFACTURER>FooInc.</MANUFACTURER>
+  <MAKE>UnknownMake</MAKE>
+  <DISTRIBUTOR>BarRetailersInc.</DISTRIBUTOR>
+  <MODEL>XR-700</MODEL>
+</c:ManufacturerData>
+<c:SecurityLevel>150</c:SecurityLevel>
+<HARDWARE_VER_MAJOR>2</HARDWARE_VER_MAJOR>
+<HARDWARE_VER_MINOR>1</HARDWARE_VER_MINOR>
+<FIRMWARE_VER_MAJOR>1</FIRMWARE_VER_MAJOR>
+<FIRMWARE_VER_MINOR>3</FIRMWARE_VER_MINOR>
+<FEATURES>
+  <TEMPLATE>0</TEMPLATE>
+  <CLOCK>2</CLOCK>
+  <SECURECLOCK>
+      <URL>http://go.microsoft.com/fwlink/?LinkId=25817</URL>
+<PUBLICKEY>!CNhvvz1WaNV1AFUmetxkvm9iD4UrE9cnGUi!qcqdxMiXmD1*ikYGA==</PUBLICKEY>
+  </SECURECLOCK>
+  <METERING>1</METERING>
+  <SYMMETRIC_OPT>1</SYMMETRIC_OPT>
+  <LICENSE_ACQ>1</LICENSE_ACQ>
+  <LICENSE_SYNC>1</LICENSE_SYNC>
+  <ENCRYPTION>1</ENCRYPTION>
+</FEATURES>
+<LIMITS>
+  <MAXCHAINDEPTH>2</MAXCHAINDEPTH>
+  <MAXLICENSESIZE>10240</MAXLICENSESIZE>
+  <MAXHEADERSIZE>5120</MAXHEADERSIZE>
+  </LIMITS>
+<c:KeyUsage>
+  <c:SignCertificate>1</c:SignCertificate>
+</c:KeyUsage></c:Data><Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></CanonicalizationMethod><SignatureMethod Algorithm="http://schemas.microsoft.com/DRM/2004/02/CERT/Rsa-sha1"></SignatureMethod><Reference><Transforms><Transform Algorithm="http://schemas.microsoft.com/DRM/2004/02/CERT/Data"></Transform><Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></Transform></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></DigestMethod><DigestValue>ZpWO7p9XJf75ZRgVIRY7F1zkKME=</DigestValue></Reference></SignedInfo><SignatureValue>gG8M/HY1ju5JP5bamtkZhhUy59rXNWXXpnQQ5W2hi/wI6JlUJeg4Fku+TCv5BPoEHC6aPcwjWW8mEUE7SbrWCoqncD5Hi0N/dj5bj8L39h9p8qX44AK/A/KvkDr/5s94qAASMemvQKZRg8hkihVDZmZWmDHlFARnVklRXOhLPms=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>txQ0NrceJ9zYDNi+QROW+wtsmzEq6JgNmyxo4/jAjlFb8QOZJDO6thwIrP24aDnH0WTyPQ4PUrscV2ee+Lkw7t4ZCX8f6ycOtjuNOLGqX6pMM6J7cfFjGKSBKjut6TKxsA1angysCF30jYGwsYW2xO/hMEODP+HuDm4xzJmUTlE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue></KeyInfo></Signature></c:Certificate><c:Certificate c:Version="2.0" xmlns:c="http://schemas.microsoft.com/DRM/2004/02/cert"><c:Data xmlns="http://schemas.microsoft.com/DRM/2004/02/cert" xmlns:m="http://www.microsoft.com/DRM/2004/11/mslp"><c:PublicKey><KeyValue><RSAKeyValue><Modulus>txQ0NrceJ9zYDNi+QROW+wtsmzEq6JgNmyxo4/jAjlFb8QOZJDO6thwIrP24aDnH0WTyPQ4PUrscV2ee+Lkw7t4ZCX8f6ycOtjuNOLGqX6pMM6J7cfFjGKSBKjut6TKxsA1angysCF30jYGwsYW2xO/hMEODP+HuDm4xzJmUTlE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue></c:PublicKey><c:SecurityLevel>150</c:SecurityLevel><c:KeyUsage><c:SignCertificate>1</c:SignCertificate></c:KeyUsage><c:ManufacturerData><c:ManufacturerName>Contoso</c:ManufacturerName></c:ManufacturerData></c:Data><Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></CanonicalizationMethod><SignatureMethod Algorithm="http://schemas.microsoft.com/DRM/2004/02/CERT/Rsa-sha1"></SignatureMethod><Reference><Transforms><Transform Algorithm="http://schemas.microsoft.com/DRM/2004/02/CERT/Data"></Transform><Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></Transform></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></DigestMethod><DigestValue>kfI/XI+9pRWyYZB07Tjl9KJnwAw=</DigestValue></Reference></SignedInfo><SignatureValue>TIEHk+yqBQ9yK9b2e3ZOSn++Td5AdIB4xEEy1fWOvO4whf86D4ooYuOv6y+M1sXaFzzGv9jLGkII+z8LTN0bzWzQVJmjplrtbYCBVCEAsprTJJrt3l5PwlPOKeyAXUhWJafKZAYqNTWoRvXh2oaWptBoPkY1YxwzTHWF56dKMVY=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>sAMzO56CMzRDa9cif2VfezUAA6e5XkSoyzHabqkIcIYIYEP2h61ukH93js6NDIG0bcGye/TlnxOtdeuKGmO0AOYbgJ7piCe0ZVyNdMn/1DrEflvHoA8YnMfl96/PoLrEwKw7j9FZR1XvjDpUl4mClydY5jrWy8xkNkuRCYh3PJE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue></KeyInfo></Signature></c:Certificate><c:Certificate><c:Data xmlns="http://www.w3.org/2000/09/xmldsig#" xmlns:c="http://schemas.microsoft.com/DRM/2004/02/cert"><c:PublicKey><KeyValue><RSAKeyValue><Modulus>sAMzO56CMzRDa9cif2VfezUAA6e5XkSoyzHabqkIcIYIYEP2h61ukH93js6NDIG0bcGye/TlnxOtdeuKGmO0AOYbgJ7piCe0ZVyNdMn/1DrEflvHoA8YnMfl96/PoLrEwKw7j9FZR1XvjDpUl4mClydY5jrWy8xkNkuRCYh3PJE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue></c:PublicKey><c:KeyUsage><c:SignCertificate>1</c:SignCertificate></c:KeyUsage><c:SecurityLevel>3000</c:SecurityLevel><c:ManufacturerData><c:ManufacturerName>Microsoft Corporation</c:ManufacturerName><c:ManufacturerURL>http://www.microsoft.com</c:ManufacturerURL></c:ManufacturerData></c:Data><Signature><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></CanonicalizationMethod><SignatureMethod Algorithm="http://schemas.microsoft.com/DRM/2004/02/CERT/Rsa-sha1"></SignatureMethod><Reference><Transforms><Transform Algorithm="http://schemas.microsoft.com/DRM/2004/02/CERT/Data"></Transform><Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></Transform></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></DigestMethod><DigestValue>6Oa4ngWiBGCi2UmRjCzkNaiiNUY=</DigestValue></Reference></SignedInfo><SignatureValue>L8ae7IcXOLihq5n0q7T4KYcCuhRlhKU6qa5yy+4bmFS9qr7th2KIvSo6/zKrYTwnvMHuHyZK7Es3lIYCoBuVhr7sPABh7M//5WajfaKyMQpeTC28P3Htsv448o5YYTSXuIdzssY/EbBQ0PpOyf4zxvXZxIbRm8EpCpDm0DZZeIM=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>pjoeWLSTLDonQG8She6QhkYbYott9fPZ8tHdB128ZETcghn5KHoyin7HkJEcPJ0Eg4UdSva0KDIYDjA3EXd69R3CN2Wp/QyOo0ZPYWYp3NXpJ700tKPgIplzo5wVd/69g7j+j8M66W7VNmDwaNs9mDc1p2+VVMsDhOsV/Au6E+E=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue></KeyInfo></Signature></c:Certificate></c:CertificateCollection>

@@ -1,0 +1,36 @@
+{
+    "RUN_ALL": false,
+    "RUN_CATEGORY": [
+        "STANDBY_MODE","CHANGE_POWER_MODE"
+    ],
+    "RUN_TC": [],
+    "TC_LIST": [
+        {
+            "tc_name": "TC_POWER_STANDBY_Mode",
+            "category": [
+                "STANDBY_MODE"
+            ],
+            "argument": {
+                "StandbyMode": 1
+            },
+            "expect_result": {
+                "result": 1
+            }
+        },
+        {
+            "tc_name": "TC_POWER_SleepModeOnStandby",
+            "category": [
+                "CHANGE_POWER_MODE"
+            ],
+            "argument": {
+            	"SleepMode": 1
+
+            },
+            "expect_result": {
+            	"result": 1
+
+            }
+        }
+    ]
+}
+

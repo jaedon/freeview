@@ -1,0 +1,18 @@
+lxc.utsname = ipepg
+lxc.tty = 1
+lxc.pts = 1024
+lxc.kmsg = 0
+lxc.rootfs = /home/ipepg/root
+lxc.mount = /home/ipepg/fstab
+lxc.hook.pre-mount=/usr/local/containers/hooks/premount
+lxc.mount.entry=/lib /home/ipepg/root/lib none ro,bind 0 0
+lxc.mount.entry=/usr/lib /home/ipepg/root/usr/lib none ro,bind 0 0
+
+lxc.network.type = veth
+lxc.network.flags = up
+lxc.network.link = br0
+lxc.network.name = eth0
+lxc.network.hwaddr = 00:01:02:03:00:14
+lxc.network.ipv4 = 10.255.128.214/24
+
+

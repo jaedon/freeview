@@ -1,0 +1,11 @@
+!include ..\..\reftest.cmn
+
+TARGETNAME=toemimp
+TARGETTYPE=LIBRARY
+
+TARGETLIBS=wininet.lib
+
+SOURCES = \
+    tOEMImp.c    \
+    tOEMImp_PD.c \
+    toem_paths.c \

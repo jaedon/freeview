@@ -1,0 +1,27 @@
+{
+	"type":"carousel_list",
+	"info":{
+		"handle":19925936,
+		"event":"carousel_list",
+		"param":[
+			{
+				"carousel_id":0,
+				"stream_info":[
+					{
+						"component_tag":255,
+						"stream_type":5
+					}
+				]
+			},
+			{
+				"carousel_id":10,
+				"stream_info":[
+					{
+						"component_tag":20,
+						"stream_type":11
+					}
+				]
+			}
+		]
+	}
+}

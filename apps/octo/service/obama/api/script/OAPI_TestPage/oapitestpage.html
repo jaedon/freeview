@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">		
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>OAPI Test Page</title>
+		<link rel="stylesheet" href="css/oapitest.css">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+		<script type="text/javascript" src="lib/beautify.js"></script>
+		<script type="text/javascript" src="lib/oapi.js"></script>
+		<script type="text/javascript" src="oapitest.js"></script>
+	</head>
+	<body>
+		<div data-role="page" id="home">
+			<div data-role="content" align="center">
+				<img src="images/image.png"/>
+            	<input id="text_url" value="ws://10.0.10.176:7681" type="text" />
+				<a id="btn_open" data-role="button" data-inline="true" data-theme="b" href="#">Open</a>
+			</div>
+		</div>
+        <div data-role="page" id="main">
+            <div data-theme="a" data-role="header">
+                <h1 id="title">
+                    OAPI Test Page
+                </h1>
+            </div>
+            <div data-role="content">
+                <div id="box">
+                	<div id="grid1">
+            			<div data-role="content" id="items">    		
+            			</div>
+                    </div>
+                    <div id="grid2">
+                    	<div id="selected" data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" >
+                        	<h2 id="selected_item" data-theme="b">Selected itme</h2>
+                    		<p id="descript_item" data-theme="d">Description</p>
+                    	</div>
+                        <h3 class="input">Input</h3>
+                        <textarea class="input" id="text_input" title="Input"></textarea>
+                        <a id="btn_call" data-role="button" data-inline="true" data-theme="b" href="#">Call</a>
+                        <a id="btn_query" data-role="button" data-inline="true" data-theme="b" href="#">Query</a>
+                    	<h3 class="output">Output</h3>
+                        <textarea class="output" id="text_output" title="Output" readonly="readonly"></textarea>
+                    </div>
+                    <div id="grid3">
+                     	<div data-role="fieldcontain">
+							<label for="flip-b" style="font-size:30px; width:auto;">AccessCode</label>
+							<select name="slider" id="flip-b" data-role="slider">
+								<option value="no">No</option>
+								<option value="yes">Yes</option>
+							</select>
+						</div>
+						<input class="accesscode" id="text_accesscode" placeholder="access code not ready" type="text"/>
+						<a class="accesscode" id="btn_register" data-role="button" data-inline="true" data-theme="b" href="#">Register</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="loading">
+	       	<div class="ball"></div>
+			<div class="ball1"></div>
+	    </div>
+    </body>
+</html>

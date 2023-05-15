@@ -1,0 +1,64 @@
+This platform layer contains several different implementations of the display interface.
+Each of these can be used when appropriate by changing some environment variables prior to building as detailed below.
+
+exclusive_display_nexus.c
+-------------------------
+The platform layer is given exclusive ownership of the display. It manages the swapping of framebuffer surfaces onto the display. No external code should do anything with the display.
+
+This mode is the fastest and is useful for full-screen 3D applications and demos. No server application should be used. Only one 3D application can be run at any time.
+
+User-mode environment setup:
+unset NEXUS_MODE
+unset CLIENT
+
+Kernel-mode environment setup:
+export NEXUS_MODE=proxy
+unset CLIENT
+
+blit_display_nexus.c
+--------------------
+The client application has control of the display. The platform layer makes requests via a callback for the application to display a rendered surface when appropriate.
+
+This mode uses more bandwidth than exclusive mode since there is a extra blit step involved. It is useful if you need to composite the 3D results with other rendering steps. Only one 3D application can be run at any time.
+
+Blit display & exclusive display are both available when these build options are set as they use different platform layer APIs.
+
+User-mode environment setup:
+unset NEXUS_MODE
+unset CLIENT
+
+Kernel-mode environment setup:
+export NEXUS_MODE=proxy
+unset CLIENT
+
+
+surface_comp_display_nexus.c
+----------------------------
+A server application has complete control of the display. The platform layer posts surfaces to the server's surface-compositor. The compositor takes care of positioning the surfaces and displaying them.
+
+This mode is recommended for multi-process environments. You can run multiple 3D applications simultaneously.
+
+You must have a Nexus compositing server running in order to run applications in this mode.
+
+User-mode environment setup:
+NEXUS_MODE=client
+export CLIENT=y
+
+Kernel-mode environment setup:
+export NEXUS_MODE=proxy
+export CLIENT=y
+
+
+null_display_nexus.c
+--------------------
+No display is used at all. The 3D surfaces are written to PNG files as they are produced.
+
+This is purely a diagnostic mode.
+
+User-mode environment setup:
+export NULL_DISPLAY=y
+unset NEXUS_MODE
+unset CLIENT
+
+
+

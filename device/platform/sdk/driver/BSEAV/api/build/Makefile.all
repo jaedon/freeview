@@ -1,0 +1,60 @@
+############################################################
+#     Copyright (c) 2003-2004, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.all $
+# $brcm_Revision: 1 $
+# $brcm_Date: 2/7/05 6:54p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# Created: 02/09/2001 by Marcus Kellerman
+#
+# $brcm_Log: /BSEAV/api/build/Makefile.all $
+# 
+# 1   2/7/05 6:54p dlwin
+# Merge down for release 2005_REFSW_MERGETOMAIN:
+# 
+# Irvine_BSEAVSW_Devel/11   12/15/04 3:41p erickson
+# PR13496: create makefile include file to define valid PLATFORMS
+# 
+# Irvine_BSEAVSW_Devel/10   9/22/04 3:06p bandrews
+# PR12687: Initial 7312 7327 support
+# 
+# Irvine_BSEAVSW_Devel/9   8/18/04 12:38p bandrews
+# PR11657: 7329 support
+# 
+# Irvine_BSEAVSW_Devel/8   5/12/04 10:23a erickson
+# PR10967: added standard header
+############################################################
+
+#
+# Build Settop API libraries for all platforms
+#
+include platforms.mak
+
+.PHONY: platforms $(PLATFORMS)
+
+platforms: $(PLATFORMS)
+
+.PHONY: clean veryclean
+
+clean veryclean:
+	@for platform in $(PLATFORMS); do \
+		echo "### Run $@ for $$platform"; \
+		$(MAKE) PLATFORM=$$platform $@; \
+	done
+
+${PLATFORMS}:
+	@echo "### Building for $@"
+	@${MAKE} PLATFORM=$@
+
+
+

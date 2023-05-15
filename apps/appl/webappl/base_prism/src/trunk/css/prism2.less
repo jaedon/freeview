@@ -1,0 +1,380 @@
+/* 12.06.27 PRISM CSS v0.25 */
+/*@import url("base.css");*/
+/*@import url("prism.css");*/
+/* SETTING */
+#set .menu .dep1 li{
+  &.blank {
+    background: none;
+    font-weight: 700;
+    margin-top: 80px;
+  }
+  &.notice {
+    background: none;
+    font-family: PrismFontB;
+  }
+}
+/* MEDIA DIALOG */
+#DIA{
+  .login {
+    padding: 33px 50px 30px;
+  }
+  .loginId {
+    margin: 33px 0 0 2px;
+    text-align: left;
+  }
+  #loginId:focus, #loginPw:focus {
+    border: 6px solid #2eb2ff;
+  }
+  #loginId{
+    &.on:after {
+      content: "";
+      position: absolute;
+      width: 3px;
+      height: 41px;/*background:#2eb2ff;*/
+      margin: 0 0 0 5px;
+      background: url(../images/109_Input_cursor2.gif) no-repeat;
+    }
+  }
+  .loginId label, .loginPw label {
+    display: inline-block;
+    width: 190px;
+    text-align: right;
+  }
+  #loginId {
+    width: 410px;
+    height: 41px;
+    margin: 0 0 0 12px;
+    padding: 6px 4px;
+    border: 6px solid rgba(255,255,255,.5);
+    background: none;
+    color: #2eb2ff;
+  }
+  .loginPw {
+    margin: 10px 0 0 2px;
+    text-align: left;
+  }
+  #loginPw {
+    width: 410px;
+    height: 41px;
+    margin: 0 0 0 12px;
+    padding: 6px 4px;
+    border: 6px solid rgba(255,255,255,.5);
+    background: none;
+    color: #2eb2ff;
+  }
+  .login{
+    .wrap_input{
+      overflow: hidden;
+      position: absolute;
+      top: 180px;
+      left: 263px;
+      width: 410px;
+      height: 41px;
+      padding: 6px 4px;
+      border: 6px solid rgba(255,255,255,.5);
+      font-size: 28px;
+      text-align: left;
+      color: #dcdcdc;
+      &.blind {
+        line-height: 50px;
+      }
+    }
+    .button {
+      /*width: 50px;*/
+      min-width: 50px;
+      height: 50px;
+      line-height: 50px;
+      margin: 35px 0 0;
+      padding: 0;
+      font-size: 34px;
+    }
+    form .button {
+      width: 220px;
+      font-size: 26px;
+    }
+    .button+ .button {
+      margin: 35px 0 0;
+    }
+  }
+}
+
+/* TVAPPS */
+#tab.pp {
+    position: absolute;
+    width: 1280px;
+    height: 720px;
+    background: rgba(0,0,0,.9);
+    z-index: 2;
+  .ppwrap {
+    position: absolute;
+    height: 621px;
+    padding: 43px 200px 0;
+    overflow: hidden;
+    h1 {
+      font-size: 42px;
+      color: rgb(255,255,255);
+      text-align: center;
+      font-family: PrismFontB;
+      margin: 0 0 22px;
+    }
+    .cont {
+      font-family: PrismFontL;
+      font-size: 26px;
+      line-height: 35px;
+    }
+  }
+  .btnWrap {
+    position: absolute;
+    bottom: 56px;
+    width: 1280px;
+    text-align: center;
+    z-index: 2;
+  }
+  .button {
+    width: 215px;
+    font-family: PrismFontB;
+    color: #FFFFFF;
+    &:focus, &.on {
+      color: #000000;
+    }
+  }
+  .dimComBottom220 {
+    z-index: 2;
+  }
+}
+
+/* PLAYBACK */
+/*
+ #pbk .thumList {
+ position: absolute;
+ top: 150px;
+ left: -40px;
+ width: 1360px;
+ margin: 0;
+ }
+ #pbk .thumList .pThum {
+ position: absolute;
+ top: 4px;
+ }
+ #pbk .thumList .pThum.last {
+ opacity: .6;
+ }
+ #pbk .thumList .pThum.vThum::before {
+ content: "";
+ position: absolute;
+ left: 0;
+ bottom: 0;
+ width: 186px;
+ height: 46px;
+ background: url(../images/105_PB_Thumbnail_BG.png) no-repeat;
+ }
+ #pbk .thumList .pThum .pTime {
+ position: absolute;
+ top: 76px;
+ left: 0;
+ width: 186px;
+ text-align: center;
+ font-size: 22px;
+ font-family: PrismFontB;
+ color: #e1e1e1;
+ text-shadow: 0 1px 1px #000000;
+ }
+ #pbk .thumList .pThum.on .pTime {
+ color: #2eb2ff;
+ }
+ #pbk .cursor {
+ position: absolute;
+ top: 150px;
+ left: 543px;
+ width: 186px;
+ height: 105px;
+ border: 4px solid #2eb2ff;
+ }
+ #pbk .tit {
+ position: absolute;
+ top: 285px;
+ left: 1091px;
+ width: 120px;
+ height: 26px;
+ line-height: 26px;
+ font-size: 24px;
+ background: url(../images/106_Arrow_Box_Down.png) no-repeat;
+ font-family: PrismFontL;
+ padding: 3px 0 0 20px;
+ color: #a0a0a0;
+ }*/
+/* LIVETV */
+#DIA{
+  .sTitleWrap {
+    padding: 63px 50px 33px;
+    background-position: 0 134px;
+  }
+  .sTitleDVB {
+    position: relative;
+    font-size: 28px;
+    color: #ffffff;
+    font-family: PrismFontB;
+    margin: 0 -37px 0 0;
+  }
+  .sTitleEBU {
+    position: relative;
+    font-size: 28px;
+    color: #ffffff;
+    font-family: PrismFontB;
+    margin: 0 -37px 0 0;
+  }
+  .sTitleHardofHearing {
+    position: relative;
+    font-size: 28px;
+    color: #ffffff;
+    font-family: PrismFontB;
+    margin: 0 -37px 0 0;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: -37px;
+      width: 28px;
+      height: 28px;
+      background: url(../images/218_Subtitle_Hearing.png) no-repeat;
+    }
+  }
+  .alTitleWrap {
+    padding: 63px 50px 33px;
+    background-position: 0 134px;
+  }
+  .alTitleAC3 {
+    position: relative;
+    line-height: 28px;
+    font-size: 28px;
+    color: #ffffff;
+    font-family: PrismFontB;
+    margin: 0 -79px 0 0;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: -67px;
+      width: 59px;
+      height: 24px;
+      background: url(../images/208_Dolby_S.png) no-repeat;
+    }
+  }
+  .alTitleAC3P {
+    position: relative;
+    line-height: 28px;
+    font-size: 28px;
+    color: #ffffff;
+    font-family: PrismFontB;
+    margin: 0 -79px 0 0;
+    ::before {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: -67px;
+      width: 59px;
+      height: 24px;
+      background: url(../images/208_Dolby_Plus_S.png) no-repeat;
+    }
+  }
+  .alTitleWrap{
+    .spl {
+      position: absolute;
+      top: 67px;
+      left: 35px;
+      width: 50px;
+      height: 28px;
+      line-height: 28px;
+      background: url(../images/217_Audio_Left_Off.png) no-repeat left center;
+      color: #bebebe;
+      padding: 0 0 0 36px;
+      font-size: 24px;
+      font-family: PrismFontB;
+      text-align: left;
+      &.on {
+        color: #505050;
+        background: url(../images/217_Audio_Left_On.png) no-repeat left center;
+      }
+    }
+    .spr {
+      position: absolute;
+      top: 67px;
+      right: 35px;
+      width: 50px;
+      height: 28px;
+      line-height: 28px;
+      background: url(../images/217_Audio_Right_Off.png) no-repeat right center;
+      color: #bebebe;
+      padding: 0 36px 0 0;
+      font-size: 24px;
+      font-family: PrismFontB;
+      text-align: right;
+      &.on {
+        color: #505050;
+        background: url(../images/217_Audio_Right_On.png) no-repeat right center;
+      }
+    }
+  }
+}
+.al {
+    margin: 36px 0 0;
+  li {
+    padding: 0 0 0 73px;
+    background-repeat: no-repeat;
+    background-position: left 14px;
+  }
+  /* Dolby Plus S : 208_Dolby_Plus_S.png */
+  /* Dolby S : 208_Dolby_S.png */
+  .ac3 {
+    background-image: url(../images/208_Dolby_S.png);
+  }
+  .ac3p {
+    background-image: url(../images/208_Dolby_Plus_S.png);
+  }
+}
+
+.sd {
+    margin: 36px 0 0;
+  li {
+  }
+  /* Subtitle DVB : 218_Subtitle_DVB.png */
+  /* Subtitle EBU : 218_Subtitle_EBU.png */
+  /* Subtitle Hard of Hearing : 218_Subtitle_Hearing.png */
+  .subDVB {
+    padding: 0 0 0 35px;
+    background-repeat: no-repeat;
+    background-position: left 9px;
+    background-image: url(../images/614_Subtitle.png);
+  }
+  .subEBU {
+    padding: 0 0 0 35px;
+    background-repeat: no-repeat;
+    background-position: left 9px;
+    background-image: url(../images/614_Subtitle.png);
+  }
+  .subHardofHearing {
+    padding: 0 0 0 35px;
+    background-repeat: no-repeat;
+    background-position: left 9px;
+    background-image: url(../images/218_Subtitle_Hearing.png);
+  }
+}
+
+.cPro {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 93px;
+    height: 53px;
+    padding: 42px 60px 0 87px;
+    background: url(../images/206_Loading_DW.gif) no-repeat 20px 25px,rgba(0,0,0,.85);
+    text-align: center;
+    color: #fff;
+    font-size: 24px;
+    font-family: PrismFontL;
+}
+.bgForm .stge {
+    position: absolute;
+    top: 123px;
+    height: 597px;
+}

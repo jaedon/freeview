@@ -1,0 +1,21 @@
+author : kimtg
+
+0.         /nfsroot/kimtg/hms1000s가 debug rootfs용으로 남아 있다면 compile전에 삭제
+1.         device/product_config/platform/sdk/os/kernel/hms1000s/rev0.3/kernel_config_rel.cfg 열고 #CONFIG_PRINTK is not set을 enable
+2.         device/platform/porting_make/HumaxPlatformDef.mak 열고 Line 183 CFLAGS_KERNEL += -DCONFIG_DISABLE_ALL_TRACE_IN_CONSOLE을 #으로 막음
+3.         device/platform/driver/Makefile 열고 Line 131을 ifneq / ifneq 밖으로 copy
+4.         cp apps/make/rootfs/product/hms1000s/dbg/etc/init.d/S90settop apps/make/rootfs/product/hms1000s/rel/etc/init.d/
+5.         apps/make/rootfs/product/hms1000s/rel/etc/inittab을 열어서 아래와 같이 수정
+           #if debug
+           ttyS0::respawn:/bin/sh
+           #else release
+           #::once:/sbin/reboot /dev/null
+           #/dev/null::respawn:/sbin/getty /dev/null
+           #endif
+6.      apps/make/rootfs/product/hms1000s/rel/etc/init.d/S90settop을 열어서 core_pattern에 넣은 값을 “/mnt/hd2/core.%e.%p”로 변경 (core를 HDD에 저장해서 죽었을 경우 core file을 확인 가능)
+7.         apps/make/rootfs/product/hms1000s/rel/etc/octo_system.ini을 열어서 ‘1’ 로 되어 있는 값을 ‘0’으로 변경(1일 경우 hama가 restart 시킵니다)
+8.         compile 전에 apps/octo/service/obama/main/main.c 열어서 Line 138에 #ifdef CONFIG_DEBUG 및 #endif 삭제
+9.         make hms1000s_release_defconfig; make world;
+10.       make octo-tools; cd ../../device/make; make dicmd; cp ../../device/platform/driver/dicmd /nfsroot/kimtg/hms1000s/root/usr/bin; cd ../../apps/make;
+11.       make squashfs-tools
+12. cp /nfsroot/kimtg/hms1000s/image/* ~kimtg/Work/Src/Image;

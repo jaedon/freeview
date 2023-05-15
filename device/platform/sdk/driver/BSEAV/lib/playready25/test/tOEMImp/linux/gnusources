@@ -1,0 +1,15 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=toemimp
+TARGETTYPE=LIBRARY
+
+SOURCES =          \
+    tOEMImp.c      \
+    tOEMImp_PD.c   \
+    toem_paths.c   \
+

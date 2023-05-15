@@ -1,0 +1,10 @@
+"meta" : {
+	"operation" : "get",
+	"target" : "grouplist",
+	"property" : {
+		"group":
+		[
+			{"attr":"internal", "name":"HD"}
+		]
+	}
+}

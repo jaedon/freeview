@@ -1,0 +1,15 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=oem_linux
+TARGETTYPE=LIBRARY
+
+SOURCES =               \
+	bcm_oemimpl.c		\
+	bcm_oem_init.c  	\
+	bcm_oem_m2m_dma.c	\  
+

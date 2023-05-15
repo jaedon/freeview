@@ -1,0 +1,43 @@
+#
+# Automatically generated make config: don't edit
+# HUMAXTV version: HUMAXTV_VERSION
+# Thu Mar 10 09:46:26 2011
+#
+
+#
+# Platform Configuration
+#
+CONFIG_PRODUCT_NAME="bcm7445"
+CONFIG_BOARD_REVISION="rev0.1"
+CONFIG_PRODUCT_APP_NAME="uocto"
+CONFIG_ARM=y
+
+#
+# Select S/W image mode 
+#
+# CONFIG_PRODUCT_IMAGE_DEBUG is not set
+# CONFIG_PRODUCT_IMAGE_RELEASE is not set
+
+#
+# Select application image type 
+#
+# CONFIG_PRODUCT_IMAGE_HWTEST is not set
+# CONFIG_PRODUCT_IMAGE_UOCTO is not set
+# CONFIG_PRODUCT_IMAGE_FACTORY is not set
+# CONFIG_PRODUCT_IMAGE_DIAGNOSTIC is not set
+# CONFIG_PRODUCT_IMAGE_OCTO is not set
+# CONFIG_PRODUCT_IMAGE_OCTO20 is not set
+# CONFIG_PRODUCT_IMAGE_NOAPP is not set
+
+#
+# Select process type 
+#
+# CONFIG_PRODUCT_SINGLE_PROCESS is not set
+# CONFIG_PRODUCT_MULTI_PROCESS is not set
+
+#
+# Select file-system
+#
+# CONFIG_INITRAMFS_LINUX is not set
+
+CONFIG_HAVE_DOT_CONFIG=y 

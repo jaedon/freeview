@@ -1,0 +1,17 @@
+
+TARGETNAME=BCertTest
+TARGETTYPE=PROGRAM
+UMTYPE=console
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS)   \
+    $(_DRM_TC_LIBS)        \
+    $(_DRM_TEST_BCERT_LIB) \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmtoolscommon.lib
+
+INCLUDES = \
+    $(INCLUDES);                           \
+    $(_DRM_SOURCE_PATH)\certs;             \
+
+SOURCES =                        \
+    ../main.c

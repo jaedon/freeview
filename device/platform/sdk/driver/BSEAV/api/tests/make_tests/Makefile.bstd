@@ -1,0 +1,53 @@
+# We should be able to build Magnum with the required #defines in bstd_cfg.h, not on the command line
+# This makefile tests that
+
+BSEAV=../../..
+MAGNUM=$(BSEAV)/../magnum
+ROCKFORD=$(BSEAV)/../rockford
+Q_=@
+ODIR=bin
+
+# TODO: support other chips. cannot include api.mak or refsw_inc.mak here.
+BCHP_CHIP=7401
+BCHP_XVD_CHIP=7401
+PLATFORM_PATH=a0
+OS=linuxuser
+
+include $(ROCKFORD)/modules/basemodules.inc
+include $(ROCKFORD)/modules/chp.inc
+include $(ROCKFORD)/modules/reg.inc
+include $(ROCKFORD)/modules/mem.inc
+include $(ROCKFORD)/modules/int.inc
+include $(ROCKFORD)/modules/$(BCHP_CHIP).inc
+include $(ROCKFORD)/modules/fmt.inc
+include $(ROCKFORD)/modules/sur.inc
+include $(ROCKFORD)/modules/pxl.inc
+include $(ROCKFORD)/modules/img.inc
+include $(ROCKFORD)/modules/tmr.inc
+include $(ROCKFORD)/modules/rdc.inc
+include $(ROCKFORD)/modules/mth.inc
+
+include $(ROCKFORD)/modules/rap.inc
+include $(ROCKFORD)/modules/xvd.inc
+include $(ROCKFORD)/modules/xpt.inc
+include $(ROCKFORD)/modules/vdc.inc
+
+include $(ROCKFORD)/inc/compose.mak
+SRCS += ${MAGNUM_OBJS}
+
+CFLAGS += ${MAGNUM_INC}
+CFLAGS += -I. -DBDBG_DEBUG_BUILD=1
+ST_OBJS = $(SRCS:%.c=${ODIR}/%.o)
+
+all: $(ODIR) $(ST_OBJS)
+
+# Implicit C Compile Rule
+$(ODIR)/%.o : %.c
+	@echo Compiling $<
+	${Q_}$(CC) $(CFLAGS) -c $< -o $@
+
+$(ODIR):
+	mkdir -p $(ODIR)
+
+clean:
+	$(RM) -r $(ODIR)

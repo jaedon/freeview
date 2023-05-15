@@ -1,0 +1,22 @@
+DIRS = \
+	common \
+	errsay \
+	perftool \
+	chkhds \
+	license \
+	generatekeypair \
+	headerverify \
+	metering \
+	player \
+	synclist \
+	devicedevcert \
+	profilescope \
+	metercertstore \
+	secure_clock \
+	drmfileviewer \
+	embeddingtool \
+	tracetool
+
+
+#	otadla \
+

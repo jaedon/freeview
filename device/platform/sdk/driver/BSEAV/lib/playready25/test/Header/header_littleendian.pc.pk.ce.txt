@@ -1,0 +1,11 @@
+'
+' WMDRM to PlayReady File Conversion Test.
+'
+560000:FUNC: Test File conversion from WMDRM To PlayReady
+Test_Drm_ConvertFileFromWmdrmToPlayReady(drm_v2cocktail.asf, drm_PRCocktail.asf, http://juprmtest/test/rightsmanager.asmx)
+
+'
+' WMDRM to PlayReady File Conversion Test with ScriptStream content.
+'
+560001:FUNC: Test File conversion from WMDRM To PlayReady
+Test_Drm_ConvertFileFromWmdrmToPlayReady(cocktail_scriptstream.wmv, drm_PRCocktail_scriptstream.wmv, http://juprmtest/test/rightsmanager.asmx)

@@ -1,0 +1,11 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=LIBRARY
+TARGETNAME=InitParserTestAPI
+
+SOURCES = \
+	..\InitParserTest.c \
+
+INCLUDES = \
+    $(INCLUDES);                 \
+    $(_DRM_SOURCE_PATH)\initiators;  \

@@ -1,0 +1,2 @@
+DIRS = bcertdump GenerateModelCert GenerateCompanyCertRequest
+

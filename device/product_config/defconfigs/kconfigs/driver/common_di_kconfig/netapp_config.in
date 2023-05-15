@@ -1,0 +1,233 @@
+##########################
+# DI NETAPP configuration menu
+##########################################
+
+#    NetApp Bridge Ctrl:      ENABLED  (NETAPP_BRIDGING=y)
+#    Voice Recognition:       ENABLED  (NETAPP_VOICE_RECOGNITION=y)
+#    Hotplug Support:         ENABLED  (NETAPP_HOTPLUG=y)
+#    Zeroconfig (Bonjour):    ENABLED  (NETAPP_ZEROCONF=y)
+#    IEEE1905:                ENABLED  (NETAPP_IEEE1905=y)
+#    Database Support:        ENABLED  (NETAPP_DATABASE=y)
+#    SSDP Support:            ENABLED  (NETAPP_SSDP=y)
+#    DHCP Server:             ENABLED  (NETAPP_DHCP=y)
+#    ICS DHCP (Client):       ENABLED  (NETAPP_DHCPC=y)
+#    WiFi Support:            ENABLED  (NETAPP_WIFI=y)
+#        WiFi Direct (P2P):   ENABLED  (NETAPP_WIFI_P2P=y)
+#        WiFi WPS:            ENABLED  (NETAPP_WIFI_WPS=y)
+#        WiFi Test APIs:      ENABLED  (NETAPP_WIFI_TEST=y)
+#    Bluetooth Support:       ENABLED  (NETAPP_BLUETOOTH=y)
+#    NFC Support:             DISABLED (NETAPP_NFC=n)
+#    Miracast Support         DISABLED (NETAPP_MIRACAST=n)
+#    NEXUS Support            DISABLED (NETAPP_NEXUS=n or NEXUS_TOP not set)
+
+
+config NETAPP
+	bool "Enable NetApp Support"
+	default n
+
+if NETAPP
+	config NETAPP_VERSION
+		string "NETAPP Version"
+		depends on NETAPP 
+		default "8.3.6"
+
+	config NETAPP_BRIDGING
+		bool "Enable NetApp Bridge Ctrl"
+		depends on NETAPP
+		default n
+
+	config NETAPP_VOICE_RECOGNITION
+		bool "Enable Voice Recognition(Using json-c, flac)"
+		depends on NETAPP
+		default n
+
+	config NETAPP_HOTPLUG
+		bool "Enable Hotplug Support(Using udev)"
+		depends on NETAPP
+		default n
+
+#	config NETAPP_ZEROCONF
+#		bool "Enable Zeroconfig (Bonjour)(Using avahi) - Not Included"
+#		depends on NETAPP
+#		default n
+
+#	config NETAPP_IEEE1905
+#		bool "Enable IEEE1905 - Not Included"
+#		depends on NETAPP
+#		default n
+
+	config NETAPP_DATABASE
+		bool "Enable Database Support(Using json-c, sqlite3)"
+		depends on NETAPP
+		default n
+
+	config NETAPP_SSDP
+		bool "Enable SSDP Support(Using libcurl)"
+		depends on NETAPP
+		default n
+
+	config NETAPP_DHCP
+		bool "Enable ICS DHCP(Server)"
+		depends on NETAPP
+		default n
+
+	config NETAPP_DHCPC
+		bool "Enable ICS DHCP(Client)"
+		depends on NETAPP
+		default n
+		
+	config NETAPP_WIFI
+		bool "Enable WiFi Support"
+		depends on NETAPP
+		default n
+
+	if NETAPP_WIFI
+		choice
+			prompt "WiFi Driver"
+			depends on NETAPP_WIFI
+			default NETAPP_WIFI_BISON
+
+			config NETAPP_WIFI_FALCON
+				bool "Falcon"
+				help
+					Full Dongle Driver for USB
+					43236b 43238b
+
+			config NETAPP_WIFI_AARDVARK
+				bool "Aardvark"
+				help
+					BMAC Driver for USB or PCIE
+					4360nic, 43143b0, 43236b, 43238b, 43526b, 43242a1, 4360b
+
+			config NETAPP_WIFI_BISON
+				bool "Bison"
+				help
+					Full Dongle driver for combo chips
+					43569a0, 43570a0, 43569a2, 43570a2, 43602a1$
+
+			config NETAPP_WIFI_DHD
+				bool "dhd"
+				help
+					BMAC Driver for USB or PCIE
+					43569a0, 43570a0, 43569a2, 43570a2, 43602a1
+		endchoice
+
+		if NETAPP_WIFI_FALCON
+			config NETAPP_WIFI_CHIP
+				string "WiFi Chip"
+				depends on NETAPP_WIFI
+				default "43236b"
+				help
+					Falcon Driver : 43236b 43238b
+
+		endif
+
+		if NETAPP_WIFI_AARDVARK
+			config NETAPP_WIFI_CHIP
+				string "WiFi Chip"
+				depends on NETAPP_WIFI
+				default "43236b"
+				help
+					Aardvark Driver : 4360nic, 43143b0, 43236b, 43238b, 43526b, 43242a1, 4360b
+		endif
+
+		if NETAPP_WIFI_BISON
+			config NETAPP_WIFI_CHIP
+				string "WiFi Chip"
+				depends on NETAPP_WIFI
+				default "43569a0"
+				help
+					Bison Driver : 43569a0, 43570a0, 43569a2, 43570a2, 43602a1
+		endif
+
+		if NETAPP_WIFI_DHD
+			config NETAPP_WIFI_CHIP
+				string "WiFi Chip"
+				depends on NETAPP_WIFI
+				default "43602a1"
+				help
+					Dhd Driver : 43569a0, 43570a0, 43569a2, 43570a2, 43602a1
+		endif
+
+		config NETAPP_WIFI_P2P
+			bool "Enable WiFi Direct(P2P)"
+			depends on NETAPP_WIFI
+			default n
+
+		config NETAPP_WIFI_WPS
+			bool "Enable WiFi WPS"
+			depends on NETAPP_WIFI
+			default n
+
+		config NETAPP_WIFI_TEST
+			bool "Enable WiFi Test APIs"
+			depends on NETAPP_WIFI
+			default n
+
+	endif
+	
+	config NETAPP_BLUETOOTH
+		bool "Enable Bluetooth Support"
+		depends on NETAPP
+		default n
+
+	if NETAPP_BLUETOOTH
+#		config NETAPP_NFC
+#			bool "Enable NFC Support - Not Included"
+#			depends on NETAPP_BLUETOOTH 
+#			default n
+
+#		config NETAPP_BTPKG_VERSION
+#			string "BT_PKG_VERSION"
+#			depends on NETAPP_BLUETOOTH 
+#			default "bsa0106_01.30.00-netapp-eng3"
+#			help
+#				For release only bsa pacakge without Netapp
+#				NETAPP_V8.3.5 - bsa0106_01.30.00-netapp-eng3
+#				NETAPP_V8.3.4 - bsa0106_01.07.00
+
+		config NETAPP_BTDEV_PATH
+			string "Bluetooth Device Path"
+			depends on NETAPP_BLUETOOTH
+			default "/dev/btusb0" if SWB_B70_BT
+			default "/dev/ttyS2"  if BM_LDS602
+			default "/dev/btusb0" if HWM_BCM43242U_BTU
+			default "/dev/btusb0"
+			help 
+			Interface
+			[    USB     |    UART   ]
+			[/dev/btusb0 | /dev/ttySx]
+			Set the location of the BT device
+	endif
+
+	config NETAPP_MIRACAST
+		bool "Enable Miracast Support"
+		depends on NETAPP
+		default n
+		help
+			 Check for Miracast support if we are building with NEXUS
+
+#	 config NETAPP_NEXUS
+#		bool "Enable Nexus Support"
+#		depends on NETAPP
+#		default n
+
+#		config NETAPP_GPIO
+#			bool "Enable GPIO Support"
+#			depends on NETAPP_NEXUS
+#			default n
+
+	config NETAPP_DISABLE_WIRED_SUPPORT
+		bool "NetApp disable wired Support"
+		depends on NETAPP
+		default y
+
+	config DI_MODULE_NETAPP_SHARED_LIB
+		bool
+		prompt "Make di netapp module compiled in shared library"
+		depends on DI_MODULE_SHARED_LIB
+		default n
+		help
+			For using libdi_netapp.so
+
+endif # NETAPP

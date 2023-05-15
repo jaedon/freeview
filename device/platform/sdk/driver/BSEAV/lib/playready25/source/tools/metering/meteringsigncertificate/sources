@@ -1,0 +1,25 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=meteringsigncertificate
+TARGETTYPE=PROGRAM
+UMTYPE=console
+UMENTRY=wmain
+
+INCLUDES =      \
+    $(INCLUDES) \
+    $(_DRM_SOURCE_PATH)\tools\common
+
+SOURCES = \
+    metercert.c
+
+!if "$(_DRM_BUILD_TOOL)" != "NMAKE"
+SOURCES = $(SOURCES) \
+      metercert.rc
+!endif
+
+TARGETLIBS = $(TARGETLIBS)                          \
+    $(_DRM_COMMON_LIBS)                             \
+    $(_DRM_OEM_MAIN_LIB)                            \
+    $(_DRM_BLACKBOX_NOOBFUS_LIBS)                   \
+    $(_DRM_TOOLS_COMMON_LIBS)                       \
+

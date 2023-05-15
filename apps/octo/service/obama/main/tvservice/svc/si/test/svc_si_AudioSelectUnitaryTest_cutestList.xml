@@ -1,0 +1,197 @@
+<?xml version="1.0" ?> 
+<?xml-stylesheet type="text/xsl" href="cutest_list.xsl" ?> 
+<!DOCTYPE CUTEST_LIST_REPORT SYSTEM "cutest_list.dtd"> 
+<CUTEST_LIST_REPORT> 
+  <CUTEST_HEADER/> 
+  <CUTEST_LIST_SUMMARY> 
+    <CUTEST_LIST_SUMMARY_RECORD> 
+      <CUTEST_LIST_SUMMARY_RECORD_TEXT> Total Number of Test Cases </CUTEST_LIST_SUMMARY_RECORD_TEXT> 
+      <CUTEST_LIST_SUMMARY_RECORD_VALUE> 20 </CUTEST_LIST_SUMMARY_RECORD_VALUE> 
+    </CUTEST_LIST_SUMMARY_RECORD> 
+  </CUTEST_LIST_SUMMARY> 
+  <CUTEST_LIST_ALL_TEST_LIST> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectSourceNull1 </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_FAIL
+Type               : SOURCE NULL (pstPmtEsInfo)
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectSourceNull2 </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_FAIL
+Type               : SOURCE NULL (pstConfig)
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectTargetNull </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_FAIL
+Type               : TARGET NULL (SelectedAudio)
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectSourceInvalid </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_FAIL
+Type               : SOURCE INVALID (pstPmtEsInfo)
+Comments           : Number of Audio ES Item in pmtEsInfo is "0"
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectNoMatchFirstTrack </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_OK, 0, eDxDUALMONO_SELECT_UNKNOWN
+Type               : Check 1st Track Has top priority
+Comments           : No Language, Multichannel and AudioDescription Matched
+                     In this case 1st Track Has Top Priority
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectStereoAud0 </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_OK, 2, eDxDUALMONO_SELECT_UNKNOWN
+Type               : Lang Audio0
+Comments           : Find Lang Audio0 Matched Track
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectStereoAud1 </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_OK, 3, eDxDUALMONO_SELECT_UNKNOWN
+Type               : Lang Audio1
+Comments           : Find Lang Audio1 Matched Track
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectStereoMenu </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_OK, 0, eDxDUALMONO_SELECT_UNKNOWN
+Type               : Lang Menu
+Comments           : Find Lang Menu Matched Track
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectStereoUser </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_OK, 2, eDxDUALMONO_SELECT_UNKNOWN
+Type               : Lang User
+Comments           : Find Lang User Matched Track
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectMultiUser1 </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_OK, 2, eDxDUALMONO_SELECT_UNKNOWN
+Type               : Multichannel On by User
+Comments           : Find Multichannel Track
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectMultiUser2 </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_OK, 3, eDxDUALMONO_SELECT_UNKNOWN
+Type               : Multichannel On by User and Audio Description Off
+Comments           : Find Multichannel Track (avoid AudioDescription selection if possible)
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectMultiAud0 </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_OK, 1, eDxDUALMONO_SELECT_UNKNOWN
+Type               : Multichannel on Audio Description off and Language Matched (Many Multichannel Audio)
+Comments           : Find Multichannel Track and Lang Aud0
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectAdMultiAud0 </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_OK, 0, eDxDUALMONO_SELECT_UNKNOWN
+Type               : Audio Description and Multichannel On by Menu
+Comments           : (Lang Aud0 Matched)
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectDualMonoRightUserLang </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_OK, 0, eDxDUALMONO_SELECT_RIGHT
+Type               : Find Lang User
+Comments           : User Lang is on Dual Mono Right Track
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectDualMonoNonUserLang </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_OK, 5, eDxDUALMONO_SELECT_UNKNOWN
+Type               : Find Lang User
+Comments           : User Lang Track is on both Dual Mono Right and Stereo Track
+                     Stereo has higher priority than dual mono
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectDualMonoLeftAud0 </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_OK, 1, eDxDUALMONO_SELECT_LEFT
+Type               : Find Lang Aud0
+Comments           : Lang Aud0 is on Dual Mono Left Track
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectAdMenuLang </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_OK, 2, eDxDUALMONO_SELECT_UNKNOWN
+Type               : Find Audio Description Menu and Lang Menu
+Comments			:
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectAdLangNotMatched1 </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_OK, 4, eDxDUALMONO_SELECT_UNKNOWN
+Type               : Find Audio Description and Lang
+Comments           : Found AD Track but language is not matched.
+                     Audio Description has higher priority than language
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectAdLangNotMatched2 </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_OK, 2, eDxDUALMONO_SELECT_UNKNOWN
+Type               : Find Audio Description and Lang
+Comments           : Found AD Track but no language information.
+                     Even though there is no langauge information, Audio Description has higher priority.
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 	   <CUTEST_LIST_TEST_CASE_DEFINITION> 
+ 		 <CUTEST_LIST_TEST_CASE_NAME> svc_si_UtAudioSelectAdAud1 </CUTEST_LIST_TEST_CASE_NAME> 
+ 		 <CUTEST_LIST_TEST_ACTIVE_VALUE> Yes </CUTEST_LIST_TEST_ACTIVE_VALUE> 
+ 		 <CUTEST_LIST_TEST_DESCRIPTION>SUT                : svc_si_UtSelectAudio
+Expected Result    : ERR_OK, 0, eDxDUALMONO_SELECT_UNKNOWN
+Type               : Find Audio Description and Lang
+Comments           : Found AD Track and Lang Aud0
+        </CUTEST_LIST_TEST_DESCRIPTION> 
+ 	   </CUTEST_LIST_TEST_CASE_DEFINITION> 
+  </CUTEST_LIST_ALL_TEST_LIST> 
+  <CUTEST_FOOTER> File Generated at Thu Jan  1 00:03:26 1970
+ </CUTEST_FOOTER> 
+</CUTEST_LIST_REPORT>

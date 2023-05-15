@@ -1,0 +1,13 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmestreal
+TARGETTYPE=LIBRARY
+
+SOURCES =            \
+    drmestimplreal.c
+

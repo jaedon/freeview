@@ -1,0 +1,135 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Meta/Service">   
+    <interface name="Octopus.Appkit.Meta.Service">
+
+    <method name="GetService">
+    	<arg type="i" name="uid" direction="in" />
+    	<arg type="(iiiiiiiiuuuss)" name="serviceInfo" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="GetNetwork">
+    	<arg type="i" name="uid" direction="in" />
+    	<arg type="(isiisu)" name="networkInfo" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                        
+
+    <method name="GetTransponder">
+    	<arg type="i" name="uid" direction="in" />
+    	<arg type="(isiiiiiu(u))" name="transponderInfo" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="GetProvider">
+    	<arg type="i" name="uid" direction="in" />
+    	<arg type="(isis)" name="providerInfo" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="GetGroup">
+    	<arg type="i" name="uid" direction="in" />
+    	<arg type="(isiis)" name="groupInfo" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="GetBouquet">
+    	<arg type="i" name="uid" direction="in" />
+    	<arg type="(isiis)" name="bouquetInfo" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>      
+
+    <method name="GetLogoUrl">
+    	<arg type="i" name="uid" direction="in" />
+    	<arg type="(iss)" name="bufChannelLogoInfo" direction="in" />
+    	<arg type="(iss)" name="channelLogoInfo" direction="out" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetServiceTriplet">
+    	<arg type="i" name="uid" direction="in" />
+    	<arg type="(iii)" name="info" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="FindServiceByTriplet">
+    	<arg type="i" name="onid" direction="in" />
+    	<arg type="i" name="tsid" direction="in" />
+    	<arg type="i" name="svcid" direction="in" />, 
+    	<arg type="a(iiiiiiiiuuuss)" name="service" direction="out" />
+    	 	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="FindServiceByNumber">
+    	<arg type="i" name="number" direction="in" />
+    	<arg type="a(iiiiiiiiuuuss)" name="service" direction="out" />
+    	 	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+    <method name="GetServiceList">
+    	<arg type="a(iiiiiiiiuuuss)" name="serviceList" direction="out" />
+    	 	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+    
+    <method name="GetGroupList">
+    	<arg type="a(isiis)" name="serviceList" direction="out" />
+    	 	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+                
+    <method name="Load">
+    	 	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+    <method name="Save">
+    	 	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+
+    <method name="SetService">
+    	<arg type="(iiiiiiiiuuuss)" name="service" direction="in" />
+    	 	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="AddService">
+    	<arg type="(iiiiiiiiuuuss)" name="service" direction="in" />
+    	 	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="RemoveService">
+    	<arg type="(iiiiiiiiuuuss)" name="service" direction="in" />
+    	 	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="Reset">
+    	 	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="LoadPreferredList">
+    	 	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="LoadupdatedList">
+    	 	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+        
+    <method name="ChangeUpdateFlag">
+    	<arg type="u" name="fromFlag" direction="in" />
+    	<arg type="u" name="toFlag" direction="in" />
+    	 	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="RemoveServiceWithFlag">
+    	<arg type="u" name="flag" direction="in" />
+    	 	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+                    
+    <signal name="event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+
+  </interface>
+</node>

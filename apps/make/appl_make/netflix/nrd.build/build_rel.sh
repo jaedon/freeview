@@ -1,0 +1,23 @@
+../../../../appl/netflix/nrd/netflix/configure \
+		--gibbon-platform=humax \
+		--dpi=humax_glue \
+		--toolchain=`pwd` \
+		--nrdp-tools=humax_manufSSgenerator \
+		--information \
+		--release \
+		--scheduler=other \
+		--gibbon-nice-threads \
+		-DHAVE_LIBFREETYPE=TRUE \
+		-DHAVE_LIBJPEG=TRUE \
+		-DHAVE_LIBPNG=TRUE \
+		-DHAVE_LIBMNG=TRUE \
+		-DHAVE_LIBWEBP=TRUE \
+		-DCMAKE_C_COMPILER_FORCED="TRUE" \
+		-DCMAKE_CXX_COMPILER="/opt/toolchains/stbgcc-4.5.4-2.6/bin/mipsel-linux-uclibc-g++" \
+		-DCMAKE_CXX_COMPILER_FORCED="TRUE" \
+		-DCMAKE_FORCE_C_COMPILER="/opt/toolchains/stbgcc-4.5.4-2.6/bin/mipsel-linux-uclibc-gcc" \
+		-DCMAKE_C_COMPILER_WORKS="TRUE" \
+		-DCMAKE_CXX_COMPILER_WORKS="TRUE" \
+		-DCMAKE_INSTALL_PREFIX="install-files" \
+		-DHAVE_SIGNAL_HANDLERS="TRUE" 
+make && make install

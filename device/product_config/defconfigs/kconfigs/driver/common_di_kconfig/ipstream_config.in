@@ -1,0 +1,14 @@
+##########################################
+# DI MEDIA configuration menu
+##########################################
+
+config IPSTREAM
+	bool
+	prompt "Enable IPSTREAM Function (Not fully support IP stream function)"
+	default n
+
+config IPSTREAM_MULTICAST
+	bool
+	prompt "Enable MULTICAST"
+	depends on IPSTREAM
+	default n

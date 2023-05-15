@@ -1,0 +1,93 @@
+'Daily test cases
+'''''''''''''''''''''''''''''''''''''''''''''
+' DRTs
+
+10700:DRT: Nonce store open and close.
+TestNonceStoreOpen( NORMAL poNST, NORMAL pbStoreData, NULL, NORMAL poLicStoreContext )
+TestNonceStoreClose( NORMAL poNST )
+
+10701:DRT: Nonce store open and close with a null NST should fail.
+TestNonceStoreOpen( NULL, NORMAL pbStoreData, NULL, NORMAL poLicStoreContext ) = 0X80070057 ( DRM_E_INVALIDARG )
+TestNonceStoreClose( NULL ) = 0X80070057 ( DRM_E_INVALIDARG )
+
+10702:DRT: Nonce store open with a null buffer should fail.
+TestNonceStoreOpen( NORMAL poNST, NULL, NULL, NORMAL poLicStoreContext ) = 0X80070057 ( DRM_E_INVALIDARG )
+
+10703:DRT: Nonce store open with a null license store context should fail.
+TestNonceStoreOpen( NORMAL poNST, NORMAL pbStoreData, NULL, NULL ) = 0X80070057 ( DRM_E_INVALIDARG )
+
+1888:DRT: Generate a nonce and add a license.
+TestNonceStoreOpen( NORMAL poNST, NORMAL pbStoreData, NULL, NORMAL poLicStoreContext )
+TestNonceStoreGenerateNonce( NORMAL poNST, 0 )
+TestNonceStoreAddLicense( NORMAL poNST, "license1.dat", 0 )
+TestNonceStoreVerify( NORMAL poNST, "license1.dat", 0 )
+TestNonceStoreClose( NORMAL poNST )
+
+1891:DRT: Generate a nonce and license twice. Make sure the first nonce/license is bumped off.
+TestNonceStoreOpen( NORMAL poNST, NORMAL pbStoreData, NULL, NORMAL poLicStoreContext )
+TestNonceStoreGenerateNonce( NORMAL poNST, 0 )
+TestNonceStoreAddLicense( NORMAL poNST, "license1.dat", 0 )
+TestNonceStoreGenerateNonce( NORMAL poNST, 1 )
+TestNonceStoreAddLicense( NORMAL poNST, "license2.dat", 1 )
+TestNonceStoreVerify( NORMAL poNST, "license1.dat", 0 ) = 0X8004C31E ( DRM_E_TEST_UNEXPECTED_OUTPUT )
+TestNonceStoreVerify( NORMAL poNST, "license2.dat", 1 )
+TestNonceStoreGenerateNonce( NORMAL poNST, 0 )
+TestNonceStoreAddLicense( NORMAL poNST, "license1.dat", 0 )
+TestNonceStoreVerify( NORMAL poNST, "license2.dat", 1 ) = 0X8004C31E ( DRM_E_TEST_UNEXPECTED_OUTPUT )
+TestNonceStoreVerify( NORMAL poNST, "license1.dat", 0 )
+TestNonceStoreClose( NORMAL poNST )
+
+1894:DRT: Generate a nonce and add a license. Add another license without generating the nonce again should fail.
+TestNonceStoreOpen( NORMAL poNST, NORMAL pbStoreData, NULL, NORMAL poLicStoreContext )
+TestNonceStoreGenerateNonce( NORMAL poNST, 0 )
+TestNonceStoreAddLicense( NORMAL poNST, "license1.dat", 0 )
+TestNonceStoreAddLicense( NORMAL poNST, "license2.dat", 0 ) = 0x8004D003 ( DRM_E_NONCE_STORE_ADD_LICENSE )
+TestNonceStoreGenerateNonce( NORMAL poNST, 0 )
+TestNonceStoreAddLicense( NORMAL poNST, "license2.dat", 0 )
+
+30001:FUNC: Attempt to generate a Nonce with a Null NonceStore Context
+TestNonceStoreOpen( NORMAL poNST, NORMAL pbStoreData, NULL, NORMAL poLicStoreContext )
+TestNonceStoreGenerateNonce( NULL , 0 )  = 0X80070057 ( DRM_E_INVALIDARG )
+
+1927:FUNC: Attempt to add a license to a null NST context
+TestNonceStoreOpen( NORMAL poNST, NORMAL pbStoreData, NULL, NORMAL poLicStoreContext )
+TestNonceStoreGenerateNonce( NORMAL poNST, 0 )
+TestNonceStoreAddLicense( NULL, "license1.dat", 0 )  = 0X80070057 ( DRM_E_INVALIDARG )
+
+1928:FUNC: Attempt to add a license when both the LID and KID are null
+TestNonceStoreOpen( NORMAL poNST, NORMAL pbStoreData, NULL, NORMAL poLicStoreContext )
+TestNonceStoreGenerateNonce( NORMAL poNST, 0 )
+TestNonceStoreAddLicense( NORMAL poNST, "license1.dat" )  = 0x8004D000
+
+1931:FUNC: Attempt to add a license first using a LID matching a past nonce, and then with the current nonce
+TestNonceStoreOpen( NORMAL poNST, NORMAL pbStoreData, NULL, NORMAL poLicStoreContext )
+TestNonceStoreGenerateNonce( NORMAL poNST, 0 )
+TestNonceStoreGenerateNonce( NORMAL poNST, 1 )
+TestNonceStoreAddLicense( NORMAL poNST, "license1.dat", 0 )  = 0x8004D000
+TestNonceStoreAddLicense( NORMAL poNST, "license1.dat", 1 )
+TestNonceStoreVerify( NORMAL poNST, "license1.dat", 1 )
+TestNonceStoreClose( NORMAL poNST )
+
+1932:BVT: Attempt to add a license when the Lid does not match the expected Nonce token
+TestNonceStoreOpen( NORMAL poNST, NORMAL pbStoreData, NULL, NORMAL poLicStoreContext )
+TestNonceStoreGenerateNonce( NORMAL poNST, 0 )
+TestNonceStoreAddLicense( NORMAL poNST, "license1.dat", 0, nz/NueNnHDgdPwHsbrQhIw== , nz/NueNnHDgdPwHsbrQhIw== ) = 0x8004D000 DRM_E_NONCE_STORE_TOKEN_NOT_FOUND
+
+1929:FUNC: Attempt to add a license when the LID is null
+TestNonceStoreOpen( NORMAL poNST, NORMAL pbStoreData, NULL, NORMAL poLicStoreContext )
+TestNonceStoreGenerateNonce( NORMAL poNST, 0 )
+TestNonceStoreAddLicense( NORMAL poNST, "license1.dat", 0, NORMAL, NORMAL, NULL )  = 0X80070057 ( DRM_E_INVALIDARG )
+
+1930:FUNC: Attempt to add a license when the NST pointer is null
+TestNonceStoreOpen( NORMAL poNST, NORMAL pbStoreData, NULL, NORMAL poLicStoreContext )
+TestNonceStoreGenerateNonce( NORMAL poNST, 0 )
+TestNonceStoreAddLicense( NULL poNST, "license1.dat", 0, NORMAL, NORMAL, NULL )  = 0X80070057 ( DRM_E_INVALIDARG )
+
+1897:FUNC: Close the same NST twice
+TestNonceStoreOpen( NORMAL poNST, NORMAL pbStoreData, NULL, NORMAL poLicStoreContext )
+TestNonceStoreGenerateNonce( NORMAL poNST, 0 )
+TestNonceStoreAddLicense( NORMAL poNST, "license1.dat", 0 )
+TestNonceStoreVerify( NORMAL poNST, "license1.dat", 0 )
+TestNonceStoreClose( NORMAL poNST )
+TestNonceStoreClose( NORMAL poNST )
+

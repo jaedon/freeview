@@ -1,0 +1,549 @@
+/***************************************************************************
+ *    Copyright (c) 2003-2006, Broadcom Corporation
+ *    All Rights Reserved
+ *    Confidential Property of Broadcom Corporation
+ *
+ * THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+ * AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+ * EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+ *
+ * $brcm_Workfile: bint_7038.c $
+ * $brcm_Revision: Hydra_Software_Devel/46 $
+ * $brcm_Date: 5/24/06 6:57p $
+ *
+ * Module Description:
+ *
+ * Revision History:
+ *
+ * $brcm_Log: /magnum/basemodules/int/7038/bint_7038.c $
+ * 
+ * Hydra_Software_Devel/46   5/24/06 6:57p albertl
+ * PR21392:  Changed BINT stats tracking to use timers from TMR module.
+ * Removed code accessing timers directly.
+ * 
+ * Hydra_Software_Devel/45   2/15/06 5:30p vsilyaev
+ * PR 19693: Added support for acquiring interrupt rate
+ * 
+ * Hydra_Software_Devel/44   12/21/05 2:29p jasonh
+ * PR 18728: Adding support for 7038 C3.
+ * 
+ * Hydra_Software_Devel/43   9/22/05 5:23p albertl
+ * PR10596:  Changed BCHP_TIMER_TIMER3_CTRL_TIMEOUT_VAL_MASK to
+ * BCHP_TIMER_TIMER0_CTRL_TIMEOUT_VAL_MASK
+ * 
+ * Hydra_Software_Devel/42   5/18/05 11:08a agin
+ * PR14720: B2, C1, C2 compilation support.
+ * 
+ * Hydra_Software_Devel/42   5/18/05 11:08a agin
+ * PR14720: B2, C1, C2 compilation support.
+ * 
+ * Hydra_Software_Devel/41   4/13/05 5:59p jasonh
+ * PR 14720: Updated INT and CHP to work with B2 and C1 specific defines.
+ * 
+ * Hydra_Software_Devel/40   4/5/05 7:12p albertl
+ * PR10596:  Added new statistics tracking functionality.
+ * 
+ * Hydra_Software_Devel/39   4/5/05 4:43p jasonh
+ * PR 14638: Removed old header files and updated VDEC name for Bx.
+ * 
+ * Hydra_Software_Devel/38   2/16/05 1:37p pntruong
+ * PR14163: Add BVNF LBOX, RDC, and BVN Error interrupts.
+ *
+ * Hydra_Software_Devel/37   1/27/05 10:44p pntruong
+ * PR13314:  Fixed compile error for non-C0.
+ *
+ * Hydra_Software_Devel/36   1/27/05 4:54p gmullen
+ * PR13314: Removed A0 interrupt map. Added new map for C0, with XPT int
+ * reg 6.
+ *
+ * Hydra_Software_Devel/35   11/19/04 2:27p gmullen
+ * PR13314: Added STATUS6 register to XPT interrupt list.
+ *
+ * Hydra_Software_Devel/34   10/5/04 4:36p cnovak
+ * PR12604: Correct mask logic for timer interrupts.
+ *
+ * Hydra_Software_Devel/33   10/4/04 4:39p cnovak
+ * PR12604: Add timer interrupt support.
+ *
+ * Hydra_Software_Devel/32   8/20/04 10:11a marcusk
+ * PR12377: Mask soft modem interrupts
+ *
+ * Hydra_Software_Devel/31   6/1/04 11:12a brianlee
+ * PR11291: Modify UPG int mask for B0 to handle KBD3.
+ *
+ * Hydra_Software_Devel/30   3/23/04 12:19p vsilyaev
+ * PR10201: Added support for BVNF_CPU_INTR_2 interrupts.
+ *
+ * Hydra_Software_Devel/29   2/3/04 8:38p vsilyaev
+ * PR 9606: Removed assert from the SmartCard interrupts.
+ *
+ * Hydra_Software_Devel/28   2/2/04 2:56p btan
+ * PR 9570: Fixed NDS ICAM interrupt. Used the RDB names for the L1
+ * interrupt names.
+ *
+ * Hydra_Software_Devel/27   1/30/04 5:18p syang
+ * PR 9541: added BCHP_HIF_INTR2_CPU_STATUS into the define of
+ * BINT_P_STANDARD_L2_CASES
+ *
+ * Hydra_Software_Devel/26   1/30/04 3:53p syang
+ * PR 9541: added entry BCHP_HIF_INTR2_CPU_STATUS to bint_7038A0
+ *
+ * Hydra_Software_Devel/25   1/5/04 4:26p marcusk
+ * PR9117: Updated to support PI provided L2 interrupt handler (for
+ * transport message and overflow interrupts).  Updated documentation.
+ *
+ * Hydra_Software_Devel/24   12/29/03 4:16p marcusk
+ * PR9117: Updated with changes required to support interrupt ids rather
+ * than strings.
+ *
+ * Hydra_Software_Devel/23   12/23/03 11:24a nissen
+ * PR9078: Reduced interrupt name strings for GFX.
+ *
+ * Hydra_Software_Devel/19   12/19/03 3:57p aram
+ * PR9078: reduced the interrupt string name of audio dec
+ *
+ * Hydra_Software_Devel/18   12/18/03 2:37p marcusk
+ * PR8985: Removed bint_priv.h since it is no longer needed.
+ *
+ * Hydra_Software_Devel/17   12/18/03 2:08p marcusk
+ * PR8985: Refactored to use single ISR() routine. Removed reserved names.
+ * Placed all platform specific defines in bint_plat.h
+ *
+ * Hydra_Software_Devel/16   12/16/03 6:56p vsilyaev
+ * PR 8983: In 7038 mask is inverted (0 - enable, 1 - disable)
+ *
+ * Hydra_Software_Devel/15   12/16/03 6:02p marcusk
+ * PR8983: Properly check interrupt mask before processing an interrupt.
+ *
+ * Hydra_Software_Devel/15   12/16/03 6:00p marcusk
+ * PR8983: Updated to properly check mask before qualifying and interrupt
+ * to be processed.
+ *
+ * Hydra_Software_Devel/14   12/2/03 3:51p sri
+ * added MTP1 and MPT2 interrupts
+ *
+ * Hydra_Software_Devel/13   11/21/03 11:21a nissen
+ * Added support for GFX interrupts.
+ *
+ * Hydra_Software_Devel/12   9/30/03 7:18p rgreen
+ * Add HDMI Interrupts
+ *
+ * Hydra_Software_Devel/11   9/23/03 5:52p pntruong
+ * Removed the 7038_ from header filename generated from RDB.
+ *
+ * Hydra_Software_Devel/10   9/19/03 11:50a dlwin
+ * Removed warning generated by 'Wall'.
+ *
+ * Hydra_Software_Devel/9   9/16/03 10:29a marcusk
+ * Updated to comply with DocJet requirements. Fixes for PR8055.
+ *
+ * Hydra_Software_Devel/8   9/5/03 1:39p hongtaoz
+ * added interrupts for VDC and VBI.
+ *
+ * Hydra_Software_Devel/7   9/4/03 12:50p jasonh
+ * Renamed bcm7038 to 7038.
+ *
+ * Hydra_Software_Devel/6   8/29/03 12:02p dlwin
+ * - Added more reserved bits for IFD interrupt map. - Changed RFM
+ * interrupt names to match RDB doc.
+ *
+ * Hydra_Software_Devel/5   8/28/03 5:05p marcusk
+ * Added interrupts for IFD and RFM.
+ *
+ * Hydra_Software_Devel/4   8/26/03 10:25a marcusk
+ * Updated to return handle settings (so that it can be used directly when
+ * creating an interrupt handle).
+ *
+ * Hydra_Software_Devel/3   8/25/03 3:17p aram
+ * fixed a compile warning
+ *
+ * Hydra_Software_Devel/2   8/13/03 1:07p marcusk
+ * Updated to list all L1 interrupts.
+ *
+ * Hydra_Software_Devel/1   8/5/03 3:16p marcusk
+ * Initial version.
+ *
+ ***************************************************************************/
+#include "bstd.h"
+#include "bint_7038.h"
+
+/* Include interrupt definitions from RDB */
+#include "bchp_hif_cpu_intr1.h"
+#include "bchp_audio_inth.h"
+#include "bchp_ifd_l2.h"
+#include "bchp_rfm_l2.h"
+#include "bchp_bvnb_intr2.h"
+#include "bchp_bvnf_intr2_0.h"
+#include "bchp_bvnf_intr2_1.h"
+#include "bchp_bvnf_intr2_2.h"
+#include "bchp_bvnf_intr2_5.h"
+#include "bchp_hdmi_intr2.h"
+#include "bchp_vdec_l2_0.h"
+#include "bchp_video_enc_intr2.h"
+#include "bchp_gfx_l2.h"
+#include "bchp_mtp_l2_1.h"
+#include "bchp_mtp_l2_2.h"
+#include "bchp_xpt_int.h"
+#include "bchp_irq0.h"
+#include "bchp_scirq0.h"
+#include "bchp_hif_intr2.h"
+#include "bchp_bvnf_intr2_2.h"
+#include "bchp_timer.h"
+
+BDBG_MODULE(int_7038);
+
+#define BINT_P_STD_STATUS		0x00
+#define BINT_P_STD_SET			0x04
+#define BINT_P_STD_CLEAR		0x08
+#define BINT_P_STD_MASK_STATUS	0x0C
+#define BINT_P_STD_MASK_SET		0x10
+#define BINT_P_STD_MASK_CLEAR	0x14
+
+#define BINT_P_STANDARD_L2_CASES \
+	case BCHP_AUDIO_INTH_R5F_STATUS: \
+	case BCHP_IFD_L2_CPU_STATUS: \
+	case BCHP_GFX_L2_CPU_STATUS: \
+	case BCHP_HDMI_INTR2_CPU_STATUS: \
+	case BCHP_VDEC_L2_0_CPU_STATUS: \
+	case BCHP_VIDEO_ENC_INTR2_CPU_STATUS: \
+	case BCHP_BVNB_INTR2_CPU_STATUS: \
+	case BCHP_BVNF_INTR2_0_R5F_STATUS: \
+	case BCHP_BVNF_INTR2_1_R5F_STATUS: \
+	case BCHP_BVNF_INTR2_2_R5F_STATUS: \
+	case BCHP_BVNF_INTR2_5_R5F_STATUS: \
+	case BCHP_RFM_L2_CPU_STATUS: \
+	case BCHP_MTP_L2_1_CPU_STATUS: \
+	case BCHP_MTP_L2_2_CPU_STATUS: \
+	case BCHP_HIF_INTR2_CPU_STATUS:
+
+#define BINT_P_XPT_STATUS			0x00
+#define BINT_P_XPT_ENABLE			0x04
+
+#if ( BCHP_CHIP == 7038 ) && ( BCHP_VER >= BCHP_VER_C0 )
+	#define BINT_P_XPT_STATUS_CASES \
+		case BCHP_XPT_INT_INTR_STATUS_REG: \
+		case BCHP_XPT_INT_INTR_STATUS2_REG: \
+		case BCHP_XPT_INT_INTR_STATUS3_REG: \
+		case BCHP_XPT_INT_INTR_STATUS4_REG: \
+		case BCHP_XPT_INT_INTR_STATUS5_REG:	\
+		case BCHP_XPT_INT_INTR_STATUS6_REG:
+#else
+	#define BINT_P_XPT_STATUS_CASES \
+		case BCHP_XPT_INT_INTR_STATUS_REG: \
+		case BCHP_XPT_INT_INTR_STATUS2_REG: \
+		case BCHP_XPT_INT_INTR_STATUS3_REG: \
+		case BCHP_XPT_INT_INTR_STATUS4_REG: \
+		case BCHP_XPT_INT_INTR_STATUS5_REG:
+#endif
+
+#define BINT_P_XPT_BUF_STATUS		0x00
+#define BINT_P_XPT_BUF_ENABLE		0x08
+
+#define BINT_P_XPT_BUF_CASES \
+	case BCHP_XPT_INT_BUF_OVFL_REG_LO: \
+	case BCHP_XPT_INT_BUF_OVFL_REG_HI: \
+	case BCHP_XPT_INT_BUF_DAT_RDY_REG_LO: \
+	case BCHP_XPT_INT_BUF_DAT_RDY_REG_HI:
+
+#define BINT_P_UPG_ENABLE		0x00
+#define BINT_P_UPG_STATUS		0x04
+
+#define BINT_P_UPG_CASES \
+	case BCHP_IRQ0_IRQEN: \
+	case BCHP_SCIRQ0_SCIRQEN:
+
+#define BINT_P_TIMER_STATUS		0x00
+#define BINT_P_TIMER_MASK		0x04
+
+#define BINT_P_TIMER_CASES \
+	case BCHP_TIMER_TIMER_IS:
+
+#define BINT_P_STAT_TIMER_TICKS_PER_USEC 27
+
+static void BINT_P_7038_SetInt( BREG_Handle regHandle, uint32_t baseAddr, int shift );
+static void BINT_P_7038_ClearInt( BREG_Handle regHandle, uint32_t baseAddr, int shift );
+static void BINT_P_7038_SetMask( BREG_Handle regHandle, uint32_t baseAddr, int shift );
+static void BINT_P_7038_ClearMask( BREG_Handle regHandle, uint32_t baseAddr, int shift );
+static uint32_t BINT_P_7038_ReadMask( BREG_Handle regHandle, uint32_t baseAddr );
+static uint32_t BINT_P_7038_ReadStatus( BREG_Handle regHandle, uint32_t baseAddr );
+
+#if ( BCHP_CHIP == 7038 ) && ( BCHP_VER >= BCHP_VER_C0 )
+static const BINT_P_IntMap bint_7038C0[] =
+{
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_HIF_CPU_INTR_SHIFT,        BCHP_HIF_INTR2_CPU_STATUS,       0                    ,"HIF"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_STATUS_CPU_INTR_SHIFT, BCHP_XPT_INT_INTR_STATUS_REG,    0                    ,"XPT"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_STATUS_CPU_INTR_SHIFT, BCHP_XPT_INT_INTR_STATUS2_REG,   0                    ,"XPT2"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_STATUS_CPU_INTR_SHIFT, BCHP_XPT_INT_INTR_STATUS4_REG,   0                    ,"XPT4"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_STATUS_CPU_INTR_SHIFT, BCHP_XPT_INT_INTR_STATUS5_REG,   0                    ,"XPT5"},
+
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_STATUS_CPU_INTR_SHIFT, BCHP_XPT_INT_INTR_STATUS6_REG,   0                    ,"XPT6"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_OVFL_CPU_INTR_SHIFT,   BCHP_XPT_INT_BUF_OVFL_REG_LO,    BINT_DONT_PROCESS_L2 ,"XPT_OVFL_LO"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_OVFL_CPU_INTR_SHIFT,   BCHP_XPT_INT_BUF_OVFL_REG_HI,    BINT_DONT_PROCESS_L2 ,"XPT_OVFL_HI"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_MSG_CPU_INTR_SHIFT,    BCHP_XPT_INT_BUF_DAT_RDY_REG_LO, BINT_DONT_PROCESS_L2 ,"XPT_MSG_LO"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_MSG_CPU_INTR_SHIFT,    BCHP_XPT_INT_BUF_DAT_RDY_REG_HI, BINT_DONT_PROCESS_L2 ,"XPT_MSG_HI"},
+
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_ICAM_CPU_INTR_SHIFT,   BCHP_XPT_INT_INTR_STATUS3_REG,   0                    ,"XPT_ICAM"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_BACH_CPU_INTR_SHIFT,       BCHP_AUDIO_INTH_R5F_STATUS,      0                    ,"BACH"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_IFD_CPU_INTR_SHIFT,        BCHP_IFD_L2_CPU_STATUS,          0                    ,"IFD"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_GFX_CPU_INTR_SHIFT,        BCHP_GFX_L2_CPU_STATUS,          0x380                ,"GFX"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_HDMI_CPU_INTR_SHIFT,       BCHP_HDMI_INTR2_CPU_STATUS,      0                    ,"HDMI"},
+
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_VDEC_CPU_INTR_SHIFT,       BCHP_VDEC_L2_0_CPU_STATUS,       0                    ,"VDEC"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_VEC_CPU_INTR_SHIFT,        BCHP_VIDEO_ENC_INTR2_CPU_STATUS, 0                    ,"VEC"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_BVNB_CPU_INTR_SHIFT,       BCHP_BVNB_INTR2_CPU_STATUS,      0                    ,"BVNB"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_BVNF_CPU_INTR_0_SHIFT,     BCHP_BVNF_INTR2_0_R5F_STATUS,    0                    ,"BVNF_0"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_BVNF_CPU_INTR_1_SHIFT,     BCHP_BVNF_INTR2_1_R5F_STATUS,    0                    ,"BVNF_1"},
+
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_BVNF_CPU_INTR_2_SHIFT,     BCHP_BVNF_INTR2_2_R5F_STATUS,    0                    ,"BVNF_2"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_BVNF_CPU_INTR_3_SHIFT,     BCHP_BVNF_INTR2_5_R5F_STATUS,    0                    ,"BVNF_3"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_RFM_CPU_INTR_SHIFT,        BCHP_RFM_L2_CPU_STATUS,          0                    ,"RFM"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_UPG_CPU_INTR_SHIFT,        BCHP_IRQ0_IRQEN,                 0xFFFFFE00           ,"UPG"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_UPG_BSC_CPU_INTR_SHIFT,    BCHP_IRQ0_IRQEN,                 0xF0FFFFFF           ,"BSC"},
+
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_UPG_SPI_CPU_INTR_SHIFT,    BCHP_IRQ0_IRQEN,                 0xFFEFFFFF           ,"SPI"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_UPG_SC_CPU_INTR_SHIFT,     BCHP_SCIRQ0_SCIRQEN,             0                    ,"SC"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_MTP1_CPU_INTR_SHIFT,       BCHP_MTP_L2_1_CPU_STATUS,        0                    ,"MTP1"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_MTP2_CPU_INTR_SHIFT,       BCHP_MTP_L2_2_CPU_STATUS,        0                    ,"MTP2"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_UPG_TMR_CPU_INTR_SHIFT,    BCHP_TIMER_TIMER_IS,             0                    ,"TMR"},
+
+	{ -1, 0, 0, NULL }
+};
+#else
+static const BINT_P_IntMap bint_7038B0[] =
+{
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_HIF_CPU_INTR_SHIFT,        BCHP_HIF_INTR2_CPU_STATUS,       0                    ,"HIF"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_STATUS_CPU_INTR_SHIFT, BCHP_XPT_INT_INTR_STATUS_REG,    0                    ,"XPT"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_STATUS_CPU_INTR_SHIFT, BCHP_XPT_INT_INTR_STATUS2_REG,   0                    ,"XPT2"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_STATUS_CPU_INTR_SHIFT, BCHP_XPT_INT_INTR_STATUS4_REG,   0                    ,"XPT4"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_STATUS_CPU_INTR_SHIFT, BCHP_XPT_INT_INTR_STATUS5_REG,   0                    ,"XPT5"},
+
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_OVFL_CPU_INTR_SHIFT,   BCHP_XPT_INT_BUF_OVFL_REG_LO,    BINT_DONT_PROCESS_L2 ,"XPT_OVFL_LO"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_OVFL_CPU_INTR_SHIFT,   BCHP_XPT_INT_BUF_OVFL_REG_HI,    BINT_DONT_PROCESS_L2 ,"XPT_OVFL_HI"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_MSG_CPU_INTR_SHIFT,    BCHP_XPT_INT_BUF_DAT_RDY_REG_LO, BINT_DONT_PROCESS_L2 ,"XPT_MSG_LO"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_MSG_CPU_INTR_SHIFT,    BCHP_XPT_INT_BUF_DAT_RDY_REG_HI, BINT_DONT_PROCESS_L2 ,"XPT_MSG_HI"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_XPT_ICAM_CPU_INTR_SHIFT,   BCHP_XPT_INT_INTR_STATUS3_REG,   0                    ,"XPT_ICAM"},
+
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_BACH_CPU_INTR_SHIFT,       BCHP_AUDIO_INTH_R5F_STATUS,      0                    ,"BACH"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_IFD_CPU_INTR_SHIFT,        BCHP_IFD_L2_CPU_STATUS,          0                    ,"IFD"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_GFX_CPU_INTR_SHIFT,        BCHP_GFX_L2_CPU_STATUS,          0x380                ,"GFX"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_HDMI_CPU_INTR_SHIFT,       BCHP_HDMI_INTR2_CPU_STATUS,      0                    ,"HDMI"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_VDEC_CPU_INTR_SHIFT,       BCHP_VDEC_L2_0_CPU_STATUS,       0                    ,"VDEC"},
+
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_VEC_CPU_INTR_SHIFT,        BCHP_VIDEO_ENC_INTR2_CPU_STATUS, 0                    ,"VEC"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_BVNB_CPU_INTR_SHIFT,       BCHP_BVNB_INTR2_CPU_STATUS,      0                    ,"BVNB"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_BVNF_CPU_INTR_0_SHIFT,     BCHP_BVNF_INTR2_0_R5F_STATUS,    0                    ,"BVNF_0"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_BVNF_CPU_INTR_1_SHIFT,     BCHP_BVNF_INTR2_1_R5F_STATUS,    0                    ,"BVNF_1"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_BVNF_CPU_INTR_2_SHIFT,     BCHP_BVNF_INTR2_2_R5F_STATUS,    0                    ,"BVNF_2"},
+
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_BVNF_CPU_INTR_3_SHIFT,     BCHP_BVNF_INTR2_5_R5F_STATUS,    0                    ,"BVNF_3"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_RFM_CPU_INTR_SHIFT,        BCHP_RFM_L2_CPU_STATUS,          0                    ,"RFM"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_UPG_CPU_INTR_SHIFT,        BCHP_IRQ0_IRQEN,                 0xFFFFFE00           ,"UPG"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_UPG_BSC_CPU_INTR_SHIFT,    BCHP_IRQ0_IRQEN,                 0xF0FFFFFF           ,"BSC"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_UPG_SPI_CPU_INTR_SHIFT,    BCHP_IRQ0_IRQEN,                 0xFFEFFFFF           ,"SPI"},
+
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_UPG_SC_CPU_INTR_SHIFT,     BCHP_SCIRQ0_SCIRQEN,             0                    ,"SC"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_MTP1_CPU_INTR_SHIFT,       BCHP_MTP_L2_1_CPU_STATUS,        0                    ,"MTP1"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_MTP2_CPU_INTR_SHIFT,       BCHP_MTP_L2_2_CPU_STATUS,        0                    ,"MTP2"},
+	{ BCHP_HIF_CPU_INTR1_INTR_W0_STATUS_UPG_TMR_CPU_INTR_SHIFT,    BCHP_TIMER_TIMER_IS,             0                    ,"TMR"},
+	{ -1, 0, 0, NULL }
+};
+#endif
+
+static const BINT_Settings bint_7038Settings =
+{
+	BINT_P_7038_SetInt,
+	BINT_P_7038_ClearInt,
+	BINT_P_7038_SetMask,
+	BINT_P_7038_ClearMask,
+	BINT_P_7038_ReadMask,
+	BINT_P_7038_ReadStatus,
+#if ( BCHP_CHIP == 7038 ) && ( BCHP_VER >= BCHP_VER_C0 )
+	bint_7038C0,
+#elif ( BCHP_CHIP == 7038 ) && ( BCHP_VER >= BCHP_VER_B0 )
+	bint_7038B0,
+#else
+#error BINT: Unknown chip.  Port required.
+#endif
+	"7038"
+};
+
+static void BINT_P_7038_SetInt( BREG_Handle regHandle, uint32_t baseAddr, int shift )
+{
+	switch( baseAddr )
+	{
+	BINT_P_STANDARD_L2_CASES
+		BREG_Write32( regHandle, baseAddr + BINT_P_STD_SET, 1ul<<shift);
+		break;
+	default:
+		/* Only standard L2 interrupts support setting of interrupts */
+		break;
+	}
+}
+
+static void BINT_P_7038_ClearInt( BREG_Handle regHandle, uint32_t baseAddr, int shift )
+{
+	switch( baseAddr )
+	{
+	BINT_P_STANDARD_L2_CASES
+		BREG_Write32( regHandle, baseAddr + BINT_P_STD_CLEAR, 1ul<<shift);
+		break;
+	BINT_P_XPT_STATUS_CASES
+		BREG_Write32( regHandle, baseAddr + BINT_P_XPT_STATUS, ~(1ul<<shift));
+		break;
+	BINT_P_XPT_BUF_CASES
+		BREG_Write32( regHandle, baseAddr + BINT_P_XPT_BUF_STATUS, ~(1ul<<shift));
+		break;
+	BINT_P_TIMER_CASES
+		BREG_Write32( regHandle, baseAddr + BINT_P_TIMER_STATUS, 1ul<<shift);
+		break;
+	default:
+		/* Other types of interrupts do not support clearing of interrupts (condition must be cleared) */
+		break;
+	}
+}
+
+static void BINT_P_7038_SetMask( BREG_Handle regHandle, uint32_t baseAddr, int shift )
+{
+	uint32_t intEnable;
+
+	switch( baseAddr )
+	{
+	BINT_P_STANDARD_L2_CASES
+		BREG_Write32( regHandle, baseAddr + BINT_P_STD_MASK_SET, 1ul<<shift);
+		break;
+	BINT_P_XPT_STATUS_CASES
+		intEnable = BREG_Read32( regHandle, baseAddr + BINT_P_XPT_ENABLE);
+		intEnable &= ~(1ul<<shift);
+		BREG_Write32( regHandle, baseAddr + BINT_P_XPT_ENABLE, intEnable);
+		break;
+	BINT_P_XPT_BUF_CASES
+		intEnable = BREG_Read32( regHandle, baseAddr + BINT_P_XPT_BUF_ENABLE);
+		intEnable &= ~(1ul<<shift);
+		BREG_Write32( regHandle, baseAddr + BINT_P_XPT_BUF_ENABLE, intEnable);
+		break;
+	BINT_P_TIMER_CASES
+		intEnable = BREG_Read32( regHandle, baseAddr + BINT_P_TIMER_MASK);
+		intEnable &= ~(1ul<<shift);
+		BREG_Write32( regHandle, baseAddr + BINT_P_TIMER_MASK, intEnable);
+		break;
+	case BCHP_IRQ0_IRQEN:
+		/*
+			The BCHP_IRQ0_IRQSTAT_uarta_irq_MASK is a special bit that is actually a L1 mask.  Therefore
+			we should never be touching this bit in the L2 interrupt manager.
+		*/
+		BDBG_ASSERT( shift != BCHP_IRQ0_IRQSTAT_uarta_irq_SHIFT );
+		/* fell through */
+	case BCHP_SCIRQ0_SCIRQEN:
+
+		/* TODO: The linux kernel may also use this interrupt register, so we must disable interrupts */
+		intEnable = BREG_Read32( regHandle, baseAddr + BINT_P_UPG_ENABLE );
+		intEnable &= ~(1ul<<shift);
+		BREG_Write32( regHandle, baseAddr + BINT_P_UPG_ENABLE, intEnable );
+		break;
+	default:
+		/* Unhandled interrupt base address */
+		BDBG_ASSERT( false );
+		break;
+	}
+}
+
+static void BINT_P_7038_ClearMask( BREG_Handle regHandle, uint32_t baseAddr, int shift )
+{
+	uint32_t intEnable;
+
+	switch( baseAddr )
+	{
+	BINT_P_STANDARD_L2_CASES
+		BREG_Write32( regHandle, baseAddr + BINT_P_STD_MASK_CLEAR, 1ul<<shift);
+		break;
+	BINT_P_XPT_STATUS_CASES
+		intEnable = BREG_Read32( regHandle, baseAddr + BINT_P_XPT_ENABLE);
+		intEnable |= 1ul<<shift;
+		BREG_Write32( regHandle, baseAddr + BINT_P_XPT_ENABLE, intEnable);
+		break;
+	BINT_P_XPT_BUF_CASES
+		intEnable = BREG_Read32( regHandle, baseAddr + BINT_P_XPT_BUF_ENABLE);
+		intEnable |= 1ul<<shift;
+		BREG_Write32( regHandle, baseAddr + BINT_P_XPT_BUF_ENABLE, intEnable);
+		break;
+	BINT_P_UPG_CASES
+		/*
+			The BCHP_IRQ0_IRQSTAT_uarta_irq_MASK is a special bit that is actually a L1 mask.  Therefore
+			we should never be touching this bit in the L2 interrupt manager.
+		*/
+		BDBG_ASSERT( shift != BCHP_IRQ0_IRQSTAT_uarta_irq_SHIFT );
+
+		/* TODO: The linux kernel may also use this interrupt register, so we must disable interrupts */
+		intEnable = BREG_Read32( regHandle, baseAddr + BINT_P_UPG_ENABLE );
+		intEnable |= 1ul<<shift;
+		BREG_Write32( regHandle, baseAddr + BINT_P_UPG_ENABLE, intEnable );
+		break;
+	BINT_P_TIMER_CASES
+		intEnable = BREG_Read32( regHandle, baseAddr + BINT_P_TIMER_MASK );
+		intEnable |= (1ul<<shift);
+		BREG_Write32( regHandle, baseAddr + BINT_P_TIMER_MASK, intEnable );
+		break;
+	default:
+		/* Unhandled interrupt base address */
+		BDBG_ASSERT( false );
+		break;
+	}
+}
+
+static uint32_t BINT_P_7038_ReadMask( BREG_Handle regHandle, uint32_t baseAddr )
+{
+	switch( baseAddr )
+	{
+	BINT_P_STANDARD_L2_CASES
+		return BREG_Read32(regHandle, baseAddr + BINT_P_STD_MASK_STATUS);
+	BINT_P_XPT_STATUS_CASES
+		return ~BREG_Read32( regHandle, baseAddr + BINT_P_XPT_ENABLE );
+	BINT_P_XPT_BUF_CASES
+		return ~BREG_Read32( regHandle, baseAddr + BINT_P_XPT_BUF_ENABLE );
+	BINT_P_TIMER_CASES
+		return ~BREG_Read32( regHandle, baseAddr + BINT_P_TIMER_MASK );
+	BINT_P_UPG_CASES
+		/*
+			The BCHP_IRQ0_IRQSTAT_uarta_irq_MASK is a special bit that is actually a L1 mask.  Therefore
+			we always want to ignore it in the L2 interrupt manager
+		*/
+		return ~(BREG_Read32( regHandle, baseAddr + BINT_P_UPG_ENABLE )) | BCHP_IRQ0_IRQSTAT_uarta_irq_MASK;
+	default:
+		/* Unhandled interrupt base address */
+		BDBG_ASSERT( false );
+		return 0;
+	}
+}
+
+static uint32_t BINT_P_7038_ReadStatus( BREG_Handle regHandle, uint32_t baseAddr )
+{
+	switch( baseAddr )
+	{
+	BINT_P_STANDARD_L2_CASES
+		return BREG_Read32(regHandle, baseAddr + BINT_P_STD_STATUS);
+	BINT_P_XPT_STATUS_CASES
+		return BREG_Read32( regHandle, baseAddr + BINT_P_XPT_STATUS );
+	BINT_P_XPT_BUF_CASES
+		return BREG_Read32( regHandle, baseAddr + BINT_P_XPT_BUF_STATUS );
+	BINT_P_TIMER_CASES
+		return BREG_Read32( regHandle, baseAddr + BINT_P_TIMER_STATUS );
+	BINT_P_UPG_CASES
+		/*
+			The BCHP_IRQ0_IRQSTAT_uarta_irq_MASK is a special bit that is actually a L1 mask.  Therefore
+			we always want to ignore it in the L2 interrupt manager
+		*/
+		return BREG_Read32( regHandle, baseAddr + BINT_P_UPG_STATUS ) & ~BCHP_IRQ0_IRQSTAT_uarta_irq_MASK;
+	default:
+		/* Unhandled interrupt base address */
+		BDBG_ASSERT( false );
+		return 0;
+	}
+}
+
+const BINT_Settings *BINT_7038_GetSettings( void )
+{
+	return &bint_7038Settings;
+}
+
+
+/* End of file */

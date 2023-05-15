@@ -1,0 +1,16 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=PROGRAM
+TARGETNAME=CryptoTest
+UMTYPE=console
+
+SOURCES = \
+    ..\main.c \
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \
+    $(_DRM_TEST_CRYPTO_LIB) \
+!if "$(DRM_BUILD_PLATARCH)" == "WIN32_X64"
+    $(DRM_PK_TEST_LIB_PATH)\CryptoTestAPI_asm.lib \
+!endif

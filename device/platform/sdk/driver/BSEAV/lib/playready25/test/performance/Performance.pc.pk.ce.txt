@@ -1,0 +1,327 @@
+' ====================================  BEGIN INSTRUCTIONS ========================================
+' BUFFER ALLOCATION FORMULA:
+' --------------------------
+' If you want to avoid buffer wrap-around, the number of entries that you allocate should be
+' greater than:  ( ( APIs x 2[enter/exit] ) + 1[Seperator] ) x Loop
+'
+' For example, if your loop of 10 times will encounter 5 instrumented APIs, and you log a separator,
+' you will need a buffer that is at least ((5 x 2) + 1) x 10 = 110 entries in size.
+'
+'
+' TYPICAL PERFORMANCE TEST API SEQUENCE:
+' -------------------------------------
+'    1. TestPerfAllocateLogBuffer( x )
+'    2. TestPerfOn
+'    3. BeginRepeatLoop( y )
+'    4. < test APIs go here >
+'    5. TestPerfLogSeparator()
+'    6. EndOfLoop()
+'    7. TestPerfOff()
+'    8. TestPerfDumpLogBuffer( fileName unique to the test )
+'    9. TestPerfFreeLogBuffer()
+'
+'
+' IMPORTANT!
+' ----------
+' If you add or delete any tests from this file, you will also need to appropriately edit
+' the file: //depot/playready/main/source/Test/common/performance/data/PerformanceGoalData.xml
+'
+' =====================================  END INSTRUCTIONS =========================================
+
+
+' =================================================================================================
+99000:FUNC: Perf - Verify the Performance APIs
+TestPerfOn()=DRM_E_BUFFERTOOSMALL
+TestPerfDumpLogBuffer(NULL)=DRM_E_TEST_INVALIDARG
+TestPerfDumpLogBuffer(PKPerf.99000.txt)=DRM_E_BUFFERTOOSMALL
+TestPerfAllocateLogBuffer(0)=DRM_E_INVALIDARG
+TestPerfAllocateLogBuffer(100)
+TestPerfAllocateLogBuffer(100)=DRM_E_FAIL
+TestPerfLogSeparator()=DRM_E_FAIL
+TestPerfDumpLogBuffer(PKPerf.99000a.txt)
+TestPerfOn()
+TestPerfLogSeparator()
+TestPerfOff()
+TestPerfDumpLogBuffer(PKPerf.99000b.txt)
+TestPerfFreeLogBuffer()
+
+
+' =================================================================================================
+99001:PERF: Perf - LiveTV - SLS - Root 2500 locations, Leaf 1 location, 1000 leaves
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerSetRights(Play)
+TestPerfAllocateLogBuffer( 9100 )
+TestPerfOn()
+
+TestManagerCreateXMRLicenseFromPool( ROOT, LiveTVLicenses.xml, "Root with 2500 locations" )
+TestManagerGenerateXMRResponse( ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestManagerAddManyXMRLicensesFromPool( 1000, LiveTVLicenses.xml, "Leaf with 1 location and random KID" )
+
+BeginRepeatLoop( 1000 )
+
+TestManagerSetKIDFromList( )
+TestManagerBind(8 save decryptor into test variable, Dump, Decryptor1, NULL)
+TestManagerEncrypt( AES CipherType, 100 DataLengthToEncrypt )
+TestSetupDecryptor(Decryptor1)
+TestManagerInitDecrypt( NORMAL DecryptContext, NORMAL InitDecryptContext ) 
+If( !ActivationSupported )
+    TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NORMAL CounterModeCtx )
+EndIf
+TestManagerCommit
+TestManagerClose
+TestClearHeader()
+
+TestPerfLogSeparator()
+EndOfLoop()
+
+TestPerfOff()
+TestPerfDumpLogBuffer( PKPerf.99001.txt )
+TestPerfFreeLogBuffer()
+
+
+' =================================================================================================
+99002:PERF: Perf - LiveTV - SLS - Root 2500 locations, Leaf 2 locations, 1000 leaves
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerSetRights(Play)
+TestPerfAllocateLogBuffer( 9100 )
+TestPerfOn()
+
+TestManagerCreateXMRLicenseFromPool( ROOT, LiveTVLicenses.xml, "Root with 2500 locations" )
+TestManagerGenerateXMRResponse( ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestManagerAddManyXMRLicensesFromPool( 1000, LiveTVLicenses.xml, "Leaf with 2 locations and random KID" )
+
+BeginRepeatLoop( 1000 )
+
+TestManagerSetKIDFromList( )
+TestManagerBind(8 save decryptor into test variable, Dump, Decryptor1, NULL)
+TestManagerEncrypt( AES CipherType, 100 DataLengthToEncrypt )
+TestSetupDecryptor(Decryptor1)
+TestManagerInitDecrypt( NORMAL DecryptContext, NORMAL InitDecryptContext ) 
+If( !ActivationSupported )
+    TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NORMAL CounterModeCtx )
+EndIf
+TestManagerCommit
+TestManagerClose
+TestClearHeader()
+
+TestPerfLogSeparator()
+EndOfLoop()
+
+TestPerfOff()
+TestPerfDumpLogBuffer( PKPerf.99002.txt )
+TestPerfFreeLogBuffer()
+
+
+' =================================================================================================
+99003:PERF: Perf - LiveTV - SLS - Root 2500 locations, Leaf 129 locations, 1000 leaves
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerSetRights(Play)
+TestPerfAllocateLogBuffer( 9100 )
+TestPerfOn()
+
+TestManagerCreateXMRLicenseFromPool( ROOT, LiveTVLicenses.xml, "Root with 2500 locations" )
+TestManagerGenerateXMRResponse( ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestManagerAddManyXMRLicensesFromPool( 1000, LiveTVLicenses.xml, "Leaf with 129 locations and random KID" )
+
+BeginRepeatLoop( 1000 )
+
+TestManagerSetKIDFromList( )
+TestManagerBind(8 save decryptor into test variable, Dump, Decryptor1, NULL)
+TestManagerEncrypt( AES CipherType, 100 DataLengthToEncrypt )
+TestSetupDecryptor(Decryptor1)
+TestManagerInitDecrypt( NORMAL DecryptContext, NORMAL InitDecryptContext ) 
+If( !ActivationSupported )
+    TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NORMAL CounterModeCtx )
+EndIf
+TestManagerCommit
+TestManagerClose
+TestClearHeader()
+
+TestPerfLogSeparator()
+EndOfLoop()
+
+TestPerfOff()
+TestPerfDumpLogBuffer( PKPerf.99003.txt )
+TestPerfFreeLogBuffer()
+
+
+' =================================================================================================
+99004:PERF: Perf - LiveTV - SLS - Cleaning up 84 root licenses with expired RemovalDate objects
+SkipTestIf( !DeviceAssetsSupported )
+TestPerfAllocateLogBuffer( 350 )
+
+BeginRepeatLoop( 5 )
+TestPerfOn()
+
+TestManagerAddManyXMRLicensesFromPool( 84, LiveTVLicenses.xml, "Root with 30 second RemovalDate and random KID" )
+TestManagerCleanLicenseStore( 1, 30, ALL )
+
+TestPerfLogSeparator()
+TestPerfOff()
+TestManagerReinitialize( Reset, TRUE )
+EndOfLoop()
+
+TestPerfDumpLogBuffer( PKPerf.99004.txt )
+TestPerfFreeLogBuffer()
+
+
+' =================================================================================================
+99005:PERF: Perf - LiveTV - Blackout - Max key derivations, Root 1 location (32768), Leaf 1 location (9)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerSetRights(Play)
+TestPerfAllocateLogBuffer( 910 )
+TestPerfOn()
+
+TestManagerCreateXMRLicenseFromPool( ROOT, LiveTVLicenses.xml, "Root 32768" )
+TestManagerCreateXMRLicenseFromPool( LEAF, LiveTVLicenses.xml, "Leaf 9" )
+TestManagerGenerateXMRResponse( ROOT, LEAF )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+BeginRepeatLoop( 100 )
+
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerBind(8 save decryptor into test variable, Dump, Decryptor1, NULL)
+TestManagerEncrypt( AES CipherType, 100 DataLengthToEncrypt )
+TestSetupDecryptor(Decryptor1)
+TestManagerInitDecrypt( NORMAL DecryptContext, NORMAL InitDecryptContext ) 
+If( !ActivationSupported )
+    TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NORMAL CounterModeCtx )
+EndIf
+TestManagerCommit
+TestManagerClose
+TestClearHeader()
+
+TestPerfLogSeparator()
+EndOfLoop()
+
+TestPerfOff()
+TestPerfDumpLogBuffer( PKPerf.99005.txt )
+TestPerfFreeLogBuffer()
+
+
+' =================================================================================================
+99006:PERF: Perf - LiveTV - Blackout - Max key derivations, Root 1 location (32768), Leaf 2 locations (5 7)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerSetRights(Play)
+TestPerfAllocateLogBuffer( 910 )
+TestPerfOn()
+
+TestManagerCreateXMRLicenseFromPool( ROOT, LiveTVLicenses.xml, "Root 32768" )
+TestManagerCreateXMRLicenseFromPool( LEAF, LiveTVLicenses.xml, "Leaf 5 7" )
+TestManagerGenerateXMRResponse( ROOT, LEAF )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+BeginRepeatLoop( 100 )
+
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerBind( 8 save decryptor into test variable, Dump, Decryptor1, NULL )
+TestManagerEncrypt( AES CipherType, 100 DataLengthToEncrypt )
+TestSetupDecryptor(Decryptor1)
+TestManagerInitDecrypt( NORMAL DecryptContext, NORMAL InitDecryptContext ) 
+If( !ActivationSupported )
+    TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NORMAL CounterModeCtx )
+EndIf
+TestManagerCommit
+TestManagerClose
+TestClearHeader()
+
+TestPerfLogSeparator()
+EndOfLoop()
+
+TestPerfOff()
+TestPerfDumpLogBuffer( PKPerf.99006.txt )
+TestPerfFreeLogBuffer()
+
+
+' =================================================================================================
+99007:PERF: Perf - DRM Initialize
+TestPerfAllocateLogBuffer( 3100 )
+TestPerfOn()
+' Call TestManagerUninitialize() here to unitialize the TestManagerInitialize done in pre-test-case.
+' Otherwise, calling TestManagerInitialize twice in a row will cause AppVerifier to crash the app.
+TestManagerUninitialize()
+BeginRepeatLoop( 1000 )
+
+TestManagerInitialize( Dump )
+TestManagerUninitialize()
+
+TestPerfLogSeparator()
+EndOfLoop()
+
+TestPerfOff()
+TestPerfDumpLogBuffer( PKPerf.99007.txt )
+TestPerfFreeLogBuffer()
+
+
+' =================================================================================================
+99008:PERF: Perf - DRMManager decrypt a regular length of encrypted data (XMR)
+SkipTestIf( ActivationSupported, !DeviceAssetsSupported )
+TestPerfAllocateLogBuffer( 2530 )
+TestPerfOn()
+
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader( NORMAL, music1V4header.xml )
+TestManagerAddXMRLicense( nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+BeginRepeatLoop( 253 )
+
+TestManagerEncrypt( AES CipherType, 32768 DataLengthToEncrypt )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+If( !ActivationSupported )
+    TestManagerDecrypt( NORMAL DecryptContext, 32768 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NORMAL )
+Else
+    Test_DRM_AES_Cipher( CTR, RANDOM, 32768 )
+EndIf
+TestManagerCommit
+TestManagerClose
+
+TestPerfLogSeparator()
+EndOfLoop()
+
+TestPerfOff()
+TestPerfDumpLogBuffer( PKPerf.99008.txt )
+TestPerfFreeLogBuffer()
+
+
+' =================================================================================================
+99009:PERF: Generate an activation challenge with all fields using DRM_ACT_GenerateChallengeInternal
+SkipTestIf( !ActivationSupported )
+TestPerfAllocateLogBuffer( 300 )
+TestPerfOn()
+BeginRepeatLoop( 100 )
+
+TestDRMACTGenerateChallengeInternal(<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><Activate xmlns="http://schemas.microsoft.com/PlayReady/ActivationService/v1"><challenge><clientSdkVersion>1.2.3.4</clientSdkVersion><clientSdkType>2</clientSdkType><platform>6</platform><tid>65536</tid><payload><auxilaryPayload>VGhpcyBpcyBhIHRlc3Qgb2YgYXV4IHBheWxvYWQ=</auxilaryPayload><primaryPayload>AQAAAKD6KNyLlWOceoYAzHAgtOtydHNccHVibDQBAABHRKt2sW/ouBjtKAc9vs7nrEFPNj/muDMb3oPZjJcxFU7mSKcN2xGIGDdqU7LPNjch5e1j/h/YjPQyuZ1IDkJqOLYkGAYmpQI+yk1XkQY4Hfdhs+hzsP9flyZ9ySTp3amlZHz4PeTpUlpiH4XNtwv3xiZiIs/uFDJ1RDEh/cT8gQEqJsIYKFWNZg5qsYz36DP7Ww7JYgcDzIdJA1bo84nYqkCigZqKQ74es6i+qOY0qaUIwoC+oTmrpp4rPItXAdIeVHysiBzbzfaVLNBkzCKZumUxFV4n3cwoq9kPMVZVRNtweFxuzetbUXv1NGECa7mB87Bkzw4LNbNT2GpwqnOEbwOARLH1p6JTrPthBveP+nujY+VICE+8ORXpj+HG2SGnCZIrD3VEISqtP1YxtbX4u2qGNGDMGeTvBCWJO8/NDT9E5LE=</primaryPayload></payload></challenge></Activate></soap:Body></soap:Envelope>,1.2.3.4,2,6,65536,AQAAAKD6KNyLlWOceoYAzHAgtOtydHNccHVibDQBAABHRKt2sW/ouBjtKAc9vs7nrEFPNj/muDMb3oPZjJcxFU7mSKcN2xGIGDdqU7LPNjch5e1j/h/YjPQyuZ1IDkJqOLYkGAYmpQI+yk1XkQY4Hfdhs+hzsP9flyZ9ySTp3amlZHz4PeTpUlpiH4XNtwv3xiZiIs/uFDJ1RDEh/cT8gQEqJsIYKFWNZg5qsYz36DP7Ww7JYgcDzIdJA1bo84nYqkCigZqKQ74es6i+qOY0qaUIwoC+oTmrpp4rPItXAdIeVHysiBzbzfaVLNBkzCKZumUxFV4n3cwoq9kPMVZVRNtweFxuzetbUXv1NGECa7mB87Bkzw4LNbNT2GpwqnOEbwOARLH1p6JTrPthBveP+nujY+VICE+8ORXpj+HG2SGnCZIrD3VEISqtP1YxtbX4u2qGNGDMGeTvBCWJO8/NDT9E5LE=,VGhpcyBpcyBhIHRlc3Qgb2YgYXV4IHBheWxvYWQ=)
+
+TestPerfLogSeparator()
+EndOfLoop()
+
+TestPerfOff()
+TestPerfDumpLogBuffer( PKPerf.99009.txt )
+TestPerfFreeLogBuffer()
+
+
+' =================================================================================================
+99010:PERF: Process an activation WSDL response using DRM_ACT_ProcessWSDLResponseInternal
+SkipTestIf( !ActivationSupported )
+TestPerfAllocateLogBuffer( 300 )
+TestPerfOn()
+BeginRepeatLoop( 100 )
+
+TestDRMACTProcessWSDLResponseInternal(<?xml version="1.0" encoding="utf-8"?><wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://schemas.microsoft.com/PlayReady/ActivationService/v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://schemas.microsoft.com/PlayReady/ActivationService/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"><wsdl:message name="ActivateSoapIn"><wsdl:part name="parameters" element="tns:Activate" /></wsdl:message><wsdl:message name="ActivateSoapOut"><wsdl:part name="parameters" element="tns:ActivateResponse" /></wsdl:message><wsdl:portType name="WsHandlerSoap"><wsdl:operation name="Activate"><wsdl:input message="tns:ActivateSoapIn" /><wsdl:output message="tns:ActivateSoapOut" /></wsdl:operation></wsdl:portType><wsdl:portType name="WsHandlerHttpPost" /><wsdl:binding name="WsHandlerSoap" type="tns:WsHandlerSoap"><soap:binding transport="http://schemas.xmlsoap.org/soap/http" /></wsdl:binding><wsdl:binding name="WsHandlerHttpPost" type="tns:WsHandlerHttpPost"><http:binding verb="POST" /></wsdl:binding><wsdl:service name="WsHandler"><wsdl:port name="WsHandlerSoap" binding="tns:WsHandlerSoap"><soap:address location="http://slindiv-05.redmond.corp.microsoft.com/playready/FrontEnd_Activation/Activation.asmx" /></wsdl:port><wsdl:port name="WsHandlerHttpPost" binding="tns:WsHandlerHttpPost"><http:address location="http://slindiv-05.redmond.corp.microsoft.com/playready/FrontEnd_Activation/Activation.asmx" /></wsdl:port></wsdl:service></wsdl:definitions>,http://slindiv-05.redmond.corp.microsoft.com/playready/FrontEnd_Activation/Activation.asmx)
+
+TestPerfLogSeparator()
+EndOfLoop()
+
+TestPerfOff()
+TestPerfDumpLogBuffer( PKPerf.99010.txt )
+TestPerfFreeLogBuffer()
+

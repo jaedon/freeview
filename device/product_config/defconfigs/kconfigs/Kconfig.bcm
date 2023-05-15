@@ -1,0 +1,144 @@
+menu "Broadcom Configuration"
+
+config PLATFORM
+	string
+	prompt "Platform number"
+	default 97335
+
+config CHIP
+	string
+	prompt "Chip number"
+	default 7335
+
+config CHIP_REV
+	string
+	prompt "Chip revision number"
+	default B0
+
+choice
+	prompt "Platform endian"
+	default ENDIAN_LITTLE
+
+menuconfig ENDIAN_BIG
+	bool "big-endian"	
+
+menuconfig ENDIAN_LITTLE
+	bool "little-endian"	
+
+endchoice
+
+choice
+	prompt "Platform OS"
+	default OS_LINUX
+
+menuconfig OS_LINUX
+	bool "Linux"
+
+menuconfig OS_UCOS
+	bool "uCos"
+
+endchoice
+
+config TOOLCHAIN_PATH
+	string
+	prompt "Toolchain path"
+	default "/opt/toolchains/crosstools_hf-linux-2.6.18.0_gcc-4.2-11ts_uclibc-nptl-0.9.29-20070423_20090508"
+
+config KERNEL_TOOLCHAIN_PATH
+	string
+	prompt "Kernel Toolchain path"
+	default n
+
+config TOOLCHAIN_PATCH
+	bool
+	prompt "Toolchain patch"
+	default n
+
+config TOOLCHAIN_PATCH_DIR
+	string
+	prompt "Toolchain patch directory"
+	default "platform/sdk/toolchains/patch/stbgcc-4.5.3-1.3/uclibc-0.9.32a/le"
+	depends on TOOLCHAIN_PATCH
+
+endmenu
+
+config BCM_DOT_CONFIG
+	bool
+	default y
+
+source "Kconfig.kernel"
+source "Kconfig.rootfs"
+source "Kconfig.device"
+source "driver/bcm_kconfig"
+
+menu "Advanced configuration options (for developers)"
+config DEVEL
+	bool
+	default y
+	select BUILDOPTS
+
+config BROKEN
+	bool "Show broken platforms /packages" if DEVEL
+
+menuconfig BUILDOPTS
+	bool "Build Options" if DEVEL
+
+config CCACHE
+	bool
+	prompt "Use ccache" if BUILDOPTS
+	default n
+	help
+		Compiler cache; see http://ccache.samba.org/
+
+config JLEVEL
+	int
+	prompt "Number of jobs to run simultaneously" if BUILDOPTS
+	default "2"
+	help
+		Number of jobs to run simultaneously
+
+config USES_TFTPBOOT
+	bool
+	prompt "Use tftpboot" if DEVEL
+	default y
+
+config PRODUCT_TFTPBOOT_DIR
+	string
+	prompt "tftpboot dir"
+	default "/tftpboot"
+
+config USES_NFSROOT
+	bool
+	prompt "Use nfsroot" if DEVEL
+	default y
+
+config PRODUCT_NFSROOT_DIR
+	string
+	prompt "nfsroot dir"
+	default "/nfsroot"
+	
+config AUTO_STRIP
+	bool
+	prompt "Striping en bloc targets before making squashfs"
+	help
+		Strip targets : KO drivers, Shared lib, User apps
+	default y
+	
+config I2C_ASYNC
+	bool
+	prompt "I2C_ASYNC"
+	default n
+		
+menu "Use TAR build"
+
+config TAR_BUILD_KERNEL
+	bool
+	prompt "Unpack kernel and patch"
+
+config TAR_BUILD_URSR
+	bool
+	prompt "Unpack URSR and patch"
+
+endmenu
+
+endmenu

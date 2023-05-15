@@ -1,0 +1,63 @@
+
+#####################
+# if you tool chain path is diffrent, you can modify $(TOOLCHAIN_PATH)
+TOOLCHAIN_PATH := /opt/toolchains/stbgcc-4.5.4-2.6
+#####################
+
+HUMAX_VERBOSE :=
+#@
+HUMAX_CROSS := $(TOOLCHAIN_PATH)/bin/mipsel-linux-uclibc-
+HUMAX_ECHO := $(HUMAX_VERBOSE)echo
+HUMAX_MAKE := $(HUMAX_VERBOSE)make
+HUMAX_CC := $(HUMAX_VERBOSE)$(HUMAX_CROSS)gcc
+HUMAX_CXX := $(HUMAX_VERBOSE)$(HUMAX_CROSS)g++
+HUMAX_AR := $(HUMAX_VERBOSE)$(HUMAX_CROSS)ar
+HUMAX_LD := $(HUMAX_VERBOSE)$(HUMAX_CROSS)ld
+HUMAX_STRIP := $(HUMAX_VERBOSE)$(HUMAX_CROSS)strip
+HUMAX_SED := sed
+HUMAX_CP := $(HUMAX_VERBOSE)cp
+HUMAX_RM := $(HUMAX_VERBOSE)rm -rf
+HUMAX_MV := $(HUMAX_VERBOSE)mv
+HUMAX_LN := $(HUMAX_VERBOSE)ln
+HUMAX_MKDIR := $(HUMAX_VERBOSE)mkdir -p
+HUMAX_NM := $(HUMAX_VERBOSE)$(HUMAX_CROSS)nm
+
+USER=$(shell echo $(shell whoami) | sed "s/[ ]//g")
+
+ifeq ($(CONFIG_DEBUG), y)
+	HUMAX_OPT_LEVEL = -O0
+	HUMAX_DBG_SYMBOL = -ggdb3
+else
+	HUMAX_OPT_LEVEL = -O2
+	HUMAX_DBG_SYMBOL =
+endif
+
+LIB_HUMAXAPP := -ldapi -lhapi -lhomapi -lnapi -lpapi -lsamalib -lsapi -lthapi -luapi -loapi -ltapi\
+				-lhlib -lclib -lappkit -ldlib -londk -lrlib -lsilib -lsitextlib -lmemory-null
+LIB_SYSTEM	:=  -ldriver -ldi_network -ldi_wifi -ldrv_hotplug -lnexus_client -ldidemux_ext -linit_client -lpthread -lrt -lssp -lstdc++ -lvkernel
+LIB_3RD		:=  -ljpeg -lcurl -lpng -lfreetype\
+                -lz -lid3 -lz  -lexif -lcom_err -le2p -lss \
+                -luuid -lssl -lcrypto -lxml2 \
+                -ljansson -llog4c \
+                -lblkid -lcom_err -le2p -lss -luuid -lext2fs \
+                -ldirectfb -ldirect -lfusion -ldl -lsqlite3 
+
+LIB_DLNA	:= -lmxdbc -lmxdlna_core -lmxdlna_dms -lmxdlna_dmr \
+			-lmxdlna_mscp -lmxdtcp -lmxfile -lmxkernel -lmxmedia -lmxres -lmxsqlite -lTranscoder_Control -lHMS_transcoderWrapper
+#LIB_WOON	:= -lras -lHMS_transcoderWrapper -lTranscoder_Control
+LIB_WEB		:= -lopera -lwebtv -lbpl -loipf -lopera_hbbtv -lvideobackend
+
+######################################################
+# if your project have the other libraries, you can add in here..
+LIB_PROJECT_SPECIFIC	:= -lredkey static_libs/license.lo
+
+STATICLIB_DIR = $(CURDIR)/static_libs
+
+ROOTFS_LIB_DIR = $(TARGET_NFSROOT_ROOT_FOLDER)/lib
+ROOTFS_USRLIB_DIR = $(TARGET_NFSROOT_ROOT_FOLDER)/usr/lib
+
+LDPATHFLAGS = -L$(STATICLIB_DIR) -L$(ROOTFS_LIB_DIR) -L$(ROOTFS_USRLIB_DIR)
+
+
+LDFLAGS := $(LIB_HUMAXAPP) $(LIB_SYSTEM) $(LIB_3RD) $(LIB_DLNA) $(LIB_PROJECT_SPECIFIC)
+LDFLAGS_FOR_MHEG := -lmheg $(LIB_SYSTEM) $(LIB_HUMAXAPP) $(LIB_PROJECT_SPECIFIC) $(LIB_3RD)

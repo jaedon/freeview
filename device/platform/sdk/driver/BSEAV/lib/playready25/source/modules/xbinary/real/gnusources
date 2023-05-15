@@ -1,0 +1,15 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmxbinaryreal
+TARGETTYPE=LIBRARY
+
+SOURCES =          \
+    drmxb.c        \
+    drmxbbuilder.c \
+    drmxbparser.c
+

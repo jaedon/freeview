@@ -1,0 +1,45 @@
+{
+	"dev_storage_info":{
+		"dev_id":1,
+		"dev_interface":"interface_usb",
+		"dev_type":"dev_type_ext",
+		"dev_kind":"dev_kind_usbmem",
+		"dev_usage":"dev_usage_storage",
+		"dev_status":{
+			"physical_status":"dev_status_plugin",
+			"mount_status":"dev_status_mounted",
+			"format_status":"not supported",
+			"format_param":{
+				"staus_param1":0,
+				"staus_param2":0,
+				"staus_param3":0
+			},
+			"pairing_status":"not supported"
+		},
+		"fs_type":"fs_fat32",
+		"dev_size_kb":757760,
+		"dev_size_gb":3,
+		"dev_mount_path":"/media/drive1",
+		"dev_volume_label":"Nano Pro",
+		"dev_uuid":"NO UUID",
+		"dev_name":"/dev/sda",
+		"dev_partnum":1,
+		"dev_partlist":[
+			{
+				"part_id":0,
+				"part_available":true,
+				"fs_type":"fs_fat32",
+				"part_start_unit":1,
+				"part_end_unit":1017,
+				"part_mounted":true,
+				"part_pvr":false,
+				"part_writable":true,
+				"part_drive_no":0,
+				"part_size_kb":757760,
+				"part_size_gb":3,
+				"part_mount_path":"/media/drive1",
+				"part_volume_label":"Nano Pro"
+			}
+		]
+	}
+}

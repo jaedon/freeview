@@ -1,0 +1,11 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmbytemanipreal
+TARGETTYPE=LIBRARY
+
+C_DEFINES= $(C_DEFINES)             \
+    -DDRM_BUILDING_DRMBYTEMANIP_LIB \
+
+SOURCES =                    \
+      drmbytemanipimplreal.c
+

@@ -1,0 +1,4 @@
+2005-03-03  Dirk Jagdmann  <doj@cubic.org>
+
+	* include.c: on Win32 build \ directory seperator is no handled correctly. By Adam Tegen
+

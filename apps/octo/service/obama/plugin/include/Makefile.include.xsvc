@@ -1,0 +1,25 @@
+
+# Bus include path
+ccflags-y += -I$(OCTO_TVMANAGER_DIR)/bus/include
+
+# DB include path
+ccflags-y += -I$(OCTO_DB_DIR)/include
+ccflags-y += -I$(OCTO_DB_DIR)/include_plugin
+ccflags-y += -I$(OCTO_DB_PLUGIN_DIR)/include
+
+# SVC include path
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/include_plugin
+
+# SVC Plug-In include path
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/include
+
+# for Extention Module
+# SI
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/svc/si/local_include
+# DOWNLOAD
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/svc/download/local_include
+
+
+#PAL include path
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/pal/include
+

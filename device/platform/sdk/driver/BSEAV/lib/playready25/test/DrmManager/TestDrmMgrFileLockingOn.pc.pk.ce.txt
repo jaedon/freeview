@@ -1,0 +1,20 @@
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'' This file contains test cases which should only be run when PlayReady PK is built with DRM_SUPPORT_LOCKING=1 ''
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'Test skiped on Linux build. By default Linux does not support mandatory lock, therefore, we can still open/write to a locked file. 
+'In this case, this test will fail on linux. It's OK for this test to fail because internally we attempt to acquire file locks for
+'things like the HDS and don't just try to write.
+11514:BVT: Test writing to a locked file
+SkipTestIf(Linux)
+TestCopyFile( files\EnvelopeForEmbeddingTest.eny, files\EnvelopeForEmbeddingTest_tmp2.eny )
+TestManagerOpenEnvelope( EnvelopeContext0, files\EnvelopeForEmbeddingTest_tmp2.eny )
+TestManagerAddXMRLicense( AVhTknNlJOjo7F6b7HeNxg==, {55227A28-3FEE-4EB5-AF13-F77A5258A919}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, AES_128_CTR )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, AES_128_ECB )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerUpdateEmbeddedStore
+VerifyEmbeddedLicenseAPI(AVhTknNlJOjo7F6b7HeNxg==, {55227A28-3FEE-4EB5-AF13-F77A5258A919})
+TestManagerOpenEnvelope( EnvelopeContext1, files\EnvelopeForEmbeddingTest_tmp2.eny )
+TestManagerEnvelopeWritePlayReadyObject( EnvelopeContext1, files\EnvelopeForEmbeddingTest_tmp2.eny ) = 0X8003006E ( DRM_E_FILEOPEN )
+TestManagerCloseEnvelope( EnvelopeContext1 )
+TestManagerCloseEnvelope( EnvelopeContext0 )

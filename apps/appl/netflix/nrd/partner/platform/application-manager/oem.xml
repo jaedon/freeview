@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config_root>
+  <config_data>
+    <suspend_mode>true</suspend_mode>
+    <tiles_enabled>true</tiles_enabled>
+    <dpi_has_suspend>true</dpi_has_suspend>
+  </config_data>
+</config_root>

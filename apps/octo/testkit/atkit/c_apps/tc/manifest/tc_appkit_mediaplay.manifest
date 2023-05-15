@@ -1,0 +1,63 @@
+{
+	"RUN_ALL": false,
+
+	"RUN_CATEGORY":[
+		"normal"
+		],
+
+	"RUN_TC":[
+
+		],
+	"TC_LIST":[
+		{
+			"tc_name": "TC_APPKIT_MediaPlay_Normal",
+			"category": ["normal"],
+			"argument": {
+				"StartInfo": {
+					"eType": 1,
+					"eLiveType": 1,
+					"eSuppSvcType": 0,
+					"eTuneMode": 0,
+					"ulMajorCHNum": 0
+				}
+			},
+			"expect_result": {
+				"result": 0
+			}
+		},
+		{
+			"tc_name": "TC_APPKIT_MediaPlay_Subtitle",
+			"category": ["subtitle"],
+			"argument": {
+				"StartInfo": {
+					"eType": 1,
+					"eLiveType": 1,
+					"eSuppSvcType": 0,
+					"eTuneMode": 0,
+					"ulMajorCHNum": 0
+				},
+				"sizefont": 17
+			},
+			"expect_result": {
+				"result": 0
+			}
+		},
+		{
+			"tc_name": "TC_APPKIT_MediaPlay_Audio",
+			"category": ["audio"],
+			"argument": {
+				"StartInfo": {
+					"eType": 1,
+					"eLiveType": 1,
+					"eSuppSvcType": 0,
+					"eTuneMode": 0,
+					"ulMajorCHNum": 0
+				}
+			},
+			"expect_result": {
+				"result": 0
+			}
+		}
+	]
+}
+

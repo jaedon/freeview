@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Filemgr/Base">   
+    <interface name="Octopus.Appkit.Filemgr.Base">
+
+    <method name="BrowserFiles">
+    	<arg type="s" name="path" direction="in" />
+    	<arg type="s" name="filter" direction="in" />    	
+    	<arg type="s" name="keyword" direction="in" />
+    	<arg type="u" name="browsingMode" direction="in" />    	    	    	
+    	<arg type="i" name="requestId" direction="out" />    	    	    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="ScanDir">
+    	<arg type="s" name="source" direction="in" />
+    	<arg type="s" name="extFilter" direction="in" />    	    	
+    	<arg type="b" name="recursive" direction="in" />    	    	
+    	<arg type="i" name="requestId" direction="out" />    	    	    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                        
+
+    <method name="Remove">
+    	<arg type="s" name="source" direction="in" />
+    	<arg type="s" name="extFilter" direction="in" />    	    	
+    	<arg type="b" name="recursive" direction="in" />    	    	
+    	<arg type="i" name="requestId" direction="out" />    	    	    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                        
+
+    <method name="Copy">
+    	<arg type="s" name="source" direction="in" />
+    	<arg type="s" name="dest" direction="in" />    	
+    	<arg type="s" name="extFilter" direction="in" />    	    	
+    	<arg type="b" name="decryption" direction="in" />    	    	
+    	<arg type="i" name="requestId" direction="out" />    	    	    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="Move">
+    	<arg type="s" name="source" direction="in" />
+    	<arg type="s" name="dest" direction="in" />    	
+    	<arg type="s" name="extFilter" direction="in" />    	    	
+    	<arg type="b" name="decryption" direction="in" />    	    	
+    	<arg type="i" name="requestId" direction="out" />    	    	    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="MakeDir">
+    	<arg type="s" name="source" direction="in" />
+    	<arg type="i" name="requestId" direction="out" />    	    	    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <method name="RemoveDir">
+    	<arg type="s" name="source" direction="in" />
+    	<arg type="i" name="requestId" direction="out" />    	    	    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <method name="Cancel">
+    	<arg type="i" name="cancleRequestId" direction="in" />    	    	    	
+    	<arg type="i" name="requestId" direction="out" />    	    	    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetSizeOfPath">
+    	<arg type="s" name="path" direction="in" />
+    	<arg type="s" name="extFilter" direction="in" />
+    	<arg type="t" name="size" direction="out" />    	    	    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <signal name="event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+
+  </interface>
+</node>

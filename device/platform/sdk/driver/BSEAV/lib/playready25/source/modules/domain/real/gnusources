@@ -1,0 +1,16 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmdomainreal
+TARGETTYPE=LIBRARY
+
+SOURCES =                   \
+    drmdomainapi.c          \
+    drmdomainimp.c          \
+    drmdomainkeyxmrparser.c \
+    drmdomainstore.c
+

@@ -1,0 +1,8 @@
+########################################
+# DI PUMP configuration menu
+########################################
+
+config PUMP
+	bool
+	prompt "PUMP"
+	default n

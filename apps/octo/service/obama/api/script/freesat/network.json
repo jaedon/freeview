@@ -1,0 +1,8 @@
+{
+    "network": [{
+        "net_uid": 1,
+        "onid": 59,
+        "net_name": "Freesat",
+        "delitype": "sat"
+    }]
+}

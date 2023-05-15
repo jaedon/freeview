@@ -1,0 +1,425 @@
+############################################################
+#     Copyright (c) 2003-2008, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.core $
+# $brcm_Revision: 58 $
+# $brcm_Date: 9/29/08 11:29a $
+#
+# Module Description:
+#
+# Revision History:
+#
+# Created: 02/09/2001 by Marcus Kellerman
+#
+# $brcm_Log: /BSEAV/api/build/magnum/Makefile.core $
+# 
+# 58   9/29/08 11:29a gmohile
+# PR 25109 : Use compile time variable to use settop api sw rave
+# 
+# 57   9/29/08 11:24a gmohile
+# PR 25109 : Use compile time variable to use settop api sw rave
+# 
+# 56   9/26/08 10:39a gmohile
+# PR 25109 : Provide run time variable to set bits per sample for pcm
+# capture
+# 
+# 55   8/13/08 10:29a gmohile
+# PR 45613 : Disable dacs for wma certification mode
+# 
+# 54   6/20/08 6:01p anilmm
+# PR43453: Add support for 97459
+# 
+# 53   4/25/08 2:30p bandrews
+# PR36149: Moved syslib framework impl out of board and into base
+# 
+# 52   1/3/08 2:09p mphillip
+# PR35854: Merge p3d changes
+# 
+# 51   12/4/07 5:34p jrubio
+# PR35015: compile pcm file
+# 
+# 50   11/26/07 12:34p katrep
+# PR37217: 7335 bringup
+# 
+# 47   10/29/07 3:50p jrubio
+# PR35015: fixing for 7325
+# 
+# 46   10/9/07 3:35a katrep
+# PR35844: Added PCM playback support for 7405.
+# 
+# 45   9/29/07 11:28p sushmit
+# PR 35339: [7405] Provide BRAT for 7405
+# 
+# 44   7/30/07 12:04p erickson
+# PR32868: tspsi_validate.c no longer required by bmsglib
+# 
+# PR35854/2   12/6/07 9:06p mphillip
+# PR35854: Need a helper for GRC calls
+# 
+# PR35854/1   12/3/07 5:32p mphillip
+# PR35854: Update build for kernelmode 3D
+# 
+# 43   7/20/07 11:51a katrep
+# PR27643: Add B_CONFIG_IMAGE support for 7405
+# 
+# REFSW_97405_BRINGUP/1   6/24/07 2:35p katrep
+# PR27643: Added bsettop_base_rap_7405.c to use with RAP 2.0.
+# 
+# 42   6/7/07 6:32p vle
+# PR 31924: Added check for HDMI Tx support
+# 
+# 41   4/25/07 8:47a jgarrett
+# PR 30194: Adding check for BCHP_7411_VER on unsupported platforms
+# 
+# 40   2/15/07 6:34p mphillip
+# PR26308: Separate bstream_set_encryption from bsettop_decode.c
+# 
+# 39   1/17/07 11:42a anilmm
+# PR27129:add 97458A0 platform support
+#
+# 38   12/21/06 4:24p vsilyaev
+# PR26258: add cablecard support in Settop API kernel mode
+#
+# PROD_TRINITY_REFSW_Devel/1   12/19/06 3:28p haisongw
+# PR26258: add cablecard support in Settop API kernel mode
+#
+# 37   11/27/06 3:27p mward
+# PR23262: Add PCM, Smartcard for 97118.
+#
+# 36   11/16/06 10:21p qcheng
+# PR25950: Add ICAM2.2 support for 7401 C0 and 7118 A0
+#
+# 35   10/31/06 9:13a erickson
+# PR25109: add 7403 support
+#
+# 34   9/11/06 3:50p erickson
+# PR24056: added first pass of SW RAVE for ITB preprocessing before
+# decoding
+#
+# 33   8/11/06 5:56p mphillip
+# PR23573: Rename bcrypt_ to bcrypto_
+#
+# 32   7/31/06 4:20p mphillip
+# PR19544: Centralize BDMA access into b_root for general use
+#
+# 31   7/11/06 5:47p mphillip
+# PR19544: Initial commit of bcrypt_ stubs
+#
+# 30   6/19/06 1:00p erickson
+# PR21941: convert 7401 to use bsettop_base_rap_740x.c
+#
+# 29   5/26/06 9:03a mward
+# PR21671: Add support for 7118 chip 97118 board.
+#
+# 28   5/10/06 2:08p erickson
+# PR17108: 7401 now uses bsettop_base_xvd_740x.c
+#
+# 27   4/27/06 5:25p haisongw
+# PR 20984: add 97456 platform support
+#
+# 26   4/11/06 3:55p bandrews
+# PR19434: Added conditional compile BSYNC_SUPPORT and runtime flag
+# sync_enabled
+#
+# 25   4/4/06 4:01p erickson
+# PR20487: added rap tsm log
+#
+# 24   3/27/06 10:41a erickson
+# PR17108: separate 740x code
+#
+# 23   2/27/06 11:12a erickson
+# PR17108: use correct base_rap for 7400 and 7401
+#
+# 22   2/23/06 2:12p jgarrett
+# PR 19674: revisiting dual-audio support for 7400
+#
+# 21   2/22/06 10:07a jgarrett
+# PR 19674: Adding dual-decode support for the 97400
+#
+# 20   2/3/06 4:53p jgarrett
+# PR 19250: Update Set-Top API for 97400
+#
+# 19   1/20/06 11:50a erickson
+# PR17108: convert filter-out to findstring for 7401/7400 support
+#
+# 18   1/19/06 9:53a jgarrett
+# PR 19105: Create 97400 BSP
+#
+# Refsw_Devel_7400_A0/1   1/12/06 3:05p jgarrett
+# PR 18997: Creating directories for 7400
+#
+# 17   11/30/05 4:53p erickson
+# PR17108: added 7401 pcm
+#
+# 16   11/23/05 5:10p erickson
+# PR18256: added 97455 support
+#
+# 15   11/21/05 11:37a erickson
+# PR17108: moved 7401 rap code to bsettop_base_rap_7401.c
+#
+# 14   10/27/05 3:25p vsilyaev
+# PR 17844: split bsettop_decode.c to three files bsettop_decode.c
+# bsettop_decode_video.c and bsettop_decode_audio.c
+#
+# 13   9/22/05 12:34p erickson
+# PR17108: 7401 bringup
+#
+# 12   9/7/05 5:06p vsilyaev
+# PR 15377: Merged 7401 changes
+#
+# Refsw_97401_Bringup/2   8/25/05 5:25p vsilyaev
+# resolved undefined symbols
+#
+# Refsw_97401_Bringup/1   8/24/05 6:34p vsilyaev
+# Added compile type support for 7401 SettopApi
+#
+# 11   8/17/05 9:38p bandrews
+# PR16360: Initial lip sync impl
+#
+# 10   4/27/05 11:47a rgreen
+# PR15055: Add support for HDMI Rx to 3560
+# Move bsettop_base_hdmi_rx to board specific
+#
+# 9   4/26/05 4:54p rgreen
+# PR15055: Add HDMI Rx Support to 3560
+#
+# 8   3/29/05 4:34p vsilyaev
+# PR 14645: Added code to enable scrambling over HSX port[s].
+#
+# 7   3/24/05 12:54p vsilyaev
+# PR 14593: 93560 support
+#
+# Refsw_93560_Bringup/5   3/23/05 10:19p vsilyaev
+# More fixed for 3560  and back fixed for 97398.
+#
+# Refsw_93560_Bringup/4   3/23/05 5:34p vsilyaev
+# Added 3560 in-chip VSB support
+#
+# Refsw_93560_Bringup/3   3/21/05 4:37p vsilyaev
+# Compile smartcard only for platforms where it present.
+#
+# Refsw_93560_Bringup/2   3/21/05 1:43p vsilyaev
+# Removed tuners modules.
+#
+# Refsw_93560_Bringup/1   3/16/05 12:52p vsilyaev
+# Isolated BSP code.
+#
+# 5   3/9/05 7:44p vsilyaev
+# PR 14402: Moved compose into the toplevel makefile.
+#
+# 4   3/2/05 6:38p vsilyaev
+# PR 14305: Added raptor code
+#
+# 3   2/17/05 4:19p erickson
+# PR14180: fix vxworks
+#
+# 2   2/12/05 11:05a dlwin
+# Merge down for release 2005_REFSW_MERGETOMAIN:
+#
+# Irvine_BSEAVSW_Devel/19   2/10/05 5:03p jjordan
+# PR13959: Move bsettop_playback_ip.c to /pvr directory
+#
+# Irvine_BSEAVSW_Devel/18   2/8/05 7:13p vsilyaev
+# PR13959: Fixed build issue.
+#
+# Irvine_BSEAVSW_Devel/17   2/7/05 1:29p erickson
+# PR13908: split magnum's Makefile.core into two pieces, one for CFLAGS,
+# the other for internal source
+#
+# Irvine_BSEAVSW_Devel/16   2/2/05 4:44p erickson
+# PR13908: moved board code into subdir
+#
+# Irvine_BSEAVSW_Devel/15   2/2/05 4:21p erickson
+# PR13908: b_board refactoring
+#
+# Irvine_BSEAVSW_Devel/14   1/28/05 11:13a erickson
+# PR13908: refactor to make external include of Makefile.core correct
+#
+# Irvine_BSEAVSW_Devel/13   1/26/05 11:25a erickson
+# PR13908: made BCM_BOARD_NO public
+#
+# Irvine_BSEAVSW_Devel/12   1/25/05 5:39p erickson
+# PR13908: Settop API makefile rework
+#
+# Irvine_BSEAVSW_Devel/11   1/25/05 5:12p erickson
+# PR13908: Settop API makefile rework
+#
+# Irvine_BSEAVSW_Devel/10   1/13/05 4:35p vsilyaev
+# PR 13823: Added support for 97398 board.
+#
+# Irvine_BSEAVSW_Devel/9   5/26/04 4:06p erickson
+# PR11135: no longer using bkni_task
+#
+# Irvine_BSEAVSW_Devel/8   5/26/04 11:08a erickson
+# PR11135: added bkni_task and bsettop_core_event
+#
+# Irvine_BSEAVSW_Devel/7   5/12/04 10:23a erickson
+# PR10967: added standard header
+############################################################
+
+# Check platform first.
+SUPPORTED_7411_PLATFORMS := 97398
+ifneq ($(BCHP_7411_VER),)
+ ifneq ($(findstring $(SUPPORTED_7411_PLATFORMS),$(PLATFORM)),$(PLATFORM))
+  $(error BCHP_7411_VER only supported on $(SUPPORTED_7411_PLATFORMS) platforms)
+ endif
+endif
+
+# Include CFLAGS and other includes
+include $(BSEAV)/api/build/magnum/Makefile.inc
+
+ifeq ($(SCRAMBLE_HSX),y)
+CFLAGS += -DB_SCRAMBLE_HSX=1
+endif
+
+#
+# The remainder of this file defines SRCS and vpath
+#
+
+
+SRCS += \
+	bsettop.c \
+	bsettop_base.c \
+	bsettop_decode.c \
+	bsettop_decode_audio.c \
+	bsettop_decode_video.c \
+	bsettop_decode_still.c \
+	bsettop_display.c \
+	bsettop_graphics.c \
+	bsettop_mem.c \
+	bsettop_message.c \
+	bsettop_stream.c \
+	bsettop_stream_encryption.c \
+	bsettop_stubs.c \
+	bsettop_tuner.c \
+	bsettop_icam.c \
+	bsettop_user_io.c \
+	bsettop_vbi.c \
+	bsettop_api_thunks.c \
+	bsettop_cablecard.c \
+	bsettop_base_tune.c \
+	bsettop_tuner_${BCHP_CHIP}.c  \
+	bsettop_base_dma.c \
+	bsettop_base_video.c \
+	bsettop_base_xpt.c \
+	bsettop_base_vbi.c \
+	bsettop_base_userio.c \
+	bsettop_config.c
+
+ifeq ($(findstring $(CHIP),7118 7400 7401 7403 7405 7325 7335),$(CHIP))
+else
+SRCS += tspsi_validate.c
+endif
+
+ifneq ($(PLATFORM),97455 97456 97458 97459)
+SRCS +=	bsettop_base_tune_board.c
+endif
+
+ifdef B_HAS_PCM
+ifeq ($(findstring $(CHIP),7118 7400 7401 7403 7405 7335 7325),$(CHIP))
+ifeq ($(findstring $(CHIP),7405 7325 7335),$(CHIP))
+SRCS += bsettop_pcm_7405.c
+else
+SRCS += bsettop_pcm_7401.c
+endif
+else
+SRCS += bsettop_pcm.c
+endif
+else
+SRCS += bsettop_pcm_stub.c
+endif
+
+ifdef B_HAS_SMARTCARD
+SRCS += \
+	bsettop_smartcard.c
+else
+SRCS += \
+	bsettop_smartcard_stub.c
+endif
+
+ifdef B_HAS_LEGACY_AV
+SRCS += \
+	bsettop_base_audio.c \
+	bsettop_base_mvd.c
+endif
+
+# TODO: should default off
+ifeq ($(SYSTEM),linux)
+SRCS += bsettop_keystroke.c
+endif
+
+ifdef BCHP_XVD_CHIP
+ifeq ($(findstring $(CHIP), 7400 7401 7403 7405 7118 7325 7335) ,$(CHIP))
+ifeq ($(findstring $(CHIP), 7405 7325 7335),$(CHIP))
+ifeq ($(BRAT_SUPPORT),y)
+SRCS += bsettop_base_rap_brat.c
+CFLAGS += -I${ROCKFORD}/applications/brat/include -I${BSEAV}/lib/clif/include
+else
+SRCS += bsettop_base_rap_7405.c
+endif
+else
+SRCS += bsettop_base_rap_740x.c
+endif
+SRCS += bsettop_base_xvd_740x.c
+SRCS += bsettop_base_rave.c
+ifeq ($(B_USE_SETTOP_SW_RAVE), y)
+CFLAGS += -DB_USE_SETTOP_SW_RAVE=1
+endif
+ifeq ($(BRAP_SUPPORT_TSM_LOG),y)
+CFLAGS += -DBRAP_SUPPORT_TSM_LOG=1
+endif
+ifeq ($(WMA_CERTIFICATION),y)
+CFLAGS += -DWMA_CERTIFICATION=1
+endif
+ifeq ($(INTERNAL_PCM_CAPTURE),y)
+CFLAGS += -DB_SETTOPAPI_INTERNAL_PCM_CAPTURE=1
+endif
+else
+# 7411 based - 93560, 97398
+SRCS += bsettop_base_xvd.c
+SRCS += bsettop_base_rap.c
+endif
+endif
+
+ifeq ($(BSYNC_SUPPORT),y)
+SRCS += bsettop_sync.c
+endif
+
+ifeq ($(BCRYPTO_SUPPORT),y)
+SRCS += bsettop_crypto.c
+else
+SRCS += bsettop_crypto_stubs.c
+endif
+
+ifeq ($(B_GLES_SUPPORT),y)
+ifeq ($(SYSTEM),linuxkernel)
+SRCS += bsettop_p3d_helper.c
+endif
+endif
+
+ifeq ($(CABLECARD_SUPPORT), MPOD)
+CFLAGS += -DMPOD_SUPPORT
+else
+ifeq ($(CABLECARD_SUPPORT), SPOD)
+CFLAGS += -DSPOD_SUPPORT
+endif
+endif
+
+ifeq ($(HDMI_TX_SUPPORT),y)
+SRCS +=	bsettop_base_hdmi.c \
+		bsettop_hdmi.c	\
+		bsettop_hdmi_hdcp.c
+ifeq ($(BHDM_CEC_SUPPORT),y)
+SRCS +=	bsettop_hdmi_cec.c
+endif
+endif
+
+# Support for syslib framework
+SRCS += bsettop_syslib_impl.c
+

@@ -1,0 +1,42 @@
+<?xml version="1.0" ?> 
+<?xml-stylesheet type="text/xsl" href="cutest_run.xsl" ?> 
+<!DOCTYPE CUTEST_RUN_REPORT SYSTEM "cutest_run.dtd"> 
+<CUTEST_RUN_REPORT> 
+  <CUTEST_HEADER/> 
+  <CUTEST_RESULT_ALL_RESULT_LIST> 
+		 <CUTEST_RESULT_RUN_TEST_RECORD> 
+		   <CUTEST_RESULT_RUN_TEST_FAIL> 
+			 <CUTEST_RESULT_RUN_TEST_NAME> pal_param_UtTestSet </CUTEST_RESULT_RUN_TEST_NAME> 
+			 <CUTEST_RESULT_RUN_ERROR_LOCATION>
+/home/shko/src/hms1000s_base/apps/octo/service/obama/main/tvservice/pal/param/pal_param_cmd.c:1341: 
+/home/shko/src/hms1000s_base/apps/octo/service/obama/main/tvservice/pal/param/pal_param_cmd.c:1319:  
+            </CUTEST_RESULT_RUN_ERROR_LOCATION> 
+			 <CUTEST_RESULT_RUN_CONDITION>
+Field (9) different value: expected " 
+
+			00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f
+			-----------------------------------------------
+			 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+	       0 : 	88 00 23 01                                     	..#.
+" but was "
+			00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f
+			-----------------------------------------------
+			 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+	       0 : 	88 00 23 00                                     	..#.
+"
+Set Field (52) fail 
+            </CUTEST_RESULT_RUN_CONDITION> 
+		   </CUTEST_RESULT_RUN_TEST_FAIL> 
+		 </CUTEST_RESULT_RUN_TEST_RECORD> 
+  </CUTEST_RESULT_ALL_RESULT_LIST>
+  <CUTEST_RESULT_RUN_SUMMARY> 
+	 <CUTEST_RESULT_RUN_SUMMARY_RECORD> 
+	   <CUTEST_RESULT_RUN_SUMMARY_TYPE> Test Cases </CUTEST_RESULT_RUN_SUMMARY_TYPE> 
+	   <CUTEST_RESULT_RUN_SUMMARY_RUN> 1 </CUTEST_RESULT_RUN_SUMMARY_RUN> 
+	   <CUTEST_RESULT_RUN_SUMMARY_SUCCEEDED> 0 </CUTEST_RESULT_RUN_SUMMARY_SUCCEEDED> 
+	   <CUTEST_RESULT_RUN_SUMMARY_FAILED> 1 </CUTEST_RESULT_RUN_SUMMARY_FAILED> 
+	 </CUTEST_RESULT_RUN_SUMMARY_RECORD> 
+  </CUTEST_RESULT_RUN_SUMMARY> 
+  <CUTEST_FOOTER> File Generated at Mon Dec  9 16:27:41 2013
+ </CUTEST_FOOTER> 
+</CUTEST_RUN_REPORT>

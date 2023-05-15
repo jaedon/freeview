@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="result-transform.xsl"?>
+
+<LOGSUMMARY stdout_log=".htm">
+	<testinfo>
+		<scriptfilebases>
+			<file>refbb</file>
+		</scriptfilebases>
+		<platforms>
+			<platform>.tc.</platform>
+			<platform>.pk.</platform>
+		</platforms>
+		<runwhat DRT="YES" BVT="YES" FUNC="YES" PERF="YES" />
+	</testinfo>
+</LOGSUMMARY>

@@ -1,0 +1,29 @@
+rul
+ovc
+pb
+os 0 0
+ow
+c1
+oc
+cdsp 1 0 0 0
+ow
+c0
+cf 3
+dnr 30 2 80 2 90 2 70
+mad 1 1 1 0 0 1 18
+
+sbvn 11 11 0 1 31 31 0 1 1 200
+
+
+sleep
+rul
+pb
+c1
+cw
+cd
+c0
+cw
+cs
+cd
+quit
+

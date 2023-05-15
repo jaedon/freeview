@@ -1,0 +1,58 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+#
+
+## this is temporary configuration. i have to delete below line... -_-!!!!
+-include $(HUMAX_TOP_DIR)/apps/make/humaxtv_make/.config
+
+THIRDPARTY_DIR := $(HUMAX_TOP_DIR)/3rd_party
+#HUMAX_NFS_INSTALL_DIR := $(strip $(subst ",,/nfsroot/$(USER)/$(CONFIG_PRODUCT_NAME)/root))
+
+ap_cas :
+	@echo $@
+ifeq ($(CONFIG_MW_CAS_VIACCESS), y)
+ifeq ($(CONFIG_MW_CAS_VIACCESS_DRIVER_TEST), y)
+	@cp -rdf $(THIRDPARTY_DIR)/cas/viaccess/$(CONFIG_PRODUCT_NAME)/dta/acs_va.a			$(HUMAX_STATIC_LIB_DIR)/
+else
+# hjlee3, maybe, if you need,  you change
+#	@cp -rdf $(THIRDPARTY_DIR)/cas/viaccess/$(CONFIG_PRODUCT_NAME)/release/acs_va.a		$(HUMAX_STATIC_LIB_DIR)/libacs_va.a
+#	@cp -rdf $(APPL_MAKE_DIR)/testapp/libtestapp.a		$(HUMAX_STATIC_LIB_DIR)/
+endif
+endif
+ifeq ($(CONFIG_MW_CAS_NAGRA),y)
+	@cp -rdf $(HUMAX_PLATFORM_LIB_SRC)/libnocs.a								$(HUMAX_STATIC_LIB_DIR)/
+	@cp -rdf $(THIRDPARTY_DIR)/cas/nagra/$(CONFIG_PRODUCT_NAME)/CAK/*.a			$(HUMAX_STATIC_LIB_DIR)/
+ifeq ($(CONFIG_MW_CAS_NAGRA_PRM),y)
+	@cp -rdf $(THIRDPARTY_DIR)/cas/nagra/$(CONFIG_PRODUCT_NAME)/DVL/*.a			$(HUMAX_STATIC_LIB_DIR)/
+endif
+ifeq ($(CONFIG_MW_CAS_NAGRA_DALTEST),y)
+	@cp -rdf $(THIRDPARTY_DIR)/cas/nagra/$(CONFIG_PRODUCT_NAME)/DAL/*.a			$(HUMAX_STATIC_LIB_DIR)/
+endif
+endif
+ifeq ($(CONFIG_MW_CAS_IRDETO),y)
+ifeq ($(CONFIG_MW_CAS_IRDETO_SCELL), y)
+	@cp -rdf $(THIRDPARTY_DIR)/cas/irdeto/$(CONFIG_PRODUCT_NAME)/*.a		$(HUMAX_STATIC_LIB_DIR)/
+endif	
+ifeq ($(CONFIG_MW_CAS_IRDETO_UCAS), y)
+	@cp -rdf $(THIRDPARTY_DIR)/cas/irdeto/$(CONFIG_PRODUCT_NAME)/ucas_2_8/*.a	$(HUMAX_STATIC_LIB_DIR)/
+endif
+endif
+ifeq ($(CONFIG_ENHANCED_SECURITY),y)
+	@sudo cp -Rf $(HUMAX_TOP_DIR)/apps/make/cas_string.bin $(HUMAX_NFS_INSTALL_DIR)/usr/data/
+else
+	@cp -Rf $(HUMAX_TOP_DIR)/apps/make/cas_string.bin $(HUMAX_NFS_INSTALL_DIR)/usr/data/
+endif
+
+ap_cas_clean :
+#	echo $@
+#	if [ -f $(HUMAX_STATIC_LIB_DIR)/*.a ]; then\
+#		rm -f $(HUMAX_STATIC_LIB_DIR)/*.a; \
+#	fi
+	@rm -rf $(HUMAX_STATIC_LIB_DIR)/*.a
+
+ap_cas_distclean :
+#	@echo @ !!
+	@rm -rf $(HUMAX_STATIC_LIB_DIR)/*.a
+

@@ -1,0 +1,551 @@
+
+880433:BVT:Generate sync list with play count of 10. There is one license with less 10 play count.
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=8:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,10 play count criterion,-1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==, NULL,1,0,100,1,1) 
+
+
+880434:BVT:Generate sync list with play count of 10. There are multiple licenses with less 10 play count. 
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=8:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestAddLicenseToStore(!4x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=8:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,10 play count criterion,-1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==, !4x8NSroVg4eXCzWqPU!BA==,5,0,2,2,2) 
+
+ 
+880435:BVT:Generate sync list with play count of 10. One of the licenses with less 10 play count. 
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=8:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestAddLicenseToStore(!4x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=30:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,10 play count criterion,-1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==, !4x8NSroVg4eXCzWqPU!BA==,9,0,2,2,1) 
+
+
+880436:BVT:Generate sync list with play count of 10. The licensess of the same KID with less 10 play count. LID is different
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000505-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=7:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=2:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,10 play count criterion,-1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==,NULL,1,0,1,1,1) 
+
+
+880440:BVT:Generate sync list with valid period of 10 days. There is one license having a valid period of less than 10 days 
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",220,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,-1 play count criterion,240 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==,NULL,1,0,1,1,1) 
+
+  
+880441:BVT:Generate sync list with valid period of 10 days. There are multiple licenses having a valid period of less than 10 days 
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",220,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestAddLicenseToStore(!4x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",20,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,-1 play count criterion,240 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==, !4x8NSroVg4eXCzWqPU!BA==,5,0,2,2,2) 
+
+  
+880442:BVT:Generate sync list with valid period of 10 days. One of licenses having a valid period of less than 10 days 
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",220,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestAddLicenseToStore(!4x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",400,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,-1 play count criterion,240 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==, !4x8NSroVg4eXCzWqPU!BA==,9,0,2,2,1) 
+
+
+880443:BVT:Generate sync list with valid period of 10 days. Licenses of the same KID having a valid period of less than 10 days 
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",220,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0001-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",200,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,-1 play count criterion,240 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==, NULL,1,0,1,1,1) 
+
+
+880669:BVT:Generate sync list with play count of 10. There is one license with 10 play count, playbacked once.
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=10:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,10 play count criterion,-1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==, NULL,2,0,1,0,0)=-2147024637(0X80070103, DRM_E_NOMORE) 
+TestPlayback(Play)
+TestGetContentHeaderByKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)
+TestGenerateSyncListChallenge(Normal,10 play count criterion,-1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==, NULL,1,0,1,1,1) 
+TestGetContentHeaderByKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)
+
+
+881699:BVT:Expired licenses should be deleted when generating synclist 
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (machine.datetime > secstate.ExpirationDate)?(secstate.deleted=1;deletelicense();0):(!exists(secstate.deleted) && (app.minseclevel >= 1000?1:(secstate.drmreason=3;0)) && (machine.datetime <= secstate.ExpirationDate?1:(secstate.drmreason=1;0)))]]> </CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",10,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestEnumLicense2(!3x8NSroVg4eXCzWqPU!BA==, "", 1)
+TestSynclistChangeTime(172800)
+TestGenerateSyncListChallenge(Normal,1 play count criterion,1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==,NULL,1,0,1,1,1)
+TestEnumLicense2(!3x8NSroVg4eXCzWqPU!BA==, "", 0)
+
+
+881700:BVT:ExpireAfterFirstUse License gets deleted when synclist is generated if the specified hours run out after first playing
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[((exists(secstate.FirstUseDate)&&datediff(\"h\", secstate.FirstUseDate, machine.datetime) >= 2))?(secstate.deleted=1;deletelicense();0):(!exists(secstate.deleted) && machine.datetime >= secstate.OldSaveTime && (!exists(secstate.FirstUseDate) || datediff(\"h\", secstate.FirstUseDate, machine.datetime) < 2))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestPlayback(Play)
+TestSynclistChangeTime(172800)
+TestGenerateSyncListChallenge(Normal,1 play count criterion,1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==,NULL,1,0,1,1,1)
+TestEnumLicense2(!3x8NSroVg4eXCzWqPU!BA==, "", 0)
+
+ 
+881692:FUNC:Generate sync list with play count of 10. There are multiple licenses with less 10 play count. 
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=8:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestAddLicenseToStore(!4x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=8:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,10 play count criterion,-1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==, !4x8NSroVg4eXCzWqPU!BA==,9,0,1,1,1) 
+TestGenerateSyncListChallenge(Normal,10 play count criterion,-1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==, !4x8NSroVg4eXCzWqPU!BA==,6,1,10,2,1) 
+
+
+880671:FUNC:Generate sync list with play count of 10. There is one license with 12 play count, playbacked once.
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=12:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestPlayback(Play)
+TestGenerateSyncListChallenge(Normal,10 play count criterion,-1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==, NULL,2,0,1,0,0)=-2147024637(0X80070103, DRM_E_NOMORE)
+TestGetContentHeaderByKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)
+
+ 
+880670:FUNC:Generate sync list with play count of 1. There is one license with 1 play count, playbacked once.
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=1:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestPlayback(Play)
+TestGenerateSyncListChallenge(Normal,1 play count criterion,-1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==, NULL,1,0,1,1,1) 
+TestGetContentHeaderByKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)
+
+
+880437:FUNC:Generate sync list with play count of 10. There is one license with more 10 play count. No license meeds the criterion 
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=28:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,10 play count criterion,-1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==, NULL,2,0,1,0,0)=-2147024637(0X80070103, DRM_E_NOMORE) 
+
+
+880438:FUNC:Generate sync list with play count of 10. Store is empty. 
+TestSetHeader(NORMAL,header1.xml)
+TestGenerateSyncListChallenge(Normal,10 play count criterion,-1 valid period criterion, NULL,NULL,0,0,1,0,0)=-2147024637(0X80070103, DRM_E_NOMORE) 
+
+
+880439:FUNC:Generate sync list with play count of 10. There are licenses with play count of 9, 10 and 11.
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=9:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,10 play count criterion,-1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==,NULL,1,0,1,1,1) 
+TestSyncListReset(1)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=10:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,10 play count criterion,-1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==,NULL,2,0,1,0,0)=-2147024637(0X80070103, DRM_E_NOMORE) 
+TestSyncListReset(1)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=11:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,10 play count criterion,-1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==,NULL,2,0,1,0,0)=-2147024637(0X80070103, DRM_E_NOMORE) 
+
+
+880444:FUNC:Generate sync list with valid period of 10 days. Call generate sync list challenger repeatedly 
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",220,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,-1 play count criterion,240 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==,NULL,1,0,1,1,1) 
+TestGenerateSyncListChallenge(Normal,-1 play count criterion,240 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==,NULL,1,0,1,1,1) 
+
+
+880445:FUNC:Generate sync list with valid period of 10 days. No license meets the criterion 
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",420,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,-1 play count criterion,240 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==,NULL,2,0,1,0,0)=-2147024637(0X80070103, DRM_E_NOMORE) 
+
+
+880446:FUNC:Generate sync list with valid period of 10 days. The store is empty 
+TestSetHeader(NORMAL,header1.xml) 
+TestGenerateSyncListChallenge(Normal,-1 play count criterion,240 valid period criterion, NULL,NULL,0,0,1,0,0)=-2147024637(0X80070103, DRM_E_NOMORE) 
+
+
+880447:FUNC:Generate sync list with valid period of 10 days. There are licenses with valid days of 9, 10 and 11.
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",216,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,-1 play count criterion,240 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==,NULL,1,0,1,1,1) 
+TestSyncListReset(1)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",220,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,-1 play count criterion,240 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==,NULL,1,0,1,1,1) 
+TestSyncListReset(1)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",264,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,-1 play count criterion,240 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==,NULL,2,0,1,0,0)=-2147024637(0X80070103, DRM_E_NOMORE)
+
+
+880448:FUNC:Generate sync list with valid period of 10 days. There is one expired license 
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",10,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestSynclistChangeTime(172800)
+TestGenerateSyncListChallenge(Normal,1 play count criterion,1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==,NULL,1,0,1,1,1) 
+
+
+880449:FUNC:Generate sync list. There is one license with zero play count 
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=0:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,-1 play count criterion,-1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==,NULL,1,0,1,1,1) 
+
+
+880450:FUNC:Generate sync list with valid period of 0xFFFFFFFF. All the licenses with various valid periods should be selected 
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",100,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestAddLicenseToStore(!4x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",200,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,10 play count criterion,-1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==,!4x8NSroVg4eXCzWqPU!BA==,5,0,100,2,2) 
+
+
+880451:FUNC:Generate sync list with play count of 0xFFFFFFFF. All the licenses with various play counts should be selected 
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=100:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestAddLicenseToStore(!4x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0020-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=1:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,-1 play count criterion,10 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==,!4x8NSroVg4eXCzWqPU!BA==,5,0,2,2,2) 
+
+
+880452:FUNC:Generate sync list with play count and valid period of 0xFFFFFFFF. All the licenses with various play counts and vairous valid periods should be selected 
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=100:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestAddLicenseToStore(!4x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",200,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGenerateSyncListChallenge(Normal,-1 play count criterion,-1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==,!4x8NSroVg4eXCzWqPU!BA==,5,0,2,2,2) 
+
+
+881623:FUNC:Generate sync list with play count of 1. There are one leaf with play count 1, and a root with play count 2. No kid is picked uo.
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+'leaf with play count 1
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=1:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG, 1,Acl2BY3ITE0qe11DalmK0A==)
+'root with play count 2
+TestAddLicenseToStore(Acl2BY3ITE0qe11DalmK0A==,{00000506-0011-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=2:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG, 2)
+TestGenerateSyncListChallenge(Normal,1 play count criterion,1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==, Acl2BY3ITE0qe11DalmK0A==,10,0,2,0,0)=-2147024637(0X80070103, DRM_E_NOMORE) 
+
+
+881624:FUNC:Generate sync list with play count of 2. There are one leaf with play count 1, and a root with play count 2. Only leaf is picked up.
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+'leaf with play count 1
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=1:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG, 1,Acl2BY3ITE0qe11DalmK0A==)
+'root with play count 2
+TestAddLicenseToStore(Acl2BY3ITE0qe11DalmK0A==,{00000506-0011-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=2:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG, 2)
+TestGenerateSyncListChallenge(Normal, 2 play count criterion,1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==, Acl2BY3ITE0qe11DalmK0A==,9,0,2,2,1) 
+
+
+881625:FUNC:Generate sync list with play count of 2. There are one leaf with play count 1, and a root with play count 2. Both kids are picked up after a play on leaf
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+'leaf with play count 1
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=1:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG, 1,Acl2BY3ITE0qe11DalmK0A==)
+'root with play count 2
+TestAddLicenseToStore(Acl2BY3ITE0qe11DalmK0A==,{00000506-0011-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=2:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG, 2)
+TestPlayback(Play)
+TestGenerateSyncListChallenge(Normal, 2 play count criterion,1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==, Acl2BY3ITE0qe11DalmK0A==,5,0,100,2,2) 
+
+
+881626:FUNC:Generate sync list with play count of 1. There are one leaf with play count 5, and a root with play count 1. Root kid is picked up after a play on leaf
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+'leaf with play count 5
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=5:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG, 1,Acl2BY3ITE0qe11DalmK0A==)
+'root with play count 1
+TestAddLicenseToStore(Acl2BY3ITE0qe11DalmK0A==,{00000506-0011-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=1:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG, 2)
+TestPlayback(Play)
+TestGenerateSyncListChallenge(Normal, 1 play count criterion,1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==, Acl2BY3ITE0qe11DalmK0A==,6,0,2,2,1) 
+
+
+881627:FUNC:Generate sync list with play count of 1. There are one leaf with play count 5, and a time bound root. Root kid is picked up after the root is expired. 
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+'leaf with play count 5
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=5:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG, 1,Acl2BY3ITE0qe11DalmK0A==)
+'root time bound 
+TestAddLicenseToStore(Acl2BY3ITE0qe11DalmK0A==,{00000506-0011-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",10,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestSynclistChangeTime(172800)
+TestGenerateSyncListChallenge(Normal, 1 play count criterion,1 valid period criterion, !3x8NSroVg4eXCzWqPU!BA==, Acl2BY3ITE0qe11DalmK0A==,6,0,2,2,1) 
+
+
+881757:FUNC:Generate sync list with play hour of 1. There are one root with play count 50, and a time bound leaf. Leaf kid is picked up after the leaf is expired. 
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+'leaf time bound 
+TestAddLicenseToStore(Acl2BY3ITE0qe11DalmK0A==,{00000506-0011-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",10,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0A==)
+'root with play count 50
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000506-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=50:0]]></ACTION></ONSTORE>",0,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG, 2)
+TestSynclistChangeTime(172800)
+TestGenerateSyncListChallenge(Normal, 1 play count criterion,1 valid period criterion, Acl2BY3ITE0qe11DalmK0A==,!3x8NSroVg4eXCzWqPU!BA==,9,0,2,2,1) 
+
+
+882000:BVT:PlayReady License Sync -- GetSyncStoreEntry with Entry and Header in the store should succeed
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml) 
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",1,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestPlayback(Play)
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==,,<KID>!3x8NSroVg4eXCzWqPU!BA==</KID>)
+
+
+882001:BVT:DLA License Sync -- GetSyncStoreEntry without entry should return DRM_E_SYNC_ENTRY_NOT_FOUND
+SkipTestIf(!WMDRMSupported)
+TestGetSyncStoreEntry(!4x8NSroVg4eXCzWqPU!BA==,,<KID>!3x8NSroVg4eXCzWqPU!BA==</KID>)=0x800480D0 (DRM_E_SYNC_ENTRY_NOT_FOUND)
+
+
+882005:BVT:DLA License Sync -- GetSyncStoreEntry without header in the store, Also tests having the information stored by DRM_MGR_ProcessLicenseRespose without a cached header
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(TRUE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",1,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==,,)
+
+
+882002:BVT:DLA License Sync -- GetSyncStoreEntry with NULL string should return the needed size to hold the header
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(TRUE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",1,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestSetHeader(NORMAL,header1.xml)
+TestPlayback(Play)
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==,,NULL)=0x8007007A DRM_E_BUFFERTOOSMALL
+
+
+882003:BVT:DLA License Sync -- Try updating the license and getting it
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",1,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestPlayback(Play)
+TestSyncUpdateKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)
+TestGetContentHeaderByKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)
+
+
+882004:BVT:DLA License Sync -- Try updating the license and getting it, when the header wasn't stored in processing the response
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(TRUE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",1,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGetContentHeaderByKID(!3x8NSroVg4eXCzWqPU!BA==, "")
+TestSyncUpdateKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)
+TestGetContentHeaderByKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)
+
+
+882006:BVT:DLA License Sync -- GetSyncStoreEntry with Until, check category before playback, with header not stored on process
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(TRUE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",1,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==,4 DRM_LICENSE_STATE_UNTIL)
+
+
+882007:BVT:DLA License Sync -- GetSyncStoreEntry with Until, check category before playback, with header stored on process
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",1,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==,4 DRM_LICENSE_STATE_UNTIL)
+
+
+882010:BVT:DLA License Sync -- GetSyncStoreEntry with From First Use License, check category before playback, with header not stored on process
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(TRUE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==,9 DRM_LICENSE_STATE_EXPIRATION_AFTER_FIRSTUSE)
+
+
+882011:BVT:DLA License Sync -- GetSyncStoreEntry with From First Use License, check category before playback, with header stored on process
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==,9 DRM_LICENSE_STATE_EXPIRATION_AFTER_FIRSTUSE)
+
+
+882008:FUNC:DLA License Sync -- GetSyncStoreEntry with NULL KID
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGetSyncStoreEntry(NULL) = 0X80070057 (DRM_E_INVALIDARG)
+
+
+882009:FUNC:DLA License Sync -- GetSyncStoreEntry with NULL sync context
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==,9 DRM_LICENSE_STATE_EXPIRATION_AFTER_FIRSTUSE,<KID>!3x8NSroVg4eXCzWqPU!BA==</KID>,NULL) = 0X80070057 (DRM_E_INVALIDARG)
+
+
+882012:FUNC:DLA License Sync -- GetSyncStoreEntry with NULL LSD
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==,NULL)
+
+
+882013:FUNC:DLA License Sync -- GetSyncStoreEntry with NULL header pointer
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==,NULL,NULL)=0x8007007A DRM_E_BUFFERTOOSMALL
+
+
+882019:FUNC:DLA License Sync -- GetSyncStoreEntry with too small header size
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==,NULL,<KID>!3x8NSroVg4eXCzWqPU!BA==</KID>, 0, 1) = 0x8007007A ( DRM_E_BUFFERTOOSMALL )
+
+
+882014:FUNC:DLA License Sync -- GetContentHeaderByKID with NULL Manager Context should Fail
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",1,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestPlayback(Play)
+TestSyncUpdateKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)
+TestGetContentHeaderByKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>, NULL ) = 0x80070057 (DRM_E_INVALIDARG)
+
+
+882015:FUNC:DLA License Sync -- GetContentHeaderByKID with NULL KID should Fail
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",1,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestPlayback(Play)
+TestSyncUpdateKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><LAINFO>http://www.bad.contoso.com/licenseacq.asp</LAINFO><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>ARLtbxKq7p1soSPP8cjPHogEYSlFYVb8cySfrDTtpYKYdRMKmZAuIg==</VALUE></SIGNATURE></WRMHEADER>)
+TestGetContentHeaderByKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><LAINFO>http://www.bad.contoso.com/licenseacq.asp</LAINFO><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>ARLtbxKq7p1soSPP8cjPHogEYSlFYVb8cySfrDTtpYKYdRMKmZAuIg==</VALUE></SIGNATURE></WRMHEADER>, Normal Manager Context, NULL ) = 0x80070057 (DRM_E_INVALIDARG)
+
+
+882016:FUNC:DLA License Sync -- GetContentHeaderByKID with NULL content header pointer should get the size of the header
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",1,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestPlayback(Play)
+TestSyncUpdateKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)
+TestGetContentHeaderByKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>, Normal Manager Context, Normal KID pointer, NULL )=0x8007007A DRM_E_BUFFERTOOSMALL
+
+
+882017:FUNC:DLA License Sync -- GetContentHeaderByKID with NULL header size pointer should Fail
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",1,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestPlayback(Play)
+TestSyncUpdateKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)
+TestGetContentHeaderByKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>, Normal Manager Context, Normal KID pointer, Normal header string, NULL ) = 0x80070057 (DRM_E_INVALIDARG)
+
+
+882018:FUNC:DLA License Sync -- GetContentHeaderByKID with too small header size pointer should get the correct size
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",1,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestPlayback(Play)
+TestSyncUpdateKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)
+TestGetContentHeaderByKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>, Normal Manager Context, Normal KID pointer, Normal header string, -1 ) = 0x8007007A ( DRM_E_BUFFERTOOSMALL )
+
+
+882020:FUNC:DLA License Sync -- SNC_UpdateKID if NULL Sync Context should throw INVALIDARG
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",1,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestPlayback(Play)
+TestSyncUpdateKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>, NULL, NORMAL ViewRightsContext) = 0x80070057 (DRM_E_INVALIDARG)
+
+
+882021:BVT:DLA License Sync -- SNC_UpdateKID if NULL View Rights Context should set LSD to force sync and update Header
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",1,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestPlayback(Play)
+TestSyncUpdateKID(!3x8NSroVg4eXCzWqPU!BA==,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>, NORMAL Sync_Context, NULL, FORCE )
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==, 10 DRM_LICENSE_STATE_FORCE_SYNC, <WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)
+
+
+882022:BVT:DLA License Sync -- SNC_UpdateKID if NULL View Rights Context and NULL Header should set LSD to force sync and leave Header as before
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",1,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestPlayback(Play)
+TestSyncUpdateKID(!3x8NSroVg4eXCzWqPU!BA==, NULL, NORMAL Sync_Context, NULL, FORCE )
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==, 10 DRM_LICENSE_STATE_FORCE_SYNC, <WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)
+
+
+882024:BVT:DLA License Sync -- SNC_UpdateKID with no entry in the store should store the header and create an entry
+SkipTestIf(!WMDRMSupported)
+TestSyncUpdateKID( !3x8NSroVg4eXCzWqPU!BA== ,<WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>, NORMAL Sync_Context, Normal view_rights_context )
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==, 0 DRM_LICENSE_STATE_NO_RIGHT, <WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)
+
+
+882025:BVT:DLA License Sync -- SNC_UpdateKID if NULL Header should leave Header as before
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",1,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestPlayback(Play)
+TestSyncUpdateKID(!3x8NSroVg4eXCzWqPU!BA==, NULL, NORMAL Sync_Context, Normal ViewRights )
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==, 4 DRM_LICENSE_STATE_UNTIL, <WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)
+
+
+882026:BVT:DLA License Sync -- SNC_UpdateKID if NULL Header and NULL KID should leave everything as before and succeed
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",1,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestPlayback(Play)
+TestSyncUpdateKID(NULL, NULL, NORMAL Sync_Context, Normal ViewRights )
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==, 4 DRM_LICENSE_STATE_UNTIL, <WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)
+
+
+882027:FUNC:DLA License Sync -- SNC_UpdateKID if NULL Header and NULL KID and NULL ViewRightsContext should fail
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime <= secstate.ExpirationDate)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",1,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestPlayback(Play)
+TestSyncUpdateKID(NULL, NULL, NORMAL Sync_Context, NULL ) = 0X80070057 ( DRM_E_INVALIDARG )
+
+
+882028:FUNC:DLA License Sync -- adding UNLIM license to the license store does not add an entry to the synclist
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.MinAppSecLevel)?secstate.MinAppSecLevel=150:0]]></ACTION></ONSTORE>", ,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==, 12 DRM_LICENSE_STATE_ENTRY_MARKED_FOR_DELETION, <WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)=0x800480D0 DRM_E_SYNC_ENTRY_NOT_FOUND
+
+
+882029:FUNC:DLA License Sync -- Playing UNLIM license should not add entry to sync store
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.MinAppSecLevel)?secstate.MinAppSecLevel=150:0]]></ACTION></ONSTORE>", ,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==, 12 DRM_LICENSE_STATE_ENTRY_MARKED_FOR_DELETION, <WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)=0x800480D0 DRM_E_SYNC_ENTRY_NOT_FOUND
+TestPlayback(Play)
+TestGenerateSyncListChallenge(Normal,-1 play count criterion,-1 valid period criterion, NULL, NULL,0,0,1,0,0)=0X80070103 DRM_E_NOMORE
+TestGetSyncStoreEntry(!3x8NSroVg4eXCzWqPU!BA==, NULL, <WRMHEADER version="2.0.0.0"><DATA><LAINFO>http://www.contoso.com/licenseacq.asp</LAINFO><KID>!3x8NSroVg4eXCzWqPU!BA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA><SIGNATURE><HASHALGORITHM type="SHA"></HASHALGORITHM><SIGNALGORITHM type="MSDRM"></SIGNALGORITHM><VALUE>dkZeJ1a23pBzQ8INbHzEnjCC+BMWRXc7+Fuc1HHHjbKvmoNIgYnaaQ==</VALUE></SIGNATURE></WRMHEADER>)=0x800480D0 DRM_E_SYNCENTRYNOTFOUND
+
+
+882030:FUNC:DLA License Sync -- Playing leaf with no root should store the root kid in the sync store
+SkipTestIf(!WMDRMSupported)
+TestSetHeader(NORMAL,header1.xml)
+TestSetManagerReinitialize(FALSE)
+TestAddLicenseToStore(!3x8NSroVg4eXCzWqPU!BA==,{00000502-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.MinAppSecLevel)?secstate.MinAppSecLevel=150:0]]></ACTION></ONSTORE>", ,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG, 1 LEAF, !4x8NSroVg4eXCzWqPU!BA== )
+TestPlayback(Play)=DRM_E_UPLINK_LICENSE_NOT_FOUND
+TestGetSyncStoreEntry(!4x8NSroVg4eXCzWqPU!BA==)
+

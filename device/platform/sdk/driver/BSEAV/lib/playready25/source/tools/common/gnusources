@@ -1,0 +1,17 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmtoolscommon
+TARGETTYPE=LIBRARY
+
+SOURCES =                   \
+    drmtoolsinit.c          \
+    drmtoolsutils.c         \
+    drmtoolsasfparser.c     \
+    drmtoolsmediafile.c     \
+    drmtoolspkg.c
+

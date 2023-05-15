@@ -1,0 +1,17 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmmeteringreal
+TARGETTYPE=LIBRARY
+
+SOURCES =                         \
+    drmmeterapi.c                 \
+    drmmetercertstore.c           \
+    drmmeterimp.c                 \
+    drmmeterimpv1.c               \
+    meteringutilreal.c
+

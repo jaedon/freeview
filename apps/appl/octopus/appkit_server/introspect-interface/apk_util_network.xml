@@ -1,0 +1,253 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Util/Network">   
+    <interface name="Octopus.Appkit.Util.Network">
+
+		<!-- BT -->
+    <method name="BT_SetEnable">
+    	<arg type="b" name="enable" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="BT_GetEnable">
+    	<arg type="b" name="enable" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="BT_Scan">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="BT_Connect">
+    	<arg type="i" name="index" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+
+    <method name="BT_ConnectByBdAddr">
+    	<arg type="s" name="bdAddress" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+    
+    <method name="BT_Disconnect">
+    	<arg type="i" name="index" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>        
+    
+    <method name="BT_DisconnectByBdAddr">
+    	<arg type="s" name="bdAddress" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+    <method name="BT_Remove">
+    	<arg type="i" name="index" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+		<method name="BT_RemoveByBdAddr">
+    	<arg type="s" name="bdAddress" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+
+    <method name="BT_SendPinCode">
+    	<arg type="i" name="index" direction="in" />
+    	<arg type="ay" name="pinCode" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="BT_SendPinCodeByBdAddr">
+    	<arg type="s" name="bdAddress" direction="in" />
+    	<arg type="ay" name="pinCode" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="BT_GetDeviceNum">
+    	<arg type="u" name="deviceNum" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <method name="BT_GetDeviceInfo">
+    	<arg type="u" name="deviceId" direction="in" />
+    	<arg type="(ususus)" name="deviceInfo" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+        
+		<method name="BT_GetMacAddrInfo">
+    	<arg type="s" name="macAddress" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+    
+		<method name="BT_GetMacAddrInfoSize">
+    	<arg type="u" name="size" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+                
+		<method name="BT_GetDevInfoList">
+    	<arg type="u" name="listSize" direction="in" />
+    	<arg type="u" name="reval" direction="out" />
+			<arg type="a(ususus)" name="deviceInfoList" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+          
+		<!-- CM -->
+		<method name="CM_GetStatus">
+    	<arg type="u" name="status" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+		<method name="CM_GetDownStreamInfo">
+    	<arg type="u" name="downInfo" direction="in" />	
+    	<arg type="i" name="value" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+		<method name="CM_SetDownStreamInfo">
+    	<arg type="u" name="downInfo" direction="in" />	
+    	<arg type="i" name="value" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+            
+		<method name="CM_GetUpStreamInfo">
+    	<arg type="u" name="upInfo" direction="in" />	
+    	<arg type="i" name="value" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+		<!-- DHCPSVR -->    
+		<method name="DHCPSVR_UpdateInfo">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+		<method name="DHCPSVR_IsRunning">
+			<arg type="b" name="running" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+		<method name="DHCPSVR_GetDevIndex">
+			<arg type="i" name="deviceIndex" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+		<method name="DHCPSVR_Start">
+			<arg type="i" name="index" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+		<method name="DHCPSVR_Stop">
+			<arg type="i" name="index" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <!-- CONF --> 
+ 		<method name="CONF_GetNumOfNetDev">
+			<arg type="i" name="count" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+ 		<method name="CONF_GetDefaultDev">
+			<arg type="i" name="index" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+ 		<method name="CONF_GetDevInfo">
+			<arg type="i" name="index" direction="in" />
+			<arg type="(ubbbss)" name="deviceInfo" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+ 		<method name="CONF_GetMacAddr">
+			<arg type="i" name="index" direction="in" />
+			<arg type="s" name="macAddress" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>        
+
+ 		<method name="CONF_GetAddrInfo">
+			<arg type="i" name="index" direction="in" />
+			<arg type="((bb)(xxxxx)(bbubssssuxx))" name="netAddress" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+ 		<method name="CONF_SetAddrInfo">
+			<arg type="i" name="index" direction="in" />
+			<arg type="((bb)(xxxxx)(bbubssssuxx))" name="netAddress" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+ 		<method name="CONF_StopConnecting">
+			<arg type="i" name="index" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+ 		<method name="CONF_SaveEnableStatus">
+			<arg type="i" name="index" direction="in" />
+			<arg type="b" name="enable" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>      
+    
+ 		<method name="CONF_AddrN2A">
+			<arg type="t" name="address" direction="in" />
+			<arg type="s" name="addressString" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+    
+ 		<method name="CONF_AddrA2N">
+			<arg type="s" name="addressString" direction="in" />
+			<arg type="t" name="address" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+
+ 		<method name="CONF_IsSupportNetwork">
+			<arg type="b" name="support" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+    
+ 		<method name="CONF_IsNetworkAvailable">
+			<arg type="b" name="enable" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+
+    <!-- WIFI -->         
+ 		<method name="WIFI_StartScan">
+			<arg type="i" name="index" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+ 		<method name="WIFI_ConnectAP">
+			<arg type="i" name="index" direction="in" />
+			<arg type="(ssiiiiiii)" name="apInfo" direction="in" />
+			<arg type="s" name="key" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+ 		<method name="WIFI_ConnectAPByWPS">
+			<arg type="i" name="index" direction="in" />
+			<arg type="u" name="wpsType" direction="in" />
+			<arg type="s" name="pinCode" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+        
+ 		<method name="WIFI_DisconnectAP">
+			<arg type="i" name="index" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>      
+    
+ 		<method name="WIFI_GetConnectedInfo">
+			<arg type="i" name="index" direction="in" />
+			<arg type="(ssiiiiiii)" name="apInfo" direction="out" />
+			<arg type="s" name="key" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <!-- PPPOE -->     
+    <!-- CONCHK -->        
+
+            
+    <signal name="event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+
+  </interface>
+</node>

@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\appkit\dlna\Makefile" />
+    <None Include="..\..\..\appkit_dlna\Makefile" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\appkit\dlna\apk_dlna_dial.c" />
+    <ClCompile Include="..\..\..\appkit\dlna\apk_dlna_dmp.c" />
+    <ClCompile Include="..\..\..\appkit\dlna\apk_dlna_dmr.c" />
+    <ClCompile Include="..\..\..\appkit\dlna\apk_dlna_dms.c" />
+    <ClCompile Include="..\..\..\appkit\dlna\apk_dlna_satip.c" />
+    <ClCompile Include="..\..\..\appkit\dlna\apk_dlna_woonserver.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\appkit\include\apk.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_airplay.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_builder.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_cas_action.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_cas_ci.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_cas_irdeto.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_cas_mmi.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_cas_nagra.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_db.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_deprecated.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_dlna.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_drmagent.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_dsmcc.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_event.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_exe.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_filemgr.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_filemgr_ftpserver.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_filemgr_sambaclient.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_filemgr_sambaserver.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_filemgr_storage.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_media_play.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_media_record.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_meta_antenna.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_meta_mail.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_meta_query.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_meta_record.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_meta_schedule.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_meta_search.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_meta_service.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_network.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_output_audio.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_output_hdmi.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_output_panel.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_output_video.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_power.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_scenario.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_scenario_pincode.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_swupdate.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_sysinfo_stb.h" />
+    <ClInclude Include="..\..\..\appkit\include\apk_sysinfo_tuner.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2D3A0C5D-AEB8-4983-B263-7DBC411E8AA2}</ProjectGuid>
+    <RootNamespace>HOMMA</RootNamespace>
+    <ProjectName>appkit</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

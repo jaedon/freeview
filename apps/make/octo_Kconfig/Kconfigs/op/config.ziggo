@@ -1,0 +1,43 @@
+# ziggo
+
+	menu "Ziggo Specific functions"
+
+	comment "Select Ziggo specific functions."
+
+	config OP_ZIGGO_TVANYTIME_DESC
+		depends on OP_ZIGGO
+		bool "OP_ZIGGO_TVANYTIME_DESC - Parsing TV Anytime Descriptor (0x73, 0x76)"
+		default y
+
+	config OP_ZIGGO_TVANYTIME_EPG
+		depends on OP_ZIGGO
+		bool "OP_ZIGGO_TVANYTIME_EPG - Support series recording (TV Anytime)"
+		default y
+
+	config OP_ZIGGO_OST
+		depends on OP_ZIGGO
+		bool "OP_ZIGGO_OST - Support Original Language(ISO639 'und')"
+		default n
+
+	config OP_ZIGGO_EMM_UPDATE
+		depends on OP_ZIGGO
+		bool "OP_ZIGGO_EMM_UPDATE - Irdeto EMM Update"
+		default y
+
+	config OP_ZIGGO_LONGEST_EVENT_NAME
+		depends on OP_ZIGGO
+		bool "OP_ZIGGO_LONGEST_EVENT_NAME - LONGEST EVENT NAME"
+		default n
+
+	config OP_ZIGGO_RFVOD
+		depends on OP_ZIGGO
+		bool "OP_ZIGGO_RFVOD - Support RF-VOD function"
+		default n
+
+	config OP_ZIGGO_RTSP_CLIENT
+		depends on OP_ZIGGO
+		bool "OP_ZIGGO_RTSP_CLIENT -Support RTSP Client just for VOD"
+		default n
+
+	endmenu
+

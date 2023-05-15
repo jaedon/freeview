@@ -1,0 +1,101 @@
+#!/bin/sh
+
+# default usb memory stick mount folder
+DEV=/dev/sda1
+MNT=/media/drive1
+
+. /lib/lsb/init-functions
+. /etc/default/rcS
+
+check_fs() {
+	if [ -z "`mount | grep "^$DEV"`" ]; then
+		echo "Waiting for $DEV to mount"
+		for i in `seq 1 5`; do
+			sleep 1
+#			if [ -n "`mount | grep "^$DEV"`" ]; then
+#				echo "mount ok"
+#				return 1
+#			fi
+#        		if [ -z "`mount | grep "^$DEV"`" ]; then
+#				echo "."
+#			else
+#				echo "mount ok"
+#				return 1
+#			fi
+ 			echo "."
+		done
+
+		if [ -z "`mount | grep "^$MNT"`" ]; then
+			echo "mount fail"
+			for i in `seq 1 5`; do
+				sleep 1
+				echo "."
+			done
+			
+			if [ ! -z "`mount | grep "drive1"`" ]; then
+				echo "mount ok"
+				mount
+				return 1
+			fi
+
+			mount
+			return 0
+		else
+#		        for i in `seq 1 5`; do
+#			        sleep 1
+# 			        echo "."
+#		        done
+			echo "mount ok"
+			mount
+			return 1
+		fi
+
+		echo "device fail"
+		return 0
+
+#		while[ -z "`mount | grep "^$DEV"`" ]; do
+#			sleep 1
+#			echo -n "."
+#		done
+	else
+		echo "$DEV is ready"
+		return 1
+	fi
+}
+			
+case "$1" in
+    start)
+		if [ "$VERBOSE" != no ]; then
+			log_begin_msg "Starting humaxtv..."
+		fi
+#		if [ "$VERBOSE" != no ]; then
+#		        log_end_msg $?
+#		fi	
+
+		check_fs
+
+		if [ $? -eq 1 ]; then
+			echo " [OK]"
+			cd /media/drive1
+			((exec /media/drive1/humaxtv 3>&1 1>&2 2>&3) | tee /dev/ttyS0) >> /media/drive1/log.txt 2>&1
+#			((exec /usr/bin/humaxtv 2>&1 1>&3 | tee /media/sda1/errors.log) 3>&1 1>&2 | tee /media/sda1/output.log) > /media/sda1/final.log 2>&1
+		else
+			echo " [FAILED]"
+#			exec /usr/bin/humaxtv
+		fi
+
+		;;
+    stop)
+		if [ "$VERBOSE" != no ]; then
+			log_begin_msg "Stopping humaxtv..."
+		fi
+		killall humaxtv
+		;;
+    *)
+		if [ "$VERBOSE" != no ]; then
+			log_success_msg "Usage: /etc/init.d/S90settop {start|stop}"
+		fi
+		exit 1
+		;;
+esac
+

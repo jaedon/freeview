@@ -1,0 +1,266 @@
+' ====================================  BEGIN INSTRUCTIONS ========================================
+' BUFFER ALLOCATION FORMULA:
+' --------------------------
+' If you want to avoid buffer wrap-around, the number of entries that you allocate should be
+' greater than:  ( ( APIs x 2[enter/exit] ) + 1[Seperator] ) x Loop
+'
+' For example, if your loop of 10 times will encounter 5 instrumented APIs, and you log a separator,
+' you will need a buffer that is at least ((5 x 2) + 1) x 10 = 110 entries in size.
+'
+'
+' TYPICAL PERFORMANCE TEST API SEQUENCE:
+' -------------------------------------
+'    1. TestPerfAllocateLogBuffer( x )
+'    2. TestPerfOn
+'    3. BeginRepeatLoop( y )
+'    4. < test APIs go here >
+'    5. TestPerfLogSeparator()
+'    6. EndOfLoop()
+'    7. TestPerfOff()
+'    8. TestPerfDumpLogBuffer( fileName unique to the test )
+'    9. TestPerfFreeLogBuffer()
+'
+'
+' IMPORTANT!
+' ----------
+' If you add or delete any tests from this file, you will also need to appropriately edit
+' the file: //depot/playready/main/source/Test/common/performance/data/PerformanceGoalData.xml
+'
+' =====================================  END INSTRUCTIONS =========================================
+
+
+' =================================================================================================
+99000:FUNC: Perf - Verify the Performance APIs
+TestPerfOn()=DRM_E_BUFFERTOOSMALL
+TestPerfDumpLogBuffer(NULL)=DRM_E_TEST_INVALIDARG
+TestPerfDumpLogBuffer(PKPerf.99000.txt)=DRM_E_BUFFERTOOSMALL
+TestPerfAllocateLogBuffer(0)=DRM_E_INVALIDARG
+TestPerfAllocateLogBuffer(100)
+TestPerfAllocateLogBuffer(100)=DRM_E_FAIL
+TestPerfLogSeparator()=DRM_E_FAIL
+TestPerfDumpLogBuffer(PKPerf.99000a.txt)
+TestPerfOn()
+TestPerfLogSeparator()
+TestPerfOff()
+TestPerfDumpLogBuffer(PKPerf.99000b.txt)
+TestPerfFreeLogBuffer()
+
+
+' =================================================================================================
+99001:FUNC: Perf - LiveTV - SLS - Root 2500 locations, Leaf 1 location, 1000 leaves
+TestManagerSetRights(Play)
+TestPerfAllocateLogBuffer( 9100 )
+TestPerfOn()
+
+TestManagerCreateXMRLicenseFromPool( ROOT, LiveTVLicenses.xml, "Root with 2500 locations" )
+TestManagerGenerateXMRResponse( ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestManagerAddManyXMRLicensesFromPool( 1000, LiveTVLicenses.xml, "Leaf with 1 location and random KID" )
+
+BeginRepeatLoop( 1000 )
+
+TestManagerSetKIDFromList( )
+TestManagerBind(8 save decryptor into test variable, Dump, Decryptor1, NULL)
+TestManagerEncrypt( AES CipherType, 100 DataLengthToEncrypt )
+TestSetupDecryptor(Decryptor1)
+TestManagerInitDecrypt( NORMAL DecryptContext, NORMAL InitDecryptContext ) 
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NORMAL CounterModeCtx )
+TestManagerCommit
+TestClearHeader()
+
+TestPerfLogSeparator()
+EndOfLoop()
+
+TestPerfOff()
+TestPerfDumpLogBuffer( PKPerf.99001.txt )
+TestPerfFreeLogBuffer()
+
+
+' =================================================================================================
+99002:FUNC: Perf - LiveTV - SLS - Root 2500 locations, Leaf 2 locations, 1000 leaves
+TestManagerSetRights(Play)
+TestPerfAllocateLogBuffer( 9100 )
+TestPerfOn()
+
+TestManagerCreateXMRLicenseFromPool( ROOT, LiveTVLicenses.xml, "Root with 2500 locations" )
+TestManagerGenerateXMRResponse( ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestManagerAddManyXMRLicensesFromPool( 1000, LiveTVLicenses.xml, "Leaf with 2 locations and random KID" )
+
+BeginRepeatLoop( 1000 )
+
+TestManagerSetKIDFromList( )
+TestManagerBind(8 save decryptor into test variable, Dump, Decryptor1, NULL)
+TestManagerEncrypt( AES CipherType, 100 DataLengthToEncrypt )
+TestSetupDecryptor(Decryptor1)
+TestManagerInitDecrypt( NORMAL DecryptContext, NORMAL InitDecryptContext ) 
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NORMAL CounterModeCtx )
+TestManagerCommit
+TestClearHeader()
+
+TestPerfLogSeparator()
+EndOfLoop()
+
+TestPerfOff()
+TestPerfDumpLogBuffer( PKPerf.99002.txt )
+TestPerfFreeLogBuffer()
+
+
+' =================================================================================================
+99003:FUNC: Perf - LiveTV - SLS - Root 2500 locations, Leaf 129 locations, 1000 leaves
+TestManagerSetRights(Play)
+TestPerfAllocateLogBuffer( 9100 )
+TestPerfOn()
+
+TestManagerCreateXMRLicenseFromPool( ROOT, LiveTVLicenses.xml, "Root with 2500 locations" )
+TestManagerGenerateXMRResponse( ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestManagerAddManyXMRLicensesFromPool( 1000, LiveTVLicenses.xml, "Leaf with 129 locations and random KID" )
+
+BeginRepeatLoop( 1000 )
+
+TestManagerSetKIDFromList( )
+TestManagerBind(8 save decryptor into test variable, Dump, Decryptor1, NULL)
+TestManagerEncrypt( AES CipherType, 100 DataLengthToEncrypt )
+TestSetupDecryptor(Decryptor1)
+TestManagerInitDecrypt( NORMAL DecryptContext, NORMAL InitDecryptContext ) 
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NORMAL CounterModeCtx )
+TestManagerCommit
+TestClearHeader()
+
+TestPerfLogSeparator()
+EndOfLoop()
+
+TestPerfOff()
+TestPerfDumpLogBuffer( PKPerf.99003.txt )
+TestPerfFreeLogBuffer()
+
+
+' =================================================================================================
+99004:FUNC: Perf - LiveTV - SLS - Cleaning up 84 root licenses with expired RemovalDate objects
+TestPerfAllocateLogBuffer( 350 )
+
+BeginRepeatLoop( 5 )
+TestPerfOn()
+
+TestManagerAddManyXMRLicensesFromPool( 84, LiveTVLicenses.xml, "Root with 30 second RemovalDate and random KID" )
+TestManagerCleanLicenseStore( 1, 30, ALL )
+
+TestPerfLogSeparator()
+TestPerfOff()
+TestManagerReinitialize( Reset, TRUE )
+EndOfLoop()
+
+TestPerfDumpLogBuffer( PKPerf.99004.txt )
+TestPerfFreeLogBuffer()
+
+
+' =================================================================================================
+99005:FUNC: Perf - LiveTV - Blackout - Max key derivations, Root 1 location (32768), Leaf 1 location (9)
+TestManagerSetRights(Play)
+TestPerfAllocateLogBuffer( 910 )
+TestPerfOn()
+
+TestManagerCreateXMRLicenseFromPool( ROOT, LiveTVLicenses.xml, "Root 32768" )
+TestManagerCreateXMRLicenseFromPool( LEAF, LiveTVLicenses.xml, "Leaf 9" )
+TestManagerGenerateXMRResponse( ROOT, LEAF )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+BeginRepeatLoop( 100 )
+
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerBind(8 save decryptor into test variable, Dump, Decryptor1, NULL)
+TestManagerEncrypt( AES CipherType, 100 DataLengthToEncrypt )
+TestSetupDecryptor(Decryptor1)
+TestManagerInitDecrypt( NORMAL DecryptContext, NORMAL InitDecryptContext ) 
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NORMAL CounterModeCtx )
+TestManagerCommit
+TestClearHeader()
+
+TestPerfLogSeparator()
+EndOfLoop()
+
+TestPerfOff()
+TestPerfDumpLogBuffer( PKPerf.99005.txt )
+TestPerfFreeLogBuffer()
+
+
+' =================================================================================================
+99006:FUNC: Perf - LiveTV - Blackout - Max key derivations, Root 1 location (32768), Leaf 2 locations (5 7)
+TestManagerSetRights(Play)
+TestPerfAllocateLogBuffer( 910 )
+TestPerfOn()
+
+TestManagerCreateXMRLicenseFromPool( ROOT, LiveTVLicenses.xml, "Root 32768" )
+TestManagerCreateXMRLicenseFromPool( LEAF, LiveTVLicenses.xml, "Leaf 5 7" )
+TestManagerGenerateXMRResponse( ROOT, LEAF )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+BeginRepeatLoop( 100 )
+
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerBind( 8 save decryptor into test variable, Dump, Decryptor1, NULL )
+TestManagerEncrypt( AES CipherType, 100 DataLengthToEncrypt )
+TestSetupDecryptor(Decryptor1)
+TestManagerInitDecrypt( NORMAL DecryptContext, NORMAL InitDecryptContext ) 
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NORMAL CounterModeCtx )
+TestManagerCommit
+TestClearHeader()
+
+TestPerfLogSeparator()
+EndOfLoop()
+
+TestPerfOff()
+TestPerfDumpLogBuffer( PKPerf.99006.txt )
+TestPerfFreeLogBuffer()
+
+
+' =================================================================================================
+99007:FUNC: Perf - DRM Initialize
+TestPerfAllocateLogBuffer( 3100 )
+TestPerfOn()
+' Call TestManagerUninitialize() here to unitialize the TestManagerInitialize done in pre-test-case.
+' Otherwise, calling TestManagerInitialize twice in a row will cause AppVerifier to crash the app.
+TestManagerUninitialize()
+BeginRepeatLoop( 1000 )
+
+TestManagerInitialize( Dump )
+TestManagerUninitialize()
+
+TestPerfLogSeparator()
+EndOfLoop()
+
+TestPerfOff()
+TestPerfDumpLogBuffer( PKPerf.99007.txt )
+TestPerfFreeLogBuffer()
+
+
+' =================================================================================================
+99008:FUNC: Perf - DRMManager decrypt a regular length of encrypted data (XMR)
+TestPerfAllocateLogBuffer( 1000 )
+TestPerfOn()
+
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader( NORMAL, music1V4header.xml )
+TestManagerAddXMRLicense( nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+BeginRepeatLoop( 100 )
+
+TestManagerEncrypt( AES CipherType, 100 DataLengthToEncrypt )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NORMAL )
+
+TestPerfLogSeparator()
+EndOfLoop()
+
+TestPerfOff()
+TestPerfDumpLogBuffer( PKPerf.99008.txt )
+TestPerfFreeLogBuffer()
+

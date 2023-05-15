@@ -1,0 +1,38 @@
+##########################################
+# DI OSD configuration menu
+##########################################
+
+config OSD_DOUBLEBUFFER
+	bool
+	prompt "OSD_DOUBLEBUFFER"
+	default n
+
+config SCALABLE_OSD_SURFACE
+	bool
+	prompt "USE_SCALABLE_OSD_SURFACE"
+	default n
+
+config BACKGROUND_OSD_SURFACE
+	bool
+	prompt "USE_BACKGROUND_OSD_SURFACE"
+	default n
+
+config SW_OSD_BLEND_COPY
+	bool
+	prompt "SW_OSD_BLEND_COPY"
+	default n
+
+config OSD_LAYER_MAX_4
+	bool
+	prompt "OSD_LAYER_MAX_4"
+	default n
+
+config OSD_LAYER_MAX_5
+	bool
+	prompt "OSD_LAYER_MAX_5"
+	default n
+
+config HWTEST_USE_16BITS_OSD_SURFACE
+	bool
+	prompt "hwtest only: use 16bits osd surface"
+	default n

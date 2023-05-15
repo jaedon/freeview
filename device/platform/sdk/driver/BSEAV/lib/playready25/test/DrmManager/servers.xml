@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SERVERLIST>
+    <!--
+    The construct <tag parm="value"/> cannot be used. There must be discrete <tag></tag> constucts.
+    This is due to a limitation in the XML parsing functions used to iterate through this file.
+        
+    Example Entry:
+    -------------
+    <SERVER
+        // Default Server URI
+        PKTestServerURI="http://playready.directtaps.net/pr20/svc/rightsmanager.asmx"
+        
+        // Server URI for tests involving domains
+        PKTestServerURIDomains="http://playready.directtaps.net/pr20/svc/rightsmanager.asmx?UseDomains=1"
+        
+        // Server URI for tests involving Silverlight licenses
+        PKTestServerURISimpleNonPersist="http://playready.directtaps.net/pr20/svc/rightsmanager.asmx?UseSimpleNonPersistentLicense=1"
+        
+        // Version of the PlayReady server software running on this server
+        PKTestServerVersion="2.0.0"
+        
+        // Generation of this server:  "v.old", "v.previous", "v.current", or "v.next"
+        PKTestServerGeneration="v.current"
+        
+        // Accessibility of this server:  "External" or "Internal"
+        PKTestServerLocale="External"
+        
+        // Type of this server:  "PlayReady" or "WMDRM"
+        PKTestServerType="PlayReady"
+        
+        // Does this server support license response acknowledgements,
+        // i.e. does it include a transaction ID in the license response:  Boolean, "TRUE" or "FALSE"
+        PKTestServerFeatureLicenseAck="FALSE"
+        
+        // Does this server support license response acknowledgements for domain-bound licenses,
+        // i.e. does it include a transaction ID in the license response:  Boolean, "TRUE" or "FALSE"
+        PKTestServerFeatureLicenseAckDomains="FALSE"
+        
+        // Does this server support domain-bound licenses:  Boolean, "TRUE" or "FALSE"
+        PKTestServerFeatureDomains="FALSE"
+        
+        // Does this server support Silverlight licenses:  Boolean, "TRUE" or "FALSE"
+        PKTestServerFeatureSilverlight="TRUE"
+        
+        // Does this server include custom data in its default license responses:  Boolean, "TRUE" or "FALSE"
+        PKTestServerFeatureCustomDataInResponse="FALSE"
+        
+        // Does this server include custom data in its domain-bound license responses:  Boolean, "TRUE" or "FALSE"
+        PKTestServerFeatureCustomDataInResponseDomains="FALSE"
+        
+        // Does this server include custom data in its Silverlight license responses:  Boolean, "TRUE" or "FALSE"
+        PKTestServerFeatureCustomDataInResponseSilverlight="FALSE"
+    ></SERVER>
+    
+    -->
+    <SERVER
+        PKTestServerURI="http://playready.directtaps.net/pr/svc/rightsmanager.asmx"
+        PKTestServerURIDomains="http://playready.directtaps.net/pr/svc/rightsmanager.asmx?UseDomains=1"
+        PKTestServerURISimpleNonPersist="http://playready.directtaps.net/pr/svc/rightsmanager.asmx?UseSimpleNonPersistentLicense=1"
+        PKTestServerVersion="2.1.0"
+        PKTestServerGeneration="v.current"
+        PKTestServerLocale="External"
+        PKTestServerType="PlayReady"
+        PKTestServerFeatureLicenseAck="TRUE"
+        PKTestServerFeatureLicenseAckDomains="FALSE"
+        PKTestServerFeatureDomains="FALSE"
+        PKTestServerFeatureSilverlight="TRUE"
+        PKTestServerFeatureCustomDataInResponse="FALSE"
+        PKTestServerFeatureCustomDataInResponseDomains="FALSE"
+        PKTestServerFeatureCustomDataInResponseSilverlight="TRUE"
+        PKTestServerFeatureCustomDataInAckResponse="FALSE"
+    ></SERVER>
+    <SERVER
+        PKTestServerURI="http://playready.directtaps.net/svc/pr20/rightsmanager.asmx"
+        PKTestServerURIDomains="http://playready.directtaps.net/svc/pr20/rightsmanager.asmx?UseDomains=1"
+        PKTestServerURISimpleNonPersist="http://playready.directtaps.net/svc/pr20/rightsmanager.asmx?UseSimpleNonPersistentLicense=1"
+        PKTestServerVersion="2.0.0"
+        PKTestServerGeneration="v.previous"
+        PKTestServerLocale="External"
+        PKTestServerType="PlayReady"
+        PKTestServerFeatureLicenseAck="TRUE"
+        PKTestServerFeatureLicenseAckDomains="FALSE"
+        PKTestServerFeatureDomains="FALSE"
+        PKTestServerFeatureSilverlight="TRUE"
+        PKTestServerFeatureCustomDataInResponse="FALSE"
+        PKTestServerFeatureCustomDataInResponseDomains="FALSE"
+        PKTestServerFeatureCustomDataInResponseSilverlight="TRUE"
+        PKTestServerFeatureCustomDataInAckResponse="FALSE"
+    ></SERVER>
+    <SERVER
+        PKTestServerURI="http://playready.directtaps.net/svc/pr152/rightsmanager.asmx"
+        PKTestServerURIDomains="http://playready.directtaps.net/svc/pr152/rightsmanager.asmx?UseDomains=1"
+        PKTestServerURISimpleNonPersist="http://playready.directtaps.net/svc/pr152/rightsmanager.asmx?UseSimpleNonPersistentLicense=1"
+        PKTestServerVersion="1.5.2"
+        PKTestServerGeneration="v.old"
+        PKTestServerLocale="External"
+        PKTestServerType="PlayReady"
+        PKTestServerFeatureLicenseAck="TRUE"
+        PKTestServerFeatureLicenseAckDomains="FALSE"
+        PKTestServerFeatureDomains="FALSE"
+        PKTestServerFeatureSilverlight="FALSE"
+        PKTestServerFeatureCustomDataInResponse="FALSE"
+        PKTestServerFeatureCustomDataInResponseDomains="FALSE"
+        PKTestServerFeatureCustomDataInResponseSilverlight="FALSE"
+        PKTestServerFeatureCustomDataInAckResponse="TRUE"
+    ></SERVER>
+</SERVERLIST>

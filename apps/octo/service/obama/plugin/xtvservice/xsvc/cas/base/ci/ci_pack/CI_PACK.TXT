@@ -1,0 +1,25 @@
+CI Driver 2.3 Version, 27/07/99
+================================
+
+
+Application Interface : message.h / dvb_cod.h
+ITC interface : itc.h
+low level interface : pdriver.h
+
+Application sample : simrc.c
+
+
+Compiler Options :
+==================
+
+- Code Generation :
+	Structure Member Alignement : 1 byte
+
+- Preprocessor :
+	_DEBUG : DEBUG MODE with HxLOG_Print() function call
+
+	don't define WIN32, FASTALLOC, H2M and I2C
+	==========================================
+
+
+

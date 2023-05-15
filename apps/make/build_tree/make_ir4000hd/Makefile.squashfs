@@ -1,0 +1,26 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+HUMAX_SQUASHFS_DIR=$(CURDIR)/squashfs
+
+EXCLUSE = $(TARGET_DIR)/usr/lib/*
+EXCLUSE += $(TARGET_DIR)/usr/bin/*
+EXCLUSE += $(TARGET_DIR)/opt/share/*
+
+squashfs-tools: 
+	@echo ---------- start auto-strip -------------
+	sudo find $(TARGET_NFSROOT_ROOT_FOLDER) -type f -exec $(CURDIR)/autostrip.sh $(HUMAX_STRIP) {} \;
+	@echo ---------- end auto-strip ---------------
+	@echo ---------- start remove .svn ------------
+	sudo find $(TARGET_NFSROOT_ROOT_FOLDER) -name ".svn" | xargs rm -rf
+	@echo -----------end remove .svn --------------
+	@echo ---------- start squashfs ---------------
+	@echo $(TARGET_NFSROOT_ROOT_FOLDER)
+	@echo $(TARGET_NFSROOT_FOLDER)
+	@echo ---------- end squashfs ---------------
+	@sudo $(HUMAX_SQUASHFS_DIR)/mksquashfs $(TARGET_NFSROOT_ROOT_FOLDER) $(TARGET_NFSROOT_FOLDER)/image/root.squa -all-root -noappend
+	@sudo cp $(TARGET_NFSROOT_KERNEL_FOLDER)/root.squa $(CURDIR)/kernel
+	@sudo chown $(USER):$(USER) $(TARGET_NFSROOT_FOLDER)/kernel/root.squa
+	@sudo chown $(USER):$(USER) $(TARGET_NFSROOT_FOLDER)/kernel/vmlinuz
+.PHONY: squashfs-tools

@@ -1,0 +1,6 @@
+{
+  "name": "fvp4000t",
+  "desc": "FVP-4000T",
+  "typescript": ">=1.3",
+  "less": ">=1.7.5"
+}

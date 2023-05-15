@@ -1,0 +1,41 @@
+/* defines the color coding and layout styles for test results */
+tr.header {  
+      background-color: navy;  
+      color: whitesmoke;  
+      font-weight: bolder;  
+}  
+td {  
+      border: 1px solid black;  
+      text-align: center;  
+}  
+td.area, tr.header td {  
+      text-align: left;  
+}  
+tr.fail {  
+      background-color: pink;  
+}  
+tr.some-fail { 
+      background-color: #FFFFCC; 
+} 
+tr.fail div.trace {  
+      background-color: whitesmoke;  
+      color: black;  
+      border: 1px dotted red;  
+      display: block;  
+}  
+tr.pass {  
+      background-color: #CCFFCC;  
+} 
+.total_passed {
+	color: green;
+}
+.total_failed {
+	color: red;
+}
+.total_missed {
+	color: orange;
+}
+.total_cases {
+	color: black;
+}
+

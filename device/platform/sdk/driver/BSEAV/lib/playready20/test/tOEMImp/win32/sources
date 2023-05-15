@@ -1,0 +1,12 @@
+
+TARGETNAME=toemimp
+TARGETTYPE=LIBRARY
+
+LINKLIBS=wininet.lib
+
+SOURCES = \
+	toemimp.c \
+	toemimp_pd.c \
+	toem_paths.c \
+	
+	

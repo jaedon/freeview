@@ -1,0 +1,49 @@
+############################################################
+#     Copyright (c) 2003-2011, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: 7422.test $
+# $brcm_Revision: Hydra_Software_Devel/6 $
+# $brcm_Date: 9/21/11 4:10p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /rockford/unittests/portinginterface/ape/97422/bat_test/7422.test $
+# 
+# Hydra_Software_Devel/6   9/21/11 4:10p gskerl
+# SW7425-1178: Temporarily commenting out ape_playback (for debug
+# purposes).
+# 
+# Hydra_Software_Devel/6   9/21/11 4:10p gskerl
+# SW7425-1178: Temporarily commenting out ape_playback (for debug
+# purposes).
+# 
+# Hydra_Software_Devel/5   9/20/11 3:18p gskerl
+# SW7425-1178: Added apex to the nightly EC APE testing.
+# 
+# Hydra_Software_Devel/4   8/12/11 11:15a gskerl
+# SW7425-1059: Added subdirectory for ape_playback
+# 
+# Hydra_Software_Devel/3   8/11/11 4:36p gskerl
+# SW7425-1059: Changed the EC test to run ape_playback instead of
+# ape_test
+# 
+# Hydra_Software_Devel/2   4/11/11 2:29p gskerl
+# SW7231-85: Try to run the ape_test five times instead of just once
+# 
+# Hydra_Software_Devel/1   2/8/11 3:59p slauzon
+# SWCHECKFRAME-80: initial ci
+# 
+############################################################
+
+# Specify the test app relative to the vobs/rockford/unittests/portinginterface/ape/<platform>/ directory.
+### ape_playback/ape_playback
+
+apex/apex

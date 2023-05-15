@@ -1,0 +1,71 @@
+##########################################
+# DRV MICOM configuration menu
+##########################################
+
+config MICOM
+	bool
+	prompt "MICOM"
+	default y
+
+choice
+	prompt "Select MICOM"
+	depends on MICOM
+	default FRONT_MICOM_EU   
+	config FRONT_MICOM_EU
+		bool
+		prompt "FRONT_MICOM_EU"
+
+	config FRONT_MICOM_TOUCH
+		bool
+		prompt "FRONT_MICOM_TOUCH"
+endchoice
+
+config MICOM_SYSTEM_PROTECTION
+	bool
+	prompt "Support over-temperature and fan-lock detecting on micom"
+	depends on MICOM || MICOM_JP
+	default n
+	help
+		Select this feature if micom supports over-temperature and fan-lock detecting functions, and you want to use.
+		
+config MICOM_TINY24
+	bool
+	prompt "MICOM_TINY24"
+	default n
+
+config MICOM_NONE
+	bool
+	prompt "MICOM_NONE"
+	default n
+
+config MICOM_JP
+	bool
+	prompt "MICOM_JP"
+	default n
+
+choice
+	prompt "Select Module"
+	depends on MICOM_JP
+	default FRONT_MICOM_JAPAN
+	config FRONT_MICOM_JAPAN
+		bool
+		prompt "FRONT_MICOM_JAPAN"
+endchoice
+
+config MICOM_ALIVE_TASK_ENABLE
+	bool
+	prompt "MICOM_ALIVE_TASK_ENABLE"
+	depends on MICOM || MICOM_JP
+	default n
+
+config MICOM_DEVICE_NAME
+	string
+	prompt "micom device name"
+	depends on MICOM || MICOM_JP
+	default "/dev/ttyS2"
+
+config MICOM_UPGRADE
+	bool
+	prompt "MICOM_UPGRADE"
+	depends on MICOM_JP || MICOM
+	default n

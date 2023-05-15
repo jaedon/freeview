@@ -1,0 +1,102 @@
+#!/bin/sh
+# DME - Extend to detect platform and have variable /dev
+# To change the /dev directory, invoke like this:
+#
+#   DEV=/tmp/mydir ./create_brutus_nodes
+#
+# This creates every node needed by brutus
+#
+
+if [ -z $DEV ]; then
+DEV=/dev
+fi
+
+echo "Creating nodes in $DEV"
+
+# Only create a node if it doesn't exist.
+# otherwise we might delete nodes on a shared filesystem
+# plus it's faster. 
+function create_node {
+	if [ ! -e $DEV/$1 ]; then
+		mknod $DEV/$1 $2 $3 $4
+	fi
+}
+
+# Yes, brcm0 has the same info as bcmgraphics_0. They
+# are never used together.
+create_node brcm0	c 30 0
+
+create_node bcmgraphics_0	c 30 0
+create_node bcmgraphics_1	c 30 1
+create_node bcmrecord_0 	c 30 2
+create_node bcmrecord_1 	c 30 3
+create_node bcmrecord_2 	c 30 3
+create_node bcmrecord_3 	c 30 3
+create_node bcmindex_0 	c 30 5
+create_node bcmindex_1 	c 30 6
+create_node bcmindex_2 	c 30 6
+create_node bcmindex_3 	c 30 6
+create_node bcmplay_0 	c 30 8
+create_node bcmplay_1 	c 30 9
+create_node bcmpcm_0 		c 30 12
+create_node bcmpcm_1 		c 30 13
+create_node bcmpcmcapture_0 	c 30 14
+create_node bcmpcmcapture_1 	c 30 15
+create_node bcmmessage	c 30 18
+create_node bcmtransport	c 30 19
+create_node bcmdma 		c 30 20
+create_node bcmplayes_0 	c 30 24
+create_node bcmplayes_1 	c 30 25
+create_node bcmplayes_2 	c 30 26
+create_node bcmplayes_3 	c 30 27
+create_node bcmvbi        c 30 30
+create_node bcmoutput_0	c 30 33
+create_node bcmoutput_1	c 30 34
+create_node bcmio         c 30 35
+create_node bcmpaxel      c 30 36
+
+# frontend
+create_node bcmleds 		c 31 0
+create_node bcmkeypad 	c 31 1
+create_node bcmsejinkbd 	c 31 3
+create_node bcmremote_a	c 31 14
+create_node bcmremote_b	c 31 15
+create_node bcmsejinrem 	c 31 16
+create_node bcmtuner	 	c 31 11
+create_node bcmqamoob	 	c 31 9
+create_node bcmupggpio 	c 31 12
+create_node bcmupgi2c 	c 31 22
+create_node scarda	 		c 31 20
+create_node scardb	 		c 31 21
+
+create_node pod         c 38 0
+
+# kfir
+create_node kf2x00      c 203 0
+create_node kf2x01      c 203 1
+create_node kfir0       c 203 0
+
+# settop api proxy
+create_node bcmsettopapi c 204 0
+
+# general
+create_node bcmdebug c 30 21
+
+(cd $DEV; ln -fs bcmpcm_0 dsp)
+
+# docsis
+create_node docsisio c 32 7
+
+# streamer
+create_node bcmstrm_live_0 c 50 0
+create_node bcmstrm_live_1 c 50 1
+create_node bcmstrm_live_2 c 50  2
+create_node strm0 c 50 3 
+create_node strm1 c 50 4 
+create_node strm2 c 50 5 
+create_node bcmstrm_rec_0 c 50 6
+create_node bcmstrm_rec_1 c 50 7
+create_node bcmstrm_rec_2 c 50 8
+
+# p3ddrv
+create_node p3ddrv c 245 0

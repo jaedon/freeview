@@ -1,0 +1,12 @@
+# Middle East MBC
+
+	menu "Select Operator's specific configs"
+		comment "Select MBC specific configs"
+		
+	config OP_SHAHID_APPS
+		depends on OP_MBC
+		bool "OP_SHAHID_APPS - Support Shahid Apps"
+		default y		
+		
+	endmenu
+

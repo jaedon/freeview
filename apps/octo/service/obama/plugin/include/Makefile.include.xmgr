@@ -1,0 +1,33 @@
+# Common include path */
+#ccflags-y += -I$(HLIB_DIR)/include
+#ccflags-y += -I$(SILIB_DIR)/include
+#ccflags-y += -I$(OCTO_DIR)/main/include
+#ccflags-y += -I$(OCTO_UTILS_DIR)/utils/include
+#ccflags-y += -I$(OCTO_DIR)/main/toolkit
+#ccflags-y += -I$(OCTO_DIR)/main/db/include
+
+# BUS include path
+ccflags-y += -I$(OCTO_TVMANAGER_DIR)/bus/include
+
+# TV Manager : Plug-In Include Path
+ccflags-y += -I$(OCTO_TVMANAGER_DIR)/include
+ccflags-y += -I$(OCTO_TVMANAGER_DIR)/include_plugin
+
+ccflags-y += -I$(OCTO_PLUGIN_DIR)/xdb/include
+
+ccflags-y += -I$(OCTO_TVMANAGER_PLUGIN_DIR)/include
+ccflags-y += -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/include
+ccflags-y += -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/rsv/include
+ccflags-y += -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/download/include
+ccflags-y += -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/mgr/include
+ccflags-y += -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/zapper/include
+ccflags-y += -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/live/include
+
+# TV Service : Plug-In Include Path
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/include
+
+# 3rd party library Porting
+ccflags-$(CONFIG_3RD_BML)	+= -I$(OCTO_THIRDPARTY_PORT_DIR)/bml/include
+ccflags-$(CONFIG_3RD_RFVOD)	+= -I$(OCTO_THIRDPARTY_PORT_DIR)/rfvod/include
+
+

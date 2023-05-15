@@ -1,0 +1,8 @@
+DIRS=                     \
+    lib                   \
+    exe{!_WINCEROOT,!PPC} \
+
+DRM_DIRS= \
+    lib   \
+    exe   \
+

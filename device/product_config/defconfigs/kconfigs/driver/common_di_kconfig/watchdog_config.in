@@ -1,0 +1,20 @@
+##########################################
+# DI WATCHDOG configuration menu
+##########################################
+
+config WATCHDOG
+	bool
+	prompt "Enable Watchdog"
+	default n
+	help
+		When you enable CONFIG_WATCHDOG, selects one of watchdog type. 
+
+config WATCHDOG_BRCM
+	prompt "Watchdog function by BRCM chipset"
+	default n
+	bool
+
+config WATCHDOG_MICOM
+	prompt "Watchdog function by MICOM"
+	default n
+	bool		

@@ -1,0 +1,28 @@
+nexus multiprocess stress tests
+
+for the multiprocess stress tests, there are two apps - a server and a client. for linux kernel mode, they both link
+to the same libnexus.so. for linux user mode they link to separate libraries - libnexus.so and libnexus_client.so.
+therefore, a two pass build is required.
+
+make client
+make server
+
+to run the applications, you use the "stress_server" application with a variety of command line parameters.
+the stress_server starts nexus, then launches a variety of processes and clients.
+see stress_server.c for more details.
+
+examples include:
+
+# one time run
+nexus stress_server
+nexus stress_server join_stress_client
+nexus stress_server alloc_stress_client
+
+# indefinite run
+time while [ 1 ]; do nexus stress_server || break; done
+time while [ 1 ]; do nexus stress_server join_stress_client; done
+time while [ 1 ]; do nexus stress_server alloc_stress_client; done
+
+# one time run with modified loop params
+nexus stress_server join_stress_client 100 10
+nexus stress_server alloc_stress_client 25 75

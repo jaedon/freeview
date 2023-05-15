@@ -1,0 +1,186 @@
+{
+    "settings": {
+        "general_settings": {
+            "parental_control" : {
+                "title": "",
+                "items": [
+                    {
+                        "title": "LOC_GUIDANCE_POLICY_ID",
+                        "items": ["LOC_ALL_CONTENT_ID", "LOC_ALL_GUIDANCE_MARKED_CONTENT_ID", "LOC_INTERNET_CONTENT_ONLY_ID", "LOC_OFF_ID"]
+                    },
+                    {
+                        "title": "LOC_CHANGE_PASSWORD_ID",
+                        "items": []
+                    },
+                    {
+                        "title": "LOC_BLOCK_SETTINGS_CHANNEL_ID",
+                        "items": ["LOC_OFF_ID", "LOC_ON_ID"]
+                    }
+                ],
+                "dummy" : [
+                    ["LOC_GUIDANCE_POLICY_ID", "LOC_CHANGE_PASSWORD_ID", "LOC_BLOCK_SETTINGS_CHANNEL_ID"],
+                    ["LOC_ALL_CONTENT_ID", "LOC_ALL_GUIDANCE_MARKED_CONTENT_ID", "LOC_INTERNET_CONTENT_ONLY_ID", "LOC_OFF_ID"],
+                    ["LOC_OFF_ID", "LOC_ON_ID"]
+                ]
+            },
+            "language": {
+                "title": "LOC_BIGLANGUAGE_ID",
+                "items": [
+                    {
+                        "title" : "LOC_PREFERRED_LANGUAGE_ID",
+                        "items" : ["LOC_SET_ENGLISH_ID", "LOC_LANG_GARLIC_ID", "LOC_LANG_WELSH_ID", "LOC_LANG_IRISH_ID"]
+                    }
+                ]
+            },
+            "on_screen_display": {
+                "title": "LOC_ON_SCREEN_DISPLAY_ID",
+                "items": [
+                    {
+                        "title": "LOC_INFO_DISPLAYTIME_ID",
+                        "items": ["LOC_OFF_ID", "LOC_1_SEC_ID", "LOC_2_SEC_ID", "LOC_3_SEC_ID", "LOC_4_SEC_ID", "LOC_5_SEC_ID", "LOC_6_SEC_ID", "LOC_7_SEC_ID", "LOC_8_SEC_ID", "LOC_9_SEC_ID", "LOC_10_SEC_ID", "LOC_11_SEC_ID", "LOC_12_SEC_ID", "LOC_13_SEC_ID", "LOC_14_SEC_ID", "LOC_15_SEC_ID", "LOC_16_SEC_ID", "LOC_17_SEC_ID", "LOC_18_SEC_ID", "LOC_19_SEC_ID", "LOC_20_SEC_ID"]
+                    },
+                    {
+                        "title": "Transparent Background",
+                        "items": ["Off", "On"]
+                    },
+                    {
+                        "title": "LOC_SUBTITLE_DISPLAY_ID",
+                        "items": ["LOC_OFF_ID", "LOC_ON_ID"]
+                    },
+                    {
+                        "title": "LOC_SUBTITLEFONT_ID",
+                        "items": ["LOC_FIXED_ID", "LOC_VARIABLE_ID"]
+                    },
+                    {
+                        "title": "LOC_HARD_OF_HEARING",
+                        "items": ["LOC_OFF_ID", "LOC_ON_ID"]
+                    }
+                ]
+            },
+          "video": {
+                "title": "LOC_ON_SCREEN_DISPLAY_ID",
+                "items": [
+                    {
+                        "title": "LOC_SCREENRATIO_ID",
+                        "items": ["LOC_SCREEN_RATIO_169_ID", "LOC_SCREEN_RATIO_43_ID"]
+                    },
+                    {
+                        "title": "LOC_DISPLAYFORMAT_ID",
+                        "items": {
+                          "LOC_SCREEN_RATIO_169_ID": ["LOC_AUTO_ID", "LOC_PILLARBOX_ID", "LOC_ZOOM_ID"],
+                          "LOC_SCREEN_RATIO_43_ID": ["LOC_AUTO_ID", "LOC_LETTERBOX_ID", "LOC_CENTER_ID"]
+                        }
+                    },
+                    {
+                        "title": "LOC_RESOLUTION_ID",
+                        "items": ["have to modify"]
+                    }
+                ]
+            }
+        },
+        "network_settings": {
+          "live_tv_streaming": {
+            "title": "LOC_LIVESTREAMING_ID",
+                "items": [
+                    {
+                        "title" : "LOC_LIVE_TV_STREAMING_PRIORITY_ID",
+                        "items" : ["LOC_HIGH_ID", "LOC_AUTO_ID", "LOC_LOW_ID"]
+                    }
+                ]
+          }
+        },
+        "pvr_settings": {
+            "recording_option" : {
+                "title" : ["LOC_RECORDINGOPTIONS_ID"],
+                "itemId" : ["startpadding", "endpadding", "autodelete"],
+                "itemStr" : ["LOC_START_PADDING_ID", "LOC_END_PADDING_ID",  "LOC_AUTO_DELETE_ID"],
+                "describe" : ["", "", ""],
+                "itemSub01Str" : ["LOC_AUTO_ID", "LOC_3_MINS_ID", "LOC_5_MINS_ID", "LOC_10_MINS_ID", "LOC_20_MINS_ID"],
+                "itemSub02Str" : ["LOC_AUTO_ID", "LOC_3_MINS_ID", "LOC_5_MINS_ID", "LOC_10_MINS_ID", "LOC_20_MINS_ID"],
+                "itemSub03Str" : ["LOC_ON_ID", "LOC_OFF_ID"]
+            },
+            "playback_option" : {
+                "title" : ["LOC_PLAYBACK_OPTIONS_ID"],
+                "itemId" : ["seriesplay", "instantreplaytime", "skipforwardtime"],
+                "itemStr" : ["LOC_SERIESPLAY_ID", "LOC_INSTANT_REPLAY_TIME_ID", "LOC_SKIP_FORWARD_TIME_ID"],
+                "describe" : ["", "", ""],
+                "itemSub01Str" : ["LOC_ON_ID", "LOC_OFF_ID"],
+                "itemSub02Str" : ["LOC_7_SEC_ID", "LOC_15_SEC_ID", "LOC_30_SEC_ID"],
+                "itemSub03Str" : ["LOC_30_SEC_ID", "LOC_60_SEC_ID", "LOC_120_SEC_ID", "LOC_240_SEC_ID"]
+            },
+            "storage" : {
+                "title": [""],
+                "itemId": ["removestorage", "formatstorage"],
+                "itemStr": ["LOC_REMOVE_STORAGESAFELY_ID", "LOC_FORMATSTR_ID"],
+                "describe": ["", ""],
+                "itemSub01Str": [],
+                "itemSub02Str": []
+            }
+        },
+        "system_settings": {
+            "system_information": {
+                "title": ["LOC_SYSTEM_INFORMATION_ID"],
+                "itemId": ["modelname", "softver", "loaderver", "systemid", "updatedate", "macaddlen", "macaddwlen", "esn"],
+                "itemStr": ["LOC_MODELNAME_ID", "LOC_SOFTVER_ID", "LOC_LOADERVER_ID", "LOC_SYSTEMID_ID", "Software Build Date", "LOC_MACADDR_ID", "LOC_MACADDR_ID", "ESN"],
+                "describe": ["", "", "", "", "", "", "", ""]
+            },
+            "power_management" : {
+                "title" : ["LOC_POWER_MANAGEMENT_ID"],
+                "itemId" : ["autopowerdown", "powersavingstandby"],
+                "itemStr" : ["LOC_AUTOPOWERDOWN_ID", "LOC_POWER_SAVING_MODE_MENU_ID"],
+                "describe" : ["", ""],
+                "itemSub01Str" : ["LOC_OFF_ID", "LOC_ON_ID"],
+                "itemSub02Str" : ["LOC_OFF_ID", "LOC_ON_ID"]
+            }
+        },
+        "channel_settings": {
+            "_private": {
+                "channelgroupT" : {
+                    "bandwidth7MHz" : {
+                        "channel" : ["6", "7","8","9","9A","10","11","12","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45",
+                            "46","47","48","49","50","51","52","53","54","55","56","57","58", "59", "60","61","62","63","64","65","66","67","68","69"],
+                        "centreFrequency" : [177500, 184500, 191500, 198500, 205500, 212500, 219500, 226500, 522500, 529500, 536500, 543500, 550500, 557500, 564500, 571500,
+                            578500, 585500, 592500, 599500, 606500, 613500, 620500, 627500, 634500, 641500, 648500, 655500, 662500, 669500, 676500, 683500, 690500, 697500,
+                            704500, 711500, 718500, 725500, 732500, 739500, 746500, 753500, 760500, 767500, 774500, 781500, 788500, 795500, 802500, 809500, 816500],
+                        "limitFrequency" : [[174000, 181000], [181000, 188000], [188000, 195000], [195000, 202000], [202000, 209000], [209000, 216000], [216000, 223000],
+                            [223000, 230000], [519000, 526000], [526000, 533000], [533000, 540000], [540000, 547000], [547000, 554000], [554000, 561000], [561000, 568000],
+                            [568000, 575000], [575000, 582000], [582000, 589000], [589000, 596000], [596000, 603000], [603000, 610000], [610000, 617000], [617000, 624000],
+                            [624000, 631000], [631000, 638000], [638000, 645000], [645000, 652000], [652000, 659000], [659000, 666000], [666000, 673000], [673000, 680000],
+                            [680000, 687000], [687000, 694000], [694000, 701000], [701000, 708000], [708000, 715000], [715000, 722000], [722000, 729000], [729000, 736000],
+                            [736000, 743000], [743000, 750000], [750000, 757000], [757000, 764000], [764000, 771000], [771000, 778000], [778000, 785000], [785000, 792000],
+                            [792000, 799000], [799000, 806000], [806000, 813000], [813000, 820000]],
+                        "bandwith" : "7MHz"
+                    },
+                    "bandwidth8MHz" : {
+                        "channel" : ["21", "22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45",
+                            "46","47","48","49","50","51","52","53","54","55","56","57","58", "59", "60","61","62","63","64", "65","66","67","68","69"],
+                        "centreFrequency" : [474000, 482000, 490000, 498000, 506000, 514000, 522000, 530000, 538000, 546000, 554000, 562000, 570000, 578000,
+                            586000, 594000, 602000, 610000, 618000, 626000, 634000, 642000, 650000, 658000, 666000, 674000, 682000, 690000, 698000, 706000, 714000, 722000,
+                            730000, 738000, 746000, 754000, 762000, 770000, 778000, 786000, 794000, 802000, 810000, 818000, 826000, 834000, 842000, 850000, 858000],
+                        "limitFrequency" : [[470000, 478000], [478000, 486000], [486000, 494000], [494000, 502000], [502000, 510000], [510000, 518000],
+                            [518000, 526000], [526000, 534000], [534000, 542000], [542000, 550000], [550000, 558000], [558000, 566000], [566000, 574000],[574000, 582000],
+                            [582000, 590000], [590000, 598000], [598000, 606000], [606000, 614000], [614000, 622000], [622000, 630000], [630000, 638000],[638000, 646000],
+                            [646000, 654000], [654000, 662000], [662000, 670000], [670000, 678000], [678000, 686000], [686000, 694000], [694000, 702000],[702000, 710000],
+                            [710000, 718000], [718000, 726000], [726000, 734000], [734000, 742000], [742000, 750000], [750000, 758000], [758000, 766000],[766000, 774000],
+                            [774000, 782000], [782000, 790000], [790000, 798000], [798000, 806000], [806000, 814000], [814000, 822000], [822000, 830000], [830000, 838000],
+                            [838000, 846000], [846000, 854000], [854000, 862000]],
+                        "bandwith" : "8MHz"
+                    }
+                }
+            }
+        }
+    },
+    "jenre": {
+        "LOC_GENRE_MOVIE_ID": ["LOC_GENRE_MOVIE_DRAMA_ID", "LOC_GENRE_DETECTIVE_THRILLER_ID", "LOC_GENRE_ADVENTURE_WESTERN_WAR_ID", "LOC_GENRE_SF_FANSTASY_HORROR_ID", "LOC_GENRE_COMEDY_ID", "LOC_GENRE_SOAP_MELO_FOLKLORIC_ID", "LOC_GENRE_ROMANCE_ID", "LOC_GENRE_SERIOUS_DRAMA_ID", "LOC_GENRE_ADULT_MOVIE_DRAMA_ID"],
+        "LOC_GENRE_NEWS_ID": ["LOC_GENRE_NEWS_CURRENT_AFFAIRS_ID", "LOC_GENRE_NEWS_WEATHER_REPORT_ID", "LOC_GENRE_NEWS_MAGAZINE_ID", "LOC_GENRE_DOCUMENTARY_ID", "LOC_GENRE_INTERVIEW_ID"],
+        "LOC_GENRE_SHOW_ID": ["LOC_GENRE_SHOW_GAME_ID", "LOC_GENRE_SHOW_QUIZ_CONTEST_ID", "LOC_GENRE_VARIETY_SHOW_ID", "LOC_GENRE_TALK_SHOW_ID"],
+        "LOC_GENRE_SPORTS_ID": ["LOC_GENRE_SPECIAL_EVENTS_ID", "LOC_GENRE_SPORTS_MAGAZINE_ID", "LOC_GENRE_FOOTBALL_SOCCER_ID", "LOC_GENRE_TENNIS_SQUASH_ID", "LOC_GENRE_TEAM_SPROTS_ID", "LOC_GENRE_ATHLETICS_ID", "LOC_GENRE_MOTOR_SPORT_ID", "LOC_GENRE_WATER_SPORT_ID", "LOC_GENRE_WINTER_SPORTS_ID", "LOC_GENRE_EQUESTRIAN_ID", "LOC_GENRE_MARTIAL_SPORTS_ID"],
+        "LOC_GENRE_CHILDREN_ID": ["LOC_GENRE_CHILDREN_YOUTH_ID", "LOC_GENRE_PRESCHOOL_CHILDREN_ID", "LOC_GENRE_6TO4_ENTERTAIN_ID", "LOC_GENRE_10TO16_ENTERTAIN_ID", "LOC_GENRE_INFO_EDU_SCHOOL_ID", "LOC_GENRE_CARTOONS_PUPPETS_ID"],
+        "LOC_GENRE_MUSIC_ID": ["LOC_GENRE_MUSIC_DANCE_ID", "LOC_GENRE_ROCK_POP_ID", "LOC_GENRE_CLASSIC_ID", "LOC_GENRE_FOLK_TRADITIONAL_ID", "LOC_GENRE_JAZZ_ID", "LOC_GENRE_MUSICAL_OPERA_ID", "LOC_GENRE_BALLET_ID"],
+        "LOC_GENRE_ARTS_ID": ["LOC_GENRE_ARTS_CULTURE_ID", "LOC_GENRE_PREFORMING_ARTS_ID", "LOC_GENRE_FINE_ARTS_ID", "LOC_GENRE_RELIGION_ID", "LOC_GENRE_POP_TRADITIONAL_ID", "LOC_GENRE_LITERATURE_ID", "LOC_GENRE_FILM_CINEMA_ID", "LOC_GENRE_EXPERIMENTAL_ID", "LOC_GENRE_BROADCASTING_PRESS_ID", "LOC_GENRE_NEW_MEDIA_ID", "LOC_GENRE_ARTS_MAGAZINE_ID", "LOC_GENRE_FASHION_ID"],
+        "LOC_GENRE_SOCIAL_ID": ["LOC_GENRE_SOCIAL_ECONOMICS_ID", "LOC_GENRE_MAGAZINE_ID", "LOC_GENRE_ADVISORY_ID", "LOC_GENRE_REMARKABLE_ID"],
+        "LOC_GENRE_EDUCATION_ID": ["LOC_GENRE_EDU_SCIENCE_FACTUAL_ID", "LOC_GENRE_ENVIRONMENT_ID", "LOC_GENRE_TECH_SCIENCE_ID", "LOC_GENRE_MEDI_PHYSI_PSYCH_ID", "LOC_GENRE_FOREIGN_ID", "LOC_GENRE_SOCIAL_SPIRITUAL_ID", "LOC_GENRE_FURTHER_EDU_ID", "LOC_GENRE_LANGUAGE_ID"],
+        "LOC_GENRE_LEISURE_ID": ["LOC_GENRE_LEISURE_HOBBIES_ID", "LOC_GENRE_TOURISM_TRAVEL_ID", "LOC_GENRE_HANDICRAFT", "LOC_GENRE_MOTORING_ID", "LOC_GENRE_FITNESS_HEALTH_ID", "LOC_GENRE_COOKING_ID", "LOC_GENRE_SHOPPING_ID", "LOC_GENRE_GARDENING_ID"],
+        "LOC_GENRE_SPECIAL_CHARACTER_ID": ["LOC_GENRE_ORIGIN_LANG_ID", "LOC_GENRE_BLACK_WHITE_ID", "LOC_GENRE_UNPUBLISHED_ID", "LOC_GENRE_LIVE_BROADCAST_ID"]
+    }
+}

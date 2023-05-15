@@ -1,0 +1,22 @@
+#
+# This test area modifies generates new certificates/keys
+# and modifies the keyfile, thus requiring these settings.
+#
+DRM_SUPPORT_DEVCERTKEYGEN=1
+DRM_SUPPORT_ACTIVATION=0
+DRM_SUPPORT_REACTIVATION=0
+
+!include ..\..\reftest.cmn
+
+TARGETTYPE=PROGRAM
+TARGETNAME=BlackBoxTest
+UMTYPE=console
+
+SOURCES = \
+    ..\main.c \
+
+TARGETLIBS = $(TARGETLIBS)                      \
+    $(_DRM_REFCODE_LIBS)                        \
+    $(_DRM_TC_LIBS)                             \
+    $(_DRM_TEST_BLACKBOX_LIB)                   \
+    $(_DRM_TEST_DRMMANAGER_LIB)                 \

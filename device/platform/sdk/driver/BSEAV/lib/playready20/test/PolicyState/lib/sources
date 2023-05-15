@@ -1,0 +1,11 @@
+
+TARGETTYPE=LIBRARY
+TARGETNAME=PolicyStateTestAPI
+
+SOURCES = \
+	../PolicyStateTestAPI.c \
+
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \

@@ -1,0 +1,8 @@
+
+# DB include path
+ccflags-y += -I$(OCTO_DB_DIR)/include
+ccflags-y += -I$(OCTO_DB_DIR)/include_plugin
+ccflags-y += -I$(OCTO_DB_DIR)/local_include
+ccflags-y += -I$(OCTO_DB_PLUGIN_DIR)/include
+
+

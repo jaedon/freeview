@@ -1,0 +1,33 @@
+# Debug Option Confuguration
+
+	comment "Debuging capability ON/OFF"
+	config DEBUG
+		bool "DEBUG - Enable debug option"
+		default y
+
+	config BUILD_DEBUG
+		bool "BUILD_DEBUG - Compile binary with DEBUG option"
+		default y
+		depends on DEBUG
+
+	config DEVICE_DEBUG
+		bool "DEVICE_DEBUG - Enable debug option"
+		default y
+
+	config DEBUG_RELEASE_LOG
+		bool "DEBUG_RELEASE_LOG - Enable debug log on release build"
+		default n
+
+	config DEBUG_AGING_TEST
+		bool "DEBUG_AGING_TEST - Enable aging test option"
+		default n
+		depends on DEBUG
+
+	config DEBUG_ARM_BACKTRACE
+		bool "DEBUG_ARM_BACKTRACE - Enable arm backtrace"
+		default n
+		depends on DEBUG
+
+	config DEVELOP_RELEASE
+		bool "DEVELOP_RELEASE - Enable minimum logs and no optimization on release build"
+		default n

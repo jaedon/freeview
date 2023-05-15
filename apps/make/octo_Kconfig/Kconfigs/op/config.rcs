@@ -1,0 +1,36 @@
+# RCS
+
+menu "Select Operator's specific configs"
+	comment "Select Operator's specific configs"
+	config OP_RCS_MENU
+		depends on OP_RCS
+		bool "OP_RCS_MENU - RCS related Menu on / off"
+		default n
+
+	config OP_RCS_PPV_MENU
+		depends on OP_RCS || MW_CAS_NAGRA_PPV
+		bool "OP_RCS_PPV_MENU - RCS PPV/IPPV Menu on / off"
+		default y
+
+	config OP_RCS_EMM_UPDATE
+		depends on OP_RCS
+		bool "OP_RCS_EMM_UPDATE - RCS EMM update on / off"
+		default n
+
+	config OP_RCS_EMM_UPDATE_TYPE_FIXED
+		depends on OP_RCS && OP_RCS_EMM_UPDATE
+		bool "OP_RCS_EMM_UPDATE_TYPE_FIXED - RCS EMM update Fixed type on / off"
+		default n
+
+	config OP_RCS_EMM_UPDATE_TYPE_FIXED2
+		depends on OP_RCS && OP_RCS_EMM_UPDATE
+		bool "OP_RCS_EMM_UPDATE_TYPE_FIXED2 - RCS EMM update Fixed type2 on / off"
+		default n
+
+	config OP_RCS_EMM_UPDATE_TYPE_FREQ
+		depends on OP_RCS && OP_RCS_EMM_UPDATE
+		bool "OP_RCS_EMM_UPDATE_TYPE_FREQ - RCS EMM update freq. type on / off"
+		default n
+
+endmenu
+

@@ -1,0 +1,46 @@
+#
+# Microsoft (r) PlayReady (r)
+# Copyright (c) Microsoft Corporation. All rights reserved.
+#
+
+#
+# This tool should always support the following settings
+# to be able to operate in all scenarios
+# regardless of the build profile used to compile it.
+#
+DRM_SUPPORT_SECURE_CLOCK=1
+DRM_SUPPORT_LICENSE_SYNC=1
+
+#
+# This option enables simulation of system clock rollback:
+# a real call to SetSystemTime would require elevated access
+# and could confuse other software running on the computer.
+#
+DRM_SUPPORT_TEST_SETTINGS=1
+
+!include ..\..\drmbuild.cmn
+
+TARGETNAME=player
+TARGETTYPE=PROGRAM
+UMTYPE=console
+UMENTRY=wmain
+
+
+SOURCES =    \
+    player.c \
+
+!if "$(_DRM_BUILD_TOOL)" != "NMAKE"
+SOURCES = $(SOURCES) \
+      player.rc
+!endif
+
+INCLUDES =                    \
+    $(INCLUDES)               \
+    $(_DRM_SOURCE_PATH)\tools\common
+
+TARGETLIBS = $(TARGETLIBS)                          \
+    $(_DRM_COMMON_LIBS)                             \
+    $(_DRM_OEM_MAIN_LIB)                            \
+    $(_DRM_BLACKBOX_LIBS)                           \
+    $(_DRM_TOOLS_COMMON_LIBS)                       \
+

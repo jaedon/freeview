@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Socket.IO Test Page</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+
+        window.onload = function () {
+            // 소켓을 생성
+            var socket = io.connect();
+
+            // 처리할 Event를 아래에 등록하세요.
+            var eventList = [
+                    // Connection Event
+                    'clientConnect',
+                    'clientDisconnect',
+
+                    // Add another event here........
+                    'player',
+                    'channel',
+                    'transponder',
+
+                    // Test Event
+                    'MemUsage'
+            ];
+
+
+            document.write('<h1>SOCKET.IO Test Page</h1>');
+            document.write('<hr>');
+            document.write('<h3>Available EventList : </h3>');
+            for (var event in eventList) {
+                document.write(eventList[event] + ', ');
+                eventConnect(socket, eventList[event]);
+            }
+            document.write('<hr>');
+        };
+
+        function eventConnect (socket, name) {
+            socket.on(name, function (data) {
+                console.log(data);
+                document.write(getEventString(name, data));
+                window.scrollBy(0,500);
+            });
+        }
+
+        function getEventString (name, msg) {
+            return '<font color="blue">' + getTimeStamp() + '</font><font color="red">' + ' EVENT( ' + name + ' )<BR>' +
+                    '</font>' + JSON.stringify(msg) + '<BR><BR>';
+        }
+
+        function getTimeStamp() {
+            var d = new Date();
+
+            var s =
+                    leadingZeros(d.getFullYear(), 4) + '-' +
+                    leadingZeros(d.getMonth() + 1, 2) + '-' +
+                    leadingZeros(d.getDate(), 2) + ' ' +
+
+                    leadingZeros(d.getHours(), 2) + ':' +
+                    leadingZeros(d.getMinutes(), 2) + ':' +
+                    leadingZeros(d.getSeconds(), 2);
+
+            return s;
+        };
+
+        function leadingZeros(n, digits) {
+            var zero = '';
+            n = n.toString();
+
+            if (n.length < digits) {
+                for (i = 0; i < digits - n.length; i++)
+                    zero += '0';
+            }
+            return zero + n;
+        };
+
+
+    </script>
+</head>
+<body>
+
+
+</body>
+</html>

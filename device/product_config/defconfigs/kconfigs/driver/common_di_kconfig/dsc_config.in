@@ -1,0 +1,9 @@
+##########################################
+# DI DSC configuration menu
+##########################################
+
+config DSC
+	bool
+	prompt "DSC"
+	default y
+

@@ -1,0 +1,12 @@
+
+TARGETNAME=TestSecStore_ansi
+TARGETTYPE=PROGRAM
+UMTYPE=console
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS)   \
+    $(_DRM_TC_LIBS)        \
+    $(_DRM_TEST_SECSTORE_LIB) \
+
+SOURCES =                        \
+    ../main.c                  

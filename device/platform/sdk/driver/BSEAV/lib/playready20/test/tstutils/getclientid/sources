@@ -1,0 +1,8 @@
+
+TARGETNAME=tGetClientID
+TARGETTYPE=LIBRARY
+
+SOURCES = \
+	tgetclientid.c \
+	
+	

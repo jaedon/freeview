@@ -1,0 +1,14 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmcopyoplreal
+TARGETTYPE=LIBRARY
+
+SOURCES =                         \
+    copyoplimplreal.c             \
+    copyoplutilreal.c             \
+

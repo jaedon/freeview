@@ -1,0 +1,27 @@
+# WEB UI CONFIGURATION
+
+	config APWEB_UI_NAME
+			string
+			prompt "WEB UI Folder Name"
+			default "freesatg2"
+			
+	config APWEB_NUMA
+			bool
+			prompt "Use NUMA diagnostic web app (for TDC only)"
+			default n	
+			
+	config APWEB_SEPARATED_DIR
+			bool
+			prompt "Set if the web app should be in a separated partition"
+			default n	
+
+	config APWEB_SEPARATED_DIR_NAME
+		depends on APWEB_SEPARATED_DIR
+			string
+			prompt "Absolute directory to separate (e.g., /usr/browser/webapps)"
+			default ""	
+
+	config APWEB_NATIVE_MEM_INFO
+			bool
+			prompt "Show current memory status for debug"
+			default n

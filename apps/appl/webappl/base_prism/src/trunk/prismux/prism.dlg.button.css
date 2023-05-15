@@ -1,0 +1,401 @@
+#DIA div.-page-full {
+  padding: 0px;
+  margin: 0px;
+  left: 0px;
+  top: 0px;
+  width: 1280px;
+  height: 720px;
+  background: rgba(0, 0, 0, 0.9);
+}
+#DIA div.-page-full div {
+  left: 0px;
+  margin: 0px;
+  padding: 0px;
+  background: none;
+}
+#DIA div.-page-horizontal-left-half {
+  padding: 0px;
+  margin: 0px;
+  left: 0px;
+  top: 0px;
+  width: 640px;
+  height: 720px;
+  background: rgba(0, 0, 0, 0.9);
+}
+#DIA div.-page-horizontal-left-half div {
+  left: 0px;
+  margin: 0px;
+  padding: 0px;
+  background: none;
+}
+#DIA div.-page-center-half {
+  padding: 0px;
+  margin: 0px;
+  left: 240px;
+  width: 800px;
+  height: 480px;
+  background: none;
+}
+#DIA div.-page-center-half div {
+  margin: 0px;
+  padding: 0px;
+  background: none;
+  font-weight: bold;
+}
+#DIA div.-page-center-half > div {
+  top: 280px;
+  left: 0px;
+  background: url(../images/107_Line_DW_White.png) no-repeat, rgba(0, 0, 0, 0.9);
+}
+#DIA div .-trd {
+  top: 0px;
+  left: 30px !important;
+  width: 733px;
+  height: 693px;
+}
+#DIA div .-trd div {
+  text-align: left;
+}
+#DIA div .-trd div .btn {
+  color: #d2d2d2;
+  background: #414141;
+  height: 28px;
+  padding: 0 20px 12px;
+  font-size: 22px;
+}
+#DIA div .-trd div .btn.-afd-leaf {
+  color: #000000;
+  background: #2eb2ff;
+}
+#DIA div .-trd > div:nth-child(1) {
+  height: 30px;
+}
+#DIA div .-trd > div:nth-child(1) > .text {
+  color: #ffffff;
+  font-size: 42px;
+  text-align: center;
+  margin-top: 5px;
+}
+#DIA div .-trd > div:nth-child(2) > .text {
+  color: #a1a1a1;
+  font-size: 24px;
+  text-align: left;
+  height: 30px;
+  top: 3px;
+  font-family: HelveticaB;
+}
+#DIA div .-trd > div:nth-child(3) > .text {
+  top: 134px;
+  width: 773px;
+  height: 32px;
+  padding: 0 20px 0;
+  font-family: HelveticaB;
+  font-size: 26px;
+  color: #ffff00;
+}
+#DIA div#green-button {
+  left: 0px;
+  margin: 0;
+  padding: 0;
+  width: 690px;
+  height: 370px;
+  display: none;
+  background: none;
+}
+#DIA div#green-button.-show {
+  display: block;
+}
+#DIA div#green-button div {
+  left: 0px;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+#DIA div#green-button div.-text {
+  width: 400px;
+  height: 30px;
+  left: 100px;
+  top: 80px;
+  text-align: left;
+  display: none;
+}
+#DIA div#green-button div.-text > .-green-button {
+  position: relative;
+  display: inline-block;
+  width: 168px;
+  height: 30px;
+  margin: 0 10px;
+  background: url(../images/614_Trailer_icon.png) no-repeat;
+}
+#DIA div#green-button div.-text.-show {
+  display: block;
+}
+#DIA div#green-button img.-image-icon {
+  position: absolute;
+  left: 35px;
+  top: 30px;
+  display: none;
+}
+#DIA div#green-button img.-image-icon.-show {
+  display: block;
+}
+#DIA div#debugger-green-button {
+  top: 46px;
+  left: 455px;
+  margin: 0;
+  padding: 0;
+  width: 690px;
+  height: 217px;
+  background: none;
+  color: #000000;
+  margin-left: 30px;
+  text-align: left;
+  background: rgba(0, 0, 0, 0.4);
+  font-size: 22px;
+}
+#DIA div#debugger-green-button::after {
+  position: relative;
+  right: 0px;
+  bottom: -30px;
+  text-align: right
+        color: red;
+  background: rgba(0, 255, 0, 0.4);
+  content: "";
+}
+#DIA div#debugger-green-button > div {
+  position: absolute;
+  left: 400px;
+  top: 250px;
+  padding: 0;
+  width: 700px;
+  height: 250px;
+  background: rgba(255, 255, 255, 0.3);
+  text-align: left;
+}
+#DIA div#button-watch-in-hd {
+  display: none;
+  left: 0px;
+  top: 0px;
+  margin: 0;
+  padding: 0;
+  width: 690px;
+  height: 370px;
+  background: url(../images/614_BG_Trailer.png) no-repeat;
+}
+#DIA div#button-watch-in-hd.-show {
+  display: block;
+}
+#DIA div#button-watch-in-hd > div {
+  position: absolute;
+  left: 86px;
+  top: 74px;
+  display: block;
+  width: inherit;
+  height: inherit;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  background: url(../images/351_LTV_OK.png) no-repeat;
+  padding-left: 49px;
+}
+#DIA .-debug {
+  border: 5px solid white;
+}
+.-hd-alter {
+  top: 330px;
+  z-index: 10;
+}
+.-hd-alter div {
+  left: 0px;
+}
+.-hd-alter .text:not(.-desc) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 10px;
+}
+.-hd-alter .-btn-ctrl .btn {
+  position: absolute;
+  text-align: left;
+  line-height: 50px;
+  padding: 0 20px;
+  font-size: 26px;
+  color: #d2d2d2;
+  background: #414141;
+  width: 610px;
+  padding-left: 70px;
+}
+.-hd-alter .-btn-ctrl .btn.-afd-leaf {
+  color: #000000;
+  background: #2eb2ff;
+}
+.-hd-alter .-btn-ctrl > div:nth-child(1) > div {
+  position: absolute;
+  background: url(../images/203_Resolition_HD.png) no-repeat;
+  width: 40px;
+  height: 30px;
+  margin: 10px 15px;
+}
+.-hd-alter .-btn-ctrl > div:nth-child(2) > div {
+  position: absolute;
+  background: url(../images/203_Resolition_SD.png) no-repeat;
+  width: 40px;
+  height: 30px;
+  margin: 10px 15px;
+}
+.-rct-info {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  margin: 0;
+  padding: 0;
+  width: 1280px;
+  height: 720px;
+  background: url(../images/614_BG_Trailer2.png) no-repeat;
+}
+.-rct-info .text > div {
+  width: 492px !important;
+  height: 80px;
+  text-overflow: ellipsis;
+}
+.-rct-info .text > div.-title {
+  left: 45px;
+  font-size: 56px;
+  text-align: center;
+  padding-top: 55px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.-rct-info .text > div.-title > span.-schedule {
+  position: absolute;
+  width: 36px;
+  height: 30px;
+  top: 67px;
+  margin-left: -34px;
+}
+.-rct-info .text.-single > div {
+  width: 456px !important;
+  padding-left: 34px;
+}
+.-rct-info .text.-single > div > span {
+  display: block;
+  background: url(../images/205_REC_Reservation_Recording.png) no-repeat;
+}
+.-rct-info .text.-series > div {
+  width: 456px !important;
+  padding-left: 34px;
+}
+.-rct-info .text.-series > div > span {
+  display: block;
+  background: url(../images/205_REC_Reservation_Series.png) no-repeat;
+}
+.-rct-info .text .-desc {
+  top: 190px;
+  left: 10px;
+  width: 550px;
+  height: 232px;
+  line-height: 34px;
+  font-family: PrismFontL;
+  font-size: 26px;
+  text-align: left;
+  color: #BEBEBE;
+  overflow: hidden;
+}
+.-rct-info .-arrow {
+  position: absolute;
+  width: 24px;
+  height: 32px;
+  top: 89px;
+  display: none;
+}
+.-rct-info .-arrow.-left {
+  left: 54px;
+  background: url(../images/614_Trailer_Pagepre_N.png) no-repeat;
+}
+.-rct-info .-arrow.-right {
+  left: 590px;
+  background: url(../images/614_Trailer_Pagenext_N.png) no-repeat;
+}
+.-rct-info .-arrow.-show {
+  display: block;
+}
+.-rct-info .-btn-ctrl {
+  top: 512px;
+}
+.-rct-info .-btn-ctrl .btn {
+  left: 10px;
+  width: 510px;
+  height: 45px;
+  color: #d2d2d2;
+  background: #414141;
+  padding: 5px 20px;
+  margin: 0;
+  text-align: center;
+  font-size: 28px;
+  line-height: 44px;
+}
+.-rct-info .-btn-ctrl .btn.-afd-leaf {
+  color: #000000;
+  background: #2eb2ff;
+}
+.-ncd {
+  width: 800px;
+  top: 315px;
+  height: 399px;
+}
+.-ncd div {
+  left: 0px;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+.-ncd div .-title {
+  width: 700px;
+  height: 45px;
+  margin-top: 5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 34px;
+}
+.-ncd div .btn {
+  width: 180px;
+  line-height: 50px;
+  padding: 0 20px;
+  font-size: 26px;
+  color: #d2d2d2;
+  background: #414141;
+}
+.-ncd div .btn.-afd-leaf {
+  color: #000000;
+  background: #2eb2ff;
+}
+.-ncd div .-date {
+  color: #FF0;
+  top: -8px !important;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.15);
+  font-weight: normal;
+  width: 733px;
+  display: none;
+}
+.-ncd div.-btn-ctrl {
+  top: 325px;
+  margin-left: 125px;
+}
+.-ncd div .-desc {
+  left: 0px;
+  top: -10px !important;
+}
+.-ncd.-high-height {
+  top: 280px;
+  height: 439px;
+}
+.-ncd.-high-height > div.-btn-ctrl {
+  top: 365px;
+  margin-left: 50px;
+}
+.-ncd.-high-height > div .-date {
+  display: block;
+}
+.-ncd.-high-height .text.-desc {
+  left: 0px;
+  width: 600px;
+  top: -10px !important;
+}

@@ -1,0 +1,132 @@
+.musicPlayback {
+  bottom: 0;
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  height: 720px;
+  width: 1280px;
+  background-color: #1E1E1E;
+  z-index: 0;
+}
+.musicPlayback .-carousel {
+  margin-top: 120px;
+  height: 470px;
+}
+.musicPlayback .-carousel-item figure {
+  background: url(../images/212_Thumb_Music_ME_Player.png) no-repeat;
+  -o-transition: all 0.5s cubic-bezier(0.675, 0.29, 0, 0.91);
+  position: absolute;
+  display: none;
+}
+.musicPlayback .-carousel-dist0 figure,
+.musicPlayback .-carousel-dist1 figure,
+.musicPlayback .-carousel-dist2 figure,
+.musicPlayback .-carousel-dist3 figure,
+.musicPlayback .-carousel-dist4 figure,
+.musicPlayback .-carousel-dist0 img,
+.musicPlayback .-carousel-dist1 img,
+.musicPlayback .-carousel-dist2 img,
+.musicPlayback .-carousel-dist3 img,
+.musicPlayback .-carousel-dist4 img {
+  display: block;
+  width: 280px;
+  height: 280px;
+}
+.musicPlayback .-carousel-dist0 {
+  left: 500px !important;
+}
+.musicPlayback .-carousel-dist0 figure {
+  top: 0px;
+  transform: scale(0.99, 0.99);
+}
+.musicPlayback .-carousel-dist1 figure {
+  top: 7px;
+  transform: scale(0.85, 0.85);
+}
+.musicPlayback .-carousel-dist1.-l {
+  left: 295px !important;
+}
+.musicPlayback .-carousel-dist1.-r {
+  left: 705px !important;
+  z-index: -1;
+}
+.musicPlayback .-carousel-dist2 figure {
+  top: 16px;
+  transform: scale(0.7, 0.7);
+}
+.musicPlayback .-carousel-dist2.-l {
+  left: 125px !important;
+}
+.musicPlayback .-carousel-dist2.-r {
+  left: 875px !important;
+  z-index: -2;
+}
+.musicPlayback .-carousel-dist3 figure {
+  top: 23px;
+  transform: scale(0.6, 0.6);
+}
+.musicPlayback .-carousel-dist3.-l {
+  left: -13px !important;
+}
+.musicPlayback .-carousel-dist3.-r {
+  left: 1013px !important;
+  z-index: -3;
+}
+.musicPlayback .-carousel-dist4 figure {
+  top: 26px;
+  transform: scale(0.5, 0.5);
+}
+.musicPlayback .muAnchorItem:after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  width: 270px;
+  height: 270px;
+}
+.musicPlayback .muAnchorItem:before {
+  content: "";
+  bottom: 0;
+  left: -500px;
+  position: absolute;
+  top: -120px;
+  height: 720px;
+  width: 1280px;
+  background-color: rgba(0, 0, 0, 0.702);
+  z-index: -4;
+}
+.musicPlayback .musicSlider.-fd .muAnchorItem:after {
+  border: 6px solid #2EB2FF;
+}
+.musicPlayback .title {
+  color: #2EBEFF;
+  font-family: "PrismFontB";
+  font-size: 26px;
+  top: -50px;
+  left: -30px;
+  width: 340px;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.musicPlayback .optionMenuInd {
+  position: absolute;
+  left: 934px;
+  top: -60px;
+  right: -93px;
+  width: 480px;
+  bottom: 30px;
+  height: 26px;
+  line-height: 30px;
+  font-size: 24px;
+  padding: 0px 5px 0px 35px;
+  color: #A0A0A0;
+  background: url(../images/201_Option.png) no-repeat;
+}
+.musicPlayback.disabled .optionMenuInd {
+  opacity: 0;
+}
+.musicPlayback.disabled .musicSlider.-fd .muAnchorItem:after {
+  border: 0px solid #2EB2FF;
+}

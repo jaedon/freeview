@@ -1,0 +1,10 @@
+/* PARAM(_key,_field,_type) */
+PARAM("frame_rate",					stFrameRate.eFrameRate,					BAVC_FrameRateCode,		"\n\tFrame Rate (1=\"23.976\", 2=\"24\", 3=\"25\", 4=\"29.97\", 5=\"30\", 6=\"50\", 7=\"59.94\", 8=\"60\", 9=\"14.985\", 12=\"15\", 13=\"20\")")
+PARAM("frame_rate_variable_mode",	stFrameRate.bVariableFrameRateMode,		bool,					"\n\tVariable Frame Rate Mode (0=disable, 1=enable)")
+PARAM("bitrate_max",				stBitRate.uiMax,						unsigned,				"\n\tMax Bitrate")
+PARAM("a2pdelay",					uiA2PDelay,								unsigned,				"\n\tA2P Delay")
+PARAM("gop_number_of_p",			stGOPStructure.uiNumberOfPFrames,		unsigned,				"\n\tNumber of P Frames between I Frames")
+PARAM("gop_number_of_b",			stGOPStructure.uiNumberOfBFrames,		unsigned,				"\n\tNumber of B Frames between I/P Frames (Max is 2)")
+PARAM("gop_allow_open_gop",			stGOPStructure.bAllowOpenGOP,			bool,					"\n\tAllow Open GOP (0=disable, 1=enable)")
+PARAM("itfp",						bITFPEnable,							bool,					"\n\tITFP (0=disable, 1=enable)")
+#undef PARAM

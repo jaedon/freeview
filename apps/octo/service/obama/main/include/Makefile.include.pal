@@ -1,0 +1,15 @@
+# Common include path */
+ccflags-y += -I$(OCTO_DIR)/main/include
+ccflags-y += -I$(OCTO_UTILS_DIR)/utils/include
+ccflags-y += -I$(OCTO_DIR)/main/toolkit
+
+# DB
+ccflags-y += -I$(OCTO_DB_DIR)/include
+
+#MW Common
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/svc/common/include
+
+#PAL include path
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/pal/include
+
+

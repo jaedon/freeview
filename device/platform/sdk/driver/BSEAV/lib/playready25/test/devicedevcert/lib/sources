@@ -1,0 +1,12 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=LIBRARY
+TARGETNAME=DeviceDevCertTestAPI
+
+SOURCES = \
+	..\ddctest.c \
+
+INCLUDES = \
+    $(INCLUDES) \
+    $(_DRM_SOURCE_PATH)\tools\common;  \
+

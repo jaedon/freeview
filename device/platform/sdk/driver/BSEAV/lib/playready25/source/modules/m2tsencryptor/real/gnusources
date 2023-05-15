@@ -1,0 +1,20 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmm2tsencryptorreal
+TARGETTYPE=LIBRARY
+
+SOURCES =               \
+    drmm2tsbitstream.c \
+    drmm2tsbuffermgr.c \
+    drmm2tsecmbuilder.c \
+    drmm2tsencryptor.c \
+    drmm2tsheaderparsers.c \
+    drmm2tsmediaformatparsers.c \
+    drmm2tspmtrebuilder.c \
+    drmm2tslogs.c \
+

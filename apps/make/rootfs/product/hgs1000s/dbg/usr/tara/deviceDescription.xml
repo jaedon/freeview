@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<root xmlns="urn:schemas-upnp-org:device-1-0" configId="0">
+  <specVersion>
+    <major>1</major>
+    <minor>1</minor>
+  </specVersion>
+  <device>
+    <deviceType>urn:ses-com:device:SatIPServer:1</deviceType>
+    <friendlyName>NovaspreadServer</friendlyName>
+    <manufacturer>Copyright(C) 2014 HUMAX Co., Ltd. All rights reserved.</manufacturer>
+    <manufacturerURL>http://www.humaxdigital.com</manufacturerURL>
+    <modelDescription>Standard SAT>IP Server</modelDescription>
+    <modelName>HGS-1000S</modelName>
+    <modelNumber>1.0</modelNumber>
+    <modelURL>http://www.humaxdigital.com</modelURL>
+    <serialNumber>1S81A31231000007</serialNumber>
+    <iconList></iconList>
+    <satip:X_SATIPCAP xmlns:satip="urn:ses-com:satip">DVBS2-4</satip:X_SATIPCAP>
+  </device>
+</root>

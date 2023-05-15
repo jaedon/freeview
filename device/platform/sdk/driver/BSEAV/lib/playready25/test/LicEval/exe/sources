@@ -1,0 +1,16 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=PROGRAM
+TARGETNAME=TestLicEval
+UMTYPE=console
+
+SOURCES = \
+	..\main.c \
+
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \
+    $(_DRM_TEST_LICEVAL_LIB) \
+    $(_DRM_TEST_DRMMANAGER_LIB) \
+    $(_DRM_TEST_NETIO_LIB)    \

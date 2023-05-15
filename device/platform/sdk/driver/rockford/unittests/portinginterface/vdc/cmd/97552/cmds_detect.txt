@@ -1,0 +1,15 @@
+ovc
+
+pb
+os 0 0
+ow
+ccm 1
+detectmpeg
+
+pb
+cw
+cs
+cd
+
+quit
+

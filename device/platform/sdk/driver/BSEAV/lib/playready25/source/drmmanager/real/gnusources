@@ -1,0 +1,17 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmmanager
+TARGETTYPE=LIBRARY
+
+SOURCES =                       \
+    drmmanager.c                \
+    drmpolicystate.c            \
+    drmprndmanager.c            \
+    drmprndmanagerreceiver.c    \
+    drmprndmanagertransmitter.c \
+

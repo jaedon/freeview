@@ -1,0 +1,238 @@
+##########################################
+# WORKAROUND configuration menu
+##########################################
+
+
+config FTPSERVER
+	bool
+	prompt "FTPSERVER, it should be deleted in driver config."
+	default n
+
+config TFTPSERVER
+	bool
+	prompt "TFTPSERVER, it should be deleted in driver config."
+	default n
+	
+config WORKAROUND_CHANNEL_INPUT_SOURCE
+	bool
+	prompt "WORKAROUND_CHANNEL_INPUT_SOURCE"
+	default n
+
+config BRANCH
+	bool
+	prompt "BRANCH"
+	default n
+
+config WORKAROUND_NVRAM_NO_SYNC
+	bool
+	prompt "workaound for nvram no synced models(UD-FOX HD, HD-FREE, VTC-HD06)"
+	default n
+
+config WORKAROUND_ASTM_LIVE_TUNE
+	bool
+	prompt "workaround for astm pass and fail value"
+	default n
+
+config WORKAROUND_DIRECT_VIDEO_SHOW
+	bool
+	prompt "WORKAROUND_DIRECT_VIDEO_SHOW"
+	default n
+	
+config TEMP_WA7000
+	bool
+	prompt "TEMP_WA7000"
+	default n
+
+config TEMP_HM9504HD
+	bool
+	prompt "TEMP_HM9504HD"
+	default n
+
+config TEMP_HM9505HD
+	bool
+	prompt "TEMP_HM9505HD"
+	default n
+
+config TEMP_WA8000
+	bool
+	prompt "TEMP_WA8000"
+	default n
+
+config TEMP_DTG_HDR2000T
+	bool
+	prompt "TEMP_DTG_HDR2000T"
+	default n
+
+config TEMP_IR4000HD
+	bool
+	prompt "TEMP_IR4000HD"
+	default n
+
+config TEMP_HD9000IRU
+	bool
+	prompt "TEMP_HD9000IRU"
+	default n
+
+config TEMP_UHD7445
+	bool
+	prompt "TEMP_UHD7445"
+	default n
+
+config TEMP_BCM7445
+	bool
+	prompt "TEMP_UHD7445"
+	default n
+
+config TEMP_HMS1000SPH2
+	bool
+	prompt "TEMP_HMS1000SPH2"
+	default n
+
+config TEMP_HMSLITE
+	bool
+	prompt "TEMP_HMSLITE"
+	default n
+
+config TEMP_WA7000RN
+	bool
+	prompt "TEMP_WA7000RN"
+	default n
+
+config TEMP_WA7500
+	bool
+	prompt "TEMP_WA7500"
+	default n
+
+config TEMP_WA8500
+	bool
+	prompt "TEMP_WA8500"
+	default n
+
+config TEMP_ICORDPRO
+	bool
+	prompt "TEMP_ICORDPRO"
+	default n
+
+config TEMP_HMX4KJP
+	bool
+	prompt "TEMP_HMX4KJP"
+	default n
+
+config TEMP_HMX4KBBC
+	bool
+	prompt "TEMP_HMX4KBBC"
+	default n
+	
+config TEMP_CXHD5300C
+	bool
+	prompt "TEMP_CXHD5300C"
+	default n
+
+config TEMP_HTR1000S
+	bool
+	prompt "TEMP_HTR1000S"
+	default n
+	
+config TEMP_CDIG1000C
+	bool
+	prompt "TEMP_CDIG1000C"
+	default n
+
+config TEMP_YSR2000
+	bool
+	prompt "TEMP_YSR2000"
+	default n
+
+config TEMP_UHD2500
+	bool
+	prompt "TEMP_UHD2500"
+	default n
+	
+config TEMP_HDNANOECO
+	bool
+	prompt "TEMP_HDNANOECO"
+	default n
+
+config TEMP_CDIG2000C
+	bool
+	prompt "TEMP_CDIG2000C"
+	default n
+	
+config TEMP_ROCKYPOM
+	bool
+	prompt "TEMP_ROCKYPOM"
+	default n
+
+config TEMP_HDR4000T
+	bool
+	prompt "TEMP_HDR4000T"
+	default n
+
+config TEMP_HTB100S
+	bool
+	prompt "TEMP_HTB100S"
+	default n
+
+config TEMP_HDNEO
+	bool
+	prompt "TEMP_HDNEO"
+	default n
+
+config TEMP_HGS1000S
+	bool
+	prompt "TEMP_HGS1000S"
+	default n
+
+config TEMP_VMHD4000
+	bool
+	prompt "TEMP_VMHD4000"
+	default n
+
+config TEMP_VMHD5000
+	bool
+	prompt "TEMP_VMHD5000"
+	default n
+
+config TEMP_HA7100S
+	bool
+	prompt "TEMP_HA7100S"
+	default n
+
+config TEMP_VTV200
+	bool
+	prompt "TEMP_VTV200"
+	default n
+
+config TEMP_VH100
+	bool
+	prompt "TEMP_VH100"
+	default n
+
+if HDMI_OUT_20
+config WORKAROUND_BRCM_HDMI_20_10BITS
+	bool
+	prompt "WORKAROUND_BRCM_HDMI_20_10BITS"
+	default n
+endif
+
+config WORKAROUND_HDMI_NO_SIGNAL
+	bool
+	prompt "Workaround feature. No signal issue occurs when removing and adding output"
+	depends on HDMI_OUT
+	default n
+	
+	config TEMP_IR4000HD
+	bool
+	prompt "Workaround for IR4000HD"
+	default n
+	
+config TEMP_RT5572_EXTENDED
+	bool
+	prompt "extend usb wifi dongle support"
+	default n
+	
+	config TEMP_M1
+	bool
+	prompt "Workaround for M1"
+	default n
+	

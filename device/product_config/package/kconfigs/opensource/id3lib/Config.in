@@ -1,0 +1,2 @@
+config PACKAGE_ID3LIB
+	bool "id3lib"

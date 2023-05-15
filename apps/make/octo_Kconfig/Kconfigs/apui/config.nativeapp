@@ -1,0 +1,132 @@
+################################################
+#					AP UI Configuration					#
+################################################
+
+comment "Native App UI Configuration."
+
+# Native App UI System
+
+	config APUI_PRISM
+		bool "APUI_PRISM - UX PRISM Scenario."
+		default n
+
+	choice
+		prompt "SKIN Image Selection"
+		default APUI_SKIN_PRISM
+
+		config APUI_SKIN_PRISM
+			bool "APUI_SKIN_PRISM - SKIN GUI PRISM Alpha"
+
+		config APUI_SKIN_MBC
+			bool "APUI_SKIN_MBC - SKIN GUI PRISM Alpha & MBC"
+
+		config APUI_SKIN_NONE
+			bool "APUI_SKIN_NONE - SKIN GUI NONE"
+	endchoice
+
+	choice
+		prompt "SKIN Color Selection"
+		default APUI_SKIN_COLOR_BASE
+
+		config APUI_SKIN_COLOR_BASE
+			bool "APUI_SKIN_COLOR_BASE - SKIN GUI Color for PRISM Alpha"
+
+		config APUI_SKIN_COLOR_MBC
+			bool "APUI_SKIN_COLOR_MBC - SKIN GUI Color for OP MBC"
+
+		config APUI_SKIN_COLOR_NONE
+			bool "APUI_SKIN_COLOR_NONE - SKIN GUI Color NONE"
+	endchoice
+
+	config APUI_NAME
+		prompt "APUI_NAME - Native App UI Name"
+		string
+		default "app_native_prism"
+
+	config AP_SUPPORT_IMAGETOOL
+		bool "AP_SUPPORT_IMAGETOOL - support image tool"
+		default y		
+
+	config APUI_SUPPORT_ANIMATION
+		bool "APUI_SUPPORT_ANIMATION - support UI Animation"
+		default n	
+		
+	config APUI_SAT_ANTENNA_MAX_SLOT
+		int "APUI_SAT_ANTENNA_MAX_SLOT - Maximum number of antenna slot."
+		default 8					if OP_MIDDLE_EAST
+		default 4					if MW_CH_SATELLITE
+		default 0
+		help
+			Specify the maximum antenna name
+
+	config APUI_SET_DUALMONO_IN_SOUNDMODE
+		bool "APUI_SET_DUALMONO_IN_SOUNDMODE - set dualmono type when changed sound mode"
+		default n	
+
+	config APUI_SET_FAVOURITE_MAX_SLOT
+		int "APUI_SET_FAVOURITE_MAX_SLOT - Maximum number of Favourite Group slot."
+		default 5
+		help
+			Specify the maximum favourite group slot
+
+	config APUI_SET_FAVOURITE_MAX_ITEM
+		int "APUI_SET_FAVOURITE_MAX_ITEM - Maximum number of Favourite items"
+		default 200
+		help
+			Specify the maximum favourite items
+
+	config APUI_SET_RESERVATION_MAX_SLOT
+		int "APUI_SET_RESERVATION_MAX_SLOT - Maximum number of Reservation items"
+		default 100
+		help
+			Specify the maximum Reservation items
+	
+	config APUI_SET_IMPORT_EXPORT_CHANNEL
+		bool "APUI_SET_IMPORT_EXPORT_CHANNEL - support Import/Export Channels"
+		default n			
+		
+	config APUI_SET_USED_MICOM
+		bool "APUI_SET_USED_MICOM - support Micom"
+		default n
+
+	config APUI_SET_HIDDEN_INFO
+		bool "APUI_SET_HIDDEN_INFO - Support Hidden Menu"
+		default y
+		
+		config APUI_SET_HIDDEN_INFO_PWD_RESET
+			depends on APUI_SET_HIDDEN_INFO
+			bool "APUI_SET_HIDDEN_INFO_PWD_RESET - Support Hidden Menu - Password Reset"
+			default n
+
+		config APUI_SET_HIDDEN_INFO_COUNTRY_CODE
+			depends on APUI_SET_HIDDEN_INFO
+			bool "APUI_SET_HIDDEN_INFO_COUNTRY_CODE - Support Hidden Menu - Select Country Code"
+			default n
+
+		config APUI_SET_HIDDEN_INFO_FUSING_INFO
+			depends on APUI_SET_HIDDEN_INFO
+			bool "APUI_SET_HIDDEN_INFO_FUSING_INFO - Support Hidden Menu - Show Fusing Info"
+			default y
+
+		config APUI_SET_HIDDEN_INFO_TIME_SET
+			depends on APUI_SET_HIDDEN_INFO
+			bool "APUI_SET_HIDDEN_INFO_TIME_SET - Support Hidden Menu - Time Setting is all TP or Fixed TP"
+			default n
+			
+	config APUI_SET_MEDIA_UI_DISPLAY
+		bool "APUI_SET_MEDIA_UI_DISPLAY - Support Display Media Center UI"
+		default y					if MW_MULTIMEDIA
+		default n			
+
+	config APUI_SET_RECORDING_UI_DISPLAY
+		bool "APUI_SET_RECORDING_UI_DISPLAY - Support Display recording UI"
+		default y					if MW_MM_PVR
+		default n
+		
+	config APUI_SET_SMARTSEARCH_UI_DISPLAY
+		bool "APUI_SET_SMARTSEARCH_UI_DISPLAY - Support Smart Search UI"
+		default n
+
+	config APUI_SET_PRISM_HOMEMENU
+		bool "APUI_SET_PRISM_HOMEMENU - Support Prism Home Menu UI"
+		default n						

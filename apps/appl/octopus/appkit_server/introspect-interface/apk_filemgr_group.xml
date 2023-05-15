@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Filemgr/Group">   
+    <interface name="Octopus.Appkit.Filemgr.Group">
+
+    <method name="Create">
+    	<arg type="s" name="extFilter" direction="in" />
+    	<arg type="u" name="handle" direction="out" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="Release">
+    	<arg type="u" name="handle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+                                                                        
+    <method name="AddPath">
+    	<arg type="u" name="handle" direction="in" />
+    	<arg type="s" name="path" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="RemovePath">
+    	<arg type="u" name="handle" direction="in" />
+    	<arg type="s" name="path" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="ExcludePath">
+    	<arg type="u" name="handle" direction="in" />
+    	<arg type="s" name="path" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="Copy">
+    	<arg type="u" name="handle" direction="in" />
+    	<arg type="s" name="path" direction="in" />
+			<arg type="u" name="requestId" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="Move">
+    	<arg type="u" name="handle" direction="in" />
+    	<arg type="s" name="path" direction="in" />
+			<arg type="u" name="requestId" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="Remove">
+    	<arg type="u" name="handle" direction="in" />
+    	<arg type="u" name="requestId" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+            
+    <method name="Cancel">
+    	<arg type="u" name="handle" direction="in" />
+    	<arg type="u" name="requestId" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+
+            
+    <signal name="event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+  </interface>
+</node>

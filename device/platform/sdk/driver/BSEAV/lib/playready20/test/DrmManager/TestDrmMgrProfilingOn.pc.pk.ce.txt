@@ -1,0 +1,1252 @@
+1887:Add 10001 leaf Licenses to HDS and 1 Root license and 1001 simple domain bound
+Test_SetRandomSeed( RANDOM RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( 7KXjZ+qYr5mPiX0BckATYQ==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddManyXMRLicenses( 5000, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA== )
+TestManagerAddManyXMRLicenses( 5000, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA== )
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat )=0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( AVhTknNlJOjo7F6b7HeNxg==, {C58BFCC3-08F1-4090-A8E5-F56809A732AA}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, AES_128_CTR, NULL, NjU0MzIxMDk4NzY1NDMyMQ==  )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddManyXMRLicenses(1000, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, AES_128_CTR, NULL, NjU0MzIxMDk4NzY1NDMyMQ==  )
+SaveDeviceStore(InitialCert,InitialStore)
+
+1917:Add 1 Root license and 1001 simple domain bound
+Test_SetRandomSeed( RANDOM RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, AES_128_ECB )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( 7KXjZ+qYr5mPiX0BckATYQ==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, AES_128_CTR )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat )=0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( AVhTknNlJOjo7F6b7HeNxg==, {C58BFCC3-08F1-4090-A8E5-F56809A732AA}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, AES_128_CTR, NULL, NjU0MzIxMDk4NzY1NDMyMQ==  )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddManyXMRLicenses(1000, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, AES_128_CTR, NULL, NjU0MzIxMDk4NzY1NDMyMQ==  )
+SaveDeviceStore(InitialCert,InitialStore)
+
+
+10443:Add 1K licenses and metering data to store
+Test_SetRandomSeed( RANDOM RandomSeedType )
+'adding 100 chained xmr with root having expiry
+TestManagerAddXMRLicense(!3x9NSroVg4eXCzWqPU!BA==,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,ROOT,NULL,NULL,NULL,300,NULL,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddManyXMRLicenses(100,RANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,!3x9NSroVg4eXCzWqPU!BA==,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+
+'adding 100 chained xmr with root having expiry, each leaf having sooner expiry
+TestManagerAddXMRLicense(!3x6NSroVg4eXCzWqPU!BA==,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,ROOT,NULL,NULL,NULL,300,NULL,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddManyXMRLicenses(100,RANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,!3x6NSroVg4eXCzWqPU!BA==,NULL,NULL,NULL,200,NULL,NULL,NULL,NULL)
+
+'adding 100 chained xml with root having expiry
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl3AY3ITE0qe11abcmK0D==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[machine.datetime < secstate.ExpirationDate]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.ExpirationDate=#",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2,NULL,26280)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerAddManyLicenses(100,7000000000,RANDOM,RANDOM, 0, NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl3AY3ITE0qe11abcmK0D==)
+
+'adding 100 chained xml with root having expiry, each leaf having playcoiunt
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl4BY3ITE0qe11abcmK0D==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[machine.datetime < secstate.ExpirationDate]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.ExpirationDate=#",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2,NULL,17520)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerAddManyLicenses(100,7000000000,RANDOM,RANDOM, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[secstate.PlayCount=2]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl4BY3ITE0qe11abcmK0D==)
+
+'adding rest of xmr/xml licenses
+TestManagerAddManyXMRLicenses(800,RANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+TestManagerAddManyLicenses(800,7000000000,RANDOM,RANDOM, 0, NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerAddManyMeteringData(pIKx8Wsy5aYRQN8LLIIcTQ==,250)
+
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( 7KXjZ+qYr5mPiX0BckATYQ==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat )=0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( AVhTknNlJOjo7F6b7HeNxg==, {C58BFCC3-08F1-4090-A8E5-F56809A732AA}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, NULL, AES_128_CTR, NULL, NjU0MzIxMDk4NzY1NDMyMQ==  )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+SaveDeviceStore(InitialCert,InitialStore)
+
+
+
+10445:Add 3K licenses and metering data to store
+
+Test_SetRandomSeed( RANDOM RandomSeedType )
+'adding 300 chained xmr with root having expiry
+TestManagerAddXMRLicense(!3x9NSroVg4eXCzWqPU!BA==,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,ROOT,NULL,NULL,NULL,300,NULL,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddManyXMRLicenses(300,RANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,!3x9NSroVg4eXCzWqPU!BA==,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+
+'adding 300 chained xmr with root having expiry, each leaf having sooner expiry
+TestManagerAddXMRLicense(!3x6NSroVg4eXCzWqPU!BA==,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,ROOT,NULL,NULL,NULL,300,NULL,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddManyXMRLicenses(300,RANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,!3x6NSroVg4eXCzWqPU!BA==,NULL,NULL,NULL,200,NULL,NULL,NULL,NULL)
+
+'adding 300 chained xml with root having expiry
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl3AY3ITE0qe11abcmK0D==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[machine.datetime < secstate.ExpirationDate]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.ExpirationDate=#",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2,NULL,17520)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerAddManyLicenses(300,7000000000,RANDOM,RANDOM, 0, NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl3AY3ITE0qe11abcmK0D==)
+
+'adding 300 chained xml with root having expiry, each leaf having playcoiunt
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl4BY3ITE0qe11abcmK0D==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[machine.datetime < secstate.ExpirationDate]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.ExpirationDate=#",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2,NULL,17520)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerAddManyLicenses(300,7000000000,RANDOM,RANDOM, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[secstate.PlayCount=2]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl4BY3ITE0qe11abcmK0D==)
+
+'adding rest of xmr/xml licenses
+TestManagerAddManyXMRLicenses(2400,RANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+TestManagerAddManyLicenses(2400,7000000000,RANDOM,RANDOM, 0, NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerAddManyMeteringData(pIKx8Wsy5aYRQN8LLIIcTQ==,250)
+
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( 7KXjZ+qYr5mPiX0BckATYQ==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat )=0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( AVhTknNlJOjo7F6b7HeNxg==, {C58BFCC3-08F1-4090-A8E5-F56809A732AA}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, NULL, AES_128_CTR, NULL, NjU0MzIxMDk4NzY1NDMyMQ==  )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+SaveDeviceStore(InitialCert,InitialStore)
+
+10504:Add 10K licenses and metering data to store
+Test_SetRandomSeed( RANDOM RandomSeedType )
+'adding 1000 chained xmr with root having expiry
+TestManagerAddXMRLicense(!3x9NSroVg4eXCzWqPU!BA==,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,ROOT,NULL,NULL,NULL,300,NULL,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddManyXMRLicenses(1000,RANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,!3x9NSroVg4eXCzWqPU!BA==,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+
+'adding 1000 chained xmr with root having expiry, each leaf having sooner expiry
+TestManagerAddXMRLicense(!3x6NSroVg4eXCzWqPU!BA==,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,ROOT,NULL,NULL,NULL,300,NULL,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddManyXMRLicenses(1000,RANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,!3x6NSroVg4eXCzWqPU!BA==,NULL,NULL,NULL,200,NULL,NULL,NULL,NULL)
+
+'adding 1000 chained xml with root having expiry
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl3AY3ITE0qe11abcmK0D==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[machine.datetime < secstate.ExpirationDate]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.ExpirationDate=#",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2,NULL,17520)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerAddManyLicenses(1000,7000000000,RANDOM,RANDOM, 0, NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl3AY3ITE0qe11abcmK0D==)
+
+'adding 1000 chained xml with root having expiry, each leaf having playcoiunt
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl4BY3ITE0qe11abcmK0D==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[machine.datetime < secstate.ExpirationDate]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.ExpirationDate=#",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2,NULL,17520)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerAddManyLicenses(1000,7000000000,RANDOM,RANDOM, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[secstate.PlayCount=2]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl4BY3ITE0qe11abcmK0D==)
+
+'adding rest of xmr/xml licenses
+TestManagerAddManyXMRLicenses(8000,RANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+TestManagerAddManyLicenses(8000,7000000000,RANDOM,RANDOM, 0, NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerAddManyMeteringData(pIKx8Wsy5aYRQN8LLIIcTQ==,250)
+
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( 7KXjZ+qYr5mPiX0BckATYQ==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat )=0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( AVhTknNlJOjo7F6b7HeNxg==, {C58BFCC3-08F1-4090-A8E5-F56809A732AA}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, NULL, AES_128_CTR, NULL, NjU0MzIxMDk4NzY1NDMyMQ==  )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+SaveDeviceStore(InitialCert,InitialStore)
+
+
+10500:PERF:Add many licenses and metering data, then try to Bind and Commit four times to a metered chain license
+'First try a two chain licenses with an empty store
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000507-0000-0010-8000-00AA006D2EA4}, 0, NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU000==,{00000507-0000-0010-8000-00AA006D2EA4}, 0, "<MID>pIKx8Wsy5aYRQN8LLIIcTQ==</MID>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU111==,{00000507-0000-0010-8000-00AA006D2EA4}, 0, "<MID>pIKx8Wsy5aYRQN8LLIIcTQ==</MID>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerSetRights(Play)
+StartProfiling(10500_1.dat)
+'Play the first one
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU000==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+'Play the second one
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU111==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+'Play the first one again
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU000==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+'Play the second one again
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU111==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+'TestManagerSetKID(!3x8NSroVg4eXCzWqPU111==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+'TestManagerSetKID(!3x8NSroVg4eXCzWqPU111==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+StopProfiling
+
+'Now add 250 dummy licenses and 50 metering entries
+TestManagerAddManyLicenses(250,700000000,RANDOM,RANDOM, 0, NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerAddManyMeteringData(pIKx8Wsy5aYRQN8LLIIcTQ==,50)
+
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU222==,{00000507-0000-0010-8000-00AA006D2EA4}, 0, "<MID>pIKx8Wsy5aYRQN8LLIIcTQ==</MID>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU333==,{00000507-0000-0010-8000-00AA006D2EA4}, 0, "<MID>pIKx8Wsy5aYRQN8LLIIcTQ==</MID>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU444==,{00000507-0000-0010-8000-00AA006D2EA4}, 0, "<MID>pIKx8Wsy5aYRQN8LLIIcTQ==</MID>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU555==,{00000507-0000-0010-8000-00AA006D2EA4}, 0, "<MID>pIKx8Wsy5aYRQN8LLIIcTQ==</MID>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU666==,{00000507-0000-0010-8000-00AA006D2EA4}, 0, "<MID>pIKx8Wsy5aYRQN8LLIIcTQ==</MID>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4}, 0, "<MID>pIKx8Wsy5aYRQN8LLIIcTQ==</MID>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+StartProfiling(10500_2.dat)
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU222==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU333==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU444==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+StopProfiling
+
+'Add another 2500 licenses, and another 500 metering entries
+TestManagerAddManyLicenses(2500,7000000000,RANDOM,RANDOM, 0, NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerAddManyMeteringData(pIKx8Wsy5aYRQN8LLIIcTQ==,500)
+
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU777==,{00000507-0000-0010-8000-00AA006D2EA4}, 0, "<MID>pIKx8Wsy5aYRQN8LLIIcTQ==</MID>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU888==,{00000507-0000-0010-8000-00AA006D2EA4}, 0, "<MID>pIKx8Wsy5aYRQN8LLIIcTQ==</MID>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU999==,{00000507-0000-0010-8000-00AA006D2EA4}, 0, "<MID>pIKx8Wsy5aYRQN8LLIIcTQ==</MID>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPUAAA==,{00000507-0000-0010-8000-00AA006D2EA4}, 0, "<MID>pIKx8Wsy5aYRQN8LLIIcTQ==</MID>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+StartProfiling(10500_3.dat)
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU777==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU888==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+'TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+'TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU999==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetKID(!3x8NSroVg4eXCzWqPUAAA==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU000==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU333==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU444==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU999==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+'TestManagerSetKID(!3x8NSroVg4eXCzWqPU999==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+
+'TestManagerSetKID(!3x8NSroVg4eXCzWqPU999==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL,500000)
+TestManagerCommit(500000)
+StopProfiling
+
+
+10505:PERF:GetLicenseData and Process lic response for simpleXML License in the store with 1K initial licenses
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+StartProfiling(10505.dat)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerClearHDSCaches
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+StopProfiling
+
+
+10506:PERF:GetLicenseData and Process lic response for chainedXML License in the store with 1K initial licenses
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11abcmK0D==,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11abcmK0D==)
+TestManagerGenerateResponse
+StartProfiling(10506.dat)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerClearHDSCaches
+TestManagerGetLicenseData(Dump,1,Dump,3,0)
+StopProfiling
+
+
+10507:PERF:GetLicenseData and Process lic response for chainedXML License (multi root) in the store with 1K initial licenses
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,RANDOM,64,"<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[machine.datetime < secstate.ExpirationDate]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.ExpirationDate=#",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2,NULL,17520)
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,RANDOM,64,"<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+StartProfiling(10507.dat)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerClearHDSCaches
+TestManagerGetLicenseData(Dump,1,Dump,3,0)
+StopProfiling
+
+
+10508:PERF:GetLicenseData and Process lic response for chained XMR License in the store with 1K initial licenses
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,1)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerAddXMRLicense(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(PREGENERATEDRANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,!3x8NSroVg4eXCzWqPU!BA==,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+StartProfiling(10508.dat)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerClearHDSCaches
+TestManagerGetLicenseData( Dump, 1, Dump, 3, 0 )
+StopProfiling
+
+
+10509:PERF:GetLicenseData and Process lic response for simple XMR License in the store with 1K initial licenses
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,1)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerAddXMRLicense(PREGENERATEDRANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+StartProfiling(10509.dat)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerClearHDSCaches
+TestManagerGetLicenseData( Dump, 1, Dump, 3, 0 )
+StopProfiling
+
+
+10510:PERF:GetLicenseData when license does not exist in the store with 1K initial licenses
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header2.xml)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerClearHDSCaches
+StartProfiling(10510.dat)
+TestManagerGetLicenseData(Dump,1,Dump,3,0)
+StopProfiling
+
+
+10511:PERF:generate challenge having the right of playback for V4 header
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1V4.xml)
+StartProfiling(10511.dat)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,0,NULL,0,http://www.contoso.com/licenseacq.asp,37,http://www.contoso.com/licenseuiacq.asp,39,NULL,0,0)
+StopProfiling
+
+
+10512:PERF:generate challenge having the right of playback V2 header
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+StartProfiling(10512.dat)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,0,NULL,0,http://www.contoso.com/licenseacq.asp,37,http://www.contoso.com/licenseacq.asp,37,NULL,0,0)
+StopProfiling
+
+
+
+10516:PERF:Process lic response for multiple simpleXML Licenses in the response with 1K initial licenses
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerAddLicenseToResponse(!3z8NSroVg4eXCzWqPU!BA==,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+StartProfiling(10516.dat)
+TestManagerProcessResponse(Dump,Dump,0,0)
+StopProfiling
+
+
+1534:PERF:Process lic response for multiple chainedXML License in the store with 1K initial licenses
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11abcmK0D==,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11abcmK0D==)
+TestManagerAddLicenseToResponse(!3z8NSroVg4eXCzWqPU!BA==,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11abcmK0D==)
+TestManagerGenerateResponse
+StartProfiling(10517.dat)
+TestManagerProcessResponse(Dump,Dump,0,0)
+StopProfiling
+
+
+1537:PERF:Bind\Commit for simpleXML License in the store with 1K initial licenses
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+StartProfiling(10518.dat)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerClearHDSCaches
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+StopProfiling
+
+
+1538:PERF:Process lic response and Bind\Commit for chainedXML License in the store with 1K initial licenses
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11abcmK0D==,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11abcmK0D==)
+TestManagerGenerateResponse
+StartProfiling(10519.dat)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerClearHDSCaches
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL))
+TestManagerCommit
+StopProfiling
+
+
+1535:PERF:Bind/Commit to a simple XML license with playcount restrictions in the store with 1K initial 
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[secstate.PlayCount=2]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+StartProfiling(10520.dat)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerClearHDSCaches
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit 
+StopProfiling
+
+
+1536:PERF:Bind/Commit to a simple XML license with expiry restriction in the store with 1K initial licenses
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[machine.datetime < secstate.ExpirationDate]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.ExpirationDate=#",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,26280)
+TestManagerGenerateResponse
+StartProfiling(10521.dat)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerClearHDSCaches
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit 
+StopProfiling
+
+
+10522:PERF:Bind/Commit to a chainedXML License with playcount restriction in the store with 1K initial licenses
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11abcmK0D==,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[secstate.PlayCount=2]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11abcmK0D==)
+TestManagerGenerateResponse
+StartProfiling(10522.dat)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerClearHDSCaches
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL))
+TestManagerCommit 
+StopProfiling
+
+
+10523:PERF:Bind/Commit to a chainedXML License with expiry restriction in the store with 1K initial licenses
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11abcmK0D==,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[machine.datetime <  secstate.ExpirationDate]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.ExpirationDate=#",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11abcmK0D==,NULL,NULL,26280)
+TestManagerGenerateResponse
+StartProfiling(10523.dat)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerClearHDSCaches
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL))
+TestManagerCommit 
+StopProfiling
+
+
+10524:PERF:Bind/Commit to a chined XML license with multiple root, 1K initial licenses in store
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,RANDOM,64,"<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[machine.datetime < secstate.ExpirationDate]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.ExpirationDate=#",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2,NULL,17520)
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,RANDOM,64,"<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+StartProfiling(10524.dat)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerClearHDSCaches
+'Change Time by two years + 2 days
+Test_ChangeTimeSeconds(63244800)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit 
+StopProfiling
+
+
+10525:PERF:Process V4 chained license response and Bind to XMR License, 1K initial licenses in store
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights( Play )
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,1)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerAddXMRLicense(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,ROOT,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(PREGENERATEDRANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,!3x8NSroVg4eXCzWqPU!BA==,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerClearHDSCaches
+StartProfiling(10525.dat)
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback )
+TestManagerCommit 
+StopProfiling
+
+
+
+10537:PERF:Process V4 license response and Bind to extensible right with extensible restrictions in XMR license (1234), 1K initial licenses 'in store
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights( 1234 )
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,1)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerAddXMRLicense(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetExtensiblePolicy( TRUE, 1234, TRUE, 1 XMR_OBJECT_TYPE_OUTER_CONTAINER, 6 XMR_FLAGS_CONTAINER | XMR_FLAGS_ALLOW_EXTERNAL_PARSE )
+TestManagerSetExtensiblePolicy( FALSE, 1000, TRUE, 1234, 20 XMR_FLAGS_HAS_SECURE_STATE | XMR_FLAGS_ALLOW_EXTERNAL_PARSE, 4 XMR_EXTENSIBLE_RESTRICTON_STATE_BYTEARRAY, EkVVY3E=, AAAABQI= )
+TestManagerAddXMRLicense(PREGENERATEDRANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,!3x8NSroVg4eXCzWqPU!BA==,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, TRUE, TRUE, NULL, NULL)
+StartProfiling(10537.dat)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerClearHDSCaches
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function )
+TestManagerCommit 
+StopProfiling
+
+10538:PERF:Process V4 license response and bind to existing Play right with extensible restrictions, 1K initial licenses 'in store
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights( Play )
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,1)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerSetExtensiblePolicy( FALSE, 1000, TRUE, 4 PlayRight, 20 XMR_FLAGS_HAS_SECURE_STATE | XMR_FLAGS_ALLOW_EXTERNAL_PARSE, 2 XMR_EXTENSIBLE_RESTRICTON_STATE_COUNT, 145, AAAABQI= )
+TestManagerAddXMRLicense(PREGENERATEDRANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, FALSE, TRUE, NULL, NULL)
+StartProfiling(10538.dat)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerClearHDSCaches
+TestManagerGetLicenseData( Dump, 1, Dump, 3, 0 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function )
+TestManagerCommit 
+StopProfiling
+
+10539:PERF:Envelope-- Get file size after read a protected envelope file, 1K initial licenses in store
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(lFmb2gxg0Cr5bfEnJXgJeA==,RANDOM,0,NULL,jsmKgeWLEXdzM4XqL1J1uacu4TjPDTBo1CrK!U!1elg6V2gYb0tXNw==,pLtgG421X5SdG2wolkcNr7SB1Ot6A0A2uDQUZF7E)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerClearHDSCaches
+TestManagerOpenEnvelope(0, files\test_envelope_rc4.eny)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerInitializeEnvelopeRead(0)
+TestManagerGetEnvelopeOriginalFilename(0,test_envelope_file1.txt)
+StartProfiling(10539.dat)
+TestManagerReadEnvelope(0,test_envelope_file1.txt)
+TestManagerGetEnvelopeSize(0,1040)
+TestManagerCloseEnvelope(0)
+StopProfiling
+
+
+10540:PERF:Test GetLicenseMID with single MID for chained XML licenses, 1K initial licenses in store
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,RANDOM,0,"<MID>pgUadCv6D0KmSrTgf1HV0w==</MID>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+StartProfiling(10540.dat)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerClearHDSCaches
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerGetLicenseMID(1, "pgUadCv6D0KmSrTgf1HV0w==")
+TestManagerCommit
+StopProfiling
+
+
+10541:PERF:Test GetLicenseMID with single MID for simple XML license, 1K initial licenses in store
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,0,"<MID>pgUadCv6D0KmSrTgf1HV0w==</MID>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+StartProfiling(10541.dat)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerClearHDSCaches
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerGetLicenseMID(1, "pgUadCv6D0KmSrTgf1HV0w==")
+TestManagerCommit
+StopProfiling
+
+
+10542:PERF:Test GetLicenseMID with two different MIDs for chained XML license, 1K initial licenses in store
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,RANDOM,0,"<MID>pgUadCv6D0KmSrTgf1HV0w==</MID>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,0,"<MID>abcadCv6D0KmSrTgf1HV0Q==</MID>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+StartProfiling(10542.dat)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerClearHDSCaches
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerGetLicenseMID(2,"abcadCv6D0KmSrTgf1HV0Q==","pgUadCv6D0KmSrTgf1HV0w==")
+TestManagerCommit
+StopProfiling
+
+
+'10549:PERF:Process V4 license response and Bind to extensible right with extensible restrictions in XMR license (1235)
+'Test_SetRandomSeed( RANDOM RandomSeedType )
+'RestoreDeviceStore(InitialCert,InitialStore)
+'TestManagerSetRights( 1235 )
+'TestManagerInitResponse
+'LoadResponseFromFile( extlicense.response )
+'StartProfiling(10549.dat)
+'TestManagerProcessResponse( Dump, Dump, 0, 0 )
+'TestManagerClearHDSCaches
+'TestManagerSetKID( lFmb2gxg0Cr5bfEnJXgJeA== )
+'TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function )
+'TestManagerCommit
+'StopProfiling
+
+'10550:PERF:Process V4 license response and bind to existing Play right with extensible restrictions
+'Test_SetRandomSeed( RANDOM RandomSeedType )
+'RestoreDeviceStore(InitialCert,InitialStore)
+'TestManagerSetRights( Play )
+'TestManagerInitResponse
+'LoadResponseFromFile( extlicense.response )
+'StartProfiling(10550.dat)
+'TestManagerProcessResponse( Dump, Dump, 0, 0 )
+'TestManagerClearHDSCaches
+'TestManagerSetKID( lFmb2gxg0Cr5bfEnJXgJeA== )
+'TestManagerGetLicenseData( Dump, 1, Dump, 3, 0 )
+'TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+'TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function )
+'TestManagerCommit 
+'StopProfiling
+
+10551:PERF:decrypt an encrypted data of length 100 bytes
+Test_SetRandomSeed( FIXED RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt, DRdSjIAZVg== )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,0, NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerClearHDSCaches
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit 
+StartProfiling(10551.dat)
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 ) 
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+StopProfiling
+
+
+10552:PERF:decrypt an encrypted data of length 5000 bytes
+Test_SetRandomSeed( FIXED RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 5000 DataLengthToEncrypt, DRdSjIAZVg== )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,0, NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerClearHDSCaches
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit 
+StartProfiling(10552.dat)
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 ) 
+TestManagerDecrypt( NORMAL DecryptContext, 5000 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+StopProfiling
+
+
+10555:PERF:Check the size of license acquisition challenge for content with V4 header.
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1V4.xml)
+StartProfiling(10555.dat)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,0,NULL,0,http://www.contoso.com/licenseacq.asp,37,http://www.contoso.com/licenseuiacq.asp,39,NULL,0,0,NULL,NULL,7368)
+StopProfiling
+
+
+10556:PERF:Check the size of license acquisition challenge for content with V2 header.
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+StartProfiling(10556.dat)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,0,NULL,0,http://www.contoso.com/licenseacq.asp,37,http://www.contoso.com/licenseacq.asp,37,NULL,0,0,NULL,NULL,22248)
+StopProfiling
+
+
+10557:PERF:Measure performance of License Store Management API - Drm_StoreMgmt_CleanupStore deleting 10 licenses
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,0, NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerAddManyLicenses(10,7000000000,RANDOM,RANDOM, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime < secstate.ExpirationDate)?1:(secstate.drmreason=1;0)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.ExpirationDate=#",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,17520)
+'Change Time by two years + 2 days
+Test_ChangeTimeSeconds(63244800)
+StartProfiling(10557.dat)
+TestManagerCleanLicenseStore(1, 0, DELETE_EXPIRED_LICENSES)
+StopProfiling
+
+
+10558:PERF:Measure performance of License Store Management API - Drm_StoreMgmt_CleanupStore deleting 100 licenses
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,0, NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerAddManyLicenses(100,7000000000,RANDOM,RANDOM, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime < secstate.ExpirationDate)?1:(secstate.drmreason=1;0)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.ExpirationDate=#",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,17520)
+'Change Time by two years + 2 days
+Test_ChangeTimeSeconds(63244800)
+StartProfiling(10558.dat)
+TestManagerCleanLicenseStore(1, 0, DELETE_EXPIRED_LICENSES)
+StopProfiling
+
+
+10559:PERF:Measure performance of License Store Management API - Drm_StoreMgmt_DeleteLicenses
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,0, NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+StartProfiling(10559.dat)
+TestManagerDeleteLicensesByKID(PREGENERATEDRANDOM,1)
+StopProfiling
+
+
+10561:PERF:Process V4 license response and Bind to Simple XMR License
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights( Play )
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,1)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerAddXMRLicense(PREGENERATEDRANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerClearHDSCaches
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+StartProfiling(10561.dat)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback )
+TestManagerCommit 
+StopProfiling
+
+
+10562:PERF:Test GetLicenseMID with single MID for simple XMR license, 1K initial licenses in store
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights( Play )
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,1)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerAddXMRLicense(PREGENERATEDRANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,NULL,pgUadCv6D0KmSrTgf1HV0w==,NULL,NULL,NULL,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerClearHDSCaches
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+StartProfiling(10562.dat)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback )
+TestManagerGetLicenseMID(1, "pgUadCv6D0KmSrTgf1HV0w==")
+TestManagerCommit 
+StopProfiling
+
+
+10563:PERF:Test GetLicenseMID with single MID for chained XMR license, 1K initial licenses in store
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights( Play )
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,1)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerAddXMRLicense(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,ROOT,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(PREGENERATEDRANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,!3x8NSroVg4eXCzWqPU!BA==,NULL,pgUadCv6D0KmSrTgf1HV0w==,NULL,NULL,NULL,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerClearHDSCaches
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+StartProfiling(10563.dat)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback )
+TestManagerGetLicenseMID(1, "pgUadCv6D0KmSrTgf1HV0w==")
+TestManagerCommit 
+StopProfiling
+
+
+10564:PERF:Test GetLicenseMID with multiple MIDs for chained XMR license, 1K initial licenses in store
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights( Play )
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,1)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerAddXMRLicense(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,ROOT,NULL,pgUadCv6D0KmSrTgf1HV0w==,NULL,NULL,NULL,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(PREGENERATEDRANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,!3x8NSroVg4eXCzWqPU!BA==,NULL,abcadCv6D0KmSrTgf1HV0Q==,NULL,NULL,NULL,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerClearHDSCaches
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+StartProfiling(10564.dat)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback )
+TestManagerGetLicenseMID(2,"abcadCv6D0KmSrTgf1HV0Q==","pgUadCv6D0KmSrTgf1HV0w==")
+TestManagerCommit 
+StopProfiling
+
+
+'Disabled because xmr v3 doesn't support playcont.
+'10565:PERF:Process V4 Simple license response with playcount restriction and Bind to XMR License (Play)
+'Test_SetRandomSeed( RANDOM RandomSeedType )
+'RestoreDeviceStore(InitialCert,InitialStore)
+'TestManagerSetRights( Play )
+'GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,1)
+'TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+'TestManagerAddXMRLicense(PREGENERATEDRANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+'TestManagerProcessResponse( Dump, Dump, 0, 0 )
+'TestManagerClearHDSCaches
+'TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+'StartProfiling(10565.dat)
+'TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback )
+'TestManagerCommit 
+'StopProfiling
+
+10566:PERF:Process V4 Simple license response with expiry restriction and Bind to XMR License (Play)
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights( Play )
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,1)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerAddXMRLicense(PREGENERATEDRANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,NULL,NULL,NULL,NULL,300,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerClearHDSCaches
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+StartProfiling(10566.dat)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback )
+TestManagerCommit 
+StopProfiling
+
+
+'10567:PERF:Process V4 chained license response with playcount restriction and Bind to XMR License (Play)
+'Test_SetRandomSeed( RANDOM RandomSeedType )
+'RestoreDeviceStore(InitialCert,InitialStore)
+'TestManagerSetRights( Play )
+'GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,1)
+'TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+'TestManagerAddXMRLicense(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+'TestManagerProcessResponse( Dump, Dump, 0, 0 )
+'TestManagerAddXMRLicense(PREGENERATEDRANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,!3x8NSroVg4eXCzWqPU!BA==,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+'TestManagerProcessResponse( Dump, Dump, 0, 0 )
+'TestManagerClearHDSCaches
+'TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+'StartProfiling(10567.dat)
+'TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback )
+'TestManagerCommit 
+'StopProfiling
+
+10568:PERF:Process V4 chained license response with expiry restriction and Bind to XMR License (Play)
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights( Play )
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,1)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+TestManagerAddXMRLicense(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,ROOT,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(PREGENERATEDRANDOM,RANDOM,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,!3x8NSroVg4eXCzWqPU!BA==,NULL,NULL,NULL,NULL,300,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerClearHDSCaches
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+StartProfiling(10568.dat)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback )
+TestManagerCommit 
+StopProfiling
+
+
+10569:PERF:Bind to a Simple Domain-Bound license (XMR) 
+Test_SetRandomSeed( RANDOM RandomSeedType )
+TestManagerSetRights( Play )
+TestManagerSetHeader( NORMAL, music1V4header.xml )
+ProcessDomainJoinResponse( 0, XMRDomJoin.dat )=2 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( nz/NueNnHDgdPwHsbrQhIw==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function)
+TestManagerCommit
+
+'Disabled because XMR V3 doesn't support counts
+'10571:PERF:Bind to a Simple Domain-Bound license with Playcount of 3 (XMR)
+'TestManagerSetRights( Play )
+'TestManagerSetHeader( NORMAL, music1V4header.xml )
+'ProcessDomainJoinResponse( 0, XMRDomJoin.dat )=2 ( DRM_S_MORE_DATA )
+'TestManagerAddXMRLicense( nz/NueNnHDgdPwHsbrQhIw==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+'TestManagerProcessResponse( Dump, Dump, 0, 0 )
+'TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+'TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function)
+'TestManagerCommit
+
+
+10572:PERF:Bind to a Simple Domain-Bound license with Expiration Date(XMR)
+Test_SetRandomSeed( RANDOM RandomSeedType )
+TestManagerSetRights( Play )
+TestManagerSetHeader( NORMAL, music1V4header.xml )
+ProcessDomainJoinResponse( 0, XMRDomJoin.dat )=2 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( nz/NueNnHDgdPwHsbrQhIw==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, 3600, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function)
+TestManagerCommit
+
+
+
+10573:PERF:Bind to a Chained Domain-Bound license (XMR)
+Test_SetRandomSeed( RANDOM RandomSeedType )
+TestManagerSetRights( Play )
+TestManagerSetHeader( NORMAL, music1V4header.xml )
+ProcessDomainJoinResponse( 0, XMRDomJoin.dat )=2 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( nz/NueNnHDgdPwHsbrQhIw==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, pgUadCv6D0KmSrTgf1HV0w==)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( pgUadCv6D0KmSrTgf1HV0w==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function)
+TestManagerCommit
+
+
+'Disabled because XMR V3 doesn't support counts
+'10574:PERF:Bind to a Chained Domain-Bound license with Leaf Playcount 3(XMR)
+'Test_SetRandomSeed( RANDOM RandomSeedType )
+'TestManagerSetRights( Play )
+'TestManagerSetHeader( NORMAL, music1V4header.xml )
+'ProcessDomainJoinResponse( 0, XMRDomJoin.dat )=2 ( DRM_S_MORE_DATA )
+'TestManagerAddXMRLicense( nz/NueNnHDgdPwHsbrQhIw==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, pgUadCv6D0KmSrTgf1HV0w== , 3)
+'TestManagerProcessResponse( Dump, Dump, 0, 0 )
+'TestManagerAddXMRLicense( pgUadCv6D0KmSrTgf1HV0w==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+'TestManagerProcessResponse( Dump, Dump, 0, 0 )
+'TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+'TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function)
+'TestManagerCommit
+
+
+10575:PERF:Bind to a Chained Domain-Bound license with Leaf Exp Date (XMR)
+Test_SetRandomSeed( RANDOM RandomSeedType )
+TestManagerSetRights( Play )
+TestManagerSetHeader( NORMAL, music1V4header.xml )
+ProcessDomainJoinResponse( 0, XMRDomJoin.dat )=2 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( nz/NueNnHDgdPwHsbrQhIw==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, pgUadCv6D0KmSrTgf1HV0w== , NULL, NULL, NULL, NULL, 3600)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( pgUadCv6D0KmSrTgf1HV0w==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function)
+TestManagerCommit
+
+
+10576:PERF:Bind\Commit for simpleXML License in the store - licenses with diff. priorities with 1K initial licenses
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+
+GenerateRandomHeader(300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,GgiTW/I53qZncoLHHAAmbtWOspU=,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,http://www.contoso.com,files\randomheader.xml,0)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,randomheader.xml,UTF-16)
+
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,2112,"<PRIORITY>1</PRIORITY><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime < secstate.ExpirationDate)?1:(secstate.drmreason=1;0)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.ExpirationDate=#",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,17520)
+
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,2112,"<PRIORITY>3</PRIORITY><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime < secstate.ExpirationDate)?1:(secstate.drmreason=1;0)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.ExpirationDate=#",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,17520)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,2112,"<PRIORITY>2</PRIORITY><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime < secstate.ExpirationDate)?1:(secstate.drmreason=1;0)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.ExpirationDate=#",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,17520)
+
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,2112,"<PRIORITY>4</PRIORITY><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime < secstate.ExpirationDate)?1:(secstate.drmreason=1;0)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.ExpirationDate=#",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,17520)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(PREGENERATEDRANDOM,RANDOM,2112,"<PRIORITY>5</PRIORITY><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime < secstate.ExpirationDate)?1:(secstate.drmreason=1;0)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.ExpirationDate=#",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,17520)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+TestManagerClearHDSCaches
+'Change Time by two years + 2 days
+Test_ChangeTimeSeconds(63244800)
+StartProfiling(10576.dat)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+StopProfiling
+
+1890:PERF:Bind Test -- Simple
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+StartProfiling(20001_1.dat)
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeForEmbeddingTest.eny )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerCloseEnvelope(EnvelopeContextBuffer)
+StopProfiling
+StartProfiling(20001_2.dat)
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeForEmbeddingTest.eny )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerCloseEnvelope(EnvelopeContextBuffer)
+StopProfiling
+
+1893:PERF:Bind Test Simple --- Embedded Licenses.
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+StartProfiling(20002_1.dat)
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeWithEmbeddedDomain2.eny )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerCloseEnvelope(EnvelopeContextBuffer)
+StopProfiling
+StartProfiling(20002_2.dat)
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeWithEmbeddedDomain2.eny )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerCloseEnvelope(EnvelopeContextBuffer)
+StopProfiling
+
+2051:PERF:Bind Test -- Chain
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+StartProfiling(20007_1.dat)
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeForEmbeddingTest2.eny )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerCloseEnvelope(EnvelopeContextBuffer)
+StopProfiling
+StartProfiling(20007_2.dat)
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeForEmbeddingTest2.eny )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerCloseEnvelope(EnvelopeContextBuffer)
+StopProfiling
+
+
+2052:PERF:Bind Test -- Chain --- Embedded Licenses.
+Test_SetRandomSeed( RANDOM RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+StartProfiling(20008_1.dat)
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeWithEmbeddedLeaf2.eny )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerCloseEnvelope(EnvelopeContextBuffer)
+StopProfiling
+StartProfiling(20008_2.dat)
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeWithEmbeddedLeaf2.eny )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerCloseEnvelope(EnvelopeContextBuffer)
+StopProfiling
+
+2053:PERF: decrypt a regular length of encrypted data (XMR)
+Test_SetRandomSeed( FIXED RandomSeedType )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights(Play)
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL)
+StartProfiling(20009_1.dat)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+StopProfiling
+TestManagerEncrypt(RC4 CipherType, 100 DataLengthToEncrypt, NULL )
+StartProfiling(20009_2.dat)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL)
+StopProfiling
+TestManagerReinitialize(Reset)
+
+'Breaking up the profiling data into two sets to get results of a single bind and aggregate of 2 binds to obtain more accurate readings for bind.
+2054:PERF: Process V4 license response and Bind to extensible right with extensible restrictions in XMR license (EXECUTERIGHT)
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights( 63 )
+TestManagerSetExtensiblePolicy( TRUE, 63, TRUE, 1 XMR_OBJECT_TYPE_OUTER_CONTAINER, 6 XMR_FLAGS_CONTAINER | XMR_FLAGS_ALLOW_EXTERNAL_PARSE )
+TestManagerSetExtensiblePolicy( FALSE, 1001, TRUE, 63, 20 XMR_FLAGS_HAS_SECURE_STATE | XMR_FLAGS_ALLOW_EXTERNAL_PARSE, 3 XMR_EXTENSIBLE_RESTRICTON_STATE_DATE, 0, AAAABQI= )
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, P1zEyiNcMVA074CGwMydbg==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, TRUE, TRUE, NULL, NULL, TestCustomData)
+TestManagerProcessResponse( Dump, Dump, 0, 0 ) = 2 DRM_S_MORE_DATA
+TestManagerSetKID( lFmb2gxg0Cr5bfEnJXgJeA== )
+StartProfiling(20010_1.dat)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function )
+TestManagerCommit
+StopProfiling
+StartProfiling(20010_2.dat)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function )
+TestManagerCommit
+TestManagerReinitialize(Reset)
+TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, files\binmetercert2.dat, "Hello World", NORMAL, NORMAL, NORMAL, "1RNCT1Rw2rgtZBUL7drLPEnQerRAwSRUGSDyQOg6CH4=", "lFmb2gxg0Cr5bfEnJXgJeA==", "63", "2")
+'Skip this step until bug in TestDRM_Manager_GenerateMeterChallengeV3 is fixed
+'TestDRM_Manager_ProcessMeterResponseV3(NORMAL, __MeterResponse.txt, NORMAL, 0)
+StopProfiling
+
+'Breaking up the profiling data into two sets to get results of a single bind and aggregate of 2 binds to obtain more accurate readings for bind.
+20011:PERF: Process V4 license response and Bind to extensible right with expired extensible restrictions in XMR license (EXECUTERIGHT) without extensible handler
+RestoreDeviceStore(InitialCert,InitialStore)
+TestManagerSetRights( 63 )
+TestManagerSetExtensiblePolicy( TRUE, 63, TRUE, 1 XMR_OBJECT_TYPE_OUTER_CONTAINER, 6 XMR_FLAGS_CONTAINER | XMR_FLAGS_ALLOW_EXTERNAL_PARSE )
+TestManagerSetExtensiblePolicy( FALSE, 1000, TRUE, 63, 20 XMR_FLAGS_HAS_SECURE_STATE | XMR_FLAGS_ALLOW_EXTERNAL_PARSE, 4 XMR_EXTENSIBLE_RESTRICTON_STATE_BYTEARRAY, EkVVY3E=, AAAABQI= )
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, P1zEyiNcMVA074CGwMydbg==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, TRUE, TRUE, NULL, NULL, TestCustomData)
+TestManagerProcessResponse( Dump, Dump, 0, 0 ) = 2 DRM_S_MORE_DATA
+TestManagerSetKID( lFmb2gxg0Cr5bfEnJXgJeA== )
+StartProfiling(20011_1.dat)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+TestManagerCommit
+StopProfiling
+StartProfiling(20011_2.dat)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+TestManagerCommit
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+TestManagerCommit
+StopProfiling
+TestManagerReinitialize(Reset)
+TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, files\binmetercert2.dat, "Hello World", NORMAL, NORMAL, NORMAL, "1RNCT1Rw2rgtZBUL7drLPEnQerRAwSRUGSDyQOg6CH4=", "lFmb2gxg0Cr5bfEnJXgJeA==", "63", "2")
+'Skip this step until bug in TestDRM_Manager_GenerateMeterChallengeV3 is fixed
+'TestDRM_Manager_ProcessMeterResponseV3(NORMAL, __MeterResponse.txt, NORMAL, 0)
+

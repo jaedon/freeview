@@ -1,0 +1,3 @@
+/* PARAM(_key,_field,_type,_help) */
+PARAM("multi",							eMultiChannelMode,							BVCE_MultiChannelMode,			"\n\tMultiple Channel Mode (0=Multiple, 1=Single, 2=Multiple NRT Only)")
+#undef PARAM

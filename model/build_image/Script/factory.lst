@@ -1,0 +1,33 @@
+[LOADER
+	"_preld.bin"		$00
+	"loader.hcf"		$40000
+]
+[LOADER_DBG
+	"_preld_d.bin"		$00
+	"loader.hcf"		$40000
+]
+[SPLIT
+	"bep_rel.bin"		$00
+	"loader_p.bin"		$10
+]
+[BEP_MG
+	"bep_fac.bin"		$00
+	"loader_p.bin"		$10
+]
+[CONFIG_DEFMAC
+	"eeprom.bin"		$400
+	"def_mac.bin"		$8C00
+	"dummy.bin"			$1FFF0
+]
+[CONFIG_SYS_DEFMAC
+	"eep_sys.bin"		$400
+	"def_mac.bin"		$8C00
+	"dummy.bin"			$1FFF0
+]
+[CONFIG
+	"eeprom.bin"		$400
+	"dummy.bin"			$1FFF0
+]
+[CONFIG_DUMMY
+	"dummy.bin"			$1FFF0
+]

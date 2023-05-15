@@ -1,0 +1,15 @@
+obj-$(CONFIG_SUPPORT_NIMA) += nico.o
+obj-$(CONFIG_SUPPORT_NIMA) += nico_debug.o
+obj-$(CONFIG_SUPPORT_NIMA) += nico_communicator.o
+obj-$(CONFIG_SUPPORT_NIMA) += nico_server.o
+obj-$(CONFIG_SUPPORT_NIMA) += nico_parser.o
+obj-$(CONFIG_SUPPORT_NIMA) += nico_manager.o
+obj-$(CONFIG_SUPPORT_NIMA) += nico_operator.o
+obj-$(CONFIG_SUPPORT_NIMA) += nico_operator_common.o
+obj-$(CONFIG_SUPPORT_NIMA) += nico_operator_wifi.o
+obj-$(CONFIG_SUPPORT_NIMA) += nico_operator_wifi_util.o
+obj-$(CONFIG_SUPPORT_NIMA) += nico_operator_netconf.o
+obj-$(CONFIG_SUPPORT_NIMA) += nico_operator_netconf_util.o
+obj-$(CONFIG_SUPPORT_NIMA) += nico_operator_bluetooth.o
+obj-$(CONFIG_SUPPORT_NIMA) += nico_operator_cm.o
+obj-$(CONFIG_SUPPORT_NIMA) += nico_operator_pppoe.o

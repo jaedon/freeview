@@ -1,0 +1,6 @@
+
+TARGETTYPE=LIBRARY
+TARGETNAME=HDSTestAPI
+
+SOURCES = \
+	../testhds.c \

@@ -1,0 +1,15 @@
+!include ..\..\..\..\..\drmbuild.cmn
+
+TARGETNAME=oemhalshared
+TARGETTYPE=LIBRARY
+
+INCLUDES = $(INCLUDES) \
+    ..\..\oemimpl;     \
+
+
+SOURCES =                   \
+    ..\oemderivedkeys.c     \
+    ..\oemhal.c             \
+    ..\oemhaldevcerts.c     \
+    ..\oemsparsexmrparser.c \
+

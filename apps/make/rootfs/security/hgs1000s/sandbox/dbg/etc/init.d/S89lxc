@@ -1,0 +1,85 @@
+#!/bin/sh
+
+. /lib/lsb/init-functions
+. /etc/default/rcS
+if [ "$VERBOSE" != no ]; then
+	log_begin_msg "Creating LXC..."
+fi
+
+set -x
+
+mkdir -p /home/lxc/rootfs
+mkdir -p /home/lxc/cache/lxc
+mkdir -p /home/lxc/lib/lxc
+
+/usr/local/bin/lxc-create -n imma -f /home/imma/config 
+/usr/local/bin/lxc-create -n corsair -f /home/corsair/config 
+/usr/local/bin/lxc-create -n homma -f /home/homma/config 
+/usr/local/bin/lxc-create -n ipepg -f /home/ipepg/config
+/usr/local/bin/lxc-create -n mheg -f /home/mheg/config
+/usr/local/bin/lxc-create -n nova -f /home/nova/config
+
+brctl addbr br0
+brctl setfd br0 0
+ifconfig br0 10.255.128.200 netmask 255.255.255.0 promisc up
+/usr/local/sbin/iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+# MC Packet 
+/usr/local/sbin/smcroute -d
+
+# http://svn.humaxdigital.com:3000/issues/110748#note-5
+ifconfig eth0 promisc
+ifconfig eth0 -promisc
+
+/usr/local/sbin/smcroute -a eth0 0.0.0.0 239.255.255.250 br0
+/usr/local/sbin/smcroute -a br0 10.255.128.213 239.255.255.250 eth0
+/usr/local/sbin/smcroute -a br0 10.255.128.216 239.255.255.250 eth0
+
+# Bonjour
+/usr/local/sbin/mdns-repeater eth0 br0
+
+# UPnP
+/usr/local/sbin/iptables -t mangle -A PREROUTING -d 224.0.0.0/240.0.0.0 -j TTL --ttl-inc 1
+/usr/local/sbin/iptables -t nat -A PREROUTING -p udp -i eth0 --dport dlna-start:dlna-end -j DNAT --to 10.255.128.213
+
+#DMS
+/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 50001 -j DNAT --to 10.255.128.213:50001
+/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 9000 -j DNAT --to 10.255.128.213:9000
+/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 9001 -j DNAT --to 10.255.128.213:9001
+/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 9002 -j DNAT --to 10.255.128.213:9002
+
+# DMP loopback error 2014-04-01
+#/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i br0 --dport 9000 -j DNAT --to 10.255.128.213:9000
+#/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i br0 --dport 9001 -j DNAT --to 10.255.128.213:9001
+#/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i br0 --dport 9002 -j DNAT --to 10.255.128.213:9002
+
+#DMR
+/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 55200 -j DNAT --to 10.255.128.213:55200
+
+#DIAL
+/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 56789 -j DNAT --to 10.255.128.213:56789
+/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 56790 -j DNAT --to 10.255.128.213:56790
+
+#SATIP
+# hgs1000s에서 homma sat>ip는 사용안함 /usr/local/sbin/iptables -t nat -A PREROUTING -p udp -i eth0 --dport satip-ssdp -j DNAT --to 10.255.128.213:49554
+# hgs1000s에서 homma sat>ip는 사용안함 /usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 554 -j DNAT --to 10.255.128.213:50554
+# hgs1000s에서 homma sat>ip는 사용안함 /usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 50555 -j DNAT --to 10.255.128.213:50555
+
+# nova관련 포트포워딩 http://svn.humaxdigital.com:3000/issues/110020
+#/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 554 -j REDIRECT --to-port 50554
+/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 554 -j DNAT --to 10.255.128.216:50554
+/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 50555 -j DNAT --to 10.255.128.216:50555
+# for license key exchange
+/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 20000:65535 -j DNAT --to 10.255.128.216
+
+#AirPlay
+/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 36667 -j DNAT --to 10.255.128.213:36667
+/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 36666 -j DNAT --to 10.255.128.213:36666
+/usr/local/sbin/iptables -t nat -A PREROUTING -p udp -i eth0 --dport airtunes-start:airtunes-end -j DNAT --to 10.255.128.211
+
+# etc
+/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 80 -j DNAT --to 10.255.128.213:80
+/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 8080 -j DNAT --to 10.255.128.213:8080
+/usr/local/sbin/iptables -t nat -A PREROUTING -p tcp -i eth0 --dport 443 -j DNAT --to 10.255.128.213:443
+

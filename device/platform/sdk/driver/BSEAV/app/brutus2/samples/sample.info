@@ -1,0 +1,42 @@
+#
+# Sample Info file
+# 
+# If you want to add a PVR file, make a copy of this file,
+# move it into the videos subdirectory (/home/brutus/videos)
+# and change the following fields for your video.
+#
+
+name=Video Name
+description=Recorded on the BCM97115.
+
+# Filenames can be absolute or relative to the location
+# of the .info file.
+mpegfile=cnnticker.mpg
+indexfile=cnnticker.nav
+
+# Pids
+vidpid=0x21
+pcrpid=0x21
+audpid=0x22
+
+# 0x81=AC3, else MPEG.
+audtype=0x3
+
+# When it was recorded. Obviously this is encoded.
+recordtime=1029958589
+
+# Highest number appears at the top of the list.
+sortindex=6
+
+# Index offset to resume if the "Resume" button is used.
+resumeindex=57
+
+# Encoder quality
+quality=High
+
+# Transport format. TS,ES,PES,etc.
+pidType=TS
+
+# Encryption type.
+enc_type=NONE
+

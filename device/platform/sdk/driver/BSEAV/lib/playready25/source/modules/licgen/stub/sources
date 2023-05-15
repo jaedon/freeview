@@ -1,0 +1,8 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmlicgenstub
+TARGETTYPE=LIBRARY
+
+SOURCES =                             \
+    drmlicgenstub.c                   \
+

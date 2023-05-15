@@ -1,0 +1,7 @@
+
+TARGETTYPE=LIBRARY
+TARGETNAME=DCParserTestAPI
+
+SOURCES = \
+	../dcparser.c \
+

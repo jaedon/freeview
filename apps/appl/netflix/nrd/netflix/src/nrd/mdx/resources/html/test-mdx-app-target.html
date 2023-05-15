@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="../css/mdx.css" />
+    <link rel="stylesheet" type="text/css" href="../css/jquery-ui-1.8.16.custom.css" />
+    <script type="text/javascript" src="../js/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="../js/startup.js"></script>
+    <script type="text/javascript" src="../js/mdx-app-target.js"></script>
+    <script type="text/javascript" src="../js/mdx-test-c2t-messages.js"></script>	
+    <script type="text/javascript" src="../js/mdx-test-t2c-messages.js"></script>	
+    <title>Test MDX Target</title>
+  </head>
+
+<script>
+function testMovie(){
+    var tx=setTimeout("loadmovie()",200);
+    var tx=setTimeout("playmovie()",6000);
+}
+
+
+function loadmovie()
+{
+    var movieID = "70178291";
+     if (nrdp.media.state == nrdp.media.CLOSED) {
+        nrdp.media.open(movieID, 999);
+    } else {
+        nrdp.media.close();
+    }
+}
+
+function playmovie()
+{
+    mdx.app.tlog("Playing Movie...");
+    nrdp.media.play();
+}
+
+</script>
+  <body onload="if ((typeof nrdp !== 'undefined') && (typeof mdx !== 'undefined')) initialize();">
+    <div id="nf-header">
+      <h1 id="nf-logo">Netflix</h1>
+    </div>
+
+    <div id="pairingRequestScreen">
+	  <div id="pairText"></div>
+	  <div id="pairGrant"><input type='button' value='YES' onClick='grantPairing();'></div>
+	  <div id="pairReject">
+		<input type='button' value='NO' onClick='denyInitialPairing();'>
+		<input type='text' size="40" id='pairUUID' value=''>
+		<input type='text' size="40" id='pairError' value=''>
+	  </div>
+      <div>
+		<input type='button' value='Depair' id="depairButton">
+		<input type='text' size="40" id='depairHandle' value=''>
+	  </div>
+    </div>
+
+    <div id="regPairRequestScreen">
+	  <div id="regPairText"></div>
+      <div id="deactivate"><input type='button' value='DEACTIVATE & YES' onClick='regPairDeactivate();'></div>
+	  <div id="regPairGrant"><input type='button' value='YES' onClick='grantRegPairing();'></div>
+	  <div id="regPairReject">
+		<input type='button' value='NO' onClick='denyInitialRegPair();'>
+		<input type='text' size="40" id='regPairUUID' value=''>
+		<input type='text' size="40" id='regPairError' value=''>
+	  </div>
+      <div>
+		<input type='button' value='Depair' id="depairButton">
+		<input type='text' size="40" id='depairHandle' value=''>
+	  </div>
+    </div>
+
+    <div id="main">
+      <table>
+        <tr>
+        </tr>
+      </table>
+
+      <div id="c1" class="instrument">
+	    <input id="controller1" class="controller" type="radio" name="controller" value="1" checked="checked" onClick="updateController();" />Controller 1
+        <span id="handle-label1" class="inactive">Handle:</span>
+	    <span id='active-handle1'>INVALID_HANDLE</span>
+	    <span id="uuid-label1" class="inactive"> uuid:</span>
+	    <span id='paired-uuid1' >-1</span>
+	    <span id="sid-label1" class="inactive">sid:</span>
+	    <span id='sid1'>-1</span>
+      </div>
+
+      <div id="c2" class="instrument">
+	    <input id="controller2" class="controller" type="radio" name="controller" value="2" onClick="updateController();" />Controller 2
+        <span id="handle-label2" class="inactive">Handle:</span>
+	    <span id='active-handle2'>INVALID_HANDLE</span>
+	    <span id="uuid-label2" class="inactive"> uuid:</span>
+	    <span id='paired-uuid2' >-1</span>
+	    <span id="sid-label2" class="inactive">sid:</span>
+	    <span id='sid2'>-1</span>
+      </div>
+
+      <div id="c3" class="instrument">
+	    <input id="controller3" class="controller" type="radio" name="controller" value="3" onClick="updateController();" />Controller 3
+        <span id="handle-label3" class="inactive">Handle:</span>
+	    <span id='active-handle3'>INVALID_HANDLE</span>
+	    <span id="uuid-label3" class="inactive"> uuid:</span>
+	    <span id='paired-uuid3' >-1</span>
+	    <span id="sid-label3" class="inactive">sid:</span>
+	    <span id='sid3'>-1</span>
+      </div>
+
+      <div id="c4" class="instrument">
+	    <input id="controller4" class="controller" type="radio" name="controller" value="4" onClick="updateController();" />Controller 4
+        <span id="handle-label4" class="inactive">Handle:</span>
+	    <span id='active-handle4'>INVALID_HANDLE</span>
+	    <span id="uuid-label4" class="inactive"> uuid:</span>
+	    <span id='paired-uuid4' >-1</span>
+	    <span id="sid-label4" class="inactive">sid:</span>
+	    <span id='sid4'>-1</span>
+      </div>
+
+      <div id="c5" class="instrument">
+	    <input id="controller5" class="controller" type="radio" name="controller" value="5" onClick="updateController();" />Controller 5
+        <span id="handle-label5" class="inactive">Handle:</span>
+	    <span id='active-handle5'>INVALID_HANDLE</span>
+	    <span id="uuid-label5" class="inactive"> uuid:</span>
+	    <span id='paired-uuid5' >-1</span>
+	    <span id="sid-label5" class="inactive">sid:</span>
+	    <span id='sid5'>-1</span>
+      </div>
+
+      <div id="c6" class="instrument">
+	    <input id="controller6" class="controller" type="radio" name="controller" value="6" onClick="updateController();" />Controller 6
+        <span id="handle-label6" class="inactive">Handle:</span>
+	    <span id='active-handle6'>INVALID_HANDLE</span>
+	    <span id="uuid-label6" class="inactive"> uuid:</span>
+	    <span id='paired-uuid6' >-1</span>
+	    <span id="sid-label6" class="inactive">sid:</span>
+	    <span id='sid6'>-1</span>
+      </div>
+
+      <div style="position:relative;">
+        <table>
+
+          <tr>
+            <td>
+              <h4>Command</h4>
+
+              <input id="t-sendMessage" class="t-command" type="radio" name="t-cmd" value="sendMessage" />
+              <label for="sendMessage">sendMessage</label>
+              <br />
+              <input id="t-endSession" class="t-command" type="radio" name="t-cmd" value="endSession" />
+              <label for="endSession">endSession</label>
+              <br />
+              <input id="t-dePair" class="t-command" type="radio" name="t-cmd" value="dePair" />
+              <label for="t-dePair">dePair</label>
+	    </br>
+
+            </td>
+            <td style="width:25em;">
+              <h4>Arguments</h4>
+              <div id="t-arg-anchor">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <span class="jbutton" id="t-execute"></span>
+            </td>
+          </tr>
+        </table>
+
+      </div>
+      <h4>Log <span id="t-log-line">0</span></h4>
+      <div id="target-log" class="logLarge"></div>
+      <span id="t-console" class="jbutton jbutton-large clear"></span>
+      <span class="log-control-anchor">
+        <input id="t-log-type-property" class="log-control" type="checkbox" checked="checked"/>
+        <label for="t-log-type-property" class="entry-property">Native Property</label>
+        <input id="t-log-type-event" class="log-control" type="checkbox" checked="checked"/>
+        <label for="t-log-type-event" class="entry-event">Events</label>
+        <input id="t-log-type-state" class="log-control" type="checkbox" checked="checked"/>
+        <label for="t-log-type-state" class="entry-state">State</label>
+        <input id="t-log-type-error" class="log-control" type="checkbox" checked="checked"/>
+        <label for="t-log-type-error" class="entry-error">Errors</label>
+        <input id="t-log-type-command" class="log-control" type="checkbox" checked="checked"/>
+        <label for="t-log-type-command" class="entry-command">Commands</label>
+        <input id="t-log-limit" class="log-control log-limit" size="3" maxlength="3"  type="text" name="t-log" value="100"/>
+        <label for="t-log-limit" style="left:0;top:0;">Lines</label>
+      </span>
+
+	  <br>
+
+	  <br>
+
+	  <div id="activate" style='float:left;'><input type='button' value='Go To Activation Page'  onclick="window.location='simple_activate.html' + location.search"></div>
+	  <div id="reinit" style='float:left;'><input type='button' value='MDX INIT'  onclick="mdx.init('TARGET', {});"></div>
+	  <div id="quit" style='float:left;'><input type='button' value='MDX QUIT'  onclick="mdx.exit();"></div>
+	  <div id="revealPresence" style='float:left;'><input type='button' value='Reveal Presence'  onclick="mdx.discovery.revealPresence();"></div>
+	  <div id="hidePresence" style='float:left;'><input type='button' value='Hide Presence'  onclick="mdx.discovery.hidePresence();"></div>
+      <div id="testMovie" style='float:left;'><input class="testMovie" type='button' value='Load and Play Movie'  onclick="testMovie();"></div>
+
+      <div style="clear:both"></div>
+      <input id="rejectUUID" style="float:left; font-size:10px;" size=10 value='UUID' onfocus="if(this.value=='UUID'){this.value='';}" />	
+	  <input id="errorObject" style="float:left; font-size:10px;" size=61 value='{"errormesg":"error","errorcode":"1234"}' />	
+	  <div id="rejectPairing" style="float:left;"><input type='button' value='Reject Paring'  onclick="denyPairing();"></div>
+	
+	  <div style="clear:both;padding:10px 0px;"></div>
+   	  <input id="interfaceName" style="float:left; font-size:10px;" size=33 value='interfaceName' onfocus="if(this.value=='interfaceName'){this.value='';}" />	
+	  <input id="connected" style="float:left; font-size:10px;" size=33 value='connected' onfocus="if(this.value=='connected'){this.value='';}" />	
+	  <div id="checkIterface" style="float:left;"><input type='button' value='Change Interface'  onclick="changeInterface();"></div>
+	
+
+	  <div style="clear:both;padding:10px 0px;"></div>
+	  <div id="configParams">
+   	    <input id="advertisingPeriod" style="float:left; font-size:10px;" size=16 value='advertisingPeriod' onfocus="if(this.value=='advertisingPeriod'){this.value='';}" />	
+	    <input id="advertisingTTL" style="float:left; font-size:10px;" size=16 value='advertisingTTL' onfocus="if(this.value=='advertisingTTL'){this.value='';}" />	
+	    <input id="advertisingPort" style="float:left; font-size:10px;" size=16 value='advertisingPort' onfocus="if(this.value=='advertisingPort'){this.value='';}" />	
+	    <input id="listeningPort" style="float:left; font-size:10px;" size=16 value='listeningPort' onfocus="if(this.value=='listeningPort'){this.value='';}" />	
+	    <div id="configSet" style="float:left;"><input type='button' value='MDX Configure'  onclick="mdxConfigure();"></div>
+	  </div>
+
+	  <div style="clear:both;padding:0px;"></div>
+   	  <div style="float:left"><input id="cmdMap" style="font-size:10px;" size=33 value='{}' onfocus="if(this.value=='{}'){this.value='';}" /></div>	
+	  <div id="setCmdMap" style="float:left;"><input type='button' value='Set Command Map'  onclick="setCommandMap();"></div>
+
+	  <div style="clear:both;padding:0px;"></div>
+      <div id="regPairDiv" style='float:left;border:2px solid blue;padding: 2px 2px 1px 1px'>
+        <h4>Registration Pairing</h4>
+        <label style="padding-left:5px;">Registration Mode</label>
+        <input id="t-regPairDisabled" class="t-regPairMode" type="radio" name="t-regPairMode" value="0" />
+        <label for="t-regPairDisabled">DISABLED</label>
+        <input id="t-regPairEnabled" class="t-regPairMode" type="radio" name="t-regPairMode" value="1" />
+        <label for="t-regPairEnabled">ENABLED</label>
+        <input id="t-regPairDefaultPin" class="t-regPairMode" type="radio" name="t-regPairMode" checked="checked" value="2" />
+        <label for="t-regPairDefaultPin">DEFAULT PIN</label>
+
+        <label style="padding-left:5px;">PIN</label>
+   	    <input id="pin" style="font-size:10px;" size=33 value='00000' onfocus="if(this.value=='00000'){this.value='';}" />
+      </div>
+
+	  <div style="clear:both;padding:10px 0px;"></div>
+ 	  <div id="isPS3" style='float:left;border:2px solid blue;padding: 2px 2px 1px 1px'>
+        <input id="t-is-PS3" class="t-is-PS3" type='checkbox' />
+        <label for="t-is-PS3" class="is-PS3-property">PS3</label>
+        <label class="t-cpu-usage-lbl" id="t-cpu-usage-lbl" style="padding-left:5px;font-weight:bold;color:#808080;">CPU:</label>
+        <label class="t-cpu-usage-lbl" id="t-min-cpu-usage-lbl" style="padding-left:1px;border:1px;color:#808080;">Min</label>
+        <input class="t-cpu-usage-val" id="t-min-cpu-usage-val" name="t-min-cpu-usage-val" size=6 style="font-size:10px;padding-left:0px;" />
+        <label class="t-cpu-usage-lbl" id="t-max-cpu-usage-lbl" style="padding-left:1px;border:1px;color:#808080;">Max</label>
+        <input class="t-cpu-usage-val" id="t-max-cpu-usage-val" name="t-max-cpu-usage-val" size=6 style="font-size:10px;padding-left:0px;" />
+        <label class="t-cpu-usage-lbl" id="t-cur-cpu-usage-lbl" style="padding-left:1px;border:1px;color:#808080;">Current</label>
+        <input class="t-cpu-usage-val" id="t-cur-cpu-usage-val" name="t-cur-cpu-usage-val" size=6 style="font-size:10px;padding-left:0px;" />
+
+        <label class="t-memory-usage-lbl" id="t-memory-usage-lbl" style="padding-left:5px;font-weight:bold;color:#808080;">Memory:</label>
+        <label class="t-memory-usage-lbl" id="t-min-memory-usage-lbl" style="padding-left:1px;border:1px;color:#808080;">Min</label>
+        <input class="t-memory-usage-val" id="t-min-memory-usage-val" name="t-min-memory-usage-val" size=9 style="font-size:10px;padding-left:0px;" />
+        <label class="t-memory-usage-lbl" id="t-max-memory-usage-lbl" style="padding-left:1px;border:1px;color:#808080;">Max</label>
+        <input class="t-memory-usage-val" id="t-max-memory-usage-val" name="t-max-memory-usage-val" size=9 style="font-size:10px;padding-left:0px;" />
+        <label class="t-memory-usage-lbl" id="t-cur-memory-usage-lbl" style="padding-left:1px;border:1px;color:#808080;">Current</label>
+        <input class="t-memory-usage-val" id="t-cur-memory-usage-val" name="t-cur-memory-usage-val" size=9 style="font-size:10px;padding-left:0px;" />
+      </div>
+
+      <div style="clear:both;padding:10px 0px;"></div>
+      <div id="stressMsgsController" style='float:left;border:2px solid green;padding: 2px 2px 1px 1px'>
+        <label class="t-recv-messages-lbl" id="t-recv-messages-lbl" style="padding-left:0px;border:1px;color:#808080;">Received:</label>
+        <input class="t-recv-messages-number" id="t-recv-messages-number" name="t-recv-messages-number" size=5 style="font-size:10px;padding-left:5px;" />
+        <label class="t-expected-messages-lbl" id="t-expected-messages-lbl" style="padding-left:0px;border:1px;color:#808080;">Expected:</label>
+        <input class="t-expected-messages-number" id="t-expected-messages-number" name="t-expected-messages-number" size=5 style="font-size:10px;padding-left:5px;" />
+        <label class="t-matched-messages-lbl" id="t-matched-messages-lbl" style="padding-left:0px;border:1px;color:#808080;">Matched:</label>
+        <input class="t-matched-messages-number" id="t-matched-messages-number" name="t-matched-messages-number" size=5 style="font-size:10px;padding-left:5px;" />
+        <label class="t-mismatched-messages-lbl" id="t-mismatched-messages-lbl" style="padding-left:0px;border:1px;color:#808080;">Mismatched:</label>
+        <input class="t-mismatched-messages-number" id="t-mismatched-messages-number" name="t-mismatched-messages-number" size=5 style="font-size:10px;padding-left:5px;" />
+        <input type='button' value='Clear'  onclick="clearControllerMessages();" />
+        <label class="t-send-messages-lbl" id="t-send-messages-lbl" style="padding-left:20px;border:1px;color:#808080;">Loops</label>
+        <input class="t-send-messages-loops" id="t-send-messages-loops" name="t-send-messages-loops" size=3 style="font-size:10px;padding-left:0px;" />
+        <input type='button' value='Send Controller Messages'  onclick="sendControllerMessages();" />
+        <label class="t-sent-messages-lbl" id="t-sent-messages-lbl" style="padding-left:5px;border:1px;color:#808080;">Messages sent:</label>
+        <input class="t-sent-messages-number" id="t-sent-messages-number" name="t-sent-messages-number" size=5 style="font-size:10px;padding-left:5px;" />
+      </div>
+  </body>
+</html>

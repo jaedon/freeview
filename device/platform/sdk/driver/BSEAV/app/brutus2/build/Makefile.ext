@@ -1,0 +1,31 @@
+#
+# This is a completely independent Makefile from Brutus
+# It builds with a Settop API context
+# This is debug-only code, using a non-public method. There
+# is no guarantee that this works.
+#
+
+all: build_obj
+
+BSEAV = ../../..
+include $(BSEAV)/api/build/magnum/Makefile.inc
+Q_=@
+
+BRUTUS_ODIR = $(PLATFORM).$(ARCH).$(DEBUG_SUFFIX)
+OBJ = $(BRUTUS_ODIR)/inputengine_ext.o
+
+# Always rebuild the .o. This way we're guaranteed to pick up 
+# the change.
+.PHONY: build_obj $(OBJ)
+
+build_obj: $(OBJ)
+
+include $(ROCKFORD)/inc/compose.mak
+CFLAGS += ${MAGNUM_INC}
+
+CFLAGS += -DEXPOSE_SETTOPAPI_INTERNALS
+
+$(OBJ):
+	@echo Building inputengine_ext.c in Settop API environment
+	@echo $(CC) -c $@
+	$(Q_)$(CC) -c -o $@ $(BSEAV)/app/brutus/src/inputengine_ext.c $(CFLAGS)

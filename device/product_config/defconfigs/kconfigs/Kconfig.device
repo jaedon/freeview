@@ -1,0 +1,1292 @@
+menu "Device configuration options"
+	choice 
+		prompt "User/kernel mode driver"
+		default DEVICE_MODE_USER	
+
+	config DEVICE_MODE_USER
+		bool "User mode"	
+	
+	config DEVICE_MODE_KERNEL
+		bool "Kernel mode"	
+
+	endchoice
+
+if DEVICE_MODE_USER
+	choice 
+		prompt "Device library mode"
+		default DEVICE_LIB_SHARED
+
+	config DEVICE_LIB_SHARED
+		bool "Shared"	
+	
+	config DEVICE_LIB_STATIC
+		bool "Static"	
+
+	endchoice
+endif
+
+config DEVICE_PRIVILEGE
+	bool
+	prompt "Selcet y if want to use privilege"
+	default n
+	
+config DI_SHARED_LIB
+	bool
+	prompt "DI Shared Library mode"
+	default n
+
+config DI_MODULE_SHARED_LIB
+	bool
+	prompt "Make di module compiled in shared library"
+	default n
+
+config DI_MODULE_NETWORK_SHARED_LIB
+	bool
+	prompt "Make di network module compiled in shared library"
+	depends on DI_MODULE_SHARED_LIB && ETHERNET && DINETWORK
+	default n	
+
+config DI_MODULE_WIFI_SHARED_LIB
+	bool	
+	prompt "Make di wifi  module compiled in shared library"
+	depends on DI_MODULE_SHARED_LIB  && WIFI && DINETWORK
+	select DRV_MODULE_HOTPLUG_SHARED_LIB
+	default n
+
+config DI_MODULE_BT_SHARED_LIB
+	bool	
+	prompt "Make di bt module compiled in shared library"
+	depends on DI_MODULE_SHARED_LIB && BLUETOOTH && DINETWORK
+	default n
+
+config DI_MODULE_PPPOE_SHARED_LIB
+	bool	
+	prompt "Make di pppoe module compiled in shared library"
+	depends on DI_MODULE_SHARED_LIB && PPPOE && DINETWORK
+	default n
+
+config DI_MODULE_FS_SHARED_LIB
+	bool
+	prompt "Make di fs module compiled in shared library"
+	depends on DI_MODULE_SHARED_LIB
+	default n
+
+config DI_MODULE_CRYPT_SHARED_LIB
+	bool	
+	prompt "Make di crypt  module compiled in shared library"
+	depends on DI_MODULE_SHARED_LIB && CRYPTO
+	default n
+
+config DRV_MODULE_HOTPLUG_SHARED_LIB
+	bool
+	prompt "Make drv hotplug module compiled in shared library"
+	depends on DI_MODULE_SHARED_LIB
+	default n
+
+config DI_MODULE_USB_SHARED_LIB
+	bool
+	prompt "Make usb module compiled in shared library"
+	depends on DI_MODULE_SHARED_LIB && USB
+	select DRV_MODULE_HOTPLUG_SHARED_LIB
+	default n
+
+config DI_MODULE_MMC_SHARED_LIB
+	bool
+	prompt "Make mmc module compiled in shared library"
+	depends on DI_MODULE_SHARED_LIB && MMC
+	select DRV_MODULE_HOTPLUG_SHARED_LIB
+	default n
+
+config DI_MODULE_HDD_SHARED_LIB
+	bool
+	prompt "Make hdd module compiled in shared library"
+	depends on DI_MODULE_SHARED_LIB
+	select DRV_MODULE_HOTPLUG_SHARED_LIB
+	default n		
+
+config DI_SERVER_CLIENT
+	bool
+	prompt "Use DI server/client model"
+	select DIRECTFB
+	select DIRECTFB_MASTER
+	default n
+	
+config DI_EXT
+	bool
+	prompt "DI Extension"
+	default n
+
+	config DI_DEMUX_EXT
+		bool
+		prompt "DI Demux Extension"
+		depends on DI_EXT
+		default n
+
+		config DEMUX_EXT_NUM_SECTION_FILTER
+		int
+		default 32
+		prompt "DEMUX_EXT_NUM_SECTION_FILTER"
+		depends on DI_DEMUX_EXT
+
+menu "Device applibs options"
+
+config WAYLAND
+	bool
+	prompt "Wayland"
+	default n
+
+config DIRECTFB
+	bool
+	prompt "DirectFB OSD"
+	default n
+
+config DIRECTFB_MASTER
+	bool
+	prompt "DirectFB Master application"
+	default n
+
+config DIRECTFB_INPUT
+	bool
+	prompt "use input driver on dfb"
+	depends on DIRECTFB
+	default n
+
+config DIRECTFB_INPUT_KEYBOARD
+	bool
+	prompt "use keyboard driver on dfb"
+	depends on DIRECTFB_INPUT
+	default y
+
+config DIRECTFB_INPUT_MOUSE
+	bool
+	prompt "use mouse driver on dfb"
+	depends on DIRECTFB_INPUT
+	default y
+
+config DIRECTFB_4K_DISPLAY
+	bool
+	prompt "Support 4K DISPLAY on dfb"
+	depends on DIRECTFB || DIRECTFB_MASTER
+	default n
+	
+config CRCTEST
+	bool
+	prompt "Crc Test"
+	default n
+
+config MEMTEST
+	bool
+	prompt "Mem Test"
+	default n
+
+config DINETWORK
+	bool
+	prompt "Enable DI Network Layer for ethernet & WI_FI"
+	default n
+
+config WIRELESS
+	bool
+	prompt "WIRELESS"
+	default n
+
+	config WIFI
+		bool
+		prompt "WIFI"
+		default n
+		depends on WIRELESS
+	if WIFI
+		config WIFI_SCRIPT_TEST
+			bool
+			prompt "Enable WI-FI script test for HW Channel Team"
+			default n
+
+		config WPA_SUPPLICANT
+			bool
+			prompt "WPA_SUPPLICANT"
+			default y
+			depends on WIFI	
+		
+		config WIRELESS_TOOLS
+			bool
+			prompt "WIRELESS_TOOLS"
+			default n
+			depends on WIFI	
+			
+		config RT3070
+			bool
+			prompt "RT3070"
+			default n
+			depends on WIFI
+
+		config RT3572
+			bool
+			prompt "RT3572"
+			default n
+			depends on WIFI
+
+		config QUANTENNA_BBIC_MAC
+			bool
+			prompt "QUANTENNA_BBIC_MAC"
+			default n
+			depends on WIFI
+
+		config RT5572
+			bool
+			prompt "RT5572"
+			default n
+			depends on WIFI
+			
+		config RT5572_WNA_DONGLE
+			bool
+			prompt "RT5572 WNA699U8N3 USB Dongle"
+			default n
+			depends on RT5572
+					
+		config RT5572_WNA_DONGLE_CCODE
+			string
+			prompt "WNA699U8N3 Dongle Country Code"
+			depends on RT5572_WNA_DONGLE
+			
+		config RT5572_SUPPORT_WLAN_LED
+			bool
+			prompt "RT5572 SUPPORT WLAN LED"
+			default n
+			depends on RT5572
+
+      config RT5572_SCAN_BY_RSSI
+        bool
+        prompt "RT5572 SUPPORT SCAN OVERLAP BY RSSI"
+        default n
+        depends on RT5572
+
+		config RTL8188
+                        bool
+                        prompt "RTL8188 USB DRIVER"
+                        default n
+                        depends on WIFI
+
+                config MT7601
+                        bool
+                        prompt "MT7601 USB DRIVER"
+                        default n
+                        depends on WIFI
+
+		config SWB_B70_WIFI
+			bool
+			prompt "SWB-B70-WIFI"
+			default n
+			depends on WIFI
+			
+			
+		config SWB_B70_WIFI_CCODE
+			string
+			prompt "Country Code"
+			default "EU"
+			depends on SWB_B70_WIFI
+			help 
+				{"AF",	LOCALES(b, 18,  fn, 15n)},	/* Afghanistan */
+				{"AL",	LOCALES(b,  3,  bn,  3n)},	/* Albania */
+				{"DZ",	LOCALES(b, 13,  fn, 15n)},	/* Algeria */
+				{"AS",	LOCALES(a, 19,  an1_t1, 19n)},	/* American Samoa */
+				{"AO",	LOCALES(b, 15,  fn, 15n)},	/* Angola */
+				{"AI",	LOCALES(b,  3,  bn,  3n)},	/* Anguilla */
+				{"AG",	LOCALES(b, 19,  bn, 19n)},	/* Antigua and Barbuda */
+				{"AR",	LOCALES(b, 21,  bn, 21n)},	/* Argentina */
+				{"AM",	LOCALES(b, 15,  fn, 15n)},	/* Armenia */
+				{"AW",	LOCALES(b,  3,  bn,  3n)},	/* Aruba */
+				{"AU",	LOCALES(h,  5,  hn,  5n)},	/* Australia */
+				{"AT",	LOCALES(b,  3,  bn,  3n)},	/* Austria */
+				{"AZ",	LOCALES(b, 19,  bn, 19n)},	/* Azerbaijan */
+				{"BS",	LOCALES(h,  2,  fn, 15n)},	/* Bahamas */
+				{"BH",	LOCALES(b,  2,  bn,  2n)},	/* Bahrain */
+				{"0B",	LOCALES(a, 19, an1_t1, 19n)},	/* Baker Island */
+				{"BD",	LOCALES(b,  7,  bn,  7n)},	/* Bangladesh */
+				{"BB",	LOCALES(b,  2,  fn, 15n)},	/* Barbados */
+				{"BY",	LOCALES(b,  3,  fn, 15n)},	/* Belarus */
+				{"BE",	LOCALES(b,  3,  bn,  3n)},	/* Belgium */
+				{"BZ",	LOCALES(b, 15,  fn, 15n)},	/* Belize */
+				{"BJ",	LOCALES(b, 15,  fn, 15n)},	/* Benin */
+				{"BM",	LOCALES(b,  3,  bn,  3n)},	/* Bermuda */
+				{"BT",	LOCALES(b, 15,  fn, 15n)},	/* Bhutan */
+				{"BO",	LOCALES(b, 15,  fn, 15n)},	/* Bolivia */
+				{"BA",	LOCALES(b,  3,  bn,  3n)},	/* Bosnia and Herzegovina */
+				{"BW",	LOCALES(b,  3,  fn, 15n)},	/* Botswana */
+				{"BR",	LOCALES(b,  6,  bn,  6n)},	/* Brazil */
+				{"IO",	LOCALES(b,  3,  bn,  3n)},	/* British Indian Ocean Territory */
+				{"BN",	LOCALES(b, 15,  fn, 15n)},	/* Brunei Darussalam */
+				{"BG",	LOCALES(b,  3,  bn,  3n)},	/* Bulgaria */
+				{"BF",	LOCALES(b,  7,  fn, 15n)},	/* Burkina Faso */
+				{"BI",	LOCALES(b, 15,  fn, 15n)},	/* Burundi */
+				{"KH",	LOCALES(b,  6,  bn,  6n)},	/* Cambodia */
+				{"CM",	LOCALES(b, 15,  fn, 15n)},	/* Cameroon */
+				{"CA",	LOCALES(a,  2, an1_t1, 2n)},	/* Canada */
+				{"CV",	LOCALES(b,  3,  fn, 15n)},	/* Cape Verde */
+				{"KY",	LOCALES(a, 19, an1_t1, 19n)},	/* Cayman Islands */
+				{"CF",	LOCALES(b, 15,  fn, 15n)},	/* Central African Republic */
+				{"TD",	LOCALES(b, 15,  fn, 15n)},	/* Chad */
+				{"CL",	LOCALES(b, 14,  bn, 14n)},	/* Chile */
+				{"CN",	LOCALES(k, 7c,  kn1, 7cn)},	/* China */
+				{"CX",	LOCALES(h,  5,  hn,  5n)},	/* Christmas Island */
+				{"CO",	LOCALES(b, 19,  bn, 19n)},	/* Colombia */
+				{"KM",	LOCALES(b, 15,  fn, 15n)},	/* Comoros */
+				{"CG",	LOCALES(b, 15,  fn, 15n)},	/* Congo */
+				{"CD",	LOCALES(b, 15,  fn, 15n)},	/* Congo, The Democratic Republic Of The */
+				{"CR",	LOCALES(b, 19,  bn, 19hn)},	/* Costa Rica */
+				{"CI",	LOCALES(b, 15,  fn, 15n)},	/* Cote D'ivoire */
+				{"HR",	LOCALES(b,  3,  bn,  3n)},	/* Croatia */
+				{"CU",	LOCALES(b,  9,  fn, 15n)},	/* Cuba */
+				{"CY",	LOCALES(b,  3,  bn,  3n)},	/* Cyprus */
+				{"CZ",	LOCALES(b,  3,  bn,  3n)},	/* Czech Republic */
+				{"DK",	LOCALES(b,  3,  bn,  3n)},	/* Denmark */
+				{"DJ",	LOCALES(b, 15,  fn, 15n)},	/* Djibouti */
+				{"DM",	LOCALES(b, 19,  fn, 15n)},	/* Dominica */
+				{"DO",	LOCALES(b, 19,  fn, 15n)},	/* Dominican Republic */
+				{"EC",	LOCALES(b, 19,  bn, 19n)},	/* Ecuador */
+				{"EG",	LOCALES(b,  5,  bn,  5n)},	/* Egypt */
+				{"SV",	LOCALES(b,  1,  bn,  1n)},	/* El Salvador */
+				{"GQ",	LOCALES(b, 15,  fn, 15n)},	/* Equatorial Guinea */
+				{"ER",	LOCALES(b, 15,  fn, 15n)},	/* Eritrea */
+				{"EE",	LOCALES(b,  3,  bn,  3n)},	/* Estonia */
+				{"ET",	LOCALES(b,  3,  bn,  3n)},	/* Ethiopia */
+				{"FK",	LOCALES(b,  6,  fn, 15n)},	/* Falkland Islands (Malvinas) */
+				{"FO",	LOCALES(b,  3,  bn,  3n)},	/* Faroe Islands */
+				{"FJ",	LOCALES(b, 15,  fn, 15n)},	/* Fiji */
+				{"FI",	LOCALES(b,  3,  bn,  3n)},	/* Finland */
+				{"FR",	LOCALES(b,  3,  bn,  3n)},	/* France */
+				{"GF",	LOCALES(b,  3,  bn,  3n)},	/* French Guina */
+				{"PF",	LOCALES(b,  3,  bn,  3n)},	/* French Polynesia */
+				{"TF",	LOCALES(b,  3,  bn,  3n)},	/* French Southern Territories */
+				{"GA",	LOCALES(b, 15,  fn, 15n)},	/* Gabon */
+				{"GM",	LOCALES(b, 15,  fn, 15n)},	/* Gambia */
+				{"GE",	LOCALES(b, 15,  bn, 15n)},	/* Georgia */
+				{"GH",	LOCALES(b, 19,  bn, 19n)},	/* Ghana */
+				{"GI",	LOCALES(b,  3,  fn, 15n)},	/* Gibraltar */
+				{"DE",	LOCALES(b,  3,  bn,  3n)},	/* Germany */
+				{"GR",	LOCALES(b,  3,  bn,  3n)},	/* Greece */
+				{"GD",	LOCALES(b,  6,  bn,  6n)},	/* Grenada */
+				{"GP",	LOCALES(b,  3,  bn,  3n)},	/* Guadeloupe */
+				{"GU",	LOCALES(a, 19, an1_t1, 19n)},	/* Guam */
+				{"GT",	LOCALES(b,  1,  fn, 15n)},	/* Guatemala */
+				{"GG",	LOCALES(b,  3,  fn, 15n)},	/* Guernsey */
+				{"GN",	LOCALES(b, 15,  fn, 15n)},	/* Guinea */
+				{"GW",	LOCALES(b, 15,  fn, 15n)},	/* Guinea-bissau */
+				{"GY",	LOCALES(b, 15,  fn, 15n)},	/* Guyana */
+				{"HT",	LOCALES(b,  1,  fn, 15n)},	/* Haiti */
+				{"VA",	LOCALES(b,  3,  bn,  3n)},	/* Holy See (Vatican City State) */
+				{"HN",	LOCALES(b,  7,  bn,  7n)},	/* Honduras */
+				{"HK",	LOCALES(h,  6,  hn,  6n)},	/* Hong Kong */
+				{"HU",	LOCALES(b,  3,  bn,  3n)},	/* Hungary */
+				{"IS",	LOCALES(b,  3,  bn,  3n)},	/* Iceland */
+				{"IN",	LOCALES(g,  5,  gn,  5n)},	/* India */
+				{"ID",	LOCALES(b, 15,  bn, 15n)},	/* Indonesia */
+				{"IR",	LOCALES(f,  9,  fn, 15n)},	/* Iran, Islamic Republic Of */
+				{"IQ",	LOCALES(b, 15,  fn, 15n)},	/* Iraq */
+				{"IE",	LOCALES(b,  3,  bn,  3n)},	/* Ireland */
+				{"IL",	LOCALES(b, 13,  bn, 13n)},	/* Israel */
+				{"IT",	LOCALES(b,  3,  bn,  3n)},	/* Italy */
+				{"JM",	LOCALES(b,  7,  bn,  7n)},	/* Jamaica */
+				{"JP",	LOCALES(c,  4,  fn, 15n)},	/* Japan legacy definition, old 5GHz */
+				{"J1",	LOCALES(c1,18,  fn, 15n)},	/* Japan_1 */
+				{"J2",	LOCALES(c1,13,  fn, 15n)},	/* Japan_2 */
+				{"J3",	LOCALES(c1, 3,  fn, 15n)},	/* Japan_3 */
+				{"J4",	LOCALES(c1,20,  fn, 15n)},	/* Japan_4 */
+				{"J5",	LOCALES(c1,22,  fn, 15n)},	/* Japan_5 */
+				{"J6",	LOCALES(c1,23,  fn, 15n)},	/* Japan_6 */
+				{"J7",	LOCALES(c1,24,  fn, 15n)},	/* Japan_7 */
+				{"J8",	LOCALES(c1, 4,  fn, 15n)},	/* Japan_8 */
+				{"J9",	LOCALES(b, 23,  cn, 23n)},	/* Japan_9 */
+				{"J10",	LOCALES(c1,23,  cn, 23n)},	/* Japan_10 */
+				{"JE",	LOCALES(b,  3,  fn, 15n)},	/* Jersey */
+				{"JO",	LOCALES(b, 18,  bn, 18rn)},	/* Jordan */
+				{"KZ",	LOCALES(b, 19,  bn, 19n)},	/* Kazakhstan */
+				{"KE",	LOCALES(b, 3,  bn, 3rn)},	/* Kenya */
+				{"KI",	LOCALES(b,  6,  fn, 15n)},	/* Kiribati */
+				{"KR",	LOCALES(b,  9,  fn, 15n)},	/* Korea, Republic Of */
+				{"KW",	LOCALES(b, 15,  bn, 15n)},	/* Kuwait */
+				{"0A",	LOCALES(b, 15,  fn, 15n)},	/* Kosovo (No country code, use 0A) */
+				{"KG",	LOCALES(b, 15,  fn, 15n)},	/* Kyrgyzstan */
+				{"LA",	LOCALES(b,  3,  fn, 15n)},	/* Lao People's Democratic Repubic */
+				{"LV",	LOCALES(b,  3,  bn,  3n)},	/* Latvia */
+				{"LB",	LOCALES(b, 12,  bn, 12n)},	/* Lebanon */
+				{"LS",	LOCALES(b,  3,  fn, 15n)},	/* Lesotho */
+				{"LR",	LOCALES(b, 15,  fn, 15n)},	/* Liberia */
+				{"LY",	LOCALES(b, 15,  fn, 15n)},	/* Libyan Arab Jamahiriya */
+				{"LI",	LOCALES(b,  3,  bn,  3n)},	/* Liechtenstein */
+				{"LT",	LOCALES(b,  3,  bn,  3n)},	/* Lithuania */
+				{"LU",	LOCALES(b,  3,  bn,  3n)},	/* Luxembourg */
+				{"MK",  LOCALES(b,  3,  bn,  3n)}, 	/* Macedonia, Former Yugoslav Republic Of */
+				{"MG",	LOCALES(b, 15,  fn, 15n)},	/* Madagascar */
+				{"MW",	LOCALES(b,  9,  bn,  9n)},	/* Malawi */
+				{"MO",	LOCALES(b, 12,  fn, 15n)},	/* Macao */
+				{"MY",	LOCALES(g,  5,  gn,  5n)},	/* Malaysia */
+				{"MV",	LOCALES(b, 17,  bn, 17n)},	/* Maldives */
+				{"ML",	LOCALES(b, 15,  fn, 15n)},	/* Mali */
+				{"MT",	LOCALES(b,  3,  bn,  3n)},	/* Malta */
+				{"IM",	LOCALES(b,  3,  fn, 15n)},	/* Man, Isle Of */
+				{"MQ",	LOCALES(b,  3,  bn,  3n)},	/* Martinique */
+				{"MR",	LOCALES(b,  3,  bn,  3n)},	/* Mauritania */
+				{"MU",	LOCALES(b,  3,  bn,  3n)},	/* Mauritius */
+				{"YT",	LOCALES(b,  3,  bn,  3n)},	/* Mayotte */
+				{"MX",	LOCALES(b, 13,  bn, 13n)},	/* Mexico */
+				{"FM",	LOCALES(a, 19,  fn, 15n)},	/* Micronesia, Federated States Of */
+				{"MD",	LOCALES(b,  3,  bn,  3n)},	/* Moldova, Republic Of */
+				{"MC",	LOCALES(b,  3,  bn,  3n)},	/* Monaco */
+				{"MN",	LOCALES(b, 15,  fn, 15n)},	/* Mongolia */
+				{"ME",	LOCALES(b,  3,  bn,  3n)},	/* Montenegro */
+				{"MS",	LOCALES(b,  3,  bn,  3n)},	/* Montserrat */
+				{"MA",	LOCALES(b, 18,  en, 15n)},	/* Morocco */
+				{"MZ",	LOCALES(b, 19,  bn, 19n)},	/* Mozambique */
+				{"MM",	LOCALES(b, 15,  fn, 15n)},	/* Myanmar */
+				{"NA",	LOCALES(b, 19,  bn, 19n)},	/* Namibia */
+				{"NR",	LOCALES(b, 15,  fn, 15n)},	/* Nauru */
+				{"NP",	LOCALES(g, 16,  gn, 16n)},	/* Nepal */
+				{"NL",	LOCALES(b,  3,  bn,  3n)},	/* Netherlands */
+				{"AN",	LOCALES(b,  3,  bn,  3n)},	/* Netherlands Antilles */
+				{"NC",	LOCALES(b, 15,  fn, 15n)},	/* New Caledonia */
+				{"NZ",	LOCALES(b,  6,  bn,  6n)},	/* New Zealand */
+				{"NI",	LOCALES(b,  6,  bn,  6n)},	/* Nicaragua */
+				{"NE",	LOCALES(b, 19,  fn, 15n)},	/* Niger */
+				{"NG",	LOCALES(b, 8a,  fn, 15n)},	/* Nigeria */
+				{"NU",	LOCALES(b, 19,  fn, 15n)},	/* Niue */
+				{"NF",	LOCALES(h,  5,  hn,  5n)},	/* Norfolk Island */
+				{"MP",	LOCALES(a, 19,  fn, 15n)},	/* Northern Mariana Islands */
+				{"NO",	LOCALES(b,  3,  bn,  3n)},	/* Norway */
+				{"OM",	LOCALES(b,  3,  bn,  3n)},	/* Oman */
+				{"PK",	LOCALES(b,  7,  bn,  7n)},	/* Pakistan */
+				{"PW",	LOCALES(b,  6,  fn, 15n)},	/* Palau */
+				{"PA",	LOCALES(b,  1,  bn,  1n)},	/* Panama */
+				{"PG",	LOCALES(b,  1,  bn,  1n)},	/* Papua New Guinea */
+				{"PY",	LOCALES(b,  7,  bn,  7n)},	/* Paraguay */
+				{"PE",	LOCALES(b, 19,  bn, 19n)},	/* Peru */
+				{"PH",	LOCALES(b,  6,  bn,  6n)},	/* Philippines */
+				{"PL",	LOCALES(b,  3,  bn,  3n)},	/* Poland */
+				{"PT",	LOCALES(b,  3,  bn,  3n)},	/* Portugal */
+				{"PR",	LOCALES(a, 19, an1_t1, 19n)},	/* Pueto Rico */
+				{"QA",	LOCALES(b, 12,  bn, 12n)},	/* Qatar */
+				{"RE",	LOCALES(b,  3,  bn,  3n)},	/* Reunion */
+				{"RO",	LOCALES(b,  3,  bn,  3n)},	/* Romania */
+				{"RW",  LOCALES(b,  7,  bn,  7n)},      /* Rwanda */
+				{"KN",	LOCALES(b,  7,  fn, 15n)},	/* Saint Kitts and Nevis */
+				{"LC",	LOCALES(b, 15,  fn, 15n)},	/* Saint Lucia */
+				{"MF",	LOCALES(b, 15,  fn, 15n)},	/* Sanit Martin / Sint Marteen */
+				{"RU",	LOCALES(b, 15,  fn, 15n)},	/* Russian Federation */
+				{"PM",	LOCALES(b, 13,  fn, 15n)},	/* Saint Pierre and Miquelon */
+				{"VC",  LOCALES(b, 19,  fn, 15n)},      /* Saint Vincent and The Grenadines */
+				{"WS",	LOCALES(b, 15,  fn, 15n)},	/* Samoa */
+				{"SM",	LOCALES(b,  3,  bn,  3n)},	/* San Marino */
+				{"ST",	LOCALES(b, 15,  fn, 15n)},	/* Sao Tome and Principe */
+				{"SA",	LOCALES(b, 16,  bn, 16n)},	/* Saudi Arabia */
+				{"SN",	LOCALES(b,  3,  bn,  3n)},	/* Senegal */
+				{"RS",	LOCALES(b,  3,  bn,  3n)},	/* Serbia */
+				{"SC",	LOCALES(b, 15,  fn, 15n)},	/* Seychelles */
+				{"SL",	LOCALES(b, 15,  fn, 15n)},	/* Sierra Leone */
+				{"SG",	LOCALES(g,  5,  gn,  5n)},	/* Singapore */
+				{"SK",	LOCALES(b,  3,  bn,  3n)},	/* Slovakia */
+				{"SI",	LOCALES(b,  3,  bn,  3n)},	/* Slovenia */
+				{"SB",	LOCALES(b, 15,  fn, 15n)},	/* Solomon Islands */
+				{"SO",	LOCALES(b, 15,  fn, 15n)},	/* Somalia */
+				{"ZA",	LOCALES(b,  3,  bn,  3n)},	/* South Africa */
+				{"ES",	LOCALES(b,  3,  bn,  3n)},	/* Spain */
+				{"LK",	LOCALES(g,  6,  gn,  6n)},	/* Sri Lanka */
+				{"SR",	LOCALES(b, 15,  fn, 15n)},	/* Suriname */
+				{"SZ",	LOCALES(b, 15,  fn, 15n)},	/* Swaziland */
+				{"SE",	LOCALES(b,  3,  bn,  3n)},	/* Sweden */
+				{"CH",	LOCALES(b,  3,  bn,  3n)},	/* Switzerland */
+				{"SY",	LOCALES(f, 12,  fn, 15n)},	/* Syrian Arab Republic */
+				{"TW",	LOCALES(a,  8, an1_t1,  8n)},	/* Taiwan, Province Of China */
+				{"TJ",	LOCALES(b, 15,  fn, 15n)},	/* Tajikistan */
+				{"TZ",	LOCALES(b, 12,  fn, 15n)},	/* Tanzania, United Republic Of */
+				{"TH",	LOCALES(b,  6,  bn,  6n)},	/* Thailand */
+				{"TG",	LOCALES(b, 15,  fn, 15n)},	/* Togo */
+				{"TO",	LOCALES(b, 15,  fn, 15n)},	/* Tonga */
+				{"TT",	LOCALES(b,  6,  bn,  6n)},	/* Trinidad and Tobago */
+				{"TN",	LOCALES(b, 13,  bn, 13n)},	/* Tunisia */
+				{"TR",	LOCALES(b, 13,  bn, 13n)},	/* Turkey */
+				{"TM",	LOCALES(b, 15,  fn, 15n)},	/* Turkmenistan */
+				{"TC",	LOCALES(b,  3,  bn,  3n)},	/* Turks and Caicos Islands */
+				{"TV",	LOCALES(b, 15,  fn, 15n)},	/* Tuvalu */
+				{"UG",	LOCALES(h,  3,  fn, 15n)},	/* Uganda */
+				{"UA",	LOCALES(b, 15,  fn, 15n)},	/* Ukraine */
+				{"AE",	LOCALES(b, 15,  bn, 15n)},	/* United Arab Emirates */
+				{"GB",	LOCALES(b,  3,  bn,  3n)},	/* United Kingdom */
+				{"US",	LOCALES(a,  1, an1_t1,  1n)},	/* United States */
+				{"Q2",	LOCALES(a, 27, an1_t1, 27n)},	/* United States (No DFS) */
+				{"UM",	LOCALES(a, 19, an1_t1, 19n)},	/* United States Minor Outlying Islands */
+				{"UY",	LOCALES(h,  6,  hn,  6n)},	/* Uruguay */
+				{"UZ",	LOCALES(b, 15,  fn, 15n)},	/* Uzbekistan */
+				{"VU",	LOCALES(b, 15,  fn, 15n)},	/* Vanuatu */
+				{"VE",	LOCALES(b,  5,  bn,  5n)},	/* Venezuela */
+				{"VN",	LOCALES(b,  13,  bn,  13n)},	/* Viet Nam */
+				{"VG",	LOCALES(b,  3,  bn,  3n)},	/* Virgin Islands, British */
+				{"VI",	LOCALES(a, 19, an1_t1, 19n)},	/* Virgin Islands, U.S. */
+				{"WF",	LOCALES(b,  3,  bn,  3n)},	/* Wallis and Futuna */
+				{"0C",	LOCALES(b, 13,  bn, 13n)},	/* West Bank */
+				{"EH",	LOCALES(b, 18,  en, 15n)},	/* Western Sahara */
+				{"YE",	LOCALES(b, 15,  fn, 15n)},	/* Yemen */
+				{"ZM",	LOCALES(g,  3,  fn, 15n)},	/* Zambia */
+				{"ZW",	LOCALES(b, 19,  bn, 19n)},	/* Zimbabwe */
+				{"Z2",	LOCALES(a, 19,  fn, 15n)},	/* Country Z2 */
+				{"XA",	LOCALES(b, 11,  fn, 15n)},	/* Europe / APAC 2005 */
+				{"XB",	LOCALES(a, 1r,  fn, 15n)},	/* North and South America and Taiwan */
+				{"X0",	LOCALES(a1,1a, an1_t1, 1an)},	/* FCC Worldwide */
+				{"X1",	LOCALES(b,  5,  bn,  5n)},	/* Worldwide APAC */
+				{"X2",	LOCALES(i, 11,  bn, 11n)},	/* Worldwide RoW 2 */
+				{"X3",	LOCALES(b,  3,  en, 3an)},	/* ETSI */
+				{"EU",	LOCALES(b, 18,  bn, 18rn)},	/* European Union */
+				{"XS",  LOCALES(b2_6, 11_4, bn2_8, 11ln_3)}, /* Worldwide Safe Enhanced Mode Locale */
+				{"XW",	LOCALES(j, 31,  jn, 31n)},	/* Worldwide Locale for Linux driver */
+				{"XX",	LOCALES(b2, 3,  fn, 15n)},	/* Worldwide Locale (passive Ch12-14) */
+				{"XY",	LOCALES(b,  3,  bn,  3n)},	/* Fake Country Code */
+				{"XZ",	LOCALES(b5, 15, fn, 15n)},	/* Worldwide Locale (passive Ch12-14) */
+				{"XU",	LOCALES(b_5, 3c, bn_2, 3cn)},	/* European Locale 0dBi antenna in 2.4GHz */
+				{"XV",  LOCALES(b2_1, 15, bn2_1, 15n)}, /* Worldwide Safe Mode Locale (passive Ch12-14) */
+				{"XT",  LOCALES(b2_3, 15, bn2_4, 15n)}, /* Single SKU for PC-OEMs */
+				
+		config SWB_B70_WIFI_MFG
+			bool
+			prompt "SWB-B70-WIFI-MFG"
+			default n
+			depends on WIFI
+			
+		config BCM43236
+			bool
+			prompt "BCM43236"
+			default n
+			depends on WIFI
+
+
+		if BCM43236
+			config BCM43236_WNC_DONGLE
+				bool
+				prompt "WNC BCM43236 2T2R USB Dongle"
+				default n
+				depends on BCM43236
+			
+			config BCM43236_WNC_DONGLE_CCODE
+				string
+				prompt "Country Code for WNC 2T2R Module"
+				default "XR/6"
+				depends on BCM43236_WNC_DONGLE
+				
+			config BCM43236_BISON
+				bool
+				prompt "BISON WLAN Driver"
+				default n
+				depends on BCM43236
+				
+			config BCM43236_SUPPORT_ADAPTIVITY
+				bool
+				prompt "Support Adaptivity 1.8.1"
+				default n
+				depends on BCM43236
+		endif
+
+		config BCM43236_MFG
+			bool
+			prompt "BCM43236_MFG"
+			default n
+			depends on WIFI
+
+		config BCM43567
+			bool
+			prompt "BCM43567"
+			default n
+			depends on WIFI 
+
+		config BCM43567_MFG
+			bool
+			prompt "BCM43567_MFG"
+			default n
+			depends on WIFI
+			
+		config BCM43602
+			bool
+			prompt "BCM43602"
+			default n
+			depends on WIFI
+
+		config WIFI_AARDVARK
+			bool
+			prompt "BRCM AARDVARK DRIVER"
+			default n
+			depends on WIFI
+
+		config WIFI_BISON
+			bool
+			prompt "BRCM BISON DRIVER"
+			default n
+			depends on WIFI
+
+		config WIFI_DHD
+			bool
+			prompt "BRCM DHD DRIVER"
+			default n
+			depends on WIFI
+
+		config SUPPORT_WPS
+			bool
+			prompt "Support WPS"
+			default n
+			depends on WIFI
+
+			config SUPPORT_PBC_PHYSICAL
+				bool
+				prompt "PBC Method Physical Key (default : Virtual)"
+				default n
+				depends on SUPPORT_WPS
+
+		config SUPPORT_WOWL
+			bool
+			prompt "Support Wake on Wireless LAN"
+			default n
+			depends on WIFI
+
+		config SUPPORT_ENTERPRISE
+			bool
+			prompt "Support Enterprize Authentication"
+			default n
+			depends on WIFI
+
+		config SUPPORT_2P4G_40M_BW
+			bool
+			prompt "Support 40MHz BW at 2.4GHz Band"
+			default n
+			depends	on WIFI
+
+		config SUPPORT_SECDMA
+			bool
+			prompt "Support secure DMA for PCIe Interface"
+			default n
+			depends on WIFI
+
+		config QV940
+			bool
+			prompt "QV940"
+			default n
+			depends on WIFI
+
+		config BCM43242
+			bool
+			prompt "BCM43242"
+			default n
+			depends on WIFI
+
+		config BCM43242_MFG
+			bool
+			prompt "BCM43242_MFG"
+			default n
+			depends on WIFI
+	endif
+
+	config MOBILE_NETWORK
+		bool
+		prompt "MOBILE_NETWORK"
+		default n
+		depends on WIRELESS
+	
+		if MOBILE_NETWORK
+			config MOBILE_KENYA
+				bool
+				prompt "Kenya Mobile Network(Equitel/Airtel/Orange/Safaricom)"
+				default n
+				depends on MOBILE_NETWORK
+			
+			config MOBILE_IRAN
+				bool
+				prompt "Iran Mobile Network"
+				default n
+				depends on MOBILE_NETWORK
+				
+			config MOBILE_KOREA
+				bool
+				prompt "Korea Mobile Network(SKT LG SD711)"
+				default n
+				depends on MOBILE_NETWORK
+		endif
+
+	config BLUETOOTH
+		bool
+		prompt "BLUETOOTH"
+		default n
+		depends on WIRELESS
+
+	if BLUETOOTH
+		choice
+			prompt "Module"
+			depends on BLUETOOTH
+			default BLUETOOTH_ONBOARD
+			config SWB_B70_BT
+				bool "SWB-B70-BT"
+				default n
+				help
+					Manufacturer : SEM
+					Chip : BCM20702
+					Model : HMS-1000S/T
+
+			config BM_LDS602
+				bool "BM-LDS602"
+				default n
+				help
+					Manufacturer : BARUN
+					Chip : BCM20705
+					Model : BP-4000, EVA
+
+			config HWM_BCM43242U_BTU
+				bool "HWM-BCM43242_BTU"
+				default n
+				help
+					Manufacturer : HUMAX
+					Chip : BCM43242
+					Model : iCord Evolution Lite
+
+			config BLUETOOTH_ONBOARD
+				bool "On-Board"
+				default n
+
+		endchoice
+
+		config BLUETOOTH_CHIP
+			string "Chip"
+			depends on BLUETOOTH
+			default "BCM20702" if SWB_B70_BT
+			default "BCM20705" if BM_LDS602
+			default "BCM43242" if HWM_BCM43242U_BTU
+			default ""         if BLUETOOTH_ONBOARD 
+			help
+			  Bluetooth Chip Name
+
+		config BLUETOOTH_INTERFACE
+			string "Interface"
+			depends on BLUETOOTH
+			default "USB"  if SWB_B70_BT
+			default "UART" if BM_LDS602
+			default "USB"  if HWM_BCM43242U_BTU
+			default ""     if BLUETOOTH_ONBOARD
+			help
+			  Bluetooth HCI Inteface
+			  USB, UART, SDIO
+
+		config BLUETOOTH_BLE
+			bool
+			prompt "Support BLE"
+			default n
+			depends on BLUETOOTH
+			
+		config BLUETOOTH_SIG
+			bool
+			prompt "Support SIG Qualification"
+			default n
+			depends on BLUETOOTH
+	endif
+
+config PPPOE
+	bool
+	prompt "PPPoE"
+	default n
+
+config IPERF
+	bool
+	prompt "IPERF"
+	default n
+
+config EBTABLES
+        bool
+        prompt "EBTABLES"
+        default n
+
+config CRYPTSETUP
+	bool
+	prompt "CRYPTSETUP"
+	default n
+
+config DOSFSTOOLS
+	bool
+	prompt "DOSFSTOOLS"
+	default n
+
+config IPTABLES
+	bool
+	prompt "IPTABLES"
+	default n
+	
+config ETHTOOL
+	bool
+	prompt "ETHTOOL"
+	default n
+
+config NXCLIENT
+	bool
+	prompt "NXCLIENT"
+	default n
+
+config ASAN
+	bool
+	prompt "Support Address Sanitize"
+	default n
+
+config RTL8105E
+	bool
+	prompt "RTL8105E 10/100M fast ethernet controller"
+	default n
+
+config PERIPHERAL_ENCODER
+	bool
+	prompt "Peripheral Encoder"
+	default n
+
+	config MB86M01
+		bool
+		prompt "Fujitus Trancoder/Encoder MB86M01/02/03"
+		default n
+		depends on PERIPHERAL_ENCODER
+
+config TNTFS_CHP
+	string
+	prompt "Chipset name for TNTFS driver"
+	default ""
+
+endmenu
+
+
+
+menu "Device options"
+config BRCM_MOD_DTCP_IP
+	bool
+	prompt "DTCP_IP"
+	default n
+
+config BRCM_MOD_HWENC
+	bool
+	prompt "HWENC"
+	default y if BRCM_MOD_DTCP_IP
+
+config BRCM_MOD_HWDEC
+	bool
+	prompt "HWDEC"
+	default y if BRCM_MOD_DTCP_IP
+
+config BRCM_MOD_MSDRM_PD_SUPPORT
+	bool
+	prompt "MSDRM"
+	default y
+
+config BRCM_MOD_MSDRM_PRDY_SUPPORT
+	bool
+	prompt "PLAYREADY"
+	default n
+
+config BRCM_MOD_PRDY_ROBUSTNESS_ENABLE
+	bool
+	prompt "PLAYREADY_ROBUSTNESS_ENABLE"
+	default n
+	depends on BRCM_MOD_MSDRM_PRDY_SUPPORT	
+
+config BRCM_MOD_MSDRM_PRDY_20_SUPPORT
+	bool
+	prompt "PLAYREADY 2.0"
+	default n
+	depends on BRCM_MOD_MSDRM_PRDY_SUPPORT
+
+config BRCM_MOD_MSDRM_PRDY_25_SUPPORT
+	bool
+	prompt "PLAYREADY 2.5"
+	default n
+	depends on BRCM_MOD_MSDRM_PRDY_SUPPORT
+
+config BRCM_MOD_MSDRM_PRDY_SSL_SUPPORT
+	bool
+	prompt "PLAYREADY + SSL"
+	default n
+	depends on BRCM_MOD_MSDRM_PRDY_SUPPORT
+
+config BRCM_MOD_MARLIN_DRM_SUPPORT
+	bool
+	prompt "MARLIN_DRM"
+	default n
+
+config BRCM_MOD_MEDIA_ASF_SUPPORT
+	bool
+	prompt "MEDIA_ASF"
+	default y
+
+config BRCM_MOD_MEDIA_AVI_SUPPORT
+	bool
+	prompt "MEDIA_AVI"
+	default y
+
+config BRCM_MOD_OTPMSP_SUPPORT
+	bool
+	prompt "OTPMSP"
+	default y
+
+config BRCM_MOD_BVDC_MACROVISION
+	bool
+	prompt "MACROVISION"
+	default n
+
+config BRCM_MOD_RAP_AC3_SUPPORT
+	bool
+	prompt "RAP_AC3"
+	default n
+
+config BRCM_MOD_RAP_AACSBR_SUPPORT
+	bool
+	prompt "RAP_AACSBR"
+	default n
+	
+config BRCM_MOD_RAP_LPCMDVD_SUPPORT
+	bool
+	prompt "RAP_LPCMDVD"
+	default n
+
+config BRCM_MOD_RAP_WMA_SUPPORT
+	bool
+	prompt "RAP_WMA"
+	default n
+
+config BRCM_MOD_RAP_WMAPRO_SUPPORT
+	bool
+	prompt "RAP_WMAPRO"
+	default n
+
+config BRCM_MOD_RAP_DDP_SUPPORT
+	bool
+	prompt "RAP_DDP"
+	default n
+
+config BRCM_MOD_RAP_DDP_TO_AC3_SUPPORT
+	bool
+	prompt "RAP_DDP_TO_AC3"
+	default n
+
+config BRCM_MOD_RAP_AC3ENC_SUPPORT
+	bool
+	prompt "RAP_AC3ENC"
+	default n
+
+config BRCM_MOD_RAP_DTSENC_SUPPORT
+	bool
+	prompt "RAP_DTSENC"
+	default n
+
+config BRCM_MOD_RAP_AUDIODESC_SUPPORT
+	bool
+	prompt "RAP_AUDIODESC"
+	default n
+
+config BRCM_MOD_RAP_MS10_SUPPORT
+	bool
+	prompt "RAP_MS10"
+	default n
+
+config BRCM_MOD_RAP_SRC_SUPPORT
+	bool
+	prompt "RAP_SRC"
+	default n
+
+config BRCM_MOD_RAP_DSOLA_SUPPORT
+	bool
+	prompt "RAP_DSOLA"
+	default n
+
+config BRCM_MOD_RAP_SRSHDVOL_SUPPORT
+	bool
+	prompt "RAP_SRSHDVOL"
+	default n
+
+config BRCM_MOD_RAP_CUSTOMVOICE_SUPPORT
+	bool
+	prompt "RAP_CUSTOMVOICE"
+	default n
+
+config BRCM_MOD_RAP_SRSTRUVOL_SUPPORT
+	bool
+	prompt "RAP_SRSTRUVOL"
+	default n
+
+config BRCM_MOD_BHDM_CEC_SUPPORT
+	bool
+	prompt "BHDM_CEC"
+	default n
+
+config BRCM_MOD_BCEC_SUPPORT
+	bool
+	prompt "BCEC"
+	default n
+
+config BRCM_MOD_KEYLADDER_SUPPORT
+	bool
+	prompt "KEYLADDER"
+	default n
+
+config BRCM_MOD_NEXUS_HDCP_SUPPORT
+	bool
+	prompt "HDCP"
+	default n
+
+config BRCM_MOD_HSM_SOURCE_AVAILABLE
+	bool
+	prompt "HSM_SOURCE"
+	default n
+
+config BRCM_MOD_NEXUS_POWER_MANAGEMENT
+	bool
+	prompt "POWER MANAGEMENT"
+	default n
+
+config BRCM_MOD_NEXUS_PLATFORM_7425_DBS
+	bool
+	prompt "4506 WITH 7425 DBS"
+	default n
+
+config BRCM_MOD_NEXUS_TEMP_MONITOR_SUPPORT
+	bool
+	prompt "TEMP MONITOR, remommand to disable this feature if there is not compile error. AVS can support temp monitor as well."
+	default n
+
+config BRCM_MOD_HSM_LIBCRC
+	bool
+	prompt "HSM_LIBCRC"
+
+config BRCM_MOD_USERCMD_SUPPORT
+	bool
+	prompt "USERCMD_SUPPORT"
+	default n
+
+config BRCM_MOD_BDSP_AC3_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_AC3_SUPPORT"
+	default y
+
+config BRCM_MOD_BDSP_MPEG_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_MPEG_SUPPORT"
+	default y
+
+config BRCM_MOD_BDSP_DDP_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_DDP_SUPPORT"
+	default y
+
+config BRCM_MOD_BDSP_DDP_TO_AC3_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_DDP_TO_AC3_SUPPORT"
+	default y
+
+config BRCM_MOD_BDSP_WMAPRO_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_WMAPRO_SUPPORT"
+	default y
+
+config BRCM_MOD_BDSP_WMA_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_WMA_SUPPORT"
+	default y
+
+config BRCM_MOD_BDSP_AUDIODESC_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_AUDIODESC_SUPPORT"
+	default y
+
+config BRCM_MOD_BDSP_AC3ENC_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_AC3ENC_SUPPORT"
+	default y
+
+config BRCM_MOD_BDSP_DTSENC_SUPPORT 
+	bool
+	prompt "BRCM_MOD_BDSP_DTSENC_SUPPORT"
+	default y
+
+config BRCM_MOD_BDSP_SRSTRUVOL_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_SRSTRUVOL_SUPPORT"
+	default y
+
+config BRCM_MOD_BDSP_DOLBYVOL_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_DOLBYVOL_SUPPORT"
+	default n
+
+config BRCM_MOD_BDSP_DTSBROADCAST_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_DTSBROADCAST_SUPPORT"
+	default y
+
+config BRCM_MOD_BDSP_DTSHD_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_DTSHD_SUPPORT"
+	default y
+
+config BRCM_MOD_BDSP_DRA_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_DRA_SUPPORT"
+	default n
+
+config BRCM_MOD_BDSP_CUSTOMVOICE_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_CUSTOMVOICE_SUPPORT"
+	default n
+
+config BRCM_MOD_BDSP_SRSHD_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_SRSHD_SUPPORT"
+	default n
+
+config BRCM_MOD_BDSP_MS10_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_MS10_SUPPORT"
+	default y
+
+config BRCM_MOD_BDSP_MS11_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_MS11_SUPPORT"
+	default n
+
+config BRCM_MOD_BDSP_AACSBR_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_AACSBR_SUPPORT"
+	default y
+
+config BRCM_MOD_BDSP_SRC_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_SRC_SUPPORT"
+	default y
+
+config BRCM_MOD_BDSP_DSOLA_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_DSOLA_SUPPORT"
+	default y
+
+config BRCM_MOD_BDSP_LPCMDVD_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_LPCMDVD_SUPPORT"
+	default y
+
+config BRCM_MOD_BDSP_DTSENC_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_DTSENC_SUPPORT"
+	default y
+
+config BRCM_MOD_BDSP_PCMWAV_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_PCMWAV_SUPPORT"
+	default y
+
+config BRCM_MOD_AEGIS_USERCMD_SUPPORT
+	bool
+	prompt "BRCM_MOD_AEGIS_USERCMD_SUPPORT"
+	default n
+
+config BRCM_MOD_SECURERAWCMD_SUPPORT
+	bool
+	prompt "BRCM_MOD_SECURERAWCMD_SUPPORT"
+	default n
+
+config BRCM_MOD_BDSP_AACSBR_PASSTHRU_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_AACSBR_PASSTHRU_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_AACHEENC_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_AACHEENC_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_DTSHD_PASSTHRU_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_DTSHD_PASSTHRU_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_MLP_PASSTHROUGH_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_MLP_PASSTHROUGH_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_AMRENC_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_AMRENC_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_AMRWB_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_AMRENC_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_AMRWBENC_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_AMRWBENC_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_VORBIS_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_VORBIS_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_FLAC_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_FLAC_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_MAC_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_MAC_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_G711G726_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_G711G726_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_G711G726ENC_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_G711G726ENC_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_G723_1_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_G723_1_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_G723_1ENC_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_G723_1ENC_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_G729_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_G729_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_G729ENC_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_G729ENC_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_PCM_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_PCM_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_ADPCM_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_ADPCM_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_ILBC_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_ILBC_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_ISAC_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_ISAC_SUPPORT"
+	default y
+	
+config BRCM_MOD_BDSP_SPEEXAEC_SUPPORT
+	bool
+	prompt "BRCM_MOD_BDSP_SPEEXAEC_SUPPORT"
+	default y
+	
+endmenu
+endmenu

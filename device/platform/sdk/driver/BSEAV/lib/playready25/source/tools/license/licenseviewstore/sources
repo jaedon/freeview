@@ -1,0 +1,26 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=licenseviewstore
+TARGETTYPE=PROGRAM
+UMTYPE=console
+UMENTRY=wmain
+
+SOURCES = \
+    licenseviewstore.c
+
+!if "$(_DRM_BUILD_TOOL)" != "NMAKE"
+SOURCES = $(SOURCES) \
+      licenseviewstore.rc
+!endif
+
+INCLUDES =      \
+    $(INCLUDES) \
+    $(_DRM_SOURCE_PATH)\tools\common
+
+TARGETLIBS = $(TARGETLIBS)                          \
+    $(LIBRARY_LIBS)                                 \
+    $(_DRM_COMMON_LIBS)                             \
+    $(_DRM_OEM_MAIN_LIB)                            \
+    $(_DRM_BLACKBOX_NOOBFUS_LIBS)                   \
+    $(_DRM_TOOLS_COMMON_LIBS)                       \
+

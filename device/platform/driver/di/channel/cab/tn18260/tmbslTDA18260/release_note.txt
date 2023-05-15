@@ -1,0 +1,267 @@
+----  tmbslTDA18260 CFG 0.1.2.4 ------------------------------
+- add LPF offset in configuration file
+
+----  tmbslTDA18260 CFG 0.1.2.3 ------------------------------
+- Set LoopThrough always on
+
+----  tmbslTDA18260 CFG 0.1.2.2 ------------------------------
+- Shared Registers access is not locked
+
+----  tmbslTDA18260 CFG 0.1.2.1 ------------------------------
+- Loop through disablein standby
+
+----  tmbslTDA18260 CFG 0.1.2.0 ------------------------------
+- Update RSSI polynoms coefficients
+- TDA18260Stream_SetPowerState: handle Buf1b power state
+
+----  tmbslTDA18260_GENERIC CFG 0.1.1.9 ------------------------------
+- RSSI polynoms implementation
+- High pass filter set to 400 KHz for every standard
+
+----  tmbslTDA18260_GENERIC CFG 0.1.1.8 ------------------------------
+- MtoState added for slave configuration
+
+----  tmbslTDA18260_GENERIC CFG 0.1.1.7 ------------------------------
+- tmTDA18260_xtal_xtout_drive_t structure updated
+
+
+======================================================================
+
+----  tmbslTDA18260 3.2.1
+- add tmbslTDA18260_AGC1Lock API
+
+----  tmbslTDA18260 3.2.0
+- add LPF offset in configuration file
+
+----  tmbslTDA18260 3.1.6
+- Set IcpLow frequency to 500 microAmps for slave components
+
+----  tmbslTDA18260 3.1.5
+- invert frequency order during IR calibration
+- Set IcpLow frequency to 500 microAmps during IR calibration
+
+----  tmbslTDA18260 3.1.4
+- force the configuration of the PLL to solve PLL lock issue due to phase detector
+
+----  tmbslTDA18260 3.1.3
+- Modify IR calibration mechanism (IR Calibration is performed again with a lower IR Calibration target if it has failed)
+
+----  tmbslTDA18260 3.1.2
+- Handle correctely major and minor HW revisions in tmbslTDA18260_CheckHWVersion()
+
+----  tmbslTDA18260 3.1.1
+- Reset returns valid status
+- Configure IR calibration target during Reset
+
+----  tmbslTDA18260 3.1.0 ------------------------------
+- API modifications (see documentation for further detail)
+    tmbslTDA18260_Init
+       stream type (tmTDA18260_Stream_t) must be specified in sSrvFunc  AdditionalData
+    tmbslTDA18260_Reset
+       must be called for both stream A and Stream B (in previous implementation, it should be done only for stream A)
+    tmbslTDA18260_SetPowerState
+       prototype has changed, remove the notion of Shared/Stream
+
+- Correction in ResetAGC1 (slaves were not correclty programmed)
+
+----  tmbslTDA18260 3.0.20 ------------------------------
+- correct pointer casting bug in TDA18260_GetPowerLevel function
+
+----  tmbslTDA18260 3.0.19 ------------------------------
+- add a diversity to keep loop through always enable or not
+
+----  tmbslTDA18260 3.0.18 ------------------------------
+- improve calibration mechanism (TDA18260_SignalCalibration and TDA18260_ImageCalibration)
+- remove legacy wait after AGC1 programmation
+- add a feature to skip smooth mode of SetPowerState
+
+----  tmbslTDA18260 3.0.17 ------------------------------
+- TDA18260Shared_GetPowerState now returns the right state
+
+----  tmbslTDA18260 3.0.16 ------------------------------
+- set icp low depending on LO frequency and stream type
+
+----  tmbslTDA18260 3.0.15 ------------------------------
+- Set pdDetect1 if not in "AGC1_ Gain free" mode
+
+----  tmbslTDA18260 3.0.14 ------------------------------
+- TDA18260Stream_SetPowerState: handle Buf1b power state
+
+----  tmbslTDA18260 3.0.13 ------------------------------
+- Add tmbslTDA18260_SetXtOutOn interface to handle XtOut
+
+----  tmbslTDA18260 3.0.12 ------------------------------
+- TDA18260Shared_SetPowerState: handle AGC1 PSM (Power Saving Mode)
+
+----  tmbslTDA18260 3.0.10 ------------------------------
+- TDA18260Stream_SetPowerState() updated
+- TDA18260_IRCalibration() error code activated in tmbslTDA18260_Reset()
+
+----  tmbslTDA18260 3.0.9 ------------------------------
+- TDA18260Stream_SetPowerState() optimization
+
+----  tmbslTDA18260 3.0.8 ------------------------------
+- mutex correction in tmbslTDA18260_SetPowerState()
+
+----  tmbslTDA18260 3.0.7 ------------------------------
+- RSSI polynoms implementation
+- High pass filter set to 400 KHz for every standard
+
+----  tmbslTDA18260 3.0.6 ------------------------------
+- MtoState added for slave configuration
+
+----  tmbslTDA18260 3.0.5 ----------------------------------------
+- tmbslTDA18260_GetPowerLevel() updated to manage too low or high power level
+
+----  tmbslTDA18260 3.0.4 ----------------------------------------
+- tmTDA18260_xtal_xtout_drive_t structure updated
+
+----  tmbslTDA18260 3.0.3 ----------------------------------------
+- correct type in tmTDA18260_State_t structure
+
+----  tmbslTDA18260 3.0.2 ----------------------------------------
+- tmbslTDA18260_SetPowerState() updated
+- tmbslTDA18260_GetPowerState() updated
+
+----  tmbslTDA18260 3.0.1 ----------------------------------------
+- correct tmbslTDA18260_GetMainPLL (for VCO pulling functionality)
+
+----  tmbslTDA18260 3.0.0 ----------------------------------------
+- new ES3 driver version: 3.0.0
+- Management of NKCorr removed
+
+----  tmbslTDA18260 2.0.11 -----------------------------
+- Management of NKCorr moved from expert part to driver part
+- tmTDA18260_IR_FREQ1 = 123000000
+
+----  tmbslTDA18260 2.0.10 -----------------------------
+- tmddTDA18260Stream_SetLoFreq(): Reset fixed
+
+----  tmbslTDA18260 2.0.9 ------------------------------
+- tmbslTDA18260GetPowerLevel() renames in tmbslTDA18260_GetPowerLevel()
+- xtout_drive replaces xtout_drive_master and xtout_drive_slave
+
+----  tmbslTDA18260 2.0.8 ------------------------------
+- transition RF band management in TDA18260_GetPowerLevel()
+- TMBSL_TDA18260_INSTANCE_CUSTOM_COMMON_Lvl_RfFilter updated for:
+  tmTDA18260_RF_MAX_Band_5, tmTDA18260_RF_MAX_Band_6 and tmTDA18260_RF_MAX_Band_7
+
+----  tmbslTDA18260 2.0.7 ------------------------------
+- Increased instances number to 6
+
+----  tmbslTDA18260 2.0.6 ------------------------------
+- AGC1 TOP updated: AGC1_Aup and AGC1_Adown
+- xtout_drive_master and xtout_drive_slave added
+
+----  tmbslTDA18260 2.0.5 ------------------------------
+- agc1Gain = tmTDA18260_AGC1_Gain_Fixed_6dB for slave configuration
+- Lvl_AGC1_MasterSingle used in TDA18260LvlAgc1MasterSingleContribution()
+
+----  tmbslTDA18260 2.0.4 ------------------------------
+- TDA18260LvlAgc1MasterSingleContribution() added
+- tmddTDA18260Stream_SetLoFreq(), tmddTDA18260Stream_GetLoFreq() corrected
+- new polynoms added
+
+----  tmbslTDA18260 2.0.3 ------------------------------
+- tmddTDA18260Stream_Set_if_level call in TDA18260_Reset()
+  tmTDA18260_IF_Level_0_8V added
+  ifLevel tmTDA18260_IF_Level_0_5V set by default
+- icp low set to 1 in TDA18260_Reset()
+
+----  tmbslTDA18260 2.0.2 ------------------------------
+- Sigma delta for all Frequencies
+- icp low set to 0 in TDA18260_Reset()
+- TDA18260_GetPowerLevel() implementation with temporarily polynoms
+
+----  tmbslTDA18260 2.0.1 ------------------------------
+- tmddTDA18260Stream_Set_psm_buf1b: bit field inverted
+- tmddTDA18260Stream_Set_psm() removed from TDA18260_Reset()
+- tmddTDA18260Stream_Set_hp_freq() added in TDA18260_SetStandardMode()
+
+----  tmbslTDA18260 2.0.0 ------------------------------
+- new ES2 driver version: 2.0.0
+
+----  tmbslTDA18260 1.0.0 ------------------------------
+- ES1 driver version updated: 0.1.6 -> 1.0.0
+- cfg updated: version 1.0.0: AGC1 & LT time constant modified: 8 replaces 2
+
+----  tmbslTDA18260 0.1.6 ------------------------------
+- rfpoly management: After tmddTDA18260Stream_Expert_Write()
+  a read bit is mandatory to update the I2C map.
+
+----  tmbslTDA18260 0.1.5 ------------------------------
+- Switch management optimization
+- only customer data in config file
+
+----  tmbslTDA18260 0.1.4 ------------------------------
+- TDA18260_GetRssi() implementation
+
+----  tmbslTDA18260 0.1.3 ------------------------------
+- psmBuf1b + psmAGC1 correction
+
+----  tmbslTDA18260 0.1.2 ------------------------------
+agc1_force_gain
+pll_frac_3 to 0 if LO>800MHz
+Digital 7MHz: LPFc set to 7 MHz
+RF Filter name update
+
+----  tmbslTDA18260 0.1.1 ------------------------------
+- BandParameters updated
+
+----  tmbslTDA18260 0.1.0 ------------------------------
+- BandParameters updated
+
+----  tmbslTDA18260 0.0.9 ------------------------------
+- Modification of Init values:
+- IF level to -6dB
+- PD notch to 1
+- LPFc to 8 Mhz for standard Dig_7Mhz
+
+----  tmbslTDA18260 0.0.8 ------------------------------
+Modification of Init values:
+- pll auto source disconnected
+- Launch IR cal activated at reset
+- Set PSM constants set
+- Activate psm :
+
+----  tmbslTDA18260 0.0.7 ------------------------------
+- TDA18260_IRCalibration() removed from TDA18260_Reset()
+
+----  tmbslTDA18260 0.0.6 ------------------------------
+CFR_STB#2665: FE/R: tmbslTDA18260: 0.0.5 -> 0.0.6
+- TDA18260_SetAGC1_loop_off() implemented but must be investigated
+- TDA18260_SwitchSmoothAccess() updated
+
+----  tmbslTDA18260 0.0.5 ------------------------------
+CFR_STB#2665: FE/R: tmbslTDA18260: 0.0.4 -> 0.0.5
+- tmTDA18260_IR_FREQ3: 780MHz replaces with 785MHz
+
+----  tmbslTDA18260 0.0.4 ------------------------------
+CFR_STB#2636: FE/R: tmbslTDA18260: 0.0.3 -> 0.0.4
+- Registers reading added in TDA18260_Reset() to update RegMap in accordance to the hw
+- Variables must be initialized in all functions
+- AGC1_Aup_12dB = 0x03, AGC1_Aup_13_5dB = 0x04, AGC2_Detector4 = 0x0B
+
+----  tmbslTDA18260 0.0.3 ------------------------------
+CFR_STB#2585: FE/R: tmbslTDA18260: 0.0.2 -> 0.0.3
+- TDA18260_WriteAGC2To0dB() correction
+- AGC2_GdownDetector updated
+- tmddTDA18260Stream_Set_stob_gain called for stream B in  TDA18260_IRCAL_InitRestore()
+- resetCalledPreviously and bandIndex initialized for stream B in the TDA18260_Reset()
+
+----  tmbslTDA18260 0.0.2 ------------------------------
+- Memory allocation for each stream
+- tmbslTDA18260_Init() correction
+- Set dta_bypass for Stream B in TDA18260_Reset()
+- tmTDA18260_IR_FREQ3 780000000
+
+
+----  tmbslTDA18260 0.0.1 ------------------------------
+- tmTDA18260_IR_FREQ3: 780MHz replaces with 785MHz
+- psm_agc1 = 0 in TDA18260_Reset()
+- close dta_bypass in TDA18260_Reset()
+- sm = 1 removed in TDA18260_IRCAL_InitRestore()
+- agc1_gain_force set to config agc mode (free by default)  
+
+
+

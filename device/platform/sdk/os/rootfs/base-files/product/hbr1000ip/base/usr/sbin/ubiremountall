@@ -1,0 +1,6 @@
+#!/bin/sh
+
+	umount /var/lib/humaxtv_backup
+	ubidetach -m 4
+	ubiattach -m 4
+	mount -t ubifs -o sync ubi1:dbbackup /var/lib/humaxtv_backup

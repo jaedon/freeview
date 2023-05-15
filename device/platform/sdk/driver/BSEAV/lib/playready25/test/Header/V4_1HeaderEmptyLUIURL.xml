@@ -1,0 +1,15 @@
+<WRMHEADER version="4.1.0.0">
+    <DATA>
+        <LA_URL>http://www.contoso.com/licenseacq.asp</LA_URL>
+        <LUI_URL></LUI_URL>
+        <DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID>
+        <CID>188</CID>
+        <PROTECTINFO>
+            <KID ALGID="AESCTR" VALUE="q4nloyNny0+cXV4jlSR38Q=="></KID>
+        </PROTECTINFO>
+        <DECRYPTORSETUP>ONDEMAND</DECRYPTORSETUP>
+        <NAME>V4Indiv22.wma</NAME>
+        <OWNER>V4SRV</OWNER>
+        <SECURITYVERSION>2.2</SECURITYVERSION>
+    </DATA>
+</WRMHEADER>

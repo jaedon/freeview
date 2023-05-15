@@ -1,0 +1,126 @@
+1: Initialize
+Test_Oem_DeviceStore_Initialize
+
+1: Init/uninit
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_Uninitialize
+
+1: Uninitialization with NULL context
+Test_Oem_DeviceStore_Initialize
+Test_SetctxOemDeviceStore(0)
+Test_Oem_DeviceStore_Uninitialize
+
+1: initialize with NULL context
+Test_SetctxOemDeviceStore(0)
+Test_Oem_DeviceStore_Initialize=-2147024809(DRM_E_INVALIDARG)
+
+1: device registration
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+
+1: device registration and free
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+Test_Oem_DeviceStore_FreeDevice
+
+1: free with null handle
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_FreeDevice=-2147024809(DRM_E_INVALIDARG)
+
+1: register/unregister
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+Test_Oem_DeviceStore_UnRegisterDevice(this is the device id)
+
+1: register/unregister/free
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+Test_Oem_DeviceStore_UnRegisterDevice(this is the device id)
+Test_Oem_DeviceStore_FreeDevice
+
+1: register/get first device
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+Test_Oem_DeviceStore_GetFirstDevice
+Test_ChkVar_OEM_NDTDeviceStore_DeviceHandle
+
+1: no register/get first device
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_GetFirstDevice
+Test_ChkVar_OEM_NDTDeviceStore_DeviceHandle=-2147467259(DRM_E_FAIL)
+
+1: register/get next device
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+Test_Oem_DeviceStore_GetFirstDevice
+Test_Oem_DeviceStore_GetNextDevice
+Test_ChkVar_OEM_NDTDeviceStore_DeviceHandle(0)
+
+1: register/register/get next device
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+Test_Oem_DeviceStore_RegisterDevice(this is another device id)
+Test_Oem_DeviceStore_GetFirstDevice
+Test_Oem_DeviceStore_GetNextDevice
+Test_ChkVar_OEM_NDTDeviceStore_DeviceHandle
+Test_Oem_DeviceStore_GetNextDevice
+Test_ChkVar_OEM_NDTDeviceStore_DeviceHandle(0)
+
+1: getdevicebyid
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+Test_Oem_DeviceStore_GetDeviceByID(this is the device id)
+Test_ChkVar_OEM_NDTDeviceStore_DeviceHandle
+
+1: getdevicebyid failure
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_GetDeviceByID(this is the device id)=-2147024637(DRM_E_NOMORE)
+
+1: getdevicebyid failure
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+Test_Oem_DeviceStore_GetDeviceByID(this is not the device id)=-2147024637(DRM_E_NOMORE)
+
+1: setdeviceattr
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr, this is a test value)
+Test_Oem_DeviceStore_GetDeviceAttr(testattr)
+Test_ChkVar_OEM_NDTDeviceStore_AttrValue(this is a test value)
+
+1: setdeviceattr x 2
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr, this is a test value)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr2, this is another test value)
+Test_Oem_DeviceStore_GetDeviceAttr(testattr)
+Test_ChkVar_OEM_NDTDeviceStore_AttrValue(this is a test value)
+Test_Oem_DeviceStore_GetDeviceAttr(testattr2)
+Test_ChkVar_OEM_NDTDeviceStore_AttrValue(this is another test value)
+
+1: setdeviceattr x 3
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr, this is a test value)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr2, this is another test value)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr3, third test value)
+Test_Oem_DeviceStore_GetDeviceAttrCount(2)=-2147467259(DRM_E_FAIL)
+Test_Oem_DeviceStore_GetDeviceAttrCount(3)
+
+1: setdeviceattr x 4
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr, this is a test value)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr2, this is another test value)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr3, third test value)
+Test_Oem_DeviceStore_SetDeviceAttr(testattr4, final test value)
+Test_Oem_DeviceStore_GetDeviceAttrByIndex(0)
+Test_Oem_DeviceStore_GetDeviceAttrByIndex(1)
+Test_Oem_DeviceStore_GetDeviceAttrByIndex(2)
+Test_Oem_DeviceStore_GetDeviceAttrByIndex(3)
+Test_Oem_DeviceStore_GetDeviceAttrByIndex(4)=-2147024637(DRM_E_NOMORE)
+
+1: commit device (not implemented)
+Test_Oem_DeviceStore_Initialize
+Test_Oem_DeviceStore_RegisterDevice(this is the device id)
+Oem_DeviceStore_CommitDevice=-2147467263(DRM_E_NOTIMPL)

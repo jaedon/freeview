@@ -1,0 +1,14 @@
+prefix=/home/jeehune/projects/cso_original/build/1.2.0-7761eafe8c/stbgcc-4.5.4-2.6/mipsel/ffmpeg
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libavutil
+Description: FFmpeg utility library
+Version: 52.48.101
+Requires: 
+Requires.private: 
+Conflicts:
+Libs: -L${libdir} -lavutil 
+Libs.private: -lm
+Cflags: -I${includedir}

@@ -1,0 +1,8 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmprndtxstub
+TARGETTYPE=LIBRARY
+
+SOURCES =                             \
+    drmprndprotocoltransmitterstub.c  \
+

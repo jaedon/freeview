@@ -1,0 +1,628 @@
+' If you add a new test to this PlayReady ND test suite,
+' please seriously consider porting the test to the Xbox API test suite.
+
+7060:BVT:Test PRND Top Level APIs with rebind
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetch(1 RebindLicense)
+
+7061:BVT:Test PRND Top Level APIs with no rebind and use licgen
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetch(0 UseLicGen)
+
+7062:BVT:Test PRND Top Level APIs with Renewal
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetch(1 RebindLicense)
+TestPRNDTopLevelRenewal()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetch(3 RebindLicense KidAlreadySet)
+
+7063:BVT:Test PRND Top Level APIs with short Expire-After-First-Play
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetch(5 RebindLicense ShortExpireAfterFirstPlay)
+
+7064:BVT:Test PRND Top Level APIs with zero Expire-After-First-Play
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetch(9 RebindLicense ZeroExpireAfterFirstPlay)
+
+7065:BVT:Test PRND Top Level APIs with Short Expire-After-First-Play
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetch(5 RebindLicense ShortExpireAfterFirstPlay)
+
+7066:BVT:Test PRND Top Level APIs with short Expire-After-First-Play and regular expire license
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetch(21 RebindLicense ShortExpireAfterFirstPlay ExpireLicense)
+
+7067:BVT:Test PRND Top Level APIs with Zero Expire-After-First-Play and regular expire license
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetch(25 RebindLicense ZeroExpireAfterFirstPlay ExpireLicense)
+
+7071:FUNC:Ensure PRND cannot rebind a license in the PRND store
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetch(33 RebindLicense ForceLicenseInPRNDRxStore)
+
+7078:BVT:Test PRND Top Level Error Messages
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelErrorMessages
+
+7109:BVT:Test PRND Rebinding of cannot persist license in NST
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetch(4097 RebindLicense CannotPersistInNST)
+
+7112:BVT:Test PRND Rebinding of cannot persist license in EST
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetch(8193 RebindLicense CannotPersistInEST)
+
+' -----------------------------------------------------------------
+' |  BEGIN - invalid PRND Rx license binding tests
+' -----------------------------------------------------------------
+
+7068:BVT:Test PRND Top Level APIs with Invalid PRND License Bind with ExpireAfterFirstPlay
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelInvalidPRNDLicenseBind(1 ExpireAfterFirstPlay)
+
+7069:BVT:Test PRND Top Level APIs with Invalid PRND License Bind with MeteringID
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelInvalidPRNDLicenseBind(2 MeteringID)
+
+7070:BVT:Test PRND Top Level APIs with Invalid PRND License Bind with DomainID
+SkipTestIf( XBOX, !DomainSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelInvalidPRNDLicenseBind(4 DomainID)
+
+' -----------------------------------------------------------------
+' |  END - invalid PRND Rx license binding tests
+' -----------------------------------------------------------------
+
+
+' -----------------------------------------------------------------
+' |  BEGIN - chained license rebinding tests
+' -----------------------------------------------------------------
+
+7072:BVT:Test PRND Top Level API with Chain License Rebinding
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetchChainedLicenseRebind()
+
+7074:BVT:Test PRND Top Level API with Chain License Rebinding With Expiring Root
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetchChainedLicenseRebind(1 ExpireRoot)
+
+7075:BVT:Test PRND Top Level API with Chain License Rebinding With Expiring Leaf
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetchChainedLicenseRebind(2 ExpireLeaf)
+
+7076:BVT:Test PRND Top Level API with Chain License Rebinding With Expiring Leaf and Root
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetchChainedLicenseRebind(3 ExpireLeaf ExpireRoot)
+
+7079:BVT:Test PRND Top Level API with Chain License Rebinding for DVR
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetchChainedLicenseRebind(4 BindOnlyRoot)
+
+' -----------------------------------------------------------------
+' |  END - chained license rebinding tests
+' -----------------------------------------------------------------
+
+
+' -----------------------------------------------------------------
+' |  BEGIN - rebinding tests with the license already in the Tx HDS
+' -----------------------------------------------------------------
+
+7077:FUNC:Test PRND Top Level API with rebind to license already in Tx Store, scalable root
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+
+' Scalable licenses with Key derivation towards left and then right side in the tree
+TestManagerSetRights( Play )
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerCreateXMRLicenseFromPool( ROOT, LiveTVLicenses.xml, "Root 2 6 12" )
+TestManagerCreateXMRLicenseFromPool( LEAF, LiveTVLicenses.xml, "Leaf 11" )
+TestManagerGenerateXMRResponse( LEAF, ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestPRNDTopLevelLicenseFetch( 65 RebindLicense LicenseAlreadyInStore )
+
+
+'------------------------
+7083:FUNC:Test PRND Top Level API with rebind to license with: Issue date in the past
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+
+TestManagerSetRights( Play )
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerCreateXMRLicenseFromPool( LICENSE, RebindingLicenses.xml, "IssueDateInThePast" )
+TestManagerGenerateXMRResponse( LICENSE )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestPRNDTopLevelLicenseFetch( 65 RebindLicense LicenseAlreadyInStore )
+TestPRNDTopLevelValidateGeneratedLicense()
+
+
+'------------------------
+7084:FUNC:Test PRND Top Level API with rebind to license with: Metering ID
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+
+TestManagerSetRights( Play )
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerCreateXMRLicenseFromPool( LICENSE, RebindingLicenses.xml, "HasMeteringID" )
+TestManagerGenerateXMRResponse( LICENSE )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestPRNDTopLevelLicenseFetch( 321 RebindLicense LicenseAlreadyInStore LicenseHasMID )
+TestPRNDTopLevelValidateGeneratedLicense()
+
+
+'------------------------
+7085:FUNC:Test PRND Top Level API with rebind to license with: Domain ID
+SkipTestIf( XBOX, !DomainSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+
+TestManagerSetRights( Play )
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+GenerateDomainJoinResponse( TEST_DOMAIN_JOIN_RESPONSE_VAR, HelloWorld, 2, NjU0MzIxMDk4NzY1NDMyMQ==, AH+03juKbUGbHl1V/QIwRA==, DomainCertChainForEmbeddingTest.dat, 5, 0x45a2db00, "qsvqMkfM/LdfprO42rOBT1hAMLQjbkZy+oMgGdD3LZg=", 0x45a03800, "ercDEr7JUw3IU+hRQwC9M4cQ+8ACYM36c90Qe9hupEk=", 0x459d9500, "DOB4Eclbzex72jutbaCnGd5MrXK8L/fXZX2UT6faWMM=", 0x459af200, "8tA7hrpMroHJibgBoedBPjTjvtabuM6H9OqK+WLogbU=", 0x45984f00, "mpYLdZ8Y2XIV0NxvwXeJDzGiisJgorsmsrxtj+KAr1M=" )
+ProcessDomainJoinResponse( TEST_DOMAIN_JOIN_RESPONSE_VAR )=DRM_S_MORE_DATA
+TestManagerCreateXMRLicenseFromPool( LICENSE, LiveTVLicenses.xml, "Simple license with 30s RemovalDate", NjU0MzIxMDk4NzY1NDMyMQ== )
+TestManagerGenerateXMRResponse( LICENSE )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestPRNDTopLevelLicenseFetch( 65 RebindLicense LicenseAlreadyInStore )
+TestPRNDTopLevelValidateGeneratedLicense()
+
+
+'------------------------
+7086:FUNC:Test PRND Top Level API with rebind to license with: No Expiration Dates, Clock Drift +1 Minute
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration( 60 SECONDS )
+TestPRNDTopLevelProximityDetection()
+
+TestManagerSetRights( Play )
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerCreateXMRLicenseFromPool( LICENSE, RebindingLicenses.xml, "HasNoExpirationDates" )
+TestManagerGenerateXMRResponse( LICENSE )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestPRNDTopLevelLicenseFetch( 65 RebindLicense LicenseAlreadyInStore )
+TestPRNDTopLevelValidateGeneratedLicense()
+
+
+'------------------------
+7087:FUNC:Test PRND Top Level API with rebind to license with: Has Expiration Date, Clock Drift Rx -4 Minutes
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration( -240 SECONDS )
+TestPRNDTopLevelProximityDetection()
+
+TestManagerSetRights( Play )
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerCreateXMRLicenseFromPool( LICENSE, RebindingLicenses.xml, "HasExpirationDate" )
+TestManagerGenerateXMRResponse( LICENSE )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestPRNDTopLevelLicenseFetch( 65 RebindLicense LicenseAlreadyInStore )
+TestPRNDTopLevelValidateGeneratedLicense()
+
+
+'------------------------
+7088:FUNC:Test PRND Top Level API with rebind to license with: Has Expire After First Play, Clock Drift Rx +15 Seconds
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration( 15 SECONDS )
+TestPRNDTopLevelProximityDetection()
+
+TestManagerSetRights( Play )
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerCreateXMRLicenseFromPool( LICENSE, RebindingLicenses.xml, "HasExpireAfterFirstPlay" )
+TestManagerGenerateXMRResponse( LICENSE )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestPRNDTopLevelLicenseFetch( 65 RebindLicense LicenseAlreadyInStore )
+TestPRNDTopLevelValidateGeneratedLicense()
+
+
+'------------------------
+7089:FUNC:Test PRND Top Level API with rebind to license with: Has Expiration Date Greater Than Expire-After-First-Play Date, Clock Drift Rx -5 Seconds
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration( -5 SECONDS )
+TestPRNDTopLevelProximityDetection()
+
+TestManagerSetRights( Play )
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerCreateXMRLicenseFromPool( LICENSE, RebindingLicenses.xml, "HasExpirationDate GT HasExpireAfterFirstPlay" )
+TestManagerGenerateXMRResponse( LICENSE )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestPRNDTopLevelLicenseFetch( 65 RebindLicense LicenseAlreadyInStore )
+TestPRNDTopLevelValidateGeneratedLicense()
+
+
+'------------------------
+7090:FUNC:Test PRND Top Level API with rebind to license with: Has Expiration Date Less Than Expire-After-First-Play Date, Clock Drift Rx -30 Seconds
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration( -30 SECONDS )
+TestPRNDTopLevelProximityDetection()
+
+TestManagerSetRights( Play )
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerCreateXMRLicenseFromPool( LICENSE, RebindingLicenses.xml, "HasExpirationDate LT HasExpireAfterFirstPlay" )
+TestManagerGenerateXMRResponse( LICENSE )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestPRNDTopLevelLicenseFetch( 65 RebindLicense LicenseAlreadyInStore )
+TestPRNDTopLevelValidateGeneratedLicense()
+
+
+'------------------------
+7091:FUNC:Test PRND Top Level API with rebind to license with: Has Temp-Store_only Right
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+
+TestManagerSetRights( Play )
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerCreateXMRLicenseFromPool( LICENSE, RebindingLicenses.xml, "HasTempStoreOnlyRight" )
+TestManagerGenerateXMRResponse( LICENSE )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestPRNDTopLevelLicenseFetch( 65 RebindLicense LicenseAlreadyInStore )
+TestPRNDTopLevelValidateGeneratedLicense( 1 HAS_OTHER_RIGHTS )
+
+
+'------------------------
+7092:FUNC:Test PRND Top Level API with rebind to license with: Has Copy Policy Container
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+
+TestManagerSetRights( Play )
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerCreateXMRLicenseFromPool( LICENSE, RebindingLicenses.xml, "HasCopyPolicyContainer" )
+TestManagerGenerateXMRResponse( LICENSE )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestPRNDTopLevelLicenseFetch( 65 RebindLicense LicenseAlreadyInStore )
+TestPRNDTopLevelValidateGeneratedLicense()
+
+
+'------------------------
+7093:FUNC:Test PRND Top Level API with rebind to license with: Has Copy Policy Container With Sub-Objects
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+
+TestManagerSetRights( Play )
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerCreateXMRLicenseFromPool( LICENSE, RebindingLicenses.xml, "HasCopyPolicyContainerWithSubObjects" )
+TestManagerGenerateXMRResponse( LICENSE )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestPRNDTopLevelLicenseFetch( 65 RebindLicense LicenseAlreadyInStore )
+TestPRNDTopLevelValidateGeneratedLicense()
+
+
+'------------------------
+7094:FUNC:Test PRND Top Level API with rebind to license with: Has External Parse Object(s), App-ID-List Only
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+
+TestManagerSetRights( Play )
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerCreateXMRLicenseFromPool( LICENSE, RebindingLicenses.xml, "HasExternalParseObjects App-ID-List only" )
+TestManagerGenerateXMRResponse( LICENSE )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestPRNDTopLevelLicenseFetch( 65 RebindLicense LicenseAlreadyInStore )
+TestPRNDTopLevelValidateGeneratedLicense()
+
+
+'------------------------
+7095:FUNC:Test PRND Top Level API with rebind to license with: Has External Parse Object(s), Not App-ID-List
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+
+TestManagerSetRights( Play )
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerCreateXMRLicenseFromPool( LICENSE, RebindingLicenses.xml, "HasExternalParseObjects Not App-ID-List" )
+TestManagerGenerateXMRResponse( LICENSE )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestPRNDTopLevelLicenseFetch( 65 RebindLicense LicenseAlreadyInStore )
+TestPRNDTopLevelValidateGeneratedLicense( 2 HAS OTHER EXT PARSE OBJS )
+
+
+'------------------------
+7096:FUNC:Test PRND Top Level API with rebind to license with: Has External Parse Object(s), App-ID-List and Not App-ID-List
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+
+TestManagerSetRights( Play )
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerCreateXMRLicenseFromPool( LICENSE, RebindingLicenses.xml, "HasExternalParseObjects App-ID-List and Not App-ID-List" )
+TestManagerGenerateXMRResponse( LICENSE )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestPRNDTopLevelLicenseFetch( 65 RebindLicense LicenseAlreadyInStore )
+TestPRNDTopLevelValidateGeneratedLicense( 2 HAS OTHER EXT PARSE OBJS )
+
+
+'------------------------
+7104:FUNC:Test PRND Top Level API with rebind to chained license with: Leaf has Metering ID
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+
+TestManagerSetRights( Play )
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerCreateXMRLicenseFromPool( ROOT, RebindingLicenses.xml, "Root1" )
+TestManagerCreateXMRLicenseFromPool( LEAF, RebindingLicenses.xml, "LeafWithMeteringID" )
+TestManagerGenerateXMRResponse( ROOT, LEAF )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestPRNDTopLevelLicenseFetch( 321 RebindLicense LicenseAlreadyInStore LicenseHasMID )
+
+
+'------------------------
+7105:FUNC:Test PRND Top Level API with rebind to chained license with: Leaf has 24h Expire After First Play
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+
+TestManagerSetRights( Play )
+TestManagerSetKID( !3x8NSroVg4eXCzWqPU!BA== )
+TestManagerCreateXMRLicenseFromPool( ROOT, RebindingLicenses.xml, "Root1" )
+TestManagerCreateXMRLicenseFromPool( LEAF, RebindingLicenses.xml, "LeafWithExpireAfterFirstPlay" )
+TestManagerGenerateXMRResponse( ROOT, LEAF )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+TestPRNDTopLevelLicenseFetch( 577 RebindLicense LicenseAlreadyInStore RxLeafHasEAFP )
+
+
+'------------------------
+7106:FUNC:Test PRND Top Level APIs with Play Enabler License
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetch(1025 RebindLicense ValidPlayEnabler)
+
+7107:FUNC:Test PRND Top Level APIs with Invalid Play Enabler License
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetch(2049 RebindLicense InvalidPlayEnabler)
+
+7108:FUNC:Test PRND Top Level APIs with Valid and Invalid Play Enabler License
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetch(3073 RebindLicense ValidPlayEnabler InvalidPlayEnabler)
+
+
+' ---------------------------------------------------------------
+' |  END - rebinding tests with the license already in the Tx HDS
+' ---------------------------------------------------------------
+
+
+' -----------------------------------------------------------------
+' |  BEGIN - Delayed Proxmity detection
+' -----------------------------------------------------------------
+
+7097:FUNC:Test PRND Top Level API with delayed proximity detection
+SkipTestIf( XBOX, !SystemTimeChangeSupported, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+
+' Start proximity detection before registration 
+TestPRNDTopLevelProximityDetection(2 StartBeforeRegistration) = DRM_E_DEVICE_NOT_REGISTERED
+
+TestPRNDTopLevelRegistration()
+
+' Delay 2mins and 1 second after registration
+Test_ChangeTimeSeconds(121)
+TestPRNDTopLevelProximityDetection() = DRM_E_DEVICE_NOT_REGISTERED
+
+' Re-attempt proximity detection after 2mins of failure
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+
+' Re-init proximit detection after a successful one
+TestPRNDTopLevelProximityDetection( 1 ExpectSuccessStart )
+
+' Renewal before 48 hours is up
+Test_ChangeTimeSeconds(172700)
+TestPRNDTopLevelRenewal()
+TestPRNDTopLevelProximityDetection()
+
+' Delay 48 hours and restart proximity detection
+Test_ChangeTimeSeconds(172801)
+TestPRNDTopLevelProximityDetection() = DRM_E_DEVICE_NOT_REGISTERED
+
+' Cannot renewal because of session expired
+TestPRNDTopLevelRenewal() = DRM_E_DEVICE_NOT_REGISTERED
+
+' -----------------------------------------------------------------
+' |  END - Delayed Proxmity detection
+' -----------------------------------------------------------------
+
+
+' -----------------------------------------------------------------
+' |  BEGIN - Test malformed PRND calls
+' -----------------------------------------------------------------
+
+7098:FUNC:Test PRND Top Level API with malformed registration request
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestMalformedPRNDTopLevelRegistration()
+'Assert on Drm_Prnd_Transmitter_RegistrationRequest_Process as DRM_E_BCERT_UNEXPECTED_OBJECT_HEADER is not an expected error
+Test_EnsureAsserted
+
+'------------------------
+7099:FUNC:Test PRND Top Level API with malformed proximity detection
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestMalformedPRNDTopLevelProximityDetection()
+
+'------------------------
+7101:FUNC:Test PRND Top Level API with multiple session renewal and proxmity detection
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelRenewal()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelRenewal()
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelRenewal()
+TestPRNDTopLevelProximityDetection()
+
+'------------------------
+7102:FUNC:Test PRND Top Level API with license fetch in wrong order
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelLicenseFetch(129 RebindLicense StartBeforeRegistration) = DRM_E_DEVICE_NOT_REGISTERED
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelLicenseFetch(1 RebindLicense) = DRM_E_DEVICE_NOT_REGISTERED
+TestPRNDTopLevelProximityDetection()
+TestPRNDTopLevelLicenseFetch(1 RebindLicense)
+
+'------------------------
+7103:FUNC:Test PRND Top Level API with malformed license fetch
+SkipTestIf( XBOX, !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestMalformedPRNDTopLevelLicenseFetch()
+
+' -----------------------------------------------------------------
+' |  END - Test malformed PRND calls
+' -----------------------------------------------------------------
+
+' If you add a new test to this PlayReady ND test suite,
+' please seriously consider porting the test to the Xbox API test suite.

@@ -1,0 +1,7 @@
+# This script installs drivers for non-encoder platforms.
+
+# uname reads 7315bbx
+CHIP=7315
+/sbin/rmmod bcm${CHIP}
+/sbin/insmod bcm${CHIP}.o
+

@@ -1,0 +1,281 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Scenario/Base">   
+    <interface name="Octopus.Appkit.Scenario.Base">
+
+    <method name="GetMainLanguage">
+    	<arg type="s" name="language" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetMainLanguage">
+    	<arg type="s" name="language" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetAudioLanguage">
+    	<arg type="i" name="index" direction="in" />
+    	<arg type="s" name="language" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetAudioLanguage">
+    	<arg type="i" name="index" direction="in" />
+    	<arg type="s" name="language" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetSubtitleLanguage">
+    	<arg type="i" name="index" direction="in" />
+    	<arg type="s" name="language" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetSubtitleLanguage">
+    	<arg type="i" name="index" direction="in" />
+    	<arg type="s" name="language" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                        
+
+    <method name="GetHardOfHearing">
+    	<arg type="b" name="enable" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetHardOfHearing">
+    	<arg type="b" name="enable" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetMaturityRating">
+    	<arg type="u" name="rating" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetMaturityRating">
+    	<arg type="u" name="rating" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+    
+    <method name="GetCountryCode">
+    	<arg type="u" name="countryCode" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetCountryCode">
+    	<arg type="u" name="countryCode" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+    
+     <method name="GetOperatorType">
+    	<arg type="u" name="opType" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetOperatorType">
+    	<arg type="u" name="opType" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+    
+     <method name="GetAntennaConnection">
+    	<arg type="u" name="connectionType" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetAntennaConnection">
+    	<arg type="u" name="connectionType" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>      
+    
+     <method name="GetStartPadding">
+    	<arg type="i" name="padding" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetStartPadding">
+    	<arg type="i" name="padding" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>        
+    
+     <method name="GetEndPadding">
+    	<arg type="i" name="padding" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetEndPadding">
+    	<arg type="i" name="padding" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>      
+    
+     <method name="GetAutoDelete">
+    	<arg type="b" name="autoDelete" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetAutoDelete">
+    	<arg type="b" name="autoDelete" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>         
+
+     <method name="GetPostCode">
+     	<arg type="s" name="postcode" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetPostCode">
+    	<arg type="s" name="postcode" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+     <method name="GetGMTOffset">
+     	<arg type="i" name="gmtOffset" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetGMTOffset">
+    	<arg type="i" name="gmtOffset" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+        
+     <method name="GetChannelSetupPIN">
+     	<arg type="b" name="enable" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetChannelSetupPIN">
+    	<arg type="b" name="enable" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+     <method name="GetGuidancePolicy">
+     	<arg type="u" name="guidancePolicy" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetGuidancePolicy">
+    	<arg type="u" name="guidancePolicy" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+     <method name="GetSubtitleSetting">
+     	<arg type="b" name="enable" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetSubtitleSetting">
+    	<arg type="b" name="enable" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+     <method name="GetDayLightSaving">
+     	<arg type="b" name="enable" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetDayLightSaving">
+    	<arg type="b" name="enable" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+     <method name="GetTimeUpdate">
+     	<arg type="b" name="enable" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetTimeUpdate">
+    	<arg type="b" name="enable" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+     <method name="GetBouquetName">
+     	<arg type="s" name="bouquet" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetBouquetName">
+    	<arg type="s" name="bouquet" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+     <method name="GetBouquetID">
+     	<arg type="i" name="bouquetId" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetBouquetID">
+    	<arg type="i" name="bouquetId" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+     <method name="GetSIMode">
+     	<arg type="u" name="SIMode" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetSIMode">
+    	<arg type="u" name="SIMode" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+     <method name="GetRegionCode">
+     	<arg type="i" name="regionCode" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetRegionCode">
+    	<arg type="i" name="regionCode" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+     <method name="GetAdultChannels">
+     	<arg type="u" name="adultChannel" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetAdultChannels">
+    	<arg type="u" name="adultChannel" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+        
+     <method name="GetSWUpdateVersion">
+     	<arg type="s" name="swUpdateVersion" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetSatRecReceiverId">
+    	<arg type="i" name="receiverId" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>           
+        
+     <method name="GetTVTVEnable">
+     	<arg type="b" name="enable" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetTVTVEnable">
+    	<arg type="b" name="enable" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>           
+        
+     <method name="GetTVTVEPGDownload_StandbyEnable">
+     	<arg type="b" name="enable" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetTVTVEPGDownload_StandbyEnable">
+    	<arg type="b" name="enable" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>          
+
+     <method name="GetDescrambleOnOff">
+     	<arg type="b" name="enable" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetDescrambleOnOff">
+    	<arg type="b" name="enable" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+    
+  </interface>
+</node>

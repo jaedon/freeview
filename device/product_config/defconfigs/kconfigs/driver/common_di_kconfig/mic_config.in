@@ -1,0 +1,14 @@
+########################################
+# DI MIC configuration menu
+########################################
+
+config MIC
+	bool
+	prompt "MIC"
+	default n
+
+config MIC_NUM
+	int "the number of USB MIC"
+	range 1 3
+	default	3 
+	depends on MIC

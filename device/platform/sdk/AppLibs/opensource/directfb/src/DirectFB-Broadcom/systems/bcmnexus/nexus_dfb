@@ -1,0 +1,44 @@
+#!/bin/sh
+#
+# (C)2007 Broadcom Corporation
+# This script prepares a settop/dtv for the DirectFB driver.
+#
+# this script sets LD_LIBRARY_PATH environment variable
+# and checks consistence of the system configuration
+LD_LIBRARY_PATH=.:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH
+PATH=.:${PATH}
+export PATH
+
+case $1 in
+install)
+	if [ -f BIN_DIR/nexus.install ] ; then
+		# Run the standard install script
+		. BIN_DIR/nexus.install
+		# Specify DFB hotplug script instead of /sbin/stbhotplug
+		echo "HOTPLUG_DIR/dfbhotplug" > /proc/sys/kernel/hotplug
+		echo "Done"
+	else
+		echo "The settop script could not find the nexus.install script."
+		echo "Make sure you have a complete reference software image in the"
+		echo "current directory."
+		exit 1
+	fi
+	;;
+join)
+    shift
+	# Start whatever application is requested
+	target=$1;
+	shift
+	exec ${target} $@ --dfb:module-dir=/usr/local/lib/directfb-1.4-17
+	;;
+*)
+	# Run a platform-specific script in order to install drivers
+	[ -f "BIN_DIR/nexus.974xx" ] && . BIN_DIR/nexus.974xx
+
+	# Start whatever application is requested
+	target=$1;
+	shift
+	exec ${target} $@
+	;;
+esac

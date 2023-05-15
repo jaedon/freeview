@@ -1,0 +1,41 @@
+##########################################
+# DI CI configuration menu
+##########################################
+
+config CI
+	bool
+	prompt "CI"
+	default n
+
+config USE_CI_BUS_BIG_ENDIAN_MODE
+	bool
+	prompt "USE_CI_BUS_BIG_ENDIAN_MODE"
+	help
+		Enable it if CI data line is connected in upper 8bit of EBI bus.
+	default n
+	depends on CI	
+	
+config USE_EXTERNAL_CI_CONTROLLER
+	bool
+	prompt "USE_EXTERNAL_CI_CONTROLLER"
+	help
+		Select when external CI controller is used. (Don't enable this option when FPGA for path control only is used)
+	default n
+	depends on CI
+
+	config EXT_CI_CTRL_INT_MODE
+	        bool
+	        prompt "EXT_CI_CTRL_INT_MODE"
+        	help
+	                Select I/O mode of external CI controller, communication with CAM. (n: polling, y:interrupt)
+        	default n
+	        depends on USE_EXTERNAL_CI_CONTROLLER
+
+config CI_NULL
+	bool
+	prompt "CI_NULL"
+	help
+		use DI_CI_xx() API, but no CI HW.
+	default n
+	depends on CI
+

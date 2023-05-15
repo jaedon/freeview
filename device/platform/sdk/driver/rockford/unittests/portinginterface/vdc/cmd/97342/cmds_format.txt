@@ -1,0 +1,27 @@
+rul 
+ovc 
+pb 
+os 0 0 
+ow 
+c1 
+oc 
+ow 
+c0  
+cf 3  
+dnr 30 2 80 2 90 2 70
+mad 1 1 0 0 0 0
+clear sleep bvncb 
+resizefmtstress 200 
+bvncb 
+sleep 
+rul 
+pb 
+c1 
+cw 
+cd 
+c0 
+cw 
+cs 
+cd 
+quit 
+

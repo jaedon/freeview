@@ -1,0 +1,27 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmcore
+TARGETTYPE=LIBRARY
+
+SOURCES =                         \
+    ../drmchain.c                 \
+    ../drmcleanstore.c            \
+    ../drmdebug.c                 \
+    ../drmembedding.c             \
+    ../drmhdrbuilder.c            \
+    ../drmkeygen.c                \
+    ../drmlicacqresp.c            \
+    ../drmliceval.c               \
+    ../drmrevocation.c            \
+    ../drmint64.c                 \
+    ../drmrevocationstore.c       \
+    ../drmsoapxmlutility.c        \
+    ../drmlicacqv3.c              \
+    ../drmbcrlparser.c            \
+    ../drmmathsafe.c              
+

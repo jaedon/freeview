@@ -1,0 +1,18 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=HDSTest
+TARGETTYPE=PROGRAM
+
+SOURCES =     \
+    ../main.c \
+
+TARGETLIBS =                        \
+    $(_DRM_TEST_HDS_LIB)            \
+    $(_DRM_TEST_LIBS)               \
+    $(_DRM_PLAYREADYPK_LIB)         \
+

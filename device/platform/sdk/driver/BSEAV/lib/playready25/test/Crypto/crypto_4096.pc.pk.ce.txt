@@ -1,0 +1,66 @@
+91680:BVT:P0: DRM_RSA: 4096-bit Encrypt/Decrypt with random data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 4096 KeyLength )
+Test_DRM_RSA_Encrypt( 4096 KeyLength, 86 DataLength )
+Test_DRM_RSA_Decrypt( 4096 KeyLength, 86 DataLength )
+Test_OEM_RSA_ZeroKeys
+
+91681:BVT:P0: DRM_RSA: 4096-bit Sign/Verify with random data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 4096 KeyLength )
+Test_DRM_RSA_Sign( 4096 KeyLength, 86 DataLength )
+Test_DRM_RSA_Verify( 4096 KeyLength, 86 DataLength, GOOD VerifyType )
+Test_OEM_RSA_ZeroKeys
+
+91682:BVT:P0: OEM_RSA: 4096-bit Encrypt/Decrypt with random data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 4096 KeyLength )
+Test_OEM_RSA_Encrypt( 4096 KeyLength, RANDOM PlainText )
+Test_OEM_RSA_Decrypt( 4096 KeyLength )
+Test_OEM_RSA_ZeroKeys
+
+91683:BVT:P0: OEM_RSA: 4096-bit Encrypt/Decrypt with known data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 4096 KeyLength )
+Test_OEM_RSA_Encrypt( 4096 KeyLength, KNOWN1 PlainText )
+Test_OEM_RSA_Decrypt( 4096 KeyLength )
+Test_OEM_RSA_ZeroKeys
+Test_OEM_RSA_KeySetup( 4096 KeyLength )
+Test_OEM_RSA_Encrypt( 4096 KeyLength, KNOWN2 PlainText )
+Test_OEM_RSA_Decrypt( 4096 KeyLength )
+Test_OEM_RSA_ZeroKeys
+
+91684:DRT:P0: DRM_RSA: 4096-bit Encrypt/Decrypt with short data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 4096 KeyLength )
+Test_DRM_RSA_Encrypt( 4096 KeyLength, 8 DataLength )
+Test_DRM_RSA_Decrypt( 4096 KeyLength, 8 DataLength )
+Test_OEM_RSA_ZeroKeys
+
+91685:DRT:P0: DRM_RSA: 4096-bit Sign/Verify with short data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 4096 KeyLength )
+Test_DRM_RSA_Sign( 4096 KeyLength, 8 DataLength )
+Test_DRM_RSA_Verify( 4096 KeyLength, 8 DataLength, GOOD VerifyType )
+Test_OEM_RSA_ZeroKeys
+
+91686:DRT:P0: DRM_RSA: 4096-bit Sign/Verify with bad data should not work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 4096 KeyLength )
+Test_DRM_RSA_Sign( 4096 KeyLength, 86 DataLength )
+Test_DRM_RSA_Verify( 4096 KeyLength, 86 DataLength, BAD VerifyType )=0x80040E82L(DRM_E_RSA_SIGNATURE_ERROR)
+Test_OEM_RSA_ZeroKeys
+
+91687:DRT:P0: DRM_RSA: 4096-bit Multiple calls to Encrypt/Decrypt should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 4096 KeyLength )
+Test_DRM_RSA_Encrypt( 4096 KeyLength, 86 DataLength )
+Test_DRM_RSA_Decrypt( 4096 KeyLength, 86 DataLength )
+Test_DRM_RSA_Encrypt( 4096 KeyLength, 86 DataLength )
+Test_DRM_RSA_Decrypt( 4096 KeyLength, 86 DataLength )
+Test_DRM_RSA_Encrypt( 4096 KeyLength, 86 DataLength )
+Test_DRM_RSA_Decrypt( 4096 KeyLength, 86 DataLength )
+Test_DRM_RSA_Encrypt( 4096 KeyLength, 86 DataLength )
+Test_DRM_RSA_Decrypt( 4096 KeyLength, 86 DataLength )
+Test_OEM_RSA_ZeroKeys
+

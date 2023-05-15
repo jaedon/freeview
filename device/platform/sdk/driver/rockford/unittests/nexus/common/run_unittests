@@ -1,0 +1,78 @@
+############################################################
+#     Copyright (c) 2003-2011, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: run_unittests $
+# $brcm_Revision: Hydra_Software_Devel/3 $
+# $brcm_Date: 11/15/11 11:30a $
+#
+# Module Description:
+#
+# Revision History:
+#
+# Created: 08/28/2007 by Jon Garrett
+#
+# $brcm_Log: /rockford/unittests/nexus/common/run_unittests $
+# 
+# Hydra_Software_Devel/3   11/15/11 11:30a erickson
+# SWDEPRECATED-3044: strip comments, blank lines and missing files
+# 
+# Hydra_Software_Devel/2   2/4/10 2:30p mward
+# SW7125-195: link videos directory used by many of the tests.
+# 
+# Hydra_Software_Devel/1   11/3/08 11:43a erickson
+# PR42679: update
+#
+############################################################
+
+
+if [ $1 ]; then
+FILES=`cat auto_unittests.txt|sed 's/#.*//'|grep $1`
+else
+FILES=`cat auto_unittests.txt|sed 's/#.*//'`
+fi
+
+# Create videos directory.  The apps expect it.
+if [ ! -d videos ]; then
+    if [ -d /data ]; then
+        # glibc filesystems
+        if [ ! -d /data/videos ]; then
+            mkdir /data/videos
+        fi
+        ln -sf /data/videos .
+    else
+    if [ -d /mnt/hd ]; then
+        # uclibc filesystems
+        if [ ! -d /mnt/hd/videos ]; then
+            mkdir /mnt/hd/videos
+        fi
+        ln -sf /mnt/hd/videos .
+    else
+        # default to create it right here
+        mkdir videos
+    fi
+    fi
+fi
+
+for file in $FILES; do
+    if [ -e $file ]; then
+        # run app
+        echo ---------------------------------------
+        echo Running $file
+        echo ---------------------------------------
+        time nexus $file
+    
+        if [ $? != 0 ]; then
+            echo "#######################################";
+            echo "###" $file failed;
+            echo "#######################################";
+        fi
+    
+        sleep 2
+    fi    
+done

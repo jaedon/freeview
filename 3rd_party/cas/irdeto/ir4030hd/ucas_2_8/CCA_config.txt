@@ -1,0 +1,19 @@
+CCA config file이 오면 아래와 같이 변경 되어야 한다. 
+
+[MyHD]
+myhdmedia_C01_S00_#43.cfg -> IrUC_PSFile_9
+myhdmedia_C01_S00_V01_T00_4.0.0_PInteractive.bin -> IrUC_PSFile_1
+
+[CNE]
+cnegypt_C01_S00_4.0.0_2014-05-16.cfg -> IrUC_PSFile_9
+cnegypt_C01_S00_V01_T00_4.0.0_PInteractive.bin -> IrUC_PSFile_1_01
+cnegypt_C01_S00_V02_T00_4.0.0_PInteractive.bin -> IrUC_PSFile_1_02
+cnegypt_C01_S00_V03_T00_4.0.0_PInteractive.bin -> IrUC_PSFile_1_03
+cnegypt_C01_S00_V04_T00_4.0.0_PInteractive.bin -> IrUC_PSFile_1_04
+cnegypt_C01_S00_V05_T00_4.0.0_PInteractive.bin -> IrUC_PSFile_1_05
+cnegypt_C01_S00_V06_T00_4.0.0_PInteractive.bin -> IrUC_PSFile_1_06
+cnegypt_C01_S00_V07_T00_4.0.0_PInteractive.bin -> IrUC_PSFile_1_07
+cnegypt_C01_S00_V08_T00_4.0.0_PInteractive.bin -> IrUC_PSFile_1_08
+cnegypt_C01_S00_V09_T00_4.0.0_PInteractive.bin -> IrUC_PSFile_1_09
+cnegypt_C01_S00_V0A_T00_4.0.0_PInteractive.bin -> IrUC_PSFile_1_10
+

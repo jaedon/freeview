@@ -1,0 +1,8 @@
+[NVRAMSPL
+	"./input/nv_pre.bin"	$0
+	"./input/nv_post.bin"	$F8000
+	"./input/nv_trsh.bin"	$135FEA
+	"./input/nv_post2.bin"	$136000
+	"./input/nv_trsh2.bin"	$1EFFEA
+]
+

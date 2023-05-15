@@ -1,0 +1,35 @@
+ovc
+pb
+x0 och 0 0
+os
+ow
+sbvn 11 11 0 1 31 31 0 1 0 1
+
+clear sleep bvncb
+
+anr 0
+mad 0
+
+anr 2 10 0 0
+anr 0
+
+mad 1 1 0 0 0 0
+mad 0
+
+anr 2 10 0 0
+mad 1 1 0 0 0 0
+mad 0
+anr 0
+
+mad 1 1 0 0 0 0
+anr 2 10 0 0
+anr 0
+
+bvncb
+
+pb
+cw
+cs
+cd
+quit
+

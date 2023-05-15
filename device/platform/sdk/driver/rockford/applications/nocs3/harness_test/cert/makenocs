@@ -1,0 +1,9 @@
+export BHSM_OTPMSP=ON
+export BHSM_KEYLADDER=ON
+#NEXUS_DIR=/home/user/Works/CERT_SRC/nexus/
+#NEXUS_SECURITY_KEYLADDER_EXTENSION_INC="${NEXUS_DIR}/extensions/security/keyladder/7231/keyladder_ext.inc"
+export NEXUS_SECURITY_KEYLADDER_EXTENSION_INC=/home/user/Works/CERT_SRC/nexus/extensions/security/keyladder/7231/keyladder_ext.inc
+export NEXUS_SECURITY_OTPMSP_EXTENSION_INC=/home/user/Works/CERT_SRC/nexus/extensions/security/otpmsp/7231/otpmsp_ext.inc
+export NEXUS_SECURITY_USERCMD_EXTENSION_INC=/home/user/Works/CERT_SRC/nexus/extensions/security/usercmd/7231/usercmd_ext.inc
+export HSM_SOURCE_AVAILABLE=y
+make RAP_AC3_SUPPORT=y NEXUS_POWER_MANAGEMENT=n POWERSTANDBY_SUPPORT=n HSM_SOURCE_AVAILABLE=y BHSM_KEYLADDER=ON BHSM_OTPMSP=ON BUILD_SYSTEM=nexus BHDM_CEC_SUPPORT=n CUST=NAGRA

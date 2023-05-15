@@ -1,0 +1,4 @@
+CCA config file이 오면 아래와 같이 변경 되어야 한다. 
+
+myhdmedia_C01_S00_#43.cfg -> IrUC_PSFile_9
+myhdmedia_C01_S00_V01_T00_4.0.0_PInteractive.bin -> IrUC_PSFile_1

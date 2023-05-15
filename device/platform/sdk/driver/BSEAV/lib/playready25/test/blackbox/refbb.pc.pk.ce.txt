@@ -1,0 +1,232 @@
+9670:BVT:GetClientID should return the proper client info
+SkipTestIf(!WMDRMSupported)
+Test_API_GetClientID(GLOBAL, NORMAL)
+Test_VerifyClientID
+
+9677:BVT:CanBind should return DRM_SUCCESS for valid binding info
+SkipTestIf(!WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, VALID)
+Test_API_CanBind(0 GLOBAL, NORMAL)
+
+9690:BVT:CipherKeySetup should return DRM_SUCCESS for valid binding info
+SkipTestIf(!WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, VALID)
+Test_API_CipherKeySetup(0 GLOBAL, 0 GLOBAL, NORMAL)
+
+9685:BVT:DecryptLicense should decrypt license encrypted with the blackbox public key
+SkipTestIf(!WMDRMSupported)
+Test_GenRandomBlob(0 GLOBAL, 5000 bytes)
+Test_PKEncryptLarge(0 GLOBAL, 5000 bytes, 1 GLOBAL, 7)
+Test_API_DecryptLicense(1 GLOBAL, 5000 bytes, 2 GLOBAL, NORMAL)
+Test_BlobOps(memcmp, 0, 2, 5000 bytes)
+
+90000:BVT:Test DRM_BBX_Legacy_SymmetricCipher Encrypt and Decrypt with Legacy crypto
+SkipTestIf( !BBXLegacySupported, XBOX )
+Test_SetRandomSeed( FIXED )
+TestBBXLegacySymmetricCipher( 7, 16 )
+TestBBXLegacySymmetricCipher( 7, 128 )
+
+90010:BVT:Test Symmetric Cipher Encrypt and Decrypt with new crypto
+SkipTestIf( XBOX )
+Test_SetRandomSeed( FIXED )
+TestBBXSymmetricCipher()
+TestBBXSymmetricCipher( NULL , VALID wrapped key )
+
+90020:BVT:Test DRM_BBX_Legacy_SymmetricCipher Encrypt and Decrypt In Place with Legacy crypto
+SkipTestIf( !BBXLegacySupported, XBOX )
+Test_SetRandomSeed( FIXED )
+TestBBXLegacySymmetricCipher( 7, 16, NULL )
+TestBBXLegacySymmetricCipher( 7, 128, NULL )
+
+90100:BVT:Test DRM_BBX_ECC256_Decrypt for success with a passed in PUBKEY
+SkipTestIf( !DeviceAssetsSupported )
+Test_SetRandomSeed( FIXED )
+Test_ECCP256_Decrypt( 0 NO OPTs)
+
+90110:BVT:Test DRM_BBX_ECC256_Decrypt for success with zeroed PUBKEY
+SkipTestIf( !DeviceAssetsSupported )
+Test_SetRandomSeed( FIXED )
+Test_ECCP256_Decrypt( 128 OPT_ZERO_PUBKEY )
+
+90120:BVT:Test DRM_BBX_ECC256_Decrypt for success with mismatched PUBKEY
+SkipTestIf( !DeviceAssetsSupported )
+Test_SetRandomSeed( FIXED )
+Test_ECCP256_Decrypt( 256 OPT_MISMATCH_PUBKEY )=0x8004D502 DRM_E_KEYFILE_PRIVATE_KEY_NOT_FOUND
+
+90200:BVT:Test DRM_BBX_ECC256_Sign for success 
+SkipTestIf( !DeviceAssetsSupported )
+Test_SetRandomSeed( FIXED )
+Test_ECCP256_Sign_Verify( 24 )
+Test_ECCP256_Sign_Verify( 100 )
+Test_ECCP256_Sign_Verify( 512 )
+
+90230:BVT:Test Symmetric Sign with valid inputs
+SkipTestIf(!WMDRMSupported)
+'Sign 100 bytes with device key
+Test_SymmetricSign( NULL, 100 )
+'Sign 1 byte with device key
+Test_SymmetricSign( NULL, 1 )
+
+9672:BVT:PRND Functions should work
+SkipTestIf( !PRNDRxSupported, !PRNDTxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+Test_PRNDFunctions()
+
+9673:BVT:PRND Rebind License, success path
+SkipTestIf( !PRNDTxAndRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+Test_PRNDRebindLicense()
+
+9674:FUNC:PRND Rebind License, attempt sign a new license with a lower security level, expect failure
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+Test_PRNDRebindLicense( 1 ) = DRM_E_DEVICE_SECURITY_LEVEL_TOO_LOW
+
+9675:FUNC:PRND Rebind License, attempt sign a new license with a lower RIV, expect failure
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+Test_PRNDRebindLicense( 2 ) = DRM_E_RIV_TOO_SMALL
+
+9676:FUNC:PRND Rebind License, attempt sign a new license with a lower security level and a lower RIV, expect failure
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+Test_PRNDRebindLicense( 3 ) = DRM_E_DEVICE_SECURITY_LEVEL_TOO_LOW
+
+90040:FUNC:Test DRM_BBX_Legacy_SymmetricCipher and handle-based symmetric cipher Encrypt and Decrypt with invalid args
+SkipTestIf( !BBXLegacySupported )
+Test_SetRandomSeed( FIXED )
+TestBBXSymmetricCipher( VALID wrapping key, NULL )=DRM_E_OEMHAL_UNSUPPORTED_KEY_TYPE
+TestBBXLegacySymmetricCipher( 7, 256, VALID outbuffer, NULL , VALID inbuffer )=0x80070057 DRM_E_INVALIDARG
+TestBBXLegacySymmetricCipher( 7, 256, VALID outbuffer, VALID key buffer, NULL )=0x80070057 DRM_E_INVALIDARG
+
+90130:FUNC:Test DRM_BBX_ECC256_Decrypt with invalid args
+Test_SetRandomSeed( FIXED )
+Test_ECCP256_Decrypt( 1 OPT_NULL_PUBKEY )=0x80070057 DRM_E_INVALIDARG
+Test_ECCP256_Decrypt( 2 OPT_NULL_BBCONTEXT )=0x80070057 DRM_E_INVALIDARG
+Test_ECCP256_Decrypt( 4 OPT_NULL_DATAPOINTER )=0x80070057 DRM_E_INVALIDARG
+Test_ECCP256_Decrypt( 8 OPT_NULL_SIZEPOINTER )=0x80070057 DRM_E_INVALIDARG
+
+90220:FUNC:Test DRM_BBX_ECC256_Sign for invalid arg 
+Test_SetRandomSeed( FIXED )
+Test_ECCP256_Sign_Verify( 100, 32 OPT_TEST_SIGN, 1  OPT_NULL_PUBKEY )=0x80070057 DRM_E_INVALIDARG
+Test_ECCP256_Sign_Verify( 100, 32 OPT_TEST_SIGN, 2  OPT_NULL_BBCONTEXT )=0x80070057 DRM_E_INVALIDARG
+Test_ECCP256_Sign_Verify( 100, 32 OPT_TEST_SIGN, 4  OPT_NULL_DATAPOINTER )=0x80070057 DRM_E_INVALIDARG
+Test_ECCP256_Sign_Verify( 100, 32 OPT_TEST_SIGN, 16 OPT_NULL_SIGNATURE )=0x80070057 DRM_E_INVALIDARG
+
+90231:FUNC:Test Symmetric Sign with invalid inputs
+SkipTestIf(!WMDRMSupported)
+'Sign NULL (size 0) Data
+Test_SymmetricSign( NULL, 0 )=0x80070057 (DRM_E_INVALIDARG)
+'Use random key to verify signature
+Test_SymmetricSign( RANDOM, 100 )=0X8004D502 (DRM_E_KEYFILE_PRIVATE_KEY_NOT_FOUND)
+'Zero out key before verifying
+Test_SymmetricSign( ZEROS, 100 )=0X8004D502 (DRM_E_KEYFILE_PRIVATE_KEY_NOT_FOUND)
+
+90240:FUNC:BBX Crypto handle caching should work
+SkipTestIf(!HandleCachingSupported, SecureHalPlayOnlySupported )
+Test_BBXCryptoHandleCaching()
+
+9671:FUNC:GetClientID should reject NULL parameters
+If( !BBXLegacySupported )
+    Test_API_GetClientID(NULL, NORMAL)=DRM_E_NOTIMPL
+Else
+    Test_API_GetClientID(NULL, NORMAL)=0X80070057(DRM_E_INVALIDARG)
+EndIf
+
+9678:FUNC:CipherKeySetup should fail if the binding info has wrong checksum
+SkipTestIf(!WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, BAD_CHECKSUM)
+Test_API_CipherKeySetup(0 GLOBAL, 0 GLOBAL, NORMAL CIPHERCONTEXT)=0x8004110E(DRM_E_CH_BAD_KEY)
+
+9679:FUNC:CipherKeySetup should fail if the binding info has wrong signature
+SkipTestIf(!WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, BAD_SIGNATURE)
+Test_API_CipherKeySetup(0 GLOBAL, 0 GLOBAL, NORMAL)=0X800480CF(DRM_E_INVALID_SIGNATURE)
+
+9680:FUNC:CipherKeySetup should fail if the encrypted content key is modified
+SkipTestIf(!WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, BAD_CONTENTKEY)
+Test_API_CipherKeySetup(0 GLOBAL, 0 GLOBAL, NORMAL)=0X800480D5(DRM_E_PKCRYPTO_FAILURE)
+
+9681:FUNC:CipherKeySetup should fail if the license server pubkey is bad
+SkipTestIf(!WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, BAD_LSPUBKEY)
+Test_API_CipherKeySetup(0 GLOBAL, 0 GLOBAL, NORMAL)=0X800480CF(DRM_E_INVALID_SIGNATURE)
+
+11619:FUNC:CipherKeySetup should fail if the license server pubkey is wrong
+SkipTestIf(!WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, WRONG_LSPUBKEY)
+Test_API_CipherKeySetup(0 GLOBAL, 0 GLOBAL, NORMAL)=0X800480CF(DRM_E_INVALID_SIGNATURE)
+
+9705:FUNC:CipherKeySetup should fail if the blackbox pubkey is modified
+SkipTestIf(!WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, BAD_BBPUBKEY)
+Test_API_CipherKeySetup(0 GLOBAL, 0 GLOBAL, NORMAL)=0X8004C056(DRM_E_UNKNOWN_BINDING_KEY)
+
+9706:FUNC:CipherKeySetup should fail if the content key length is 0
+SkipTestIf(!WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, KEY_LENGTH 0)
+Test_API_CipherKeySetup(0 GLOBAL, 0 GLOBAL, NORMAL)=0x8004110E(DRM_E_CH_BAD_KEY)
+
+9707:FUNC:CipherKeySetup should fail if the content key length is larger than 15 bytes
+SkipTestIf(!WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, KEY_LENGTH 16)
+Test_API_CipherKeySetup(0 GLOBAL, 0 GLOBAL, NORMAL)=0x8004110E(DRM_E_CH_BAD_KEY)
+
+9682:FUNC:HashValue should hash the given data with blackbox's private key
+Test_GenRandomBlob(0 GLOBAL, 100 bytes)
+If( !DeviceAssetsSupported )
+    Test_API_HashValue(0 GLOBAL, 100 bytes, 2 Hash Value Index, NORMAL BB Context)=DRM_E_NOTIMPL
+Else
+    Test_API_HashValue(0 GLOBAL, 100 bytes, 2 Hash Value Index, NORMAL BB Context)
+    Test_GenRandomBlob(1 GLOBAL, 100 bytes)
+    Test_API_HashValue(1 GLOBAL, 100 bytes, 3 Hash Value Index, NORMAL BB Context)
+    Test_API_HashValue(0 GLOBAL, 100 bytes, 4 Hash Value Index, NORMAL BB Context)
+    Test_BlobOps(memcmp, 2 Hash Value Index, 3 Hash Value Index, 20)=1(DRM_S_FALSE)
+    Test_BlobOps(memcmp, 2 Hash Value Index, 4 Hash Value Index, 20)
+EndIf
+
+9686:FUNC:DecryptLicense should be able to decrypt license in place
+SkipTestIf(!WMDRMSupported)
+Test_GenRandomBlob(0 GLOBAL, 5000 bytes)
+Test_PKEncryptLarge(0 GLOBAL, 5000 bytes, 1 GLOBAL, 7)
+Test_API_DecryptLicense(1 GLOBAL, 5000 bytes, NULL, NORMAL)
+Test_BlobOps(memcmp, 0, 1, 5000 bytes)
+
+9687:FUNC:Verify key wrapping and unwrapping
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestKeyUnwrapAndWrap()
+' There are negative key usage tests in TestKeyUnwrapAndWrap() that throw an assert on CHK builds
+Test_EnsureAsserted()
+
+9688:BVT:Verify only appropriate key types can be used to create and verify OMAC1 signature
+SkipTestIf( XBOX )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+Test_CreateAndVerifyOMAC1Signature()
+
+9689:BVT:Verify only appropriate key types can be used to create and verify message signature
+SkipTestIf( XBOX )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+Test_CreateAndVerifyMessageSignature()
+
+9691:BVT:Verify only appropriate key types can be used to decrypt content
+SkipTestIf( XBOX )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+Test_DecryptContent()
+
+9692:BVT:Verify Hal API cannot be called without CRL
+SkipTestIf( XBOX )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+Test_HalRevocation("files\\revcert.dat", "files\\revcert.crl")
+    
+9693:BVT:Test invalid PublicKey usage
+SkipTestIf( XBOX )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+Test_InvalidPubKeyWrapUsage()
+Test_InvalidPubKeySignUsage()
+
+9694:BVT:Test invalid KeyFile key usage
+SkipTestIf( XBOX )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+Test_InvalidKeyFileUsage()
+

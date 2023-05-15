@@ -1,0 +1,19 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=testcore
+TARGETTYPE=LIBRARY
+
+SOURCES =                  \
+    ..\apiParams.c         \
+    ..\drmtestrsautils.c   \
+    ..\logger.c            \
+    ..\PKCommonTestAPI.c   \
+    ..\tclib.c             \
+    ..\TestVariableArray.c \
+
+

@@ -1,0 +1,43 @@
+# Conax
+
+	config MW_CAS_CONAX_CPM
+		bool "MW_CAS_CONAX_CPM - Include CONAX Chipset pairing feature"
+		default n
+
+		config MW_CAS_CONAX_CPM_WITH_LPK
+			depends on MW_CAS_CONAX_CPM
+			bool "MW_CAS_CONAX_CPM_WITH_LPK - Include CONAX Chipset pairing feature"
+			default n
+
+			config MW_CAS_CONAX_URI
+				depends on MW_CAS_CONAX_CPM_WITH_LPK
+				bool "MW_CAS_CONAX_URI - Include CONAX URI(DRM)"
+				default n
+
+	config MW_CAS_CONAX_TEXT
+		bool "MW_CAS_CONAX_TEXT - Include CONAX user text feature"
+		default y
+
+	config MW_CAS_CONAX_MAIL
+		bool "MW_CAS_CONAX_MAIL - Include CONAX mail message feature"
+		default n
+
+	config MW_CAS_CONAX_FINGERPRINT
+		bool "MW_CAS_CONAX_FINGERPRINT - Include CONAX fingerprint feature"
+		default y
+	
+	config MW_CAS_CONAX_MR_RESERVATION
+		bool "MW_CAS_CONAX_MR_RESERVATION - Include CONAX Maturity Rating for reservation"
+		default n
+	
+	config MW_CAS_CONAX_GERMANY_MR
+		bool "MW_CAS_CONAX_GERMANY_MR - Include Modified Conax Maturity Rating for German"
+		default n
+
+	config MW_CAS_CONAX_CHARSET
+		bool "MW_CAS_CONAX_CHARSET - Support CONAX Character Set "
+		default n
+
+	config MW_CAS_CONAX_PRETEST
+		bool "MW_CAS_CONAX_PRETEST - Include CONAX PreTest feature"
+		default n

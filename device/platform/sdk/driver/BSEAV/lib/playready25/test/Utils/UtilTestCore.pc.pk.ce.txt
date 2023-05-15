@@ -1,0 +1,433 @@
+779377:DRMCRT_memmove can move 4k bytes of data when source and destination are not overlapped
+TestAllocBuffer(0, 4096 bytes, COOKIE)
+TestAllocBuffer(1, 4096 bytes, NULL)
+Test_API_DRMCRT_memmove(1, 0, 4096)
+TestCompBuffer(0, 1, 4096)
+
+779379:DRMCRT_wcsntol returns 0 for a non-digit string
+Test_API_DRMCRT_wcsntol(abc, 0)
+
+779380:DRMCRT_wcsntol converts negative numbers
+Test_API_DRMCRT_wcsntol(-123, -123)
+
+779381:DRMCRT_wcsntol converts positive numbers
+Test_API_DRMCRT_wcsntol(+123, 123)
+
+779395:DRMCRT_wcsncmp correctly compares two strings
+TestAllocBuffer(0, 2 wchars, aa, Wide)
+TestAllocBuffer(1, 2 wchars, bb, Wide)
+Test_API_DRMCRT_wcsncmp(0, 1, 2, Negative)
+Test_API_DRMCRT_wcsncmp(1, 0, 2, Positive)
+Test_API_DRMCRT_wcsncmp(0, 0, 2, Zero)
+
+779400:DRMCRT_wcslen returns 8 for an 8-wchar string
+TestAllocBuffer(0, 9 wchars, 12345678, Wide)
+Test_API_DRMCRT_wcslen(0, 8)
+
+
+779403:DRM_STR_StringCchCopyW copies the whole source string and zeros out the rest when the destination length is longer than the source length
+TestAllocBuffer(0, 4 wchars, abc, Wide)
+TestAllocBuffer(1, 5 wchars, xxxxx, Wide)
+Test_API_StringCchCopyW(1, 0, 5)
+TestVerifyBuffer(1, 3 wchars, abc, Wide)
+TestAllocBuffer(2, 5 wchars, NULL, Wide)
+Test_API_StringCchCopyW(2, 0, 4)
+TestCompBuffer(1, 2, 4 bytes)
+
+779404:DRMCRT_strncmp correctly compares two strings
+TestAllocBuffer(0, 2 chars, aa)
+TestAllocBuffer(1, 2 chars, bb)
+Test_API_DRMCRT_strncmp(0, 1, 2, Negative)
+Test_API_DRMCRT_strncmp(1, 0, 2, Positive)
+Test_API_DRMCRT_strncmp(0, 0, 2, Zero)
+
+779407:DRMCRT_abs returns the absolute value of the given number
+Test_API_DRMCRT_abs(1, 1)
+Test_API_DRMCRT_abs(-100, 100)
+Test_API_DRMCRT_abs(0, 0)
+
+
+779409:DRMCRT_Base64Encode can encode random data
+TestAllocBuffer(0, 100 bytes, RANDOM)
+TestAllocBuffer(1, 200 bytes, NULL, Wide)
+TestAllocBuffer(2, 100 bytes, NULL)
+Test_API_DRM_Base64Encode(ANSI, 0, 100, 1, 200, NULL)
+Test_API_DRM_Base64Decode(ANSI, 1, 100 bytes, 2, 0, 100)
+TestCompBuffer(0, 2, 100 bytes)
+Test_API_DRM_Base64Encode(WIDE, 0, 100, 1, 200, NULL)
+Test_API_DRM_Base64Decode(WIDE, 1, 100 bytes, 2, 0, 100)
+TestCompBuffer(0, 2, 100 bytes)
+
+779416:DRMCRT_Base64Decode can decode the string encoded by DRM_Base64Encode and standard base64 encoding
+TestAllocBuffer(0, 57 bytes, 7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==)
+TestAllocBuffer(1, 57 bytes, 7BZ/gTLq/LKyT3GcIWH8d5JkWiklMf7Aod+lhBgJpcTRu+chtojzMg==)
+TestAllocBuffer(2, 80 bytes, NULL)
+Test_API_DRM_Base64Decode(ANSI, 0, 40 bytes, 2, 0, 40)
+Test_API_DRM_Base64Decode(ANSI, 1, 40 bytes, 0, 0, 40)
+TestCompBuffer(0, 2, 40 bytes)
+
+TestAllocBuffer(0, 57 bytes, 7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==, Wide)
+TestAllocBuffer(1, 57 bytes, 7BZ/gTLq/LKyT3GcIWH8d5JkWiklMf7Aod+lhBgJpcTRu+chtojzMg==, Wide)
+TestAllocBuffer(2, 80 bytes, NULL, Wide)
+Test_API_DRM_Base64Decode(WIDE, 0, 40 bytes, 2, 0, 40)
+Test_API_DRM_Base64Decode(WIDE, 1, 40 bytes, 0, 0, 40)
+TestCompBuffer(0, 2, 40 bytes)
+
+-------------------BVT ends here--------------------------
+ 
+779376:DRMCRT_memmove can move one byte of data
+TestAllocBuffer(0, 1 byte, COOKIE)
+TestAllocBuffer(1, 1 byte, NULL)
+Test_API_DRMCRT_memmove(1, 0, 1)
+TestCompBuffer(0, 1, 1)
+
+779378:DRMCRT_memmove can move 4 bytes of data when source and destination are overlapped
+TestAllocBuffer(0, 5 bytes, 12345)
+TestSetBuffer(1, 0, 1 byte offset)
+Test_API_DRMCRT_memmove(0, 1, 4)
+TestVerifyBuffer(0, 5 bytes, 23455)
+Test_API_DRMCRT_memmove(1, 0, 4)
+TestVerifyBuffer(0, 5 bytes, 22345)
+
+779384:DRMCRT_wcsntol works on digital strings with non-digital characters at the end
+Test_API_DRMCRT_wcsntol(123xyz, 123)
+
+779396:DRMCRT_wcsncmp does not go over the given length
+TestAllocBuffer(0, 4 wchars, aabb, Wide)
+TestAllocBuffer(1, 2 wchars, aa, Wide)
+Test_API_DRMCRT_wcsncmp(0, 1, 2, Zero)
+Test_API_DRMCRT_wcsncmp(1, 0, 2, Zero)
+
+779397:DRMCRT_wcsncmp returns zero when first and last are empty strings
+TestAllocBuffer(0, 1 wchars, EMPTY, Wide)
+TestAllocBuffer(1, 1 wchars, EMPTY, Wide)
+Test_API_DRMCRT_wcsncmp(0, 1, 0, Zero)
+
+779398:DRMCRT_wcslen returns 0 for an empty string
+TestAllocBuffer(0, 1 wchars, EMPTY, Wide)
+Test_API_DRMCRT_wcslen(0, 0)
+
+779399:DRMCRT_wcslen returns 1 for a 1-wchar string
+TestAllocBuffer(0, 2 wchars, a, Wide)
+Test_API_DRMCRT_wcslen(0, 1)
+
+779401:DRM_STR_StringCchCopyW copies the content from source to destination when the destination size is the same as the source length
+TestAllocBuffer(0, 8192 wchars, COOKIE, Wide)
+TestAllocBuffer(1, 8193 wchars, NULL, Wide)
+Test_API_StringCchCopyW(1, 0, 8193)
+TestCompBuffer(0, 1, 8192)
+
+779402:DRM_STR_StringCchCopyW only copies the given length of the source to destination
+TestAllocBuffer(0, 6 wchars, abcdef, Wide)
+TestAllocBuffer(1, 6 wchars, NULL, Wide)
+Test_API_StringCchCopyW(1, 0, 3)=0x8007007A DRM_E_BUFFERTOOSMALL
+TestVerifyBuffer(1, 3 wchars, ab, Wide)
+TestVerifyBuffer(1, 4 wchars, abc, Wide)=1(DRM_S_FALSE)
+
+779405:DRMCRT_strncmp does not go over the given length
+TestAllocBuffer(0, 4 chars, aabb)
+TestAllocBuffer(1, 2 chars, aa)
+Test_API_DRMCRT_strncmp(0, 1, 2, Zero)
+Test_API_DRMCRT_strncmp(1, 0, 2, Zero)
+
+779406:DRMCRT_strncmp returns zero when first and last are empty strings
+TestAllocBuffer(0, 1 chars, EMPTY)
+TestAllocBuffer(1, 1 chars, EMPTY)
+Test_API_DRMCRT_strncmp(0, 1, 0, Zero)
+
+779408:DRMCRT_isxxx returns the same result as the standard CRT version for all valid wide characters
+Test_API_DRMCRT_isxxx(0, 127)
+
+779410:DRMCRT_Base64Encode checks null parameters
+TestAllocBuffer(0, 400 bytes, NULL)
+TestAllocBuffer(1, 100 bytes, RANDOM)
+Test_API_DRM_Base64Encode(ANSI, NULL, 100, 0, 200, NULL)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+Test_API_DRM_Base64Encode(WIDE, NULL, 100, 0, 200, NULL)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+Test_API_DRM_Base64Encode(ANSI, 1, 0, 0, 200, NULL)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+Test_API_DRM_Base64Encode(WIDE, 1, 0, 0, 200, NULL)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+Test_API_DRM_Base64Encode(ANSI, 1, 100, 0, NULL, NULL)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+Test_API_DRM_Base64Encode(WIDE, 1, 100, 0, NULL, NULL)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+
+779411:DRMCRT_Base64Decode checks invalid parameters
+TestAllocBuffer(0, 200 bytes, NULL)
+TestAllocBuffer(1, 100 bytes, RANDOM)
+Test_API_DRM_Base64Decode(ANSI, NULL, 100 bytes, 1, 0, NULL)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+Test_API_DRM_Base64Decode(WIDE, NULL, 100 bytes, 1, 0, NULL)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+Test_API_DRM_Base64Decode(ANSI, 0, NULL, 1, 0, NULL)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+Test_API_DRM_Base64Decode(WIDE, 0, NULL, 1, 0, NULL)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+
+779412:DRMCRT_Base64Decode returns the required buffer length when output data pointer is null
+TestAllocBuffer(0, 57 bytes, 7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==)
+Test_API_DRM_Base64Decode(ANSI, 0, 0 bytes, NULL, 0, 40)=-2147024774(0X8007007A, DRM_E_BUFFERTOOSMALL)
+TestAllocBuffer(0, 57 bytes, 7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==, Wide)
+Test_API_DRM_Base64Decode(WIDE, 0, 0 bytes, NULL, 0, 40)=-2147024774(0X8007007A, DRM_E_BUFFERTOOSMALL)
+
+779413:DRM_Base64Encode returns the required encode buffer length when all output parameters are null
+TestAllocBuffer(0, 300 bytes, COOKIE)
+Test_API_DRM_Base64Encode(ANSI, 0, 300, NULL, 0, 400)=-2147024774(0X8007007A, DRM_E_BUFFERTOOSMALL)
+TestAllocBuffer(0, 300 bytes, COOKIE, Wide)
+Test_API_DRM_Base64Encode(WIDE, 0, 300, NULL, 0, 400)=-2147024774(0X8007007A, DRM_E_BUFFERTOOSMALL)
+
+779414:DRM_Base64Encode returns the required encode buffer length when the given length is not large enough
+TestAllocBuffer(0, 300 bytes, COOKIE)
+TestAllocBuffer(1, 200 bytes, COOKIE)
+Test_API_DRM_Base64Encode(ANSI, 0, 300, 1, 200, 400)=-2147024774(0X8007007A, DRM_E_BUFFERTOOSMALL)
+TestAllocBuffer(0, 300 bytes, COOKIE, Wide)
+TestAllocBuffer(1, 200 bytes, COOKIE, Wide)
+Test_API_DRM_Base64Encode(WIDE, 0, 300, 1, 200, 400)=-2147024774(0X8007007A, DRM_E_BUFFERTOOSMALL)
+
+779415:DRM_Base64Encode can encode 1, 2, 3 bytes of data
+TestAllocBuffer(0, 3 bytes, abc)
+TestAllocBuffer(1, 10 wchars, NULL, Wide)
+
+' encode then decode for 3-byte blob
+TestAllocBuffer(2, 3 bytes, NULL)
+Test_API_DRM_Base64Encode(ANSI, 0, 3, 1, 10, NULL)
+Test_API_DRM_Base64Decode(ANSI, 1, 3 bytes, 2, 0, 3)
+TestCompBuffer(0, 2, 3 bytes)
+Test_API_DRM_Base64Encode(WIDE, 0, 3, 1, 10, NULL)
+Test_API_DRM_Base64Decode(WIDE, 1, 3 bytes, 2, 0, 3)
+TestCompBuffer(0, 2, 3 bytes)
+
+' encode then decode for 2-byte blob
+TestAllocBuffer(2, 3 bytes, NULL)
+Test_API_DRM_Base64Encode(ANSI, 0, 2, 1, 10, NULL)
+Test_API_DRM_Base64Decode(ANSI, 1, 3 bytes, 2, 0, 2)
+TestCompBuffer(0, 2, 2 bytes)
+TestCompBuffer(0, 2, 3 bytes)=1(DRM_S_FALSE)
+Test_API_DRM_Base64Encode(WIDE, 0, 2, 1, 10, NULL)
+Test_API_DRM_Base64Decode(WIDE, 1, 3 bytes, 2, 0, 2)
+TestCompBuffer(0, 2, 2 bytes)
+TestCompBuffer(0, 2, 3 bytes)=1(DRM_S_FALSE)
+
+' encode then decode for 1-byte blob
+TestAllocBuffer(2, 3 bytes, NULL)
+Test_API_DRM_Base64Encode(ANSI, 0, 1, 1, 10, NULL)
+Test_API_DRM_Base64Decode(ANSI, 1, 3 bytes, 2, 0, 1)
+TestCompBuffer(0, 2, 1 bytes)
+TestCompBuffer(0, 2, 2 bytes)=1(DRM_S_FALSE)
+Test_API_DRM_Base64Encode(WIDE, 0, 1, 1, 10, NULL)
+Test_API_DRM_Base64Decode(WIDE, 1, 3 bytes, 2, 0, 1)
+TestCompBuffer(0, 2, 1 bytes)
+TestCompBuffer(0, 2, 2 bytes)=1(DRM_S_FALSE)
+
+779417:DRM_UTL_DecodeKID should decode short KIDs
+TestAllocBuffer(0, 16 bytes, NULL)
+TestAllocBuffer(1, 16 bytes, NULL)
+Test_API_DecodeKID(short1, 0)
+Test_API_DecodeKID(short2, 1)
+TestCompBuffer(0, 1, 16 bytes)=1(DRM_S_FALSE)
+
+771823:DRM_UTL_DecodeKID should decode normal KIDs
+TestAllocBuffer(0, 16 bytes, NULL)
+TestAllocBuffer(1, 16 bytes, NULL)
+Test_API_DecodeKID(lbmCh6haEE+5Z86EDmEudA==, 0)
+Test_API_DecodeKID(lamCh6haEE+5Z86EDmEudA==, 1)
+TestCompBuffer(0, 1, 16 bytes)=1(DRM_S_FALSE)
+
+'DecodeKID only takes the first 16 bytes
+771824:DRM_UTL_DecodeKID should decode long KIDs
+TestAllocBuffer(0, 16 bytes, NULL)
+TestAllocBuffer(1, 16 bytes, NULL)
+Test_API_DecodeKID(lbmCh6haEE+5Z86EDmEudAACCC==, 0)
+Test_API_DecodeKID(lamCh6haEE+5Z86EDmEudAACCC==, 1)
+TestCompBuffer(0, 1, 16 bytes)=1(DRM_S_FALSE)
+
+770940:BVT:P0:DRM_UTL_AreGUIDEqual with valid, equal DRM_GUIDs, expected result is TRUE
+TestUtilAreGUIDEqual({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, {3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, TRUE)
+
+770941:BVT:P0:DRM_UTL_AreGUIDEqual with valid, unequal GUIDs, expected result is FALSE
+TestUtilAreGUIDEqual({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, {00000000-0000-0000-0000-000000000000}, FALSE)
+
+770942:FUNC:P1:DRM_UTL_AreGUIDEqual with equal invalid GUIDs (must be valid size), expected result TRUE
+TestUtilAreGUIDEqual({00000000-0000-0000-0000-000000000000}, {00000000-0000-0000-0000-000000000000}, TRUE)
+
+770943:FUNC:P1:DRM_UTL_AreGUIDEqual with one NULL input, expected result is FALSE
+TestUtilAreGUIDEqual({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, {3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, FALSE, TRUE)
+
+770944:FUNC:P2:DRM_UTL_AreGUIDEqual with both inputs as NULL, expected result is FALSE for NULL inputs
+TestUtilAreGUIDEqual({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, {3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, FALSE, TRUE, TRUE)
+
+770945:BVT:P0:DRM_UTL_GuidToString with valid DRM_GUID and valid output buffer size converts GUID to string properly
+TestUtilGUIDToString({3129E375-CEB0-47D5-9CCA-9DB74CFD4332})
+
+770946:FUNC:P1:DRM_UTL_GuidToString with null DRM_GUID and valid output buffer size converts GUID to string properly
+TestUtilGUIDToString({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, FALSE, TRUE)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+
+770947:FUNC:P3:DRM_UTL_GuidToString with valid DRM_GUID and NULL output buffer size converts GUID to string properly
+TestUtilGUIDToString({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, TRUE, FALSE)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+
+770960:BVT:P0:DRM_UTL_ReadGuid called with valid input array, offset, and output buffer, expect DRM_SUCCESS
+TestUtilReadGUID({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, 0)
+TestUtilReadGUID({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, 1)
+TestUtilReadGUID({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, 2)
+
+770961:FUNC:P1:DRM_UTL_ReadGUID called with invalid input array (size too big), expect success since the byte array can still hold an entire GUID
+TestUtilReadGUID({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, 0, FALSE, FALSE, 10)
+TestUtilReadGUID({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, 1, FALSE, FALSE, 10)
+TestUtilReadGUID({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, 2, FALSE, FALSE, 10)
+
+770962:FUNC:P1:DRM_UTL_ReadGUID called with invalid input array (size too small), expect DRM_E_BUFFERTOOSMALL
+TestUtilReadGUID({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, 0, FALSE, FALSE, -2)=-2147024774(0X8007007A, DRM_E_BUFFERTOOSMALL)
+TestUtilReadGUID({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, 1, FALSE, FALSE, -2)=-2147024774(0X8007007A, DRM_E_BUFFERTOOSMALL)
+TestUtilReadGUID({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, 2, FALSE, FALSE, -2)=-2147024774(0X8007007A, DRM_E_BUFFERTOOSMALL)
+
+770963:FUNC:P2:DRM_UTL_ReadGUID called with NULL input array, expect DRM_E_INVALIDARG
+TestUtilReadGUID({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, 0, TRUE, FALSE, 0)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+TestUtilReadGUID({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, 1, TRUE, FALSE, 0)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+
+770964:FUNC:P2:DRM_UTL_ReadGUID called with valid input array and NULL output GUID, expect DRM_E_INVALIDARG
+TestUtilReadGUID({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, 0, FALSE, TRUE, 0)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+TestUtilReadGUID({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, 1, FALSE, TRUE, 0)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+
+770970:BVT:P0:DRM_UTL_NumberToString converts a DWORD to a decimal string when using valid inputs.
+TestNumberToString(0, 32, TRUE, 10, 0000000000000000000000000000000)
+TestNumberToString(1, 32, TRUE, 10, 0000000000000000000000000000001)
+TestNumberToString(12345, 32, TRUE, 10, 0000000000000000000000000012345)
+TestNumberToString(4294967294, 32, TRUE, 10, 0000000000000000000004294967294)
+TestNumberToString(4294967295, 32, TRUE, 10, 0000000000000000000004294967295)
+TestNumberToString("1", 2, TRUE, 10, "1")
+TestNumberToString("1", 3, TRUE, 10, "01")
+TestNumberToString("1", 4, FALSE, 10, "1")
+TestNumberToString("2007", 5, FALSE, 10, "2007")
+TestNumberToString("2007", 7, FALSE, 10, "2007")
+TestNumberToString("2007", 7, TRUE, 10, "002007")
+TestNumberToString("0", 2, FALSE, 10, "0")
+TestNumberToString("0", 3, TRUE, 10, "00")
+TestNumberToString("2007", 5, TRUE, 10, "2007")
+
+770971:BVT:P0:DRM_UTL_NumberToString converts a DWORD to a hex string when using valid inputs.
+TestNumberToString(0, 32, TRUE, 16, 0000000000000000000000000000000)
+TestNumberToString(1, 32, TRUE, 16, 0000000000000000000000000000001)
+TestNumberToString(12345, 32, TRUE, 16, 0000000000000000000000000003039)
+TestNumberToString(4294967294, 32, TRUE, 16, 00000000000000000000000FFFFFFFE)
+TestNumberToString(4294967295, 32, TRUE, 16, 00000000000000000000000FFFFFFFF)
+
+770972:BVT:P0:DRM_UTL_NumberToString converts a DWORD to a octal string when using valid inputs.
+TestNumberToString(0, 32, TRUE, 8, 0000000000000000000000000000000)
+TestNumberToString(1, 32, TRUE, 8, 0000000000000000000000000000001)
+TestNumberToString(12345, 32, TRUE, 8, 0000000000000000000000000030071)
+TestNumberToString(4294967294, 32, TRUE, 8, 0000000000000000000037777777776)
+TestNumberToString(4294967295, 32, TRUE, 8, 0000000000000000000037777777777)
+
+770973:FUNC:P1:DRM_UTL_NumberToString converts a DWORD to a decimal string when using valid inputs and a big output buffer/minimum width.
+TestNumberToString(0, 66, FALSE, 10, 0)
+TestNumberToString(1, 66, FALSE, 10, 1)
+TestNumberToString(12345, 66, FALSE, 10, 12345)
+TestNumberToString(4294967294, 66, FALSE, 10, 4294967294)
+TestNumberToString(4294967295, 66, FALSE, 10, 4294967295)
+
+770974:FUNC:P1:DRM_UTL_NumberToString converts a max-size DWORD to a decimal string when using valid inputs.
+TestNumberToString(4294967294, 66, FALSE, 10, 4294967294)
+TestNumberToString(4294967295, 66, FALSE, 10, 4294967295)
+
+770975:FUNC:P1:DRM_UTL_NumberToString converts a max-size DWORD to a binary string when using valid inputs.
+TestNumberToString(0, 33, FALSE, 2, 0)
+TestNumberToString(1, 33, FALSE, 2, 1)
+TestNumberToString(12345, 33, FALSE, 2, 11000000111001)
+TestNumberToString(4294967294, 33, FALSE, 2, 11111111111111111111111111111110)
+TestNumberToString(4294967295, 33, FALSE, 2, 11111111111111111111111111111111)
+
+770976:FUNC:P1:DRM_UTL_NumberToString returns proper error code when given a buffer of size less than output value.
+TestNumberToString(4294967294, 6, FALSE, 10)=0X8007007A DRM_E_BUFFERTOOSMALL
+TestNumberToString(4294967294, 6, TRUE, 10)=0X8007007A DRM_E_BUFFERTOOSMALL
+TestNumberToString("0", 0, TRUE, 10, "")=0X80070057 DRM_E_INVALIDARG
+TestNumberToString("2007", 3, FALSE, 10, "07")=0X8007007A DRM_E_BUFFERTOOSMALL
+TestNumberToString("2007", 4, TRUE, 10, "007")=0X8007007A DRM_E_BUFFERTOOSMALL
+TestNumberToString("0", 0, FALSE, 10, "")=0X80070057 DRM_E_INVALIDARG
+
+770977:FUNC:P1:DRM_UTL_NumberToString returns proper error code when given invalid radix
+TestNumberToString(0, 32, FALSE, 1, 0)=0X80070057 DRM_E_INVALIDARG
+TestNumberToString(1, 32, FALSE, 37, 1)=0X80070057 DRM_E_INVALIDARG
+
+770980:BVT:P0:DRM_STR_StringCchLengthW with valid inputs returns length of null-terminated input string when string length is less than max size
+TestCRTStringCchLengthW(This test string has 29 chars, 50)
+TestCRTStringCchLengthW(This test string has 29 chars, 30)
+TestCRTStringCchLengthW(A, 3)
+TestCRTStringCchLengthW(A, 2)
+
+770981:BVT:P0:DRM_STR_StringCchLengthW with valid inputs returns error when null-terminated input string when string has length is greater than or equal to max size
+TestCRTStringCchLengthW(This test string has 29 chars, 29)=0X80070057 DRM_E_INVALIDARG
+TestCRTStringCchLengthW(This test string has 29 chars, 28)=0X80070057 DRM_E_INVALIDARG
+TestCRTStringCchLengthW(This test string has 29 chars, 5)=0X80070057 DRM_E_INVALIDARG
+TestCRTStringCchLengthW(A, 1)=0X80070057 DRM_E_INVALIDARG
+TestCRTStringCchLengthW(A, 0)=0X80070057 DRM_E_INVALIDARG
+
+770982:FUNC:P1:DRM_STR_StringCchLengthW with non-null-terminated input string and other inputs valid returns error
+TestCRTStringCchLengthW(This test string has 29 chars, 5, FALSE)=0X80070057 DRM_E_INVALIDARG
+
+770983:FUNC:P1:DRM_STR_StringCchLengthW with null output pointer returns proper error code
+TestCRTStringCchLengthW(This test string has 29 chars, 29, TRUE, TRUE, TRUE)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+
+770984:FUNC:P2:DRM_STR_StringCchLengthW with max size == 1 and other inputs valid
+TestCRTStringCchLengthW(This test string has 29 chars, 1)=0X80070057 DRM_E_INVALIDARG
+TestCRTStringCchLengthW(A, 1)=0X80070057 DRM_E_INVALIDARG
+
+770985:FUNC:P2:DRM_STR_StringCchLengthW with max size == 0 and other inputs valid
+TestCRTStringCchLengthW(A, 0)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+
+770987:FUNC:P2:DRM_STR_StringCchLengthW with null input string and other inputs valid
+TestCRTStringCchLengthW(This test string has 29 chars, 29, TRUE, TRUE)=-2147024809(0X80070057,DRM_E_INVALIDARG)
+
+770990:BVT:P0:DRMCRT_wcsstr with input string which contains a substring matching the input search string and other inputs valid
+TestCRTwcstr(This is a test string which contains a substring on the 40th character, substring, 39)
+TestCRTwcstr(This is a test string which contains a substring on the 1st character, This, 0)
+
+770991:BVT:P0:DRMCRT_wcsstr with input string which does not contains a substring matching the input search string and other inputs valid
+TestCRTwcstr(This test string does not contain a substring and has 62 chars, unfound substring,62)
+
+770992:FUNC:P1:DRMCRT_wcsstr with input search string which is larger that input string and other inputs valid
+TestCRTwcstr(Short test string, This is a substring which is waaaay too long, 17)
+TestCRTwcstr(This is a, This is a substring which is waaaay too long, 9)
+
+770993:FUNC:P1:DRMCRT_wcsstr with input search string of equal length to the input string, but not equal value, and other inputs valid
+TestCRTwcstr(This is a string, This is a string, 0)
+TestCRTwcstr(This test string has 29 chars, 29 chars has this test string, 29)
+
+770994:FUNC:P2:DRMCRT_wcsstr with null input search string and other inputs valid
+TestCRTwcstr(This is a string, This is a string, 0, FALSE, TRUE, TRUE)
+
+770995:FUNC:P2:DRMCRT_wcsstr with null input string and other inputs valid
+TestCRTwcstr(This is a string, This is a string, 0, TRUE, FALSE, TRUE)
+
+771000:BVT:P0: DRM_STR_StringCchPrintfExW with valid inputs 
+TestCRTCchSPrintFSingleParam(When output this string will have %d chars,When output this string will have 42 chars, 42, 73) 
+
+771001:BVT:P0:DRM_STR_StringCchPrintfExW with input formatted string which contains no tag and other inputs valid
+TestCRTCchSPrintFSingleParam(this string has no tag, this string has no tag, 22, 55)
+
+771002:BVT:P0:DRM_STR_StringCchPrintfExW with input formatted string which is longer than output buffer size
+TestCRTCchSPrintFSingleParam(When output this string will have %d chars, expect an error, 42, 16) = -2147024774(0X8007007A, DRM_E_BUFFERTOOSMALL)
+
+771003:FUNC:P1:DRM_STR_StringCchPrintfExW with input formatted string which has equal length as output buffer size and input value which is two digits long.  Expected that buffer is considered too small anyway.
+TestCRTCchSPrintFSingleParam(When output this string will have %d chars,When output this string will have 42 chars, 42, 42) = -2147024774(0X8007007A, DRM_E_BUFFERTOOSMALL)
+
+771004:FUNC:P1:DRM_STR_StringCchPrintfExW with input formatted string and input value which is max size
+TestCRTCchSPrintFSingleParam(The number %d is the largest DWORD, The number 4294967295 is the largest DWORD, 4294967295, 65)
+TestCRTCchSPrintFSingleParam(The number %d is the 2nd largest DWORD, The number 4294967294 is the 2nd largest DWORD, 4294967294, 69)
+
+771005:FUNC:P1:DRM_STR_StringCchPrintfExW with output buffer size that equals formatted string size plus 31 where tag in formatted string is at the end.
+TestCRTCchSPrintFSingleParam(The largest DWORD is the number %d, The largest DWORD is the number 4294967295, 4294967295, 67)
+TestCRTCchSPrintFSingleParam(The largest DWORD is not the number %d, The largest DWORD is not the number 4294967294, 4294967294, 71)
+TestCRTCchSPrintFSingleParam(The smallest DWORD is the number %d, The smallest DWORD is the number 0, 0, 68)
+
+771006:FUNC:P1:DRM_STR_StringCchPrintfExW with output buffer size that equals formatted string size plus 31 where tag in formatted string is at the begining.
+TestCRTCchSPrintFSingleParam(%d is The largest DWORD, 4294967295 is The largest DWORD, 4294967295, 56)
+TestCRTCchSPrintFSingleParam(%d is not The largest DWORD, 4294967294 is not The largest DWORD, 4294967294, 62)
+TestCRTCchSPrintFSingleParam(%d is The smallest DWORD, 0 is The smallest DWORD, 0, 57)
+
+771007:FUNC:P2:DRM_STR_StringCchPrintfExW with null output buffer, output buffer size
+TestCRTCchSPrintFSingleParam(%d is The largest DWORD, 4294967295 is The largest DWORD, 4294967295, 56, TRUE, FALSE) = -2147024809(0X80070057,DRM_E_INVALIDARG)
+TestCRTCchSPrintFSingleParam(%d is not The largest DWORD, 4294967294 is not The largest DWORD, 4294967294, 62, FALSE, TRUE)
+TestCRTCchSPrintFSingleParam(%d is The smallest DWORD, 0 is The smallest DWORD, 0, 57, TRUE, TRUE) = -2147024809(0X80070057,DRM_E_INVALIDARG)
+
+771008:DRT:P1:DRM_STR_StringCchPrintfExW with param at the end of the format string
+TestCRTCchSPrintFSingleParam(When output this string will have chars %d,When output this string will have chars 42, 42, 78)
+
+771020:DRT:Test the DRM_UTL_XMLEncode function
+TestUTL_XMLEncode(this is <a> string,false,this is &lt;a&gt; string,25)
+TestUTL_XMLEncode(this is <a> string,false,this is &lt;a&gt; string,24)=0x8007007A DRM_E_BUFFERTOOSMALL
+TestUTL_XMLEncode(this is a string,false,this is a string,25)
+TestUTL_XMLEncode(this is "a" string,false,this is "a" string,25)
+TestUTL_XMLEncode(this is "a" string,true,this is &quot;a&quot; string,29)
+

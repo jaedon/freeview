@@ -1,0 +1,18 @@
+#cp
+# Please, do use SPACE instead of TAB
+
+# 1st arg        2nd arg       3rd arg
+# BRANCH_PATH    TRUNK_PATH    TRUNK_REVISION
+
+# OCTO-SERVICE
+drr_octo2/branches/MODEL_2015/FVP4000T         drr_octo2/trunk       HEAD
+
+# Opera
+Opera/sdk-3.5/branches/MODEL_2015/FVP4000T     Opera/sdk-3.5/trunk   HEAD
+Opera/port/branches/MODEL_2015/FVP4000T        Opera/port/trunk      HEAD
+
+# 3rdparty
+drr_3rdparty/branches/MODEL_2015/FVP4000T      drr_3rdparty/trunk    HEAD
+
+# drr_bcm2
+#drr_bcm2/branches/MODEL_2015/FVP4000T         drr_bcm2/trunk        HEAD

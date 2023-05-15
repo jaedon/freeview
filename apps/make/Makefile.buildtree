@@ -1,0 +1,113 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+HUMAX_BUILDTREE_ROOT_DIR := $(strip $(subst ",,$(HUMAX_MAKE_DIR)/build_tree/make_$(CONFIG_PRODUCT_NAME)))
+HUMAX_BUILDTREE_KERNEL_DIR := $(HUMAX_BUILDTREE_ROOT_DIR)/kernel
+HUMAX_BUILDTREE_ROOTFS_DIR := $(HUMAX_BUILDTREE_ROOT_DIR)/rootfs
+HUMAX_BUILDTREE_STATICLIB_DIR := $(HUMAX_BUILDTREE_ROOT_DIR)/static_libs
+HUMAX_BUILDTREE_INCLUDE_DIR := $(HUMAX_BUILDTREE_ROOT_DIR)/include
+
+DBG_BUILDTREE_FOLDER_NAME := $(HUMAX_BUILDTREE_ROOT_DIR)/__this_is_debug_build__
+REL_BUILDTREE_FOLDER_NAME := $(HUMAX_BUILDTREE_ROOT_DIR)/__this_is_release_build__
+
+BUILDTREE_FOLDER_NAME := $(HUMAX_BUILDTREE_ROOT_DIR)/__this_is_$(HUMAX_DBG_MODEL_FOLDER)_build__
+
+HUMAX_APP_STAGGING_TOP_DIR :=$(HUMAX_MAKE_DIR)/_gen_rootfs
+HUMAX_APP_STAGGING_ROOT_DIR :=$(HUMAX_APP_STAGGING_TOP_DIR)/root
+HUMAX_APP_STAGGING_IMG_DIR :=$(HUMAX_APP_STAGGING_TOP_DIR)/image
+
+HUMAX_APP_STATICLIB_DIR :=$(HUMAX_MAKE_DIR)/libs/static_lib
+
+HUMAX_APP_MAINLIB :=$(OCTOSVC_MAKE_DIR)/obama/svc_make/lib/libsvc_make.a
+
+minifying:
+	@echo =======================================
+	@echo target is $@
+	@echo =======================================
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/*
+	sudo rm -rf $(HUMAX_NFS_WEBAPP_DIR)/*
+	@echo 'python $(CURDIR)/prepare_release.py -s $(APP_WEB_BASESRC_DIR) -t $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) 2>&1 | tee prepare_release.py.log'
+	@if [ -d $(APP_WEB_BASESRC_DIR) ]; then \
+		python $(CURDIR)/prepare_release.py -s $(APP_WEB_BASESRC_DIR) -t $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) 2>&1 | tee prepare_release.py.log; \
+		sudo find $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) -name ".svn" | xargs rm -rf; \
+	fi;
+
+
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/fw/server/JLAB
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+	mkdir -p $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/$(CONFIG_PRODUCT_NAME) $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product
+	cp -af $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/$(CONFIG_PRODUCT_NAME)/default.html $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)
+	cp -af $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/$(CONFIG_PRODUCT_NAME)/global_dialog.html $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/builtin_apps/global_dialog
+	cp -af $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/$(CONFIG_PRODUCT_NAME)/home_menu.html $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/builtin_apps/home_menu
+
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+	mkdir -p $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/eng.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/ger.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res
+
+	sudo find $(HUMAX_TOP_DIR)/apps/make/ -name "Preview_*.js" | xargs rm; \
+	$(CURDIR)/minify_js.sh 2>&1 | tee minify_js.sh.log
+	@cp -dprf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/* $(HUMAX_NFS_WEBAPP_DIR)/
+
+preparing:
+	@echo =======================================
+	@echo target is $@
+	@echo =======================================
+	@test -d $(HUMAX_BUILDTREE_KERNEL_DIR)|| install -d -m 755 $(HUMAX_BUILDTREE_KERNEL_DIR)
+	@test -d $(HUMAX_BUILDTREE_ROOTFS_DIR) || install -d -m 755 $(HUMAX_BUILDTREE_ROOTFS_DIR)
+	@test -d $(HUMAX_BUILDTREE_STATICLIB_DIR) || install -d -m 755 $(HUMAX_BUILDTREE_STATICLIB_DIR)
+	@test -d $(HUMAX_BUILDTREE_INCLUDE_DIR) || install -d -m 755 $(HUMAX_BUILDTREE_INCLUDE_DIR)
+	@sudo find $(HUMAX_APP_STAGGING_ROOT_DIR) -name ".svn" | xargs rm -rf 
+	@if [ ! -d $(HUMAX_BUILDTREE_ROOTFS_DIR)/rootfs.tar.bz2 ]; then \
+		sudo rm  -f $(HUMAX_BUILDTREE_ROOTFS_DIR)/rootfs.tar.bz2;	\
+	fi;
+
+mark_build_mode:
+	@echo =======================================
+	@echo target is $@
+	@echo =======================================
+	@if [ -d $(DBG_BUILDTREE_FOLDER_NAME) ]; then \
+		sudo rm  -rf $(DBG_BUILDTREE_FOLDER_NAME);	\
+	fi;
+	@if [ -d $(REL_BUILDTREE_FOLDER_NAME) ]; then \
+		sudo rm  -rf $(REL_BUILDTREE_FOLDER_NAME);	\
+	fi;
+	mkdir $(BUILDTREE_FOLDER_NAME)
+	
+buildtree: mark_build_mode preparing minifying FORCE
+	sudo find $(HUMAX_NFS_INSTALL_DIR) -type f -exec $(HUMAX_MAKE_DIR)/autostrip.sh $(HUMAX_STRIP) {} \;
+	@cd $(HUMAX_NFS_TOP_DIR); sudo tar cvfz rootfs.tar.gz ./root; cd -
+	@cp  $(HUMAX_NFS_TOP_DIR)/rootfs.tar.gz $(HUMAX_BUILDTREE_ROOTFS_DIR)/
+	@cp  $(HUMAX_APP_STAGGING_IMG_DIR)/vmlinuz $(HUMAX_BUILDTREE_KERNEL_DIR)/vmlinuz
+	@cp  $(HUMAX_APP_STATICLIB_DIR)/* $(HUMAX_BUILDTREE_STATICLIB_DIR)/
+	@cp  $(HUMAX_APP_MAINLIB) $(HUMAX_BUILDTREE_STATICLIB_DIR)/libobama.a
+	mkdir -p $(HUMAX_BUILDTREE_INCLUDE_DIR)/service
+	@cp  -rf $(OCTOLIB_SRC_DIR)/hlib/include/* $(HUMAX_BUILDTREE_INCLUDE_DIR)/service
+	@cp  -rf $(OCTOLIB_SRC_DIR)/clib/include/* $(HUMAX_BUILDTREE_INCLUDE_DIR)/service
+	@cp  -rf $(OCTOLIB_SRC_DIR)/dlib/include/* $(HUMAX_BUILDTREE_INCLUDE_DIR)/service
+	@cp  -rf $(OCTOLIB_SRC_DIR)/ondk/include/* $(HUMAX_BUILDTREE_INCLUDE_DIR)/service
+	@cp  -rf $(OCTOLIB_SRC_DIR)/rlib/include/* $(HUMAX_BUILDTREE_INCLUDE_DIR)/service
+	@cp  -rf $(OCTOLIB_SRC_DIR)/silib/include/* $(HUMAX_BUILDTREE_INCLUDE_DIR)/service
+	@cp  -rf $(OCTOSVC_SRC_DIR)/dama/include/*  $(HUMAX_BUILDTREE_INCLUDE_DIR)/service
+	@cp  -rf $(OCTOSVC_SRC_DIR)/hama/include/*  $(HUMAX_BUILDTREE_INCLUDE_DIR)/service
+	@cp  -rf $(OCTOSVC_SRC_DIR)/homma/include/* $(HUMAX_BUILDTREE_INCLUDE_DIR)/service
+	@cp  -rf $(OCTOSVC_SRC_DIR)/nima/include/*  $(HUMAX_BUILDTREE_INCLUDE_DIR)/service
+	@cp  -rf $(OCTOSVC_SRC_DIR)/obama/include/* $(HUMAX_BUILDTREE_INCLUDE_DIR)/service
+	@cp  -rf $(OCTOSVC_SRC_DIR)/pama/include/*  $(HUMAX_BUILDTREE_INCLUDE_DIR)/service
+	@cp  -rf $(OCTOSVC_SRC_DIR)/sama/include/*  $(HUMAX_BUILDTREE_INCLUDE_DIR)/service
+	@cp  -rf $(OCTOSVC_SRC_DIR)/thma/include/*  $(HUMAX_BUILDTREE_INCLUDE_DIR)/service
+	@cp  -rf $(OCTOSVC_SRC_DIR)/umma/include/*  $(HUMAX_BUILDTREE_INCLUDE_DIR)/service
+	mkdir -p $(HUMAX_BUILDTREE_INCLUDE_DIR)/platform
+	@cp  -aL $(HUMAX_PLATFORM_INC_DIR)/*    $(HUMAX_BUILDTREE_INCLUDE_DIR)/platform
+
+buildtree_distclean:
+	@echo =======================================
+	@echo target is $@
+	@echo =======================================
+	@$(MAKE) -C $(HUMAX_BUILDTREE_ROOT_DIR) distclean

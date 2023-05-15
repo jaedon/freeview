@@ -1,0 +1,95 @@
+# Project configuration
+
+config HAVE_DOT_CONFIG
+       bool
+       default y
+
+menu "3rd Party Package selection for the target"
+
+config PACKAGE_BUSYBOX
+	bool "busybox"
+	help
+	  Tiny verison of Unix utilites.
+	  
+	  http://www.busybox.net
+
+config PACKAGE_OPENSSL
+	bool "openssl"
+	help
+	  OpenSSL is based on the excellent SSLeay library developed by Eric A.
+
+	  http://www.openssl.org/
+
+config PACKAGE_FREETYPE
+	bool "freetype"
+	help
+	a free, high-quality and portable font engine.
+
+	http://www.freetype.org/
+
+config PACKAGE_JPEG
+	bool "jpeg"
+	help
+	  The ubiquitous C library for manipulating JPEG images.
+
+	  http://www.ijg.org/
+
+config PACKAGE_CURL
+	bool "curl"
+	help
+	  curl is a command line tool for transferring files with URL syntax.
+
+	  http://www.curl.haxx.se/
+
+config PACKAGE_LIBE2FSPROGS
+	bool "libe2fsprogs"
+	help
+	file system utilities for ext2
+
+config PACKAGE_LVM
+	bool "libdevmapper"
+        help
+
+config PACKAGE_PARTED
+	bool "libparted"
+        help
+	  For creating disk partition tables.
+	
+	  http://www,gnu.org/s/parted
+
+config PACKAGE_PARTED
+	bool "libparted"
+        help
+	  For creating disk partition tables.
+	
+	  http://www.gnu.org/s/parted
+
+config PACKAGE_NCURSES
+	bool "libncurses"
+	default n
+        help
+
+	  The Ncurses(new curses)library is a free software emulation of curses in System V Release 4.0, and more. 
+	  It uses Terminfo format, supports pads and color and multiple highlights and forms characters and function-key
+	  mapping, and has all the other SYSV-curses enhancements over BSD Curses.
+	
+	  http://www.gnu.org/s/ncurses
+
+config PACKGE_READLINE
+	bool "libreadline"
+	default n
+		help
+
+	  The GNU Readline library provides a set of functions for use by applications that allow users to edit command lines as
+	  they are typed in, Both Emacs and vi editing modes are avilable. The Readline library includes additional functions to maintain
+	  a list of previously-entered command lines, to recall and perhaps reedit those lines, and perform csh-like history expansion on previous commands.
+
+	  http://cnswww.cns.cwru.edu/php/chet/readline/rltop.html
+	
+config PACKAGE_MTDUTILS
+	bool "MTD-Utils"
+	help
+	  An abstraction layer for raw flash devices.
+
+	  http://www.linux-mtd.infradead.org/doc/general.html
+endmenu

@@ -1,0 +1,627 @@
+############################################################
+#     Copyright (c) 2005-2010, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.pvr $
+# $brcm_Revision: 94 $
+# $brcm_Date: 5/20/10 10:42a $
+#
+# Module Description:
+#
+# Revision History:
+#
+# Created: 02/09/2001 by Marcus Kellerman
+#
+# $brcm_Log: /BSEAV/api/build/Makefile.pvr $
+# 
+# 94   5/20/10 10:42a mward
+# SW7405-3773: Added bmp4_util.c, bmp4_fragment_demux.c.
+# 
+# 93   3/23/10 11:48a mward
+# SW3556-1077: Custom player to handle non interleaved files
+# 
+# 92   11/17/09 2:15p erickson
+# SW7405-3408: use $(filter) instead of $(findstring)
+# 
+# 91   9/14/09 3:08p mward
+# SW7400-2517: Maintain Native Settop API (BUILD_SYSTEM=magnum) build for
+# 97400.
+# 
+# 90   7/17/09 10:16a gmohile
+# PR 25109 : Add wav and riff parser
+# 
+# 89   7/17/09 10:06a gmohile
+# PR 25109 : Add otfpvr in default build
+# 
+# 88   3/6/09 11:23a mward
+# PR52434: Fix native Settop API kernelmode build.
+# 
+# 87   1/16/09 10:43a mward
+# PR51078: Fix lib/media build in native Settop API.
+# 
+# 86   12/12/08 5:10p mward
+# PR48760: Fix lib/media build in native Settop API.
+# 
+# 85   9/10/08 1:12p gmohile
+# PR 25109 : Fix bmedia compile
+# 
+# 84   7/1/08 4:30p erickson
+# PR41934: add bmedia_player_nav.c for thumbnail support
+#
+# 83   6/17/08 8:55a ssood
+# PR42739: previous changed used incorrect IP flag for non-ip builds
+#
+# 82   6/12/08 4:42p erickson
+# PR42739: remove rtp for non-IP builds
+#
+# 81   3/5/08 11:34a ssood
+# PR39645: B_HAS_NETACCEL_SUPPORT was not getting defined for 2.6.18
+#
+# 80   3/4/08 3:43p gmohile
+# PR 39818 : Fix makefile for MKV support
+#
+# 79   3/3/08 12:56p vsilyaev
+# PR 39818: Added MKV support
+#
+# 78   1/23/08 1:49p ssood
+# PR38608: adding include path for netaccel related header files: needed
+# to accelerated socket support
+#
+# 77   12/11/07 3:28p erickson
+# PR38073: add bmedia_player_generic.c
+#
+# 76   9/26/07 11:33a ptimariu
+# PR25598: added WMS_SUPPORT check
+#
+# 75   9/6/07 4:57p gmohile
+# PR 34640 : Add Divx Drm support
+#
+# 74   8/27/07 5:05p gmohile
+# PR 34361 : Add divx subtitle support
+#
+# 73   8/10/07 1:10a ssood
+# PR33786: Net DMA & IP Streamer refactoring: included NETACCEL_SUPPORT
+# flag
+#
+# 72   8/9/07 5:59p jrubio
+# PR33830: removed bsettop_record_ip.c
+#
+# 71   8/2/07 4:51p vsilyaev
+# PR 33751: Use bpvrlib_feed and bsink_playback to feed data from
+# MEDIA/SPF framework
+#
+# 70   7/12/07 4:33p vsilyaev
+# PR 32982: Don't compile media files unless PVR_SUPPORT is enabled
+#
+# 69   7/12/07 2:52p arbisman
+# PR28665: Add IPSTB support to VxWorks
+#
+# 68   5/18/07 12:10p jjordan
+# PR30200: Add SPF support to playback_ip builds
+#
+# 67   5/18/07 12:45a vsilyaev
+# PR 31188: Added support for FLV stream
+#
+# 66   5/16/07 9:58p vsilyaev
+# PR 28631: Use scatter/gather object from the file buffer
+#
+# 65   5/9/07 3:06p vsilyaev
+# PR 28631: Added parsing of audio stream header
+#
+# 64   5/7/07 5:38p vsilyaev
+# PR 29921: Better use of the AVI index
+#
+# 63   5/1/07 3:24p vsilyaev
+# PR 28631: Integrated support for MP4 container
+#
+# 62   4/25/07 11:26a gmohile
+# PR 29921: Added bmedia_util.c
+#
+# 62   4/25/07 11:25a gmohile
+# PR 29921: Added bmedia_util.c
+#
+# 62   4/25/07 11:19a gmohile
+# PR 29921: Added bmedia_util.c
+#
+# 61   4/25/07 9:37a jjordan
+# PR30200: adopt Stackable Parsing Framework in playpump_ip and brtp
+# modules
+#
+# 60   4/18/07 1:27p erickson
+# PR29921: fixed AVI_SUPPORT test
+#
+# 59   4/17/07 7:35p vsilyaev
+# PR 29921: Added support for bmedia_player
+#
+# 58   4/16/07 1:05p erickson
+# PR29890: move 7401 code to api/src/CHIP
+#
+# 57   3/30/07 12:16p erickson
+# PR28741: separate pvr stubs for main and pvr Settop API layers
+#
+# 56   3/28/07 4:00p vsilyaev
+# PR 29125: Moved AVI parsing into the media library
+#
+# 55   3/26/07 1:48a erickson
+# PR28741: bplayback_ip should use stubs, not full impl
+#
+# 54   3/14/07 11:22a erickson
+# PR28735: all platforms will now default to using playpump_throttle
+#
+# 53   3/6/07 7:00p ptimariu
+# PR20685: add drm nd support
+#
+# 52   3/1/07 7:09p vsilyaev
+# PR 25701: Added support for the AVI container
+#
+# 51   11/17/06 10:43a erickson
+# PR25230: move bcmplayer from SetTop/bcmplayer to BSEAV/lib/bcmplayer.
+# Remove SetTop from Brutus/Settop API build.
+#
+# 50   10/12/06 5:42p dlwin
+# PR 24747: Make biovec really unconditional, one more time.
+#
+# 49   10/12/06 4:57p vsilyaev
+# PR 24747: Make biovec really unconditional
+#
+# 48   10/4/06 5:38p vsilyaev
+# PR 24747: Always compile biovec.c
+#
+# 47   9/29/06 10:58a rjlewis
+# PR24594: only enable if not already disabled.
+#
+# 46   9/20/06 11:53a gmohile
+# PR 24129: Added support for 7313
+#
+# 45   9/18/06 2:52p vsilyaev
+# PR24127: Fix for the kernel mode build, take 2
+#
+# 44   9/18/06 9:50a erickson
+# PR24127: fixed ASF kernelmode build. indented code for readability.
+#
+# 43   9/16/06 6:22p dlwin
+# PR 24127: Added support for ASF when build for Kernel Mode
+# applications.
+#
+# 42   8/22/06 4:15p dlwin
+# PR 23822: Disable ASF/DRM support on default build
+#
+# PR20685_MSDRM/97398_200607/3   8/21/06 5:56p dlwin
+# PR 23719: One more change for Kernel build.
+#
+# PR20685_MSDRM/97398_200607/2   8/21/06 4:38p dlwin
+# PR 23719: Changes to have the default build for none ASF/DRM mode. To
+# build for DRM, one must explicitly define ASF too.
+#
+# PR20685_MSDRM/97398_200607/1   8/18/06 5:51p dlwin
+# PR 23719: Changes to have the default build for none ASF/DRM mode.
+#
+# 41   8/3/06 1:56p ptimariu
+# PR20685: moved drm script to Makefile.drm
+#
+# 40   8/3/06 1:24a ptimariu
+# PR20685: look for wmdrmpd10 as MS DRM dir
+#
+# 39   7/28/06 9:04p vsilyaev
+# PR 20577: Make optional ASF for the 7411 D0,E0 platforms
+#
+# 38   7/25/06 5:24p jjordan
+# PR22906: Integrate liveMedia open-source for RTP and RTCP support
+#
+# 37   7/20/06 6:13p ptimariu
+# PR20685: added asf drm support
+#
+# PR20685_MSDRM/2   7/13/06 3:26p ptimariu
+# PR20685: merging latest
+#
+# 36   7/7/06 11:24a erickson
+# PR22526: added ASF_SUPPORT env variable to enable ASF->PES on 740x
+#
+# PR20685_MSDRM/1   6/30/06 1:10p ptimariu
+# PR20685: added asf drm support
+#
+# 35   6/30/06 11:50a vsilyaev
+# PR 22372: Fixed 7411E0 support
+#
+# 34   6/27/06 4:17p dlwin
+# PR 22372: Added support 7411E0.
+#
+# 33   6/23/06 5:36p jjordan
+# PR22332: Add support for IP network jitter when using NET_IF DMA code
+#
+# 32   6/6/06 8:27p ahulse
+# PR20917: Only Cx chips have TSDMA, conditionally compile
+#
+# 31   6/6/06 7:19p ahulse
+# PR20917: Add MCARD 3DES decryption, using XPT TS_DMA/PB Engines, to
+# BCM7038 SW
+#
+# 30   4/7/06 3:50p vsilyaev
+# PR 20680: Added bfile library
+#
+# 29   4/4/06 6:50p vsilyaev
+# PR 20577: Separated ASF parser and ASF stream
+#
+# 28   3/17/06 7:23p rjlewis
+# PR19786: this needed in vxworks now.
+#
+# 27   3/15/06 4:51p vsilyaev
+# PR20221: NetIF DMA interface
+#
+# 26   3/6/06 1:24p erickson
+# PR19853: added VC1 PES support
+#
+# 25   2/7/06 10:28a erickson
+# PR17108: remove PLAYBACK_IP_SUPPORT=n and allow default of undefined
+# work
+#
+# 24   1/11/06 5:17p rjlewis
+# PR17108: don't need this with vxworks yet.
+#
+# 23   12/6/05 3:27p vsilyaev
+# PR 18463: Added support for Rave record
+#
+# 22   11/30/05 3:22p vsilyaev
+# PR 18183: Added FIFO file support
+#
+# 21   11/28/05 10:19a erickson
+# PR18256: remove unneeded reference for 97401
+#
+# 20   10/18/05 3:26p vsilyaev
+# PR17607: Fixed conditional for OTFPVR code
+#
+# 19   10/17/05 6:20p vsilyaev
+# PR17607: Added support for playback
+#
+# 18   9/16/05 1:14p erickson
+# PR17150: remove reference to 97395
+#
+# 17   9/14/05 2:16p erickson
+# PR17148: removed bcmplayer's define now that we have BCHP_7411_VER
+#
+# 16   9/7/05 5:06p vsilyaev
+# PR 15377: Merged 7401 changes
+#
+# Refsw_97401_Bringup/1   8/25/05 5:25p vsilyaev
+# resolved undefined symbols
+#
+# 15   8/5/05 3:06p erickson
+# PR16583: moved BCM7411C_BTP_FORMAT option so it will work with
+# kernelmode as well
+#
+# 14   8/5/05 2:46p erickson
+# PR16583: use BUILD_SYSTEM=proxy for proxy builds so that PLATFORM
+# information is available in the proxy layer
+#
+# 13   8/4/05 8:49a erickson
+# PR15072: need to compile playback_ip and record_ip always so that we at
+# least get the stubs
+#
+# 12   7/27/05 3:55p vsilyaev
+# PR 16385: Deactivated IP support.
+#
+# 11   7/27/05 3:29p vsilyaev
+# PR 16385: Merge IP record feature
+#
+# PROD_IPSTB_REFSW_Devel/1   7/13/05 3:57p wesleyl
+# PR15072: Add bsettop_record_ip.c
+#
+# 10   5/24/05 5:33p vsilyaev
+# PR 13873: Merge OTFPVR code
+#
+# Irvine_BSEAVSW_Devel/BESOTFPVR/6   11/15/04 8:43p vsilyaev
+# Removed otfpvr from the include path.
+#
+# Irvine_BSEAVSW_Devel/BESOTFPVR/5   11/13/04 2:25p vsilyaev
+# Renamed implementation file to match name of api(header).
+#
+# Irvine_BSEAVSW_Devel/BESOTFPVR/4   11/13/04 1:55p vsilyaev
+# Separated otfpvr to backend and frontend  parts.
+#
+# Irvine_BSEAVSW_Devel/BESOTFPVR/3   11/12/04 6:27p vsilyaev
+# Added OTFPVR files.
+#
+# Irvine_BSEAVSW_Devel/BESOTFPVR/2   11/12/04 6:03p vsilyaev
+# Merged from current.
+#
+# 9   4/22/05 8:01p vsilyaev
+# PR 14988: Added API to open "chunked" files.
+#
+# 8   4/15/05 5:25p haisongw
+# PR14830: VxWorks 7111 DSG/Brutus integration
+#
+# 7   3/24/05 12:53p vsilyaev
+# PR 14593: 93560 support
+#
+# 5   3/3/05 10:52a vsilyaev
+# PR 14296: Use generic FIFO library
+#
+# 4   2/18/05 3:58p erickson
+# PR14180: have to add pvr to vpath for ip settop stubs
+#
+# 3   2/16/05 4:44p erickson
+# PR13959: add B_HAS_IP define and support ip stubs
+#
+# 2   2/12/05 11:06a dlwin
+# Merge down for release 2005_REFSW_MERGETOMAIN:
+#
+# Irvine_BSEAVSW_Devel/31   2/10/05 5:02p jjordan
+# PR13959: Move bsettop_playback_ip.c to /pvr directory for use by legacy
+#
+# Irvine_BSEAVSW_Devel/30   2/8/05 7:13p vsilyaev
+# PR13959: Fixed build issue.
+#
+# Irvine_BSEAVSW_Devel/29   2/8/05 9:45a jjordan
+# PR13959: Initial checkin of IP STB
+#
+# Irvine_BSEAVSW_Devel/28   2/1/05 11:18a marcusk
+# PR13348: Initial checkin with support for BES record.
+#
+# Irvine_BSEAVSW_Devel/27   1/27/05 4:36p erickson
+# PR13908: updated proxy
+#
+# Irvine_BSEAVSW_Devel/26   1/25/05 5:39p erickson
+# PR13908: Settop API makefile rework
+#
+# Irvine_BSEAVSW_Devel/25   1/25/05 5:12p erickson
+# PR13908: Settop API makefile rework
+#
+############################################################
+
+# Default to on
+ifeq ($(PVR_SUPPORT),)
+PVR_SUPPORT=y
+endif
+
+# Find reasons to turn it off
+ifeq ($(SYSTEM),vxworks)
+	ifeq ($(filter $(PLATFORM),97111 97110 97312 97313), $(PLATFORM))
+		PVR_SUPPORT=n
+	endif
+endif
+
+CFLAGS += -I$(BSEAV)/lib/utils
+
+ifeq ($(PVR_SUPPORT),y)
+	ifeq ($(ASF_SUPPORT),y)
+		CFLAGS += -I$(BSEAV)/lib/asf -DB_HAS_ASF=1
+		vpath %.c $(BSEAV)/lib/asf
+		SRCS += \
+			basf_stream.c \
+			basf_util.c
+	endif
+
+	vpath %.c $(BSEAV)/lib/utils
+	SRCS += bpool.c balloc.c barena.c bioatom.c
+	CFLAGS += -I$(BSEAV)/lib/media -DB_HAS_MEDIA=1
+	vpath %.c $(BSEAV)/lib/media
+	SRCS += bmpeg1_parser.c
+
+	ifeq ($(FLV_SUPPORT),y)
+	CFLAGS += -I$(BSEAV)/lib/media/flv -DB_HAS_FLV=1
+	vpath %.c $(BSEAV)/lib/media/flv
+	SRCS += bflv_parser.c
+	endif
+
+
+	SRCS += bmedia_filter.c bmedia_pes.c bmedia_es.c bmedia_util.c
+	SRCS += bmp4_parser.c bmp4_util.c bmp4_fragment_demux.c
+
+	ifeq ($(AVI_SUPPORT),y)
+	CFLAGS += -I$(BSEAV)/lib/avi -DB_HAS_AVI=1
+	vpath %.c $(BSEAV)/lib/avi
+	SRCS += \
+		bavi_parser.c \
+		bavi_stream.c \
+		bavi_util.c
+	endif
+
+	SRCS +=  bwav_filter.c briff_parser.c 
+
+	# JJ
+	CFLAGS += -I$(BSEAV)/lib/rtp
+	vpath %.c $(BSEAV)/lib/rtp
+	SRCS += \
+		brtp_spf.c \
+		btimestamp.c
+endif
+
+ifneq ($(BUILD_SYSTEM),proxy)
+	# main part of the Settop API (minus proxy layer for kernelmode builds)
+	ifeq ($(PVR_SUPPORT),y)
+
+		# Low-level PVR
+		# All platforms use playpump_throttle.c, not playpump.c. Only playpump_throttle has
+		# post-processing capabilities needed for ASF, AVI, etc. playpump.c is an optimized,
+		# direct-to-hardware implementation.
+		SRCS += \
+			bsettop_recpump.c \
+			bsettop_stctrick.c \
+			bfifo.c \
+			bsettop_playpump_throttle.c
+
+		SRCS += bsink_playback.c
+
+		ifeq ($(DRM_SUPPORT), y)
+			ifneq ($(ASF_SUPPORT), y)
+				$(error Error, DRM support requires ASF support too, ie 'make ASF_SUPPORT=y DRM_SUPPORT=y ...')
+			endif
+		endif
+
+		ifeq ($(ASF_SUPPORT),y)
+
+			DRM_BUILD_DIR       = $(BSEAV)/lib/drm/build
+			DRMND_BUILD_DIR     = $(BSEAV)/lib/drmnd/build
+			DRM_BUILD_LOCK      = $(DRM_BUILD_DIR)/.build
+			DRM_BUILD_LOCK_INST = $(DRM_BUILD_DIR)/.build.install
+
+			ifeq ($(DRM_SUPPORT), y)
+				ifneq ($(shell test -d $(BSEAV)/lib/drm/wmdrmpd10 && echo y), y)
+					$(error Error, no DRM libraries found! please contact Broadcom for DRM licensing details)
+				endif
+	   				ifeq ($(DRMND_SUPPORT), y)
+									$(error Error, incompatible build options DRM_SUPPORT=y DRMND_SUPPORT=y)
+				endif
+				include $(DRM_BUILD_DIR)/Makefile.drm
+			else
+# DME: this can't be done apart from a rule
+#				$(shell rm -rf $(DRM_BUILD_LOCK) $(DRM_BUILD_LOCK_INST))
+			endif
+			ifeq ($(DRMND_SUPPORT), y)
+				include $(DRMND_BUILD_DIR)/Makefile.drm
+			endif
+		endif
+#needed for bavi_stream.
+		ifeq (${SYSTEM},linuxkernel)
+			ifeq ($(AVI_SUPPORT),y)
+				SRCS += bmpeg4_util.c
+			endif
+		endif
+#GM: DivX subtitle support
+		ifeq ($(SUBTITLE_SUPPORT),y)
+			CFLAGS += -DSUBTITLE_SUPPORT=1
+			CFLAGS += -I $(BSEAV)/api/utils/subtitle
+			vpath %.c $(BSEAV)/api/utils/subtitle
+			SRCS += subtitle_parse.c
+		endif
+
+#GM: DivX DRM support
+		ifeq ($(DIVX_DRM_SUPPORT),y)
+			include $(BSEAV)/lib/divxdrm/Makefile.drm
+		endif
+
+		ifeq (${B_HAS_PLAYPUMP_IP},y)
+			ifeq (${SPF_SUPPORT},y)
+				CFLAGS += -DB_HAS_SPF_SUPPORT
+				SRCS += bsettop_playpump_ip_spf.c
+			else
+				SRCS += bsettop_playpump_ip.c
+			endif
+			ifeq (${NETACCEL_SUPPORT},y)
+				CFLAGS += -DB_HAS_NETACCEL
+			endif
+		endif
+
+		ifeq ($(BUILD_SYSTEM),magnum)
+			SRCS += \
+				bsettop_playpump_trick.c \
+				bsettop_recpump_rave.c
+
+			ifeq ($(filter $(PLATFORM),97038 97398), $(PLATFORM))
+				SRCS += \
+					bsettop_recpump_bes.c \
+					bsettop_recpump_ts.c
+				ifneq ($(filter $(BCHP_VER),A0 B0 B1 B2), $(BCHP_VER))
+					SRCS += bsettop_recpump_tsdma.c
+				endif
+			endif
+		endif
+
+		ifeq ($(OTFPVR_SUPPORT),y)
+			# On The Fly PVR
+			# Be aware the proxy-support for otfpvr is not done. You would have to modify
+			# api/build/proxy/autogen, then get the perl script to parse bsettop_otfpvr_pump.h
+			SRCS += \
+				bsettop_otfpvr_pump.c \
+				botfpvr_feeder.c \
+			    bpvr_scv_parser.c \
+			    bpvr_gop_manager.c  \
+			    bpvr_marker.c \
+			    bpvr_alloc32.c \
+				bpvr_gop_player.c
+
+			CFLAGS += -DB_HAS_OTFPVR=1
+
+			vpath %.c ${BSEAV}/linux/bin/bespvr
+			vpath %.c ${BSEAV}/lib/otfpvr/7038
+			vpath %.c ${BSEAV}/lib/otfpvr
+		endif
+	else # No PVR_SUPPORT
+		SRCS += bsettop_playpump_stub.c
+	endif
+endif
+
+# High-level PVR layer
+# for kernelmode, this is compiled in the proxy layer
+# for usermode, this is compiled in the main body
+ifeq ($(PVR_SUPPORT),y)
+	ifneq (${SYSTEM},linuxkernel)
+		ifeq ($(ASF_SUPPORT),y)
+			SRCS += basf_player.c basf_parser.c
+		endif
+		SRCS += bmedia_player_es.c bmpeg_audio_util.c bid3_parser.c
+		SRCS += bmedia_player.c bmedia_index.c bmedia_player_generic.c
+		SRCS += bmp4_player.c bmp4_track.c bmpeg4_util.c bfile_buffer.c
+		SRCS += bmkv_player.c bmkv_parser.c bmkv_util.c bmkv_file_parser.c 
+		SRCS += bmpeg2ts_parser.c bmpeg2ts_player.c baa_tree.c btime_indexer.c
+		SRCS += botf_marker.c bmpeg2pes_parser.c bmpeg2pes_player.c
+		ifeq ($(AVI_SUPPORT),y)
+			SRCS += bavi_player.c bavi_player_custom.c
+		endif
+
+		vpath %.c $(BSEAV)/lib/bcmplayer/src
+		vpath %.c $(BSETTOP)/src/pvr
+		vpath %.c $(BSEAV)/lib/bfile
+		vpath %.c ${BSEAV}/lib/otfpvr
+		CFLAGS += -I$(BSETTOP)/src/pvr -I${BSEAV}/lib/otfpvr
+		SRCS += \
+			bfile_io.c \
+			bfile_cache.c \
+			bsettop_fileio.c  \
+			bsettop_fileio_chunk.c  \
+			bsettop_fileio_fifo.c \
+			bsettop_record.c	\
+			bsettop_pvr_util.c \
+			bsettop_playback.c	\
+			bcmplayer.c \
+			bcmindexer.c \
+			bcmindexer_vc1.c \
+			bvlc.c
+
+		CFLAGS += -DB_HAS_NAV_PLAYER=1
+		vpath %.c ${BSEAV}/lib/media
+		SRCS += bmedia_player_nav.c
+
+		ifeq ($(OTFPVR_SUPPORT),y)
+			SRCS += bsettop_otfplay.c
+		else
+			SRCS += bsettop_otfplay_stub.c
+		endif
+
+		# IP Settop support
+		# Always compile ip C files. If there's no support, we still need the stubs.
+		ifeq ($(B_HAS_PLAYPUMP_IP),y)
+			CFLAGS += -DB_HAS_PLAYPUMP_IP
+			ifeq (${SYSTEM},vxworks)
+				vpath %.c $(BSEAV)/vxworks/driver/974xx
+				CFLAGS += -I$(BSEAV)/vxworks/driver/974xx
+				SRCS += netif_dma_vx.c
+			endif
+		endif
+		SRCS += bsettop_playback_ip.c
+		ifeq (${NETACCEL_SUPPORT},y)
+			CFLAGS += -DB_HAS_NETACCEL=1
+		endif
+		CFLAGS += -I$(BSEAV)/lib/netaccel/include
+	endif
+
+	ifeq ($(PLAYBACK_IP_SUPPORT),y)
+		CFLAGS += -DB_HAS_IP
+	endif
+else # No PVR_SUPPORT
+	SRCS += bsettop_pvr_stub.c
+endif
+
+ifeq ($(LIVEMEDIA_SUPPORT),y)
+	CFLAGS += -DLIVEMEDIA_SUPPORT
+endif
+
+ifeq ($(WMS_SUPPORT), y)
+	CFLAGS += -DB_HAS_WMS
+endif
+

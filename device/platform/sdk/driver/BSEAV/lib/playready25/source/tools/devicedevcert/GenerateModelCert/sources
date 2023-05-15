@@ -1,0 +1,25 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=generatemodelcert
+TARGETTYPE=PROGRAM
+UMTYPE=console
+UMENTRY=wmain
+
+TARGETLIBS = $(TARGETLIBS)                          \
+    $(_DRM_COMMON_LIBS)                             \
+    $(_DRM_OEM_MAIN_LIB)                            \
+    $(_DRM_BLACKBOX_LIBS)                           \
+    $(_DRM_TOOLS_COMMON_LIBS)                       \
+
+
+SOURCES = \
+    generatemodelcert.c
+
+!if "$(_DRM_BUILD_TOOL)" != "NMAKE"
+SOURCES = $(SOURCES) \
+      generatemodelcert.rc
+!endif
+
+INCLUDES = $(INCLUDES) \
+    $(_DRM_SOURCE_PATH)\tools\common;
+

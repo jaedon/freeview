@@ -1,0 +1,67 @@
+-------------------BVT ends here--------------------------
+'REVOCATION TESTS
+
+30070: Process a different license response containing a WMDRMND revocation list and the same App revocation list
+If(WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><RESTRICTIONS><COMPRESSEDDIGITALVIDEO level='300'/></RESTRICTIONS><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_1_app_16.b64.signed_wchar)
+TestManagerSetRevocation({90A37313-0ECF-4CAA-A906-B188F6129300}, files\crl_app_16.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerGetRevocationList({90A37313-0ECF-4CAA-A906-B188F6129300}, files\crl_app_16.b64_wchar)
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, files\rlvi_1_app_16.b64.signed_wchar,TRUE)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Ygiiuk82iokl11==,{00000504-0000-0010-8000-00AA006D2EA4},0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_2_app_16_WMDRMND_8.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)
+TestManagerSetRevocation({90A37313-0ECF-4CAA-A906-B188F6129300}, files\crl_app_16.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, files\rlvi_2_app_16_WMDRMND_8.b64.signed_wchar,TRUE)
+TestManagerGetRevocationList({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)
+TestManagerGetRevocationList({90A37313-0ECF-4CAA-A906-B188F6129300}, files\crl_app_16.b64_wchar)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+EndIf
+
+30080: Process a different license response containing an App revocation list and the same WMDRMND revocation list
+If(WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><RESTRICTIONS><COMPRESSEDDIGITALVIDEO level='300'/></RESTRICTIONS><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_1_WMDRMND_8.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, files\rlvi_1_WMDRMND_8.b64.signed_wchar,TRUE)
+TestManagerGetRevocationList({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Ygiiuk82iokl11==,{00000504-0000-0010-8000-00AA006D2EA4},0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_2_app_16_WMDRMND_8.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)
+TestManagerSetRevocation({90A37313-0ECF-4CAA-A906-B188F6129300}, files\crl_app_16.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, files\rlvi_2_app_16_WMDRMND_8.b64.signed_wchar,TRUE)
+TestManagerGetRevocationList({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)
+TestManagerGetRevocationList({90A37313-0ECF-4CAA-A906-B188F6129300}, files\crl_app_16.b64_wchar)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+EndIf
+
+30200: Process a license response containing an App revocation list and invalid WMDRMND revocation list
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Ygiiuk82iokl11==,{00000504-0000-0010-8000-00AA006D2EA4},0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_2_app_16_WMDRMND_8.b64.signed_wchar)
+TestManagerSetRevocation({90A37313-0ECF-4CAA-A906-B188F6129300}, files\crl_app_16.b64_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\invalid_crl_WMDRMND_8.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)=-2147024809
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, NULL)
+'TestManagerGetRevocationList({90A37313-0ECF-4CAA-A906-B188F6129300}, NULL)
+TestManagerGetRevocationList({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, NULL)
+TestManagerReinitialize( Reset, FALSE, FALSE )

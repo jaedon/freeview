@@ -1,0 +1,58 @@
+##########################################
+# DI CABLE MODEM configuration menu
+##########################################
+
+config CABLE_MODEM
+	bool
+	prompt "Enable Cable Modem Module"	
+	default n
+
+config NA_DOCSIS
+        bool
+        prompt "Enable NA_DOCSIS"
+	depends on CABLE_MODEM
+        default n
+
+config EURO_DOCSIS
+        bool
+        prompt "Enable EURO_DOCSIS"
+	depends on CABLE_MODEM
+        default n
+
+config CABLE_MODEM_MAX_DS
+	int 
+	prompt "Max Number of DOCSIS Downstream Channel"
+	depends on CABLE_MODEM
+	default 0
+
+config CABLE_MODEM_MAX_US
+        int
+        prompt "Max Number of DOCSIS Upstream Channel"
+	depends on CABLE_MODEM
+        default 0
+
+config CABLE_MODEM_BRCM_DSGCC
+	bool
+	prompt "Enable Method to Control Cable Modem with DSGCC"
+	depends on CABLE_MODEM
+	default n
+
+config CABLE_MODEM_BRCM_RPC
+	bool
+	prompt "Enable Method to Control Cable Modem with RPC"
+	depends on CABLE_MODEM
+	default n
+
+config CABLE_MODEM_LED_STATUS
+        bool
+        prompt "Enable Cable Modem Status (both LED and VFD)"
+	depends on CABLE_MODEM
+        default n
+
+config CABLE_MODEM_RESET_BY_HOST
+	bool
+	prompt "Enable Method to Control Cable Modem Reset by HOST GPIO"
+	depends on CABLE_MODEM
+	default n
+
+

@@ -1,0 +1,160 @@
+##########################################
+# DI AUDIO configuration menu
+##########################################
+
+config AUDIO_DECODER
+	bool
+	prompt "AUDIO_DECODER"
+	default y
+
+config AUDIO_ENCODER
+	bool
+	prompt "AUDIO_ENCODER"
+	default y
+
+if AUDIO_DECODER
+
+config AUDIO_DEC_OPUS
+	bool
+	prompt "AUDIO_DEC_OPUS"
+	default n
+
+config AUDIO_DEC_FLAC
+	bool
+	prompt "AUDIO_DEC_FLAC"
+	default n
+
+config WORK_AROUND_LOCAL_STREAMINFO
+	bool
+	prompt "WORK_AROUND_LOCAL_STREAMINFO"
+	default n
+
+config AUDIO_DESCRIPTION
+	bool
+	prompt "AUDIO_DESCRIPTION"
+	default n
+
+config DDCO_CERTI
+	bool
+	prompt "DDCO_CERTI"
+	default n
+
+config MS10_CERTI
+	bool
+	prompt "MS10_CERTI"
+	default n
+
+config AC3_VOLUME_3DB_DOWN
+	bool
+	prompt "AC3_VOLUME_3DB_DOWN"
+	default n
+
+config AC3_PLUS_VOLUME_3DB_DOWN
+	bool
+	prompt "AC3_PLUS_VOLUME_3DB_DOWN"
+	default n
+
+config AC3_VOLUME_11DB_DOWN
+	bool
+	prompt "AC3_VOLUME_11DB_DOWN"
+	default n
+
+config AUDIO_SYNC_OFFSET
+	int	
+	prompt "AUDIO_SYNC_OFFSET"
+	default 0
+
+config AUDIO_SYNC_MPEG_OFFSET
+	int
+	prompt "AUDIO_SYNC_MPEG_OFFSET"
+	default 0
+
+config AUDIO_SYNC_AC3_OFFSET
+	int
+	prompt "AUDIO_SYNC_AC3_OFFSET"
+	default 60
+
+config AUDIO_SYNC_AC3P_OFFSET
+	int
+	prompt "AUDIO_SYNC_AC3P_OFFSET"
+	default 0
+
+config AUDIO_SYNC_AAC_OFFSET
+	int
+	prompt "AUDIO_SYNC_AAC_OFFSET"
+	default 0
+
+config AUDIO_SYNC_AACP_OFFSET
+	int
+	prompt "AUDIO_SYNC_AACP_OFFSET"
+	default 0
+
+choice
+	prompt "GPIO for HW MUTE"
+	default AUDIO_LOW_HWMUTE  
+	config AUDIO_LOW_HWMUTE
+		bool
+		prompt "AUDIO_LOW_HWMUTE"
+
+	config AUDIO_HIGH_HWMUTE
+		bool
+		prompt "AUDIO_HIGH_HWMUTE"
+
+	config AUDIO_NONE_HWMUTE
+		bool
+		prompt "AUDIO_NONE_HWMUTE"
+endchoice
+
+config AUDIO_ENCODER
+	bool
+	prompt "AUDIO_ENCODER"
+	default n
+
+config AUDIO_ERROR_LOG
+	bool
+	prompt "AUDIO_ERROR_LOG"
+	default n
+
+config AUDIO_HIGH_RESOLUTION_AUDIO
+	bool
+	prompt "Support maximum 96KHz sample rate audio"
+	default n
+
+	config AUDIO_HIGH_RESOLUTION_AUDIO_EXT_DAC
+		bool
+		prompt "Support maximum 192KHz sample rate audio with external DAC"
+		default n
+		depends on AUDIO_HIGH_RESOLUTION_AUDIO
+
+config AUDIO_PTS_THRESHOLD_ADJUSTMENT
+	bool
+	prompt "Support adjustment audio pts threshold"
+	default n
+
+	config AUDIO_PTS_THRESHOLD_VALUE
+		hex
+		prompt "audio pts threshold"
+		default 0
+		depends on AUDIO_PTS_THRESHOLD_ADJUSTMENT
+
+config AUDIO_VOLUME_LEVEL_MAX
+	bool
+	prompt "Support adjustment audio volume max level"
+	default n
+
+	config AUDIO_VOLUME_LEVEL_MAX_VALUE
+		int
+		prompt "audio volume max level"
+		default 100
+		depends on AUDIO_VOLUME_LEVEL_MAX
+endif
+
+config AUDIO_INTERNAL_AMP
+	bool
+	prompt "AUDIO_INTERNAL_AMP"
+	default n
+	
+	config DOLBY_DOWNMIXMODE_LORO
+	bool
+	prompt "Dolby downmix mode change to LoRo (for DTG)"
+	default n

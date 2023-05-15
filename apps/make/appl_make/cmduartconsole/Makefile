@@ -1,0 +1,17 @@
+HUMAX_APP_NAME := cmduartconsole
+HUMAX_GLOBALCONF_DIR=$(HUMAX_GLOBALENV_CONFDIR)
+HUMAX_GLOBALENV_DIR = $(HUMAX_GLOBALENV_BINDIR)
+HUMAX_CONFIG_MODE := .globalconfig
+
+export HUMAX_APP_NAME
+export HUMAX_GLOBALENV_DIR
+export HUMAX_CONFIG_MODE
+
+include $(HUMAX_MAKE_DIR)/$(HUMAX_CONFIG_MODE)
+
+obj-y += $(APPLTOP_SRC_DIR)/cmduartconsole/
+
+ccflags-y := $(HUMAX_PLATFORM_INCLUDE_FLAG)
+ccflags-y += -I$(OCTOLIB_SRC_DIR)/hlib/include
+
+include $(HUMAX_GLOBALENV_DIR)/HumaxDefaultMake.mak

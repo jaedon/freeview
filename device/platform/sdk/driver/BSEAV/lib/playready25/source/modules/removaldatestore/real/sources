@@ -1,0 +1,11 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmremovaldatestorereal
+TARGETTYPE=LIBRARY
+
+C_DEFINES= $(C_DEFINES)                         \
+    -DDRM_BUILDING_DRMREMOVALDATESTORE_LIB      \
+
+SOURCES =                  \
+    drmremovaldatestore.c
+

@@ -1,0 +1,14 @@
+#3rd party
+ccflags-$(CONFIG_MW_MM_DLNA) += -I$(THIRDPARTY_DIR)/dlna/mxlib
+ccflags-$(CONFIG_MW_MM_DLNA) += -I$(THIRDPARTY_DIR)/dlna/mxlib/mxdbc
+ccflags-$(CONFIG_MW_MM_DLNA) += -I$(THIRDPARTY_DIR)/dlna/mxlib/mxdlna
+ccflags-$(CONFIG_MW_MM_DLNA) += -I$(THIRDPARTY_DIR)/dlna/mxlib/mxdtcp
+ccflags-$(CONFIG_MW_MM_DLNA) += -I$(THIRDPARTY_DIR)/dlna/mxlib/mxfile
+ccflags-$(CONFIG_MW_MM_DLNA) += -I$(THIRDPARTY_DIR)/dlna/mxlib/mxkernel
+ccflags-$(CONFIG_MW_MM_DLNA) += -I$(THIRDPARTY_DIR)/dlna/mxlib/mxmedia
+ccflags-$(CONFIG_MW_MM_DLNA) += -I$(THIRDPARTY_DIR)/dlna/mxlib/mxresource
+
+ccflags-$(CONFIG_MW_MM_DLNA) += -I$(THIRDPARTY_DIR)/dlna/mxlib/transcoder/transcoder_Control
+ccflags-$(CONFIG_MW_MM_DLNA) += -I$(THIRDPARTY_DIR)/dlna/mxlib/transcoder/transcoderWrapper_HMS_HW
+
+ccflags-$(CONFIG_HOMMA_WOON) += -I$(THIRDPARTY_DIR)/dlna/mxlib/Ra

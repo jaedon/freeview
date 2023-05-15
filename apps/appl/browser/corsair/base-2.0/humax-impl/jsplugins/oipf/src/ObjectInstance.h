@@ -1,0 +1,268 @@
+﻿// -*- Mode: c++; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/*
+ * Copyright (C) 1995-2013 Opera Software ASA. All rights reserved.
+ *
+ * It is prohibited for you to distribute this file to anybody without Operas
+ * separate written consent.
+ */
+
+#ifndef __OBJECTINSTANCE
+#define __OBJECTINSTANCE
+
+#include "jsplugin.h"
+
+#include <list>
+
+namespace Ooif
+{
+typedef enum
+{
+    CLASS_INVALID,
+    CLASS_DEFAULT,
+    CLASS_PROGRAMME,
+    CLASS_BOOKMARK,
+    CLASS_QUERY,
+    CLASS_CHANNEL,
+    CLASS_CHANNELLIST,
+    CLASS_PARENTALRATINGSCHEME,
+    CLASS_DOWNLOAD,
+    CLASS_AVCOMPONENT,
+    CLASS_PARENTALRATINGCOLLECTION,
+#if defined(OIPF) || defined(HBBTV_1_2_1)
+    CLASS_METADATASEARCH,
+    CLASS_SEARCHRESULT,
+#endif // OIPF || HBBTV_1_2_1
+#ifdef OIPF
+    CLASS_BOOKMARKCOLLECTION,
+#endif // OIPF
+    CLASS_APPLICATIONPRIVATEDATA,
+    CLASS_EVENT,
+    CLASS_KEYSET,
+    CLASS_FAVOURITELISTCOLLECTION,
+#if defined(HBBTV_PVR) || defined(OIPF)
+    //CLASS_PVR,
+    CLASS_RECORDING,
+	CLASS_SCHEDULEDRECORDING,
+#endif // HBBTV_PVR || OIPF
+    CLASS_PARENTAL_RATING_SCHEME_COLLECTION,
+	CLASS_PARENTAL_RATING,
+#ifdef OIPF
+    CLASS_SIGNAL_INFO,
+    CLASS_TUNER,
+#ifdef HMX_WEBUI
+    CLASS_CHANNELSCANPARAMS,
+    CLASS_CHANNELSCANPARAMSCOLLECTION,
+#endif
+    CLASS_CHANNELSCANOPTIONS,
+    CLASS_CHANNELSCANPARAMETERS,
+    CLASS_WIDGETDESCRIPTOR,
+    CLASS_WIDGETDESCRIPTORCOLLECTION,
+#endif // OIPF
+    CLASSTYPE_EVENTTARGET, // All classes after this point should be subclasses of EventTarget
+    CLASS_DRMAGENT,
+    CLASS_APPLICATIONMANAGER,
+    CLASS_DOWNLOADMANAGER,
+    CLASS_RECORDINGSCHEDULER,
+    CLASS_APPLICATION,
+#if defined(OIPF) || defined(HBBTV_1_2_1)
+    CLASS_SEARCHMANAGER,
+#endif // OIPF || HBBTV_1_2_1
+#ifdef OIPF
+    CLASS_LOCAL_SYSTEM,
+	CLASS_CHANNEL_CONFIG,
+#endif // OIPF
+    CLASSTYPE_VISUAL, //ALL classes after this point should be subclasses of VisualObject
+    CLASS_VIDEO_BROADCAST,
+    CLASS_VIDEO_ON_DEMAND,
+    CLASS_DISC_INFO
+#if defined(HMX_WEBUI) || defined(JLABS)
+    ,CLASS_HDISC_INFO
+#endif
+#ifdef HMX_WEBUI
+	,CLASS_NETWORKINTERFACE,
+	CLASS_NETWORKMANAGER,
+	CLASS_NETWORKWIFICONFIG,
+	CLASS_NETWORKACCESSPOINT,
+	CLASS_NETWORKFTPCONFIG,
+	CLASS_NETWORKDMSCONFIG,
+	CLASS_NETWORKPPPOECONFIG,
+	CLASS_HMX_MEDIASCAN,
+	CLASS_HMX_MEDIACONTENT,
+	CLASS_HMX_MEDIADOFILE,
+	CLASS_HMX_MEDIAFILEUTIL,
+	CLASS_HMX_STORAGEUTIL,
+	CLASS_HMX_PHYSICALSTORAGE,
+	CLASS_HMX_LOGICALSTORAGE,
+	CLASS_HMX_OPERATORFEATURE,
+	CLASS_HMX_OPERATOR_FREESAT,
+    CLASS_HMX_BLUETOOTHMANAGER,
+    CLASS_HMX_BLUETOOTHDEVICE,
+    CLASS_HMX_BLUETOOTH,
+	CLASS_ANTENNAINFOCOLLECTION,
+	CLASS_ANTENNAINFO,
+	CLASS_SEARCHEDINFO,
+	CLASS_LCNUPDATESVCLIST,
+	CLASS_LCNUPDATESVC,
+	CLASS_DMSSEARCHER,
+	CLASS_DMSDEVICE,
+
+	CLASS_DLNA,
+	CLASS_DLNADMP,
+	CLASS_DLNADMS,
+	CLASS_DLNADMR,
+	CLASS_DLNACDS,
+	CLASS_DLNACDS_CONTENT,
+	CLASS_CONTENTMANAGER,
+	CLASS_CONTENTMGR_OPERTOKEN,
+	CLASS_CONTENT,
+	CLASS_CONTENTCOLLECTION,
+	CLASS_STORAGE_CONTENT,
+	CLASS_AIRPLAY,
+
+	CLASS_WOON,
+	CLASS_WOONCLIENT,
+	CLASS_WOONFRIEND,
+	CLASS_WOONSERVER,
+	CLASS_WOONSERVERINFO,
+	CLASS_WOONCONTENT,
+
+	CLASS_DIAL,
+	CLASS_DIALCLIENT,
+	CLASS_DIALSERVER,
+
+	CLASS_SATIP,
+	CLASS_SATIPCLIENT,
+	CLASS_SATIPSERVER,
+
+	CLASS_SAMBA_MANAGER,
+	CLASS_SAMBA_CLIENT,
+	CLASS_SAMBA_SEARCHED_SERVER,
+	CLASS_SAMBA_SERVER,
+	CLASS_SAMBA_SERVER_SHARE_FOLDER,
+	CLASS_FTP_MANAGER,
+	CLASS_FTP_SERVER,
+	CLASS_FTP_SERVER_SHARE_FOLDER,
+	CLASS_NETSERVERCONFIGURATION,
+	CLASS_NETSERVER_TESTCONNINFO,
+
+    CLASS_SOFTWARE_UPDATE,
+    CLASS_SOFTWARE_UPDATEINFO,
+    CLASS_HCASUI,
+    CLASS_CHANNEL_IMPORT_EXPORT,
+    CLASS_COLD_BOOT_DONE,
+    CLASS_CAS_ACTION_IR_EMM_FORCED_OTA,
+    CLASS_LCN_UPDATE,
+    CLASS_CLOCK_RECOVERY,
+
+	CLASS_RCT_IMAGE_ICON_INFO,
+	CLASS_RCT_DVB_BINARY_LOCATOR,
+	CLASS_RCT_INFO,
+	CLASS_RCT_INFO_COLLECTION,
+	CLASS_TRDCONFLICT,
+
+	CLASS_HMX_ALEXA_HELPER,
+#endif
+#ifdef JLABS
+	CLASS_JLABS_DATA_CONTENT_COMPONENT,
+	CLASS_JLABS_EMM_AUTO_DISPLAY_MESSAGE,
+	CLASS_JLABS_EMM_MESSAGE,
+	CLASS_JLABS_BOARD_MESSAGE,
+	CLASS_JLABS_EMM_MESSAGE_COLLECTION,
+	CLASS_JLABS_EMM_MESSAGE_MANAGER,
+	CLASS_JLABS_CDSRECORDING,	/* jlabsCDSRecording */
+	CLASS_JLABS_CDSMETADATA,		/* jlabsCDSMetadata */
+	CLASS_JLABS_RECORDDESTINATION,
+	CLASS_JLABS_LOCAL_SYSTEM,
+	CLASS_JLABS_SCANNING,
+	CLASS_JLABS_SCANNING_COLLECTION,
+	CLASS_JLABS_PPV_HISTORY,
+	CLASS_JLABS_PPV_HISTORY_COLLECTION,
+
+	CLASS_JLABS_NETWORK_INTERFACE,
+	CLASS_JLABS_NETWORK_INTERFACECOLLECTION,
+	CLASS_JLABS_NETWORK_SERVICE,
+	CLASS_JLABS_NETWORK_SERVICECOLLECTION,
+	CLASS_JLABS_NETWORK_ACCESSPOINT,
+	CLASS_JLABS_NETWORK_ACCESSPOINTCOLLECTION,
+
+	CLASS_JLABS_DMSDEVICE,
+	CLASS_JLABS_CONTENTRESULTS,
+	CLASS_JLABS_CONTENTSEARCH,
+	CLASS_JLABS_CDSSEARCHER,
+	CLASS_JLABS_DMR_CONTROLLER,
+	//CLASS_JLABS_DMS,
+	CLASS_JLABS_SEARCHRESULT,
+
+	CLASS_JLABS_REMOTECONTROL_FUNCTION,
+
+	CLASS_JLABS_DTT_CHANNEL,
+	CLASS_JLABS_DTT_CHANNEL_LIST,
+	CLASS_JLABS_BS_CATV_CHANNEL,
+	CLASS_JLABS_BS_CATV_CHANNEL_LIST,
+	CLASS_JLABS_CHANNEL_LIST_COLLECTION,
+	CLASS_JLABS_DMSCOLLECTION,
+
+	CLASS_JLABS_MULTIVIEW_COMPONENT,
+	CLASS_JLABS_PBPROGRAMME,
+	CLASS_JLABS_PPV_HISTORY_COLLECTION_EVENT_TARGET,
+	CLASS_JLABS_SETUPINFO_INSERT_FINISHED_EVENT,
+#endif // JLABS
+    CLASS_HMX_APPLICATIONMANAGER,
+} ClassType;
+
+class ObjectInstance
+{
+protected:
+	// Used for class introspection to verify the type of objects passed to functions
+	ClassType classType;
+	// This is the jsplugin object which is hosting us (so host->plugin_private == this)
+	jsplugin_obj *host;
+	// List of objects that this plugin instance wants to protect from garbage collection
+	std::list<jsplugin_obj*> proteges;
+
+public:
+	ObjectInstance();
+	virtual ~ObjectInstance();
+	virtual void setHost(jsplugin_obj *h)
+	{
+		host = h;
+	}
+	virtual jsplugin_obj *getHost()
+	{
+		return host;
+	}
+	ClassType getType()
+	{
+		return classType;
+	}
+	void setAttrs(int attrs_count, jsplugin_attr *attrs);
+
+	void addProtege(jsplugin_obj *obj);
+	void removeProtege(jsplugin_obj *obj);
+
+	static int getter_proxy(jsplugin_obj *obj, const char *name, jsplugin_value *result);
+	static int setter_proxy(jsplugin_obj *obj, const char *name, jsplugin_value *value);
+	static int destructor_proxy(jsplugin_obj *obj);
+	static void gc_proxy(jsplugin_obj *obj);
+	static void unload_proxy(jsplugin_obj *obj);
+	static void attr_change_proxy(jsplugin_obj *obj, const char *name, const char *value);
+	static void param_set_proxy(jsplugin_obj *obj, const char *name, const char *value);
+
+#if defined(CONFIG_DEBUG) && defined(OBJ_INSTANCE_COUNTER)
+    static std::list<void*> instances;
+    static void debugPrintObjectInstanceCount();
+    __inline static const char* __getType__(int _type);
+#endif
+
+protected:
+	virtual int getter(jsplugin_obj *obj, const char *name, jsplugin_value *result) = 0;
+	virtual int setter(jsplugin_obj *obj, const char *name, jsplugin_value *value);
+	virtual int destructor(jsplugin_obj *obj);
+	virtual void gc(jsplugin_obj *obj);
+	virtual void attr_change(jsplugin_obj *obj, const char *name, const char *value);
+	virtual void param_set(jsplugin_obj *obj, const char *name, const char *value);
+
+};
+} /* namespace Ooif */
+
+#endif // __OBJECTINSTANCE

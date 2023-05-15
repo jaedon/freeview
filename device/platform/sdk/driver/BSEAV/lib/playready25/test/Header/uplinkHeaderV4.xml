@@ -1,0 +1,18 @@
+<WRMHEADER version="4.0.0.0">
+	<DATA>
+		<LA_URL>http://www.contoso.com/licenseacq.asp</LA_URL>
+		<LUI_URL>http://www.contoso.com/licenseuiacq.asp</LUI_URL>
+		<DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID>
+		<KID>ftRronf2pk+10NT1uvEerQ==</KID>
+		<UPLINKS>
+			<UPLINK>4wEEq1ixJEC1na7nmgJT5g==</UPLINK>
+		</UPLINKS>
+		<CHECKSUM>LxqJxxO9QA==</CHECKSUM>
+		<CID>188</CID>
+		<NAME>V4Indiv22.wma</NAME>
+		<OWNER>
+			<NAME>V4SRV</NAME>
+		</OWNER>
+		<SECURITYVERSION>2.2</SECURITYVERSION>
+	</DATA>
+</WRMHEADER>

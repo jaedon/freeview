@@ -1,0 +1,293 @@
+1043:DRT:P0:Generate a license challenge
+_AddDomainCert(data\domaincert1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==")
+_AddDomainCert(data\domaincert2.dat, "NzY1NDMyMTA5ODc2NTQzMg==", "AH+03juKbUGbHl1V/QIwRA==")
+TestDrm_LicenseAcq_ProcessResponse(data\licresp1.dat)
+_SetRights(Play)
+_SetHeader(music1V4header.xml)
+TestDrm_LicenseAcq_GenerateChallenge()
+
+1055:DRT:P0:Process a license response
+_SetRights(Play)
+_SetHeader(music1V4header.xml)
+TestDrm_LicenseAcq_GenerateChallenge()
+TestDrm_LicenseAcq_ProcessResponse(data\licresp1.dat)
+
+1069:DRT:P0:Generate a license acknowledgement
+_SetTransactionID("153ffe17-93a3-4a34-b4e7-7987ef607a7d")
+_AddLicenseAcknowledgement("NjU0MzIxMDk4NzY1NDMyMQ==", 0)
+TestDrm_LicenseAcq_GenerateAck()
+
+1344:BVT:P0:Generate a license challenge without domain certs in store and verify contents.
+TestDrm_LicenseAcq_ProcessResponse(data\licresp1.dat)
+_SetRights(Play)
+_SetHeader(music1V4header.xml)
+TestDrm_LicenseAcq_GenerateChallenge()
+VerifyBasicFormat_GenerateLicChallenge()
+VerifyContentHeader_GenerateLicChallenge(music1V4header.xml)
+VerifyDeviceCertificate_GenerateLicChallenge()
+
+1353:BVT:P0:Generate a license challenge with a single domain cert in store and verify contents.
+_AddDomainCert(data\domaincert1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==")
+TestDrm_LicenseAcq_ProcessResponse(data\licresp1.dat)
+_SetRights(Play)
+_SetHeader(music1V4header.xml)
+TestDrm_LicenseAcq_GenerateChallenge()
+VerifyBasicFormat_GenerateLicChallenge()
+VerifyContentHeader_GenerateLicChallenge(music1V4header.xml)
+VerifyDomainCertificateCollections_GenerateLicChallenge(NULL, data\domaincert1.dat)
+VerifyDeviceCertificate_GenerateLicChallenge()
+
+1084:BVT:P0:Generate a license challenge with a multiple domain cert in store and verify contents.
+_AddDomainCert(data\domaincert1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==")
+_AddDomainCert(data\domaincert2.dat, "NzY1NDMyMTA5ODc2NTQzMg==", "AH+03juKbUGbHl1V/QIwRA==")
+TestDrm_LicenseAcq_ProcessResponse(data\licresp1.dat)
+_SetRights(Play)
+_SetHeader(music1V4header.xml)
+TestDrm_LicenseAcq_GenerateChallenge()
+VerifyBasicFormat_GenerateLicChallenge()
+VerifyContentHeader_GenerateLicChallenge(music1V4header.xml)
+VerifyDomainCertificateCollections_GenerateLicChallenge(NULL, data\domaincert1.dat, data\domaincert2.dat)
+VerifyDeviceCertificate_GenerateLicChallenge()
+
+1365:BVT:P0:Generate a license challenge without domain certs in store without setting revocation data etc. and verify contents.
+_SetRights(Play)
+_SetHeader(music1V4header.xml)
+TestDrm_LicenseAcq_GenerateChallenge()
+VerifyBasicFormat_GenerateLicChallenge()
+VerifyContentHeader_GenerateLicChallenge(music1V4header.xml)
+VerifyDeviceCertificate_GenerateLicChallenge()
+
+1479:BVT:P0:Generate a license challenge with a single domain cert in store without setting revocation data etc. and verify contents.
+_AddDomainCert(data\domaincert1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==")
+_SetRights(Play)
+_SetHeader(music1V4header.xml)
+TestDrm_LicenseAcq_GenerateChallenge()
+VerifyBasicFormat_GenerateLicChallenge()
+VerifyContentHeader_GenerateLicChallenge(music1V4header.xml)
+VerifyDomainCertificateCollections_GenerateLicChallenge(NULL, data\domaincert1.dat)
+VerifyDeviceCertificate_GenerateLicChallenge(data\bdevcert.dat)
+
+1367:BVT:P0:Generate a license challenge with a multiple domain cert in store without setting revocation data etc. and verify contents.
+_AddDomainCert(data\domaincert1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==")
+_AddDomainCert(data\domaincert2.dat, "NzY1NDMyMTA5ODc2NTQzMg==", "AH+03juKbUGbHl1V/QIwRA==")
+_SetRights(Play)
+_SetHeader(music1V4header.xml)
+TestDrm_LicenseAcq_GenerateChallenge()
+VerifyBasicFormat_GenerateLicChallenge()
+VerifyContentHeader_GenerateLicChallenge(music1V4header.xml)
+VerifyDomainCertificateCollections_GenerateLicChallenge(NULL, data\domaincert1.dat, data\domaincert2.dat)
+VerifyDeviceCertificate_GenerateLicChallenge()
+
+1369:FUNC:P1:Generate a license challenge without setting a header.
+_AddDomainCert(data\domaincert1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==")
+_AddDomainCert(data\domaincert2.dat, "NzY1NDMyMTA5ODc2NTQzMg==", "AH+03juKbUGbHl1V/QIwRA==")
+_SetRights(Play)
+TestDrm_LicenseAcq_GenerateChallenge()=-2147172292 (0x8004c03c DRM_E_HEADER_NOT_SET)
+
+1513:BVT:P0:Generate a license challenge without requesting a right.
+_AddDomainCert(data\domaincert1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==")
+_AddDomainCert(data\domaincert2.dat, "NzY1NDMyMTA5ODc2NTQzMg==", "AH+03juKbUGbHl1V/QIwRA==")
+_SetHeader(music1V4header.xml)
+TestDrm_LicenseAcq_GenerateChallenge()=-2147024809(0x80070057 E_INVALIDARG)
+
+1011:BVT:P0:Generate a license challenge requesting multiple rights.
+_AddDomainCert(data\domaincert1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==")
+_AddDomainCert(data\domaincert2.dat, "NzY1NDMyMTA5ODc2NTQzMg==", "AH+03juKbUGbHl1V/QIwRA==")
+_SetHeader(music1V4header.xml)
+_SetRights(Play)
+_SetRights(Copy)
+_SetRights(Burn)
+TestDrm_LicenseAcq_GenerateChallenge()=-2147024809(0x80070057 E_INVALIDARG)
+
+1012:BVT:P0:Generate a license acknowledgement and verify contents
+_SetTransactionID("153ffe17-93a3-4a34-b4e7-7987ef607a7d")
+_AddLicenseAcknowledgement("NjU0MzIxMDk4NzY1NDMyMQ==", 0)
+TestDrm_LicenseAcq_GenerateAck()
+VerifyTransactionID_GenerateAck()
+VerifyLicenseStorageResults_GenerateAck()
+VerifyBasicFormat_GenerateAck()
+VerifyDeviceCertificate_GenerateAck()
+
+1013:BVT:P0:Generate a license acknowledgement with multiple License acknowledgements.
+TestDrm_LicenseAcq_ProcessResponse(data\licresp1.dat)
+_SetTransactionID("153ffe17-93a3-4a34-b4e7-7987ef607a7d")
+_AddLicenseAcknowledgement("NjU0MzIxMDk4NzY1NDMyMQ==", 0)
+_AddLicenseAcknowledgement("!3x8NSroVg4eXCzWqPU!BA==", 2)
+_AddLicenseAcknowledgement("Acl2BY3ITE0qe11DalmK0D==", 16)
+TestDrm_LicenseAcq_GenerateAck()
+VerifyTransactionID_GenerateAck()
+VerifyLicenseStorageResults_GenerateAck()
+VerifyBasicFormat_GenerateAck()
+VerifyDeviceCertificate_GenerateAck()
+
+1014:FUNC:P1:Generate a license acknowledgement without setting a Transaction ID
+_AddLicenseAcknowledgement("NjU0MzIxMDk4NzY1NDMyMQ==", 0)
+TestDrm_LicenseAcq_GenerateAck()
+VerifyTransactionID_GenerateAck()
+VerifyLicenseStorageResults_GenerateAck()
+VerifyBasicFormat_GenerateAck()
+VerifyDeviceCertificate_GenerateAck()
+
+1015:FUNC:P1:Generate a license acknowledgement without any License storage results
+_SetTransactionID("153ffe17-93a3-4a34-b4e7-7987ef607a7d")
+TestDrm_LicenseAcq_GenerateAck()=-2147024809(0x80070057 E_INVALIDARG)
+
+1016:DRT:P0:Process a simple license response and check license storage result.
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, svuzrMfYqkKp97kMGHgccA==, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestDrm_LicenseAcq_ProcessResponse_LicResult( NULL, lFmb2gxg0Cr5bfEnJXgJeA== , svuzrMfYqkKp97kMGHgccA== , 0X0 )
+
+1017:DRT:P0:Process a license response with an expired license and valid license and check valid license storage results. This fails due to mismatched device certificate
+TestManagerCreateXMRLicense( VALID_LICENSE, nz/NueNnHDgdPwHsbrQhIw==, +cAF9MSRKkShgiNKU23FmQ==, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( EXPIRED_LICENSE, AH+03juKbUGbHl1V/QIwVQ== , OhDORQgHZEGDnE4g7qNWBQ==, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL,  NULL,  NULL,  NULL,  NULL,  NULL, -1000 )
+TestManagerGenerateXMRResponse( VALID_LICENSE, EXPIRED_LICENSE )
+TestDrm_LicenseAcq_ProcessResponse_LicResult( NULL, nz/NueNnHDgdPwHsbrQhIw== , +cAF9MSRKkShgiNKU23FmQ== , 0X0 )
+
+1018:DRT:P0:Process a license response with an expired license and valid license and check expired license storage results.
+TestManagerCreateXMRLicense( VALID_LICENSE, nz/NueNnHDgdPwHsbrQhIw==, +cAF9MSRKkShgiNKU23FmQ==, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( EXPIRED_LICENSE, AH+03juKbUGbHl1V/QIwVQ== , OhDORQgHZEGDnE4g7qNWBQ==, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL,  NULL,  NULL,  NULL,  NULL,  NULL, -1000 )
+TestManagerGenerateXMRResponse( VALID_LICENSE, EXPIRED_LICENSE )
+TestDrm_LicenseAcq_ProcessResponse_LicResult( NULL, AH+03juKbUGbHl1V/QIwVQ== , OhDORQgHZEGDnE4g7qNWBQ== , 0XC00D2712 DRM_E_FAILED_TO_STORE_LICENSE )
+
+1021:DRT:P0:Process a license response with Internal Service Error
+TestDrm_LicenseAcq_ProcessResponse_ServerErrorChecking(data\SoapFault_InternalService.xml,-2147170816 0X8004C600 DRM_E_SERVER_INTERNAL_ERROR)
+
+1022:DRT:P0:Process a license response Invalid Message Error
+TestDrm_LicenseAcq_ProcessResponse_ServerErrorChecking(data\SoapFault_InvalidMessage.xml,-2147170815 0X8004C601 DRM_E_SERVER_INVALID_MESSAGE)
+
+1023:DRT:P0:Process a license response with Device Limit Reached Error
+TestDrm_LicenseAcq_ProcessResponse_ServerErrorChecking(data\SoapFault_DeviceLimitReached.xml,-2147170814 0X8004C602 DRM_E_SERVER_DEVICE_LIMIT_REACHED)
+
+1024:DRT:P0:Process a license response with Indiv Required Error
+TestDrm_LicenseAcq_ProcessResponse_ServerErrorChecking(data\SoapFault_IndivRequired.xml,-2147170813 0X8004C603 DRM_E_SERVER_INDIV_REQUIRED)
+
+1025:DRT:P0:Process a license response Service Specific Error
+TestDrm_LicenseAcq_ProcessResponse_ServerErrorChecking(data\SoapFault_ServiceSpecific.xml,-2147170812 0X8004C604 DRM_E_SERVER_SERVICE_SPECIFIC)
+
+1026:DRT:P0:Process a license response with Domain Required Error
+TestDrm_LicenseAcq_ProcessResponse_ServerErrorChecking(data\SoapFault_DomainRequired.xml,-2147170811 0X8004C605 DRM_E_SERVER_DOMAIN_REQUIRED)
+
+1027:DRT:P0:Process a license response with Device Cert Revoked Error
+TestDrm_LicenseAcq_ProcessResponse_ServerErrorChecking(data\SoapFault_DeviceCertRevoked.xml,-2147172251 0X8004C065 DRM_E_DEVCERT_REVOKED)
+
+1028:DRT:P0:Process a license response with Domain Cert Expired Error
+TestDrm_LicenseAcq_ProcessResponse_ServerErrorChecking(data\SoapFault_DomainCertExpired.xml,-2147170810 0X8004C606 DRM_E_SERVER_RENEW_DOMAIN)
+
+1029:DRT:P0:Process a license response with Domain Redirect Error
+TestDrm_LicenseAcq_ProcessResponse_ServerErrorChecking(data\SoapFault_DomainRedirect.xml,-2147170809 0X8004C607 DRM_E_SERVER_DOMAIN_REDIRECT)
+
+1030:DRT:P0:Process a license response with Computer Limit Reached Error
+TestDrm_LicenseAcq_ProcessResponse_ServerErrorChecking(data\SoapFault_ComputerLimitReached.xml,-2147170808 0X8004C608 DRM_E_SERVER_COMPUTER_LIMIT_REACHED)
+
+1031:DRT:P0:Process a license response with Protocol Fallback Error
+TestDrm_LicenseAcq_ProcessResponse_ServerErrorChecking(data\SoapFault_ProtocolFallback.xml,-2147170807 0X8004C609 DRM_E_SERVER_PROTOCOL_FALLBACK) 
+
+1040:DRT:P0:Process a license acknowledgement response
+TestDrm_LicenseAcq_ProcessAckResponse(data\licacqresp1.dat) = 2 (DRM_S_MORE_DATA)
+
+1041:DRT:P0:Process a license acknowledgement response with NULL buffer should fail
+TestDrm_LicenseAcq_ProcessAckResponse(data\licacqresp1.dat, 1) = 0x80070057 (DRM_E_INVALIDARG)
+
+1042:DRT:P0:Process a license acknowledgement response with 0 buffer size should fail
+TestDrm_LicenseAcq_ProcessAckResponse(data\licacqresp1.dat, 2) = 0x80070057 (DRM_E_INVALIDARG)
+
+1050:DRT:P0:Generate a license challenge. Only the domain certs with service ID that matches the service ID in the content header should be included.
+_AddDomainCert(data\domaincert1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==")
+_AddDomainCert(data\domaincert2.dat, "NzY1NDMyMTA5ODc2NTQzMg==", "lFmb2gxg0Cr5bfEnJXgJeA==")
+_SetRights(Play)
+_SetHeader(music1V4header.xml)
+VerifyDomainCertificateCollections_GenerateLicChallenge(NULL, data\domaincert1.dat)
+VerifyDomainCertificateCollections_GenerateLicChallenge(NULL, data\domaincert2.dat) = 0X80004005 (DRM_E_FAIL)
+VerifyDomainCertificateCollections_GenerateLicChallenge(NULL, data\domaincert1.dat, data\domaincert2.dat) = 0X8004C04F (DRM_E_XMLNOTFOUND)
+
+1051:DRT:P0:Generate a license challenge. Only the domain certs with service ID that matches the one explicitly requested by the user should be included. In this case the service ID in the content header is ignored.
+_AddDomainCert(data\domaincert1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==")
+_AddDomainCert(data\domaincert2.dat, "NzY1NDMyMTA5ODc2NTQzMg==", "lFmb2gxg0Cr5bfEnJXgJeA==")
+_SetRights(Play)
+_SetHeader(music1V4header.xml)
+VerifyDomainCertificateCollections_GenerateLicChallenge("lFmb2gxg0Cr5bfEnJXgJeA==", data\domaincert1.dat) = 0X80004005 (DRM_E_FAIL)
+VerifyDomainCertificateCollections_GenerateLicChallenge("lFmb2gxg0Cr5bfEnJXgJeA==", data\domaincert2.dat)
+VerifyDomainCertificateCollections_GenerateLicChallenge("lFmb2gxg0Cr5bfEnJXgJeA==", data\domaincert2.dat, data\domaincert1.dat) = 0X8004C04F (DRM_E_XMLNOTFOUND)
+
+1052:FUNC:P2:Process a response with exactly the max number of licenses (=20 licenses)
+TestManagerCreateXMRLicense( A_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( B_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( C_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( D_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( E_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( F_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( G_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( H_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( I_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( J_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( K_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( L_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( M_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( N_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( O_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( P_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( Q_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( R_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( S_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( T_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerGenerateXMRResponse( A_LIC, B_LIC, C_LIC, D_LIC, E_LIC, F_LIC, G_LIC, H_LIC, I_LIC, J_LIC, K_LIC, L_LIC, M_LIC, N_LIC, O_LIC, P_LIC, Q_LIC, R_LIC, S_LIC, T_LIC )
+TestManagerProcessResponse( Dump, Dump, 0, 0, NULL, NULL, 20 )
+
+1053:FUNC:P2:Process a response with more than the max number of licenses (>20 licenses) and expect an error
+TestManagerCreateXMRLicense( A_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( B_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( C_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( D_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( E_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( F_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( G_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( H_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( I_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( J_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( K_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( L_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( M_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( N_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( O_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( P_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( Q_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( R_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( S_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( T_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( U_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerGenerateXMRResponse( A_LIC, B_LIC, C_LIC, D_LIC, E_LIC, F_LIC, G_LIC, H_LIC, I_LIC, J_LIC, K_LIC, L_LIC, M_LIC, N_LIC, O_LIC, P_LIC, Q_LIC, R_LIC, S_LIC, T_LIC, U_LIC )
+TestManagerProcessResponse( Dump, Dump, 0, 0, NULL, NULL, 21 )=0x8004C700L DRM_E_LICACQ_TOO_MANY_LICENSES
+
+1054:FUNC:P2:Process a response with more than the max number of licenses (>20 licenses) using two-pass call
+TestManagerCreateXMRLicense( A_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( B_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( C_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( D_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( E_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( F_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( G_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( H_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( I_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( J_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( K_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( L_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( M_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( N_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( O_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( P_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( Q_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( R_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( S_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( T_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerCreateXMRLicense( U_LIC, RANDOM, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerGenerateXMRResponse( A_LIC, B_LIC, C_LIC, D_LIC, E_LIC, F_LIC, G_LIC, H_LIC, I_LIC, J_LIC, K_LIC, L_LIC, M_LIC, N_LIC, O_LIC, P_LIC, Q_LIC, R_LIC, S_LIC, T_LIC, U_LIC )
+TestManagerProcessResponse( Dump, Dump, 0, 128, NULL, NULL, 21 )
+
+10550:BVT:Process a license response with signature verification
+' The next 2 lines are temporarily disabled because the signature has expired.  TFS #807816 is tracking as of 2012-Dec-03.
+'TestDrm_LicenseAcq_ProcessResponse_ResponseVerification(data\licresp_signature.dat, 0) = 2 ( DRM_S_MORE_DATA )
+'TestDrm_LicenseAcq_ProcessResponse_ResponseVerification(data\licresp_signature.dat, 1) = 2 ( DRM_S_MORE_DATA )
+TestDrm_LicenseAcq_ProcessResponse_ResponseVerification(data\licresp1.dat,          0) = 0X8004C078 (DRM_E_LICENSE_RESPONSE_SIGNATURE_MISSING)
+TestDRM_LA_ValidateResponseId(data\licresp_signature.dat)
+TestDRM_LA_ValidateResponseId(data\licresp1.dat) = 0x8004C04F (DRM_E_XMLNOTFOUND)
+TestDRM_LA_ValidateResponseId(data\licresp_WithoutResponseId.dat) = 0x8004C04F (DRM_E_XMLNOTFOUND)
+

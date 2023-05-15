@@ -1,0 +1,8 @@
+##########################################
+# DI SPI configuration menu
+##########################################
+
+config SPI
+	bool
+	prompt "SPI"
+	default n

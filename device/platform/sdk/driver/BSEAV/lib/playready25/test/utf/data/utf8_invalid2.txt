@@ -1,0 +1,2 @@
+This file contains incorrect UTF-8 sequence: stops at middle of multibyte character
+ï»

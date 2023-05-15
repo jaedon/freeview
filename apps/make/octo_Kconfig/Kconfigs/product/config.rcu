@@ -1,0 +1,13 @@
+########################################
+#					Choice RCU Menu					#
+#########################################
+
+	comment "Choice RCU (PROD_RCU_XXX)"
+
+	config PROD_RCU_MULTI_CUSTOM_CODE
+		bool "PROD_RCU_MULTI_CUSTOM_CODE - Support RCU Multi custom code"
+			default y
+
+	config PROD_RCU_RF4CE_UEI_HILCREST
+		bool "PROD_RCU_RF4CE_UEI_HILCREST - Support RF4CE MOTION TOUCH UEI HILCREST - JC-NGS"
+			default n

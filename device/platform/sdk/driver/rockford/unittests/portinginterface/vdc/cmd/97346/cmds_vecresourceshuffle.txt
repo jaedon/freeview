@@ -1,0 +1,38 @@
+err
+ovc
+hdm
+
+cdsp 1 0 0 0
+cdsp 1 1 0 0
+cdsp 0 1 0 0
+cdsp 1 1 0 0
+cdsp 0 0 0 0
+cdsp 1 0 0 0
+cdsp 0 1 0 0
+cdsp 1 0 0 0
+cdsp 0 0 0 0
+cdsp 0 1 0 0
+cdsp 0 0 0 0
+cdsp 1 1 0 0
+
+hdm
+cdsp 0 0 0 0
+
+656 0
+656 0
+
+c1 oc
+cdsp 0 1 0 0
+cdsp 0 0 0 0
+
+hdm
+hdm
+
+656 0
+656 0
+
+cd
+c0
+cd
+quit
+

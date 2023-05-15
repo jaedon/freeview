@@ -1,0 +1,29 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=oem_linux_test
+TARGETTYPE=LIBRARY
+
+C_DEFINES += -DDRM_TEST_USE_OFFSET_CLOCK
+_DRM_C_DEFINES += -DDRM_TEST_USE_OFFSET_CLOCK
+
+SOURCES =                   \
+    ../oemdebug.c           \
+    ../oemimpl.c            \
+    ../oemfileio.c          \
+    ../oeminfo.c            \
+    ../oemtime.c            \
+    ../oemcriticalsection.c \
+    ../oemimplrand.c        \
+
+
+ifneq "$(DRM_BUILD_PROFILE)" "950"
+SOURCES +=                  \
+    ../oemstartup.c         \
+
+endif
+

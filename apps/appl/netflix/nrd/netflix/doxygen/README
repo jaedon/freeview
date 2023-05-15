@@ -1,0 +1,18 @@
+The files in this directory are used by the top-level Makefile to generate
+reference documentation for the NRD Platform SDK using Doxygen, and 
+if installed dot (graphviz). 
+
+On an Ubuntu system, you can install Doxygen and dot as follows: 
+    sudo apt-get update
+    sudo apt-get install doxygen graphviz
+
+To generate documents:
+
+1) Run configure as described in the main README. 
+2) From your build directory, run any of the following: 
+    
+    make documentation-dpi       /* useful for partner DPI implementers */
+    make documentation-nbp       /* useful for UI framework integration */
+    make documentation-api       /* intended for internal Netflix developers */
+    make documentation-internal  /* intended for internal Netflix developers */
+    make documentation-clean     /* cleans generated documentation */

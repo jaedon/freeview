@@ -1,0 +1,15 @@
+##########################################
+# Specific DI configuration menu
+##########################################
+
+	menu "FEATURE"
+	source "driver/bcm_specific_di_kconfig/feature_config.in"
+	endmenu
+
+	menu "BCM"
+	source "driver/bcm_specific_di_kconfig/bcm_config.in"
+	endmenu
+	
+	menu "PVR"
+	source "driver/bcm_specific_di_kconfig/pvr_config.in"
+	endmenu

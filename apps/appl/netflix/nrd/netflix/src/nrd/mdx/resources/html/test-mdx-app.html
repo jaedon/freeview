@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="../css/mdx.css" />
+    <link rel="stylesheet" type="text/css" href="../css/jquery-ui-1.8.16.custom.css" />
+    <script type="text/javascript" src="../js/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="../js/NetflixBridge.js"></script>
+    <script type="text/javascript" src="../js/PartnerBridge.js"></script>
+    <script type="text/javascript" src="../js/mdx-app.js"></script>
+    <title>Test MDX</title>
+  </head>
+  <body onload="if ((typeof nrdp !== 'undefined') && (typeof mdx !== 'undefined')) initialize();" >
+    <div id="nf-header">
+      <h1 id="nf-logo">Netflix</h1>
+    </div>
+    <div id="main">
+      <table>
+        <tr>
+        </tr>
+      </table>
+      <hr />
+      <div class="instrument">
+        <span id="handle-label" class="inactive">Handle:</span> <span id='active-handle'>INVALID_HANDLE</span> <span id="uuid-label" class="inactive"> uuid:</span> <span id='paired-uuid' >-1</span> <span id="sid-label" class="inactive">sid:</span> <span id='sid'>-1</span>
+      </div>
+      <table>
+        <tr>
+          <td>
+            <table class="left-panel">
+              <tr>
+                <td class="head-col subsection"><h3>Controller</h3>
+                </td>
+
+              </tr>
+              <tr>
+                <td>
+                  <h4>Command</h4>
+                  <input id="c-startSession" class="c-command" disabled="disabled" type="radio" name="c-cmd" value="startSession" checked="checked"/>
+                  <label for="c-startSession">startSession</label>
+                  <br />
+
+				  <input id="c-dePair" class="c-command" disabled="disabled" type="radio" name="c-cmd" value="dePair" />
+                  <label for="c-dePair">dePair</label>
+                  <br />
+
+                  <input id="c-play" class="c-command" disabled="disabled" type="radio" name="c-cmd" value="sendMessage" />
+                  <label for="c-play">sendMessage</label>
+                  <br />
+
+                  <input id="c-endSession" class="c-command" disabled="disabled" type="radio" name="c-cmd" value="endSession" />
+                  <label for="c-endSession">endSession</label>
+                </td>
+                <td>
+                  <h4>Arguments</h4>
+                  <div id="c-arg-anchor">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><span class="jbutton" id="c-execute"></span>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td class="device-panel">
+            <h4>Devices</h4>
+            <div id="mdx-device-wrapper">
+              <div
+                 class="device ui-corner-all device-template"
+                 style="display: none;" uuid="-1">
+                <h5>
+                  Name: <span></span>
+                </h5>
+                <ul>
+                  <li>selector key: <span>netflix</span>
+                  </li>
+                  <li>location: <span>http://localhost/</span>
+                  </li>
+                  <li>uuid: <span>1</span></li>
+                  <li>usn:<span></span>
+                  </li>
+                </ul>
+                <div class="device-footer">
+                  <span class="pair"></span>
+                  <span class="handle">-1</span>
+                  <span class="handle-label">handle: </span>
+                </div>
+              </div>
+          </div></td>
+        </tr>
+      </table>
+      <h4>Log <span id="c-log-line">0</span></h4>
+        <div id="controller-log" class="log"></div>
+      <span id="c-console" class="jbutton jbutton-large clear"></span>
+      <span class="log-control-anchor">
+        <input id="c-log-type-fromnative" class="log-control" type="checkbox" checked="checked"/>
+        <label for="c-log-type-fromnative" class="entry-fromnative">From Native</label>
+        <input id="c-log-type-tonative" class="log-control" type="checkbox" checked="checked"/>
+        <label for="c-log-type-tonative" class="entry-tonative">To Native</label>
+        <input id="c-log-type-discovery" class="log-control" type="checkbox" checked="checked"/>
+        <label for="c-log-type-discovery" class="entry-discovery">Discovery</label>
+        <input id="c-log-type-property" class="log-control" type="checkbox" checked="checked"/>
+        <label for="c-log-type-property" class="entry-property">Native Property</label>
+        <input id="c-log-type-event" class="log-control" type="checkbox" checked="checked"/>
+        <label for="c-log-type-event" class="entry-event">Events</label>
+        <input id="c-log-type-state" class="log-control" type="checkbox" checked="checked"/>
+        <label for="c-log-type-state" class="entry-state">State</label>
+        <input id="c-log-type-error" class="log-control" type="checkbox" checked="checked"/>
+        <label for="c-log-type-error" class="entry-error">Errors</label>
+        <input id="c-log-type-command" class="log-control" type="checkbox" checked="checked"/>
+        <label for="c-log-type-command" class="entry-command">Commands</label>
+        <input id="c-log-limit" class="log-control log-limit" size="3" maxlength="3" type="text" name="c-log" value="100"/>
+        <label for="c-log-limit" style="left:0;top:0;">Lines</label>
+        </span>
+      <hr />
+      <div style="position:relative;">
+      <table>
+        <tr>
+          <td class="head-col subsection"><h3>Target</h3>
+          </td>
+          <td class="subsection">
+            <span id="reveal" class="jbutton jbutton-large"></span>
+            <span id="hide" class="jbutton jbutton-large"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h4>Command</h4>
+
+            <input id="t-sendMessage" class="t-command" type="radio" name="t-cmd" value="sendMessage" />
+            <label for="sendMessage">sendMessage</label>
+            <br />
+             <input id="t-endSession" class="t-command" type="radio" name="t-cmd" value="endSession" />
+            <label for="endSession">endSession</label>
+            <br />
+          </td>
+          <td style="width:15em;">
+            <h4>Arguments</h4>
+            <div id="t-arg-anchor">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <span class="jbutton" id="t-execute"></span>
+          </td>
+        </tr>
+      </table>
+
+            </div>
+      <h4>Log <span id="t-log-line">0</span></h4>
+        <div id="target-log" class="log"></div>
+      <span id="t-console" class="jbutton jbutton-large clear"></span>
+      <span class="log-control-anchor">
+        <input id="t-log-type-property" class="log-control" type="checkbox" checked="checked"/>
+        <label for="t-log-type-property" class="entry-property">Native Property</label>
+        <input id="t-log-type-event" class="log-control" type="checkbox" checked="checked"/>
+        <label for="t-log-type-event" class="entry-event">Events</label>
+        <input id="t-log-type-state" class="log-control" type="checkbox" checked="checked"/>
+        <label for="t-log-type-state" class="entry-state">State</label>
+        <input id="t-log-type-error" class="log-control" type="checkbox" checked="checked"/>
+        <label for="t-log-type-error" class="entry-error">Errors</label>
+        <input id="t-log-type-command" class="log-control" type="checkbox" checked="checked"/>
+        <label for="t-log-type-command" class="entry-command">Commands</label>
+        <input id="t-log-limit" class="log-control log-limit" size="3" maxlength="3"  type="text" name="t-log" value="100"/>
+        <label for="t-log-limit" style="left:0;top:0;">Lines</label>
+        </span>
+    </div>
+  </body>
+</html>

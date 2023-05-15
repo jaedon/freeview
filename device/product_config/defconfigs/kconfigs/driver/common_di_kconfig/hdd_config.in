@@ -1,0 +1,88 @@
+##########################################
+# DI HDD configuration menu
+##########################################
+
+config HDD
+	bool
+	prompt "HDD"
+	default y
+
+config HDD_SMART
+	bool
+	prompt "HDD_SMART"
+	default n
+	depends on HDD
+	
+config HDD_SSC
+	bool
+	prompt "HDD_SCC"
+	default n
+	depends on HDD
+	
+config HDD_SATA_1
+	bool
+	prompt "HDD_SATA_1"
+	default n
+	depends on HDD
+	
+config HDD_SATA_2
+	bool
+	prompt "HDD_SATA_2"
+	default n
+	depends on HDD
+	
+config HDD_DETACHABLE
+	bool
+	prompt "HDD_DETACHABLE"
+	default n
+	depends on HDD
+	
+config HDD_MODULE
+	bool
+	prompt "Use AHCI module"
+	default y
+	depends on HDD
+
+config HDD_PARITION0_SIZE
+	hex
+	prompt "size of HDD Partition0 (Default : 36GB)"
+	default 0x24
+	depends on HDD
+
+config HDD_PARITION1_SIZE
+	hex
+	prompt "size of HDD Partition1 (Default : 36GB)"
+	default 0x24
+	depends on HDD
+
+#vitual port map
+config HDD_INTERNAL_HW_PORTNUM
+	hex
+	prompt "ata port number for Internal HDD"
+	default 1
+	depends on HDD
+	help
+		value means which hw port internal hdd uses.
+		if internal hdd is connected on ata port 2, change value to 2.
+		if value is 0xff, it means there no internal hdd.		
+
+config HDD_DETACHABLE_HW_PORTNUM
+	hex
+	prompt "ata port number for detachable HDD"
+	default 0xff
+	depends on HDD
+	help
+		value means which hw port detachable hdd uses.
+		if detachable hdd is connected on ata port 2, change value to 2.
+		if value is 0xff, it means there no detachable hdd.
+
+config HDD_ESATA_HW_PORTNUM
+	hex
+	prompt "ata port number for e-sata HDD"
+	default 0xff
+	depends on HDD
+	help
+		value means which hw port e-sata hdd uses.
+		if e-sata hdd is connected on ata port 2, change value to 2.
+		if value is 0xff, it means there no e-sata hdd.
+	

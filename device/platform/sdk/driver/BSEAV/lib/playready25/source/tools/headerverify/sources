@@ -1,0 +1,37 @@
+#
+# Microsoft (r) PlayReady (r)
+# Copyright (c) Microsoft Corporation. All rights reserved.
+#
+
+#
+# This tool should always support the following settings
+# to be able to operate in all scenarios
+# regardless of the build profile used to compile it.
+#
+DRM_SUPPORT_SECURE_CLOCK=1
+
+!include ..\..\drmbuild.cmn
+
+TARGETNAME=HeaderVerify
+TARGETTYPE=PROGRAM
+UMTYPE=console
+UMENTRY=wmain
+
+SOURCES =              \
+    HeaderVerify.c     \
+
+!if "$(_DRM_BUILD_TOOL)" != "NMAKE"
+SOURCES = $(SOURCES) \
+      HeaderVerify.rc
+!endif
+
+INCLUDES =                    \
+    $(INCLUDES)               \
+    $(_DRM_SOURCE_PATH)\tools\common
+
+TARGETLIBS = $(TARGETLIBS)                          \
+    $(_DRM_COMMON_LIBS)                             \
+    $(_DRM_OEM_MAIN_LIB)                            \
+    $(_DRM_BLACKBOX_LIBS)                           \
+    $(_DRM_TOOLS_COMMON_LIBS)                       \
+

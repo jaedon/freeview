@@ -1,0 +1,643 @@
+702:BVT: Initialize and Verify a Keyfile Context using a Valid OEM_Context
+GenerateRandomData( MockOEMContext, 25 )
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1, MockOEMContext )
+Test_KF_VerifyContext( KF_Context_1, INIT)
+Test_KF_FreeContext( KF_Context_1 )
+
+703:FUNC: Initialize and Verify a Keyfile Context using a NULL OEM_Context
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, INIT )
+Test_KF_FreeContext( KF_Context_1 )
+
+705:FUNC: Call DRM_KF_Initialize with a NULL pointer for the Keyfile Context
+Test_KF_Initialize( NULL ) = DRM_E_INVALIDARG
+
+706:BVT: Verify Uninitilization of a valid Keyfile context
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_FreeContext( KF_Context_1 )
+
+707:FUNC: Attempt to uninitialize a uninitialized Keyfile Context
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 ) = DRM_E_KEYFILE_NOT_INITED
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_Uninitialize( KF_Context_1 ) = DRM_E_KEYFILE_NOT_INITED
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_FreeContext( KF_Context_1 )
+
+708:FUNC: Attempt to close a keyfile Context with keyfile pointer is not OEM_INVALID_HANDLE_VALUE
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, OPEN )
+Test_KF_Uninitialize( KF_Context_1 ) = DRM_E_KEYFILE_FILE_NOT_CLOSED
+Test_KF_VerifyContext( KF_Context_1, OPEN )
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, CLOSED )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+709:FUNC: Pass a null pointer to Keyfile Uninitialize
+Test_KF_Uninitialize( NULL ) = DRM_E_INVALIDARG
+
+710:BVT: Open a valid context  
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, OPEN )
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+711:FUNC: Attempt to open a unitintialized keyfile context
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 ) = DRM_E_KEYFILE_NOT_INITED
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_OpenKeyFile( KF_Context_1 ) = DRM_E_KEYFILE_NOT_INITED
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_FreeContext( KF_Context_1 )
+
+712:FUNC: Attempt to open a null pointer
+Test_KF_OpenKeyFile( NULL ) = DRM_E_INVALIDARG
+
+715:BVT: Attempt to load a keyfile with a mangled Signature Object Data
+Test_KF_ReplaceKeyFile(files\badSignatureData.dat)
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )=DRM_E_XB_INVALID_OBJECT
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+716:FUNC: Attempt to load a keyfile with a mangled Signature Object ID
+Test_KF_ReplaceKeyFile(files\badSignatureID.dat)
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )=DRM_E_XB_INVALID_OBJECT
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+Test_KF_ReplaceKeyFile(files\zeroedSignature.dat)
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )=DRM_E_XB_INVALID_OBJECT
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+'Attempt to load a keyfile with a incorrect Signature Certificate Length
+
+Test_KF_ReplaceKeyFile(files\tooSmallSignCertLength.dat)
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )=DRM_E_XB_INVALID_OBJECT
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+Test_KF_ReplaceKeyFile(files\tooBigSignCertLength.dat)
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )=DRM_E_XB_INVALID_OBJECT
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+'Attempt to load a keyfile with a incorrect Signature Length
+
+Test_KF_ReplaceKeyFile(files\tooSmallSignatureLength.dat)
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )=DRM_E_XB_INVALID_OBJECT
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+Test_KF_ReplaceKeyFile(files\tooBigSignatureLength.dat)
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )=DRM_E_XB_INVALID_OBJECT
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+717:FUNC: Attempt to load a keyfile with an unopened Keyfile context and a mangled signature object
+Test_KF_ReplaceKeyFile(files\badSignatureData.dat)
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )=DRM_E_INVALIDARG
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+718:FUNC: Attempt to load a keyfile with an unintialized Keyfile context and a mangled signature object
+Test_KF_ReplaceKeyFile(files\badSignatureData.dat)
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )=DRM_E_KEYFILE_NOT_INITED
+Test_KF_FreeContext( KF_Context_1 )
+
+719:FUNC: Pass a Null pointer to the DRM_KF_LoadKeyFile
+Test_KF_ReplaceKeyFile(files\keyfile.dat)
+Test_KF_LoadKeyFile( NULL )=DRM_E_INVALIDARG
+
+720:FUNC: Attempt to call LoadKeyFile on an initialized but unopened keyfile context
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, INIT )
+Test_KF_LoadKeyFile( KF_Context_1 ) = DRM_E_INVALIDARG
+Test_KF_VerifyContext( KF_Context_1, INIT )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+721:FUNC: Attempt to call LoadKeyFile on an uninitialized keyfile context
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_LoadKeyFile( KF_Context_1 ) = DRM_E_KEYFILE_NOT_INITED
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_LoadKeyFile( KF_Context_1 ) = DRM_E_KEYFILE_NOT_INITED
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_FreeContext( KF_Context_1 )
+
+722:FUNC: Attempt to call LoadKeyFile with a null keyfile context
+Test_KF_LoadKeyFile( NULL ) = DRM_E_INVALIDARG
+
+723:FUNC: Attempt to call LoadKeyFile on a keyfile with a nonexistant Signature object
+Test_KF_ReplaceKeyFile(files\noSignatureObject.dat)
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )=DRM_E_XB_INVALID_OBJECT
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+725:BVT: Use DRM_KF_StoreToFile to store multiple certificates to file
+GenerateRandomData( DevCert1, 5412 )
+GenerateRandomData( DevCert2, 772 )
+GenerateRandomData( DevCert3, 3331 )
+
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1)
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert2)
+Test_KF_StoreKeyFile( KF_Context_1 )
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+Test_KF_CreateContext( KF_Context_2 )
+Test_KF_Initialize( KF_Context_2 )
+Test_KF_OpenKeyFile( KF_Context_2 )
+Test_KF_LoadKeyFile( KF_Context_2 )
+Test_KF_GetCertificate( KF_Context_2, eKF_CERT_TYPE_WMDRM, DevCert1)
+Test_KF_GetCertificate( KF_Context_2, eKF_CERT_TYPE_PLAYREADY, DevCert2)
+Test_KF_SetCertificate( KF_Context_2, eKF_CERT_TYPE_WMDRM, DevCert1)
+Test_KF_SetCertificate( KF_Context_2, eKF_CERT_TYPE_NDT, DevCert3)
+Test_KF_StoreKeyFile( KF_Context_2 )
+Test_KF_CloseKeyFile( KF_Context_2 )
+Test_KF_Uninitialize( KF_Context_2 )
+Test_KF_FreeContext( KF_Context_2 )
+
+Test_KF_CreateContext( KF_Context_3 )
+Test_KF_Initialize( KF_Context_3 )
+Test_KF_OpenKeyFile( KF_Context_3 )
+Test_KF_LoadKeyFile( KF_Context_3 )
+Test_KF_GetCertificate( KF_Context_3, eKF_CERT_TYPE_PLAYREADY, DevCert2)
+Test_KF_GetCertificate( KF_Context_3, eKF_CERT_TYPE_WMDRM, DevCert1)
+Test_KF_GetCertificate( KF_Context_3, eKF_CERT_TYPE_NDT, DevCert3)
+Test_KF_StoreKeyFile( KF_Context_3 )
+Test_KF_CloseKeyFile( KF_Context_3 )
+Test_KF_Uninitialize( KF_Context_3 )
+Test_KF_FreeContext( KF_Context_3 )
+
+727:FUNC: Call DRM_KF_StoreKeyFile with an unopened, initialized Keyfile Context
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, INIT )
+Test_KF_StoreKeyFile( KF_Context_1 ) = DRM_E_INVALIDARG
+Test_KF_VerifyContext( KF_Context_1, INIT )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+728:FUNC: Call DRM_KF_StoreKeyFile with an uninitialized Keyfile Context
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_StoreKeyFile( KF_Context_1 ) = DRM_E_KEYFILE_NOT_INITED
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_StoreKeyFile( KF_Context_1 ) = DRM_E_KEYFILE_NOT_INITED
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_FreeContext( KF_Context_1 )
+
+729:FUNC: Call DRM_KF_StoreKeyFile with an NULL Keyfile Context
+Test_KF_StoreKeyFile( NULL ) = DRM_E_INVALIDARG
+
+732:BVT: Verify an open, loaded Keyfile Context Closes using Test_KF_CloseKeyFile
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, OPEN )
+Test_KF_LoadKeyFile( KF_Context_1 )
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, CLOSED )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+733:FUNC: Verify a open, unloaded Keyfile Context Closes using Test_KF_CloseKeyFile
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, OPEN )
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, CLOSED )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_FreeContext( KF_Context_1 )
+
+734:FUNC: Call Test_KF_CloseKeyFile with an unopened, initialized Keyfile Context
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_CloseKeyFile( KF_Context_1 ) = DRM_E_INVALIDARG
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+735:FUNC: Call Test_KF_CloseKeyFile with an uninitialized Keyfile Context
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_CloseKeyFile( KF_Context_1 ) = DRM_E_KEYFILE_NOT_INITED
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, INIT )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_CloseKeyFile( KF_Context_1 ) = DRM_E_KEYFILE_NOT_INITED
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_FreeContext( KF_Context_1 )
+
+736:FUNC: Call Test_KF_CloseKeyFile with an NULL Keyfile Context
+Test_KF_CloseKeyFile( NULL ) = DRM_E_INVALIDARG
+
+737:BVT: Validate that DRM_KF_GetCertificate can retrieve a WMDRM certificate
+GenerateRandomData( DevCert1, 5422 )
+GenerateRandomData( DevCert2, 3022 )
+
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1)=DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert1)=DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_NDT, DevCert1)=DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1)
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1)
+Test_KF_StoreKeyFile( KF_Context_1 )
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+Test_KF_CreateContext( KF_Context_2 )
+Test_KF_Initialize( KF_Context_2 )
+Test_KF_OpenKeyFile( KF_Context_2 )
+Test_KF_LoadKeyFile( KF_Context_2 )
+Test_KF_GetCertificate( KF_Context_2, eKF_CERT_TYPE_WMDRM, DevCert1)
+Test_KF_SetCertificate( KF_Context_2, eKF_CERT_TYPE_WMDRM, DevCert2)
+Test_KF_GetCertificate( KF_Context_2, eKF_CERT_TYPE_PLAYREADY, DevCert1)=DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+Test_KF_GetCertificate( KF_Context_2, eKF_CERT_TYPE_NDT, DevCert1)=DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+Test_KF_StoreKeyFile( KF_Context_2 )
+Test_KF_CloseKeyFile( KF_Context_2 )
+Test_KF_Uninitialize( KF_Context_2 )
+Test_KF_FreeContext( KF_Context_2 )
+
+Test_KF_CreateContext( KF_Context_3 )
+Test_KF_Initialize( KF_Context_3 )
+Test_KF_OpenKeyFile( KF_Context_3 )
+Test_KF_LoadKeyFile( KF_Context_3 )
+Test_KF_GetCertificate( KF_Context_3, eKF_CERT_TYPE_WMDRM, DevCert2)
+Test_KF_GetCertificate( KF_Context_3, eKF_CERT_TYPE_PLAYREADY, DevCert1)=DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+Test_KF_GetCertificate( KF_Context_3, eKF_CERT_TYPE_NDT, DevCert1)=DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+Test_KF_StoreKeyFile( KF_Context_3 )
+Test_KF_CloseKeyFile( KF_Context_3 )
+Test_KF_Uninitialize( KF_Context_3 )
+Test_KF_FreeContext( KF_Context_3 )
+
+738:BVT: Validate that DRM_KF_GetCertificate can retrieve a PLAYREADY certificate
+GenerateRandomData( DevCert1, 5422 )
+GenerateRandomData( DevCert2, 3022 )
+GenerateRandomData( DevCert3, 911 )
+GenerateRandomData( DevCert4, 256 )
+
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert1)=DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_NDT, DevCert1)=DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1)=DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1)
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert4)
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_NDT, DevCert1)=DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_INVALID, DevCert1)=DRM_E_INVALIDARG
+Test_KF_StoreKeyFile( KF_Context_1 )
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+Test_KF_CreateContext( KF_Context_2 )
+Test_KF_Initialize( KF_Context_2 )
+Test_KF_OpenKeyFile( KF_Context_2 )
+Test_KF_LoadKeyFile( KF_Context_2 )
+Test_KF_GetCertificate( KF_Context_2, eKF_CERT_TYPE_WMDRM, DevCert1)
+Test_KF_GetCertificate( KF_Context_2, eKF_CERT_TYPE_PLAYREADY, DevCert4)
+Test_KF_GetCertificate( KF_Context_2, eKF_CERT_TYPE_NDT, DevCert1)=DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+Test_KF_GetCertificate( KF_Context_2, eKF_CERT_TYPE_INVALID, DevCert1)=DRM_E_INVALIDARG
+Test_KF_SetCertificate( KF_Context_2, eKF_CERT_TYPE_WMDRM, DevCert2)
+Test_KF_SetCertificate( KF_Context_2, eKF_CERT_TYPE_PLAYREADY, DevCert3)
+Test_KF_GetCertificate( KF_Context_2, eKF_CERT_TYPE_PLAYREADY, DevCert3)
+Test_KF_StoreKeyFile( KF_Context_2 )
+Test_KF_CloseKeyFile( KF_Context_2 )
+Test_KF_Uninitialize( KF_Context_2 )
+Test_KF_FreeContext( KF_Context_2 )
+
+Test_KF_CreateContext( KF_Context_3 )
+Test_KF_Initialize( KF_Context_3 )
+Test_KF_OpenKeyFile( KF_Context_3 )
+Test_KF_LoadKeyFile( KF_Context_3 )
+Test_KF_GetCertificate( KF_Context_3, eKF_CERT_TYPE_PLAYREADY, DevCert3)
+Test_KF_GetCertificate( KF_Context_3, eKF_CERT_TYPE_WMDRM, DevCert2)
+Test_KF_GetCertificate( KF_Context_3, eKF_CERT_TYPE_NDT, DevCert1)=DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+Test_KF_StoreKeyFile( KF_Context_3 )
+Test_KF_CloseKeyFile( KF_Context_3 )
+Test_KF_Uninitialize( KF_Context_3 )
+Test_KF_FreeContext( KF_Context_3 )
+
+739:FUNC: Attempt to call Test_KF_GetCertificate on an empty Keyfile context
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, OPEN )
+Test_KF_VerifyContext( KF_Context_1, LOADED )
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1 ) = DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+Test_KF_VerifyContext( KF_Context_1, LOADED )
+Test_KF_VerifyContext( KF_Context_1, OPEN )
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, CLOSED )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+740:FUNC:  Attempt to call Test_KF_GetCertificate to retrieve an invalid certificate type
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, OPEN )
+Test_KF_VerifyContext( KF_Context_1, LOADED )
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_INVALID, DevCert1 ) = DRM_E_INVALIDARG
+Test_KF_VerifyContext( KF_Context_1, LOADED )
+Test_KF_VerifyContext( KF_Context_1, OPEN )
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+741:FUNC: Call Test_KF_GetCertificate with an uninitialized Keyfile Context
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1 ) = DRM_E_KEYFILE_NOT_INITED
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1 ) = DRM_E_KEYFILE_NOT_INITED
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_FreeContext( KF_Context_1 )
+
+742:FUNC: Call Test_KF_GetCertificate with an unopened, initialized Keyfile Context
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, INIT )
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1 ) = DRM_E_INVALIDARG
+Test_KF_VerifyContext( KF_Context_1, INIT )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+743:FUNC: Call Test_KF_GetCertificate with an initialized, opened, but unloaded Keyfile Context
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, INIT )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, OPEN )
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1 ) = DRM_E_INVALIDARG
+Test_KF_VerifyContext( KF_Context_1, OPEN )
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+744:FUNC: Call Test_KF_GetCertificate with with NULL arguments
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, OPEN )
+Test_KF_VerifyContext( KF_Context_1, LOADED )
+Test_KF_GetCertificate( NULL, eKF_CERT_TYPE_WMDRM, DevCert1 ) = DRM_E_INVALIDARG
+Test_KF_GetCertificate( NULL, eKF_CERT_TYPE_WMDRM, NULL ) = DRM_E_INVALIDARG
+Test_KF_VerifyContext( KF_Context_1, LOADED )
+Test_KF_VerifyContext( KF_Context_1, OPEN )
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+745:BVT: Validate that DRM_KF_SetCertificate can add a certificate to an empty keyfile
+GenerateRandomData( DevCert1, 5422 )
+
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1)
+Test_KF_VerifyContext( KF_Context_1, CERT, eKF_CERT_TYPE_WMDRM )
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1 )
+Test_KF_StoreKeyFile( KF_Context_1 )
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert1)
+Test_KF_VerifyContext( KF_Context_1, CERT, eKF_CERT_TYPE_PLAYREADY )
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert1 )
+Test_KF_StoreKeyFile( KF_Context_1 )
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+746:BVT:  Validate that DRM_KF_SetCertificate can add a certificate to an keyfile with an existing PR Certificate 
+GenerateRandomData( DevCert1, 6862 )
+
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert1)
+Test_KF_VerifyContext( KF_Context_1, CERT, eKF_CERT_TYPE_PLAYREADY )
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert1 )
+Test_KF_StoreKeyFile( KF_Context_1 )
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+747:BVT:  Validate that DRM_KF_SetCertificate can overwrite an keyfiles existing WMDRM certificate
+GenerateRandomData( DevCert1, 6862 )
+GenerateRandomData( DevCert2, 212 )
+GenerateRandomData( DevCert3, 8212 )
+
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1)
+Test_KF_VerifyContext( KF_Context_1, CERT, eKF_CERT_TYPE_WMDRM )
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1)
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert2)
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1)=DRM_E_TEST_KEYFILE_VERIFICATION_FAILURE
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert2)
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert3)
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert3)
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1)=DRM_E_TEST_KEYFILE_VERIFICATION_FAILURE
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert2)=DRM_E_TEST_KEYFILE_VERIFICATION_FAILURE
+Test_KF_StoreKeyFile( KF_Context_1 )
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+748:BVT:  Validate that DRM_KF_SetCertificate can overwrite an keyfiles existing PR certificate
+GenerateRandomData( DevCert1, 6862 )
+GenerateRandomData( DevCert2, 212 )
+GenerateRandomData( DevCert3, 8212 )
+
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1)
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert1)
+Test_KF_VerifyContext( KF_Context_1, CERT, eKF_CERT_TYPE_WMDRM )
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1)
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert1)
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert2)
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert1)=DRM_E_TEST_KEYFILE_VERIFICATION_FAILURE
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert2)
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert3)
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert3)
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert1)=DRM_E_TEST_KEYFILE_VERIFICATION_FAILURE
+Test_KF_GetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert2)=DRM_E_TEST_KEYFILE_VERIFICATION_FAILURE
+Test_KF_StoreKeyFile( KF_Context_1 )
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+749:FUNC: Call Test_KF_SetCertificate with an uninitialized Keyfile Context
+GenerateRandomData( DevCert1, 7000 )
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1 ) = DRM_E_KEYFILE_NOT_INITED
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1 ) = DRM_E_KEYFILE_NOT_INITED
+Test_KF_VerifyContext( KF_Context_1, UNINIT )
+Test_KF_FreeContext( KF_Context_1 )
+
+750:FUNC: Call Test_KF_SetCertificate with an unopened, initialized Keyfile Context
+GenerateRandomData( DevCert1, 7000 )
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, INIT )
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1 ) = DRM_E_INVALIDARG
+Test_KF_VerifyContext( KF_Context_1, INIT )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+751:FUNC: Call Test_KF_SetCertificate with an initialized, opened unloaded Keyfile Context
+GenerateRandomData( DevCert1, 7000 )
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, OPEN )
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1 ) = DRM_E_INVALIDARG
+Test_KF_VerifyContext( KF_Context_1, OPEN )
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+
+752: Iterate through NULL pointers with DRM_KF_SetCertificate
+GenerateRandomData( DevCert1, 6862 )
+
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )
+
+Test_KF_SetCertificate( NULL, eKF_CERT_TYPE_PLAYREADY, DevCert1) = DRM_E_INVALIDARG
+
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert1, INVALID) = DRM_E_INVALIDARG
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert1, NULL, INVALID) = DRM_E_INVALIDARG
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_PLAYREADY, DevCert1, INVALID, INVALID) = DRM_E_INVALIDARG
+
+Test_KF_SetCertificate( NULL, eKF_CERT_TYPE_PLAYREADY, DevCert1, INVALID) = DRM_E_INVALIDARG
+Test_KF_SetCertificate( NULL, eKF_CERT_TYPE_PLAYREADY, NULL, INVALID) = DRM_E_INVALIDARG
+
+
+Test_KF_SetCertificate( NULL, eKF_CERT_TYPE_PLAYREADY, DevCert1, NULL, INVALID) = DRM_E_INVALIDARG
+Test_KF_SetCertificate( NULL, eKF_CERT_TYPE_PLAYREADY, NULL, NULL, INVALID) = DRM_E_INVALIDARG
+Test_KF_SetCertificate( KF_Context_1, NULL, NULL, NULL, INVALID) = DRM_E_INVALIDARG
+
+Test_KF_SetCertificate( NULL, eKF_CERT_TYPE_PLAYREADY, DevCert1, INVALID, INVALID) = DRM_E_INVALIDARG
+Test_KF_SetCertificate( KF_Context_1, NULL, DevCert1, INVALID, INVALID) = DRM_E_INVALIDARG
+Test_KF_SetCertificate( KF_Context_1, NULL, NULL, INVALID, INVALID) = DRM_E_INVALIDARG
+Test_KF_SetCertificate( NULL, eKF_CERT_TYPE_PLAYREADY, NULL, INVALID, INVALID) = DRM_E_INVALIDARG
+
+Test_KF_SetCertificate( NULL, NULL, NULL, INVALID, INVALID) = DRM_E_INVALIDARG
+
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )
+
+754:FUNC: Attempt to use Test_KF_SetCertificate with a certificate that exceeds the maximum size
+GenerateRandomData( DevCert1, 90000 )
+Test_KF_CreateContext( KF_Context_1 )
+Test_KF_Initialize( KF_Context_1 )
+Test_KF_OpenKeyFile( KF_Context_1 )
+Test_KF_LoadKeyFile( KF_Context_1 )
+Test_KF_VerifyContext( KF_Context_1, OPEN )
+Test_KF_VerifyContext( KF_Context_1, LOADED )
+Test_KF_SetCertificate( KF_Context_1, eKF_CERT_TYPE_WMDRM, DevCert1) = DRM_E_BUFFERTOOSMALL
+Test_KF_VerifyContext( KF_Context_1, LOADED )
+Test_KF_VerifyContext( KF_Context_1, OPEN )
+Test_KF_CloseKeyFile( KF_Context_1 )
+Test_KF_Uninitialize( KF_Context_1 )
+Test_KF_FreeContext( KF_Context_1 )

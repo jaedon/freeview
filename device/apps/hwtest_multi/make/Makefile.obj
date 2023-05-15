@@ -1,0 +1,74 @@
+vpath %.c $(SOURCE_DIR)/
+
+objs-y = $(ODIR)/cmd_hwtest.o
+vpath %.c $(SOURCE_DIR)/cmd_hwtest_ext
+vpath %.c $(SOURCE_DIR)/cmd_hwtest_ext/thermal
+vpath %.c $(SOURCE_DIR)/cmd_hwtest_ext/channel
+objs-y += $(ODIR)/cmd_hwtest_ext_channel.o
+objs-y += $(ODIR)/cmd_hwtest_ext_channel_t.o
+objs-y += $(ODIR)/cmd_hwtest_ext_channel_c.o
+objs-y += $(ODIR)/cmd_hwtest_ext_channel_s.o
+
+
+
+objs-y += $(ODIR)/cmd_hwtest_ext_thermal.o
+objs-y += $(ODIR)/font19_16gray.o
+
+
+#vpath %.c $(SOURCE_DIR)/tester/
+#vpath %.c $(SOURCE_DIR)/tester/test_di/
+#vpath %.c $(SOURCE_DIR)/tester/test_hw/
+#vpath %.c $(SOURCE_DIR)/tester/test_vk/
+
+#objs-y += $(ODIR)/test_main.o
+#objs-y += $(ODIR)/test_vk.o
+#objs-y += $(ODIR)/test_hw_mem.o
+#objs-y += $(ODIR)/test_hw_mem_api.o
+#objs-y += $(ODIR)/main.o
+#objs-y += $(ODIR)/test_di_channel.o
+#objs-y += $(ODIR)/test_di_key.o
+#objs-y += $(ODIR)/test_di_osd.o
+#objs-y += $(ODIR)/test_di_video.o
+#objs-y += $(ODIR)/test_di_hdmi.o
+#objs-y += $(ODIR)/test_di_flash.o
+#objs-y += $(ODIR)/test_di_eth.o
+#objs-y += $(ODIR)/test_di_audio.o
+#objs-y += $(ODIR)/test_di_fs.o
+#objs-y += $(ODIR)/test_di_scart.o
+#objs-y += $(ODIR)/test_di_sc.o
+#objs-y += $(ODIR)/test_di_demux.o
+#objs-y += $(ODIR)/test_di_eeprom.o
+
+ifneq ($(subst USE_CI,,$(DI_MODULE)), $(DI_MODULE))
+vpath %.c $(SOURCE_DIR)/ci_stack
+vpath %.c $(SOURCE_DIR)/ci_stack/ext
+vpath %.c $(SOURCE_DIR)/ci_stack/ci_pack
+vpath %.c $(SOURCE_DIR)/ci_stack/ci_res
+#objs-y += $(ODIR)/test_di_ci.o
+objs-y += $(ODIR)/ci_hwtest.o
+objs-y += $(ODIR)/pal_ci.o
+objs-y += $(ODIR)/timeconv.o
+objs-y += $(ODIR)/cb_list.o
+objs-y += $(ODIR)/ci.o
+objs-y += $(ODIR)/ci_adapt.o
+objs-y += $(ODIR)/ci_rm.o
+objs-y += $(ODIR)/ci_ai.o
+objs-y += $(ODIR)/ci_cas.o
+objs-y += $(ODIR)/ci_dt.o
+objs-y += $(ODIR)/ci_mmi.o
+objs-y += $(ODIR)/ci_reshandler.o
+objs-y += $(ODIR)/itc.o
+objs-y += $(ODIR)/link.o
+objs-y += $(ODIR)/linkfifo.o
+objs-y += $(ODIR)/linkstat.o
+objs-y += $(ODIR)/physdrv.o
+objs-y += $(ODIR)/physical.o
+objs-y += $(ODIR)/phystat.o
+objs-y += $(ODIR)/sesscod.o
+objs-y += $(ODIR)/session.o
+objs-y += $(ODIR)/sesstat.o
+objs-y += $(ODIR)/tranfifo.o
+objs-y += $(ODIR)/trans.o
+objs-y += $(ODIR)/transcod.o
+objs-y += $(ODIR)/transtat.o
+endif

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Remote STB</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+		<script type="text/javascript" src="oapi.js"></script>
+		<script type="text/javascript" src="remotestb.js"></script>
+	</head>
+	<body>
+		<div data-role="page" id="Home">
+			<div data-role="header" data-theme="b">
+				<h1>Remote STB</h1>
+			</div><!-- /header -->
+			<div data-role="content">
+				<div align="center">
+					<img src="../images/icon.png" width="150px" height="150px" />
+				</div>
+				<div data-role="fieldcontain">
+					<label for="name">URL:</label>
+					<input type="url" name="url" id="url" value="ws://10.0.10.62:7681" />
+				</div>
+				<a href="#" id="submit" data-role="button" data-icon="arrow-r" data-theme="b">Submit</a>
+			</div><!-- /content -->
+		</div>
+		<div data-role="page" id="ServiceList">
+			<div data-role="header" data-position="fixed" data-theme="b">
+				<a href="#Home" data-role="button" data-direction="reverse" data-icon="arrow-l">Back</a>
+				<h1>Service List</h1>
+			</div><!-- /header -->
+			<div data-role="content">
+
+				<ul id="servicelist" data-role="listview" data-inset="true" data-filter="true" data-split-icon="grid">
+					<!-- see remtoestb.js -->
+				</ul>
+
+			</div><!-- /content -->
+			<div data-role="footer" data-position="fixed"  data-theme="b">
+				<div data-role="navbar">
+					<ul>
+						<li>
+							<a href="#" data-icon="refresh" id="sync">Sync</a>
+						</li>
+						<li>
+							<a href="#" data-icon="gear" id="option">Option</a>
+						</li>
+					</ul>
+				</div><!-- /navbar -->
+			</div>
+		</div><!-- /page -->
+	</body>
+</html>

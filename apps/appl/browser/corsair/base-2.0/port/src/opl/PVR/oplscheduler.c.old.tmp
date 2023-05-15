@@ -1,0 +1,3266 @@
+/**************************************************************************************/
+/**
+ * @file oplscheduler.c
+ *
+ *
+ *
+ * @attention   Copyright (c) 2011 Humax - All rights reserved.
+ *
+ **************************************************************************************
+ **/
+
+#include "oplscheduler.h"
+#include "oplbroadcast.h"
+
+#include <hlib.h>
+#include <apk.h>
+#include <time.h>
+#include <vkernel.h>
+//#include <timeconv.h>
+
+
+
+
+
+#undef  return_if
+#define	return_if(expr, err)	do{if(expr){HxLOG_Debug("[%s:%d] %s failed!!\n", __FUNCTION__, __HxLINE__, #expr);return (err);}}while(0)
+
+
+
+typedef struct
+{
+	APK_HANDLE	schedule;
+
+	HxVector_t	*scheduledList;
+	HxVector_t	*recordingList;
+
+	char		tempBuf[256];
+
+	OPL_Scheduler_EventListener_t	listener;
+#ifdef CONFIG_OP_JAPAN	// JCOM√à¬Æ?√•?¬∏¬∑√é DLNA ¬¥√Ç ¬∫¬∞¬µ¬µ?√á ¬∏¬Æ¬Ω¬∫¬≥√ä¬∞¬° √á√ä¬ø√§√á√ï¬¥√è¬¥√ô.
+	OPL_Scheduler_HNReservationFinishedEventListener_t	hnlistener;
+#endif
+} OPL_Scheduler_t;
+
+#define	____PRIVATE_OPL_Scheduler__________________________________________________________
+static HERROR	opl_scheduler_LoadRecordingList(OPL_Scheduler_t *pScheduler);
+
+static HBOOL		opl_scheduler_EmitEvent (OPL_Scheduler_t *self, int state, int error
+								, OPL_ScheduledItem_t *sched, OPL_Collection_t **conflict, OPL_Collection_t *alternative, OPL_Collection_t *altevent)
+{
+	HxLOG_Trace();
+#if defined (CONFIG_DEBUG)
+	HxLOG_Warning("opl_scheduler_EmitEvent send state = %d\n", state);
+#endif
+	if (self->listener)
+	{	// scheduler_EventListener
+		return self->listener(state, error, sched, conflict, alternative, altevent) ? TRUE : FALSE;
+	}
+	return FALSE;
+}
+
+#ifdef CONFIG_OP_JAPAN
+static HBOOL		opl_scheduler_EmitHNReservationFinishedEvent (OPL_Scheduler_t *self, OPL_ScheduledItem_t *sched, int error)
+{
+	HxLOG_Trace();
+
+	if (self->hnlistener)
+	{	// scheduler_EventListener
+		return self->hnlistener(sched, error) ? TRUE : FALSE;
+	}
+	return FALSE;
+}
+#endif
+
+static HBOOL	opl_scheduler_CompareItemUID (void * data, void * userdata)
+{
+	OPL_ScheduledItem_t *prog = (OPL_ScheduledItem_t *)data;
+
+	if (prog->uid == (int)userdata)
+		return TRUE;
+	return FALSE;
+}
+
+#if defined (CONFIG_OP_JAPAN)
+// ¿œ∫ª«‚ø°º≠¥¬ ¿•ø°º≠¿« øπæ‡ ∫Ø∞Ê¿∫ æ¯¿∏∏Á, ªË¡¶ »ƒ ª¿‘¿« ∑Á∆æ¿ª ∞≈ƒ° ∞‘ µÀ¥œ¥Ÿ. ¿Ã∑Œ¿Œ«ÿ ∫Ò±≥ ±∏πÆ¿ª ∞≠»≠«œø© ¥Î∫Œ∫–¿« ∫Øºˆ∏¶ ∫Ò±≥ «œµµ∑œ «’¥œ¥Ÿ.
+static HBOOL	opl_scheduler_CompareItem (void * data, void * userdata)
+{
+	OPL_ScheduledItem_t *progCmp	= (OPL_ScheduledItem_t *)data;
+	OPL_ScheduledItem_t *progTarget = (OPL_ScheduledItem_t *)userdata;
+	HBOOL	bProCmpHasProgId 	= FALSE;
+	HBOOL	bProTargetHasProgId = FALSE;
+
+	if (progCmp->uid != progTarget->uid )
+		return FALSE;
+
+	if (progCmp->type != progTarget->type )
+		return FALSE;
+
+	if (progCmp->repeatDays != progTarget->repeatDays )
+		return FALSE;
+
+	if( progCmp->type == eOPL_SCHEDULED_PRO_DUBBING )
+	{
+		if( 0 != HxSTD_StrCmp(progCmp->dubbingId, progTarget->dubbingId) )
+			return FALSE;
+	}
+	else
+	{
+		if( progCmp->programmeID != NULL && progTarget->programmeID  != NULL)
+		{
+			if (0 != HxSTD_StrCmp(progCmp->programmeID, progTarget->programmeID))
+				return FALSE;
+		}
+		else if ( progCmp->programmeID == NULL && progTarget->programmeID  == NULL)
+		{
+			if (progCmp->startTime != progTarget->startTime )
+				return FALSE;
+			if (progCmp->duration != progTarget->duration )
+				return FALSE;
+		}
+		else if ( progCmp->programmeID != progTarget->programmeID )
+		{
+			return FALSE;
+
+}
+
+		if (0 != HxSTD_StrCmp(progCmp->channelID, progTarget->channelID))
+		{
+			return FALSE;
+		}
+
+		if( progCmp->type == eOPL_SCHEDULED_PRO_RECORD )
+		{
+			if( progCmp->storageID != NULL && progTarget->storageID  != NULL)
+			{
+				if (0 != HxSTD_StrCmp(progCmp->storageID, progTarget->storageID))
+					return FALSE;
+			}
+			else if ( progCmp->storageID != progTarget->storageID )
+			{
+				return FALSE;
+
+}
+		}
+		else if ( progCmp->type == eOPL_SCHEDULED_PRO_DLNA )
+		{
+			if( progCmp->deviceHandle != NULL && progTarget->deviceHandle  != NULL)
+			{
+				if (0 != HxSTD_StrCmp(progCmp->deviceHandle, progTarget->deviceHandle))
+					return FALSE;
+			}
+			else if ( progCmp->deviceHandle != progTarget->deviceHandle )
+			{
+				return FALSE;
+
+}
+		}
+	}
+	return TRUE;
+}
+#else
+static HBOOL	opl_scheduler_CompareItem (void * data, void * userdata)
+{
+	OPL_ScheduledItem_t *progCmp	= (OPL_ScheduledItem_t *)data;
+	OPL_ScheduledItem_t *progTarget = (OPL_ScheduledItem_t *)userdata;
+	HBOOL	bProCmpHasProgId 	= FALSE;
+	HBOOL	bProTargetHasProgId = FALSE;
+
+	if (progCmp->uid == progTarget->uid )
+	{
+		if (progCmp->programmeID)
+			bProCmpHasProgId = TRUE;
+
+		if (progTarget->programmeID)
+			bProTargetHasProgId = TRUE;
+
+		if (bProCmpHasProgId && bProTargetHasProgId)
+		{	// compare programmeID
+			if (0 == HxSTD_StrCmp(progCmp->programmeID, progTarget->programmeID))
+			{
+				return TRUE;
+			}
+		}
+		else if (FALSE == bProCmpHasProgId && FALSE == bProTargetHasProgId)
+		{	// both schedule doesn't have id -> comp with time, duration, channel, type
+
+			if( progCmp->type == eOPL_SCHEDULED_PRO_DUBBING )
+			{
+				if( 0 == HxSTD_StrCmp(progCmp->dubbingId, progTarget->dubbingId) )
+				{
+					return TRUE;
+				}
+			}
+			else
+			{
+				if ((progCmp->startTime == progTarget->startTime)
+				&& (progCmp->duration == progTarget->duration)
+				&& (progCmp->type == progTarget->type))
+				{
+					if (0 == HxSTD_StrCmp(progCmp->channelID, progTarget->channelID))
+					{
+						return TRUE;
+					}
+				}
+			}
+		}
+	}
+	return FALSE;
+}
+#endif
+
+static HBOOL	opl_scheduler_IsDiffEvtItem_String (char	*pszStr1, char	*pszStr2)
+{
+	if (NULL == pszStr1 && NULL == pszStr1)
+		return FALSE;
+
+	return (0 == HxSTD_StrCmp(pszStr1, pszStr1)) ? FALSE : TRUE;
+}
+
+
+static HBOOL	opl_scheduler_IsDiffEvtItem (OPL_ScheduledItem_t *data1, OPL_ScheduledItem_t *data2)
+{
+	if (NULL == data1 || NULL == data2)
+	{
+		HxLOG_Assert(0);
+		return FALSE;
+	}
+
+	if (data1->uid 	!= data2->uid) 									return TRUE;
+	if (data1->type != data2->type) 								return TRUE;
+	if (data1->startTime 	!= data2->startTime)					return TRUE;
+	if (data1->duration 	!= data2->duration) 					return TRUE;
+	if (data1->startPadding != data2->startPadding) 				return TRUE;
+	if (data1->endPadding 	!= data2->endPadding) 					return TRUE;
+	if (data1->repeatDays 	!= data2->repeatDays) 					return TRUE;
+	if (data1->isScheduledAsSeries 	!= data2->isScheduledAsSeries)	return TRUE;
+	if (data1->episode 				!= data2->episode) 				return TRUE;
+	if (data1->season		!= data2->season) 		return TRUE;
+	if (data1->totalEpisodes		!= data2->totalEpisodes) 		return TRUE;
+	if (data1->groupIndex		!= data2->groupIndex) 		return TRUE;
+	if (data1->targetStorage	!= data2->targetStorage) 		return TRUE;
+
+	if (opl_scheduler_IsDiffEvtItem_String(data1->name, data2->name)) 						return TRUE;
+	if (opl_scheduler_IsDiffEvtItem_String(data1->longName, data2->longName)) 				return TRUE;
+	if (opl_scheduler_IsDiffEvtItem_String(data1->description, data2->description)) 		return TRUE;
+	if (opl_scheduler_IsDiffEvtItem_String(data1->longDescription, data2->longDescription)) return TRUE;
+	if (opl_scheduler_IsDiffEvtItem_String(data1->channelID, data2->channelID)) 			return TRUE;
+	if (opl_scheduler_IsDiffEvtItem_String(data1->programmeID, data2->programmeID)) 		return TRUE;
+	if (opl_scheduler_IsDiffEvtItem_String(data1->seriesID, data2->seriesID)) 				return TRUE;
+	if (opl_scheduler_IsDiffEvtItem_String(data1->storageID, data2->storageID)) 			return TRUE;
+	if (opl_scheduler_IsDiffEvtItem_String(data1->userID, data2->userID)) 			return TRUE;
+	if (opl_scheduler_IsDiffEvtItem_String(data1->deviceHandle, data2->deviceHandle)) 			return TRUE;
+	if (opl_scheduler_IsDiffEvtItem_String(data1->destinationId, data2->destinationId)) 			return TRUE;
+#ifdef CONFIG_OP_JAPAN
+	if (opl_scheduler_IsDiffEvtItem_String(data1->dubbingId, data2->dubbingId)) 					return TRUE;
+#endif
+	return FALSE;
+}
+
+
+static APKS_SCHEDULE_t *
+			opl_scheduler_ToAppKitSchedule (APKS_SCHEDULE_t *sched, const OPL_ScheduledItem_t *prog)
+{
+	memset(sched, 0, sizeof(APKS_SCHEDULE_t));
+
+	sched->uid = prog->uid;
+	if (prog->programmeID)
+	{
+		sched->eventBase = TRUE;
+		sched->eventId   = OPL_Programme_GetEventIDFromProgrammeID(prog->programmeID);
+	}
+	sched->startTime = prog->startTime;
+	sched->duration  = prog->duration;
+	sched->groupIndex  = prog->groupIndex;
+	sched->recMode  = prog->recMode;
+	sched->fromDap  = prog->fromDap;
+	sched->epgType  = prog->epgType;
+	sched->freeCaMode = prog->freeCaMode;
+	sched->Rating  = prog->Rating;
+
+	switch (prog->type)
+	{
+	case eOPL_SCHEDULED_PRO_WATCH:
+		sched->svcUId = OPL_Channel_CCID2UniqueID(prog->channelID);
+		sched->action = eSCHEDULE_ACTION_WATCH;
+		break;
+
+	case eOPL_SCHEDULED_PRO_HLS:
+		sched->svcUId = OPL_Channel_CCID2UniqueID(prog->channelID);
+		sched->action = eSCHEDULE_ACTION_HLS;
+		break;
+
+	case eOPL_SCHEDULED_PRO_RECORD:
+		sched->svcUId = OPL_Channel_CCID2UniqueID(prog->channelID);
+		sched->action = eSCHEDULE_ACTION_RECORD;
+		sched->param.record.startPadding = prog->startPadding;
+		sched->param.record.endPadding   = prog->endPadding;
+		sched->param.record.seriesRec    = prog->isScheduledAsSeries ? TRUE : FALSE;
+		if(prog->seriesID && prog->isScheduledAsSeries)
+			HLIB_STD_StrUtf8NCpy(sched->param.record.seriesId, prog->seriesID, APKD_META_SCHED_MAX_SERIESID);
+		if (prog->storageID)
+			sched->storageID = HxMEM_STRDUP(prog->storageID);
+		break;
+
+	case eOPL_SCHEDULED_PRO_DLNA:
+		sched->svcUId = OPL_Channel_CCID2UniqueID(prog->channelID);
+		sched->action = eSCHEDULE_ACTION_DLNA;
+		if (prog->deviceHandle)
+			sched->deviceHandle = HxMEM_STRDUP(prog->deviceHandle);
+		if (prog->destinationId)
+			sched->destinationId = HxMEM_STRDUP(prog->destinationId);
+		break;
+
+	case eOPL_SCHEDULED_PRO_DUBBING:
+		sched->action = eSCHEDULE_ACTION_DUBBING;
+		//sched->contentsId  = prog->contentsId;
+		if (prog->deviceHandle)
+			sched->deviceHandle = HxMEM_STRDUP(prog->deviceHandle);
+		if (prog->destinationId)
+			sched->destinationId = HxMEM_STRDUP(prog->destinationId);
+		if (prog->dubbingId)
+			sched->dubbingId = HxMEM_STRDUP(prog->dubbingId);
+		break;
+
+	default:
+		return NULL;
+	}
+
+	if (prog->name)
+		sched->name = HxMEM_STRDUP(prog->name);
+	if (prog->description)
+		sched->description = HxMEM_STRDUP(prog->description);
+	if (prog->longDescription)
+		sched->longDescription = HxMEM_STRDUP(prog->longDescription);
+	if (prog->userID)
+		sched->userID = HxMEM_STRDUP(prog->userID);
+
+	if (prog->repeatDays)
+	{
+		if ((prog->repeatDays & eSCHEDULE_DATE_ALL) == eSCHEDULE_DATE_ALL)
+			sched->repeat.cycle = eSCHEDULE_CYCLE_DAYLY;
+		else
+			sched->repeat.cycle = eSCHEDULE_CYCLE_WEEKLY;
+		sched->repeat.date  = prog->repeatDays;
+	}
+	return sched;
+}
+
+static void *
+			opl_scheduler_releaseAppKitSchedule (APKS_SCHEDULE_t *sched)
+{
+	if(sched == NULL)
+		return NULL;
+
+	if (sched->name)
+		HLIB_STD_MemFree(sched->name);
+	if (sched->description)
+		HLIB_STD_MemFree(sched->description);
+	if (sched->longDescription)
+		HLIB_STD_MemFree(sched->longDescription);
+	if (sched->storageID)
+		HLIB_STD_MemFree(sched->storageID);
+	if (sched->userID)
+		HLIB_STD_MemFree(sched->userID);
+	if (sched->deviceHandle)
+		HLIB_STD_MemFree(sched->deviceHandle);
+	if (sched->destinationId)
+		HLIB_STD_MemFree(sched->destinationId);
+	if (sched->dubbingId)
+		HLIB_STD_MemFree(sched->dubbingId);
+
+	return NULL;
+}
+
+static HUINT32	opl_scheduler_CountSeriesItem (HxVector_t	*scheduledList, OPL_ScheduledItem_t *item)
+{
+	HCHAR 			*pszItemSeriesId;
+	HUINT32			count;
+	HUINT32			i;
+	HUINT32			matchedSeriesCount = 0;
+
+	if (FALSE == item->isScheduledAsSeries || NULL == item->seriesID)
+	{	// not series item -> 0
+		return 0;
+	}
+
+	pszItemSeriesId = item->seriesID;
+	count = HLIB_VECTOR_Length(scheduledList);
+	for (i = 0; i < count; i++)
+	{
+		OPL_ScheduledItem_t	*sub_item	= (OPL_ScheduledItem_t*)HLIB_VECTOR_ItemAt(scheduledList, i);
+
+		if (sub_item->isScheduledAsSeries && sub_item->seriesID)
+		{	// series item -> compare the seriesID
+			if (0 == HxSTD_StrCmp(sub_item->seriesID, pszItemSeriesId))
+			{
+				matchedSeriesCount++;
+			}
+		}
+	}
+
+	return matchedSeriesCount;
+}
+
+
+
+/*  This function remove the old schedule, by system time.
+	Old schedule shall be removed
+	(Except case : isScheduledAsSeries : TRUE & doesn't have same seriesID Item)
+*/
+static HERROR	opl_scheduler_PostProcessAfterLoadScheduledList (HxVector_t	*scheduledList)
+{
+	HINT32			count;
+	HINT32			i;
+	HULONG			sysTime;
+    HxDATETIME_t	stStartDateTime, stEndDateTime, stCurDateTime;
+
+
+	HxLOG_Trace();
+
+	HxSTD_MemSet(&stStartDateTime, 0, sizeof(HxDATETIME_t));
+	HxSTD_MemSet(&stEndDateTime, 0, sizeof(HxDATETIME_t));
+	HxSTD_MemSet(&stCurDateTime, 0, sizeof(HxDATETIME_t));
+	if (ERR_OK != VK_CLOCK_GetTime(&sysTime))
+	{
+		HxLOG_Error("[%s:%d] Fail to Get the Current Time !\n", __FUNCTION__, __LINE__);
+		return ERR_FAIL;
+	}
+
+	count = HLIB_VECTOR_Length(scheduledList);
+	if (count <= 0)
+	{
+		HxLOG_Error("[%s:%d] empty schedule list !\n", __FUNCTION__, __LINE__);
+		return ERR_FAIL;
+	}
+
+    HLIB_DATETIME_ConvertUnixTimeToDateTime(sysTime, &stCurDateTime);
+    HxLOG_Print("[%s:%d] cur day (%d) [(%d):(%d)]\n"
+			, __FUNCTION__, __LINE__
+			, stCurDateTime.stDate.ucDay, stCurDateTime.stTime.ucHour, stCurDateTime.stTime.ucMinute);
+	for (i = count -1; i > 0; i--)					// reverse loop for the Vector remove
+	{	// check that item is old one ?
+		OPL_ScheduledItem_t	*item	= (OPL_ScheduledItem_t*)HLIB_VECTOR_ItemAt(scheduledList, i);
+		unsigned long itemStartTime = item->startTime;
+		unsigned long itemEndTime = item->startTime + item->duration + item->endPadding;
+		unsigned long diff 			= itemStartTime - sysTime;
+
+		HLIB_DATETIME_ConvertUnixTimeToDateTime(itemStartTime, &stStartDateTime);
+		HLIB_DATETIME_ConvertUnixTimeToDateTime(itemEndTime, &stEndDateTime);
+
+		HxLOG_Print("[%s:%d] (%d) idx item day (%d) [(%d):(%d) ~ (%d):(%d)]\n"
+			, __FUNCTION__, __LINE__
+			, i, stStartDateTime.stDate.ucDay, stStartDateTime.stTime.ucHour, stStartDateTime.stTime.ucMinute
+			, stEndDateTime.stTime.ucHour, stEndDateTime.stTime.ucMinute);
+
+
+		HxLOG_Print("[%s:%d] (%d) idx item start (%d), end (%d) cur (%d) diff (%d)\n"
+			, __FUNCTION__, __LINE__, i, itemStartTime, itemEndTime, sysTime, diff);
+		HxLOG_Print("\t name (%s), uid (%d) \n", item->name, item->uid);
+		if (item->seriesID)
+			HxLOG_Print("\t series Id (%s)\n", item->seriesID);
+
+		if (itemEndTime < sysTime)
+		{	// old one -> check the exception case
+			if (item->isScheduledAsSeries)
+			{	// check the same series item
+				if (opl_scheduler_CountSeriesItem(scheduledList, item) <= 1)
+				{
+					HxLOG_Print("[%s:%d] (%d) idx item's series item is unique -> not delete ! \n"
+						, __FUNCTION__, __LINE__, i, item->seriesID);
+					continue;
+				}
+			}
+
+			// delete the item
+			HLIB_VECTOR_Remove(scheduledList, i);
+			APK_METASCHED_RemoveFromList(item->uid);
+
+			HxLOG_Print("[%s:%d] (%d) idx item is Old -> delete ! \n", __FUNCTION__, __LINE__, i);
+		}
+	}
+
+	return ERR_OK;
+}
+
+
+
+static HERROR	opl_scheduler_LoadScheduledList (OPL_Scheduler_t *self)
+{
+	HINT32			count;
+	HINT32			i, n;
+	APKS_SCHEDULE_t *sched;
+	OPL_ScheduledItem_t	*item;
+
+	HxLOG_Trace();
+
+	HLIB_VECTOR_RemoveAll(self->scheduledList);
+
+	n = APK_METASCHED_Count(self->schedule);
+	for (i = 0, count = 0 ; i < n ; i++)
+	{
+		sched = APK_METASCHED_GetAt(self->schedule, i);
+		if (sched == NULL)
+			continue;
+
+		if (sched->action == eSCHEDULE_ACTION_WATCH
+			|| sched->action == eSCHEDULE_ACTION_RECORD
+			|| sched->action == eSCHEDULE_ACTION_DLNA
+			|| sched->action == eSCHEDULE_ACTION_DUBBING
+			|| sched->action == eSCHEDULE_ACTION_HLS)
+		{
+			item = OPL_ScheduledItem_New("o", sched);
+		}
+		else
+		{
+			item = NULL;
+		}
+
+		APK_METASCHED_Delete(sched);
+		if (item == NULL)
+			continue;
+
+		HLIB_VECTOR_Add(self->scheduledList, (void *)item);
+	}
+
+	return ERR_OK;
+}
+
+static HERROR
+		opl_scheduler_MakeConflict (OPL_Scheduler_t *self, const APKS_SCHED_CONFLICT_t *conflict, int *error, OPL_Collection_t * *conflictList, OPL_Collection_t * *altList, OPL_Collection_t * *altevtList)
+{
+	HUINT32 			i;
+	OPL_Collection_t	*list;
+
+	HxLOG_Trace();
+
+	switch(conflict->type)
+	{
+	case eSCHEDULE_CONFLICT_TP:
+		*error = eOPL_SCHEDULER_ERROR_TUNER_CONFLICT;
+		break;
+
+	case eSCHEDULE_CONFLICT_OVER_CAPACITY:
+		*error = eOPL_SCHEDULER_ERROR_RESOURCE_LIMITATION;
+		break;
+
+	case eSCHEDULE_CONFLICT_ALTERNATIVE:
+		*error = eOPL_SCHEDULER_ERROR_HAVE_ALTERNATIVE;
+		break;
+
+	case eSCHEDULE_CONFLICT_RFOTA:
+		*error = eOPL_SCHEDULER_ERROR_RFOTA;
+		break;
+
+	case eSCHEDULE_CONFLICT_DUPLICATED:
+	case eSCHEDULE_CONFLICT_VIEW:
+	case eSCHEDULE_CONFLICT_PADDINGTIME:
+	case eSCHEDULE_CONFLICT_UNKNOWN:
+	default:
+		*error = eOPL_SCHEDULER_ERROR_UNKNOWN;
+		break;
+	}
+
+	// make conflict list
+	for(i = 0; i < MAX_CONFLICT_TPNUM; i++)
+	{
+		list = OPL_Collection_NewEx((void(*)(void *))OPL_ScheduledItem_Delete, (void *(*)(void *))OPL_ScheduledItem_Clone);
+		if(list)
+		{
+			HUINT32				j;
+			APKS_SCHEDULE_t 	*sched;
+			OPL_ScheduledItem_t *item;
+
+			for(j = 0; j < conflict->length[i]; j++)
+			{
+				sched = APK_METASCHED_Get(self->schedule, conflict->uidList[i][j]);
+
+				if (sched == NULL)
+					continue;
+
+				item  = OPL_ScheduledItem_New("o", sched);
+				APK_METASCHED_Delete(sched);
+				if (item == NULL)
+					continue;
+
+				OPL_Collection_Add(list, (void *)item);
+
+				if (OPL_Collection_Length(list) <= 0)
+				{
+					OPL_Collection_Delete(list);
+					list = NULL;
+				}
+			}
+		}
+		if(conflictList)
+		{
+			conflictList[i] = list;
+		}
+		else
+		{
+			OPL_Collection_Delete(list); list = NULL;
+		}
+	}
+
+	// make alternative list
+	list = OPL_Collection_NewEx((void(*)(void *))OPL_ScheduledItem_Delete, (void *(*)(void *))OPL_ScheduledItem_Clone);
+	if (list)
+	{
+		APKS_SCHEDULE_t 	*sched;
+		OPL_ScheduledItem_t *item;
+
+		for (i = 0 ; i < conflict->alt_length ; i++)
+		{
+			if(conflict->alt_uidList[i] == 0xffff)	// ¬Ω√É¬µ¬µ√á√è¬¥√Ç reservation ?√ö√É¬º¬∞¬° alternative ¬∏¬¶ ¬∞¬°√Å√º
+			{
+				// make dummy schedule item
+				item = (OPL_ScheduledItem_t *)HLIB_STD_MemAlloc(sizeof(OPL_ScheduledItem_t));
+				memset(item, 0, sizeof(OPL_ScheduledItem_t));
+				item->sizeOf = sizeof(OPL_ScheduledItem_t);
+			}
+			else	 // ¬±√¢√Å¬∏ reservatino ?√å alternative ¬∏¬¶ ¬∞¬°√Å√∂¬¥√Ç ¬∞√¶¬ø√¨.
+			{
+				sched = APK_METASCHED_Get(self->schedule, conflict->alt_uidList[i]);
+				item  = OPL_ScheduledItem_New("o", sched);
+				APK_METASCHED_Delete(sched);
+			}
+
+			if (item == NULL)
+				continue;
+			OPL_Collection_Add(list, (void *)item);
+		}
+
+		if (OPL_Collection_Length(list) <= 0)
+		{
+			OPL_Collection_Delete(list);
+			list = NULL;
+		}
+	}
+	if(altList)
+	{
+		*altList = list;
+	}
+	else
+	{
+		OPL_Collection_Delete(list); list = NULL;
+	}
+
+	// make alternative programme list
+	list = OPL_Collection_NewEx((void(*)(void *))OPL_Programme_Delete, (void *(*)(void *))OPL_Programme_Clone);
+	if(list)
+	{
+		HINT32				svcuid;
+		HINT32	eventid;
+		DxEvent_t 			*event;
+		OPL_ProgrammeHandle programme = NULL;
+
+		for (i = 0 ; i < conflict->alt_length ; i++)
+		{
+			svcuid= ((conflict->alt_evtuidList[i] & 0xFFFF0000) >> 16);
+			eventid = (conflict->alt_evtuidList[i] & 0xFFFF);
+			event = APK_META_QUERY_GetEventWithIds(svcuid, eventid);
+			programme = OPL_Programme_New("o", APK_EVENT_Incref(event));
+
+			if(programme == NULL)
+				continue;
+			OPL_Collection_Add(list, (void *)programme);
+		}
+
+		if (OPL_Collection_Length(list) <= 0)
+		{
+			OPL_Collection_Delete(list);
+			list = NULL;
+		}
+	}
+	if(altevtList)
+	{
+		*altevtList = list;
+	}
+	else
+	{
+		OPL_Collection_Delete(list); list = NULL;
+	}
+
+	return ERR_OK;
+}
+
+static HERROR opl_scheduler_PrintItem(OPL_ScheduledItem_t	*item)
+{
+#if 0
+	TIME_T 		time;
+	DATE_T		date;
+	HLONG		sysTime;
+
+	if(item == NULL)
+		return ERR_FAIL;
+
+	VK_CLOCK_GetTime(&sysTime);
+
+	HxLOG_Print("[%s:%d] <======Current Time======>\n", ,__FUNCTION__, __LINE__);
+	UTIL_TCONV_ConvertUnixTimeToDate(sysTime, &date);
+	UTIL_TCONV_ConvertUnixTimeToTime(sysTime, &time);
+	HxLOG_Print("\tDate : [%d.%d.%d] Time : [%dh:%dm:%ds]\n\n",(int)date.usYear,(int)date.ucMonth,(int)date.ucDay,
+														(int)time.ucHour,(int)time.ucMinute,(int)time.ucSecond);
+
+	UTIL_TCONV_ConvertUnixTimeToDate(item->startTime, &date);
+	HxLOG_Print ("\t Item Date : [%d.%d.%d]\n",(int)date.usYear,(int)date.ucMonth,(int)date.ucDay);
+	UTIL_TCONV_ConvertUnixTimeToTime(pitem->startTime, &time);
+	HxLOG_Print("\t Start Time = (%dh:%dm:%ds)\n",(int)time.ucHour,(int)time.ucMinute,(int)time.ucSecond);
+
+	UTIL_TCONV_ConvertUnixTimeToTime(item->startTime+ item->duration, &time);
+	HxLOG_Print ("\t End Time = (%dh:%dm:%ds)\n",(int)time.ucHour,(int)time.ucMinute,(int)time.ucSecond);
+
+	HxLOG_Print("\n");
+#endif // #if 0
+	return ERR_OK;
+}
+
+
+static	HUINT32	s_ulOplScheduler_ScheduleSem	= 0;
+static	HUINT32	s_ulOplScheduler_RecordingSem 	= 0;
+
+static 	HBOOL	s_bGetRecordingsFuncCalled			= FALSE;
+static 	HBOOL	s_bGetRecordingsFuncInited			= FALSE;
+
+
+// To recover complex change of shcedules (series & alternative, ...)
+// this function refresh the schedule list & check item changes
+// if there is added item then emit eOPL_SCHEDULER_EVENT_SCHEDULED,
+// if there is removed item then emit eOPL_SCHEDULER_EVENT_DELETED
+// use mesa -> due to below function can be called by Corsair & OCTO (via notify ...)
+static void opl_scheduler_reloadAndEmitChange (OPL_Scheduler_t *self)
+{
+	HUINT32		newItemCount, orgItemCount, i, n;
+	APKS_SCHEDULE_t 	*sched;
+	OPL_ScheduledItem_t	*item;
+
+	//HxLog_SetLevel(HxLOG_DOMAIN, 0xFFFF);
+
+	HxSEMT_Get(s_ulOplScheduler_ScheduleSem);
+
+	// refresh the Schedule list from octo until APK
+	if (APK_METASCHED_Refresh(self->schedule) == ERR_OK)
+	{	// success -> construct new schedule list
+		HxVector_t	*newScheduleList;
+		HxVector_t	*orgScheduleList = self->scheduledList;
+
+
+		newScheduleList = HLIB_VECTOR_NewEx(NULL, 0
+										, (void *(*)(void *))NULL
+										, (void *(*)(void *))OPL_ScheduledItem_Delete
+										, NULL);
+
+		n = APK_METASCHED_Count(self->schedule);
+		HxLOG_Print("[%s:%d] refreshed item count (%d) \n",__FUNCTION__, __LINE__, n);
+		for (i = 0; i < n ; i++)
+		{
+			sched = APK_METASCHED_GetAt(self->schedule, i);
+			if (sched == NULL)
+				continue;
+
+			HxLOG_Print("[%s:%d] action (%d)\n",__FUNCTION__, __LINE__, sched->action);
+
+			if (sched->action == eSCHEDULE_ACTION_WATCH
+				|| sched->action == eSCHEDULE_ACTION_RECORD
+				|| sched->action == eSCHEDULE_ACTION_DLNA
+				|| sched->action == eSCHEDULE_ACTION_DUBBING
+				|| sched->action == eSCHEDULE_ACTION_HLS)
+			{
+				item = OPL_ScheduledItem_New("o", sched);
+				HxLOG_Print("[%s:%d] (%d) idx item created to ScheduledItem \n",__FUNCTION__, __LINE__, i);
+			}
+			else
+				item = NULL;
+
+			HxLOG_Print("[%s:%d] (%d) idx item handled \n",__FUNCTION__, __LINE__, i);
+
+			APK_METASCHED_Delete(sched);
+			if (item == NULL)
+			{
+				HxLOG_Error("OPL_ScheduledItem_New() default FAIL !!!! \n");
+				continue;
+			}
+
+			HLIB_VECTOR_Add(newScheduleList, (void *)item);
+		}
+
+		HxLOG_Print("[%s:%d] new reloaded item whole count (%d) \n"
+			,__FUNCTION__, __LINE__, HLIB_VECTOR_Length(newScheduleList));
+		opl_scheduler_PostProcessAfterLoadScheduledList(newScheduleList);
+		newItemCount = HLIB_VECTOR_Length(newScheduleList);
+		// for debug
+		HxLOG_Print("[%s:%d] new reloaded item processed(time) count (%d) \n"
+			,__FUNCTION__, __LINE__, newItemCount);
+		for (i = 0; i < newItemCount; i++)
+		{
+			OPL_ScheduledItem_t *newItem = (OPL_ScheduledItem_t*)HLIB_VECTOR_ItemAt(newScheduleList, i);
+
+			HxLOG_Print("[%s:%d] (%d) idx new Item name:(%s), uid:0x(%x) type(%d) isScheduledAsSeries(%d)\n"
+				,__FUNCTION__, __LINE__, i, newItem->name, newItem->uid, newItem->type, newItem->isScheduledAsSeries);
+
+			opl_scheduler_PrintItem(newItem);
+		}
+
+		orgItemCount = HLIB_VECTOR_Length(orgScheduleList);
+		HxLOG_Print("[%s:%d] org loaded item count (%d) \n"
+			,__FUNCTION__, __LINE__, orgItemCount);
+		for (i = 0; i < orgItemCount; i++)
+		{
+			OPL_ScheduledItem_t	*orgItem = (OPL_ScheduledItem_t*)HLIB_VECTOR_ItemAt(orgScheduleList, i);
+
+			HxLOG_Print("[%s:%d] (%d) idx org Item name:(%s), uid:0x(%x) type(%d) isScheduledAsSeries(%d)\n"
+				,__FUNCTION__, __LINE__, i, orgItem->name, orgItem->uid, orgItem->type, orgItem->isScheduledAsSeries);
+
+			opl_scheduler_PrintItem(orgItem);
+		}
+
+
+		// compare between new & old schedule list to emit eOPL_SCHEDULER_EVENT_SCHEDULED
+		for (i = 0; i < newItemCount; i++)
+		{
+			OPL_ScheduledItem_t	*newItem = (OPL_ScheduledItem_t*)HLIB_VECTOR_ItemAt(newScheduleList, i);
+
+			n = HLIB_VECTOR_ForEach(orgScheduleList, opl_scheduler_CompareItem, (void *)newItem);
+			if (orgItemCount <= n)
+			{	// not exist in the org schedule list -> Added
+				HxLOG_Print("[%s:%d] (%d) idx new Item Added ! name:(%s), uid:0x(%x) type(%d) isScheduledAsSeries(%d)\n"
+					,__FUNCTION__, __LINE__, i, newItem->name, newItem->uid, newItem->type, newItem->isScheduledAsSeries);
+				opl_scheduler_PrintItem(newItem);
+				opl_scheduler_EmitEvent(self
+				, eOPL_SCHEDULER_EVENT_SCHEDULED
+				, eOPL_SCHEDULER_ERROR_NONE
+				, newItem, NULL, NULL, NULL);
+			}
+		}
+
+		// compare between new & old schedule list to emit eOPL_SCHEDULER_EVENT_DELETED
+		for (i = 0; i < orgItemCount; i++)
+		{
+			OPL_ScheduledItem_t	*orgItem = (OPL_ScheduledItem_t*)HLIB_VECTOR_ItemAt(orgScheduleList, i);
+
+			n = HLIB_VECTOR_ForEach(newScheduleList, opl_scheduler_CompareItem, (void *)orgItem);
+			if (newItemCount <= n)
+			{	// org item is not exist in the new schedule list -> Deleted
+				HxLOG_Print("[%s:%d] (%d) idx org Item Deleted! name:(%s), uid:0x(%x) type(%d) isScheduledAsSeries(%d)\n"
+					,__FUNCTION__, __LINE__, i, orgItem->name, orgItem->uid, orgItem->type, orgItem->isScheduledAsSeries);
+
+				opl_scheduler_PrintItem(orgItem);
+				opl_scheduler_EmitEvent(self
+					, eOPL_SCHEDULER_EVENT_DELETED
+					, eOPL_SCHEDULER_ERROR_NONE
+					, orgItem, NULL, NULL, NULL);
+			}
+		}
+
+		// compare between new & old schedule list to emit eOPL_SCHEDULER_EVENT_UPDATED
+		for (i = 0; i < newItemCount; i++)
+		{
+			OPL_ScheduledItem_t	*newItem = (OPL_ScheduledItem_t*)HLIB_VECTOR_ItemAt(newScheduleList, i);
+
+			n = HLIB_VECTOR_ForEach(orgScheduleList, opl_scheduler_CompareItem, (void *)newItem);
+			if (n < orgItemCount)
+			{	// exist in the org schedule list -> check the change
+				OPL_ScheduledItem_t	*orgItem = (OPL_ScheduledItem_t*)HLIB_VECTOR_ItemAt(orgScheduleList, n);
+
+				if (TRUE == opl_scheduler_IsDiffEvtItem(newItem, orgItem))
+				{
+					HxLOG_Print("[%s:%d] (%d) idx Item Updated ! name:(%s), uid:0x(%x) type(%d) isScheduledAsSeries(%d)\n"
+						,__FUNCTION__, __LINE__, i, newItem->name, newItem->uid, newItem->type, newItem->isScheduledAsSeries);
+
+					opl_scheduler_PrintItem(newItem);
+					opl_scheduler_EmitEvent(self
+					, eOPL_SCHEDULER_EVENT_UPDATED
+					, eOPL_SCHEDULER_ERROR_NONE
+					, newItem, NULL, NULL, NULL);
+				}
+			}
+		}
+		// update org schedule list as new schedule list
+		HLIB_VECTOR_RemoveAll(orgScheduleList);
+		for (i = 0; i < newItemCount; i++)
+		{
+			OPL_ScheduledItem_t	*cloneItem;
+			item = (OPL_ScheduledItem_t*)HLIB_VECTOR_ItemAt(newScheduleList, i);
+			cloneItem = OPL_ScheduledItem_Clone(item);
+
+			HLIB_VECTOR_Add(self->scheduledList, (void *)cloneItem);
+		}
+
+		HLIB_VECTOR_RemoveAll(newScheduleList);
+	}
+
+	HxSEMT_Release(s_ulOplScheduler_ScheduleSem);
+
+	return;
+}
+
+
+static OPL_ScheduledItem_t *
+		opl_scheduler_MakeSchedule (OPL_Scheduler_t *self, OPL_ScheduledItem_t *item, OPL_BOOL bForced)
+{
+	HINT32					uid;
+	APKS_SCHED_CONFLICT_t	conflict;
+	APKS_SCHEDULE_t 		schedule;
+	HBOOL					bAddWithAlternative;
+
+	HxLOG_Trace();
+
+	if (item == NULL)
+	{
+		HxLOG_Error("[%s:%d] Invalid Parameter!!\n", __HxFILE__, __HxLINE__);
+		return NULL;
+	}
+
+	if (opl_scheduler_ToAppKitSchedule(&schedule, item) == NULL)
+	{
+		HxLOG_Error("[%s:%d] Cannot convert to appkit type...!!\n", __HxFILE__, __HxLINE__);
+		return NULL;
+	}
+
+	if(bForced == OPL_TRUE)
+		bAddWithAlternative = TRUE;
+	else
+		bAddWithAlternative = FALSE;
+
+	uid = APK_METASCHED_Add(self->schedule, &schedule, bAddWithAlternative, &conflict);
+
+	opl_scheduler_releaseAppKitSchedule(&schedule);
+
+#ifdef CONFIG_OP_JAPAN
+	if (uid == 0)
+	{
+		opl_scheduler_EmitEvent(self, eOPL_SCHEDULER_EVENT_ERROR, 0, item, NULL, NULL, NULL);
+	}
+#else
+	if (uid == 0)
+	{
+		int		error;
+		HUINT8				i;
+		OPL_Collection_t	*conflictList[MAX_CONFLICT_TPNUM];
+		OPL_Collection_t	*altList, *altevtList;
+
+		HxLOG_Warning("[%s:%d] Failed to operation \"APK_METASCHED_Add()\"\n", __HxFILE__, __HxLINE__);
+
+		opl_scheduler_MakeConflict(self, &conflict, &error, conflictList, &altList, &altevtList);
+
+		opl_scheduler_EmitEvent(self, eOPL_SCHEDULER_EVENT_ERROR, error, item, conflictList, altList, altevtList);
+
+		OPL_ScheduledItem_Delete(item);
+
+		for(i = 0; i < MAX_CONFLICT_TPNUM; i++)
+		{
+			if(conflictList[i])
+			{
+				OPL_Collection_Delete(conflictList[i]);
+			}
+		}
+		if (altList)
+			OPL_Collection_Delete(altList);
+		if (altevtList)
+			OPL_Collection_Delete(altevtList);
+		return NULL;
+	}
+#endif
+
+	return item;
+}
+
+#ifdef	CONFIG_OPL_SYNCED_EVENT
+static void		opl_scheduler_EventSyncedListener (int argc, void **argv)
+{
+	OPL_Scheduler_t 	*scheduler;
+	OPL_ScheduledItem_t	*prog;
+	int					state;
+	int					error = eOPL_SCHEDULER_ERROR_NONE;
+   	int                		uid;
+	HINT32				args[4];
+	APK_HANDLE 			self;
+	HINT32 				event;
+	APKS_SCHED_CONFLICT_t	*conflict = NULL;
+#if !defined(CONFIG_OP_JAPAN)
+	HUINT8						i;
+	OPL_Collection_t			*conflictList[MAX_CONFLICT_TPNUM];
+	OPL_Collection_t			*altlist;
+	OPL_Collection_t			*altevtlist;
+#endif
+
+
+	HxLOG_Trace();
+	HxLOG_Assert(argc == 6);
+
+	self      = (APK_HANDLE)argv[0];
+	event     = (HINT32)argv[1];
+	scheduler = (OPL_Scheduler_t *)argv[2];
+	args[0]   = (HINT32)argv[3];
+	args[1]   = (HINT32)argv[4];
+	args[2]   = (HINT32)argv[5];
+
+#ifdef CONFIG_OP_JAPAN
+	if(eSCHEDULE_EVENT_HNRESERVATIONFINISHED == event)
+	{
+		APKS_SCHEDULE_t		*schedule = APK_METASCHED_Get(self, args[0]);
+		OPL_ScheduledItem_t	*scheduledItem = NULL;
+		if( schedule != NULL)
+			scheduledItem = OPL_ScheduledItem_New("o", schedule);
+		opl_scheduler_EmitHNReservationFinishedEvent(scheduler, scheduledItem, args[1]);
+		return;
+	}
+#endif
+
+	// case : the events need reloadAndEmit -> up the SCHEDULED / DEL_SCHEDULED Event
+	if(eSCHEDULE_EVENT_LOAD_COMPLETED 	== event
+		|| eSCHEDULE_EVENT_UPDATED 		== event)
+	{
+		HxLOG_Print("[%s:%d] (%d) event handled by Reload And Emit \n", __HxFILE__, __HxLINE__, event);
+		opl_scheduler_reloadAndEmitChange(scheduler);
+		return;
+	}
+
+
+	if (event == eSCHEDULE_EVENT_RSV_CONFLICT)
+	{	// case : the event has own schedule case(RSV Conflict case) -> up the EVENT_ERROR
+		APKS_SCHEDULE_t		*schedule		= (APKS_SCHEDULE_t*)args[2];
+		OPL_ScheduledItem_t *scheduledItem 	= OPL_ScheduledItem_New("o", schedule);
+
+		state = eOPL_SCHEDULER_EVENT_ERROR;
+		conflict = (APKS_SCHED_CONFLICT_t*)args[1];
+#ifdef CONFIG_OP_JAPAN
+		opl_scheduler_EmitEvent(self, state, 0, scheduledItem, NULL, NULL, NULL);
+#else
+		if (conflict)
+		{
+			opl_scheduler_MakeConflict(scheduler, conflict, &error, conflictList, &altlist, &altevtlist);
+			opl_scheduler_EmitEvent(scheduler, state, error, scheduledItem, conflictList, altlist, altevtlist);
+
+			for(i = 0; i < MAX_CONFLICT_TPNUM; i++)
+			{
+				if (conflictList[i])
+					OPL_Collection_Delete(conflictList[i]);
+			}
+
+			if (altlist)
+				OPL_Collection_Delete(altlist);
+			if (altevtlist)
+				OPL_Collection_Delete(altevtlist);
+		}
+#endif
+		if(conflict)
+			HLIB_STD_MemFree(conflict);
+		if (scheduledItem)
+			OPL_ScheduledItem_Delete(scheduledItem);
+		return;
+	}
+
+	/* : case : already prommaes are in the scheduledList - PRESTART, START_ERROR, START_CONFLICT */
+	uid  = (int)args[0];
+	prog = (OPL_ScheduledItem_t *)HLIB_VECTOR_ItemAt(
+				scheduler->scheduledList
+				, HLIB_VECTOR_ForEach(scheduler->scheduledList, opl_scheduler_CompareItemUID, (void *)args[0])
+			);
+	if (prog == NULL)
+	{
+		HxLOG_Error("[%s:%d] There is no \'OPL_ScheduledItem_t\'(uid:%d) (event:%d)\n"
+			, __HxFILE__, __HxLINE__, args[0], event);
+		return;
+	}
+
+	switch (event)
+	{
+	case eSCHEDULE_EVENT_PRESTART:
+		state = eOPL_SCHEDULER_EVENT_PRESTART;
+		break;
+
+	case eSCHEDULE_EVENT_STARTED:
+		if(prog->type != eOPL_SCHEDULED_PRO_RECORD)
+			state = eOPL_SCHEDULER_EVENT_STARTED;
+		else
+			return;
+		break;
+
+	case eSCHEDULE_EVENT_ACQUIRING_RESOURCE:
+		state = eOPL_SCHEDULER_EVENT_ACQUIRING_RESOURCES;
+		error = eOPL_SCHEDULER_ERROR_UNKNOWN;
+		break;
+
+	case eSCHEDULE_EVENT_COMPLETED:
+#ifdef CONFIG_OP_JAPAN	//Ω√≥™∏Æø¿ ∞¸∑√ ªÁ«◊¿ŒµÌ «œø© jcngs∏∏ æ∆∑°øÕ ∞∞¿Ã ±∏«ˆ«—¥Ÿ.
+		if( prog->type != eOPL_SCHEDULED_PRO_RECORD)
+		{
+			state = eOPL_SCHEDULER_EVENT_COMPLETED;
+		}
+		else
+		{
+			return;
+		}
+		break;
+#else
+		if(args[1] == 21)
+		{
+			opl_scheduler_EmitEvent(scheduler, eOPL_SCHEDULER_EVENT_PARTIALY_COMPLETED, eOPL_SCHEDULER_ERROR_NO_AV, prog, NULL, NULL, NULL);
+		}
+		return;
+#endif
+
+	case eSCHEDULE_EVENT_START_ERROR:
+		state = eOPL_SCHEDULER_EVENT_START_ERROR;
+		break;
+
+	case eSCHEDULE_EVENT_START_CONFLICT:
+		state = eOPL_SCHEDULER_EVENT_START_CONFLICT;
+		conflict = (APKS_SCHED_CONFLICT_t*)args[1];
+		if(conflict == NULL)
+			return;
+#ifdef CONFIG_OP_JAPAN
+		opl_scheduler_EmitEvent(self, state, 0, prog, NULL, NULL, NULL);
+#else
+		opl_scheduler_MakeConflict(scheduler, conflict, &error, conflictList, &altlist, &altevtlist);
+		opl_scheduler_EmitEvent(scheduler, state, error, prog, conflictList, altlist, altevtlist);
+
+		for(i = 0; i < MAX_CONFLICT_TPNUM; i++)
+		{
+			if (conflictList[i])
+				OPL_Collection_Delete(conflictList[i]);
+		}
+		if (altlist)
+			OPL_Collection_Delete(altlist);
+		if (altevtlist)
+			OPL_Collection_Delete(altevtlist);
+#endif
+		if(conflict)
+			HLIB_STD_MemFree(conflict);
+		return;
+
+	default:
+		HxLOG_Warning("[%s:%d] Unknown Event(%d:0x%X)\n", __HxFILE__, __HxLINE__, event, event);
+		return;
+	}
+
+	opl_scheduler_EmitEvent(scheduler, state, error, prog, NULL, NULL, NULL);
+}
+#endif
+static void 	opl_scheduler_EventListener (APK_HANDLE self, HINT32 event, const HINT32 *args, void *userdata)
+{
+	OPL_Scheduler_t 	*scheduler = (OPL_Scheduler_t *)userdata;
+	OPL_ScheduledItem_t	*prog;
+	int					state;
+    	int                			 uid;
+	APKS_SCHED_CONFLICT_t	*conflict;
+#if !defined(CONFIG_OP_JAPAN)
+	int						error;
+	HUINT8						i;
+	OPL_Collection_t			*conflictList[MAX_CONFLICT_TPNUM];
+	OPL_Collection_t			*altlist;
+	OPL_Collection_t			*altevtlist;
+#endif
+
+	HxLOG_Trace();
+
+	if (args == NULL)
+		return;
+
+#ifdef	CONFIG_OPL_SYNCED_EVENT
+{
+	// ?√è¬¥√ú APPKIT¬ø¬°¬º¬≠ ¬≥√ë¬æ√Æ¬ø?¬¥√Ç ?√é?√ö¬¥√Ç ¬∏√∞¬µ√é alloc¬µ√á¬º¬≠ ¬≥√ë¬æ√Æ¬ø?¬π√á¬∑√é, ¬±√ó¬≥√â ¬≥√ë¬∞√ú¬µ¬µ ¬µ√ä
+	OPL_Event_EmitV(opl_scheduler_EventSyncedListener
+		, 6
+		, (void *)self
+		, (void *)event
+		, userdata
+		, (void *)args[0]
+		, (void *)args[1]
+		, (void *)args[2]
+	);
+	return;
+}
+#endif
+
+	// case : the events need reloadAndEmit -> up the SCHEDULED / DEL_SCHEDULED Event
+	if(eSCHEDULE_EVENT_LOAD_COMPLETED 	== event
+		|| eSCHEDULE_EVENT_UPDATED 		== event)
+	{
+		HxLOG_Print("[%s:%d] (%d) event handled by Reload And Emit \n", __HxFILE__, __HxLINE__, event);
+
+		opl_scheduler_reloadAndEmitChange(scheduler);
+		return;
+	}
+
+
+	if (event == eSCHEDULE_EVENT_RSV_CONFLICT)
+	{	// case : the event has own schedule case(RSV Conflict case) -> up the EVENT_ERROR
+#ifdef CONFIG_OP_JAPAN
+		state = eOPL_SCHEDULER_EVENT_ERROR;
+		conflict = (APKS_SCHED_CONFLICT_t*)args[1];
+
+		opl_scheduler_EmitEvent(self, state, 0, prog, NULL, NULL, NULL);
+#else
+		APKS_SCHEDULE_t		*schedule		= (APKS_SCHEDULE_t*)args[2];
+		OPL_ScheduledItem_t *scheduledItem 	= OPL_ScheduledItem_New("o", schedule);
+
+		state = eOPL_SCHEDULER_EVENT_ERROR;
+		conflict = (APKS_SCHED_CONFLICT_t*)args[1];
+
+		opl_scheduler_MakeConflict(scheduler, conflict, &error, conflictList, &altlist, &altevtlist);
+		opl_scheduler_EmitEvent(scheduler, state, error, scheduledItem, conflictList, altlist, altevtlist);
+
+		for(i = 0; i < MAX_CONFLICT_TPNUM; i++)
+		{
+			if (conflictList[i])
+				OPL_Collection_Delete(conflictList[i]);
+		}
+		if (altlist)
+			OPL_Collection_Delete(altlist);
+		if (altevtlist)
+			OPL_Collection_Delete(altevtlist);
+#endif
+		if(conflict)
+			HLIB_STD_MemFree(conflict);
+		return;
+	}
+
+	/* : case : already prommaes are in the scheduledList - PRESTART, START_ERROR, START_CONFLICT */
+	uid  = (int)args[0];
+	prog = (OPL_ScheduledItem_t *)HLIB_VECTOR_ItemAt(
+				scheduler->scheduledList
+				, HLIB_VECTOR_ForEach(scheduler->scheduledList, opl_scheduler_CompareItemUID, (void *)args[0])
+			);
+	if (prog == NULL)
+	{
+		HxLOG_Error("[%s:%d] There is no \'OPL_ScheduledItem_t\'(uid:%d) (event:%d)\n"
+			, __HxFILE__, __HxLINE__, args[0], event);
+		return;
+	}
+
+	switch (event)
+	{
+	case eSCHEDULE_EVENT_PRESTART:
+		state = eOPL_SCHEDULER_EVENT_PRESTART;
+		break;
+
+	case eSCHEDULE_EVENT_COMPLETED:
+		if(args[1] == 21)
+		{
+			opl_scheduler_EmitEvent(scheduler, eOPL_SCHEDULER_EVENT_PARTIALY_COMPLETED, eOPL_SCHEDULER_ERROR_NO_AV, prog, NULL, NULL, NULL);
+		}
+		return;
+
+	case eSCHEDULE_EVENT_START_ERROR:
+		state = eOPL_SCHEDULER_EVENT_START_ERROR;
+		break;
+
+	case eSCHEDULE_EVENT_START_CONFLICT:
+		state = eOPL_SCHEDULER_EVENT_START_CONFLICT;
+		conflict = (APKS_SCHED_CONFLICT_t*)args[1];
+#ifdef CONFIG_OP_JAPAN
+		opl_scheduler_EmitEvent(self, state, 0, prog, NULL, NULL, NULL);
+#else
+		opl_scheduler_MakeConflict(scheduler, conflict, &error, conflictList, &altlist, &altevtlist);
+		opl_scheduler_EmitEvent(scheduler, state, error, prog, conflictList, altlist, altevtlist);
+
+		for(i = 0; i < MAX_CONFLICT_TPNUM; i++)
+		{
+			if (conflictList[i])
+				OPL_Collection_Delete(conflictList[i]);
+		}
+		if (altlist)
+			OPL_Collection_Delete(altlist);
+		if (altevtlist)
+			OPL_Collection_Delete(altevtlist);
+#endif
+		if(conflict)
+			HLIB_STD_MemFree(conflict);
+		return;
+
+	default:
+		HxLOG_Warning("[%s:%d] Unknown Event(%d:0x%X)\n", __HxFILE__, __HxLINE__, event, event);
+		return;
+	}
+
+	opl_scheduler_EmitEvent(scheduler, state, eOPL_SCHEDULER_ERROR_NONE, prog, NULL, NULL, NULL);
+}
+
+
+/* Start : Recording List */
+#define	____START_of_PRIVATE_OPL_Scheduler_Recording__________________________________________________________
+static HBOOL	opl_scheduler_Recording_CompareID (void * data, void * userdata);
+
+//static // <-- compile warning ' defined but not used'
+HERROR	opl_scheduler_Recording_ListScanning(OPL_Scheduler_t	*pScheduler)
+{
+	if (NULL == pScheduler)
+	{
+		return ERR_FAIL;
+	}
+
+	HLIB_VECTOR_RemoveAll(pScheduler->recordingList);
+	APK_META_REC_Scan((HCHAR*)NULL, TRUE);
+	return ERR_OK;
+}
+
+
+static HERROR	opl_scheduler_Recording_RequestListScanning(OPL_Scheduler_t	*pScheduler)
+{
+	if (NULL == pScheduler)
+	{
+		return ERR_FAIL;
+	}
+
+	HLIB_VECTOR_RemoveAll(pScheduler->recordingList);
+#ifdef CONFIG_OP_JAPAN
+	APK_META_REC_Scan((HCHAR*)NULL, FALSE);
+#else //CONFIG_OP_JAPAN
+	HxLOG_Debug("[%s:%d] recording list scanning... START %d\n", __FUNCTION__, __LINE__, HLIB_STD_GetSystemTime());
+	APK_META_REC_Scan((HCHAR*)NULL, TRUE);
+
+	HxLOG_Debug("[%s:%d] recording list scanning... END %d\n", __FUNCTION__, __LINE__, HLIB_STD_GetSystemTime());
+
+
+	HxLOG_Debug("[%s:%d] load recording list... START %d\n", __FUNCTION__, __LINE__, HLIB_STD_GetSystemTime());
+	HxSEMT_Get(s_ulOplScheduler_RecordingSem);
+	opl_scheduler_LoadRecordingList(pScheduler);
+	HxSEMT_Release(s_ulOplScheduler_RecordingSem);
+
+	HxLOG_Debug("[%s:%d] load recording list... END %d\n", __FUNCTION__, __LINE__, HLIB_STD_GetSystemTime());
+#endif //CONFIG_OP_JAPAN
+	return ERR_OK;
+}
+
+
+// return reclist count to hint for the remove success ? or not
+static	int		opl_scheduler_Recording_Remove(OPL_Recording_t	*pstRecording)
+{
+	HERROR							hErr		= ERR_FAIL;
+	APK_META_REC_DELETE_t	stDelete	= {0};
+
+
+	if (NULL == pstRecording)
+	{
+		return -1;
+	}
+
+	if (NULL == pstRecording->id)
+	{
+		return -1;
+	}
+
+	stDelete.ulParamCount	= 1;
+	stDelete.paramList		= (APK_META_REC_PARAM_t*)HLIB_STD_MemCalloc(sizeof(APK_META_REC_PARAM_t) * stDelete.ulParamCount);
+	if (stDelete.paramList)
+	{
+		HxLOG_Print("[%s:%d] id (%s)\n",__FUNCTION__,__LINE__, pstRecording->id);
+
+		HLIB_STD_StrUtf8NCpy(stDelete.paramList[0].szUrl, pstRecording->id, DxRECLIST_URL);
+		hErr = APK_META_REC_Delete(&stDelete, TRUE);
+		HLIB_STD_MemFree(stDelete.paramList);
+
+		if (ERR_OK == hErr)
+		{
+			DxRecListData_t	*pstRecData = APK_META_REC_GetByUrl(NULL, pstRecording->id);
+			if (NULL != pstRecData)
+				APK_META_REC_Release(pstRecData);
+
+			if (NULL == pstRecData)
+			{	// not exist -> removed
+				return ERR_OK;
+			}
+		}
+	}
+
+	return ERR_FAIL;
+}
+
+static	int 	opl_scheduler_Recording_Update(OPL_Recording_t	*pstNewRecording)
+{
+	OPL_Recording_t	orgRecording;
+	DxRecListData_t *pstOrgRecData 	= NULL;
+	APK_META_REC_UPDATE_t	stUpdate	= {0};
+	HERROR	hErr = ERR_FAIL;
+
+	// compare the new recording with org recording
+	if (NULL == pstNewRecording)
+	{
+		HxLOG_Error("[%s:%d] NULL recording param\n",__FUNCTION__,__LINE__);
+		return ERR_FAIL;
+	}
+	pstOrgRecData = APK_META_REC_GetByUrl(NULL, pstNewRecording->id);
+	if (NULL == pstOrgRecData)
+	{
+		HxLOG_Error("[%s:%d] can't find APK RECData with id (%s)\n", __FUNCTION__,__LINE__, pstNewRecording->id);
+		return ERR_FAIL;
+	}
+
+	// get the updatable values -doNotDelete, saveDays, saveEpisodes. (isManualLocked : hms1000s)
+	OPL_Recording_GetUpdatableData(&orgRecording, (OPL_HANDLE)pstOrgRecData);
+
+	stUpdate.ulParamCount	= 1;
+	stUpdate.paramList		= (APK_META_REC_UPDATE_PARAM_t*)HLIB_STD_MemCalloc(sizeof(APK_META_REC_UPDATE_PARAM_t)
+		* stUpdate.ulParamCount);
+	// use the local static memory value (if extension data needed then change as pointer and clone & release)
+	HxSTD_MemCopy(&stUpdate.paramList[0].recUpdateData, pstOrgRecData, sizeof(DxRecListData_t));
+	stUpdate.paramList[0].recUpdateData.ulExtEvtCnt = 0;
+	stUpdate.paramList[0].recUpdateData.pstExtEvts	= NULL;
+	APK_META_REC_Release(pstOrgRecData);
+
+	HLIB_STD_StrUtf8NCpy(stUpdate.paramList[0].szUrl, pstNewRecording->id,DxRECLIST_URL);
+	stUpdate.paramList[0].nNumOfTags	= 0;
+
+	// check doNotDelete
+	if (orgRecording.doNotDelete != pstNewRecording->doNotDelete)
+	{
+		HxLOG_Print("[%s:%d] doNotDelete updated cur numOfTag (%d)!\n", __FUNCTION__, __LINE__, stUpdate.paramList[0].nNumOfTags);
+		stUpdate.paramList[0].recUpdateData.bUserLock = pstNewRecording->doNotDelete;	// TODO : use convertion function ?
+		HLIB_STD_StrUtf8NCpy(stUpdate.paramList[0].szTags[stUpdate.paramList[0].nNumOfTags],DxRECLIST_KEEP_TAG, DxRECLIST_MAX_UPDATE_TAG);
+		stUpdate.paramList[0].nNumOfTags++;
+
+		HxLOG_Print("[%s:%d] num of tags (%d) !\n", __FUNCTION__, __LINE__ , stUpdate.paramList[0].nNumOfTags);
+	}
+	// check blocked
+	if (orgRecording.isManualLocked != pstNewRecording->isManualLocked)
+	{
+		HxLOG_Print("[%s:%d] isManualLocked updated cur numOfTag (%d)!\n", __FUNCTION__, __LINE__, stUpdate.paramList[0].nNumOfTags);
+		stUpdate.paramList[0].recUpdateData.bBlocked = pstNewRecording->isManualLocked;	// TODO : use convertion function ?
+		HLIB_STD_StrUtf8NCpy(stUpdate.paramList[0].szTags[stUpdate.paramList[0].nNumOfTags],DxRECLIST_KEEP_TAG, DxRECLIST_MAX_UPDATE_TAG);
+		stUpdate.paramList[0].nNumOfTags++;
+
+		HxLOG_Print("[%s:%d] num of tags (%d) !\n", __FUNCTION__, __LINE__ , stUpdate.paramList[0].nNumOfTags);
+	}
+	// TODO : check saveDays, saveEpisodes
+
+	if (0 < stUpdate.paramList[0].nNumOfTags)
+	{
+		HxLOG_Print("[%s:%d] id (%s), numOfUpdate(%d)\n",__FUNCTION__,__LINE__
+			, pstNewRecording->id, stUpdate.paramList[0].nNumOfTags);
+
+		hErr = APK_META_REC_Update(&stUpdate, TRUE);
+	}
+
+	HLIB_STD_MemFree(stUpdate.paramList);
+
+	return hErr;
+}
+
+
+
+static	int 	opl_scheduler_Recording_UpdatedItemSyncToAppKit(HxVector_t *list,  const char	*targetId
+	, int *pbErrorOccured, int *pbCompleted)
+{
+	OPL_Recording_t				*pstOplRecording, *pstOldOplRecording;
+	DxRecListData_t *pstRecData 	= NULL;
+	HERROR	hErr = ERR_FAIL;
+	int		index = -1;
+
+	// compare the new recording with org recording
+	if (NULL == list || NULL == targetId || NULL == pbErrorOccured || NULL == pbCompleted)
+	{
+		HxLOG_Error("[%s:%d] NULL param\n",__FUNCTION__,__LINE__);
+		return ERR_FAIL;
+	}
+	pstRecData = APK_META_REC_GetByUrl(NULL, targetId);
+	if (NULL == pstRecData)
+	{
+		HxLOG_Error("[%s:%d] can't find APK RECData with id (%s)\n", __FUNCTION__,__LINE__, targetId);
+		return ERR_FAIL;
+	}
+
+	// data exist -> conver to OPL_Recording_t
+	HxLOG_Print("[%s:%d] recData status (%d) with id (%s) \n", __FUNCTION__,__LINE__
+		, pstRecData->eRecStatus, targetId);
+	HxLOG_Print("[%s:%d] ulRecDuration (%d) eRecEndReason (%d) \n", __FUNCTION__,__LINE__
+		, pstRecData->ulRecDuration, pstRecData->eRecEndReason, targetId);
+	pstOplRecording = OPL_Recording_New("o", pstRecData);
+	APK_META_REC_Release(pstRecData);
+	if (NULL == pstOplRecording)
+	{
+		HxLOG_Error("[%s:%d] can't make recording (%s)\n", __FUNCTION__,__LINE__, targetId);
+		return ERR_FAIL;
+	}
+
+	index = HLIB_VECTOR_ForEach(list, opl_scheduler_Recording_CompareID, (void *)targetId);
+	pstOldOplRecording = HLIB_VECTOR_Replace(list, index, pstOplRecording);
+	if (pstOldOplRecording)
+	{	// check the state & error value for error checking
+		HxLOG_Print("[%s:%d] index (%d) with id (%s) \n", __FUNCTION__,__LINE__, index, targetId);
+
+		if (pstOldOplRecording->state != pstOplRecording->state)
+		{
+			if (pstOldOplRecording->error != pstOplRecording->error)
+			{
+				HxLOG_Print("[%s:%d] Recording state or error changed! Old.state (%d)/error(%d) => New.state (%d)/error(%d)\n"
+	                , __HxFILE__, __HxLINE__, pstOldOplRecording->state, pstOldOplRecording->error
+	                , pstOplRecording->state, pstOplRecording->error);
+
+				if (eOPL_SCHEDULER_EVENT_PARTIALY_COMPLETED == pstOplRecording->state
+					|| eOPL_SCHEDULER_EVENT_ERROR == pstOplRecording->state
+					|| eOPL_SCHEDULER_ERROR_NONE != pstOplRecording->error)
+				{
+					HxLOG_Print("[%s:%d] Error Occured ! \n", __HxFILE__, __HxLINE__);
+					*pbErrorOccured = TRUE;
+				}
+			}
+
+			if (eOPL_SCHEDULER_EVENT_PARTIALY_COMPLETED == pstOplRecording->state
+				|| eOPL_SCHEDULER_EVENT_COMPLETED == pstOplRecording->state)
+			{
+				HxLOG_Print("[%s:%d] Completed (%d)\n", __HxFILE__, __HxLINE__, pstOplRecording->state);
+				*pbCompleted = TRUE;
+			}
+		}
+
+		OPL_Recording_Delete(pstOldOplRecording);
+		hErr = ERR_OK;
+	}
+	else
+	{	// not exist in the opl list (but receive the update event)
+		OPL_Recording_Delete(pstOplRecording);
+		HxLOG_Error("[%s:%d] can't replace the item (%s), index (%d)\n", __FUNCTION__,__LINE__, targetId, index);
+	}
+
+	return hErr;
+}
+
+
+static	int 	opl_scheduler_Recording_AddedItemSyncToAppKit(HxVector_t *list,  const char	*targetId)
+{
+	OPL_Recording_t	*pstOplRecording;
+	DxRecListData_t *pstRecData 	= NULL;
+	int		index = -1;
+
+	// compare the new recording with org recording
+	if (NULL == list || NULL == targetId)
+	{
+		HxLOG_Error("[%s:%d] NULL param\n",__FUNCTION__,__LINE__);
+		return ERR_FAIL;
+	}
+
+	pstRecData = APK_META_REC_GetByUrl(NULL, targetId);
+	if (NULL == pstRecData)
+	{
+		HxLOG_Error("[%s:%d] can't find APK RECData with id (%s)\n", __FUNCTION__,__LINE__, targetId);
+		return ERR_FAIL;
+	}
+
+	// data exist -> conver to OPL_Recording_t
+	pstOplRecording = OPL_Recording_New("o", pstRecData);
+	APK_META_REC_Release(pstRecData);
+	if (NULL == pstOplRecording)
+	{
+		HxLOG_Error("[%s:%d] can't make recording (%s)\n", __FUNCTION__,__LINE__, targetId);
+		return ERR_FAIL;
+	}
+
+	index = HLIB_VECTOR_ForEach(list, opl_scheduler_Recording_CompareID, (void *)targetId);
+	if (0 <= index && index < HLIB_VECTOR_Length(list))
+	{	// it is possible (ex - Start Errror -> Start)
+		OPL_Recording_t	*pstOldOplRecording = HLIB_VECTOR_Replace(list, index, pstOplRecording);
+
+		if (pstOldOplRecording)
+		{
+			HxLOG_Print("[%s:%d] already id (%s) item exist on index (%d) state(%d), error(%d)\n", __FUNCTION__,__LINE__
+				, targetId, index, pstOldOplRecording->state, pstOldOplRecording->error);
+
+			// delete the old one !
+			OPL_Recording_Delete(pstOldOplRecording);
+		}
+
+		HxLOG_Error("[%s:%d] (%s) item not exist on index (%d)\n", __FUNCTION__,__LINE__
+				, targetId, index);
+		return ERR_FAIL;
+	}
+
+	HxLOG_Info("[%s:%d] \n\n\n (%s) item added on the opl reclist\n", __FUNCTION__,__LINE__, targetId);
+	return HLIB_VECTOR_Add(list, pstOplRecording);
+}
+
+
+
+
+static	int		opl_scheduler_Recording_Stop(OPL_Recording_t	*pstRecording)
+{
+	HERROR							hErr		= ERR_FAIL;
+	APK_META_REC_STOP_REC_t	stStopRec	= {0};
+
+	if (NULL == pstRecording)
+	{
+		return -1;
+	}
+
+	if (NULL == pstRecording->id)
+	{
+		return -1;
+	}
+
+	stStopRec.ulParamCount	= 1;
+	stStopRec.paramList		= (APK_META_REC_PARAM_t*)HLIB_STD_MemCalloc(sizeof(APK_META_REC_PARAM_t) * stStopRec.ulParamCount);
+	if (stStopRec.paramList)
+	{
+		DxRecListData_t *pstRecData = APK_META_REC_GetByUrl(NULL, pstRecording->id);
+		if (pstRecData)
+		{
+			HxLOG_Print("[%s:%d] id (%s)\n",__FUNCTION__,__LINE__, pstRecording->id);
+
+			HLIB_STD_StrUtf8NCpy(stStopRec.paramList[0].szUrl, pstRecording->id, DxRECLIST_URL);
+			hErr = APK_META_REC_StopRecording(&stStopRec, TRUE);
+		}
+
+		APK_META_REC_Release(pstRecData);
+
+		HLIB_STD_MemFree(stStopRec.paramList);
+
+		return hErr;
+	}
+
+	return ERR_FAIL;
+}
+
+
+
+static HERROR	opl_scheduler_LoadRecordingList(OPL_Scheduler_t *pScheduler)
+{
+	HUINT32	ulRecCount = 0, i, ulGetSucCount = 0;
+
+	if (NULL == pScheduler)
+	{
+		return ERR_FAIL;
+	}
+
+	ulRecCount	= APK_META_REC_Count(NULL);
+	HxLOG_Print("opl_scheduler_LoadRecordingList() \n! -> count (%d)", ulRecCount);
+	for (i = 0; i < ulRecCount; ++i)
+	{
+		HINT32 index;
+		DxRecListData_t	*pstRecData		= NULL;
+		OPL_Recording_t				*pstOplRecording= NULL;
+
+		pstRecData = APK_META_REC_GetByIdx(NULL, (const HUINT32)i);
+		if (NULL == pstRecData)
+			continue;
+
+		HxLOG_Print("(%d) idx, url (%s) \n! ", i, pstRecData->szUrl);
+
+		index = HLIB_VECTOR_ForEach(pScheduler->recordingList, opl_scheduler_Recording_CompareID, (void *)pstRecData->szUrl);
+		if (0 <= index && index < HLIB_VECTOR_Length(pScheduler->recordingList))
+		{	// exist -> not add
+			HxLOG_Print("(%d) data already exist url (%s) \n! ", i, pstRecData->szUrl);
+			APK_META_REC_Release(pstRecData);
+		}
+		else
+		{
+			// data don't exist -> conver to OPL_Recording_t
+			pstOplRecording = OPL_Recording_New("o", pstRecData);
+			APK_META_REC_Release(pstRecData);
+			if (NULL == pstOplRecording)
+				continue;
+
+			HxLOG_Print("(%d) data added , url (%s) \n! ", i, pstOplRecording->id);
+
+			HLIB_VECTOR_Add(pScheduler->recordingList, (void *)pstOplRecording);
+			ulGetSucCount++;
+		}
+	}
+
+	if (ulGetSucCount <= 0)
+	{
+		return ERR_FAIL;
+	}
+	return ERR_OK;
+}
+
+
+static HBOOL	opl_scheduler_Recording_CompareID (void * data, void * userdata)
+{
+	OPL_Recording_t *recording = (OPL_Recording_t *)data;
+	const char		*targetId  = (const char *)userdata;
+
+	if (NULL == recording || NULL == targetId)
+	{
+		return FALSE;
+	}
+
+	if (NULL == recording->id)
+	{
+		return FALSE;
+	}
+
+	if (0 == strcmp(recording->id, targetId))
+	{
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+#ifdef	CONFIG_OPL_SYNCED_EVENT
+static void 	opl_scheduler_Recording_EventSyncedListener (int argc, void **argv)
+{
+	OPL_Scheduler_t *scheduler;
+	APK_HANDLE 		self;
+	HINT32 			event;
+	HINT32 			*args;
+	OPL_Recording_t *recording;
+	int 			state, error = eOPL_SCHEDULER_ERROR_NONE;
+
+	char			*szUrl = NULL;
+	int 			n, bErrorOccured = FALSE, bCompleted = FALSE;
+	int 			nCount = 0;
+
+	HxLOG_Trace();
+	HxLOG_Assert(argc == 4);
+
+	self      = (APK_HANDLE)argv[0];
+	event     = (HINT32)argv[1];
+	scheduler = (OPL_Scheduler_t *)argv[2];
+	args      = (HINT32 *)argv[3];
+
+	HxLOG_Trace();
+	HxLOG_Print("[%s:%d] event (%d)\n", __HxFILE__, __HxLINE__, event);
+
+	if (eAPK_META_REC_DO_SCAN == event)	// Scan Completed by Cmd (DO_SCAN) -> Load Recording List on the OPL List
+	{
+		HxSEMT_Get(s_ulOplScheduler_RecordingSem);
+		opl_scheduler_LoadRecordingList(scheduler);
+
+		nCount = HLIB_VECTOR_Length(scheduler->recordingList);
+
+		if (s_bGetRecordingsFuncInited)
+		{	// alredy get recordings function called -> noti the events as Scheduled -> should fixed
+			int i = 0, nNotifiedNum = 0, nNewNotifiedNum = 0;
+
+			for (i = 0; i < nCount; ++i)
+			{
+				recording	= (OPL_Recording_t *)HLIB_VECTOR_ItemAt(scheduler->recordingList, i);
+
+				if (FALSE == recording->isNotified)
+				{
+					nNewNotifiedNum++;
+					recording->isNotified = TRUE;
+					opl_scheduler_EmitEvent(scheduler, eOPL_SCHEDULER_EVENT_SCHEDULED, error
+						, (OPL_ScheduledItem_t *)recording, NULL, NULL, NULL);
+					break;
+				}
+				else
+				{
+					nNotifiedNum++;
+				}
+			}
+		}
+		HxSEMT_Release(s_ulOplScheduler_RecordingSem);
+
+		//opl_scheduler_EmitEvent(scheduler, eOPL_SCHEDULER_EVENT_RECLIST_COMPLETED, eOPL_SCHEDULER_ERROR_NONE
+		//	, (OPL_ScheduledItem_t *)NULL, NULL, NULL, NULL);
+
+		return;
+	}
+
+	if (NULL == args)
+	{
+		HxLOG_Warning("[%s:%d] args is NULL, event = (%d) \n", __HxFILE__, __HxLINE__, event);
+		return;
+	}
+
+	szUrl = (char*)args;
+	HxLOG_Print("[%s:%d] szUrl (%s)\n", __HxFILE__, __HxLINE__, szUrl);
+
+	if (eAPK_META_REC_EVENT_UPDATED == event)	// Update the item
+	{
+		HxSEMT_Get(s_ulOplScheduler_RecordingSem);
+		opl_scheduler_Recording_UpdatedItemSyncToAppKit(scheduler->recordingList, szUrl, &bErrorOccured, &bCompleted);
+		HxSEMT_Release(s_ulOplScheduler_RecordingSem);
+
+		HxLOG_Print("[%s:%d] UPDATE => Error (%d), Completed (%d) \n", __HxFILE__, __HxLINE__, bErrorOccured, bCompleted);
+	}
+	else if (eAPK_META_REC_EVENT_ADDED == event)	// added the item
+	{
+		int		hErr = ERR_FAIL;
+
+		HxSEMT_Get(s_ulOplScheduler_RecordingSem);
+		hErr = opl_scheduler_Recording_AddedItemSyncToAppKit(scheduler->recordingList, szUrl);
+		HxSEMT_Release(s_ulOplScheduler_RecordingSem);
+		if (ERR_OK != hErr)
+		{
+			HxLOG_Error("[%s:%d] Something wrong in the added Item (%s) Sync process \n", __HxFILE__, __HxLINE__, szUrl);
+			HLIB_STD_MemFree(szUrl);
+			return;
+		}
+	}
+
+	n			= HLIB_VECTOR_ForEach(scheduler->recordingList, opl_scheduler_Recording_CompareID, (void *)szUrl);
+	recording	= (OPL_Recording_t *)HLIB_VECTOR_ItemAt(scheduler->recordingList, n);
+	if (recording == NULL)
+	{
+		HxLOG_Warning("[%s:%d] There is no \'OPL_Recording_t\'(url:%s)\n", __HxFILE__, __HxLINE__, szUrl);
+		HLIB_STD_MemFree(szUrl);
+		return;
+	}
+	error = recording->error;
+
+	switch (event)
+	{
+	case eAPK_META_REC_EVENT_ADDED:
+		if (eOPL_SCHEDULER_EVENT_PARTIALY_COMPLETED == recording->state && eOPL_SCHEDULER_ERROR_NONE != recording->error)
+		{	// start error
+			state = eOPL_SCHEDULER_EVENT_START_ERROR;
+			HxLOG_Print("[%s:%d] Item (%s) Added As Error (%d)!!! \n", __HxFILE__, __HxLINE__, szUrl, recording->error);
+		}
+		else
+		{
+#if defined(CONFIG_OP_JAPAN)
+			state = eOPL_SCHEDULER_EVENT_STARTED;
+			HxLOG_Print("[%s:%d] Item (%s) Added!!! \n", __HxFILE__, __HxLINE__, szUrl);
+#else //CONFIG_OP_JAPAN
+			switch(recording->state)
+			{
+				case eOPL_SCHEDULER_EVENT_STARTED:
+					state = eOPL_SCHEDULER_EVENT_STARTED;
+					HxLOG_Print("[%s:%d] Item (%s) started!!! \n", __HxFILE__, __HxLINE__, szUrl);
+					break;
+				default:
+					state = eOPL_SCHEDULER_EVENT_SCHEDULED;
+					HxLOG_Print("[%s:%d] Item (%s) Added!!! \n", __HxFILE__, __HxLINE__, szUrl);
+					break;
+			}
+#endif //CONFIG_OP_JAPAN
+		}
+		break;
+
+	case eAPK_META_REC_DO_DELETE:
+	case eAPK_META_REC_EVENT_DELETED:
+		state = eOPL_SCHEDULER_EVENT_DELETED;
+		break;
+
+	case eAPK_META_REC_EVENT_UPDATED:
+		state = eOPL_SCHEDULER_EVENT_UPDATED;
+		break;
+
+	default:
+		HxLOG_Warning("[%s:%d] Unknown Event(%d:0x%X)\n", __HxFILE__, __HxLINE__, event, event);
+		HLIB_STD_MemFree(szUrl);
+		return;
+	}
+
+	HxLOG_Print("[%s:%d] Recording.state(%d), Recording.error(%d), event state(%d), error (%d)\n"
+		, __HxFILE__, __HxLINE__, recording->state, recording->error, state, error);
+
+	opl_scheduler_EmitEvent(scheduler, state, error, (OPL_ScheduledItem_t *)recording, NULL, NULL, NULL);
+
+	// check additional event - error or completed
+	if (bErrorOccured)
+	{
+		opl_scheduler_EmitEvent(scheduler, eOPL_SCHEDULER_EVENT_ERROR, error, (OPL_ScheduledItem_t *)recording, NULL, NULL, NULL);
+	}
+
+	if (bCompleted)
+	{	// Update & completed
+		opl_scheduler_EmitEvent(scheduler, eOPL_SCHEDULER_EVENT_COMPLETED, error, (OPL_ScheduledItem_t *)recording, NULL, NULL, NULL);
+	}
+
+	if (eOPL_SCHEDULER_EVENT_DELETED == state)
+	{
+		HxLOG_Print("[%s:%d] Url (%s) recording item deleted, It's updated on OplRecordingList\n", __HxFILE__, __HxLINE__, szUrl);
+		HxSEMT_Get(s_ulOplScheduler_RecordingSem);
+		HLIB_VECTOR_Remove(scheduler->recordingList, n);
+		HxSEMT_Release(s_ulOplScheduler_RecordingSem);
+	}
+	HLIB_STD_MemFree(szUrl);
+}
+#endif
+
+static void 	opl_scheduler_Recording_EventListener (APK_HANDLE self, HINT32 event, const HINT32 *args, void *userdata)
+{
+	OPL_Scheduler_t *scheduler = (OPL_Scheduler_t *)userdata;
+	OPL_Recording_t	*recording;
+	int				state, error = eOPL_SCHEDULER_ERROR_NONE;
+
+	char			*szUrl = NULL;
+	int				n, bErrorOccured = FALSE, bCompleted = FALSE;
+	int				nCount = 0;
+
+#ifdef	CONFIG_OPL_SYNCED_EVENT
+{
+	OPL_Event_EmitV(opl_scheduler_Recording_EventSyncedListener
+		, 4
+		, (void *)self
+		, (void *)event
+		, userdata
+		, HLIB_STD_StrDup((const HCHAR *)args)
+	);
+	return;
+}
+#endif
+
+	HxLOG_Trace();
+
+	if (eAPK_META_REC_DO_SCAN == event)	// Scan Completed by Cmd (DO_SCAN) -> Load Recording List on the OPL List
+	{
+		HxSEMT_Get(s_ulOplScheduler_RecordingSem);
+		opl_scheduler_LoadRecordingList(scheduler);
+
+		nCount = HLIB_VECTOR_Length(scheduler->recordingList);
+
+		if (s_bGetRecordingsFuncInited)
+		{	// alredy get recordings function called -> noti the events as Scheduled -> should fixed
+			int i = 0, nNotifiedNum = 0, nNewNotifiedNum = 0;
+
+			for (i = 0; i < nCount; ++i)
+			{
+				recording	= (OPL_Recording_t *)HLIB_VECTOR_ItemAt(scheduler->recordingList, i);
+
+				if (FALSE == recording->isNotified)
+				{
+					nNewNotifiedNum++;
+					recording->isNotified = TRUE;
+					opl_scheduler_EmitEvent(scheduler, eOPL_SCHEDULER_EVENT_SCHEDULED, error
+						, (OPL_ScheduledItem_t *)recording, NULL, NULL, NULL);
+					break;
+				}
+				else
+				{
+					nNotifiedNum++;
+				}
+			}
+		}
+		HxSEMT_Release(s_ulOplScheduler_RecordingSem);
+
+		//opl_scheduler_EmitEvent(scheduler, eOPL_SCHEDULER_EVENT_RECLIST_COMPLETED, eOPL_SCHEDULER_ERROR_NONE
+		//	, (OPL_ScheduledItem_t *)NULL, NULL, NULL, NULL);
+
+		return;
+	}
+
+	if (NULL == args)
+	{
+		HxLOG_Error("[%s:%d] args is NULL, event = (%d) \n", __HxFILE__, __HxLINE__, event);
+		return;
+	}
+
+	szUrl = (char*)args;
+	HxLOG_Print("[%s:%d] szUrl (%s)\n", __HxFILE__, __HxLINE__, szUrl);
+
+	if (eAPK_META_REC_EVENT_UPDATED == event)	// Update the item
+	{
+		HxSEMT_Get(s_ulOplScheduler_RecordingSem);
+		opl_scheduler_Recording_UpdatedItemSyncToAppKit(scheduler->recordingList, szUrl, &bErrorOccured, &bCompleted);
+		HxSEMT_Release(s_ulOplScheduler_RecordingSem);
+
+		HxLOG_Print("[%s:%d] UPDATE => Error (%d), Completed (%d) \n", __HxFILE__, __HxLINE__, bErrorOccured, bCompleted);
+	}
+	else if (eAPK_META_REC_EVENT_ADDED == event)	// added the item
+	{
+		int		hErr = ERR_FAIL;
+
+		HxSEMT_Get(s_ulOplScheduler_RecordingSem);
+		hErr = opl_scheduler_Recording_AddedItemSyncToAppKit(scheduler->recordingList, szUrl);
+		HxSEMT_Release(s_ulOplScheduler_RecordingSem);
+		if (ERR_OK != hErr)
+		{
+			HxLOG_Error("[%s:%d] Something wrong in the added Item (%s) Sync process \n", __HxFILE__, __HxLINE__, szUrl);
+			return;
+		}
+	}
+
+	n			= HLIB_VECTOR_ForEach(scheduler->recordingList, opl_scheduler_Recording_CompareID, (void *)szUrl);
+	recording	= (OPL_Recording_t *)HLIB_VECTOR_ItemAt(scheduler->recordingList, n);
+	if (recording == NULL)
+	{
+		HxLOG_Warning("[%s:%d] There is no \'OPL_Recording_t\'(url:%s)\n", __HxFILE__, __HxLINE__, szUrl);
+		return;
+	}
+	error = recording->error;
+
+	switch (event)
+	{
+	case eAPK_META_REC_EVENT_ADDED:
+		if (eOPL_SCHEDULER_EVENT_PARTIALY_COMPLETED == recording->state && eOPL_SCHEDULER_ERROR_NONE != recording->error)
+		{	// start error
+			state = eOPL_SCHEDULER_EVENT_START_ERROR;
+			HxLOG_Print("[%s:%d] Item (%s) Added As Error (%d)!!! \n", __HxFILE__, __HxLINE__, szUrl, recording->error);
+		}
+		else
+		{
+			state = eOPL_SCHEDULER_EVENT_STARTED;
+			HxLOG_Print("[%s:%d] Item (%s) Added!!! \n", __HxFILE__, __HxLINE__, szUrl);
+		}
+		break;
+
+	case eAPK_META_REC_DO_DELETE:
+	case eAPK_META_REC_EVENT_DELETED:
+		state = eOPL_SCHEDULER_EVENT_DELETED;
+		break;
+
+	case eAPK_META_REC_EVENT_UPDATED:
+		state = eOPL_SCHEDULER_EVENT_UPDATED;
+		break;
+
+	default:
+		HxLOG_Warning("[%s:%d] Unknown Event(%d:0x%X)\n", __HxFILE__, __HxLINE__, event, event);
+		return;
+	}
+
+	HxLOG_Print("[%s:%d] Recording.state(%d), Recording.error(%d), event state(%d), error (%d)\n"
+		, __HxFILE__, __HxLINE__, recording->state, recording->error, state, error);
+
+	opl_scheduler_EmitEvent(scheduler, state, error, (OPL_ScheduledItem_t *)recording, NULL, NULL, NULL);
+
+	// check additional event - error or completed
+	if (bErrorOccured)
+	{
+		opl_scheduler_EmitEvent(scheduler, eOPL_SCHEDULER_EVENT_ERROR, error, (OPL_ScheduledItem_t *)recording, NULL, NULL, NULL);
+	}
+
+	if (bCompleted)
+	{	// Update & completed
+		opl_scheduler_EmitEvent(scheduler, eOPL_SCHEDULER_EVENT_COMPLETED, error, (OPL_ScheduledItem_t *)recording, NULL, NULL, NULL);
+	}
+
+	if (eOPL_SCHEDULER_EVENT_DELETED == state)
+	{
+		HxLOG_Print("[%s:%d] Url (%s) recording item deleted, It's updated on OplRecordingList\n", __HxFILE__, __HxLINE__, szUrl);
+		HxSEMT_Get(s_ulOplScheduler_RecordingSem);
+		HLIB_VECTOR_Remove(scheduler->recordingList, n);
+		HxSEMT_Release(s_ulOplScheduler_RecordingSem);
+	}
+}
+
+
+#define	____END_of_PRIVATE_OPL_Scheduler_Recording__________________________________________________________
+/* End : Recording List */
+
+#define	____PUBLIC_OPL_Scheduler___________________________________________________________
+OPL_HANDLE	OPL_Scheduler_GetInstance (void)
+{
+	static OPL_Scheduler_t	s_scheduler;
+
+	HxLOG_Trace();
+
+	if (!s_scheduler.schedule)	//  if not initialized!!
+	{
+		HxSEMT_Create(&s_ulOplScheduler_ScheduleSem, "oplscheduler_schedule_sema", HxSEMT_FIFO);
+		s_scheduler.schedule      = APK_METASCHED_GetInstance();
+		s_scheduler.scheduledList = HLIB_VECTOR_NewEx(NULL, 0
+											, (void *(*)(void *))NULL
+											, (void *(*)(void *))OPL_ScheduledItem_Delete
+											, NULL
+										);
+		HxSEMT_Create(&s_ulOplScheduler_RecordingSem, "oplscheduler_recording_sema", HxSEMT_FIFO);
+		s_scheduler.recordingList = HLIB_VECTOR_NewEx(NULL, 0
+											, (void *(*)(void *))NULL
+											, (void *(*)(void *))OPL_Recording_Delete
+											, NULL
+										);
+
+		// for the load incomplete case (
+		opl_scheduler_reloadAndEmitChange(&s_scheduler);
+
+		/* request recording list scan here for the one time running */
+		opl_scheduler_Recording_RequestListScanning(&s_scheduler);
+	}
+	return &s_scheduler;
+}
+
+void		OPL_Scheduler_AddEventListener (OPL_HANDLE self, OPL_Scheduler_EventListener_t listener)
+{
+	OPL_Scheduler_t *thiz = (OPL_Scheduler_t *)self;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz);
+
+	if (listener)
+	{
+		APK_METASCHED_AddListener(thiz->schedule, opl_scheduler_EventListener, (void *)thiz);
+		APK_META_REC_AddListener(opl_scheduler_Recording_EventListener,  (void *)thiz);
+	}
+	thiz->listener = listener;
+}
+
+OPL_ScheduledItem_t *
+		OPL_Scheduler_MakeSchedule (OPL_HANDLE self, OPL_ScheduledItem_t *item, OPL_BOOL bForced)
+{
+	OPL_Scheduler_t		*thiz = (OPL_Scheduler_t *)self;
+
+	HxLOG_Assert(thiz && item);
+
+	return opl_scheduler_MakeSchedule(thiz, item, bForced);
+}
+
+OPL_ScheduledItem_t *
+			OPL_Scheduler_Record (OPL_HANDLE self, OPL_ProgrammeHandle programme)
+{
+	OPL_Scheduler_t		*thiz = (OPL_Scheduler_t *)self;
+	OPL_ScheduledItem_t	*item;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz && programme);
+
+	item = OPL_ScheduledItem_NewWithProgramme(eOPL_SCHEDULED_PRO_RECORD, programme, NULL);
+	if (item == NULL)
+	{
+		HxLOG_Trace();
+		return NULL;
+	}
+
+	return opl_scheduler_MakeSchedule(thiz, item, OPL_FALSE);
+}
+
+
+OPL_ScheduledItem_t *
+			OPL_Scheduler_SeriesRecord (OPL_HANDLE self, OPL_ProgrammeHandle programme)
+{
+	OPL_Scheduler_t		*thiz = (OPL_Scheduler_t *)self;
+	OPL_ScheduledItem_t	*item;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz && programme);
+
+	item = OPL_ScheduledItem_NewWithProgramme(eOPL_SCHEDULED_PRO_RECORD, programme, NULL);
+	if (item == NULL)
+	{
+		HxLOG_Trace();
+		return NULL;
+	}
+	item->isScheduledAsSeries = OPL_TRUE;
+	return opl_scheduler_MakeSchedule(thiz, item, OPL_FALSE);
+}
+
+
+
+OPL_ScheduledItem_t *
+			OPL_Scheduler_RecordAt (
+						  OPL_HANDLE self
+						, unsigned long startTime
+						, unsigned long duration
+						, int repeatDays
+						, const char *channelID
+					)
+{
+	OPL_Scheduler_t		*thiz = (OPL_Scheduler_t *)self;
+	OPL_ScheduledItem_t	*item;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz && channelID);
+
+	item = OPL_ScheduledItem_NewWithTime(eOPL_SCHEDULED_PRO_RECORD, startTime, duration, repeatDays, channelID, NULL);
+	if (item == NULL)
+	{
+		HxLOG_Trace();
+		return NULL;
+	}
+
+	return opl_scheduler_MakeSchedule(thiz, item, OPL_FALSE);
+}
+
+
+OPL_ScheduledItem_t *
+			OPL_Scheduler_Watch (OPL_HANDLE self, OPL_ProgrammeHandle programme)
+{
+	OPL_Scheduler_t		*thiz = (OPL_Scheduler_t *)self;
+	OPL_ScheduledItem_t	*item;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz && programme);
+
+	item = OPL_ScheduledItem_NewWithProgramme(eOPL_SCHEDULED_PRO_WATCH, programme, NULL);
+	if (item == NULL)
+	{
+		HxLOG_Trace();
+		return NULL;
+	}
+
+	return opl_scheduler_MakeSchedule(thiz, item, OPL_FALSE);
+}
+
+OPL_ScheduledItem_t *
+			OPL_Scheduler_WatchAt (
+						  OPL_HANDLE self
+						, unsigned long startTime
+						, unsigned long duration
+						, int repeatDays
+						, const char *channelID
+					)
+{
+	OPL_Scheduler_t		*thiz = (OPL_Scheduler_t *)self;
+	OPL_ScheduledItem_t	*item;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz && channelID);
+
+	item = OPL_ScheduledItem_NewWithTime(eOPL_SCHEDULED_PRO_WATCH, startTime, duration, repeatDays, channelID, NULL);
+	if (item == NULL)
+	{
+		HxLOG_Trace();
+		return NULL;
+	}
+
+	return opl_scheduler_MakeSchedule(thiz, item, OPL_FALSE);
+}
+
+OPL_BOOL	OPL_Scheduler_Wakeup (OPL_HANDLE self, unsigned long time, int repeatDays, const char *ccid, int volume)
+{
+	OPL_Scheduler_t *thiz = (OPL_Scheduler_t *)self;
+	APKS_SCHED_REPEAT_t	repeat;
+	HINT32				svcuid;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz && ccid);
+
+	memset(&repeat, 0, sizeof(APKS_SCHED_REPEAT_t));
+	if (repeatDays == 0x7f)
+	{
+		repeat.cycle = eSCHEDULE_CYCLE_DAYLY;
+		repeat.date  = eDxSCHED_DATE_ALL;
+	} else
+	if (repeatDays)
+	{
+		repeat.cycle = eSCHEDULE_CYCLE_WEEKLY;
+		repeat.date  = (APKE_SCHED_DATE_e)repeatDays;
+	}
+
+	svcuid = (HINT32)OPL_Channel_CCID2UniqueID(ccid);
+
+	if (APK_METASCHED_Wakeup(thiz->schedule, (HUINT32)time, repeat, svcuid, (HINT32)volume) != ERR_OK)
+	{
+		HxLOG_Debug("[%s:%d] Failed to operation! %s\n"
+				, __FUNCTION__, __LINE__, HLIB_DATETIME_UnixTimeToString((UNIXTIME)time, NULL, 0));
+		return OPL_FALSE;
+	}
+	HxLOG_Debug("[%s:%d] Success! %s\n"
+				, __FUNCTION__, __LINE__, HLIB_DATETIME_UnixTimeToString((UNIXTIME)time, NULL, 0));
+	return OPL_TRUE;
+}
+
+OPL_BOOL	OPL_Scheduler_CancelWakeup (OPL_HANDLE self)
+{
+	OPL_Scheduler_t *thiz = (OPL_Scheduler_t *)self;
+	APKS_SCHEDULE_t	*sched;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz);
+
+	sched = APK_METASCHED_GetWakeup(thiz->schedule);
+	if (sched == NULL)
+	{
+		HxLOG_Debug("[%s:%d] There is no Wakeup!\n", __FUNCTION__, __LINE__);
+		return OPL_FALSE;
+	}
+	(void) APK_METASCHED_Remove(thiz->schedule, sched->uid);
+	APK_METASCHED_Delete(sched);
+	return OPL_TRUE;
+}
+
+OPL_BOOL	OPL_Scheduler_GetWakeupParam (OPL_HANDLE self, unsigned long *time, int *repeatDays, const char **ccid, int *volume)
+{
+	OPL_Scheduler_t *thiz = (OPL_Scheduler_t *)self;
+	APKS_SCHEDULE_t	*sched;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz);
+
+	sched = APK_METASCHED_GetWakeup(thiz->schedule);
+	if (sched == NULL)
+	{
+		HxLOG_Debug("[%s:%d] There is no Wakeup!\n", __FUNCTION__, __LINE__);
+		return OPL_FALSE;
+	}
+
+	if (time)
+	{
+		*time = (unsigned long)sched->startTime;
+	}
+
+	if (repeatDays)
+	{
+		*repeatDays = 0;
+		if (sched->repeat.cycle == eSCHEDULE_CYCLE_WEEKLY)
+			*repeatDays = (int)sched->repeat.date;
+		else if (sched->repeat.cycle == eSCHEDULE_CYCLE_DAYLY)
+			*repeatDays = (int)0x7f;
+	}
+
+	if (ccid)
+	{
+		OPL_Channel_t	channel;
+		*ccid = NULL;
+
+		channel = OPL_Channel_FindChannelByUID(NULL, (int)sched->svcUId);
+		if (channel)
+		{
+			*ccid = OPL_Channel_GetCCID(channel, thiz->tempBuf, 128);
+		}
+	}
+
+	if (volume)
+	{
+		*volume = (int)sched->param.power.volume;
+	}
+	APK_METASCHED_Delete(sched);
+	return OPL_TRUE;
+}
+
+void		OPL_Scheduler_Remove (OPL_HANDLE self, OPL_ScheduledItem_t *item)
+{
+	OPL_Scheduler_t *thiz = (OPL_Scheduler_t *)self;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz && item);
+	HxLOG_Print("[%s:%d] OPL_Scheduler_Remove! uid = %d\n", __FUNCTION__, __LINE__, item->uid);
+
+	if( item->type == eOPL_SCHEDULED_PRO_DLNA ||  item->type == eOPL_SCHEDULED_PRO_DUBBING )
+	{
+		HINT32	slot;
+
+		slot = (item->uid & 0x0000ffff);
+
+		APK_METASCHED_Remove(thiz->schedule, slot);
+	}
+	else
+	{
+		if (OPL_ScheduledItem_InstanceOf(item, OPL_Recording_t))
+		{
+			OPL_Recording_t	*recItem = (OPL_Recording_t *)item;
+
+			if(recItem->showType == OPLRECORDING_SHOWTYPE_LIVE)
+			{
+				OPL_Scheduler_Stop(self, recItem);
+			}
+
+			// remove the item from recording list
+			opl_scheduler_Recording_Remove(recItem);
+		}
+		else
+		{
+			HINT32	slot;
+
+			slot = (item->uid & 0x0000ffff);
+
+			APK_METASCHED_Remove(thiz->schedule, slot);
+		}
+	}
+}
+
+void		OPL_Scheduler_RemoveFirstItem (OPL_HANDLE self, OPL_ScheduledItem_t *item)
+{
+	OPL_Scheduler_t *thiz = (OPL_Scheduler_t *)self;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz && item);
+	HxLOG_Print("[%s:%d] OPL_Scheduler_Remove! uid = %d\n", __FUNCTION__, __LINE__, item->uid);
+
+	if (OPL_ScheduledItem_InstanceOf(item, OPL_Recording_t))
+	{
+		OPL_Recording_t	*recItem = (OPL_Recording_t *)item;
+
+		OPL_Scheduler_Stop(self, recItem);
+
+		// remove the item from recording list
+		opl_scheduler_Recording_Remove(recItem);
+	}
+	else
+	{
+		HINT32	slot;
+
+		slot = (item->uid & 0x0000ffff);
+
+		APK_METASCHED_RemoveFirstItemOnSeries(thiz->schedule, slot);
+	}
+}
+
+void		OPL_Scheduler_Confirm (OPL_HANDLE self, OPL_ScheduledItem_t *item, int type, int check)
+{
+	OPL_Scheduler_t *thiz = (OPL_Scheduler_t *)self;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz && item);
+
+	if (OPL_ScheduledItem_InstanceOf(item, OPL_Recording_t))
+	{
+		// recording
+	}
+	else
+	{
+		APK_METASCHED_Confirm(thiz->schedule, item->uid, type, check);
+	}
+}
+
+void		OPL_Scheduler_Stop (OPL_HANDLE self, OPL_Recording_t *recording)
+{
+	OPL_Scheduler_t		*thiz = (OPL_Scheduler_t *)self;
+	OPL_ScheduledItem_t	*item = (OPL_ScheduledItem_t *)recording;
+	HINT32				slot;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz && recording);
+
+	if( item->type == eOPL_SCHEDULED_PRO_RECORD )
+	{
+		if (!OPL_ScheduledItem_InstanceOf(recording, OPL_Recording_t))
+		{
+			HxLOG_Error("[%s:%d] Only \"Recording\" can be stopped!!\n", __HxFILE__, __HxLINE__);
+			return;
+		}
+
+		opl_scheduler_Recording_Stop(recording);
+	}
+	else
+	{
+		slot = (item->uid & 0x0000ffff);
+
+		APK_METASCHED_Remove(thiz->schedule, slot);
+	}
+}
+
+
+void		OPL_Scheduler_Refresh (OPL_HANDLE self)
+{
+	OPL_Scheduler_t	*thiz = (OPL_Scheduler_t *)self;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz);
+
+	if (APK_METASCHED_Refresh(thiz->schedule) == ERR_OK)
+	{
+		opl_scheduler_LoadScheduledList(thiz);
+	}
+
+	// for the recording list -> reload recoring list on opl_scheduler_Recording_EventListener
+	opl_scheduler_Recording_RequestListScanning((OPL_Scheduler_t*)self);
+}
+
+OPL_BOOL	OPL_Scheduler_Update (OPL_HANDLE self, OPL_ScheduledItem_t *item)
+{
+	OPL_Scheduler_t *thiz = (OPL_Scheduler_t *)self;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz && item);
+
+	if (OPL_ScheduledItem_InstanceOf(item, OPL_Recording_t))
+	{	// -> for the doNotDelete, saveDays, saveEpisodes ? (isManualLock : hms1000s)
+		// TODO: update recording item!
+		if (ERR_OK != opl_scheduler_Recording_Update((OPL_Recording_t *)item))
+		{
+			return OPL_FALSE;
+		}
+	}
+	else	// scheduled programme
+	{
+		APKS_SCHEDULE_t	sched;
+		APKS_SCHED_CONFLICT_t	conflict;
+
+		conflict.length[0] = 0;
+
+		if (opl_scheduler_ToAppKitSchedule(&sched, item) == NULL)
+		{
+			HxLOG_Warning("[%s:%d] Cannot convert OPL ScheduledProgramme to APKS_SCHEDULE\n", __HxFILE__, __HxLINE__);
+			return OPL_FALSE;
+		}
+
+		if (APK_METASCHED_Update(thiz->schedule, item->uid, &sched, &conflict) != ERR_OK)
+		{
+			int 	error;
+			HUINT8				i;
+			OPL_Collection_t	*conflictList[MAX_CONFLICT_TPNUM], *altList, *altevtList;
+
+			HxLOG_Warning("[%s:%d] Failed to operation \"APK_METASCHED_Update()\"\n", __HxFILE__, __HxLINE__);
+			if(conflict.length[0] != 0)
+			{
+				opl_scheduler_MakeConflict(self, &conflict, &error, conflictList, &altList, &altevtList);
+				opl_scheduler_EmitEvent(self, eOPL_SCHEDULER_EVENT_ERROR, error, item, conflictList, altList, altevtList);
+				//OPL_ScheduledItem_Delete(item);
+				for(i = 0; i < MAX_CONFLICT_TPNUM; i++)
+				{
+					if (conflictList[i])
+					{
+						OPL_Collection_Delete(conflictList[i]);
+					}
+				}
+				if (altList)
+				{
+					OPL_Collection_Delete(altList);
+				}
+				if (altevtList)
+				{
+					OPL_Collection_Delete(altevtList);
+				}
+			}
+
+			return OPL_FALSE;
+		}
+	}
+	return OPL_TRUE;
+}
+
+OPL_BOOL	OPL_Scheduler_UpdateProperty(OPL_HANDLE self, OPL_ScheduledItem_t *item)
+{
+	OPL_BOOL				bError = OPL_TRUE;
+	OPL_Scheduler_t			*thiz = (OPL_Scheduler_t *)self;
+	APKS_SCHED_CONFLICT_t	conflict;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz && item);
+
+	if (OPL_ScheduledItem_InstanceOf(item, OPL_Recording_t))
+	{
+		bError = OPL_FALSE;
+	}
+	else	// scheduled programme
+	{
+		APKS_SCHEDULE_t	sched;
+		if (opl_scheduler_ToAppKitSchedule(&sched, item) == NULL)
+		{
+			HxLOG_Warning("[%s:%d] Cannot convert OPL ScheduledProgramme to APKS_SCHEDULE\n", __HxFILE__, __HxLINE__);
+			bError = OPL_FALSE;
+		}
+		else
+		{
+			conflict.length[0] = 0;
+			if (APK_METASCHED_Update(thiz->schedule, item->uid, &sched, &conflict) != ERR_OK)
+			{
+				int		error;
+				HUINT8				i;
+				OPL_Collection_t	*conflictList[MAX_CONFLICT_TPNUM], *altList, *altevtList;
+
+				HxLOG_Warning("[%s:%d] Failed to operation \"APK_METASCHED_Update()\"\n", __HxFILE__, __HxLINE__);
+				if(conflict.length[0] != 0)
+				{
+					opl_scheduler_MakeConflict(self, &conflict, &error, conflictList, &altList, &altevtList);
+					opl_scheduler_EmitEvent(self, eOPL_SCHEDULER_EVENT_ERROR, error, item, conflictList, altList, altevtList);
+					//OPL_ScheduledItem_Delete(item);
+					for(i = 0; i < MAX_CONFLICT_TPNUM; i++)
+					{
+						if (conflictList[i])
+						{
+							OPL_Collection_Delete(conflictList[i]);
+						}
+					}
+					if (altList)
+					{
+						OPL_Collection_Delete(altList);
+					}
+					if (altevtList)
+					{
+						OPL_Collection_Delete(altevtList);
+					}
+				}
+
+				//HxLOG_Error("[%s:%d] Cannot update OPL_ScheduledProgramme\n", __HxFILE__, __HxLINE__);
+
+				bError = OPL_FALSE;
+			}
+		}
+	}
+	return bError;
+}
+
+int			OPL_Scheduler_CountScheduledProgrammes (OPL_HANDLE self)
+{
+	OPL_Scheduler_t *thiz = (OPL_Scheduler_t *)self;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz);
+
+	return (int)HLIB_VECTOR_Length(thiz->scheduledList);
+}
+
+OPL_ScheduledItem_t *
+			OPL_Scheduler_GetScheduledProgrammeAt (OPL_HANDLE self, int index)
+{
+	OPL_Scheduler_t *thiz = (OPL_Scheduler_t *)self;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz);
+
+	return (OPL_ScheduledItem_t *)HLIB_VECTOR_ItemAt(thiz->scheduledList, index);
+}
+
+
+// should be removed (after define onPVRListEvent)
+void	OPL_Scheduler_GetRecordingsFuncCalledSetNotified(OPL_HANDLE self, int	flag)
+{
+	(void)self;
+	s_bGetRecordingsFuncCalled = flag;
+	s_bGetRecordingsFuncInited = TRUE;
+}
+
+
+int			OPL_Scheduler_CountRecordings (OPL_HANDLE self)
+{
+	OPL_Scheduler_t *thiz = (OPL_Scheduler_t *)self;
+	HUINT32	ulCount = 0;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz);
+
+	ulCount = HLIB_VECTOR_Length(thiz->recordingList);
+	return ulCount;
+}
+
+int			OPL_Scheduler_CountRecordingsByDiscId (OPL_HANDLE self, const char *discId)
+{
+	OPL_Scheduler_t *thiz = (OPL_Scheduler_t *)self;
+	HUINT32	ulCount = 0;
+	HxVector_t *pReclist =thiz->recordingList;
+	HINT32	i;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz);
+
+	for (i = 0 ; i < thiz->recordingList->count ; i++)
+	{
+		OPL_Recording_t *rec = (OPL_Recording_t *)pReclist->vector[i];
+
+		if(rec->super.storageID != NULL)
+		{
+			if (0 == HxSTD_StrCmp(rec->super.storageID, discId))
+			{
+				ulCount++;
+			}
+		}
+	}
+
+	return ulCount;
+}
+
+
+OPL_Recording_t *
+			OPL_Scheduler_GetRecordingAt (OPL_HANDLE self, int index)
+{
+	OPL_Scheduler_t *thiz = (OPL_Scheduler_t *)self;
+	OPL_Recording_t	*pstRecItem = NULL;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz);
+
+    pstRecItem = HLIB_VECTOR_ItemAt(thiz->recordingList, index);
+
+	if (pstRecItem && s_bGetRecordingsFuncCalled)
+	{	// check that as notified
+		pstRecItem->isNotified = TRUE;
+	}
+
+	return pstRecItem;
+}
+
+
+OPL_Recording_t *
+			OPL_Scheduler_GetRecordingAtDiscId (OPL_HANDLE self, int index, const char* discId)
+{
+	OPL_Scheduler_t *thiz = (OPL_Scheduler_t *)self;
+	OPL_Recording_t	*pstRecItem = NULL;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz);
+
+	pstRecItem = HLIB_VECTOR_ItemAt(thiz->recordingList, index);
+	if (pstRecItem)
+	{
+		if ( s_bGetRecordingsFuncCalled )
+		{	// check that as notified
+			pstRecItem->isNotified = TRUE;
+		}
+
+		if (0 == HxSTD_StrCmp(pstRecItem->super.storageID, discId))
+			return pstRecItem;
+		else
+			return NULL;
+	}
+	else
+		return NULL;
+}
+
+
+OPL_Recording_t *		OPL_Scheduler_GetRecordingByID (OPL_HANDLE self, const char *id)
+{
+	int	n;
+	OPL_Scheduler_t *thiz = (OPL_Scheduler_t *)self;
+	OPL_Recording_t	*recording = NULL;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz);
+
+	n			= HLIB_VECTOR_ForEach(thiz->recordingList, opl_scheduler_Recording_CompareID, (void *)id);
+	recording	= (OPL_Recording_t *)HLIB_VECTOR_ItemAt(thiz->recordingList, n);
+
+	return recording;
+}
+
+
+// APK √Ö√´√á√ò¬º¬≠ OCTO¬∑√é ¬∫√é√Ö√ç ¬≥√¨√à¬≠√Å√ü?√é Item ¬∞¬°√Å¬Æ¬ø√à
+OPL_Collection_t *			OPL_Scheduler_GetRunningRecordings(OPL_HANDLE self)
+{
+	OPL_Scheduler_t     *thiz = (OPL_Scheduler_t *)self;
+	OPL_Recording_t 	*item;
+	OPL_Collection_t	*scheduleColl;
+	int	i, c;
+	APK_META_REC_URL_t	stUrl;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz);
+
+	scheduleColl = OPL_Collection_NewEx(OPL_Scheduler_ScheduleDelete, (void *(*)(void *))OPL_Scheduler_ScheduleClone);
+	return_if(scheduleColl == NULL, NULL);
+
+    HxSTD_MemSet(&stUrl, 0, sizeof(APK_META_REC_URL_t));
+
+#if 0 // -> Do_get_running_recs OAPI_QUERY no respone ¬π¬Æ√Å¬¶¬∞¬° ¬∫¬∏¬∞√≠ ¬µ√á¬æ√Æ ?√è¬¥√ú disable -> Test ¬π√ó √á√π?√á √à√Ñ √Å¬∂√Å¬§ √á√ä¬ø√§
+	APK_META_REC_GetRunningRecordings(&stUrl, TRUE);
+	opl_scheduler_LoadRecordingList(thiz);
+#endif // #if 0
+	c = OPL_Scheduler_CountRecordings(self);
+	for (i = 0 ; i < c ; i++)
+	{
+		item = (OPL_Recording_t *)OPL_Scheduler_GetRecordingAt(self, i);
+		if (item == NULL)
+			continue;
+
+		if (eOPL_SCHEDULER_EVENT_STARTED == item->state)
+		{	// cur recording
+			(void) OPL_Collection_Add(scheduleColl, (void *)OPL_Scheduler_ScheduleClone(item));
+		}
+	}
+
+	if (OPL_Collection_Length(scheduleColl) == 0)
+	{
+		HxLOG_Debug("Cannot find running recording \n");
+		OPL_Collection_Delete(scheduleColl);
+		return NULL;
+	}
+
+	HxLOG_Debug("finded running recording count (%d)\n", OPL_Collection_Length(scheduleColl));
+
+	return scheduleColl;
+}
+
+
+
+OPL_HANDLE		OPL_Scheduler_ScheduleClone (OPL_HANDLE self)
+{
+	if (self == NULL)
+		return NULL;
+
+	if (OPL_ScheduledItem_InstanceOf(self, OPL_ScheduledItem_t))
+	{
+		return OPL_ScheduledItem_Clone((OPL_ScheduledItem_t*)self);
+	}
+	else
+	{
+		return OPL_Recording_Clone((OPL_Recording_t *)self);
+	}
+}
+
+
+void		OPL_Scheduler_ScheduleDelete (OPL_HANDLE self)
+{
+	if (self == NULL)
+		return;
+
+	if (OPL_ScheduledItem_InstanceOf(self, OPL_ScheduledItem_t))
+	{
+		OPL_ScheduledItem_Delete((OPL_ScheduledItem_t*)self);
+	}
+	else
+	{
+		OPL_Recording_Delete((OPL_Recording_t *)self);
+	}
+}
+
+
+OPL_ScheduledItem_t *
+			OPL_Scheduler_FindScheduleExceptRecording(OPL_HANDLE self, const char *programmeID)
+{
+	OPL_Scheduler_t     *thiz = (OPL_Scheduler_t *)self;
+	OPL_ScheduledItem_t *item;
+	int	i, c;
+	int	targetEventId, eventId;
+	int	targetSvcUid, svcUid;
+	int	targetFsatSvcUid, fsatSvcUid;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz && programmeID);
+
+	targetEventId = OPL_Programme_GetEventIDFromProgrammeID(programmeID);
+	targetSvcUid = OPL_Programme_GetSvcUIDFromProgrammeID(programmeID);
+	targetFsatSvcUid = OPL_Channel_GetFsatSvcIdByUID (NULL, targetSvcUid);
+
+
+    c = OPL_Scheduler_CountScheduledProgrammes(self);
+	for (i = 0 ; i < c ; i++)
+	{
+		item = OPL_Scheduler_GetScheduledProgrammeAt(self, i);
+		if (item == NULL)
+			continue;
+		if (item->programmeID == NULL)
+			continue;
+		if (strcmp(item->programmeID, programmeID) == 0)
+			return item;
+		// fsat svc id ¬∑√é ¬∫√±¬±¬≥ √á√è¬¥√Ç ¬∫√é¬∫√ê √á√ä¬ø√§.
+		eventId = OPL_Programme_GetEventIDFromProgrammeID(item->programmeID);
+		if(eventId == targetEventId)
+		{
+			svcUid = OPL_Programme_GetSvcUIDFromProgrammeID(item->programmeID);
+			if(targetSvcUid && svcUid)
+			{
+				fsatSvcUid = OPL_Channel_GetFsatSvcIdByUID (NULL, svcUid);
+				if(targetFsatSvcUid && fsatSvcUid && targetFsatSvcUid == fsatSvcUid)
+				{
+					return item;
+				}
+
+			}
+		}
+	}
+	HxLOG_Debug("Cannot find schedule by programme(%s)\n", programmeID);
+	return NULL;
+}
+
+static int opl_scheduler_RecordingComp(const void	*src, void *dst)
+{
+	OPL_Recording_t		*srcItem = (OPL_Recording_t *)src;
+	OPL_ScheduledItem_t	*dstItem = (OPL_ScheduledItem_t*)dst;
+
+	if (src == NULL || dst == NULL)
+		return OPL_FALSE;
+
+	if( srcItem->super.programmeID != NULL && dstItem->programmeID != NULL )
+	{
+		if (0 == HxSTD_StrCmp((HCHAR*)srcItem->super.programmeID, (HCHAR*)dstItem->programmeID))
+			return OPL_TRUE;
+	}
+	else
+	{
+		if (0 == HxSTD_StrCmp((HCHAR*)srcItem->super.name, (HCHAR*)dstItem->name))
+			return OPL_TRUE;
+	}
+
+	return OPL_FALSE;
+}
+
+// «ˆ¿Á øπæ‡¿Ã µø¿€¡ﬂ¿Œµ•, ∑πƒ⁄µ˘ ¬ ¿ª ∏’¿˙ ∞Àªˆ«‘ø° µ˚∂Û ¿ÃπÃ ≥Ï»≠∞° øœ∑·µ» ƒ¡≈Ÿ√˜∞° ¿÷¥¬ ∞ÊøÏ EPGø°º≠ ¡§ªÛ¿˚¿∏∑Œ «•Ω√ «“ºˆ æ¯æÓ øπæ‡¿ª ∏’¿˙ µ⁄¡ˆµµ∑œ ∫Ø∞Ê«‘.
+// function is unified because HMS have same problem
+OPL_ScheduledItem_t *
+			OPL_Scheduler_FindSchedule (OPL_HANDLE self, const char *programmeID)
+{
+	OPL_Scheduler_t     *thiz = (OPL_Scheduler_t *)self;
+	OPL_ScheduledItem_t *item;
+	int	i, c;
+	int	targetEventId, eventId;
+	int	targetSvcUid, svcUid;
+	int	targetFsatSvcUid, fsatSvcUid;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz && programmeID);
+
+	targetEventId = OPL_Programme_GetEventIDFromProgrammeID(programmeID);
+	targetSvcUid = OPL_Programme_GetSvcUIDFromProgrammeID(programmeID);
+	targetFsatSvcUid = OPL_Channel_GetFsatSvcIdByUID (NULL, targetSvcUid);
+
+	c = OPL_Scheduler_CountScheduledProgrammes(self);
+	for (i = 0 ; i < c ; i++)
+	{
+		item = OPL_Scheduler_GetScheduledProgrammeAt(self, i);
+		if (item == NULL)
+			continue;
+		if (item->programmeID == NULL)
+			continue;
+		if (strcmp(item->programmeID, programmeID) == 0)
+		{
+			return item;
+		}
+		// fsat svc id ∑Œ ∫Ò±≥ «œ¥¬ ∫Œ∫– « ø‰.
+		eventId = OPL_Programme_GetEventIDFromProgrammeID(item->programmeID);
+		if(eventId == targetEventId)
+		{
+			svcUid = OPL_Programme_GetSvcUIDFromProgrammeID(item->programmeID);
+			if(targetSvcUid && svcUid)
+			{
+				fsatSvcUid = OPL_Channel_GetFsatSvcIdByUID (NULL, svcUid);
+				if(targetFsatSvcUid && fsatSvcUid && targetFsatSvcUid == fsatSvcUid)
+				{
+					return item;
+				}
+
+			}
+		}
+	}
+
+	c = OPL_Scheduler_CountRecordings(self);
+	for (i = 0 ; i < c ; i++)
+	{
+		item = (OPL_ScheduledItem_t *)OPL_Scheduler_GetRecordingAt(self, i);
+		if (item == NULL)
+			continue;
+		if (item->programmeID == NULL)
+			continue;
+		if (strcmp(item->programmeID, programmeID) == 0)
+		{
+			return item;
+		}
+		// fsat svc id ∑Œ ∫Ò±≥ «œ¥¬ ∫Œ∫– « ø‰.
+		eventId = OPL_Programme_GetEventIDFromProgrammeID(item->programmeID);
+		if(eventId == targetEventId)
+		{
+			svcUid = OPL_Programme_GetSvcUIDFromProgrammeID(item->programmeID);
+			if(targetSvcUid && svcUid)
+			{
+				fsatSvcUid = OPL_Channel_GetFsatSvcIdByUID (NULL, svcUid);
+				if(targetFsatSvcUid && fsatSvcUid && targetFsatSvcUid == fsatSvcUid)
+				{
+					return item;
+				}
+
+			}
+		}
+	}
+	HxLOG_Debug("Cannot find schedule by programme(%s)\n", programmeID);
+	return NULL;
+}
+
+OPL_Collection_t *
+			OPL_Scheduler_FindSchedules (OPL_HANDLE self, const char *programmeID)
+{
+	OPL_Scheduler_t     *thiz = (OPL_Scheduler_t *)self;
+	OPL_ScheduledItem_t *item;
+	OPL_Collection_t	*scheduleColl;
+	int	i, c;
+	int	targetEventId, eventId;
+	int	targetSvcUid, svcUid;
+	int	targetFsatSvcUid, fsatSvcUid;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz && programmeID);
+
+	targetEventId = OPL_Programme_GetEventIDFromProgrammeID(programmeID);
+	targetSvcUid = OPL_Programme_GetSvcUIDFromProgrammeID(programmeID);
+	targetFsatSvcUid = OPL_Channel_GetFsatSvcIdByUID (NULL, targetSvcUid);
+
+	scheduleColl = OPL_Collection_NewEx(OPL_Scheduler_ScheduleDelete, (void *(*)(void *))OPL_Scheduler_ScheduleClone);
+	return_if(scheduleColl == NULL, NULL);
+
+	c = OPL_Scheduler_CountRecordings(self);
+	for (i = 0 ; i < c ; i++)
+	{
+		item = (OPL_ScheduledItem_t *)OPL_Scheduler_GetRecordingAt(self, i);
+		if (item == NULL)
+			continue;
+		if (item->programmeID == NULL)
+			continue;
+		if (strcmp(item->programmeID, programmeID) == 0)
+		{
+			(void) OPL_Collection_Add(scheduleColl, (void *)OPL_Recording_Clone((OPL_Recording_t *)item));
+			continue;
+		}
+		// fsat svc id ¬∑√é ¬∫√±¬±¬≥ √á√è¬¥√Ç ¬∫√é¬∫√ê √á√ä¬ø√§.
+		eventId = OPL_Programme_GetEventIDFromProgrammeID(item->programmeID);
+		if(eventId == targetEventId)
+		{
+			svcUid = OPL_Programme_GetSvcUIDFromProgrammeID(item->programmeID);
+			if(targetSvcUid && svcUid)
+			{
+				fsatSvcUid = OPL_Channel_GetFsatSvcIdByUID (NULL, svcUid);
+				if(targetFsatSvcUid && fsatSvcUid && targetFsatSvcUid == fsatSvcUid)
+				{
+					(void) OPL_Collection_Add(scheduleColl, (void *)OPL_Recording_Clone((OPL_Recording_t *)item));
+				}
+			}
+		}
+	}
+
+    c = OPL_Scheduler_CountScheduledProgrammes(self);
+	for (i = 0 ; i < c ; i++)
+	{
+		item = OPL_Scheduler_GetScheduledProgrammeAt(self, i);
+		if (item == NULL)
+			continue;
+		if (item->programmeID == NULL)
+			continue;
+		if (strcmp(item->programmeID, programmeID) == 0)
+		{
+			(void) OPL_Collection_Add(scheduleColl, (void *)OPL_ScheduledItem_Clone(item));
+			continue;
+		}
+		// fsat svc id ¬∑√é ¬∫√±¬±¬≥ √á√è¬¥√Ç ¬∫√é¬∫√ê √á√ä¬ø√§.
+		eventId = OPL_Programme_GetEventIDFromProgrammeID(item->programmeID);
+		if(eventId == targetEventId)
+		{
+			svcUid = OPL_Programme_GetSvcUIDFromProgrammeID(item->programmeID);
+			if(targetSvcUid && svcUid)
+			{
+				fsatSvcUid = OPL_Channel_GetFsatSvcIdByUID (NULL, svcUid);
+				if(targetFsatSvcUid && fsatSvcUid && targetFsatSvcUid == fsatSvcUid)
+				{
+					(void) OPL_Collection_Add(scheduleColl, (void *)OPL_ScheduledItem_Clone(item));
+				}
+			}
+		}
+	}
+
+	if (OPL_Collection_Length(scheduleColl) == 0)
+	{
+		HxLOG_Debug("Cannot find schedule by programme(%s)\n", programmeID);
+		OPL_Collection_Delete(scheduleColl);
+		return NULL;
+	}
+
+	HxLOG_Debug("finded schedule count (%d)\n", OPL_Collection_Length(scheduleColl));
+
+	return scheduleColl;
+}
+
+
+unsigned long	OPL_Scheduler_ToUnixtime (int year, int mon, int mday, int hour, int min, int sec)
+{
+	HxDATETIME_t	dt;
+	UNIXTIME		ut;
+
+	memset(&dt, 0, sizeof(HxDATETIME_t));
+	dt.stDate.usYear   = (HUINT16)year;
+	dt.stDate.ucMonth  = (HUINT8)mon;
+	dt.stDate.ucDay    = (HUINT8)mday;
+	dt.stTime.ucHour   = (HUINT8)hour;
+	dt.stTime.ucMinute = (HUINT8)min;
+	dt.stTime.ucSecond = (HUINT8)sec;
+
+	if (HLIB_DATETIME_ConvertDateTimeToUnixTime(&dt, (UNIXTIME *)&ut) != ERR_OK)
+	{
+		return 0;
+	}
+	return (unsigned long)ut;
+}
+
+
+char *	OPL_Scheduler_UnixtimeToString (unsigned long unixtime, char *timestr, size_t n)
+{
+	static const char *s_month[] = {
+		"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+	};
+	static const char *s_dayow[] = {
+		"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"
+	};
+	HxDATETIME_t	dt;
+	HINT32			gmtOffset;
+	unsigned long	offset;
+
+	if (APK_SCENARIO_GetGMTOffset(&gmtOffset) != ERR_OK)
+		gmtOffset = 0;
+
+	offset = HxMACRO_ABS(gmtOffset) * 60 * 60;
+	if (gmtOffset < 0)
+		unixtime -= offset;
+	else
+		unixtime += offset;
+
+	return_if( HLIB_DATETIME_ConvertUnixTimeToDateTime((UNIXTIME)unixtime, &dt) != ERR_OK, NULL );
+
+	HxSTD_PrintToStrN(
+			timestr, n
+			, "%s %s %d %d %02d:%02d:%02d"
+			, s_dayow[HLIB_DATETIME_GetWeekDayIndex(dt.stDate) % 7]
+			, s_month[(dt.stDate.ucMonth - 1) % 12]
+			, (int)dt.stDate.ucDay
+			, (int)dt.stDate.usYear
+			, (int)dt.stTime.ucHour
+			, (int)dt.stTime.ucMinute
+			, (int)dt.stTime.ucSecond
+		);
+	return timestr;
+}
+
+// OPL_Scheduler_GetRunningRecordings -> APK √Ö√´√á√ò¬º¬≠ OCTO¬∑√é ¬∫√é√Ö√ç ¬≥√¨√à¬≠√Å√ü?√é Item ¬∞¬°√Å¬Æ¬ø√à
+// OPL_Scheduler_GetCurrentRecordings -> ?√å¬π√å ?√ñ¬¥√Ç List¬ø¬°¬º¬≠ ¬≥√¨√à¬≠√Å√ü?√é ¬æ√Ü?√å√Ö√õ?¬ª ¬∞¬°√Å¬Æ¬ø√à
+OPL_Collection_t *		OPL_Scheduler_GetCurrentRecordings(OPL_HANDLE self)
+{
+	OPL_Scheduler_t		*thiz = (OPL_Scheduler_t *)self;
+	OPL_ScheduledItem_t	*schItem;
+	OPL_Recording_t		*recItem;
+	OPL_Collection_t		*scheduleColl;
+	int	nIdx;
+	int	i, c;
+	HUINT32				ulCurrentTime;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz);
+
+	ulCurrentTime = HLIB_STD_GetSystemTime();
+
+	scheduleColl = OPL_Collection_NewEx(OPL_Scheduler_ScheduleDelete, (void *(*)(void *))OPL_Scheduler_ScheduleClone);
+	return_if(scheduleColl == NULL, NULL);
+
+	c = OPL_Scheduler_CountRecordings(self);
+	for (i = 0 ; i < c ; i++)
+	{
+		recItem = (OPL_Recording_t *)OPL_Scheduler_GetRecordingAt(self, i);
+		if (recItem == NULL)
+			continue;
+
+		if (eOPL_SCHEDULER_EVENT_STARTED == recItem->state)
+		{	// cur recording
+			(void) OPL_Collection_Add(scheduleColl, (void *)OPL_Scheduler_ScheduleClone(recItem));
+		}
+	}
+
+	c= OPL_Scheduler_CountScheduledProgrammes(self);
+	for( i=0; i< c; i++ )
+	{
+		schItem = (OPL_ScheduledItem_t *)OPL_Scheduler_GetScheduledProgrammeAt(self, i);
+		if (schItem == NULL)
+			continue;
+
+		if( (ulCurrentTime+EARLYSTARTTIME) < schItem->startTime)
+			continue;
+
+		switch(schItem->type)
+		{
+			case eOPL_SCHEDULED_PRO_RECORD:
+				nIdx = OPL_Collection_Find(scheduleColl, (void*)schItem, opl_scheduler_RecordingComp);
+				if (nIdx < 0)
+					break;
+
+				recItem = (OPL_Recording_t *)OPL_Collection_ItemAt(scheduleColl, nIdx);
+
+				recItem->super.uid			= schItem->uid;
+				recItem->super.startTime	= schItem->startTime;
+				recItem->super.duration	= schItem->duration;
+				recItem->super.repeatDays	= schItem->repeatDays;
+				recItem->super.recMode	= schItem->recMode;
+				break;
+
+			case eOPL_SCHEDULED_PRO_WATCH:
+			case eOPL_SCHEDULED_PRO_DLNA:
+			case eOPL_SCHEDULED_PRO_DUBBING:
+				(void) OPL_Collection_Add(scheduleColl, (void *)OPL_Scheduler_ScheduleClone(schItem));
+				break;
+		}
+	}
+
+	if (OPL_Collection_Length(scheduleColl) == 0)
+	{
+		HxLOG_Debug("Cannot find running recording \n");
+		OPL_Collection_Delete(scheduleColl);
+		return NULL;
+	}
+
+	HxLOG_Debug("finded running recording count (%d)\n", OPL_Collection_Length(scheduleColl));
+
+	return scheduleColl;
+}
+
+unsigned int	OPL_Scheduler_GetSystemTime()
+{
+	return HLIB_STD_GetSystemTime();
+}
+
+
+HBOOL	OPL_Scheduler_SetName (OPL_ScheduledItem_t *self, unsigned char *name)
+{
+	HBOOL	ret;
+	APK_META_REC_RENAME_t		cmd;
+	APK_META_REC_RENAME_PARAM_t	stList;
+
+	if( self->type == eOPL_SCHEDULED_PRO_RECORD)
+	{
+		OPL_Recording_t	*item = (OPL_Recording_t*)self;
+
+		if(item->id != NULL)
+		{
+			cmd.ulParamCount = 1;
+			cmd.paramList = &stList;
+			HxSTD_StrNCpy(stList.szUrl, item->id, DxRECLIST_URL);
+			HxSTD_StrNCpy(stList.szRename, (HCHAR*)name, DxRECLIST_NAME_LEN);
+			ret = APK_META_REC_Rename(&cmd, TRUE);
+			if( ret == ERR_OK )
+			{
+				ret = TRUE;
+			}
+			else
+			{
+				ret = FALSE;
+			}
+		}
+		else
+		{
+			ret = APK_METASCHED_SetName(item->super.uid , (HCHAR*)name );
+		}
+	}
+	else
+	{
+		OPL_ScheduledItem_t	*item = (OPL_ScheduledItem_t*)self;
+		ret = APK_METASCHED_SetName(item->uid , (HCHAR*)name );
+	}
+
+	return ret;
+}
+
+OPL_BOOL	OPL_Scheduler_SetSeriesManualLock (OPL_HANDLE self, const char *seriesID, OPL_BOOL bLock)
+{
+	OPL_Scheduler_t 					*thiz = (OPL_Scheduler_t *)self;
+	HERROR								hErr = ERR_FAIL;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz && seriesID);
+
+	HxLOG_Debug("[%s:%d] seriesID %s bLock %d\n", __FUNCTION__, __LINE__, seriesID, bLock);
+
+	hErr = APK_META_REC_SetSeriesLock((HCHAR*)seriesID, bLock, TRUE);
+	if(hErr != ERR_OK)
+	{
+		return OPL_TRUE;
+	}
+	return OPL_FALSE;
+}
+
+#ifdef CONFIG_OP_JAPAN
+void		OPL_Scheduler_AddHNEventListener (OPL_HANDLE self, OPL_Scheduler_HNReservationFinishedEventListener_t hnlistener )
+{
+	OPL_Scheduler_t *thiz = (OPL_Scheduler_t *)self;
+
+	HxLOG_Trace();
+	HxLOG_Assert(thiz);
+
+	thiz->hnlistener = hnlistener;
+}
+
+OPL_BOOL OPL_Scheduler_SetDefaultDMS(const char *device, const char *destinationId)
+{
+	HERROR		hErr = ERR_FAIL;
+
+	hErr = APK_SQCSCENARIOJAPAN_SetDefaultDMS((HCHAR*)device, (HCHAR*)destinationId);
+	if (hErr == ERR_OK)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+OPL_BOOL OPL_Scheduler_GetDefaultDMSDeviceHandle(unsigned char **dms)
+{
+	static char strTemp[257];
+	HERROR		hErr;
+
+	HxSTD_MemSet(strTemp, 0x0, sizeof(strTemp));
+	hErr = APK_SQCSCENARIOJAPAN_GetDefaultDMSDeviceHandle(strTemp, 257);
+	if( hErr == ERR_OK)
+	{
+		*dms = (unsigned char *)strTemp;
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+OPL_BOOL OPL_Scheduler_GetDefaultDMSRecordDestinationId(unsigned char **dms)
+{
+	static char strTemp[257];
+	HERROR		hErr;
+
+	HxSTD_MemSet(strTemp, 0x0, sizeof(strTemp));
+	hErr = APK_SQCSCENARIOJAPAN_GetDefaultDMSDestinationId(strTemp, 257);
+	if( hErr == ERR_OK)
+	{
+		*dms = (unsigned char *)strTemp;
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+
+#endif
+

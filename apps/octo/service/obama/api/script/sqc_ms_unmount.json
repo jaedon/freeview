@@ -1,0 +1,10 @@
+"sysctl":{
+	"target":"massstorage",
+	"operation":"set",
+	"property":{
+		"action":"do_unmount",
+		"param_unmount":{
+			"dev_id":0
+		}
+	}
+}

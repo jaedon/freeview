@@ -1,0 +1,11 @@
+-include ./dirs
+
+ifeq ($(DIRS),)
+TARGET = oembignum
+
+SOURCES =                \
+	bignum.c digitogcd.c divide.c divisibility.c ecex2001.c ecexpon.c ecppq.c ecurve.c field.c kdiv.c kinitpr.c kinvert.c kmuladd.c lucas.c modexp.c modmulch1.c modsqrt.c modular.c mpaddsubcmp.c mpalloc.c mpgcdex.c mpmul22.c mprand.c multlow.c bignumnoinline.c 
+	
+endif
+   
+include $(DRM_SOURCE_PATH)/default.mak

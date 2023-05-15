@@ -1,0 +1,3 @@
+/* PARAM(_key,_field,_type,_help) */
+PARAM("system_data_bitrate",	uiSystemDataBitRate,	unsigned,	"\n\tSystem Data Bitrate")
+#undef PARAM

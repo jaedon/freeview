@@ -1,0 +1,22 @@
+#############################################
+#					MW/AV Configuration					#
+#############################################
+
+comment "MW/AV Configuration. (MW_AV_XXX)"
+
+	config MW_AV_DOLBY_DECODE
+		bool "MW_AV_DOLBY_DECODE - Support dolby decoding."
+		default n
+
+	config MW_AV_DOLBY_BITSTREAM
+		bool "MW_AV_DOLBY_BITSTREAM - Support dolby bit-stream out."
+		default n
+
+	config MW_AV_DOLBY_PLUS
+		bool "MW_AV_DOLBY_PLUS - Support dolby plus."
+		default n
+
+	config MW_AV_DEFAULT_CHANNEL_CHANGE_MODE
+		int "MW_AV_CHANNEL_CHANGE_MODE -  0(Mute), 2(Mute Until First Picture), NOT_USED - 1(Hold Until Tsm Lock), 3(Hold Until First Picture)"
+		default 0
+

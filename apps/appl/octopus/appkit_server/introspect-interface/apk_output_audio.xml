@@ -1,0 +1,101 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Output/Audio">   
+    <interface name="Octopus.Appkit.Output.Audio">
+
+    <method name="SupportSpdif">
+    	<arg type="b" name="support" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="GetMasterMute">
+    	<arg type="b" name="mute" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+                                                                        
+    <method name="SetMasterMute">
+    	<arg type="b" name="mute" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetVolumeMax">
+    	<arg type="u" name="maxVolume" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetVolume">
+    	<arg type="u" name="volume" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetVolume">
+    	<arg type="u" name="volume" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetLipSyncDelay">
+    	<arg type="u" name="mesec" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetLipSyncDelay">
+    	<arg type="u" name="mesec" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetHdmiFormat">
+    	<arg type="u" name="digitalAudioFormat" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetHdmiFormat">
+    	<arg type="u" name="digitalAudioFormat" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetSpdifFormat">
+    	<arg type="u" name="digitalSpdifFormat" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetSpdifFormat">
+    	<arg type="u" name="digitalSpdifFormat" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetAudioDescription">
+    	<arg type="b" name="enable" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="SetAudioDescription">
+    	<arg type="b" name="enable" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetStereoSelect">
+    	<arg type="u" name="stereoSelect" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetStereoSelect">
+    	<arg type="u" name="stereoSelect" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetDualMonoSelect">
+    	<arg type="u" name="dualMonoSelect" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetDualMonoSelect">
+    	<arg type="u" name="dualMonoSelect" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <signal name="event">
+    </signal>
+
+
+  </interface>
+</node>

@@ -1,0 +1,14 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmcerts
+TARGETTYPE=LIBRARY
+
+SOURCES =                   \
+    ..\drmbcertbuilder.c    \
+    ..\drmbcertparser.c     \
+

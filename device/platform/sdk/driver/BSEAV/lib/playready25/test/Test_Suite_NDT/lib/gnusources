@@ -1,0 +1,15 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=Test_Suite_NDT
+TARGETTYPE=LIBRARY
+
+SOURCES =                               \
+    ..\drmdecrypt.c                     \
+    ..\testSuiteNDT.c                   \
+    ..\testdevstore.c                   \
+

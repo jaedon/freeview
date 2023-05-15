@@ -1,0 +1,36 @@
+c2 ovc  hdm
+pb
+och 0 1 os ow
+de /data/videos/MosaicStreams/mosaic_4avc_4mp2_4vc1_cif.ts 1001 100 0 0
+dm 0
+sleep
+ch 1
+och 0 1
+de /data/videos/MosaicStreams/mosaic_4avc_4mp2_4vc1_cif.ts 1002 100 0 0
+dm 0
+sleep
+ch 2
+och 0 1
+de /data/videos/MosaicStreams/mosaic_4avc_4mp2_4vc1_cif.ts 1003 100 0 0
+dm 0
+sleep
+ch 3
+och 0 1
+de /data/videos/MosaicStreams/mosaic_4avc_4mp2_4vc1_cif.ts 1004 100 0 0
+dm 0
+sleep
+
+cf 3
+clear sleep bvncb
+mosaic 1 1 255 1 0 0 0 4 960 540 1 0 2 0 0
+break 10 
+c2 cw cd sleep 
+c1 oc ow cdsp 1 0 0 0
+mosaic 1 1 255 1 0 0 0 4 360 240 1 0 2 0 0
+break 10 
+bvncb
+pb
+cw cd
+cs
+quit
+

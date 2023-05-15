@@ -1,0 +1,123 @@
+
+	comment "Select Supported Languages (PROD_LANG_XXX)"
+
+	config PROD_LANG_ARABIC
+		bool "PROD_LANG_ARABIC"
+		default n
+
+	config PROD_LANG_BULGARIAN
+		bool "PROD_LANG_BULGARIAN"
+		default n
+
+	config PROD_LANG_CATALAN
+		bool "PROD_LANG_CATALAN"
+		default n
+
+	config PROD_LANG_CROATIAN
+		bool "PROD_LANG_CROATIAN"
+		default n
+
+	config PROD_LANG_CZECH
+		bool "PROD_LANG_CZECH"
+		default n
+
+	config PROD_LANG_DANISH
+		bool "PROD_LANG_DANISH"
+		default n
+
+	config PROD_LANG_DUTCH
+		bool "PROD_LANG_DUTCH"
+		default n
+
+	config PROD_LANG_ENGLISH
+		bool "PROD_LANG_ENGLISH"
+		default y
+
+	config PROD_LANG_FINNISH
+		bool "PROD_LANG_FINNISH"
+		default n
+
+	config PROD_LANG_FRENCH
+		bool "PROD_LANG_FRENCH"
+		default n
+
+	config PROD_LANG_GERMAN
+		bool "PROD_LANG_GERMAN"
+		default n
+
+	config PROD_LANG_GREEK
+		bool "PROD_LANG_GREEK"
+		default n
+
+	config PROD_LANG_HUNGARIAN
+		bool "PROD_LANG_HUNGARIAN"
+		default n
+
+	config PROD_LANG_HINDI
+		bool "PROD_LANG_HINDI"
+		default n
+
+	config PROD_LANG_ITALIAN
+		bool "PROD_LANG_ITALIAN"
+		default n
+
+	config PROD_LANG_NORWEGIAN
+		bool "PROD_LANG_NORWEGIAN"
+		default n
+
+	config PROD_LANG_PERSIAN
+		bool "PROD_LANG_PERSIAN"
+		default n
+
+	config PROD_LANG_POLISH
+		bool "PROD_LANG_POLISH"
+		default n
+
+	config PROD_LANG_PORTUGUESE
+		bool "PROD_LANG_PORTUGUESE"
+		default n
+
+	config PROD_LANG_ROMANIAN
+		bool "PROD_LANG_ROMANIAN"
+		default n
+
+	config PROD_LANG_RUSSIAN
+		bool "PROD_LANG_RUSSIAN"
+		default n
+
+	config PROD_LANG_SERBIAN
+		bool "PROD_LANG_SERBIAN"
+		default n
+
+	config PROD_LANG_SLOVAK
+		bool "PROD_LANG_SLOVAK"
+		default n
+
+	config PROD_LANG_SLOVENIAN
+		bool "PROD_LANG_SLOVENIAN"
+		default n
+
+	config PROD_LANG_SPANISH
+		bool "PROD_LANG_SPANISH"
+		default n
+
+	config PROD_LANG_SWEDISH
+		bool "PROD_LANG_SWEDISH"
+		default n
+
+	config PROD_LANG_TURKISH
+		bool "PROD_LANG_TURKISH"
+		default n
+
+	config PROD_LANG_UKRAINIAN
+		bool "PROD_LANG_UKRAINIAN"
+		default n
+
+	config PROD_LANG_THAI
+		bool "PROD_LANG_THAI"
+		default n
+
+	config PROD_LANG_JAPAN
+		bool "PROD_LANG_JAPAN"
+		default n
+

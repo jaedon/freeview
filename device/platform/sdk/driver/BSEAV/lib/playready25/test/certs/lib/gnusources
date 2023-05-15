@@ -1,0 +1,17 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=BCertTestAPI
+TARGETTYPE=LIBRARY
+
+SOURCES =                     \
+    ../TestBCert.c            \
+    ../TestBCertBuilder.c     \
+    ../TestBCertParser.c      \
+    ../TestNDCert.c           \
+    ../TestRSAKeys.c          \
+

@@ -1,0 +1,137 @@
+#############################################
+#					MW/OUTPUT Configuration				#
+#############################################
+
+comment "MW/OUTPUT Configuration. (MW_OUTPUT_XXX)"
+
+	choice
+			prompt "Select Analong Video Standard"
+			default MW_OUTPUT_ANALOG_STANDARD_PAL
+
+			config MW_OUTPUT_ANALOG_STANDARD_NTSC
+				bool "MW_OUTPUT_ANALOG_STANDARD_NTSC - Analog Video Standard"
+			config MW_OUTPUT_ANALOG_STANDARD_PAL
+				bool "MW_OUTPUT_ANALOG_STANDARD_PAL - Analog Video Standard"
+			config MW_OUTPUT_ANALOG_STANDARD_SECAM
+				bool "MW_OUTPUT_ANALOG_STANDARD_SECAM - Analog Video Standard"
+	endchoice
+
+
+
+	config MW_OUTPUT_ADDITIONAL_AVSIGNAL
+		bool "MW_OUTPUT_ADDITIONAL_AVSIGNAL - Support Addtional AV Signaling."
+		default y
+
+		choice
+			prompt "Select Video Blank Signal"
+			depends on MW_OUTPUT_ADDITIONAL_AVSIGNAL
+			default MW_OUTPUT_WSS_AVSIGNAL
+
+			config MW_OUTPUT_WSS_AVSIGNAL
+				bool "MW_OUTPUT_WSS"
+			config MW_OUTPUT_CGMS_AVSIGNAL
+				bool "MW_OUTPUT_CGMS"
+		endchoice
+
+				config MW_OUTPUT_CGMS_SPEC_ARIB
+					depends on MW_OUTPUT_CGMS_AVSIGNAL
+					bool "MW_OUTPUT_CGMS_SPEC_ARIB"
+					default y
+
+	config MW_OUTPUT_HDMI
+		bool "MW_OUTPUT_HDMI - Support HDMI output."
+		default y
+
+		config MW_OUTPUT_WSS2HDMI
+			depends on MW_OUTPUT_HDMI
+			bool "MW_OUTPUT_WSS2HDMI"
+			default n
+
+			config MW_OUTPUT_WSS2HDMI_BY_CUT
+				depends on MW_OUTPUT_WSS2HDMI
+				bool "MW_OUTPUT_WSS2HDMI_BY_CUT"
+				default n
+
+			config MW_OUTPUT_WSS2HDMI_BY_BYPASS
+				depends on MW_OUTPUT_WSS2HDMI
+				bool "MW_OUTPUT_WSS2HDMI_BY_BYPASS"
+				default n
+		config MW_OUTPUT_HDMI_HDCP22
+			depends on MW_OUTPUT_HDMI
+			bool "MW_OUTPUT_HDMI_HDCP22"
+			default n
+
+			config MW_OUTPUT_HDMI_HDCP22_PROVISIONING
+				depends on MW_OUTPUT_HDMI_HDCP22
+				bool "MW_OUTPUT_HDMI_HDCP22_PROVISIONING"
+				default n
+
+		config MW_OUTPUT_HDAUDIO_SR_RESTRICT
+				depends on MW_OUTPUT_HDMI
+				bool "MW_OUTPUT_SR_RESTRICT"
+				default n
+
+ 	config MW_OUTPUT_RF_MODULATION
+		bool "MW_OUTPUT_RF_MODULATION - Support RF Modulator"
+		default n
+
+	config MW_OUTPUT_SCART
+		bool "MW_OUTPUT_SCART - Support SCART"
+		default y
+
+	 	config MW_OUTPUT_SCART_TV
+	 		depends on MW_OUTPUT_SCART
+			bool "MW_OUTPUT_SCART_TV - TV SCART exists"
+			default n
+
+	 	config MW_OUTPUT_SCART_VCR
+	 		depends on MW_OUTPUT_SCART
+			bool "MW_OUTPUT_SCART_VCR - VCR SCART exists"
+			default n
+
+		config MW_OUTPUT_SCART_SVIDEO
+	 		depends on MW_OUTPUT_SCART
+			bool "MW_OUTPUT_SCART_SVIDEO - Support S-VIDEO output in SCART."
+			default y
+
+	config MW_OUTPUT_COMPOSITE
+		bool "MW_OUTPUT_COMPOSITE - Support Composite"
+		default y
+
+	config MW_OUTPUT_COMPONENT
+		bool "MW_OUTPUT_COMPONENT -  Support HD component video output"
+		default n
+
+		config MW_OUTPUT_JAPAN_DPORT
+			depends on MW_OUTPUT_COMPONENT
+			bool "MW_OUTPUT_JAPAN_DPORT - Support Japanese D-port component output"
+			default n
+
+	config MW_OUTPUT_1080P
+		bool "MW_OUTPUT_1080P - Support 1080P video output"
+		default n
+
+	config MW_OUTPUT_2160P
+		bool "MW_OUTPUT_2160P - Support 2160P video output"
+		default n
+
+	config MW_OUTPUT_EXTBD
+		bool "MW_OUTPUT_EXTBD - Support the A/V output of the external BD board"
+		default n
+
+	config MW_OUTPUT_HEAAC_NO_TRANSCODE
+		bool "MW_OUTPUT_HEAAC_NO_TRANSCODE - If your box has no transcoder, you have to turn on this configuration."
+		default n
+	config MW_OUTPUT_HDMI_PRIORITY
+		bool "MW_OUTPUT_HDMI_PRIORITY - Set High priority HDMI output when both connect SD and HDMI"
+		default n
+
+	config MW_OUTPUT_STATIC_VIDEO_FREQUENCY
+		bool "MW_OUTPUT_STATIC_VIDEO_FREQUENCY - The video output frequency will not changed by the source video"
+		default n
+
+		config MW_OUTPUT_VIDEO_FREQUENCY
+			depends on MW_OUTPUT_STATIC_VIDEO_FREQUENCY
+			int "MW_OUTPUT_VIDEO_FREQUENCY - static video frequency value"
+			default 50
+

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<root xmlns="urn:schemas-upnp-org:device-1-0" configId="0">
+  <specVersion>
+    <major>1</major>
+    <minor>1</minor>
+  </specVersion>
+  <device>
+    <deviceType>urn:ses-com:device:SatIPServer:1</deviceType>
+    <friendlyName>NovaspreadServer</friendlyName>
+    <manufacturer>Copyright(C) 2014 HUMAX Co., Ltd. All rights reserved.</manufacturer>
+    <manufacturerURL>http://www.humaxdigital.com</manufacturerURL>
+    <modelDescription>Extension SAT>IP Server</modelDescription>
+    <modelName>HGS-1000S</modelName>
+    <modelNumber>1.0</modelNumber>
+    <modelURL>http://www.humaxdigital.com</modelURL>
+    <serialNumber>1S81A31231000007</serialNumber>
+    <iconList></iconList>
+    <serviceList>
+      <service>
+      <serviceType>urn:hdPlus:service:freetvarc-service:1.0</serviceType>
+      <serviceId>123</serviceId>
+      <SCPDURL>ftvaRcScpd.xml</SCPDURL>
+      <controlURL>/nrc/control_0</controlURL>
+      <eventSubURL>/nrc/event_0</eventSubURL>
+      <base-url-http></base-url-http>
+      </service>   
+    </serviceList>  
+    <satip:X_SATIPCHIPSETUID xmlns:satip="urn:ses-com:satip">0</satip:X_SATIPCHIPSETUID>
+    <satip:X_SATIPCAP xmlns:satip="urn:ses-com:satip">DVBS2-4</satip:X_SATIPCAP>
+    <satip:X_SATIPTRC xmlns:satip="urn:ses-com:satip">avc@2M:10M,lcaac@64K:320K,ac3@640K:640K,ts</satip:X_SATIPTRC>
+    <satip:X_SATIPCPT xmlns:satip="urn:ses-com:satip">CA2DRM,HD+,Multiroom,1.0,Germany,free_text_field,NPRM,1.0,AES-ATIS</satip:X_SATIPCPT>
+  </device>
+</root>

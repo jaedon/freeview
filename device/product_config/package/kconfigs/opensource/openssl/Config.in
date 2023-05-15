@@ -1,0 +1,6 @@
+config PACKAGE_OPENSSL
+	bool "openssl"
+	help
+	  OpenSSL is based on the excellent SSLeay library developed by Eric A.
+
+	  http://www.openssl.org/

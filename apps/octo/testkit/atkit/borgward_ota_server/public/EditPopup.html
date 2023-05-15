@@ -1,0 +1,97 @@
+<html>
+<head>
+	<title>Document</title>
+	  <script type="text/javascript">
+		console.log(opener.document.current_ota_data);
+
+
+	  </script>
+	  <script>
+		window.onload = function(){
+			console.log(opener);
+			console.log(opener.current_ota_info);
+
+			if(opener.current_ota_info.appName != undefined) {
+				document.getElementById('edit_appName').value = opener.current_ota_info.appName;
+			}
+			if(opener.current_ota_info.versionId != undefined) {
+				document.getElementById('edit_versionId').value = opener.current_ota_info.versionId;
+			}
+			if(opener.current_ota_info.versionDetail != undefined) {
+				document.getElementById('edit_versionDetail').value = opener.current_ota_info.versionDetail;
+			}
+			if(opener.current_ota_info.versionCode != undefined) {
+				document.getElementById('edit_versionCode').value = opener.current_ota_info.versionCode;
+			}
+			if(opener.current_ota_info.dependencyVersionCode != undefined) {		
+				document.getElementById('edit_dependencyVersionCode').value = opener.current_ota_info.dependencyVersionCode;
+			}
+			document.getElementById('edit_fileUrl').value = opener.current_ota_info.fileUrl;
+			document.getElementById('edit_fileSize').value = opener.current_ota_info.fileSize;
+			document.getElementById('edit_md5').value = opener.current_ota_info.md5;	
+		};
+
+		onBtnCancel = function(){
+			window.close();
+		};
+
+		onBtnSave = function(){
+			var ota_info = {};
+			ota_info = opener.current_ota_info;
+			ota_info.appName = document.getElementById('edit_appName').value;
+			ota_info.versionId = parseInt(document.getElementById('edit_versionId').value);
+			ota_info.versionDetail = document.getElementById('edit_versionDetail').value;
+			ota_info.versionCode = document.getElementById('edit_versionCode').value;
+			ota_info.dependencyVersionCode = document.getElementById('edit_dependencyVersionCode').value;			
+			console.log(ota_info);
+			opener.emit_event('update_ota_info', ota_info);
+			window.close();
+		};
+
+		onBtnDelete = function(){
+			var ota_info = {};
+			ota_info = opener.current_ota_info;
+			opener.emit_event('delete_ota_info', ota_info);
+			window.close();
+		};
+	</script>
+	<style>
+	</style>
+
+</head>
+<body>
+	<h1 >Edit OTA Info !!</h1>
+
+	<FORM>
+		<font class="text pink">appName</font>
+		<INPUT type="TEXT" id='edit_appName' style="position:fixed; left:200px; width:400px;" />
+		<br>
+		versionId
+		<INPUT type="TEXT" id='edit_versionId' style="position:fixed; left:200px; width:400px;"/>
+		<br>
+		versionDetail	
+		<INPUT type="TEXT" id='edit_versionDetail' style="position:fixed; left:200px; width:400px;"/>
+		<br>
+		versionCode
+		<INPUT type="TEXT" id='edit_versionCode' style="position:fixed; left:200px; width:400px;"/>
+		<br>
+		dependencyVersionCode
+		<INPUT type="TEXT" id='edit_dependencyVersionCode' style="position:fixed; left:200px; width:400px;"/>
+		<br>
+		fileUrl
+		<INPUT type="TEXT" id='edit_fileUrl' style="position:fixed; left:200px; width:400px;" disabled/>
+		<br>
+		fileSize
+		<INPUT type="TEXT" id='edit_fileSize' style="position:fixed; left:200px; width:400px;" disabled/>
+		<br>
+		md5
+		<INPUT type="TEXT" id='edit_md5' class="black" style="position:fixed; left:200px; width:400px;" disabled/>
+		<br>
+	</FORM>
+		<INPUT type="BUTTON" class="button rosy" style="position:relative; left:200px;" value="Save" onclick='onBtnSave()'/>
+		<INPUT type="BUTTON" class="button rosy" style="position:relative; left:200px;" value="Remove this" onclick='onBtnDelete()'/>
+		<INPUT type="BUTTON" class="button rosy" style="position:relative; left:200px;" value="Cancel" onclick='onBtnCancel()'/>
+
+
+</body>
+</html>

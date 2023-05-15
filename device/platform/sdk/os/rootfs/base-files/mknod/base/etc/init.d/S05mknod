@@ -1,0 +1,48 @@
+#!/bin/sh
+
+#
+#broadcom device nod
+#
+# settop api proxy
+#mknod -m 666 /dev/bcmsettopapi c 204 0
+mknod -m 666 /dev/brcm0 c 30 0
+mknod -m 666 /dev/bcmfpga c 38 0
+
+#for 7445 URSR 13.4 linux 3.8
+mknod -m 666 /dev/brcm_cma0 c 254 0
+
+# nexus
+mknod -m 666 /dev/nexus_platform c 33 0 
+mknod -m 666 /dev/nexus_uart c 33 1 
+mknod -m 666 /dev/nexus_smartcard c 33 2 
+mknod -m 666 /dev/nexus_hdmi_output c 33 3 
+mknod -m 666 /dev/nexus_sync_channel c 33 4 
+mknod -m 666 /dev/nexus_astm c 33 5 
+mknod -m 666 /dev/nexus_display c 33 6 
+mknod -m 666 /dev/nexus_graphics2d c 33 7 
+mknod -m 666 /dev/nexus_surface c 33 8 
+mknod -m 666 /dev/nexus_audio c 33 9 
+mknod -m 666 /dev/nexus_video_decoder c 33 10 
+mknod -m 666 /dev/nexus_transport c 33 11 
+mknod -m 666 /dev/nexus_dma c 33 12 
+mknod -m 666 /dev/nexus_security c 33 13 
+mknod -m 666 /dev/nexus_spi c 33 14 
+mknod -m 666 /dev/nexus_frontend c 33 15 
+mknod -m 666 /dev/nexus_keypad c 33 16 
+mknod -m 666 /dev/nexus_rfm c 33 17 
+mknod -m 666 /dev/nexus_uhf_input c 33 18 
+mknod -m 666 /dev/nexus_input_capture c 33 19 
+mknod -m 666 /dev/nexus_ir_blaster c 33 20 
+mknod -m 666 /dev/nexus_ir_input c 33 21 
+mknod -m 666 /dev/nexus_led c 33 22 
+mknod -m 666 /dev/nexus_gpio c 33 23 
+mknod -m 666 /dev/nexus_i2c c 33 24 
+mknod -m 666 /dev/nexus_pwm c 33 25 
+mknod -m 666 /dev/nexus_core c 33 26 
+mknod -m 666 /dev/nexus_proxy c 33 27 
+mknod -m 666 /dev/nexus_driver c 33 29
+
+#
+#humax device nod
+#
+mknod -m 666 /dev/hmxsdcon c 241 0

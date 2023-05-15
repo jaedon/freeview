@@ -1,0 +1,274 @@
+@CHARSET "UTF-8";
+
+body {
+    overflow: auto; margin: none; font-family: Helvetica, sans-serif;
+    font-size: 16px; background-color: white;
+}
+
+h3 {
+    margin-top: 2px; margin-bottom: 0px;
+}
+
+hr {
+    border: 1px solid darkgray; width: 930px;
+}
+
+h4 {
+    margin-left: 3px; margin-top: 0px; margin-bottom: 0px;
+}
+
+h5 {
+    font-size: 1.2em; margin-top: 2px; margin-bottom: 0px; margin-left: 5px;
+}
+
+td {
+    vertical-align: top;
+}
+
+ul {
+    list-style-type: none; margin-top: 3px; margin-bottom: 3px;
+    padding: 3px; padding-right: 3px; background-color: white;
+}
+
+li {
+    padding: 0px;
+}
+
+label {
+    font-size: 12px; font-family: Monaco, monospace; cursor: pointer; position: relative;left: -2px;
+}
+
+#duuid {
+    font-size: 12px; font-family: Monaco, monospace;
+}
+
+input { cursor: pointer; }
+.pair {
+    width: 3em;
+    font-size:12px!important;
+}
+
+.jbutton-large {
+    margin-top: 1px; width: 5em;
+}
+
+.head-col {
+    width: 140px;
+}
+
+.arg-text {
+    font-family: Monaco, monospace; width: 28em;
+    font-size: 10px;
+}
+
+.instrument {
+    font-size: 14px;
+    margin-bottom: 5px;
+    padding-bottom: 5px; width: 933px;
+}
+
+.instrument > span {
+    padding-top: 2px;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.subsection {
+    padding-bottom: 5px;
+}
+
+.left-panel {
+    width: 29em;
+}
+
+.device-panel {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border: 1px solid lightgray; width: 36.2em;
+    max-height: 9em; display: inline-block; height: 9em;
+}
+
+.handle-label {
+    float: right; margin-top: 2px;
+}
+
+.handle {
+    float: right; margin-top: 2px; margin-right: 2px;
+}
+
+.active {
+    background-color:lightgreen !important;
+}
+
+.inactive {
+    background-color: darkorange;
+}
+
+#active-handle {
+    font-family: Monaco, monospace; width: 12em;
+}
+
+#paired-uuid {
+    font-family: Monaco, monospace; width: 12em;
+}
+
+#output {
+    border: 1px dotted gray; width: 250px; font-size: small; color: black;
+    padding: 1ex; background: white; position: absolute; top: 0;
+    right: 0; height: 90%;
+}
+
+#main {
+    top: 0; left: 0;
+    margin:50px;
+    position:absolute;
+    z-index:1;
+}
+
+.header {
+    font-size: large; font-weight: bold;
+}
+
+#focus {
+    border: 2px solid red;
+}
+
+.key {
+    width: 280px; float: left; clear: left;
+}
+
+.value {
+    float: left; clear: right;
+}
+
+.smallkeybutton {
+    padding: 1px; text-align: center; width: 3em; height: 1.7em;
+    font-size: 10px;
+}
+
+.keybutton {
+    padding: 2px; text-align: center; width: 6em; height: 2em;
+    font-size: 12px;
+}
+
+.clear {
+    margin-left: 10px;
+}
+
+.keybuttoninactive {
+    border: 1px dashed gray;
+}
+
+.keybuttonactive {
+    border: 1px dashed gray;
+}
+
+.keybutton:hover {
+    cursor: pointer;
+}
+
+#c-log-line {position: relative;left: 93%; font-family: monospace;font-size: .8em;font-weight: normal;}
+#t-log-line {position: relative;left: 93%; font-family: monospace;font-size: .8em;font-weight: normal;}
+#eq-anchor { font-family:monospace; font-size: .75em; position: relative;top: -11em;left: 35em; }
+
+.log {
+    border: 1px solid darkgray; min-height: 10em; width: 925px;
+    font-family: Monaco, monospace; font-size: 12px;
+    max-height: 10em;overflow: auto;
+}
+
+.logLarge {
+    border: 1px solid darkgray;
+    min-height: 15em;
+    width: 925px;
+    font-family: Monaco, monospace;
+    font-size: 12px;
+    max-height: 15em;
+    overflow: auto;
+}
+
+.eq-filter {padding-left: 1px;padding-right: 1px;}
+.eq-events {padding-left: 1px;padding-right: 1px;}
+.log-limit { padding-left: 1px;padding-right: 1px;top: -1px;position: relative; border: 1px solid darkGray;}
+.log-control { font-family: monospace;font-size: .7em;}
+
+.log-control-anchor { }
+
+.log-entry { border-bottom: 1px solid lightgray; padding: 2px; }
+
+.entry-fromnative { color: darkblue; }
+.entry-tonative { color: brown; }
+.entry-property { color: orange; }
+.entry-event { color:darkgreen; }
+.entry-state { color: purple; }
+.entry-error { color: red; }
+.entry-discovery { color: gold; }
+.entry-command { color: black; }
+
+.device {
+    font-size: 10px; font-family: "Courier New"; border: 1px solid darkGrey;
+    width: 26.8em; display: inline-block; margin: 3px; float: left;
+    background-color: lightgray; padding-bottom: 2px;
+}
+
+.device-footer {
+    padding-left: 4px;
+}
+
+#mdx-device-wrapper {
+    max-height: 3em;
+}
+
+.keybuttonselected { /* background-color: orange !important; */
+
+}
+
+div#nf-header {
+    background-color: #B9090B; display: block; height: 30px; margin: 0;
+    padding: 8px 0 7px 9px; clear: both;
+}
+
+h1#nf-logo {
+    background: url(../img/starred-hdr-sprite.png) 0 0 no-repeat transparent;
+    background-position-x: 0px; background-position-y: 0px;
+    display: block; overflow: hidden; margin: 0; font-size: 24px;
+    font-weight: bold; text-align: left; text-indent: -9999px;
+}
+
+#pairingRequestScreen {
+    width:913px;
+    height:75%;
+    background:#CCCCCC;
+    top: 0; left: 0;
+    margin:75px 30px;
+    position:absolute;
+    z-index:1000000;
+    display:none;
+    padding:10px;
+}
+
+#regPairRequestScreen {
+    width:913px;
+    height:75%;
+    background:#CCCCCC;
+    top: 0; left: 0;
+    margin:75px 30px;
+    position:absolute;
+    z-index:1000000;
+    display:none;
+    padding:10px;
+}
+
+#configParams {
+	display:none;
+}
+
+#c-httpRequest-label, #c-httpRequest {
+	display:none;
+}
+
+.doActivateButton, .sendSampleMessageButton, .quitButton {
+font-size:18px;
+}
+
+

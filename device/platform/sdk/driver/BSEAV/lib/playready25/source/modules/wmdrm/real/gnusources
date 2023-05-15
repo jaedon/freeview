@@ -1,0 +1,22 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmwmdrmreal
+TARGETTYPE=LIBRARY
+
+SOURCES =                         \
+    drmdevcert.c              \
+    drmwmdrmexprevalreal.c        \
+    drmwmdrmexprfuncreal.c        \
+    drmwmdrmexprvariablereal.c    \
+    drmwmdrmlicacqrespreal.c      \
+    drmwmdrmlicchainreal.c        \
+    drmwmdrmlicenseparserreal.c   \
+    drmwmdrmlicevalreal.c         \
+    drmwmdrmoplreal.c             \
+    drmwmdrmutilreal.c
+

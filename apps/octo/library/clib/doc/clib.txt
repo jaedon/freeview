@@ -1,0 +1,5 @@
+List Categorized Library.
+--> 여러종류의 Data Group을 특정 정의된 정보에 따라 List Up해주는 라이브러리
+--> 현재의 필요는 Service List관련 동일 로직 구현을 위해 우선 생성.
+--> 코드의 내용은 아직 미정.
+

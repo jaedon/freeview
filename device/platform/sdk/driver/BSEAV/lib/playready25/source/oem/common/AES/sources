@@ -1,0 +1,14 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=oemaes
+TARGETTYPE=LIBRARY
+
+C_DEFINES= $(C_DEFINES)             \
+    -DDRM_BUILDING_OEMAES_LIB       \
+
+SOURCES = \
+    oemaesmulti.c \
+    oemaes.c \
+    aesbox.c \
+    aes128.c
+

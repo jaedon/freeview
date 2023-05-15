@@ -1,0 +1,35 @@
+35000:BVT:Test Expected Results of Hal Key Allocation
+If( SecureHalSupported ) 
+    TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_AES_SLK ) = DRM_E_OEMHAL_UNSUPPORTED_KEY_TYPE
+    TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_LEGACY  ) = DRM_E_OEMHAL_UNSUPPORTED_KEY_TYPE
+Else
+    TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_AES_SLK )
+    TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_LEGACY  ) 
+EndIf
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_INVALID                          ) = DRM_E_OEMHAL_UNSUPPORTED_KEY_TYPE
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_ECC_P256_CONTENT_ENCRYPT         )
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_ECC_P256_DOMAIN_ENCRYPT          )
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_ECC_P256_MESSAGE_ENCRYPT         )
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_ECC_P256_SIGN                    )
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_ECC_P256_PUBLIC                  )
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_ECC_P256_MODEL_SIGN              )
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_AES_ECB_ROOT                     )
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_AES_CTR_CONTENT                  )
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_AES_ECB_MESSAGE_ENCRYPT          )
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_AES_ECB_DOMAIN_PROTECT           )
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_AES_OMAC1_SECURE_STORE           )
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_AES_KEYFILE                      )
+
+If( SecureHalPlayOnlySupported ) 
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_AES_GENERIC_KEY_CONTENT          ) = DRM_E_OEMHAL_UNSUPPORTED_KEY_TYPE
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_AES_GENERIC_KEY_ROOT             ) = DRM_E_OEMHAL_UNSUPPORTED_KEY_TYPE
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_AES_ECB_NEW_LICENSE_ROOT         ) = DRM_E_OEMHAL_UNSUPPORTED_KEY_TYPE
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_AES_CTR_NEW_LICENSE_CONTENT      ) = DRM_E_OEMHAL_UNSUPPORTED_KEY_TYPE
+Else
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_AES_GENERIC_KEY_CONTENT          )
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_AES_GENERIC_KEY_ROOT             )
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_AES_ECB_NEW_LICENSE_ROOT         )
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_AES_CTR_NEW_LICENSE_CONTENT      )
+EndIf
+
+TestOEMHalAllocateKey( OEM_HAL_KEY_TYPE_UNDEFINED                        ) = DRM_E_OEMHAL_UNSUPPORTED_KEY_TYPE

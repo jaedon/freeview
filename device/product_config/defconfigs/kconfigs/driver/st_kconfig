@@ -1,0 +1,14 @@
+##########################################
+# DI configuration menu
+##########################################
+
+source "./common_di_config_def/common_di_config_def.cfg"
+source "./st_specific_di_config_def/specific_di_config_def.cfg"
+
+menu "COMMON DI CONFIGURATION"
+source "./common_di_kconfig/common_di_config.kconfig"
+endmenu
+
+menu "SPECIFIC DI CONFIGURATION"
+source "./st_specific_di_kconfig/specific_di_config.kconfig"
+endmenu

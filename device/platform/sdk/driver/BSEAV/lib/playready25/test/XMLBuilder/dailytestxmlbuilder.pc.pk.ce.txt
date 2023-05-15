@@ -1,0 +1,893 @@
+'Daily test cases
+'************************************************************************
+'BVT test case.  
+
+609091:add Data with trailing spaces 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddData(Dump,1,2,128)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName>1</NodeName></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+'609092 is also covered
+609090:add Data with leading spaces 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddData(Dump,This is Data,13,64)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName>This is Data</NodeName></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609088:add CData with trailing spaces 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddCData(Dump,1,2,32)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName><![CDATA[1]]></NodeName></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+'609089 is also covered
+609087:add CData with leading spaces 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddCData(Dump,This is CData,13,16)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName><![CDATA[This is CData]]></NodeName></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609086:add attribute with spaces in attribute value
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,AttrName,8,Attr Value,10,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName AttrName="Attr Value"></NodeName></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609085:add attribute with trailing spaces in attribute value
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,AttrName,8,AttrValue,10,128)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName AttrName="AttrValue"></NodeName></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609084:add attribute with leading spaces in attribute value
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,AttrName,8,AttrValue,10,64)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName AttrName="AttrValue"></NodeName></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609083:add attribute with spaces in attribute name 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,Attr Name,9,AttrValue,9,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName Attr Name="AttrValue"></NodeName></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609082:add attribute with trailing spaces in attribute name 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,AttrName,9,AttrValue,9,32)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName AttrName="AttrValue"></NodeName></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609081:add attribute with leading spaces in attribute name 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,AttrName,9,AttrValue,9,16)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName AttrName="AttrValue"></NodeName></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609080:get context size
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,AttrName,8,AttrValue,9,0)
+TestXMLBAddCData(Dump,This is CData,13,0)
+TestXMLBGetCurrNodeName(Dump,EMPTY,0,0)
+TestXMLBGetContextSize(Dump,0,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName AttrName="AttrValue"><![CDATA[This is CData]]></NodeName></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609079:get current node name
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,AttrName,8,AttrValue,9,0)
+TestXMLBAddCData(Dump,This is CData,13,0)
+TestXMLBGetCurrNodeName(Dump,EMPTY,0,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName AttrName="AttrValue"><![CDATA[This is CData]]></NodeName></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+'609078 is also covered
+609077:close document 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,AttrName,8,AttrValue,9,0)
+TestXMLBAddCData(Dump,This is CData,13,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName AttrName="AttrValue"><![CDATA[This is CData]]></NodeName></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+-------------------BVT ends here--------------------------
+
+609076:reallocate a large memory for the document. When being blocked at add node 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(134,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeNameNodeNameNodeNameNodeNameNodeName,40,12)=-2147024774
+TestXMLBReallocDocument(Dump,2048,Dump,0)
+TestXMLBOpenNode(Dump,NodeNameNodeNameNodeNameNodeNameNodeName,40,12)
+TestXMLBAddAttribute(Dump,AttrName,8,AttrValue,9,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeNameNodeNameNodeNameNodeNameNodeName AttrName="AttrValue"></NodeNameNodeNameNodeNameNodeNameNodeName></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609075:reallocate a large memory for the document. When being blocked at add attribute
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(134,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,AttrName,8,AttrValue,9,0)
+TestXMLBAddAttribute(Dump,AttrNameAttrNameAttrNameAttrName,32,AttrValueAttrValueAttrValueAttrValue,36,0)=-2147024774
+TestXMLBReallocDocument(Dump,2048,Dump,0)
+TestXMLBAddAttribute(Dump,AttrNameAttrNameAttrNameAttrName,32,AttrValueAttrValueAttrValueAttrValue,36,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName AttrName="AttrValue" AttrNameAttrNameAttrNameAttrName="AttrValueAttrValueAttrValueAttrValue"></NodeName></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+'609074 is also covered
+609073:create a document 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname></rootname>,0)
+TestXMLBUtilReinitialize(0) 
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname></rootname>,0)
+TestXMLBUtilReinitialize(0) 
+
+609437:append an additional node to the an opening node 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName1,9,12)
+TestXMLBAddAttribute(Dump,AttrName1,9,AttrValue1,10,0)
+TestXMLBAppendNode(Dump,<Append>Data</Append>,21,0)
+TestXMLBAddData(Dump,abcdefghijklmnopqrstuvwxzy,26,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBOpenNode(Dump,NodeName1,9,12)
+TestXMLBAppendNode(Dump,<Append>Data</Append>,21,0)
+TestXMLBAddAttribute(Dump,AttrName1,9,AttrValue1,10,0)
+TestXMLBAddData(Dump,abcdefghijklmnopqrstuvwxzy,26,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBOpenNode(Dump,NodeName1,9,12)
+TestXMLBAddAttribute(Dump,AttrName1,9,AttrValue1,10,0)
+TestXMLBAddData(Dump,abcdefghijklmnopqrstuvwxzy,26,0)
+TestXMLBAppendNode(Dump,<Append>Data</Append>,21,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName1 AttrName1="AttrValue1">abcdefghijklmnopqrstuvwxzy<Append>Data</Append></NodeName1><NodeName1 AttrName1="AttrValue1">abcdefghijklmnopqrstuvwxzy<Append>Data</Append></NodeName1><NodeName1 AttrName1="AttrValue1">abcdefghijklmnopqrstuvwxzy<Append>Data</Append></NodeName1></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609436:append an additional node to the root. 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBAppendNode(Dump,<Append>Data</Append>,21,0)
+TestXMLBOpenNode(Dump,NodeName1,9,12)
+TestXMLBAddAttribute(Dump,AttrName1,9,AttrValue1,10,0)
+TestXMLBAddData(Dump,abcdefghijklmnopqrstuvwxzy,26,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBAppendNode(Dump,<Append>Data</Append>,21,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><Append>Data</Append><NodeName1 AttrName1="AttrValue1">abcdefghijklmnopqrstuvwxzy</NodeName1><Append>Data</Append></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609430:append an additional node to the existed one 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName1,9,12)
+TestXMLBAddAttribute(Dump,AttrName1,9,AttrValue1,10,0)
+TestXMLBAddData(Dump,abcdefghijklmnopqrstuvwxzy,26,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBAppendNode(Dump,<Append>Data</Append>,21,0) 
+TestXMLBAppendNode(Dump,<Append Atr="Value">Data</Append>,33,0) 
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName1 AttrName1="AttrValue1">abcdefghijklmnopqrstuvwxzy</NodeName1><Append>Data</Append><Append Atr="Value">Data</Append></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609150:create a xml tree with one attribute 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName1,9,12)
+TestXMLBOpenNode(Dump,NodeName2,9,12)
+TestXMLBAddAttribute(Dump,AttrName1,9,AttrValue1,10,0)
+TestXMLBAddData(Dump,This is Data,12,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName1><NodeName2 AttrName1="AttrValue1">This is Data</NodeName2></NodeName1></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609438:append a malformed node to the existed xml. 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName1,9,12)
+TestXMLBAddAttribute(Dump,AttrName1,9,AttrValue1,10,0)
+TestXMLBAddData(Dump,abcdefghijklmnopqrstuvwxzy,26,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBAppendNode(Dump,<Append>Data<Append>,20,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName1 AttrName1="AttrValue1">abcdefghijklmnopqrstuvwxzy</NodeName1><Append>Data<Append></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609435:append an empty node to the existed one  
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName1,9,12)
+TestXMLBAddAttribute(Dump,AttrName1,9,AttrValue1,10,0)
+TestXMLBAddData(Dump,abcdefghijklmnopqrstuvwxzy,26,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBAppendNode(Dump,EMPTY,0,0)=-2147024809
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName1 AttrName1="AttrValue1">abcdefghijklmnopqrstuvwxzy</NodeName1></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609434:append an additional node to the existed one when the document has been closed
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName1,9,12)
+TestXMLBAddAttribute(Dump,AttrName1,9,AttrValue1,10,0)
+TestXMLBAddData(Dump,abcdefghijklmnopqrstuvwxzy,26,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBAppendNode(Dump,<Append>Data</Append>,21,0)=-2147024809
+TestXMLBUtilReinitialize(0)
+
+609433:append an additional node to the existed one when added node is null string
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName1,9,12)
+TestXMLBAddAttribute(Dump,AttrName1,9,AttrValue1,10,0)
+TestXMLBAddData(Dump,abcdefghijklmnopqrstuvwxzy,26,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBAppendNode(Dump,nullstring,0,0)=-2147024809 
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName1 AttrName1="AttrValue1">abcdefghijklmnopqrstuvwxzy</NodeName1></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609432:append an additional node to the existed one when added node is null
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName1,9,12)
+TestXMLBAddAttribute(Dump,AttrName1,9,AttrValue1,10,0)
+TestXMLBAddData(Dump,abcdefghijklmnopqrstuvwxzy,26,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBAppendNode(Dump,NULL,0,0)=-2147024809 
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName1 AttrName1="AttrValue1">abcdefghijklmnopqrstuvwxzy</NodeName1></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609431:append an additional node to the existed one when xml is null
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName1,9,12)
+TestXMLBAddAttribute(Dump,AttrName1,9,AttrValue1,10,0)
+TestXMLBAddData(Dump,abcdefghijklmnopqrstuvwxzy,26,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBAppendNode(NULL,<Append>Data</Append>,21,1)=-2147024809 
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName1 AttrName1="AttrValue1">abcdefghijklmnopqrstuvwxzy</NodeName1></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609152:create a xml tree with multiple nodes of the same name 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName1,9,12)
+TestXMLBAddAttribute(Dump,AttrName1,9,AttrValue1,10,0)
+TestXMLBAddData(Dump,abcdefghijklmnopqrstuvwxzy,26,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBOpenNode(Dump,NodeName1,9,12)
+TestXMLBAddAttribute(Dump,AttrName2,9,AttrValue2,10,0)
+TestXMLBAddData(Dump,ABCDEFGHIJKLMNOPQRSTUVWXYZ,26,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBOpenNode(Dump,NodeName1,9,12)
+TestXMLBAddAttribute(Dump,AttrName3,9,AttrValue3,10,0)
+TestXMLBAddData(Dump,0123456789,10,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName1 AttrName1="AttrValue1">abcdefghijklmnopqrstuvwxzy</NodeName1><NodeName1 AttrName2="AttrValue2">ABCDEFGHIJKLMNOPQRSTUVWXYZ</NodeName1><NodeName1 AttrName3="AttrValue3">0123456789</NodeName1></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609151:create a xml tree with multiple attributes 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBAddAttribute(Dump,AttrName1,9,AttrValue1,10,0)
+TestXMLBOpenNode(Dump,NodeName1,9,12)
+TestXMLBAddAttribute(Dump,AttrName2,9,AttrValue2,10,0)
+TestXMLBOpenNode(Dump,NodeName2,9,12)
+TestXMLBAddAttribute(Dump,AttrName3,9,AttrValue3,10,0)
+TestXMLBAddData(Dump,This is Data,12,0)
+TestXMLBAddAttribute(Dump,AttrName4,9,AttrValue4,10,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBAddAttribute(Dump,AttrName5,9,AttrValue5,10,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBAddAttribute(Dump,AttrName6,9,AttrValue6,10,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname AttrName1="AttrValue1" AttrName6="AttrValue6"><NodeName1 AttrName2="AttrValue2" AttrName5="AttrValue5"><NodeName2 AttrName3="AttrValue3" AttrName4="AttrValue4">This is Data</NodeName2></NodeName1></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609149:create a xml tree with none attribute 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName1,9,12)
+TestXMLBOpenNode(Dump,NodeName2,9,12)
+TestXMLBAddData(Dump,This is Data,12,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName1><NodeName2>This is Data</NodeName2></NodeName1></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+609148:create a xml tree with nested nodes 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName1,9,12)
+TestXMLBAddAttribute(Dump,AttrName1,9,AttrValue1,10,0)
+TestXMLBAddCData(Dump,This is CData,13,0)
+TestXMLBGetCurrNodeName(Dump,EMPTY,0,0)
+TestXMLBOpenNode(Dump,NodeName2,9,12)
+TestXMLBAddAttribute(Dump,AttrName2,9,AttrValue2,10,0)
+TestXMLBAddData(Dump,This is Data,12,0)
+TestXMLBGetCurrNodeName(Dump,EMPTY,0,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBGetCurrNodeName(Dump,EMPTY,0,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName1 AttrName1="AttrValue1"><![CDATA[This is CData]]><NodeName2 AttrName2="AttrValue2">This is Data</NodeName2></NodeName1></rootname>,0)
+TestXMLBUtilReinitialize(0)
+
+'************************************************************************
+'Negative test case.  
+
+609143:add CData while the document have been closed 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBAddCData(Dump,That is Data,12,0)=-2147024809
+TestXMLBUtilReinitialize(0)
+ 
+609429:add same CData repeatedly
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddCData(Dump,This is Data,12,0)
+TestXMLBAddCData(Dump,That is Data,12,0)
+TestXMLBAddCData(Dump,That is Data,12,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609144:add CData with space only data 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddCData(Dump,EMPTY,0,16)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609145:add CData with empty data 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddCData(Dump,EMPTY,0,0)=-2147024809
+TestXMLBAddCData(Dump,This is Data,12,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609146:add CData with NULL data 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddCData(Dump,NULL,0,0)=-2147024809
+TestXMLBAddCData(Dump,This is Data,12,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609147:add CData with NULL context 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddCData(NULL,This is Data,12,1)=-2147024809
+TestXMLBAddCData(Dump,This is Data,12,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609142:add CData while there is not open node 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddCData(Dump,This is Data,12,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBAddCData(Dump,That is Data,12,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609141:add CData when the buffer is too small 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(216,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,AttrName,8,AttrValue,9,0)
+TestXMLBAddCData(Dump,This is DataThis is DataThis is DataThis is DataThis is DataThis is Data,72,0)=-2147024774
+TestXMLBAddCData(Dump,This is Data,12,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609140:add Data when the buffer is too small 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(214,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,AttrName,8,AttrValue,9,0)
+TestXMLBAddData(Dump,This is DataThis is DataThis is DataThis is DataThis is DataThis is Data,72,0)=-2147024774
+TestXMLBAddData(Dump,This is Data,12,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609139:add data while there is not open node 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddData(Dump,This is Data,12,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBAddData(Dump,That is Data,12,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609138:add data while the document have been closed 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBAddData(Dump,That is Data,12,0)=-2147024809
+TestXMLBUtilReinitialize(0)
+
+609428:add same data repeatedly
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddData(Dump,This is Data,12,0)
+TestXMLBAddData(Dump,That is Data,12,0)
+TestXMLBAddData(Dump,That is Data,12,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+611249:add Data with space only data 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddData(Dump,EMPTY,0,64)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609136:add Data with empty data 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddData(Dump,EMPTY,0,0)=-2147024809
+TestXMLBAddData(Dump,This is Data,12,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609135:add Data with NULL data 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddData(Dump,NULL,0,0)=-2147024809
+TestXMLBAddData(Dump,This is Data,12,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609134:add Data with NULL context 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddData(NULL,This is Data,12,1)=-2147024809
+TestXMLBAddData(Dump,This is Data,12,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609133:add attribute when the buffer is too small 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(185,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,AttrNameAttrNameAttrNameAttrNameAttrName,40,AttrValue,9,0)=-2147024774
+TestXMLBAddAttribute(Dump,AttrName,8,AttrValue,9,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609132:add attribute when there is not opened node 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBAddAttribute(Dump,AttrName1,9,AttrValue,9,0)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,AttrName2,9,AttrValue,9,0) 
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBAddAttribute(Dump,AttrName3,9,AttrValue,9,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609131:add attribute when the attribute value is space
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,AttrName,8,EMPTY,1,32)=-2147024809
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609130:add attribute when the attribute name is space
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,EMPTY,1,AttrValue,9,16)=-2147024809
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609129:add attribute when the document has been closed 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBAddAttribute(Dump,AttrName,8,AttrValue,9,0)=-2147024809
+TestXMLBUtilReinitialize(0)
+
+609128:add attribute when the attribute name is EMPTY 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,EMPTY,0,AttrValue,9,0)=-2147024809
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609127:add attribute when the attribute value is EMPTY 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,AttrName,8,EMPTY,0,0)=-2147024809
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609126:add attribute when the attribute value is NULL 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,AttrName,8,NULL,0,0)=-2147024809
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609125:add attribute when the attribute name is NULL 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,NULL,0,AttrValue,9,0)=-2147024809
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609124:add attribute when the context is NULL 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(NULL,AttrName,8,AttrValue,9,1)=-2147024809
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609123:get context size while the document has been closed 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,AttrName,8,AttrValue,9,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBGetContextSize(Dump,0,0)=-2147024809
+TestXMLBUtilReinitialize(0)
+
+609121:get context size while the context pbXmlContext is NULL
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddAttribute(Dump,AttrName,8,AttrValue,9,0)
+TestXMLBAddCData(Dump,This is CData,13,0)
+TestXMLBGetContextSize(NULL,0,1)=-2147024809
+TestXMLBGetContextSize(Dump,0,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609120:get current node name when the node name buffer is small 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddCData(Dump,1,2,32)
+TestXMLBGetCurrNodeName(Dump,any,3,0)
+TestXMLBGetCurrNodeName(Dump,A,1,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609119:get current node name there is not open node 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBGetCurrNodeName(Dump,Dump,0,0)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBAddCData(Dump,1,2,32)
+TestXMLBGetCurrNodeName(Dump,Dump,0,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBGetCurrNodeName(Dump,Dump,0,0) 
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609118:get current node name when document has been closed 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBGetCurrNodeName(Dump,Dump,0,0)=-2147024809 
+TestXMLBUtilReinitialize(0)
+
+609117:get current node name when node name is NULL
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBGetCurrNodeName(Dump,NULL,0,0)=-2147024809 
+TestXMLBGetCurrNodeName(Dump,Dump,0,0) 
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609116:get current node name when context is NULL
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBGetCurrNodeName(NULL,Dump,0,1)=-2147024809 
+TestXMLBGetCurrNodeName(Dump,Dump,0,0) 
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609114:close the node when there is no open node 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)=-2147024637
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBCloseCurrNode(Dump,Dump,0,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)=-2147024637
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609113:close the node when the document has been closed 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)=-2147024809
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)=-2147024809
+TestXMLBUtilReinitialize(0)
+
+609112:close the node when the xml context is NULL 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBCloseCurrNode(NULL,NULL,0,1)=-2147024809
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609111:open the node when the node name is too large for the allocated buffer 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(134,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeNameNodeNameNodeNameNodeNameNodeName,40,12)=-2147024774
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609110:open the node when the node name is NULL 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NULL,0,12)=-2147024809
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609109:open the node when the xml context is NULL 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(NULL,NodeName,8,13)=-2147024809
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+ 
+609108:open the node when the document has already closed 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBOpenNode(Dump,NodeName,8,12)=-2147024809
+TestXMLBUtilReinitialize(0)
+
+609107:close document when the document has already closed 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)=-2147024809
+TestXMLBUtilReinitialize(0)
+
+609106:close document when the output xml has not sufficient memory 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBCloseDocument(Dump,EMPTY,1,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609105:close document when the output xml is NULL string 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBCloseDocument(Dump,nullstring,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609104:close document when the context is NULL 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeName,8,12)
+TestXMLBCloseDocument(NULL,EMPTY,0,NULL,1)=-2147024809
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609103:reallocate a large memory for the document. When the document has been closed 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(134,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeNameNodeNameNodeNameNodeNameNodeName,40,12)=-2147024774
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBReallocDocument(Dump,2048,Dump,0)=-2147024809
+TestXMLBUtilReinitialize(0)
+
+609102:reallocate a large memory for the document. When the cbNewXmlContext is smaller than old one 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(134,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeNameNodeNameNodeNameNodeNameNodeName,40,12)=-2147024774
+TestXMLBReallocDocument(Dump,110,Dump,0)=-2147024774
+TestXMLBReallocDocument(Dump,2048,Dump,0)
+TestXMLBOpenNode(Dump,NodeNameNodeNameNodeNameNodeNameNodeName,40,12)
+TestXMLBAddAttribute(Dump,AttrName,8,AttrValue,9,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609101:reallocate a large memory for the document. When the cbNewXmlContext is 0 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(134,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeNameNodeNameNodeNameNodeNameNodeName,40,12)=-2147024774
+TestXMLBReallocDocument(Dump,0,NULL,0)=-2147024809
+TestXMLBReallocDocument(Dump,0,Dump,0)=-2147024809
+TestXMLBReallocDocument(Dump,2048,Dump,0)
+TestXMLBOpenNode(Dump,NodeNameNodeNameNodeNameNodeNameNodeName,40,12)
+TestXMLBAddAttribute(Dump,AttrName,8,AttrValue,9,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609100:reallocate a large memory for the document. When the new context is NULL 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(134,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeNameNodeNameNodeNameNodeNameNodeName,40,12)=-2147024774
+TestXMLBReallocDocument(Dump,2048,NULL,0)=-2147024809
+TestXMLBReallocDocument(Dump,2048,Dump,0)
+TestXMLBOpenNode(Dump,NodeNameNodeNameNodeNameNodeNameNodeName,40,12)
+TestXMLBAddAttribute(Dump,AttrName,8,AttrValue,9,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609099:reallocate a large memory for the document. When the old context is NULL 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(134,Dump,rootname,8,15)
+TestXMLBOpenNode(Dump,NodeNameNodeNameNodeNameNodeNameNodeName,40,12)=-2147024774
+TestXMLBReallocDocument(NULL,2048,Dump,3)=-2147024809
+TestXMLBReallocDocument(Dump,2048,Dump,0)
+TestXMLBOpenNode(Dump,NodeNameNodeNameNodeNameNodeNameNodeName,40,12)
+TestXMLBAddAttribute(Dump,AttrName,8,AttrValue,9,0)
+TestXMLBCloseCurrNode(Dump,NULL,0,0)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609098:repeatedly create document w/o closing it
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609097:create document with long node name 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(134,Dump,rootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootname,200,15)=-2147024774
+TestXMLBCreateDocument(2048,Dump,rootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootnamerootname,200,15)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+'609096 is covered here
+609095:create document with cbXmlContext 0
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(0,Dump,rootname,8,15)=-2147024809
+TestXMLBCreateDocument(1,Dump,rootname,8,15)=-2147024774
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609094:create document with NULL root name
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(2048,Dump,NULL,0,15)=-2147024809
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609093:create document with NULL context 
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(0,NULL,rootname,8,12)=-2147024809
+TestXMLBCreateDocument(0,nullstring,rootname,8,12)=-2147024809
+TestXMLBCreateDocument(2048,Dump,rootname,8,15)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBUtilReinitialize(0)
+
+609060: create documentwith small buffer and add tag. Memory reallocation is involved. Validate newly created XML
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(170,Dump,rootname,8,15)
+TestXMLBAddNode(NodeName,DataDataDataDataDataDataDataDataDataDataData,FALSE)=0x8007007A (DRM_E_BUFFERTOOSMALL)
+TestXMLBAddNode(NodeName,DataDataDataDataDataDataDataDataDataDataData,TRUE)
+TestXMLBCloseDocument(Dump,EMPTY,0,<rootname><NodeName>DataDataDataDataDataDataDataDataDataDataData</NodeName></rootname>,0)
+TestXMLBValidateDocument(NULL,NULL)
+TestXMLBUtilReinitialize(0)
+
+
+609061: create document with small buffer and add CDATA tag with attributes. Memory reallocation is involved. Validate newly created XML
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(170,Dump,rootname,8,15)
+TestXMLBWriteCDATATag(NodeName,DataDataDataDataDataDataDataDataDataDataData,Attribute,AttributeValue,TRUE,FALSE)=0x8007007A (DRM_E_BUFFERTOOSMALL)
+TestXMLBWriteCDATATag(NodeName,DataDataDataDataDataDataDataDataDataDataData,Attribute,AttributeValue,TRUE,TRUE)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBValidateDocument(NULL,NULL)
+TestXMLBUtilReinitialize(0)
+
+609062: create document with small buffer and add tag with attributes. Memory reallocation is involved. Validate newly created XML
+TestXMLBUtilReinitialize(0)
+TestXMLBCreateDocument(170,Dump,rootname,8,15)
+TestXMLBWriteTag(NodeName,DataDataDataDataDataDataDataDataDataDataData,Attribute,AttributeValue,TRUE,FALSE)=0x8007007A (DRM_E_BUFFERTOOSMALL)
+TestXMLBWriteTag(NodeName,DataDataDataDataDataDataDataDataDataDataData,Attribute,AttributeValue,TRUE,TRUE)
+TestXMLBCloseDocument(Dump,EMPTY,0,NULL,0)
+TestXMLBValidateDocument(NULL,NULL)
+TestXMLBUtilReinitialize(0)
+

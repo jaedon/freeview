@@ -1,0 +1,178 @@
+/*
+ * Rename Dialog
+ */
+.listDlg {
+  width: 800px;
+  bottom: 0px;
+  height: 428px;
+  background: url(../images/107_Line_DW_White.png) no-repeat, url(../images/107_Line_DW_White.png) no-repeat 0 bottom, rgba(0, 0, 0, 0.95);
+}
+.listDlg.onChList {
+  z-index: 2;
+}
+.listDlg.chGrid {
+  z-index: 2;
+  height: 540px;
+}
+.listDlg .text {
+  line-height: 34px;
+  font-size: 28px;
+  font-family: PrismFontB;
+  text-align: center;
+  color: #ffffff;
+}
+.listDlg .dlgMenuBg {
+  position: absolute;
+  top: 0px;
+  height: 265px;
+  width: 680px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 4px 10px;
+  /*background: rgba(0, 0, 0, 0.50);*/
+}
+.listDlg .dlgMenuBg .-scroll {
+  height: 261px;
+  margin: 5px 10px;
+}
+.listDlg .dlgMenuBg.grid {
+  height: 440px;
+  width: 720px;
+}
+.listDlg .dlgMenuBg.grid .-scroll {
+  height: 440px;
+}
+.listDlg .dlgMenu {
+  width: 680px;
+  margin: 5px 10px;
+}
+.listDlg .dlgMenuItem {
+  position: absolute;
+  width: 665px;
+  height: 50px;
+}
+.listDlg .dlgMenuItem.grid {
+  height: 40px;
+  width: 350px;
+}
+.listDlg .dlgMenuItem.grid .l {
+  top: 8px;
+  line-height: 24px;
+  font-size: 24px;
+  width: 323px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.listDlg .dlgMenuItem .b {
+  position: absolute;
+  font-family: PrismFontL;
+  font-size: 26px;
+}
+.listDlg .dlgMenuItem .l {
+  position: absolute;
+  color: #ffffff;
+  line-height: 26px;
+  top: 12px;
+  left: 16px;
+  font-family: PrismFontL;
+  font-size: 26px;
+}
+.listDlg .dlgMenuItem .l.selected {
+  color: #135c86;
+  font-family: PrismFontB;
+  font-size: 26px;
+  /*left: 54px;*/
+}
+.listDlg .dlgMenuItem.noScroll {
+  width: 678px;
+}
+.listDlg .dlgMenuItem.combo {
+  width: 427px;
+}
+.listDlg .dlgMenuItem.combo .l {
+  left: 55px;
+}
+.listDlg .dlgMenuItem.combo .l .selected {
+  color: #ffffff;
+  font-family: PrismFontL;
+  left: 55px;
+}
+.listDlg .dlgMenuItem.combo.noScroll {
+  width: 439px;
+}
+.listDlg .dlgMenuItem.combo .b.selected:before {
+  background: url(../images/112_Multi_Check_On.png) no-repeat;
+}
+.listDlg .dlgMenuItem.combo .b:before {
+  content: "";
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 6px;
+  left: 5px;
+  width: 38px;
+  height: 38px;
+  background-size: 58px 58px;
+  background: url(../images/112_Multi_Check_Off.png) no-repeat;
+}
+.listDlg .dlgMenuItem.combo.-afd-leaf .l.selected {
+  font-family: PrismFontB;
+  color: #000000;
+  left: 55px;
+}
+.listDlg .dlgMenuItem.-afd-leaf {
+  background: #2eb2ff no-repeat;
+  background-position: 665px 50px;
+}
+.listDlg .dlgMenuItem.-afd-leaf .l {
+  position: absolute;
+  color: #000000;
+  font-family: PrismFontB;
+  font-size: 26px;
+}
+.listDlg .dlgMenuItem .b:before {
+  content: "";
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+}
+.listDlg .dlgMenuItem .b:before.selected:before {
+  top: 12px;
+  left: 16px;
+  width: 38px;
+  height: 25px;
+  background-size: 58px 58px;
+  background: url(../images/200_Check_H.png) no-repeat;
+}
+.listDlg .buttonArea {
+  position: absolute;
+  left: 483px;
+  bottom: -12px;
+}
+.listDlg .btn {
+  width: 220px;
+  height: 50px;
+  line-height: 50px;
+  background: #414141;
+  font-family: PrismFontB;
+  font-size: 26px;
+  color: #D2D2D2;
+  text-align: center;
+}
+.listDlg .btn.-afd-leaf {
+  background: #2EB2FF;
+  color: black;
+}
+.listDlg .checkbox {
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  color: gray;
+  margin: auto;
+}
+.listDlg .checkbox.checked {
+  background: url(../images/200_Check_N.png) center no-repeat;
+}
+.listDlg .-afd-leaf .checkbox {
+  border: 3px solid #2eb2ff;
+}

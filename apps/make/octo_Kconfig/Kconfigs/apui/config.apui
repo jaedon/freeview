@@ -1,0 +1,30 @@
+################################################
+#					AP UI Configuration					#
+################################################
+
+comment "Global AP UI Configuration. (APUI_XXX)"
+
+# UI System
+	choice
+		prompt "Target App UI"
+		default APUI_WEB
+
+		config APUI_NATIVE_APP
+			bool "APUI_NATIVE_APP - Humax Native application UI"
+		config APUI_WEB
+			bool "APUI_WEB - Web application UI"
+		config APUI_NONE
+			bool "APUI_NONE - No AP UI (Only AP Core)"			
+	endchoice
+	
+	if APUI_WEB
+		source "./Kconfigs/apui/config.webui"
+	endif
+	
+	if APUI_NATIVE_APP
+		source "./Kconfigs/apui/config.nativeapp"
+	endif
+	
+	config APUI_SCREEN_SAVER
+	bool "APUI_SCREEN_SAVER - Support screen saver"
+	default n

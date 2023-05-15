@@ -1,0 +1,27 @@
+
+TARGETTYPE=LIBRARY
+TARGETNAME=DRMManagerTestAPI
+
+SOURCES = \
+    ../dlrb.c \
+    ../DrmManagerTestAPI.c \
+    ../DRMMGR_ContentPropTestAPI.c \
+    ../DRMMGR_DevicePropertyTestAPI.c \
+    ../DRMMGR_DomainsTestAPI.c \
+    ../DRMMGR_EncryptTestAPI.c \
+    ../DRMMGR_EnvelopeTestAPI.c \
+    ../DRMMGR_HDSTestAPI.c \
+    ../DRMMGR_InitializationTestAPI.c \
+    ../DRMMGR_LicAcqTestAPI.c \
+    ../DRMMGR_LicenseQueryTestAPI.c \
+    ../DRMMGR_LicenseResponseTestAPI.c \
+    ../DRMMGR_LicenseTestAPI.c \
+    ../DRMMGR_MeteringTestAPI.c \
+    ../DRMMGR_ReaderTestAPI.c \
+    ../DRMMGR_RevocationTestAPI.c \
+    ../DRMMGR_SecureClockTestAPI.c \
+    ../DRMMGR_StoreMgmtTestAPI.c \
+    ../DRMMGR_SyncListTestAPI.c \
+    ../DRMMGR_UpgradeTestAPI.c \
+    ../DRMMGR_TimeTestAPI.c \
+

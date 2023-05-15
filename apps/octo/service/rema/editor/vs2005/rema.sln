@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rema", "rema.vcproj", "{916DDF30-DF4A-42FE-9F01-7EB5E51E4C8B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Untary_test_rema", "Untary_test_rema.vcproj", "{CA2DAF46-2D08-48FD-A80D-37CABB4C7FC6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{916DDF30-DF4A-42FE-9F01-7EB5E51E4C8B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{916DDF30-DF4A-42FE-9F01-7EB5E51E4C8B}.Debug|Win32.Build.0 = Debug|Win32
+		{916DDF30-DF4A-42FE-9F01-7EB5E51E4C8B}.Release|Win32.ActiveCfg = Release|Win32
+		{916DDF30-DF4A-42FE-9F01-7EB5E51E4C8B}.Release|Win32.Build.0 = Release|Win32
+		{CA2DAF46-2D08-48FD-A80D-37CABB4C7FC6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CA2DAF46-2D08-48FD-A80D-37CABB4C7FC6}.Debug|Win32.Build.0 = Debug|Win32
+		{CA2DAF46-2D08-48FD-A80D-37CABB4C7FC6}.Release|Win32.ActiveCfg = Release|Win32
+		{CA2DAF46-2D08-48FD-A80D-37CABB4C7FC6}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

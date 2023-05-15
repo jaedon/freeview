@@ -1,0 +1,11 @@
+!include ..\..\reftest.cmn
+
+TARGETNAME=XMLParserTestAPI
+TARGETTYPE=LIBRARY
+
+SOURCES = \
+    ..\testxmlParser.c \
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \

@@ -1,0 +1,51 @@
+10473:Drm_Initialize should succeed when secure clock is not set initially
+Test_API_MGR_Initialize
+
+10514:Drm_Initialize should succeed when secure clock is set
+Test_SetSecureClock(8 CLK_LK_RSC_VALID)
+Test_API_MGR_Initialize
+
+10515:Drm_SecureClock_GenerateChallenge should return the secure clock service url from the devcert
+Test_API_MGR_Initialize
+Test_API_MGR_ClkGenerateChallenge(NORMAL, TRUE, NORMAL)
+
+
+10517:Drm_SecureClock_ProcessResponse should process valid response
+Test_API_MGR_Initialize
+Test_SetChallengeState(qJmdOWVEIlFPPcIvbCU2Nw==, AHbiH8BbxAE=)
+Test_API_MGR_ClkProcessResponse(secClockResponse.txt, NORMAL, NORMAL, 0)
+
+
+10520:Drm_SecureClock_GetValue should return secure clock info in string format
+Test_SetSecureClock(8 CLK_LK_RSC_VALID)
+Test_API_MGR_Initialize
+Test_API_MGR_GetSecureClock(NORMAL, NORMAL, NULL)
+
+10521:Drm_SecureClock_GetValue should return secure clock info in xml format
+Test_SetSecureClock(8 CLK_LK_RSC_VALID)
+Test_API_MGR_Initialize
+Test_API_MGR_GetSecureClock(NORMAL, NULL, NORMAL)
+
+-------------------BVT ends here--------------------------
+
+10518:Drm_SecureClock_ProcessResponse should fail if the response id is different
+Test_API_MGR_Initialize
+Test_SetChallengeState(xIvpURpE*6FQf7*k9A6mbQ==, AHbiH8BbxAE=)
+Test_API_MGR_ClkProcessResponse(secClockResponse.txt, NORMAL, NORMAL, 0)=-2147172289(0X8004C03F, DRM_E_CLK_INVALID_RESPONSE)
+
+10519:Drm_SecureClock_ProcessResponse should fail if the response arrives too late
+Test_API_MGR_Initialize
+Test_SetChallengeState(qJmdOWVEIlFPPcIvbCU2Nw==, AHbiH8BbxAE=)
+Test_ChangeClock(6 minutes)
+Test_API_MGR_ClkProcessResponse(secClockResponse.txt, NORMAL, NORMAL, 0)=-2147172289(0X8004C03F, DRM_E_CLK_INVALID_RESPONSE)
+Test_ChangeClock(-6 minutes)
+
+11615:Drm_SecureClock_ProcessResponse should fail if the response certificate is broken
+Test_API_MGR_Initialize
+Test_SetChallengeState(qJmdOWVEIlFPPcIvbCU2Nw==, AHbiH8BbxAE=)
+Test_API_MGR_ClkProcessResponse(secClockResponse.txt, NORMAL, NORMAL, 0, BREAK_CERT)=-2147172289(0X8004C03F, DRM_E_CLK_INVALID_RESPONSE)
+
+11849:Drm_SecureClock_ProcessResponse should fail if the response signature is broken
+Test_API_MGR_Initialize
+Test_SetChallengeState(qJmdOWVEIlFPPcIvbCU2Nw==, AHbiH8BbxAE=)
+Test_API_MGR_ClkProcessResponse(secClockResponse.txt, NORMAL, NORMAL, 0, BREAK_SIGNATURE)=-2147172289(0X8004C03F, DRM_E_CLK_INVALID_RESPONSE)

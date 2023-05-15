@@ -1,0 +1,20 @@
+# UK FreeSat
+
+	menu "Select Operator's specific configs"
+		comment "Select Operator's specific configs"
+		config OP_FREESAT_DYNAMIC_UPDATE
+			depends on OP_FREESAT
+			bool "OP_FREESAT_DYNAMIC_UPDATE - freesat dynamic update"
+			default y
+
+	config OP_FREESAT_GEN2
+		depends on OP_FREESAT
+		bool "OP_FREESAT_GEN2 - Freesat Gen2 Feature on / off "
+		default n
+	
+	config OP_FREESAT_GEN2_ADDFILTER
+		depends on OP_FREESAT
+		bool "OP_FREESAT_GEN2_ADDFILTER - Freesat Gen2 Feature on / off "
+		default y
+	endmenu
+

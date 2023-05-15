@@ -1,0 +1,11 @@
+obj-y += nx_core_metadata_programmes.o
+obj-y += nx_core_metadata_search.o
+obj-y += nx_core_metadata_pf.o
+obj-y += nx_core_metadata_epg.o
+
+# Basic include path
+ccflags-y += -I$(NATIVEAPP_TOP_DIR)/include
+ccflags-y += -I$(NATIVEAPP_CORE_INCLUDE_DIR)/include
+
+# Additional include path
+ccflags-y += -I$(NATIVEAPP_PORT_INCLUDE_DIR)/include

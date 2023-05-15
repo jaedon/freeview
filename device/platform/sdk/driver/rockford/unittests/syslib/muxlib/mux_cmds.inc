@@ -1,0 +1,7 @@
+	{BTST_OpenMux                   , NULL           , "open_mux"         , "om"            , "Open MUX"                                                },
+	{BTST_CloseMux                  , NULL           , "close_mux"        , "cm"            , "Close MUX"                                               },
+	{BTST_StartMux                  , NULL           , "start_mux"        , "mux"           , "Start MUX"                                               },
+	{BTST_StopMux                   , NULL           , "stop_mux"         , "xmux"          , "Stop MUX"                                                },
+	{BTST_GetMuxedFrames            , NULL           , "muxed_frames"     , "fm"            , "Get Muxed Frames"                                        },
+	{BTST_ConfigMux                 , NULL           , "config_mux"       , "cfgm"          , "Config MUX"                                              },
+	{BTST_ConfigFNRT                , NULL           , "config_fnrt"      , "cfgfnrt"       , "Config FNRT"                                             },

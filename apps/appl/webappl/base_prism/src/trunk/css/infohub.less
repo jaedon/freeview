@@ -1,0 +1,829 @@
+#-test-infoHub {
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    padding: 0 0 0 60px;
+    opacity: 0;
+    -webkit-transition: opacity .3s linear;
+    -o-transition: opacity .3s linear;
+    background: -webkit-linear-gradient(left, rgba(0, 0, 0, .8) 0%, rgba(0, 0, 0, .9) 20%, transparent 100%);
+    background: -o-linear-gradient(left, rgba(0, 0, 0, .8) 0%, rgba(0, 0, 0, .9) 20%, transparent 100%);
+  .dateTimePane {
+    position: absolute;
+    top: 35px;
+  }
+  .date {
+    color: rgba(178, 178, 178, 0.851);
+    font-family: "PrismFontL";
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.05;
+  }
+  .time {
+    color: rgba(212, 212, 212, 0.898);
+    font-family: "PrismFontB";
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.05;
+  }
+  #entryPane {
+    position: absolute;
+    top: 93px;
+    width: 430px;
+    height: 238px;
+    padding: 34px 0px;
+  }
+  .highlight {
+    position: absolute;
+    left: -60px;
+    top: 39px;
+    height: 60px;
+    padding: 0 0 0 60px;
+    -webkit-transition: width .3s linear;
+    -o-transition: width .3s linear;
+    width: 430px;
+    color: #2EBEFF;
+    &.on {
+      background-color: #2EBEFF;
+      color: #000000;
+    }
+    .chItem {
+      position: absolute;
+      line-height: 60px;
+      left: 60px;
+      font-size: 42px;
+      font-family: "PrismFontB";
+      font-weight: 700;
+      height: 60px;
+    }
+    .chNum {
+      font-size: 42px;
+      width: 95px;
+      line-height: 60px;
+      font-family: "PrismFontL";
+      font-weight: 400;
+      background: url(../images/107_Line_LTV_CH.png) no-repeat right center;
+    }
+    &.on .chNum {
+      background: url(../images/107_Line_LTV_CH_iHub.png) no-repeat right center;
+    }
+    .chName {
+      line-height: 60px;
+      padding: 0px 0px 0px 14px;
+      font-size: 42px;
+      font-family: "PrismFontB";
+      left: 95px;
+      overflow: hidden;
+      position: absolute;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 322px;
+    }
+  }
+  .arrowUp {
+    position: absolute;
+    opacity: 0;
+    top: 26px;
+    width: inherit;
+    height: 26px;
+    -webkit-transition: opacity .3s linear,top .3s linear;
+    -o-transition: opacity .3s linear,top .3s linear;
+    background: url(../images/106_Arrow_Up.png) center top no-repeat;
+  }
+  .arrowDown {
+    position: absolute;
+    opacity: 0;
+    bottom: 26px;
+    width: inherit;
+    height: 26px;
+    -webkit-transition: opacity .3s linear,bottom .3s linear;
+    -o-transition: opacity .3s linear,bottom .3s linear;
+    background: url(../images/106_Arrow_Down.png) center bottom no-repeat;
+  }
+  .arrowRight {
+    position: absolute;
+    opacity: 0;
+    right: 0px;
+    height: inherit;
+    width: 26px;
+    -webkit-transition: opacity .3s linear,right .3s linear;
+    -o-transition: opacity .3s linear,right .3s linear;
+    background: url(../images/106_Arrow_Right.png) center center no-repeat;
+  }
+  &.show {
+    opacity: 1;
+  }
+  .arrowUp.show {
+    top: 0px;
+    opacity: 1;
+  }
+  .arrowDown.show {
+    bottom: 0px;
+    opacity: 1;
+  }
+  .arrowRight.show {
+    right: -34px;
+    opacity: 1;
+  }
+  .arrowRight.chShow {
+    right: 8px;
+    opacity: 1;
+  }
+  .chItem {
+    height: 54px;
+    width: 430px;
+    * {
+      float: left;
+      line-height: 54px;
+      font-size: 42px;
+    }
+  }
+  .-carousel-item{
+    &.dis {
+      color: #505050;
+    }
+    .chNum {
+      position: absolute;
+      width: 70px;
+      font-size: 36px;
+      font-family: "PrismFontL";
+      font-weight: 400;
+      color: #cfcfcf;
+    }
+  }
+  .-carousel-item{
+    &.dis .chNum {
+      color: #505050;
+    }
+    .chNum.on {
+      margin-right: 5px;
+      font-size: 42px;
+      line-height: 60px;
+      position: absolute;
+      width: 95px;
+      color: #2EB2FF;
+      background: url(../images/107_Line_LTV_CH.png) no-repeat right center;
+    }
+    .chName {
+      position: absolute;
+      padding: 0px 0px 0px 88px;
+      line-height: 54px;
+      font-size: 36px;
+      font-weight: 400;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 321px;
+      overflow: hidden;
+    }
+    &.dis .chName {
+      color: #505050;
+    }
+    .chName.on {
+      position: absolute;
+      padding: 0px 46px 0px 109px;
+      line-height: 60px;
+      font-size: 42px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      width: 322px;
+    }
+  }
+  .chEvtName {
+    position: absolute;
+    top: 50px;
+    line-height: 53px;
+    font-size: 30px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 430px;
+    /*left: 50px;*/
+    font-family: "PrismFontL";
+    color: #fff;
+  }
+  .chEvtTime {
+    position: absolute;
+    top: 83px;
+    line-height: 50px;
+    font-size: 26px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 330px;
+    /*left: 50px;*/
+    font-family: "PrismFontL";
+    color: #fff;
+  }
+  .chCasIcon {
+    position: absolute;
+    margin: auto;
+    padding: 0;
+    /*    background: url(../images/105_BG_EPG_Logo.png) no-repeat;*/
+    left: 5px;
+    top: 53px;
+    img {
+      width: 32px;
+      height: 32px;
+      /*    margin: -12px 0 0;*/
+    }
+  }
+  .chThumbnail {
+    position: absolute;
+    display: inline-block;
+    left: 5px;
+    top: 105px;
+    img {
+      width: 263px;
+      height: 148px;
+      /*margin: -12px 0 0;*/
+    }
+  }
+  .chThumOutline {
+    position: absolute;
+    top: 100px;
+    width: 263px;
+    height: 148px;
+    border: 5px solid #2eb2ff;
+  }
+  .chLogo {
+    position: absolute;
+    margin: auto;
+    padding: 0;
+    background: url(../images/105_BG_EPG_Logo.png) no-repeat;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    width: 110px;
+    height: 50px;
+    img {
+      width: 110px;
+      height: 50px;
+    }
+  }
+  .chIconRec {
+    background: url(../images/205_REC_Recording.png) no-repeat transparent;
+    position: absolute;
+    height: 32px;
+    bottom: 3px;
+    right: 3px;
+    width: 32px;
+  }
+  .chIconRecLite {
+    background: url(../images/205_REC_Recording.png) no-repeat transparent;
+    position: absolute;
+    height: 28px;
+    bottom: -16px;
+    right: 10px;
+    width: 28px;
+    left : 170px;
+  }
+  #viewIPlate .chIconRec {
+    bottom: 10px;
+    right: 15px;
+  }
+  .progName {
+    height: 104px;
+    width: inherit;
+    font-size: 46px;
+    line-height: 54px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 10px 0px;
+    font-family: "PrismFontL";
+  }
+  .progProgress {
+    height: 28px;
+    margin: 12px 20px 0 0;
+  }
+  .progStartTime {
+    float: left;
+    line-height: 26px;
+    font-size: 20px;
+    font-family: "PrismFontL";
+  }
+  .progEndTime {
+    float: right;
+    line-height: 26px;
+    font-size: 20px;
+    font-family: "PrismFontL";
+  }
+  .progBar {
+    height: 2px;
+    background: rgba(255, 255, 255, 0.196);
+    opacity: 0;
+    clear: both;
+    &.show {
+      opacity: 1;
+    }
+  }
+  .progPos {
+    height: 3px;
+    background: #9B9B9B;
+  }
+  #channelList {
+    top: 28px;
+    width: 472px;
+  }
+  .chList {
+    height: 54px;
+    .chName {
+      left: 86px;
+      line-height: 54px;
+      margin: 0;
+      font-size: 36px;
+    }
+    .chNum {
+      line-height: 54px;
+      font-size: 36px;
+      font-family: "PrismFontL";
+    }
+  }
+}
+
+/*#channelList .-carousel-dist0 {
+ visibility: hidden;
+ }*/
+#channelList .-carousel-anchor {
+    height: 270px;
+    top: 137px;
+    color: #2EBEFF;
+    margin: -4px 0px;
+}
+#-test-infoHub #viewIPlate {
+    top: 339px;
+    width: 1230px;
+    height: 168px;
+}
+#viewIPlate{
+  .iPlateItem {
+    width: 221px;
+    height: 124px;
+    margin-top: 32px;
+    margin-left: 52px;
+    /*
+     -webkit-transition: width .3s, height .3s, -webkit-transform .3s;
+     -o-transition: width .3s, height .3s,-o-transform .3s;
+     */
+    > img {
+      position: absolute;
+      margin-left: 52px;
+      bottom: 3px;
+      left: 3px;
+      width: 32px;
+      height: 32px;
+    }
+  }
+  .-afd-leaf .iPlateItem {
+    width: 263px;
+    height: 149px;
+    margin-top: 20px;
+    margin-left: 5px;
+    > img {
+      position: absolute;
+      margin-left: 5px;
+      bottom: 3px;
+      left: 3px;
+      width: 32px;
+      height: 32px;
+    }
+    /*
+     -webkit-transition: width .3s, height .3s, -webkit-transform .3s;
+     -o-transition: width .3s, height .3s,-o-transform .3s;
+     */
+  }
+  .iPlateItem.previous {
+    margin-left: 0px;
+  }
+  .iPlateItemIcoCatchup {
+    content: "";
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    width: 32px;
+    height: 32px;
+    /*background: url(../images/213_Play_SS_N.png) no-repeat;*/
+    background: url(../images/205_REC_Play.png) no-repeat;
+  }
+  .-afd-leaf .iPlateItemIcoCatchup {
+    /*margin-left: 200px;
+    margin-top: 42px;*/
+    /*background: url(../images/213_Play_SS_C.png) no-repeat;*/
+    background: url(../images/205_REC_Play.png) no-repeat;
+  }
+  .iPlateItemIcoLive {
+    content: "";
+    position: absolute;
+    margin-left: -4px;
+    margin-top: -4px;
+    width: 88px;
+    height: 88px;
+    //background: url(../images/216_OnAir.png) no-repeat;
+    background-size: 66px 66px;
+  }
+  .-afd-leaf .iPlateItemIcoLive {
+    margin-left: -8px;
+    margin-top: -8px;
+    background-size: 88px 88px;
+    z-index: 1;
+  }
+  .iPlateItemIcoPast {
+    content: "";
+    position: absolute;
+    margin-left: -4px;
+    margin-top: -4px;
+    width: 88px;
+    height: 88px;
+    //background: url(../images/220_Past.png) no-repeat;
+    background-size: 66px 66px;
+  }
+  .-afd-leaf .iPlateItemIcoPast {
+    margin-left: -8px;
+    margin-top: -8px;
+    background-size: 88px 88px;
+    z-index: 1;
+  }
+  .iPlateItemIcoNew {
+    content: "";
+    position: absolute;
+    margin-left: -4px;
+    margin-top: -4px;
+    width: 88px;
+    height: 88px;
+    background: url(../images/215_NEW.png) no-repeat;
+    background-size: 66px 66px;
+  }
+  .-afd-leaf .iPlateItemIcoNew {
+    margin-left: -8px;
+    margin-top: -8px;
+    background-size: 88px 88px;
+    z-index: 1;
+  }
+
+  .iPlateItemIcoRec {
+    content: "";
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    background: url(../images/205_REC_Recording.png) no-repeat;
+  }
+  .iPlateItemIcoRecRsv {
+    content: "";
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    background: url(../images/205_REC_Reservation_Recording.png) no-repeat;
+  }
+  .iPlateItemIcoRecRsvSer {
+    content: "";
+    position: absolute;
+    bottom: 10px;
+    right: 35px;
+    width: 33px;
+    height: 28px;
+    background: url(../images/205_REC_Reservation_Series.png) no-repeat;
+  }
+  .iPlateItemIcoReminder {
+    content: "";
+    position: absolute;
+    bottom: 10px;
+    right: 37px;
+    width: 28px;
+    height: 28px;
+    background: url(../images/205_REC_Reservation_Watch.png) no-repeat;
+  }
+  .iPlateItemIcoLock {
+    content: "";
+    position: absolute;
+    bottom: 10px;
+    right: 67px;
+    width: 22px;
+    height: 28px;
+    background: url(../images/211_Lock.png) no-repeat;
+  }
+  .iPlateItemIcoScrambled {
+    content: "";
+    position: absolute;
+    right: 10px;
+    margin-top: 10px;
+    width: 36px;
+    height: 28px;
+    background: url(../images/202_CAS_Multi.png) no-repeat;
+  }
+  .iPlateItemNoRec {
+    position:absolute;
+    color: #505050;
+    font-size:22px;
+    left:15px;
+    top:61px;
+    width:240px;
+    line-height:32px;
+    text-align: center;
+  }
+}
+#-test-infoHub{
+  .statusPan {
+    bottom: 100px;
+    font-family: "PrismFontL";
+    font-size: 24px;
+    left: 60px;
+    position: absolute;
+  }
+  .statusText {
+    height: 30px;
+    line-height: 30px;
+    margin: 0px 0px 17px;
+    padding: 0px 0px 0px 38px;
+    position: relative;
+  }
+  .statusIconRec {
+    background: url(../images/205_REC_Recording.png) no-repeat transparent;
+    /*background-position: 0px -50px;*/
+    display: inline-block;
+    height: 30px;
+    padding-right: 14px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 30px;
+  }
+  .statusIconLiv {
+    background: url(../images/205_REC_Live.png) no-repeat transparent;
+    /*background-position: 0px -248px;*/
+    display: inline-block;
+    height: 30px;
+    padding-right: 14px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 30px;
+  }
+  .addToFav {
+    background: url("../images/201_Option.png") no-repeat;
+    color: #FFFFFF;
+    display: block;
+    font: normal normal 400 24px/26px PrismFontL;
+    height: 106px;
+    margin: 0px;
+    outline: #FFFFFF 0px;
+    overflow: hidden;
+    padding: 0px 0px 0px 36px;
+    opacity: 0;
+    position: absolute;
+    text-overflow: ellipsis;
+    top: 274px;
+    vertical-align: baseline;
+    width: 350px;
+    &.show {
+      opacity: 1;
+      z-index: 2;
+    }
+  }
+  .timeBarEntry {
+    position: absolute;
+  }
+  .timeBar {
+    background: url("../images/110_Bar_Time_Line01.png") no-repeat 10px 6px;
+    background-clip: border-box,border-box;
+    background-origin: padding-box,padding-box;
+    background-size: auto,auto;
+    color: #FFFFFF;
+    display: block;
+    font: normal normal 400 36px/44.28px PrismFontB;
+    height: 20px;
+    width: 1230px;
+    left: 0px;
+    /*    margin: 0px 0px 0px 5px;*/
+    outline: #FFFFFF 0px;
+    padding: 0px;
+    vertical-align: middle;
+    top: 532px;
+    position: absolute;
+    opacity: 0;
+    &.show {
+      opacity: 1;
+    }
+  }
+  .timeBar2 {
+    margin-top: 9px;
+    margin-left: 9px;
+    width: 100%;
+    height: 2px;
+    background: #2EB2FF;
+  }
+  .timeBarStart {
+    background: url('../images/350_LTV_Current.png') no-repeat;
+    position: absolute;
+    top: 0px;
+    margin-left: 0px;
+    width: 20px;
+    height: 20px;
+    left: 0%;
+  }
+  .timeBarCursor {
+    position: absolute;
+    top: 9px;
+    margin-left: 9px;
+    width: 16px;
+    height: 14px;
+    background: url('../images/350_LTV_Cursor.png') no-repeat;
+    left: 0%;
+    &.onAir{
+      background: url('../images/350_LTV_OnAir.png') no-repeat;
+      width: 99px;
+      height: 64px;
+      top: -2px;
+      margin-left: -4px;
+    }
+  }
+  .timeBarDate {
+    background: #2EB2FF;
+    box-shadow: rgba(0, 0, 0, 0.506) 0px 2px 6px 0px;
+    color: #000000;
+    font: normal normal 400 24px/31px PrismFontB;
+    height: 31px;
+    margin: 0px;
+    outline: #000000 0px;
+    padding: 0px;
+    position: absolute;
+    text-align: center;
+    top: 14px;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 110px;
+    &.onAir {
+      opacity: 0;
+    }
+  }
+  .cursor {
+    position: absolute;
+    top: 354px;
+    left: 60px;
+    width: 263px;
+    height: 148px;
+    border: 5px solid #2eb2ff;
+    opacity: 0;
+    z-index: 1;
+    &.show {
+      opacity: 1;
+    }
+  }
+  .catchupInfo {
+    position: absolute;
+    top: 653px;
+    left: 0px;
+    width :240px;
+    opacity: 0;
+    &.show {
+      opacity: 1;
+    }
+  }
+  .arrIco {
+    position: absolute;
+    margin-left: 0px;
+    margin-top: 0px;
+    width: 26px;
+    height: 30px;
+    background: url(../images/106_Arrow_Help_Left.png) no-repeat;
+  }
+  .arrTxt {
+    margin-left: 36px;
+    margin-top:-1px;
+    font-family: "PrismFontL";
+    font-size: 24px;
+    line-height: 30px;
+    color: #a0a0a0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cas {
+    width: 42px;
+    height: 48px;
+    &.va {
+      background: url(../images/202_CAS_VA.png) 0 center no-repeat;
+    }
+    &.nd {
+      background: url(../images/202_CAS_ND.png) 0 center no-repeat;
+    }
+    &.na {
+      background: url(../images/202_CAS_NA.png) 0 center no-repeat;
+    }
+    &.mg {
+      background: url(../images/202_CAS_MG.png) 0 center no-repeat;
+    }
+    &.ir {
+      background: url(../images/202_CAS_IR.png) 0 center no-repeat;
+    }
+    &.cx {
+      background: url(../images/202_CAS_CX.png) 0 center no-repeat;
+    }
+    &.cr {
+      background: url(../images/202_CAS_CR.png) 0 center no-repeat;
+    }
+    &.bt {
+      background: url(../images/202_CAS_BT.png) 0 center no-repeat;
+    }
+    &.bd {
+      background: url(../images/202_CAS_BD.png) 0 center no-repeat;
+    }
+    &.multi {
+      background: url(../images/202_CAS_Multi.png) 0 center no-repeat;
+    }
+  }
+  .progName .cas {
+    display: inline-block;
+    width: 35px;
+    height: 28px;
+  }
+  .channelCas {
+    display: inline-block;
+    width: 32px;
+    height: 28px;
+    background: url("../images/202_CAS_Multi.png") no-repeat;
+  }
+  .channelLock {
+    display: inline-block;
+    width: 22px;
+    height: 28px;
+    background: url("../images/211_Lock.png") no-repeat;
+  }
+  .progName .channelLock {
+    display: inline-block;
+    width: 22px;
+    height: 28px;
+    background: url("../images/211_Lock.png") no-repeat;
+  }
+  .scheduleRecord {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background: url("../images/205_REC_Reservation_Recording.png") no-repeat;
+  }
+  .scheduleReminder {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background: url("../images/205_REC_Reservation_Watch.png") no-repeat;
+  }
+  .-carousel-anchor .channelLock {
+    width: 28px;
+    height: 48px;
+    background: url("../images/211_Lock.png") 0 center no-repeat;
+  }
+
+}
+
+/* OPTION */
+#channelListOptBtn {
+    background: url("../images/107_Line_Context_L.png") no-repeat;
+    position: absolute;
+    z-index: 2;
+    left: 55px;
+    top: 631px;
+    width: 364px;
+    padding: 10px 0px 0px 6px;
+  .img {
+    display: inline;
+    vertical-align: bottom;
+    width: 26px;
+    height: 26px;
+    padding: 0 10px 0 0;
+  }
+  .tit {
+    display: inline;
+    vertical-align: bottom;
+    line-height: 26px;
+    font-family: "PrismFontL";
+    font-size: 24px;
+    color: #a0a0a0;
+    em {
+      color: #FFFFFF;
+      font-style: normal;
+    }
+  }
+}
+
+#-test-infoHub .favOptBtn {
+    position: absolute;
+    top: 320px;
+    left: 0px;
+    opacity: 0;
+    bottom: 30px;
+    width: 600px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 42px;
+    font-family: PrismFontL;
+    text-align: left;
+    background: url("../images/107_Line_Context_L.png") no-repeat;
+  &.show {
+    opacity: 1;
+    z-index: 2;
+  }
+}

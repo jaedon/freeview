@@ -1,0 +1,12 @@
+!include ..\drmbuild.cmn
+
+TARGETNAME=drmkeyfile
+TARGETTYPE=LIBRARY
+
+C_DEFINES= $(C_DEFINES)             \
+    -DDRM_BUILDING_DRMKEYFILE_LIB   \
+
+SOURCES =                 \
+    drmkeyfile.c          \
+    drmkeyfilewrite.c     \
+

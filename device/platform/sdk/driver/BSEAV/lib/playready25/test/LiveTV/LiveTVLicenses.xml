@@ -1,0 +1,2415 @@
+<RightsPool>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Permanent Leaf"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="0"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root 2 6 12"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    LID="{85227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <AuxKey number_of_entries="3">
+      <AuxKeyEntry index="0" location="2"/>
+      <AuxKeyEntry index="1" location="6"/>
+      <AuxKeyEntry index="2" location="12"/>
+    </AuxKey>
+  </LicenseRights>
+  
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf 1 5 9"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    LID="{95227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="3">
+      <AuxKeyEntry index="0" location="1"/>
+      <AuxKeyEntry index="1" location="5"/>
+      <AuxKeyEntry index="2" location="9"/>
+    </UplinkX>
+  </LicenseRights>
+  
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf 3 7 15"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    LID="{95227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="3">
+      <AuxKeyEntry index="0" location="3"/>
+      <AuxKeyEntry index="1" location="7"/>
+      <AuxKeyEntry index="2" location="15"/>
+    </UplinkX>
+  </LicenseRights>
+  
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf 11"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    LID="{95227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="11"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root 8"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    LID="{85227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <AuxKey number_of_entries="1">
+      <AuxKeyEntry index="0" location="8"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf 9 13"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    LID="{95227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="2">
+      <AuxKeyEntry index="0" location="9"/>
+      <AuxKeyEntry index="1" location="13"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root 12"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    LID="{85227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <AuxKey number_of_entries="1">
+      <AuxKeyEntry index="0" location="12"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf 1 7"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    LID="{95227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="2">
+      <AuxKeyEntry index="0" location="1"/>
+      <AuxKeyEntry index="1" location="7"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root 6"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    LID="{85227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <AuxKey number_of_entries="1">
+      <AuxKeyEntry index="0" location="6"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf 9"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    LID="{95227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="9"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root 2 12"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    LID="{85227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <AuxKey number_of_entries="2">
+      <AuxKeyEntry index="0" location="2"/>
+      <AuxKeyEntry index="1" location="12"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf 5 7"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    LID="{95227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="2">
+      <AuxKeyEntry index="0" location="5"/>
+      <AuxKeyEntry index="1" location="7"/>
+    </UplinkX>
+  </LicenseRights>
+
+<!-- ============================================================== -->
+<!-- ======================== LEAF LICENSES ======================= -->
+<!-- ============================================================== -->
+
+<!-- ================= LEAVES w/ AuxKeyEntry NODES ================ -->
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf 0"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="0"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf 1"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="1"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf 6"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="6"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+  Type="Leaf"
+  TestCaseID="Leaf 65"
+  AllowPlay="TRUE"
+  KID="!3x8NSroVg4eXCzWqPU!BA=="
+  UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+  ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="65"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf 10"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="10"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf 0 2499"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="2">
+      <AuxKeyEntry index="0" location="0"/>
+      <AuxKeyEntry index="1" location="2499"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf 0 2500"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="2">
+      <AuxKeyEntry index="0" location="0"/>
+      <AuxKeyEntry index="1" location="2500"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf 2499"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="2499"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf 2500"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="2500"/>
+    </UplinkX>
+  </LicenseRights>
+
+<!-- ================= LEAVES w/ VARIOUS LOCATIONS ================ -->
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with 0 locations"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="0">
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with 1 location"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="1">
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with 1 location and random KID"
+    AllowPlay="TRUE"
+    KID="*"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="1">
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with 2 locations"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="2">
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with 2 locations and random KID"
+    AllowPlay="TRUE"
+    KID="*"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="2">
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with 64 locations"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="64">
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with 129 locations and random KID"
+    AllowPlay="TRUE"
+    KID="*"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="129">
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with 236 locations"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="236">
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with 1000 locations"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="1000">
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with 1512 locations"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="1512">
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with 2000 locations"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="2000">
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with 2500 locations"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="2500">
+    </UplinkX>
+  </LicenseRights>
+
+<!-- ======================= PERMANENT LEAVES ===================== -->
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Permanent Leaf with 129 locations"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="129">
+    </UplinkX>
+  </LicenseRights>
+  
+<!-- ================== LEAVES W/ INCORRECT SEEDS ================= -->
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with incorrect seed"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XvsmzxxxIAmABadSeedIAmABadSeedxxxmJsa46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="0"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <!-- ================== LEAVES W/ INCORRECT CHECKSUM ================= -->
+  <LicenseRights
+      Type="Leaf"
+      TestCaseID="Leaf 0 Corrupt Checksum"
+      AllowPlay="TRUE"
+      KID="!3x8NSroVg4eXCzWqPU!BA=="
+      UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+      TestOptions="0x2000"
+  >
+    <UplinkX number_of_entries="2">
+      <AuxKeyEntry index="0" location="0"/>
+      <AuxKeyEntry index="1" location="2500"/>
+    </UplinkX>
+  </LicenseRights>
+
+
+  <!-- ===== LEAF LICENSES w/ REMOVALDATE w/ SCALABLE KEYS w/ NON-STATEFUL RESTRICTIONS ==== -->
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf license - Analog Video OPL"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+    AnalogVideo="150"
+  >
+    <UplinkX number_of_entries="31">
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf license - Analog Video Extensions"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+    AnalogVideo="150"
+  >
+    <AnalogVideoExtensions>
+      <EXTENSIONLIST>
+        <EXTENSION guid="{00000507-0007-0010-8000-00AA006D2EA4}" value="0"   />
+      </EXTENSIONLIST>
+    </AnalogVideoExtensions>
+    <UplinkX number_of_entries="31">
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf license - Compressed Digital Video OPL"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+    CompressedDigitalVideo="400"
+  >
+    <UplinkX number_of_entries="31">
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf license - Compressed Digital Audio OPL"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+    CompressedDigitalAudio="150"
+  >
+    <UplinkX number_of_entries="31">
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf license - Uncompressed Digital Video OPL"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+    UnCompressedDigitalVideo="250"
+  >
+    <UplinkX number_of_entries="31">
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf license - Uncompressed Digital Audio OPL"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+    UnCompressedDigitalAudio="150"
+  >
+    <UplinkX number_of_entries="31">
+    </UplinkX>
+  </LicenseRights>
+
+<!-- ============================================================== -->
+<!-- ======================== ROOT LICENSES ======================= -->
+<!-- ============================================================== -->
+
+  <!-- ================ ROOTs w/ UNIQUE LIDs  ============== -->
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 31 locations and LID 1"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    LID="LID1LID1LID1LID1LID1xx=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <AuxKey number_of_entries="31">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 31 locations and LID 2"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    LID="LID2LID2LID2LID2LID2xx=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <AuxKey number_of_entries="31">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Non-scalable root and LID 3"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    LID="LID3LID3LID3LID3LID3xx=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 128 locations and LID 4"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    LID="LID4LID4LID4LID4LID4xx=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <AuxKey number_of_entries="128">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 31 locations and LID 5 - Different Base Key"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    LID="LID5LID5LID5LID5LID5xx=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <AuxKey number_of_entries="31" base_key="y/4cMSbmqQ==">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 4 locations and LID 6 - Set 1"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    LID="LID6LID6LID6LID6LID6xx=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <AuxKey number_of_entries="4">
+      <AuxKeyEntry index="0" location="0"/>
+      <AuxKeyEntry index="1" location="2"/>
+      <AuxKeyEntry index="2" location="4"/>
+      <AuxKeyEntry index="3" location="6"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 4 locations and LID 7 - Set 2"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    LID="LID7LID7LID7LID7LID7xx=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <AuxKey number_of_entries="4">
+      <AuxKeyEntry index="0" location="8"/>
+      <AuxKeyEntry index="1" location="10"/>
+      <AuxKeyEntry index="2" location="12"/>
+      <AuxKeyEntry index="3" location="14"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 31 locations and LID 8 - RemovalDate"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    LID="LID8LID8LID8LID8LID8xx=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+  >
+    <AuxKey number_of_entries="31">
+    </AuxKey>
+  </LicenseRights>
+
+
+
+  <!-- ================ ROOTS w/ VARIOUS REMOVALDATES =============== -->
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 72h RemovalDate"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="72h"
+  >
+    <AuxKey number_of_entries="1">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 1h RemovalDate"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="1h"
+  >
+    <AuxKey number_of_entries="1">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 30s RemovalDate"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+  >
+    <AuxKey number_of_entries="1">
+    </AuxKey>
+  </LicenseRights>
+
+<!-- ================= ROOTS w/ VARIOUS LOCATIONS ================= -->
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 0 locations"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="0">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 1 location"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="1">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root 32768"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="1">
+      <AuxKeyEntry index="0" location="32768"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 2 locations"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="2">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 1000 locations"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="1000">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 1512 locations"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="1512">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 2000 locations"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="2000">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 2048 locations"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="2048">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 2304 locations"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="2304">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 2447 locations"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="2447">
+    </AuxKey>
+  </LicenseRights>
+  
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 2500 locations"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="2500">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 3000 locations"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="3000">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 9000 locations"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="9000">
+    </AuxKey>
+  </LicenseRights>
+
+<!-- ======================= PERMANENT ROOTS ====================== -->
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Permanent Root with 2500 locations"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <AuxKey number_of_entries="2500">
+    </AuxKey>
+  </LicenseRights>
+
+<!-- ===================== ROOTS w/ RANDOM KID ==================== -->
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 30 second RemovalDate and random KID"
+    AllowPlay="TRUE"
+    KID="*"
+    RemovalDate="30s"
+  >
+    <AuxKey number_of_entries="10">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 2 hour RemovalDate and random KID"
+    AllowPlay="TRUE"
+    KID="*"
+    RemovalDate="2h"
+  >
+    <AuxKey number_of_entries="16">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 72 hour RemovalDate and random KID"
+    AllowPlay="TRUE"
+    KID="*"
+    RemovalDate="72h"
+  >
+    <AuxKey number_of_entries="9">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with random KID"
+    AllowPlay="TRUE"
+    KID="*"
+  >
+    <AuxKey number_of_entries="10">
+    </AuxKey>
+  </LicenseRights>
+
+
+<!-- ============================================================== -->
+<!-- ======================= SIMPLE LICENSES ====================== -->
+<!-- ============================================================== -->
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="LicenseWithRemovalDate10SecsInPast"
+    AllowPlay="TRUE"
+    KID="lFmb2gxg0Cr5bfEnJXgJeA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-10s"
+  />
+
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="LicenseWithRemovalDate10SecsInFuture"
+    AllowPlay="TRUE"
+    KID="lFmb2gxg0Cr5bfEnJXgJeA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="10s"
+  />
+
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="LicenseWithRemovalDate1000SecsInFuture"
+    AllowPlay="TRUE"
+    KID="lFmb2gxg0Cr5bfEnJXgJeA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="1000s"
+  />
+
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="KID02LicenseWithRemovalDate10SecsInPast"
+    AllowPlay="TRUE"
+    KID="RemovalDateTestKID02aa=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-10s"
+  />
+
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="KID02LicenseWithRemovalDate10SecsInFuture"
+    AllowPlay="TRUE"
+    KID="RemovalDateTestKID02aa=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="10s"
+  />
+
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="KID02LicenseWithRemovalDate1000SecsInFuture"
+    AllowPlay="TRUE"
+    KID="RemovalDateTestKID02aa=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="1000s"
+  />
+
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="LicenseWithRemovalDate10SecsInFutureWithPlayCount"
+    AllowPlay="TRUE"
+    KID="lFmb2gxg0Cr5bfEnJXgJeA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="10s"
+    PlayCount="10"
+  />
+  
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="LicenseWithRemovalDate10SecsInFutureWithExpireAfterUse"
+    AllowPlay="TRUE"
+    KID="lFmb2gxg0Cr5bfEnJXgJeA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="10s"
+    ExpirationAfterFirstUse="24h"
+  />
+  
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="LicenseWithRemovalDate10SecsInFutureWithExpireAfterPlay"
+    AllowPlay="TRUE"
+    KID="lFmb2gxg0Cr5bfEnJXgJeA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="10s"
+    ExpirationAfterFirstPlay="24h"
+  />
+  
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="LicenseWithRemovalDate10SecsInFutureWithExpireAfterStore"
+    AllowPlay="TRUE"
+    KID="lFmb2gxg0Cr5bfEnJXgJeA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="10s"
+    ExpirationOnStore="24h"
+  />
+  
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="LicenseWithRemovalDate10SecsInFutureWithExpiration"
+    AllowPlay="TRUE"
+    KID="lFmb2gxg0Cr5bfEnJXgJeA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="10s"
+    ExpirationDate="24h"
+  />
+  
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="LicenseWithRemovalDate10SecsInFutureWithBeginDate"
+    AllowPlay="TRUE"
+    KID="lFmb2gxg0Cr5bfEnJXgJeA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="10s"
+    BeginDate="-24h"
+  />
+  
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="LicenseWithRemovalDate10SecsInFutureWithCopyCount"
+    AllowPlay="TRUE"
+    KID="lFmb2gxg0Cr5bfEnJXgJeA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="10s"
+    AllowCopy="TRUE"
+    CopyCount="10"
+  />
+
+  <LicenseRights
+    Type="SIMPLE"
+    TestCaseID="Simple license with 30s RemovalDate"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="SIMPLE"
+    TestCaseID="Simple license with 30s RemovalDate and scalable license keys"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+  >
+    <UplinkX number_of_entries="64">
+    </UplinkX>
+  </LicenseRights>
+
+  <!-- ============= SIMPLE LICENSES w/ LIDs ============= -->
+
+  <LicenseRights
+    Type="SIMPLE"
+    TestCaseID="Simple license with root KID and LID 2"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    LID="LID2LID2LID2LID2LID2xx=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+  >
+  </LicenseRights>
+
+  <!-- === SIMPLE LICENSES w/ NON-STATEFUL RESTRICTIONS ==== -->
+
+  <LicenseRights
+    Type="SIMPLE"
+    TestCaseID="Simple license with 30s RemovalDate - Analog Video OPL"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+    AnalogVideo="150"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="SIMPLE"
+    TestCaseID="Simple license with 30s RemovalDate - Analog Video Extensions"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+    AnalogVideo="150"
+  >
+    <AnalogVideoExtensions>
+      <EXTENSIONLIST>
+        <EXTENSION guid="{00000507-0007-0010-8000-00AA006D2EA4}" value="0"   />
+      </EXTENSIONLIST>
+    </AnalogVideoExtensions>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="SIMPLE"
+    TestCaseID="Simple license with 30s RemovalDate - Compressed Digital Video OPL"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+    CompressedDigitalVideo="400"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="SIMPLE"
+    TestCaseID="Simple license with 30s RemovalDate - Compressed Digital Audio OPL"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+    CompressedDigitalAudio="150"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="SIMPLE"
+    TestCaseID="Simple license with 30s RemovalDate - Uncompressed Digital Video OPL"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+    UnCompressedDigitalVideo="250"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="SIMPLE"
+    TestCaseID="Simple license with 30s RemovalDate - Uncompressed Digital Audio OPL"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+    UnCompressedDigitalAudio="150"
+  >
+  </LicenseRights>
+
+  <!-- ===== ROOT LICENSES w/ REMOVALDATE w/ SCALABLE KEYS w/ NON-STATEFUL RESTRICTIONS ==== -->
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root license - Analog Video OPL"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+    AnalogVideo="150"
+  >
+    <AuxKey number_of_entries="31">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root license - Analog Video Extensions"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+    AnalogVideo="150"
+  >
+    <AnalogVideoExtensions>
+      <EXTENSIONLIST>
+        <EXTENSION guid="{00000507-0007-0010-8000-00AA006D2EA4}" value="0"   />
+      </EXTENSIONLIST>
+    </AnalogVideoExtensions>
+    <AuxKey number_of_entries="31">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root license - Compressed Digital Video OPL"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+    CompressedDigitalVideo="400"
+  >
+    <AuxKey number_of_entries="31">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root license - Compressed Digital Audio OPL"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+    CompressedDigitalAudio="150"
+  >
+    <AuxKey number_of_entries="31">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root license - Uncompressed Digital Video OPL"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+    UnCompressedDigitalVideo="250"
+  >
+    <AuxKey number_of_entries="31">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root license - Uncompressed Digital Audio OPL"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+    UnCompressedDigitalAudio="150"
+  >
+    <AuxKey number_of_entries="31">
+    </AuxKey>
+  </LicenseRights>
+
+<!-- ============================================================== -->
+<!-- =================== SPECIAL ROOT/LEAF SETS =================== -->
+<!-- ============================================================== -->
+
+<!-- ============================ Set 1 =========================== -->
+  <LicenseRights
+    Type="Root"
+    TestCaseID="LiveTV Root 1"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    LID="{85227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <AuxKey number_of_entries="1">
+      <AuxKeyEntry index="0" location="4"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="LiveTV Leaf 1_1"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    LID="{63BAD16B-CE80-433E-80F4-8E6951B7382C}"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="2">
+      <AuxKeyEntry index="0" location="1"/>
+      <AuxKeyEntry index="1" location="3"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="LiveTV Leaf 1_1 copy#2"
+    AllowPlay="TRUE"
+    KID="6Hnr4J9LTvGQnmJJR!uCCQ=="
+    LID="{12863DC2-8610-4E07-A23A-19CDEC8C7BF3}"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="2">
+      <AuxKeyEntry index="0" location="1"/>
+      <AuxKeyEntry index="1" location="3"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="LiveTV Leaf 1_1 copy#3"
+    AllowPlay="TRUE"
+    KID="xmbG0Aj0SdirJ82uPKo5HA=="
+    LID="{70EE09A0-0324-412C-B8F6-6AC175068396}"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="2">
+      <AuxKeyEntry index="0" location="1"/>
+      <AuxKeyEntry index="1" location="3"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="LiveTV Leaf 1_2"
+    AllowPlay="TRUE"
+    KID="6Hnr4J9LTvGQnmJJR!uCCQ=="
+    LID="{AF43C8A3-1E7B-46C4-8269-3AE78BA4CC6D}"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="3">
+      <AuxKeyEntry index="0" location="1"/>
+      <AuxKeyEntry index="1" location="5"/>
+      <AuxKeyEntry index="2" location="7"/>
+    </UplinkX>
+  </LicenseRights>
+
+<LicenseRights
+    Type="Leaf"
+    TestCaseID="LiveTV Leaf 1_3"
+    AllowPlay="TRUE"
+    KID="xmbG0Aj0SdirJ82uPKo5HA=="
+    LID="{E3510748-61E1-440D-99FD-FD24DB1D561A}"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="6"/>
+    </UplinkX>
+  </LicenseRights>
+
+<!-- ============================ Copy of Set 1 but use non scalable licenses =========================== -->
+  <LicenseRights
+    Type="Root"
+    TestCaseID="LiveTV Root 1 non scalable"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    LID="{85227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="LiveTV Leaf 1_1 non scalable"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    LID="{63BAD16B-CE80-433E-80F4-8E6951B7382C}"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="LiveTV Leaf 1_1 copy#2 non scalable"
+    AllowPlay="TRUE"
+    KID="6Hnr4J9LTvGQnmJJR!uCCQ=="
+    LID="{12863DC2-8610-4E07-A23A-19CDEC8C7BF3}"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="LiveTV Leaf 1_1 copy#3 non scalable"
+    AllowPlay="TRUE"
+    KID="xmbG0Aj0SdirJ82uPKo5HA=="
+    LID="{70EE09A0-0324-412C-B8F6-6AC175068396}"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="LiveTV Leaf 1_2 non scalable"
+    AllowPlay="TRUE"
+    KID="6Hnr4J9LTvGQnmJJR!uCCQ=="
+    LID="{AF43C8A3-1E7B-46C4-8269-3AE78BA4CC6D}"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+  </LicenseRights>
+
+<LicenseRights
+    Type="Leaf"
+    TestCaseID="LiveTV Leaf 1_3 non scalable"
+    AllowPlay="TRUE"
+    KID="xmbG0Aj0SdirJ82uPKo5HA=="
+    LID="{E3510748-61E1-440D-99FD-FD24DB1D561A}"
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+  </LicenseRights>
+<!-- ============================ Set 2 =========================== -->
+  <LicenseRights
+    Type="Root"
+    TestCaseID="LiveTV Root 2"
+    AllowPlay="TRUE"
+    KID="s2PqCBa3RbKc0fVbqhBCHg=="
+    LID="{69F24A2A-19EC-4148-A681-34240433D71B}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+  <AuxKey number_of_entries="2">
+    <AuxKeyEntry index="0" location="2"/>
+    <AuxKeyEntry index="1" location="12"/>
+  </AuxKey>
+  </LicenseRights>
+
+<LicenseRights
+    Type="Leaf"
+    TestCaseID="LiveTV Leaf 2_1"
+    AllowPlay="TRUE"
+    KID="ewYVOLoESeOuY0cUFdAjBQ=="
+    LID="{B00054B1-3CC5-47A7-BFEE-167F1CD8F514}"
+    UplinkKIDs="s2PqCBa3RbKc0fVbqhBCHg=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="3"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="LiveTV Leaf 2_2"
+    AllowPlay="TRUE"
+    KID="QckPgTI7Tfe32EMi3DFZOg=="
+    LID="{425D754B-73EC-4464-8B5B-8D514B9BE6A5}"
+    UplinkKIDs="s2PqCBa3RbKc0fVbqhBCHg=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="15"/>
+    </UplinkX>
+  </LicenseRights>
+
+<!-- ============================ Copy of Set 2 but use non scalable licenses =========================== -->
+  <LicenseRights
+    Type="Root"
+    TestCaseID="LiveTV Root 2 non scalable"
+    AllowPlay="TRUE"
+    KID="s2PqCBa3RbKc0fVbqhBCHg=="
+    LID="{69F24A2A-19EC-4148-A681-34240433D71B}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+  </LicenseRights>
+
+<LicenseRights
+    Type="Leaf"
+    TestCaseID="LiveTV Leaf 2_1 non scalable"
+    AllowPlay="TRUE"
+    KID="ewYVOLoESeOuY0cUFdAjBQ=="
+    LID="{B00054B1-3CC5-47A7-BFEE-167F1CD8F514}"
+    UplinkKIDs="s2PqCBa3RbKc0fVbqhBCHg=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="LiveTV Leaf 2_2 non scalable"
+    AllowPlay="TRUE"
+    KID="QckPgTI7Tfe32EMi3DFZOg=="
+    LID="{425D754B-73EC-4464-8B5B-8D514B9BE6A5}"
+    UplinkKIDs="s2PqCBa3RbKc0fVbqhBCHg=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+  </LicenseRights>
+  <!-- ============================================================== -->
+  <!-- =================== UNIQUE ROOT/LEAF PAIRS =================== -->
+  <!-- ============================================================== -->
+  <LicenseRights
+    Type="Root"
+    TestCaseID="PAIR A - Root with 1 location and 30s RemovalDate"
+    AllowPlay="TRUE"
+    KID="xO9Hj8pjP+uL05xlk2iOvA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+  >
+    <AuxKey number_of_entries="1">
+    </AuxKey>
+  </LicenseRights>
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="PAIR A - Permanent Leaf 0"
+    AllowPlay="TRUE"
+    KID="FHQrIOypwWBEvDjSOmWcTQ=="
+    UplinkKIDs="xO9Hj8pjP+uL05xlk2iOvA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="0"/>
+    </UplinkX>
+  </LicenseRights>
+  <!-- ================================================ -->
+  <LicenseRights
+    Type="Root"
+    TestCaseID="PAIR B - Root with 1 location and 60s RemovalDate"
+    AllowPlay="TRUE"
+    KID="k1lNvU7XCr7FnpNK+qGF6A=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="60s"
+  >
+    <AuxKey number_of_entries="1">
+    </AuxKey>
+  </LicenseRights>
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="PAIR B - Permanent Leaf 0"
+    AllowPlay="TRUE"
+    KID="7nf21xWa9A/Q6hI/tIzD4g=="
+    UplinkKIDs="k1lNvU7XCr7FnpNK+qGF6A=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="0"/>
+    </UplinkX>
+  </LicenseRights>
+  <!-- ================================================ -->
+  <LicenseRights
+    Type="Root"
+    TestCaseID="PAIR C - Root with 1 location and 30m RemovalDate"
+    AllowPlay="TRUE"
+    KID="9Tl3M2Toam+JZBAKhKw4Sg=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30m"
+  >
+    <AuxKey number_of_entries="1">
+    </AuxKey>
+  </LicenseRights>
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="PAIR C - Permanent Leaf 0"
+    AllowPlay="TRUE"
+    KID="6AJ3hPjZwIqdNMzYAtua1A=="
+    UplinkKIDs="9Tl3M2Toam+JZBAKhKw4Sg=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="0"/>
+    </UplinkX>
+  </LicenseRights>
+  <!-- ================================================ -->
+  <LicenseRights
+    Type="Root"
+    TestCaseID="PAIR D - Root with 1 location and 1h RemovalDate"
+    AllowPlay="TRUE"
+    KID="/EjZp9dZFGiN9Ri9fpy7ew=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="1h"
+  >
+    <AuxKey number_of_entries="1">
+    </AuxKey>
+  </LicenseRights>
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="PAIR D - Permanent Leaf 0"
+    AllowPlay="TRUE"
+    KID="4DQyHSSNtXL6YHR/aEoI7w=="
+    UplinkKIDs="/EjZp9dZFGiN9Ri9fpy7ew=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="0"/>
+    </UplinkX>
+  </LicenseRights>
+  <!-- ================================================ -->
+  <LicenseRights
+    Type="Root"
+    TestCaseID="PAIR E - Root with 1 location and 2h RemovalDate"
+    AllowPlay="TRUE"
+    KID="0ouNqsiXlko76W+UEsBxgw=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="2h"
+  >
+    <AuxKey number_of_entries="1">
+    </AuxKey>
+  </LicenseRights>
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="PAIR E - Permanent Leaf 0"
+    AllowPlay="TRUE"
+    KID="pKX0LBFu6KtLIHrzandW5w=="
+    UplinkKIDs="0ouNqsiXlko76W+UEsBxgw=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="0"/>
+    </UplinkX>
+  </LicenseRights>
+  <!-- ================================================ -->
+  <LicenseRights
+    Type="Root"
+    TestCaseID="PAIR F - Root with 1 location and 8h RemovalDate"
+    AllowPlay="TRUE"
+    KID="gPmVBOXUc8EFAFct6+VkHw=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="8h"
+  >
+    <AuxKey number_of_entries="1">
+    </AuxKey>
+  </LicenseRights>
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="PAIR F - Permanent Leaf 0"
+    AllowPlay="TRUE"
+    KID="rmWHSfzKNP1mG0Pyx7ruAQ=="
+    UplinkKIDs="gPmVBOXUc8EFAFct6+VkHw=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="0"/>
+    </UplinkX>
+  </LicenseRights>
+  <!-- ================================================ -->
+  <LicenseRights
+    Type="Root"
+    TestCaseID="PAIR G - Root with 1 location and 1d RemovalDate"
+    AllowPlay="TRUE"
+    KID="eBNk/ApOoLhePubvXpqnAw=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="1d"
+  >
+    <AuxKey number_of_entries="1">
+    </AuxKey>
+  </LicenseRights>
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="PAIR G - Permanent Leaf 0"
+    AllowPlay="TRUE"
+    KID="7YKqxog2Zy4hCWheJtUz8w=="
+    UplinkKIDs="eBNk/ApOoLhePubvXpqnAw=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="0"/>
+    </UplinkX>
+  </LicenseRights>
+  <!-- ================================================ -->
+  <LicenseRights
+    Type="Root"
+    TestCaseID="PAIR H - Root with 1 location and 3d RemovalDate"
+    AllowPlay="TRUE"
+    KID="AIytLh7IZbL/zllG6Yhojg=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="3d"
+  >
+    <AuxKey number_of_entries="1">
+    </AuxKey>
+  </LicenseRights>
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="PAIR H - Permanent Leaf 0"
+    AllowPlay="TRUE"
+    KID="MXb1z4TXYtu+ChD1gD1eUw=="
+    UplinkKIDs="AIytLh7IZbL/zllG6Yhojg=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="0"/>
+    </UplinkX>
+  </LicenseRights>
+  <!-- ================================================ -->
+  <LicenseRights
+    Type="Root"
+    TestCaseID="PAIR I - Root with 1 location and 30d RemovalDate"
+    AllowPlay="TRUE"
+    KID="c49A7SYspdqwXIlEX64MAw=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30d"
+  >
+    <AuxKey number_of_entries="1">
+    </AuxKey>
+  </LicenseRights>
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="PAIR I - Permanent Leaf 0"
+    AllowPlay="TRUE"
+    KID="w/4RzCz8htAXeG5eREGzVw=="
+    UplinkKIDs="c49A7SYspdqwXIlEX64MAw=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="0"/>
+    </UplinkX>
+  </LicenseRights>
+
+  <!-- ========= NON-SCALABLE ROOT LICENSES w/ REMOVALDATE w/ RESTRICTION ======== -->
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Non-scalable Root with RemovalDate - Expiration Date"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    ExpirationDate="3d"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Non-scalable Root with RemovalDate - Expire Afer First Use"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    ExpirationAfterFirstUse="3"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Non-scalable Root with RemovalDate - Expire Afer First Play"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    ExpirationAfterFirstPlay="3"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Non-scalable Root with RemovalDate - Expire Afer First Store"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    ExpirationOnStore="3"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Non-scalable Root with RemovalDate - Play Count"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    PlayCount="3"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Non-scalable Root with RemovalDate - Copy Count"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    CopyCount="3"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Non-scalable Root with RemovalDate - Metering"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    MeteringID="kRDHw78AvASNm7r0Pp6Lpw=="
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Non-scalable Root with RemovalDate - Playlist Burn"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    AllowPlaylistBurn="TRUE"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Non-scalable Root with RemovalDate - Cannot Persist"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    CannotPersist="TRUE"
+  >
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Non-scalable Root with RemovalDate - Temp Store Only"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    TempStoreOnly="TRUE"
+  >
+  </LicenseRights>
+
+  <!-- ========= SCALABLE ROOT LICENSES w/o REMOVALDATE w/ RESTRICTION ======== -->
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root without RemovalDate - Expiration Date"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    ExpirationDate="3d"
+  >
+    <AuxKey number_of_entries="512">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root without RemovalDate - Expire Afer First Use"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    ExpirationAfterFirstUse="3"
+  >
+    <AuxKey number_of_entries="256">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root without RemovalDate - Expire Afer First Play"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    ExpirationAfterFirstPlay="3"
+  >
+    <AuxKey number_of_entries="128">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root without RemovalDate - Expire Afer First Store"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    ExpirationOnStore="3"
+  >
+    <AuxKey number_of_entries="64">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root without RemovalDate - Play Count"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    PlayCount="3"
+  >
+    <AuxKey number_of_entries="32">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root without RemovalDate - Copy Count"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    CopyCount="3"
+  >
+    <AuxKey number_of_entries="16">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root without RemovalDate - Metering"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    MeteringID="kRDHw78AvASNm7r0Pp6Lpw=="
+  >
+    <AuxKey number_of_entries="8">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root without RemovalDate - Playlist Burn"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    AllowPlaylistBurn="TRUE"
+  >
+    <AuxKey number_of_entries="4">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root without RemovalDate - Cannot Persist"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    CannotPersist="TRUE"
+  >
+    <AuxKey number_of_entries="2">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root without RemovalDate - Temp Store Only"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    TempStoreOnly="TRUE"
+  >
+    <AuxKey number_of_entries="1">
+    </AuxKey>
+  </LicenseRights>
+
+  <!-- ========= SCALABLE ROOT LICENSES w/ REMOVALDATE w/ RESTRICTION ======== -->
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with RemovalDate - Expiration Date"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    ExpirationDate="3d"
+  >
+    <AuxKey number_of_entries="1">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with RemovalDate - Expire Afer First Use"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    ExpirationAfterFirstUse="3"
+  >
+    <AuxKey number_of_entries="2">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with RemovalDate - Expire Afer First Play"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    ExpirationAfterFirstPlay="3"
+  >
+    <AuxKey number_of_entries="4">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with RemovalDate - Expire Afer First Store"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    ExpirationOnStore="3"
+  >
+    <AuxKey number_of_entries="8">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with RemovalDate - Play Count"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    PlayCount="3"
+  >
+    <AuxKey number_of_entries="16">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with RemovalDate - Copy Count"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    CopyCount="3"
+  >
+    <AuxKey number_of_entries="32">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with RemovalDate - Metering"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    MeteringID="kRDHw78AvASNm7r0Pp6Lpw=="
+  >
+    <AuxKey number_of_entries="64">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with RemovalDate - Playlist Burn"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    AllowPlaylistBurn="TRUE"
+  >
+    <AuxKey number_of_entries="128">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with RemovalDate - Cannot Persist"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    CannotPersist="TRUE"
+  >
+    <AuxKey number_of_entries="256">
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with RemovalDate - Temp Store Only"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+    TempStoreOnly="TRUE"
+  >
+    <AuxKey number_of_entries="512">
+    </AuxKey>
+  </LicenseRights>
+
+  <!-- ========== ROOT LICENSES w/ MESSED-UP KEYS/LOCATIONS ========= -->
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 10 locations - All descending order"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="10">
+      <AuxKeyEntry index="0" location="512"/>
+      <AuxKeyEntry index="1" location="256"/>
+      <AuxKeyEntry index="2" location="128"/>
+      <AuxKeyEntry index="3" location="64"/>
+      <AuxKeyEntry index="4" location="32"/>
+      <AuxKeyEntry index="5" location="16"/>
+      <AuxKeyEntry index="6" location="8"/>
+      <AuxKeyEntry index="7" location="4"/>
+      <AuxKeyEntry index="8" location="2"/>
+      <AuxKeyEntry index="9" location="1"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 10 locations - First ascending then descending"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="10">
+      <AuxKeyEntry index="0" location="1"/>
+      <AuxKeyEntry index="1" location="2"/>
+      <AuxKeyEntry index="2" location="4"/>
+      <AuxKeyEntry index="3" location="8"/>
+      <AuxKeyEntry index="4" location="16"/>
+      <AuxKeyEntry index="5" location="512"/>
+      <AuxKeyEntry index="6" location="256"/>
+      <AuxKeyEntry index="7" location="128"/>
+      <AuxKeyEntry index="8" location="64"/>
+      <AuxKeyEntry index="9" location="32"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 10 locations - ascending then one earlier then ascending"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="10">
+      <AuxKeyEntry index="0" location="1"/>
+      <AuxKeyEntry index="1" location="2"/>
+      <AuxKeyEntry index="2" location="4"/>
+      <AuxKeyEntry index="3" location="8"/>
+      <AuxKeyEntry index="4" location="16"/>
+      <AuxKeyEntry index="5" location="5"/>
+      <AuxKeyEntry index="6" location="32"/>
+      <AuxKeyEntry index="7" location="64"/>
+      <AuxKeyEntry index="8" location="128"/>
+      <AuxKeyEntry index="9" location="256"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 10 locations - ascending then one later then ascending"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="10">
+      <AuxKeyEntry index="0" location="1"/>
+      <AuxKeyEntry index="1" location="2"/>
+      <AuxKeyEntry index="2" location="4"/>
+      <AuxKeyEntry index="3" location="8"/>
+      <AuxKeyEntry index="4" location="16"/>
+      <AuxKeyEntry index="5" location="512"/>
+      <AuxKeyEntry index="6" location="32"/>
+      <AuxKeyEntry index="7" location="64"/>
+      <AuxKeyEntry index="8" location="128"/>
+      <AuxKeyEntry index="9" location="256"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 10 locations - random order"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="10">
+      <AuxKeyEntry index="0" location="1"/>
+      <AuxKeyEntry index="1" location="32"/>
+      <AuxKeyEntry index="2" location="8"/>
+      <AuxKeyEntry index="3" location="64"/>
+      <AuxKeyEntry index="4" location="512"/>
+      <AuxKeyEntry index="5" location="128"/>
+      <AuxKeyEntry index="6" location="2"/>
+      <AuxKeyEntry index="7" location="256"/>
+      <AuxKeyEntry index="8" location="16"/>
+      <AuxKeyEntry index="9" location="4"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 10 locations - first two keys have same location"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="10">
+      <AuxKeyEntry index="0" location="1"/>
+      <AuxKeyEntry index="1" location="1"/>
+      <AuxKeyEntry index="2" location="4"/>
+      <AuxKeyEntry index="3" location="8"/>
+      <AuxKeyEntry index="4" location="16"/>
+      <AuxKeyEntry index="5" location="32"/>
+      <AuxKeyEntry index="6" location="64"/>
+      <AuxKeyEntry index="7" location="128"/>
+      <AuxKeyEntry index="8" location="256"/>
+      <AuxKeyEntry index="9" location="512"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 10 locations - last two keys have same location"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="10">
+      <AuxKeyEntry index="0" location="1"/>
+      <AuxKeyEntry index="1" location="2"/>
+      <AuxKeyEntry index="2" location="4"/>
+      <AuxKeyEntry index="3" location="8"/>
+      <AuxKeyEntry index="4" location="16"/>
+      <AuxKeyEntry index="5" location="32"/>
+      <AuxKeyEntry index="6" location="64"/>
+      <AuxKeyEntry index="7" location="128"/>
+      <AuxKeyEntry index="8" location="256"/>
+      <AuxKeyEntry index="9" location="256"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 10 locations - middle two keys have same location"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="10">
+      <AuxKeyEntry index="0" location="1"/>
+      <AuxKeyEntry index="1" location="2"/>
+      <AuxKeyEntry index="2" location="4"/>
+      <AuxKeyEntry index="3" location="8"/>
+      <AuxKeyEntry index="4" location="16"/>
+      <AuxKeyEntry index="5" location="16"/>
+      <AuxKeyEntry index="6" location="64"/>
+      <AuxKeyEntry index="7" location="128"/>
+      <AuxKeyEntry index="8" location="256"/>
+      <AuxKeyEntry index="9" location="512"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 10 locations - first and last keys have same location"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="10">
+      <AuxKeyEntry index="0" location="1"/>
+      <AuxKeyEntry index="1" location="2"/>
+      <AuxKeyEntry index="2" location="4"/>
+      <AuxKeyEntry index="3" location="8"/>
+      <AuxKeyEntry index="4" location="16"/>
+      <AuxKeyEntry index="5" location="32"/>
+      <AuxKeyEntry index="6" location="64"/>
+      <AuxKeyEntry index="7" location="128"/>
+      <AuxKeyEntry index="8" location="256"/>
+      <AuxKeyEntry index="9" location="1"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with 10 locations - 2 nonadjacent keys have same location"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <AuxKey number_of_entries="10">
+      <AuxKeyEntry index="0" location="1"/>
+      <AuxKeyEntry index="1" location="2"/>
+      <AuxKeyEntry index="2" location="4"/>
+      <AuxKeyEntry index="3" location="8"/>
+      <AuxKeyEntry index="4" location="16"/>
+      <AuxKeyEntry index="5" location="32"/>
+      <AuxKeyEntry index="6" location="64"/>
+      <AuxKeyEntry index="7" location="4"/>
+      <AuxKeyEntry index="8" location="256"/>
+      <AuxKeyEntry index="9" location="512"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <!-- ======================================================== -->
+  <!-- ====     Licenses for secure store entry testing    ==== -->
+  <!-- ======================================================== -->
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="Simple with RemovalDate of 30 seconds"
+    AllowPlay="TRUE"
+    RemovalDate="30s"
+    KID="*"
+    LID="SimpleRemovalDate30sec=="
+  />
+
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="Simple ExpirationDate with LID"
+    AllowPlay="TRUE"
+    ExpirationDate="72h"
+    KID="*"
+    LID="SimpleExpirationDate72=="
+  />
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root with RemovalDate of 30 seconds"
+    AllowPlay="TRUE"
+    RemovalDate="30s"
+    KID="Acl2BY3ITE0qe11DalmK0D=="
+    LID="RootRemovalDateOf30sec=="
+  />
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with RemovalDate of 30 seconds"
+    AllowPlay="TRUE"
+    RemovalDate="30s"
+    UplinkKIDs="Acl2BY3ITE0qe11DalmK0D=="
+    KID="*"
+    LID="LeafRemovalDateOf30sec=="
+  />
+
+  <!-- ================================================ -->
+  <!-- ====     Licenses for NDT testing           ==== -->
+  <!-- ================================================ -->
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="NDT_Root 2 6 12"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+    LID="{85227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <AuxKey number_of_entries="3">
+      <AuxKeyEntry index="0" location="2"/>
+      <AuxKeyEntry index="1" location="6"/>
+      <AuxKeyEntry index="2" location="12"/>
+    </AuxKey>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="NDT_Leaf 6"
+    AllowPlay="TRUE"
+    KID="vqvqngd40kuu9FnnqNrt7Q=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="-30s"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="6"/>
+    </UplinkX>
+  </LicenseRights>
+
+
+</RightsPool>
+

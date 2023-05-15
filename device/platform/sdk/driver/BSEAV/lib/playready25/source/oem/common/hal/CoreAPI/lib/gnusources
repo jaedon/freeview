@@ -1,0 +1,20 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=oemhalshared
+TARGETTYPE=LIBRARY
+
+INCLUDE_DIRS +=                             \
+    -I../../oemimpl                         \
+
+
+SOURCES =                   \
+    ../oemderivedkeys.c     \
+    ../oemhal.c             \
+    ../oemhaldevcerts.c     \
+    ../oemsparsexmrparser.c \
+

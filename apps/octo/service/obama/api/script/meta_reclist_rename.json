@@ -1,0 +1,5 @@
+"meta" : {
+	"operation" : "set",
+	"target" : "reclist",
+	"property" : {"cmd":"do_rename", "param list":[{"cid":3, "rename":"test_rename"}]}
+}

@@ -1,0 +1,4 @@
+/sbin/rmmod bcm7110 bcm7041
+/sbin/insmod bcm7110.o
+/sbin/insmod bcm7041.o
+

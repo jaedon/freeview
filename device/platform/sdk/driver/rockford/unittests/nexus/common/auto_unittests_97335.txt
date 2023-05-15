@@ -1,0 +1,137 @@
+############################################################
+#     Copyright (c) 2003-2012, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: auto_unittests_97335.txt $
+# $brcm_Revision: Hydra_Software_Devel/16 $
+# $brcm_Date: 8/23/12 2:06p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /rockford/unittests/nexus/common/auto_unittests_97335.txt $
+# 
+# Hydra_Software_Devel/16   8/23/12 2:06p jrubio
+# SW7335-787: enable blit test
+# 
+# Hydra_Software_Devel/15   8/22/12 10:38a jrubio
+# SW7335-787: remove additional blit
+# 
+# Hydra_Software_Devel/14   8/16/12 2:44p jrubio
+# SW7335-787: remove blit_performance
+# 
+# Hydra_Software_Devel/13   7/13/12 11:34a jrubio
+# SW7335-787: disable blit
+# 
+# Hydra_Software_Devel/12   7/11/12 11:15a jrubio
+# SW7335-787: disable blit
+# 
+# Hydra_Software_Devel/11   11/4/11 4:26p slauzon
+# SWCHECKFRAME-80: enabled playback/trick_stress,
+# playback/frameadvance_stress and playback/playback_trick_loop
+# 
+# Hydra_Software_Devel/10   10/11/11 9:10a jrubio
+# SW7335-787:  codec_mismatch still broken
+# 
+# Hydra_Software_Devel/9   9/27/11 9:07a jrubio
+# SW7335-787: take out stctrick unsupported
+# 
+# Hydra_Software_Devel/8   3/4/11 11:05a jrubio
+# SW7335-787: take out failing mosaic unittest
+# 
+# Hydra_Software_Devel/7   11/5/10 5:26p jrubio
+# SW7125-716: Remove recovery overflow
+# 
+# Hydra_Software_Devel/6   11/4/10 11:45a jrubio
+# SW7335-917: remove unsupported tests from Autotest
+# 
+# Hydra_Software_Devel/5   10/22/10 4:30p slauzon
+# SWCHECKFRAME-80: added new tests
+# 
+# Hydra_Software_Devel/4   9/10/10 8:06p slauzon
+# SW7125-480: commented out playback_trick_loop test.  Temporary measure
+# until SW7125-480 is resolved
+# 
+# Hydra_Software_Devel/3   8/16/10 5:06p slauzon
+# SWCHECKFRAME-80: added new graphics2d tests
+# 
+# 
+############################################################
+
+unittests/transport/message_stress1
+unittests/transport/message_stress2
+unittests/transport/recpump
+unittests/transport/open
+#unittests/video_decoder/mosaic_decode
+unittests/video_decoder/userdata_capture
+#unittests/video_decoder/channel_change
+unittests/video_decoder/decoder_trick
+unittests/display/display_vbi_stress
+unittests/display/pip_swap
+unittests/audio/codec_test
+unittests/graphics2d/palette_blit2
+unittests/graphics2d/blit 
+unittests/graphics2d/blit_performance
+unittests/graphics2d/blit_stress
+unittests/graphics2d/checkpoint_stress
+unittests/graphics2d/fillrate
+#unittests/graphics2d/packet_blit_stress
+#unittests/playback/playback_stctrick
+unittests/playback/audio_switch
+unittests/playback/start_stop
+unittests/playback/playback_list
+#unittests/playback/codec_mismatch
+unittests/playback/seek
+unittests/playback/playback_stop_start
+unittests/playback/playback_trick_loop
+unittests/record/allpass_record_from_playback
+#unittests/record/record_overflow_recovery
+unittests/record/record2
+unittests/record/record3
+unittests/record/recpump_overflow_recovery
+unittests/record/multiple_index_only_records
+#unittests/record/record_play
+unittests/record/record_append_from_playpump
+unittests/open_tests/display_video_decoder
+#unittests/general/boot
+#unittests/frontend/tune_untune
+unittests/surface/open
+unittests/surface/palette
+unittests/file/playback_with_cancel
+#unittests/file/timeshift_jump
+
+#new tests 10-22-2010
+#unittests/transport/message_stress3
+#unittests/transport/message_stress4
+unittests/transport/playpump_cc_test
+unittests/transport/message_dss
+unittests/transport/set_stc
+unittests/transport/tpit
+unittests/video_decoder/codec_test
+#unittests/video_decoder/callbacks
+unittests/video_decoder/dataready
+unittests/video_decoder/open
+#unittests/display/digital_cc_capture
+unittests/display/capture_buffer
+unittests/display/pq
+#unittests/display/display_vbi
+unittests/display/resize_window
+unittests/display/outputs
+unittests/graphics2d/premultiply_alpha1
+unittests/graphics2d/premultiply_alpha2
+unittests/graphics2d/checkpoint_stress
+#unittests/graphics2d/packet_blit_stress
+unittests/playback/trick_stress
+unittests/playback/playback_openpidchannel
+unittests/playback/frameadvance_stress
+unittests/playback/create_destroy
+#unittests/record/record_stress_test
+#unittests/record/record_with_timestamps
+
+

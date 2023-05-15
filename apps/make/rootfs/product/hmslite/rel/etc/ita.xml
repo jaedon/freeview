@@ -1,0 +1,76 @@
+<root>
+	<row><onid>200</onid><tsid>1800</tsid><svcid>3602</svcid><hsvc>96</hsvc><CHName>CUBOVISION</CHName><CHNum>74</CHNum></row>
+	<row><onid>318</onid><tsid>1400</tsid><svcid>2170</svcid><hsvc>95</hsvc><CHName>TVA VICENZA</CHName><CHNum>73</CHNum></row>
+	<row><onid>318</onid><tsid>1400</tsid><svcid>1830</svcid><hsvc>94</hsvc><CHName>RETE ASTE</CHName><CHNum>72</CHNum></row>
+	<row><onid>200</onid><tsid>1800</tsid><svcid>3614</svcid><hsvc>93</hsvc><CHName>LA7ondemand</CHName><CHNum>71</CHNum></row>
+	<row><onid>318</onid><tsid>13300</tsid><svcid>4910</svcid><hsvc>92</hsvc><CHName>TELEPADREPIO</CHName><CHNum>70</CHNum></row>
+	<row><onid>318</onid><tsid>600</tsid><svcid>17671</svcid><hsvc>91</hsvc><CHName>Liguria TV</CHName><CHNum>69</CHNum></row>
+	<row><onid>318</onid><tsid>7200</tsid><svcid>7256</svcid><hsvc>90</hsvc><CHName>People TV-Rete 7</CHName><CHNum>68</CHNum></row>
+	<row><onid>318</onid><tsid>5200</tsid><svcid>3403</svcid><hsvc>89</hsvc><CHName>Rai 3 TGR FVG</CHName><CHNum>67</CHNum></row>
+	<row><onid>318</onid><tsid>15500</tsid><svcid>638</svcid><hsvc>88</hsvc><CHName>Juwelo</CHName><CHNum>66</CHNum></row>
+	<row><onid>318</onid><tsid>9000</tsid><svcid>3203</svcid><hsvc>87</hsvc><CHName>TV K-C</CHName><CHNum>65</CHNum></row>
+	<row><onid>318</onid><tsid>7200</tsid><svcid>7253</svcid><hsvc>86</hsvc><CHName>SMtv San Marino</CHName><CHNum>64</CHNum></row>
+	<row><onid>318</onid><tsid>5000</tsid><svcid>13710</svcid><hsvc>85</hsvc><CHName>TVE Internacional</CHName><CHNum>63</CHNum></row>
+	<row><onid>318</onid><tsid>13100</tsid><svcid>7327</svcid><hsvc>84</hsvc><CHName>NHK World</CHName><CHNum>62</CHNum></row>
+	<row><onid>318</onid><tsid>15500</tsid><svcid>607</svcid><hsvc>83</hsvc><CHName>DW Europe</CHName><CHNum>61</CHNum></row>
+	<row><onid>318</onid><tsid>13100</tsid><svcid>7322</svcid><hsvc>82</hsvc><CHName>TV5MONDE EUROPE</CHName><CHNum>60</CHNum></row>
+	<row><onid>318</onid><tsid>5000</tsid><svcid>13712</svcid><hsvc>81</hsvc><CHName>Canal 24 Horas</CHName><CHNum>59</CHNum></row>
+	<row><onid>318</onid><tsid>12600</tsid><svcid>1714</svcid><hsvc>80</hsvc><CHName>Al Jazeera Intl</CHName><CHNum>58</CHNum></row>
+	<row><onid>318</onid><tsid>7000</tsid><svcid>708</svcid><hsvc>79</hsvc><CHName>Al Jazeera</CHName><CHNum>57</CHNum></row>
+	<row><onid>318</onid><tsid>13100</tsid><svcid>7302</svcid><hsvc>78</hsvc><CHName>Bloomberg European TV</CHName><CHNum>56</CHNum></row>
+	<row><onid>318</onid><tsid>200</tsid><svcid>13850</svcid><hsvc>77</hsvc><CHName>France 24 (en English)</CHName><CHNum>55</CHNum></row>
+	<row><onid>318</onid><tsid>200</tsid><svcid>13849</svcid><hsvc>76</hsvc><CHName>France 24 (en Francais)</CHName><CHNum>54</CHNum></row>
+	<row><onid>318</onid><tsid>15800</tsid><svcid>16983</svcid><hsvc>75</hsvc><CHName>Rai 3 HD</CHName><CHNum>53</CHNum></row>
+	<row><onid>318</onid><tsid>15800</tsid><svcid>16982</svcid><hsvc>74</hsvc><CHName>Rai 2 HD</CHName><CHNum>52</CHNum></row>
+	<row><onid>318</onid><tsid>5200</tsid><svcid>3401</svcid><hsvc>73</hsvc><CHName>Rai 1 HD</CHName><CHNum>51</CHNum></row>
+	<row><onid>318</onid><tsid>12600</tsid><svcid>1706</svcid><hsvc>72</hsvc><CHName>CCTV-News</CHName><CHNum>50</CHNum></row>
+	<row><onid>318</onid><tsid>9400</tsid><svcid>8204</svcid><hsvc>71</hsvc><CHName>BBC World News</CHName><CHNum>49</CHNum></row>
+	<row><onid>318</onid><tsid>9400</tsid><svcid>8211</svcid><hsvc>70</hsvc><CHName>Euronews</CHName><CHNum>48</CHNum></row>
+	<row><onid>318</onid><tsid>1400</tsid><svcid>8434</svcid><hsvc>69</hsvc><CHName>JUSTICE TV</CHName><CHNum>47</CHNum></row>
+	<row><onid>318</onid><tsid>7000</tsid><svcid>787</svcid><hsvc>68</hsvc><CHName>TV Moda</CHName><CHNum>46</CHNum></row>
+	<row><onid>318</onid><tsid>7000</tsid><svcid>784</svcid><hsvc>67</hsvc><CHName>Class Horse TV</CHName><CHNum>45</CHNum></row>
+	<row><onid>64511</onid><tsid>11700</tsid><svcid>4028</svcid><hsvc>66</hsvc><CHName>Nuvolari</CHName><CHNum>44</CHNum></row>
+	<row><onid>318</onid><tsid>8900</tsid><svcid>2014</svcid><hsvc>65</hsvc><CHName>SPORT-LT TRE</CHName><CHNum>43</CHNum></row>
+	<row><onid>318</onid><tsid>8900</tsid><svcid>2013</svcid><hsvc>64</hsvc><CHName>SPORT-LT DUE</CHName><CHNum>42</CHNum></row>
+	<row><onid>318</onid><tsid>8900</tsid><svcid>2012</svcid><hsvc>63</hsvc><CHName>SPORT-LT UNO</CHName><CHNum>41</CHNum></row>
+	<row><onid>318</onid><tsid>8900</tsid><svcid>2015</svcid><hsvc>60</hsvc><CHName>LT TV5</CHName><CHNum>38</CHNum></row>
+	<row><onid>318</onid><tsid>8900</tsid><svcid>2017</svcid><hsvc>62</hsvc><CHName>LT TV7</CHName><CHNum>40</CHNum></row>
+	<row><onid>318</onid><tsid>8900</tsid><svcid>2016</svcid><hsvc>61</hsvc><CHName>LT TV6</CHName><CHNum>39</CHNum></row>
+	<row><onid>318</onid><tsid>8900</tsid><svcid>2011</svcid><hsvc>59</hsvc><CHName>Arturo</CHName><CHNum>37</CHNum></row>
+	<row><onid>272</onid><tsid>990</tsid><svcid>12</svcid><hsvc>58</hsvc><CHName>Topcrime</CHName><CHNum>36</CHNum></row>
+	<row><onid>200</onid><tsid>1800</tsid><svcid>3625</svcid><hsvc>57</hsvc><CHName>HSE24</CHName><CHNum>35</CHNum></row>
+	<row><onid>318</onid><tsid>15600</tsid><svcid>10704</svcid><hsvc>56</hsvc><CHName>RTL 102.5 TV</CHName><CHNum>34</CHNum></row>
+	<row><onid>318</onid><tsid>7000</tsid><svcid>712</svcid><hsvc>55</hsvc><CHName>R.ItaliaTV</CHName><CHNum>33</CHNum></row>
+	<row><onid>318</onid><tsid>5200</tsid><svcid>3406</svcid><hsvc>54</hsvc><CHName>Rai Scuola</CHName><CHNum>32</CHNum></row>
+	<row><onid>272</onid><tsid>905</tsid><svcid>3621</svcid><hsvc>53</hsvc><CHName>QVC</CHName><CHNum>31</CHNum></row>
+	<row><onid>64511</onid><tsid>6200</tsid><svcid>10901</svcid><hsvc>52</hsvc><CHName>Real Time</CHName><CHNum>30</CHNum></row>
+	<row><onid>318</onid><tsid>7000</tsid><svcid>783</svcid><hsvc>51</hsvc><CHName>ClassTv</CHName><CHNum>29</CHNum></row>
+	<row><onid>200</onid><tsid>1800</tsid><svcid>3627</svcid><hsvc>50</hsvc><CHName>DMAX</CHName><CHNum>28</CHNum></row>
+	<row><onid>318</onid><tsid>5200</tsid><svcid>3430</svcid><hsvc>49</hsvc><CHName>Rai yoyo</CHName><CHNum>27</CHNum></row>
+	<row><onid>318</onid><tsid>5400</tsid><svcid>3310</svcid><hsvc>48</hsvc><CHName>Rai Gulp</CHName><CHNum>26</CHNum></row>
+	<row><onid>272</onid><tsid>990</tsid><svcid>6</svcid><hsvc>47</hsvc><CHName>Boing</CHName><CHNum>25</CHNum></row>
+	<row><onid>272</onid><tsid>940</tsid><svcid>8</svcid><hsvc>46</hsvc><CHName>TgCom24</CHName><CHNum>24</CHNum></row>
+	<row><onid>318</onid><tsid>5400</tsid><svcid>3307</svcid><hsvc>45</hsvc><CHName>Rai Storia</CHName><CHNum>23</CHNum></row>
+	<row><onid>318</onid><tsid>5400</tsid><svcid>3301</svcid><hsvc>44</hsvc><CHName>Rai Sport 2</CHName><CHNum>22</CHNum></row>
+	<row><onid>318</onid><tsid>5400</tsid><svcid>3305</svcid><hsvc>43</hsvc><CHName>Rai Sport 1</CHName><CHNum>21</CHNum></row>
+	<row><onid>318</onid><tsid>12400</tsid><svcid>8516</svcid><hsvc>42</hsvc><CHName>Rai News</CHName><CHNum>20</CHNum></row>
+	<row><onid>64511</onid><tsid>6600</tsid><svcid>11110</svcid><hsvc>41</hsvc><CHName>Cielo</CHName><CHNum>19</CHNum></row>
+	<row><onid>64511</onid><tsid>6600</tsid><svcid>11180</svcid><hsvc>40</hsvc><CHName>TV2000</CHName><CHNum>18</CHNum></row>
+	<row><onid>272</onid><tsid>990</tsid><svcid>9</svcid><hsvc>39</hsvc><CHName>Mediaset EXTRA</CHName><CHNum>17</CHNum></row>
+	<row><onid>272</onid><tsid>990</tsid><svcid>10</svcid><hsvc>38</hsvc><CHName>Mediaset ITALIA DUE</CHName><CHNum>16</CHNum></row>
+	<row><onid>318</onid><tsid>5400</tsid><svcid>3306</svcid><hsvc>37</hsvc><CHName>Rai Premium</CHName><CHNum>15</CHNum></row>
+	<row><onid>318</onid><tsid>12400</tsid><svcid>8502</svcid><hsvc>36</hsvc><CHName>Rai Movie</CHName><CHNum>14</CHNum></row>
+	<row><onid>318</onid><tsid>5200</tsid><svcid>3410</svcid><hsvc>35</hsvc><CHName>Rai 5</CHName><CHNum>13</CHNum></row>
+	<row><onid>272</onid><tsid>990</tsid><svcid>7</svcid><hsvc>34</hsvc><CHName>La 5</CHName><CHNum>12</CHNum></row>
+	<row><onid>272</onid><tsid>990</tsid><svcid>4</svcid><hsvc>33</hsvc><CHName>Iris</CHName><CHNum>11</CHNum></row>
+	<row><onid>200</onid><tsid>1800</tsid><svcid>3620</svcid><hsvc>30</hsvc><CHName>MTV</CHName><CHNum>8</CHNum></row>
+	<row><onid>318</onid><tsid>12400</tsid><svcid>8514</svcid><hsvc>32</hsvc><CHName>Rai 4</CHName><CHNum>10</CHNum></row>
+	<row><onid>200</onid><tsid>1800</tsid><svcid>3626</svcid><hsvc>31</hsvc><CHName>DeeJay TV</CHName><CHNum>9</CHNum></row>
+	<row><onid>200</onid><tsid>1800</tsid><svcid>3614</svcid><hsvc>29</hsvc><CHName>LA7</CHName><CHNum>7</CHNum></row>
+	<row><onid>272</onid><tsid>940</tsid><svcid>1</svcid><hsvc>28</hsvc><CHName>Italia 1</CHName><CHNum>6</CHNum></row>
+	<row><onid>272</onid><tsid>940</tsid><svcid>5</svcid><hsvc>27</hsvc><CHName>Canale 5</CHName><CHNum>5</CHNum></row>
+	<row><onid>272</onid><tsid>940</tsid><svcid>3</svcid><hsvc>26</hsvc><CHName>Rete 4</CHName><CHNum>4</CHNum></row>
+	<row><onid>318</onid><tsid>12400</tsid><svcid>8513</svcid><hsvc>25</hsvc><CHName>Rai 3</CHName><CHNum>3</CHNum></row>
+	<row><onid>318</onid><tsid>12400</tsid><svcid>8512</svcid><hsvc>24</hsvc><CHName>Rai 2</CHName><CHNum>2</CHNum></row>
+	<row><onid>318</onid><tsid>12400</tsid><svcid>8511</svcid><hsvc>23</hsvc><CHName>Rai 1</CHName><CHNum>1</CHNum></row>	
+</root>

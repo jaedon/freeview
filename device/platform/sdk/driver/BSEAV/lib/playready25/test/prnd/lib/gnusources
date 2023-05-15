@@ -1,0 +1,16 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=prndtestapi
+TARGETTYPE=LIBRARY
+
+SOURCES = \
+    ..\prndformattest.c      \
+    ..\prndprotocoltest.c    \
+    ..\prndtoplevelapitest.c \
+    ..\prndnoassettxtest.c   \
+

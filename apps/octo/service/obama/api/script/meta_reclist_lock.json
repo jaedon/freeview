@@ -1,0 +1,5 @@
+"meta" : {
+	"operation" : "set",
+	"target" : "reclist",
+	"property" : {"cmd":"do_lock", "param list":[{"cid":7, "lock":false}, {"cid":10, "lock":true}]}
+}

@@ -1,0 +1,34 @@
+#!/bin/sh
+
+umount /var/lib/humaxtv
+umount /var/lib/humaxtv_backup
+umount /var/lib/humaxtv_user
+umount /usr/browser/webapps/apps_hmx
+umount /usr/browser/webapps/upgrade
+ubidetach -m 4
+ubiattach -m 4
+mount -t ubifs -o sync ubi1:dbdata /var/lib/humaxtv
+mount -t ubifs -o sync ubi1:dbbackup /var/lib/humaxtv_backup
+mount -t ubifs -o sync ubi1:dbuser /var/lib/humaxtv_user
+
+if [ -f /var/lib/humaxtv/appsmnt ]
+then
+	APPSMNT=`cat /var/lib/humaxtv/appsmnt`
+	if [ $APPSMNT = "ext2" ]
+	then
+		EXTMNT=upgrade
+		EXT2MNT=apps_hmx
+	else
+		EXTMNT=apps_hmx
+		EXT2MNT=upgrade
+	fi
+else
+	# default mount point
+	EXTMNT=apps_hmx
+	EXT2MNT=upgrade
+fi
+
+mount -t ubifs -o sync ubi1:dbuserext /usr/browser/webapps/$EXTMNT
+mount -t ubifs -o sync ubi1:dbuserext2 /usr/browser/webapps/$EXT2MNT
+echo $EXTMNT > /var/lib/humaxtv/curext
+

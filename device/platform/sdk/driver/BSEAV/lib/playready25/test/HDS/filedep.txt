@@ -1,0 +1,6 @@
+dailytesthds.pc.pk.ce.txt
+dailytesthds_noansi.pc.pk.ce.txt
+invalidargumenttesthds.pc.pk.ce.txt
+NegativeTestHDS.pc.pk.ce.txt
+NegativeMultiThreadingTestHDS.pc.pk.ce.txt
+files\HDSFuzzTestTemplate.hds

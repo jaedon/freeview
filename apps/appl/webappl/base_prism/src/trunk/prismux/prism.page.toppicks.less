@@ -1,0 +1,545 @@
+@SCREEN_WIDTH: 1280px;
+@SCREEN_HEIGHT: 720px;
+@LEFT_OFFSET: 817px;
+
+#toppicksPage {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: @SCREEN_WIDTH;
+  height: @SCREEN_HEIGHT;
+  #freeviewLogo {
+    position: absolute;
+    left: 61px;
+    top: 35px;
+    width: 220px;
+    height: 56px;
+    background-image: url(../images/614_FVC_logo02.png);
+    background-size: cover;
+  }
+  #line {
+    position: absolute;
+    left: 0px;
+    top: 160px;
+    width: @SCREEN_WIDTH;
+    height: 1px;
+    background: #ffffff;
+    opacity: 0.2;
+  }
+  #menuSlider {
+    position: absolute;
+    left: -667px;
+    top: 101px;
+    width: 3459px;
+    height: 60px;
+    &.-afd {
+      >.-carousel-item {
+        #menu {
+          color: #2eb2ff;
+          font-family: PrismFontB;
+        }
+        &.-l {
+          #menu {
+            color: #ffffff;
+            opacity: 1;
+          }
+        }
+        &.-r {
+          #menu {
+            color: #ffffff;
+            opacity: 1;
+          }
+        }
+        &.-carousel-dist0 {
+          #arrowLeft {
+            display: inline-block;
+          }
+          #arrowRight {
+            display: inline-block;
+          }
+        }
+      }
+    }
+    >.-carousel-item {
+      width: 817px;
+      height: 58px;
+      text-align: center;
+      #menu {
+        display: inline-block;
+        line-height: 58px;
+        font-size: 58px;
+        font-family: PrismFontL;
+        color: #FFFFFF;
+      }
+      #arrowLeft {
+        display: none;
+        width: 12px;
+        height: 20px;
+        background: url(../images/614_TP_arrow_L.png) no-repeat;
+        margin-right: 8px;
+      }
+      #arrowRight {
+        display: none;
+        width: 12px;
+        height: 20px;
+        background: url(../images/614_TP_arrow_R.png) no-repeat;
+        margin-left: 8px;
+      }
+
+      &.-l {
+        text-align: right;
+        #menu {
+          top: 12px;
+          font-size: 26px;
+          color: #979797;
+          text-align: right;
+        }
+      }
+      &.-r {
+        text-align: left;
+        #menu {
+          top: 12px;
+          font-size: 26px;
+          color: #979797;
+          text-align: left;
+        }
+      }
+      &.-carousel-dist0 {
+        #menu {
+          font-family: PrismFontB;
+        }
+      }
+    }
+  }
+  #contentsSlider {
+    position: absolute;
+    left: -667px;
+    top: 161px;
+    width: 2955px;
+    height: 559px;
+    >.-carousel-item {
+      &.-l {
+        opacity: 0.3 !important;
+      }
+      &.-r {
+        opacity: 0.3 !important;
+      }
+      width: 817px;
+      height: inherit;
+      #toppicksCtrl {
+        width: inherit;
+        height: inherit;
+        &.ondemand {
+          #categories {
+            left: 37px;
+            top: 0px;
+            height: 42px;
+            line-height: 42px;
+            overflow: hidden;
+            .categoryItem {
+              width: 149px;
+              height: 38px;
+              font-size: 20px;
+              color: #666666;
+              text-align: center;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              &.-carousel-dist0 {
+                color: #ffffff;
+              }
+              &.-l::after {
+                position: absolute;
+                left: 0px;
+                top: 15px;
+                height: 10px;
+                width: 147px;
+                border-right: 2px solid #444444;
+                content: "";
+              }
+              &.-r::after {
+                position: absolute;
+                right: 0px;
+                top: 15px;
+                height: 10px;
+                width: 147px;
+                border-left: 2px solid #444444;
+                content: "";
+              }
+            }
+          }
+        }
+        &.recordings {
+          #categories {
+            left: 249px;
+            top: 0px;
+            height: 42px;
+            line-height: 42px;
+            .-list-item {
+              width: 160px;
+              height: 20px;
+              font-size: 20px;
+              color: #666666;
+              text-align: center;
+              &.-sel {
+                color: #ffffff;
+              }
+            }
+          }
+          #contentsView {
+            &.-recently {
+              //#icon {
+              //  background: url(../images/205_REC_Play.png) no-repeat;
+              //}
+              .icoNew::after {
+                position: absolute;
+                width: 70px;
+                height: 70px;
+                background: url(../images/215_NEW.png) no-repeat -2px -2px;
+                background-size: cover;
+                content: '';
+              }
+            }
+            &.-continue {
+              //#icon {
+              //  background: url(../images/614_REC_Play_partially.png) no-repeat;
+              //}
+              #durationBg {
+                display: block;
+              }
+              #durationBar {
+                display: block;
+              }
+            }
+            #title {
+              width: 215px !important;
+            }
+            #durationBg {
+              position: absolute;
+              display: none;
+              left: 0px;
+              top: 146px;
+              width: 267px;
+              height: 4px;
+              background: rgba(255, 255, 255, 0.2);
+              z-index:1;
+            }
+            #durationBar {
+              position: relative;
+              display: none;
+              height: inherit;
+              background: #de3e3e;
+              z-index:1;
+            }
+          }
+        }
+        &.next {
+          #categories {
+            left: 249px;
+            top: 0px;
+            height: 42px;
+            line-height: 42px;
+            .-list-item {
+              width: 160px;
+              height: 20px;
+              font-size: 20px;
+              color: #666666;
+              text-align: center;
+              &.-sel {
+                color: #ffffff;
+              }
+            }
+          }
+          #contentsView {
+            #title {
+              width: 215px !important;
+            }
+          }
+        }
+        &.onNow {
+          #edit {
+            display: block;
+            height: 22px;
+            position: absolute;
+            right: 0px;
+            top: 10px;
+            width: 174px;
+            &.-show {
+              display: block;
+            }
+            #editIcon {
+              position: absolute;
+              width: 22px;
+              height: 22px;
+              background: url(../images/201_Option.png) no-repeat;
+              background-size: 22px;
+            }
+            #editText {
+              color: #A0A0A0;
+              font-family: "PrismFontL";
+              font-size: 20px;
+              height: 22px;
+              left: 32px;
+              line-height: 22px;
+              position: absolute;
+            }
+          }
+          #durationBg {
+            position: absolute;
+            left: 0px;
+            top: 146px;
+            width: 267px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            z-index:1;
+          }
+          #durationBar {
+            position: relative;
+            height: inherit;
+            background: #ffff00;
+            z-index: 1;
+            width: 0px;
+          }
+          #contentsView {
+            #title {
+              width: 215px !important;
+            }
+          }
+        }
+        #contentsView {
+          width: 817px;
+          height: 517px;
+          top: 42px;
+          .contentItem {
+            width: 267px;
+            height: 150px;
+            &.-afd-leaf {
+              &::after {
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                width: 267px;
+                height: 82px;
+                border-top: solid 5px #2EB2FF;
+                border-bottom: solid 63px #2EB2FF;
+                content: "";
+              }
+              #title {
+                color: #000000;
+                z-index: 1;
+              }
+              #secondary {
+                color: #000000;
+                font-family: PrismFontB;
+                z-index: 1;
+              }
+
+            }
+            #thumbnail {
+              position: absolute;
+              width: inherit;
+              height: inherit;
+            }
+            #dim {
+              position: absolute;
+              width: 267px;
+              height: 150px;
+              background: url(../images/614_TP_Dim_Thumb01.png);
+            }
+            #title {
+              position: absolute;
+              left: 10px;
+              top: 91px;
+              width: 247px;
+              height: 29px;
+              font-size: 24px;
+              color: #ffffff;
+              font-family: PrismFontB;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+            #secondary {
+              position: absolute;
+              left: 10px;
+              top: 120px;
+              width: 247px;
+              height: 29px;
+              font-size: 18px;
+              color: #868686;
+              font-family: PrismFontL;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              span {
+                color: #555555;
+                font-family: PrismFontL;
+              }
+            }
+          }
+          .contentMore {
+            line-height: 150px;
+            text-align: center;
+            width: 267px;
+            height: 150px;
+            vertical-align: middle;
+            background-color: rgba(255, 255, 255, 0.3);
+            font-size: 24px;
+            color: #ffffff;
+            &.-afd-leaf {
+              background-color: #2eb2ff;
+              color: #000000;
+            }
+          }
+          &.noRecording {
+            .title, .description {
+              opacity: 1;
+            }
+            background: url(../images/390_REC_NoREC.png) 50% 96px no-repeat;
+          }
+          &.noOndemand, &.noChannel, &.notAvailable {
+            .title, .description {
+              opacity: 1;
+            }
+            background: url(../images/614_TP_Disconnected.png) 50% 96px no-repeat;
+          }
+          .title {
+            opacity: 0;
+            color: #FFFFFF;
+            font-size: 26px;
+            position: absolute;
+            text-align: center;
+            top: 215px;
+            width: inherit;
+          }
+          .description {
+            opacity: 0;
+            color: #BEBEBE;
+            font-family: "PrismFontL";
+            font-size: 24px;
+            position: absolute;
+            text-align: center;
+            //top: 253px;
+            width: inherit;
+          }
+        }
+      }
+    }
+    &.-afd {
+      >.-carousel-item {
+        &.-l {
+          opacity: 0.1 !important;
+        }
+        &.-r {
+          opacity: 0.1 !important;
+        }
+      }
+      #toppicksCtrl {
+        &.ondemand {
+          #categories {
+            &.-afd {
+              .categoryItem {
+                color: #ffffff;
+                &.-carousel-dist0 {
+                  color: #2eb2ff;
+                }
+              }
+              .-carousel-dist0:after {
+                position: absolute;
+                left: 0px;
+                top: 34px;
+                width: 149px;
+                height: 5px;
+                background-color: #2eb2ff;
+                content: "";
+              }
+            }
+          }
+        }
+        &.recordings, &.next {
+          #categories {
+            &.-afd {
+              .-list-item {
+                color: #ffffff;
+                &.-afd-leaf {
+                  color: #2eb2ff;
+                  &::after {
+                    position: absolute;
+                    left: 0px;
+                    top: 34px;
+                    width: 160px;
+                    height: 5px;
+                    background-color: #2eb2ff;
+                    content: "";
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  #channelLogo {
+    font-family: "PrismFontB";
+    font-size: 15px;
+    height: 34px;
+    line-height: 16px;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    position: absolute;
+    right: 5px;
+    text-align: center;
+    top: 5px;
+    vertical-align: middle;
+    width: 60px;
+    img {
+      width: 60px;
+      position: absolute;
+      right: -2px;
+    }
+  }
+  #owingLogo {
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    width: 60px;
+    height: 34px;
+  }
+  #icon {
+    position: absolute;
+    bottom: 30px;
+    right: 6px;
+    z-index: 1;
+    &.icoRecording {
+      width: 28px;
+      height: 28px;
+      background: url(../images/205_REC_Recording.png) no-repeat;
+    }
+    &.icoRec {
+      width: 28px;
+      height: 28px;
+      background: url(../images/205_REC_Reservation_Recording.png) no-repeat;
+    }
+    &.icoRemind {
+      width: 28px;
+      height: 28px;
+      background: url(../images/205_REC_Reservation_Watch.png) no-repeat;
+    }
+    &.icoSeries {
+      width: 33px;
+      height: 28px;
+      background: url(../images/205_REC_Reservation_Series.png) no-repeat;
+    }
+    &.icoLocked {
+      width: 22px;
+      height: 28px;
+      background: url(../images/211_Lock.png) no-repeat;
+    }
+    &.icoGuidance {
+      width: 28px;
+      height: 28px;
+      background: url(../images/614_PD_Guidance.png) no-repeat
+    }
+  }
+}

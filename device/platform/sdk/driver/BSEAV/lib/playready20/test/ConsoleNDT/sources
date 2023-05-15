@@ -1,0 +1,15 @@
+
+TARGETNAME=ConsoleNDT
+TARGETTYPE=PROGRAM
+UMTYPE=console
+
+SOURCES = \
+        functionaltest.c
+
+TARGETLIBS = \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \
+        $(_DRM_TEST_NETIO_LIB)    \
+        $(_DRM_TEST_DRMMANAGER_LIB)
+
+

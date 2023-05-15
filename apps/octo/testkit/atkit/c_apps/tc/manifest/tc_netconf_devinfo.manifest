@@ -1,0 +1,30 @@
+{
+	"RUN_ALL": false,
+
+	"RUN_CATEGORY":[
+		"client"
+		],
+
+	"RUN_TC":[
+
+		],
+
+	"TC_LIST":
+		[
+		{
+			"tc_name": "TC_NETCONF_DeviceInfo",
+			"category": ["network"],
+			"argument": {
+
+			},
+			"expect_result": {
+				"result": 0
+			}
+		}
+
+
+	]
+}
+
+
+

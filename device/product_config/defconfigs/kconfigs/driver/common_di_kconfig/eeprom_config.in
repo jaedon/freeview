@@ -1,0 +1,13 @@
+##########################################
+# DI EEPROM configuration menu
+##########################################
+
+config EEPROM
+	bool
+	prompt "EEPROM"
+	default n
+	
+config EEPROM_EMU
+	bool
+	prompt "EEPROM_EMU (EEPROM emulation on Flash)"
+	default n

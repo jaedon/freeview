@@ -1,0 +1,93 @@
+######################################################
+#					3rd Party SW Engine Configuration					#
+######################################################
+
+comment	 "3rd Party SW Engine Selection & Configuration. (3RD_XXX)"
+
+	config 3RD_WEB_BROWSER_ANT
+		bool "3RD_WEB_BROWSER_ANT - Support ANT WEB Browser"
+		default n
+	config 3RD_WEB_BROWSER_TVBROWSER
+		bool "3RD_WEB_BROWSER_TVBROWSER - Support Opera TV Browser(full browser)"
+		default n
+	config 3RD_MHEG
+		bool "3RD_MHEG - Support MHEG"
+		default n
+
+		choice
+			depends on 3RD_MHEG
+			prompt "Select MHEG Profile"
+			default 3RD_MHEG_NO_PROFILE
+
+			config 3RD_MHEG_NO_PROFILE
+				bool "MHEG NO_PROFILE"
+
+			config 3RD_MHEG_UK_PROFILE1
+				bool "MHEG UK Profile1"
+
+			config 3RD_MHEG_UK_PROFILE_HD
+				bool "MHEG UK Profile HD"
+
+			config 3RD_MHEG_CIPLUS_PROFILE1
+				bool "CI Plus Profile1"
+
+			config 3RD_MHEG_UKFEESAT_PROFILE
+				bool "MHEG UK FreeSat Profile"
+
+			config 3RD_MHEG_AUSTRALIA_PROFILE
+				bool "MHEG Australia Profile"
+
+			config 3RD_MHEG_NZ_PROFILE1
+				bool "MHEG NewZealand Profile"
+		endchoice
+
+		config 3RD_MHEG_USE_SNT_ENGINE
+			depends on 3RD_MHEG
+			bool "S&T MHEG Engine"
+			default n if (MW_CI_PLUS = y)
+
+		config 3RD_MHEG_USE_HUMAX_ENGINE
+			depends on 3RD_MHEG && MW_CI_PLUS
+			bool "Internal MHEG Engine"
+			default y
+
+		config 3RD_MHEG_USE_PVR_FUNCTIONALITY
+			depends on 3RD_MHEG
+			bool "MHEG PVR extension"
+			default n
+
+		config 3RD_MHEG_IP_STREAMING_FUNCTIONALITY
+			depends on 3RD_MHEG
+			bool "MHEG IP Streaming"
+			default n
+
+		config 3RD_MHEG_NVS_FUNCTIONALITY
+			depends on 3RD_MHEG
+			bool "MHEG NVS extension"
+			default n
+		
+		config 3RD_MHEG_SI_MONITORING
+			depends on 3RD_MHEG && !3RD_MHEG_CIPLUS_PROFILE1
+			bool "MHEG SI Monitoring(in OBAMA)"
+			default y
+
+	config 3RD_OBJ_CAROUSEL
+		bool "3RD_OBJ_CAROUSEL - Support DSMCC object carousel"
+		default n
+
+	config 3RD_XML
+		bool "3RD_XML - XML download & parsing"
+		default y
+
+	config 3RD_CRYPT
+		bool "3RD_CRYPT - crypt module for TvTv EPG and pvr module"
+		default y
+
+	config 3RD_BML
+		bool "3RD_BML - Broadcast Markup Language Browser for JAPAN module"
+		default n
+
+	config 3RD_RFVOD
+		bool "3RD_RFVOD - RF VOD for JAPAN module"
+		default n
+		

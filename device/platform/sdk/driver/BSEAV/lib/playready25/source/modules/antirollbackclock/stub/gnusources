@@ -1,0 +1,14 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmantirollbackclockstub
+TARGETTYPE=LIBRARY
+
+SOURCES =                           \
+    antirollbackclockutilstub.c     \
+    antirollbackclockimplstub.c
+

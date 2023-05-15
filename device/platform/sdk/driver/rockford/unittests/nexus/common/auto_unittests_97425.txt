@@ -1,0 +1,304 @@
+############################################################
+#     Copyright (c) 2003-2012, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: auto_unittests_97425.txt $
+# $brcm_Revision: Hydra_Software_Devel/46 $
+# $brcm_Date: 10/4/12 1:07p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /rockford/unittests/nexus/common/auto_unittests_97425.txt $
+# 
+# Hydra_Software_Devel/46   10/4/12 1:07p jessem
+# SW7346-1058: Added playback_pip.
+#
+# Hydra_Software_Devel/45   9/13/12 5:03p ahulse
+# SW7425-2678: Add picture_decoder unittest
+#
+# Hydra_Software_Devel/44   8/2/12 2:31p ahulse
+# SW7425-3613: add pm_picture_decoder to batch unittests
+#
+# Hydra_Software_Devel/43   7/20/12 11:37a jessem
+# SW7425-3522: Increased server timeout for the multiprocess tests
+#
+# Hydra_Software_Devel/42   7/19/12 12:45p jessem
+# SW7425-3522: Increased client timeout for the multiprocess tests.
+#
+# Hydra_Software_Devel/41   7/19/12 10:26a jessem
+# SW7425-3522: Added back scatter gather multiprocess test.
+#
+# Hydra_Software_Devel/40   5/30/12 8:59p jessem
+# SW7425-3035: Restored standby_transition test.
+#
+# Hydra_Software_Devel/39   5/11/12 9:47a jessem
+# SW7425-3035: Removed standby_transition temporarily.
+#
+# Hydra_Software_Devel/38   4/24/12 11:15a ahulse
+# SW7425-2679: add picture_decoder_bad_format unittest
+#
+# Hydra_Software_Devel/37   4/20/12 1:47p ahulse
+# SW7425-2678: remove picture_decoder test, as now in auto_unittests
+#
+# Hydra_Software_Devel/36   4/16/12 6:41p ahulse
+# SW7425-2678: Add picture_decoder unittest
+#
+# Hydra_Software_Devel/35   4/16/12 3:16p jessem
+# SW7425-2688: Added encrypted_dvr test.
+#
+# Hydra_Software_Devel/34   3/29/12 6:23p jtna
+# SW7425-2681: add power_management/standby_transition.c
+#
+# Hydra_Software_Devel/33   2/20/12 1:23p jessem
+# SW7425-2211: Added back dma_bulk, dma_crypto, dma_mixedmode, and
+# dma_mixedmode_stress.
+#
+# Hydra_Software_Devel/32   2/17/12 4:24p jessem
+# SW7425-2211: Reverted back to previous version due to missing
+# HSM/SECURITY  labels.
+#
+# Hydra_Software_Devel/31   2/17/12 11:58a jessem
+# SW7425-2211: Added back security support for 7425B2.
+#
+# Hydra_Software_Devel/30   2/10/12 11:11a jessem
+# SW7425-2338: Added back multiprocess tests.
+#
+# Hydra_Software_Devel/29   2/8/12 3:22p jessem
+# SW7425-2354: Temporarily removed tune_untune.
+#
+# Hydra_Software_Devel/28   2/6/12 4:10p jessem
+# SW7425-2338: Temporarily removed multiprocess unittests.
+#
+# Hydra_Software_Devel/27   2/6/12 2:42p jessem
+# SW7425-2211: Added back several unittests that were mistakenly removed.
+#
+# Hydra_Software_Devel/26   2/6/12 2:39p jessem
+# SW7425-2211: Temporarily removed dma_bulk, dma_crypto, dmae_mixedmode,
+# dma_mixedmode_stress untli B2 HSM symlinks are created.
+#
+# Hydra_Software_Devel/25   2/6/12 2:30p jessem
+# SW7425-2338: Added back untrusted_client multiprocess unittest.
+#
+# Hydra_Software_Devel/24   2/6/12 1:27p jessem
+# SW7425-2338: Temporarily removed untrusted_client multiprocess
+# unittest.
+#
+# Hydra_Software_Devel/23   1/19/12 4:08p jessem
+# SW7425-2192: Added back tpit test.
+#
+# Hydra_Software_Devel/22   1/18/12 8:45p jessem
+# SW7425-2193: Added back timebase test.
+#
+# Hydra_Software_Devel/21   1/16/12 4:10p jessem
+# SW7425-2192, SW7425-2193: Temporarily removed tpit and timebase tests.
+#
+# Hydra_Software_Devel/20   1/16/12 11:42a jessem
+# SW7425-2139: Added graphics_stress back.
+#
+# Hydra_Software_Devel/19   1/13/12 1:49p jessem
+# SW7425-2145: Removed redundant tests. Temporarily removed
+# playpump_scatter_gather_client test.
+#
+# Hydra_Software_Devel/18   1/11/12 2:58p jessem
+# SW7425-2139, SW7425-2145: Temporarily removed graphics_stress. Added
+# multiprocess tests.
+#
+# Hydra_Software_Devel/17   1/11/12 11:18a jessem
+# SW7425-2139: Temporarily removed heaps.c.
+#
+# Hydra_Software_Devel/16   12/21/11 12:23p jessem
+# SW7425-1413: Pulled tests from 97405 that are missing in 97425.
+#
+# Hydra_Software_Devel/15   11/11/11 1:11p jessem
+# SW7425-1413: Reinstated packet_blit_stress.
+#
+# Hydra_Software_Devel/14   11/10/11 3:23p jessem
+# SW7425-1413: Reinstated blit_stress.
+#
+# Hydra_Software_Devel/13   11/4/11 3:41p jessem
+# SW7425-1682: Added playback/playback_trick_loop.
+#
+# Hydra_Software_Devel/12   11/4/11 4:32p slauzon
+# SWCHECKFRAME-80: enabled playback/trick_stress,
+# playback/frameadvance_stress and playback/playback_trick_loop
+#
+# Hydra_Software_Devel/11   10/29/11 12:47a jessem
+# SW7425-1413: Removed second instance of blit_stress.
+#
+# Hydra_Software_Devel/10   10/28/11 6:17p jessem
+# SW7231-363: Temporarily removed codec_mismatch from nightly tests.
+#
+# Hydra_Software_Devel/9   10/28/11 1:12p jessem
+# SW7231-363, SW7425-1413: Restored codec_mismatch. Temporarily removed
+# blit_stress.
+#
+# Hydra_Software_Devel/8   9/9/11 12:39p jessem
+# SW7231-363: Temporarily removed codec_mismatch from nightly tests.
+#
+# Hydra_Software_Devel/7   5/18/11 1:17p vanessah
+# SW7425-454: enable transcode_ts autotest
+#
+# Hydra_Software_Devel/6   5/7/11 12:37a hongtaoz
+# SW7425-454: disable transcode_ts autotest before it passes autotest
+# criteria;
+#
+# Hydra_Software_Devel/5   4/27/11 9:40a vanessah
+# SW7425-454: add transcode_ts into nightly build
+#
+# Hydra_Software_Devel/4   4/12/11 5:44p sbarry
+# SWCHECKFRAME-80: expand to include some 7231 tests for now
+#
+# Hydra_Software_Devel/3   4/8/11 3:10p hongtaoz
+# SW7425-79: remove failed tests and sync up with 7422 tests;
+#
+# Hydra_Software_Devel/2   3/3/11 4:17p hongtaoz
+# SW7425-151: disable and investigate the failed test from 97425 autotest
+# suite;
+#
+# Hydra_Software_Devel/1   2/3/11 4:51p hongtaoz
+# SW7425-79: add 97425 autotest template;
+#
+# Hydra_Software_Devel/6   1/10/11 11:43a spothana
+# SW7420-1372: Remove allpass_record_from_playback for now.
+#
+# Hydra_Software_Devel/5   10/22/10 4:30p slauzon
+# SWCHECKFRAME-80: added new tests
+#
+# Hydra_Software_Devel/4   9/10/10 8:07p slauzon
+# SW7125-480: commented out playback_trick_loop test.  Temporary measure
+# until SW7125-480 is resolved
+#
+# Hydra_Software_Devel/3   8/16/10 5:06p slauzon
+# SWCHECKFRAME-80: added new graphics2d tests
+#
+#
+############################################################
+
+
+unittests/audio/codec_test
+unittests/audio/playback_pip
+unittests/display/capture_buffer
+unittests/display/digital_cc_capture
+unittests/display/display_crc
+unittests/display/display_vbi
+unittests/display/display_vbi_stress
+unittests/display/graphics_stress
+#unittests/display/heaps
+unittests/display/open
+unittests/display/outputs
+unittests/display/pip_swap
+unittests/display/pq
+unittests/display/resize_window
+unittests/display/synclock_master
+unittests/display/video_input_shutdown
+unittests/dma/dma_api_usage
+unittests/dma/dma_bulk
+unittests/dma/dma_callbacks
+unittests/dma/dma_chain
+unittests/dma/dma_crypto
+unittests/dma/dma_mixedmode
+unittests/dma/dma_mixedmode_stress
+unittests/file/playback_with_cancel
+unittests/file/timeshift_jump
+#unittests/frontend/tune_untune
+unittests/general/alloc
+unittests/general/boot
+unittests/general/memory
+unittests/general/sleep
+unittests/general/watchdog
+unittests/graphics2d/blit
+unittests/graphics2d/blit_performance
+unittests/graphics2d/blit_stress
+unittests/graphics2d/checkpoint_stress
+unittests/graphics2d/dualcontext_multithreaded_fill
+unittests/graphics2d/fillrate
+unittests/graphics2d/multithreaded_fill
+unittests/graphics2d/packet_and_function
+unittests/graphics2d/packet_blit_stress
+unittests/graphics2d/palette_blit2
+unittests/graphics2d/premultiply_alpha1
+unittests/graphics2d/premultiply_alpha2
+unittests/open_tests/display_video_decoder
+unittests/graphics2d/checkpoint_stress
+unittests/graphics2d/picture_decoder
+unittests/graphics2d/picture_decoder_bad_format
+unittests/playback/audio_switch
+# TODO: enable codec_mismatch when RAP is fixed
+#unittests/playback/codec_mismatch
+unittests/playback/create_destroy
+unittests/playback/dqt_trick
+unittests/playback/frameadvance_stress
+unittests/playback/playback_list
+unittests/playback/playback_openpidchannel
+unittests/playback/playback_stctrick
+unittests/playback/playback_stop_start
+unittests/playback/playback_trick_loop
+unittests/playback/seek
+unittests/playback/start_stop
+unittests/playback/trick_stress
+unittests/playback/playback_trick_loop
+
+unittests/record/allpass_record_from_playback
+unittests/record/encrypted_dvr
+unittests/record/multiple_index_only_records
+unittests/record/record2
+unittests/record/record3
+unittests/record/record_append_from_playpump
+unittests/record/record_overflow_recovery
+unittests/record/record_play
+unittests/record/record_stress_test
+unittests/record/record_stress_test2
+unittests/record/record_with_timestamps
+unittests/record/recpump_overflow_recovery
+unittests/surface/open
+unittests/surface/palette
+unittests/surface_compositor/client_flavors
+unittests/surface_compositor/multibuffered_stress
+unittests/surface_compositor/setsurface_stress
+unittests/transport/message_dss
+unittests/transport/message_stress1
+unittests/transport/message_stress2
+unittests/transport/message_stress3
+unittests/transport/message_stress4
+unittests/transport/open
+unittests/transport/packetsub1
+unittests/transport/playpump_cc_test
+unittests/transport/recpump
+unittests/transport/set_stc
+unittests/transport/timebase
+unittests/transport/tpit
+unittests/video_decoder/callbacks
+unittests/video_decoder/channel_change
+unittests/video_decoder/codec_test
+unittests/video_decoder/dataready
+unittests/video_decoder/decoder_trick
+unittests/video_decoder/mosaic_decode
+unittests/video_decoder/mosaic_playback_zorder_list
+unittests/video_decoder/open
+unittests/video_decoder/userdata_capture
+
+#TODO: add autotest support before enable it
+unittests/encoder/transcode_ts
+
+unittests/open_tests/display_video_decoder
+unittests/power_management/standby_transition
+unittests/power_management/pm_picture_decoder
+
+#Multi-process tests
+rockford/unittests/nexus/multiprocess/bad_join
+rockford/unittests/nexus/multiprocess/simple_server -mode protected -timeout 120 | 60 | rockford/unittests/nexus/multiprocess/ir_input_client
+rockford/unittests/nexus/multiprocess/simple_server -mode untrusted -timeout 120 | 60 | rockford/unittests/nexus/multiprocess/simple_client
+rockford/unittests/nexus/multiprocess/simple_server -mode untrusted -timeout 120 | 60 | rockford/unittests/nexus/multiprocess/untrusted_client
+nexus/examples/multiprocess/decode_server -timeout 120 | 60 | rockford/unittests/nexus/multiprocess/playpump_scatter_gather_client
+rockford/unittests/nexus/multiprocess/stress_server join_stress_client
+rockford/unittests/nexus/multiprocess/stress_server alloc_stress_client
+
+
+

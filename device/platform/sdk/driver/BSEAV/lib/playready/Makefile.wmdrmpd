@@ -1,0 +1,197 @@
+############################################################
+#     (c)2007-2008 Broadcom Corporation
+#
+#  This program is the proprietary software of Broadcom Corporation and/or its licensors,
+#  and may only be used, duplicated, modified or distributed pursuant to the terms and
+#  conditions of a separate, written license agreement executed between you and Broadcom
+#  (an "Authorized License").  Except as set forth in an Authorized License, Broadcom grants
+#  no license (express or implied), right to use, or waiver of any kind with respect to the
+#  Software, and Broadcom expressly reserves all rights in and to the Software and all
+#  intellectual property rights therein.  IF YOU HAVE NO AUTHORIZED LICENSE, THEN YOU
+#  HAVE NO RIGHT TO USE THIS SOFTWARE IN ANY WAY, AND SHOULD IMMEDIATELY
+#  NOTIFY BROADCOM AND DISCONTINUE ALL USE OF THE SOFTWARE.
+#
+#  Except as expressly set forth in the Authorized License,
+#
+#  1.     This program, including its structure, sequence and organization, constitutes the valuable trade
+#  secrets of Broadcom, and you shall use all reasonable efforts to protect the confidentiality thereof,
+#  and to use this information only in connection with your use of Broadcom integrated circuit products.
+#
+#  2.     TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE SOFTWARE IS PROVIDED "AS IS"
+#  AND WITH ALL FAULTS AND BROADCOM MAKES NO PROMISES, REPRESENTATIONS OR
+#  WARRANTIES, EITHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE, WITH RESPECT TO
+#  THE SOFTWARE.  BROADCOM SPECIFICALLY DISCLAIMS ANY AND ALL IMPLIED WARRANTIES
+#  OF TITLE, MERCHANTABILITY, NONINFRINGEMENT, FITNESS FOR A PARTICULAR PURPOSE,
+#  LACK OF VIRUSES, ACCURACY OR COMPLETENESS, QUIET ENJOYMENT, QUIET POSSESSION
+#  OR CORRESPONDENCE TO DESCRIPTION. YOU ASSUME THE ENTIRE RISK ARISING OUT OF
+#  USE OR PERFORMANCE OF THE SOFTWARE.
+#
+#  3.     TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL BROADCOM OR ITS
+#  LICENSORS BE LIABLE FOR (i) CONSEQUENTIAL, INCIDENTAL, SPECIAL, INDIRECT, OR
+#  EXEMPLARY DAMAGES WHATSOEVER ARISING OUT OF OR IN ANY WAY RELATING TO YOUR
+#  USE OF OR INABILITY TO USE THE SOFTWARE EVEN IF BROADCOM HAS BEEN ADVISED OF
+#  THE POSSIBILITY OF SUCH DAMAGES; OR (ii) ANY AMOUNT IN EXCESS OF THE AMOUNT
+#  ACTUALLY PAID FOR THE SOFTWARE ITSELF OR U.S. $1, WHICHEVER IS GREATER. THESE
+#  LIMITATIONS SHALL APPLY NOTWITHSTANDING ANY FAILURE OF ESSENTIAL PURPOSE OF
+#  ANY LIMITED REMEDY.
+#
+# $brcm_Workfile: Makefile.wmdrmpd $
+# $brcm_Revision: 2 $
+# $brcm_Date: 7/18/12 3:46p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /BSEAV/lib/playready/Makefile.wmdrmpd $
+# 
+# 2   7/18/12 3:46p piyushg
+# SW7425-3281: Remove B_HAS_DRM define.
+# 
+# 1   7/17/12 5:45p piyushg
+# SW7425-3281: Add playready kernel mode support and nexus drm
+# implementation
+# 
+# SW7425-2317/7   6/4/12 6:45p piyushg
+# SW7425-3166: Remove references to HTTP handling throughout the module.
+# 
+# SW7425-2317/6   6/4/12 6:23p piyushg
+# SW7425-3166: Remove references to HTTP handling throughout the module.
+# Application is responsible forhttp handling now.
+# 
+# SW7425-2317/5   4/30/12 10:10a hugost
+# Merged fix from customer release branch
+# 
+# SW7425-2317_phase5/2   4/30/12 10:06a hugost
+# Moved inclusion of drmrootfs lib out of playready makefile
+# 
+# SW7425-2317_phase5/1   4/13/12 10:35a hugost
+# Merged SW7425-2317
+# 
+# SW7425-2317/4   4/12/12 9:34a hugost
+# Removed reference to old common_crypto inclusion path
+# 
+# SW7425-2317/3   4/9/12 10:11a hugost
+# Robustness rules support in kernel mode
+# 
+# SW7425-2317/2   4/6/12 7:42p piyushg
+# SW7425-2317: Initial support for MP4
+# 
+# SW7425-2317/1   2/28/12 9:58p piyushg
+# Added file element "Makefile.wmdrmpd".
+# SW7425-2317: Initial checkin for Nexus DRM usrmode and kernelmode
+# support
+# 
+# SW7405-5136/2   3/23/11 2:43p ryalung
+# SW7405-5136: NEXUS DRM support.
+# 
+# SW7405-5136/1   2/15/11 6:08p ryalung
+# SW7405-5136: DRM Linux kernel support.
+# 
+# 6   12/28/09 3:15p jrubio
+# SW7335-613: encapsulate DEBUG flags for only DEBUG builds
+# 
+# 5   3/31/09 5:18p katrep
+# PR53733: Fixed compile issue introduced by previous checkin
+# 
+# 4   3/31/09 5:00p katrep
+# PR53733: Add vpath for asf file
+# 
+# 3   3/31/09 2:49p katrep
+# PR53733: Add HW decrypt support for msdrm pd. Use MSDRM_PD_HWDECRYPT=y
+# along with MSDRM_PS_SUPPORT=y to enable
+# 
+# 2   10/29/08 11:05a btosi
+# PR47488: added bdrm_[set/get]_dma_handle for the security code
+# 
+# 1   10/2/08 10:35a btosi
+# PR47488: for Nexus applications
+# 
+############################################################
+
+ifeq ($(B_REFSW_OS),linuxkernel)
+#ifeq ($(MODE),proxy)
+WMDRMPD_INCLUDES += $(BSEAV)/lib/playready $(BSEAV)/lib/playready/inc $(BSEAV)/lib/utils $(BSEAV)/lib/asf $(BSEAV)/lib/media
+
+WMDRMPD_CFLAGS += NEXUS_DRM_BUILD=1 
+else
+WMDRMPD_INCLUDES += $(BSEAV)/lib/playready $(BSEAV)/lib/playready/inc $(BSEAV)/lib/utils $(BSEAV)/lib/asf $(BSEAV)/lib/media
+WMDRMPD_INCLUDES += $(BSEAV)/lib/utils
+WMDRMPD_INCLUDES += $(BSEAV)/lib/media
+WMDRMPD_INCLUDES += $(BSEAV)/lib/bfile
+WMDRMPD_INCLUDES += $(BSEAV)/api/include
+
+ifeq ($(PRDY_ROBUSTNESS_ENABLE), y)
+WMDRMPD_INCLUDES += $(BSEAV)/lib/drmrootfs
+endif
+
+WMDRMPD_CFLAGS += NEXUS_DRM_BUILD=1
+WMDRMPD_CFLAGS += DRM_SCAN_ASF=1
+endif
+
+WMDRMPD_SRCS += $(BSEAV)/lib/playready/prdy_core.c \
+        $(BSEAV)/lib/playready/prdy_play.c \
+        $(BSEAV)/lib/playready/prdy_challenge.c \
+        $(BSEAV)/lib/playready/prdy_response.c \
+        $(BSEAV)/lib/playready/prdy_env.c \
+        $(BSEAV)/lib/playready/prdy_decryptor.c \
+        $(BSEAV)/lib/playready/prdy_mp4.c \
+        $(BSEAV)/lib/playready/prdy_asf.c \
+        $(BSEAV)/lib/playready/prdy_secure_clk.c 
+
+ifeq ($(MSDRM_PRELOAD_LICENSE),y)
+WMDRMPD_CFLAGS += MSDRM_PRELOAD_LICENSE=1
+WMDRMPD_SRCS += drmlicense.c
+endif
+
+ifeq ($(B_REFSW_OS),linuxuser)
+WMDRMPD_SRCS += $(BSEAV)/lib/playready/asfpars.c
+WMDRMPD_SRCS += $(BSEAV)/lib/playready/prdy_http.c
+endif
+
+ifeq ($(DEBUG),y)
+#WMDRMPD_CFLAGS += _DEBUG -DDEBUG 
+endif 
+
+WMDRMPD_CFLAGS += NEXUS_DRM_BUILD=1 DRM_SUPPORT_DLA=1 DRM_BUILD_PROFILE=10 TARGET_LITTLE_ENDIAN=1 DRM_SUPPORT_TEST_SETTINGS=1 NO_DRM_CRT=0 DRM_SUPPORT_ANTIROLLBACK_CLOCK=1 DRM_SUPPORT_WMDRMNET=1 DRM_SUPPORT_REVOCATION=1 DRM_SUPPORT_DATASTORE_PREALLOC=1 DRM_SUPPORT_DOMAINS=1 _DATASTORE_WRITE_THRU=1 DRM_SUPPORT_CERTIFICATE_CACHING=1 DRM_SUPPORT_CLEANUP=1 DRM_SUPPORT_DEVICESTORE=1 DRM_SUPPORT_LICENSE_SYNC=1 DRM_SUPPORT_METERING=1 DRM_SUPPORT_SYMMETRIC_OPTIMIZATIONS=1 
+
+ifeq ($(B_REFSW_OS),linuxkernel)
+#$(warning kernel playready)
+WMDRMPD_BIN_DIR = $(BSEAV)/lib/playready/bin/playreadylinuxkernel
+ifeq ($(PRDY_ROBUSTNESS_ENABLE), y)
+WMDRMPD_BIN_DIR = $(BSEAV)/lib/playready/bin/playready_robustlinuxkernel
+WMDRMPD_CFLAGS += PRDY_ROBUSTNESS=1
+endif
+else		
+#$(warning user playready)
+WMDRMPD_BIN_DIR = $(BSEAV)/lib/playready/bin/playready
+ifeq ($(PRDY_ROBUSTNESS_ENABLE), y)
+WMDRMPD_BIN_DIR = $(BSEAV)/lib/playready/bin/playready_robust
+WMDRMPD_CFLAGS += PRDY_ROBUSTNESS=1
+endif
+endif
+
+WMDRMPD_PRECOMPILED_LIBS += \
+        $(WMDRMPD_BIN_DIR)/oem_ansi.a   \
+        $(WMDRMPD_BIN_DIR)/drmmanager.a  \
+        $(WMDRMPD_BIN_DIR)/drmcore.a    \
+        $(WMDRMPD_BIN_DIR)/drmpkcrypto.a \
+        $(WMDRMPD_BIN_DIR)/drmbignum.a  \
+        $(WMDRMPD_BIN_DIR)/drmdevcert.a  \
+        $(WMDRMPD_BIN_DIR)/drmblackbox.a \
+        $(WMDRMPD_BIN_DIR)/drmcrypto.a  \
+        $(WMDRMPD_BIN_DIR)/drmdevicedevcert.a \
+        $(WMDRMPD_BIN_DIR)/certs.a \
+        $(WMDRMPD_BIN_DIR)/domain.a \
+        $(WMDRMPD_BIN_DIR)/drmmetering.a \
+        $(WMDRMPD_BIN_DIR)/drmsecureclock.a \
+        $(WMDRMPD_BIN_DIR)/drmsha256.a \
+        $(WMDRMPD_BIN_DIR)/drmsynclist.a \
+        $(WMDRMPD_BIN_DIR)/drmxmr.a \
+        $(WMDRMPD_BIN_DIR)/oem_common.a \
+        $(WMDRMPD_BIN_DIR)/constants.a \
+        $(WMDRMPD_BIN_DIR)/wmdrmcert.a \
+        $(WMDRMPD_BIN_DIR)/ndt.a \
+        $(WMDRMPD_BIN_DIR)/ndtasf.a \
+        $(WMDRMPD_BIN_DIR)/ndtmgr.a \
+        $(WMDRMPD_BIN_DIR)/noncestore.a 

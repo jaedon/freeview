@@ -1,0 +1,12 @@
+
+TARGETNAME=xmrlicgen
+TARGETTYPE=LIBRARY
+
+SOURCES =          \
+    xmrlicgen.c    \
+    rightsparser.c \
+    timeutils.c    \
+    checksum.c     \
+    stringutils.c  \
+    DerivedKeys.c  \
+

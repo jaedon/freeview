@@ -1,0 +1,27 @@
+7080:BVT:PRNDNoAssetTx Basic
+SkipTestIf(!PRNDNoAssetTxAvailable)
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDNoAssetTx_StartTx
+TestPRNDNoAssetTx_PerformRegistration
+TestPRNDNoAssetTx_PerformProximityDetection
+TestPRNDNoAssetTx_PerformLicenseFetch
+TestPRNDNoAssetTx_EndTx
+
+
+7081:BVT:PRNDNoAssetTx where Rx starts with no RevInfo
+SkipTestIf(!PRNDNoAssetTxAvailable)
+TestPRNDCRLTimeOffset()
+TestPRNDNoAssetTx_StartTx
+TestPRNDNoAssetTx_PerformRegistration
+TestPRNDNoAssetTx_PerformProximityDetection
+TestPRNDNoAssetTx_PerformLicenseFetch
+TestPRNDNoAssetTx_EndTx
+
+
+7082:FUNC:PRNDNoAssetTx where Tx believes that the RevInfo has expired
+SkipTestIf(!PRNDNoAssetTxAvailable)
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDNoAssetTx_StartTx
+TestPRNDNoAssetTx_PerformRegistration( EXPIRED_REV_INFO )
+

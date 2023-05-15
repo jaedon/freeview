@@ -1,0 +1,25 @@
+rul
+imm
+ov
+oc
+dacs 15 15 15 15 15 15 15
+mac 1
+apl
+imm
+
+dacs 15 15 15 15 6 7 8
+c1
+oc
+dacs 2 15 15 15 15 15 15
+c0
+dacs 15 15 15 15 15 15 15
+sleep
+rul
+c1
+cw
+cd
+c0
+cw
+cd
+quit
+

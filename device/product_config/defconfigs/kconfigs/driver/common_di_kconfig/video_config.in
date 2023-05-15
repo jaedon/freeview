@@ -1,0 +1,187 @@
+##########################################
+# DI VIDEO configuration menu
+##########################################
+
+config VIDEO_DECODER
+	bool
+	prompt "VIDEO_DECODER"
+	default y
+
+config VIDEO_ENCODER
+	bool
+	prompt "VIDEO_ENCODER"
+	default n
+
+config VIDEO_DISPLAY
+	bool
+	prompt "DISPLAY"
+	default y
+
+if VIDEO_DECODER
+
+config VIDEO_DEC_H265
+	bool
+	prompt "VIDEO_DEC_H265"
+	default n
+
+config VIDEO_DEC_VP8
+	bool
+	prompt "VIDEO_DEC_VP8"
+	default n
+
+config VIDEO_DEC_VP9
+	bool
+	prompt "VIDEO_DEC_VP9"
+	default n
+
+config AFD_EVENT
+	bool
+	prompt "AFD_EVENT - get AFD info from user data and fire afd event to MW"
+	default y
+
+endif
+
+choice
+	prompt "Select HD output default"
+	default HDOUT_480I   
+	config HDOUT_480I
+		bool
+		prompt "HDOUT_480I"
+
+	config HDOUT_576I
+		bool
+		prompt "HDOUT_576I"
+
+	config HDOUT_480P
+		bool
+		prompt "HDOUT_480P"
+
+	config HDOUT_576P
+		bool
+		prompt "HDOUT_576P"
+
+	config HDOUT_720P
+		bool
+		prompt "HDOUT_720P"
+
+	config HDOUT_1080I
+		bool
+		prompt "HDOUT_1080I"
+
+	config HDOUT_1080I_60HZ
+		bool
+		prompt "HDOUT_1080I_60HZ"
+
+	config HDOUT_1080P
+		bool
+		prompt "HDOUT_1080P"
+endchoice
+
+config HDOUT_1080P_24HZ
+	bool
+	prompt "HDOUT_1080P_24HZ"
+	default n
+
+config HDOUT_2160P
+	bool
+	prompt "HDOUT_2160P"
+	default n
+
+choice
+	prompt "Select SD output default"
+	default SDOUT_PAL   
+	config SDOUT_PAL
+		bool
+		prompt "SDOUT_PAL"
+
+	config SDOUT_NTSC
+		bool
+		prompt "SDOUT_NTSC"
+
+	config SDOUT_NTSC_JAPAN
+		bool
+		prompt "SDOUT_NTSC_JAPAN"
+endchoice
+
+config DEINTERLACE
+	bool
+	prompt "DEINTERLACE"
+	default n
+
+config YPBPR_PORT
+	bool
+	prompt "YPBPR_PORT"
+	default n
+
+config 3D_VIDEO
+	bool
+	prompt "3D_VIDEO"
+	default n
+
+
+config MHEG_SUPPORT
+	bool
+	prompt "MHEG_SUPPORT"
+	default n
+
+	config ICS
+	bool
+	prompt "ICS support"
+	default n
+	depends on MHEG_SUPPORT
+
+config VIDEO_ERROR_LOG
+	bool
+	prompt "VIDEO_ERROR_LOG"
+	default n
+
+config MACROVISION_CERTIFICATION_DVD
+	bool
+	prompt "MACROVISION_CERTIFICATION_DVD - Certification of the Macrovision Copy Protection Process for DVD Products"
+	default n
+
+config MACROVISION_CERTIFICATION_DMR
+	bool
+	prompt "MACROVISION_CERTIFICATION_DMR(Digital Media Receiver) - Certification of the Macrovision Copy Protection Process for STB/IRD Product"
+	default n
+
+config MACROVISION_CERTIFICATION_MOP
+	bool
+	prompt "MACROVISION_CERTIFICATION_MOP(Most Other Products) - Certification of the Macrovision Copy Protection Process for Most other Products (e.g. AACS encrypted disc products, DME, AMR, etc.)"
+	default n
+
+config IFRAME_RANDOM_ACCESS
+	bool
+	prompt "If Key frame or IDR frame is not exist in stream, Treat I frame as random access point - Don't enable config in normal case"
+	default n
+
+config VBI_TELETEXT
+	bool
+	prompt "VBI teletext"
+	default y
+
+config SCALER_BEFORE_CAPTURE
+	bool
+	prompt "The Scaler Capture bias is always SCL->CAP"
+	default n
+
+config SCALER_AFTER_CAPTURE
+	bool
+	prompt "The Scaler Capture bias is always CAP->SCL"
+	default n
+
+config VIDEO_MOSAIC_CNT
+	int
+	prompt "NUM MOSAIC COUNT"
+	default 5
+
+config CAPTURE_DECODING
+	bool
+	prompt "CAPTURE_DECODING"
+	default n
+
+config CLOSED_CAPTION
+	bool
+	prompt "support NTSC closed caption"
+	default n
+

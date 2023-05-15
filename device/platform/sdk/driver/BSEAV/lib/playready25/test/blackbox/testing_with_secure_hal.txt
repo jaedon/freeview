@@ -1,0 +1,17 @@
+In order to test with DRM_SUPPORT_SECUREOEMHAL turned on you need to do several things:
+1. Set the following build flags:
+    DRM_SUPPORT_SECUREOEMHAL=1
+    DRM_SUPPORT_BBXLEGACY=0
+    DRM_SUPPORT_BBXSLK=0
+    DRM_SUPPORT_CERTPARSERCACHE=0
+    DRM_SUPPORT_DLA=0
+    DRM_SUPPORT_SYMOPT=0
+    DRM_SUPPORT_WMDRM=0
+
+2. Remove the "real" entry from the dirs file for the following modules:
+    blackboxlegacy
+    blackboxslk
+    symopt
+    wmdrm
+
+3. MSINTERNAL: disable build settings in source\tools\project.mk which conflict with the settings in #1.

@@ -1,0 +1,188 @@
+
+###################################################
+# 			Product Platform & Requirement Configuration Menu			#
+###################################################
+
+	comment "Product Code Choice (PROD_XXX)"
+	choice
+		prompt "Select Product Code"
+		default PROD_HMS1000S
+
+		config PROD_HDR1000S
+			bool "PROD_HDR1000S - Freesat Gen2 PVR"
+		
+		config PROD_HMS1000S
+			bool "PROD_HMS1000S - Humax Home Media Server"
+
+		config PROD_IR4000HD
+			bool "PROD_IR4000HD - Middle east retail"
+
+		config PROD_ICORDPRO
+			bool "PROD_ICORDPRO - German retail"
+			
+		config PROD_HDNEO
+			bool "PROD_HDNEO - German retail (Ext. eSATA)"
+
+		config PROD_HGS1000S
+			bool "PROD_HGS1000S - German retail for 4K HGS"
+		
+		config PROD_HD9000I
+			bool "PROD_HD9000I - 2 tuner cable zapper, ER Telecom, Russia"
+			
+		config PROD_HMS1000T
+			bool "PROD_HMS1000T - Humax Home Media Server (DTT Australia)"
+
+		config PROD_IHDR6100C
+			bool "PROD_IHDR6100C - ZIGGO Rainbow PVR(IHDR-6100C)"
+
+		config PROD_HDR4000T
+			bool "PROD_HDR4000T - Freeview HD+ PVR"
+
+		config PROD_HMX4KBBC
+			bool "PROD_HMX4KBBC - BT 4K Poc"
+
+		config PROD_HDFOXIRCONNECT
+			bool "PROD_HDFOXIRCONNECT - Austria ORF retail"
+
+		config PROD_DIGIMAXT2
+			bool "PROD_DIGIMAXT2 - Italy DTT (T2)"
+
+		config PROD_YSR2000
+			bool "PROD_YSR2000 - 8 tuner cable PVR, TDC, Denmark"
+
+		config PROD_YS1000
+			bool "PROD_YS1000 - 8 tuner cable Zapper, TDC, Denmark"
+
+		config PROD_HMSLITE
+			bool "PROD_HMSLITE - Humax Home Media Server lite"
+
+		config PROD_CDIG2000C
+			bool "PROD_CDIG2000C - Telenor cable PVR, Sweden"
+
+		config PROD_ROCKYPOM
+			bool "PROD_ROCKYPOM - Cablevision PVR"
+
+		config PROD_ROCKYWPOM
+			bool "PROD_ROCKYWPOM - Cablevision PVR"
+
+		config PROD_HA7100S
+			bool "PROD_HA7100S - South America"
+
+		config PROD_M1
+			bool "PROD_M1 - Middle Asia(MBC)"
+
+		config PROD_FVP4000T
+			bool "PROD_FVP4000 -  Freeview Play HD PVR"
+
+	endchoice
+
+	comment "Product Name String"
+	config PRODUCT_NAME
+		string "PRODUCT_NAME - Product Name String"
+		default "foxsathdr2"		if PROD_HDR1000S
+		default "hms1000sde"		if PROD_HMS1000S
+		default "ir4000hd"		if PROD_IR4000HD
+		default "icordpro"		if PROD_ICORDPRO
+		default "hdneo"		if PROD_HDNEO
+		default "hgs1000s"		if PROD_HGS1000S
+		default "hd9000iru"			if PROD_HD9000I
+		default "hms1000t"		if PROD_HMS1000T
+		default "ihdr6100c"		if PROD_IHDR6100C
+		default "hdr4000t"		if PROD_HDR4000T
+		default "hmx4kbbc"		if PROD_HMX4KBBC
+		default "hdfoxirconnect"	if PROD_HDFOXIRCONNECT
+		default "digimaxt2"		if PROD_DIGIMAXT2
+		default "ysr2000"		if PROD_YSR2000
+		default "ys1000"		if PROD_YS1000
+		default "hmslite"		if PROD_HMSLITE
+		default "cdig2000c"		if PROD_CDIG2000C
+		default "rockypom"		if PROD_ROCKYPOM
+		default "rockywpom"		if PROD_ROCKYWPOM
+		default "ha7100s"		if PROD_HA7100S
+		default "m1"		if PROD_M1		
+		default "fvp4000t"		if PROD_FVP4000T
+		
+	config PRODUCT_PLATFORM_NAME
+		string "PRODUCT_PLATFORM_NAME - Product Name String for platform"
+		default PRODUCT_NAME
+
+	comment "Platform CPU Choice (PROD_CPU_XXX)"
+	choice
+		prompt "Select a platform CPU"
+		default PROD_CPU_BCM
+
+		config PROD_CPU_BCM
+			bool "PROD_CPU_BCM - BCM97405"
+			default y
+			
+			config PROD_CPU_BCM_ARM
+				depends on PROD_CPU_BCM
+				bool "PROD_CPU_BCM_ARM - BCM97445"
+				default n
+				
+		config PROD_CPU_ST
+			bool "PROD_CPU_ST - ST7105/7111"
+	endchoice
+
+	comment "Platform OS Choice (PROD_OS_XXX)"
+	choice
+		prompt "Select a platform OS"
+		default PROD_OS_LINUX
+
+		config PROD_OS_LINUX
+			bool "PROD_OS_LINUX - OS Linux"
+		config PROD_OS_ST
+			bool "PROD_OS_ST - OS ST"
+	endchoice
+
+	comment "Endian Type Choice (PROD_ENDIAN_XXX)"
+	choice
+		prompt "Select little/big endian"
+		default PROD_ENDIAN_BIG
+
+		config PROD_ENDIAN_BIG
+			bool "PROD_ENDIAN_BIG - Big endian"
+		config PROD_ENDIAN_LITTLE
+			bool "PROD_ENDIAN_LITTLE - Little endian"
+	endchoice
+	
+	comment "C Library Choice (PROD_GCC_XXX)"
+	choice
+		prompt "Select uClibc/gLibc"
+		default PROD_GCC_UCLIBC
+
+		config PROD_GCC_UCLIBC
+			bool "PROD_GCC_UCLIBC - uClibc"
+		config PROD_GCC_GLIBC
+			bool "PROD_GCC_GLIBC - gLibc"
+	endchoice
+
+	config PROD_GCC_GLIBC_ASAN
+		bool "PROD_GCC_GLIBC_ASAN"
+		prompt "Address sanitizer : a fast memory error detector (>= stbgcc 4.8-1.0 GLIBC)"
+		depends on PROD_GCC_GLIBC
+		default n
+
+	menu "<< Select Deploying Countries Menu >>"
+		source "./Kconfigs/product/config.country"
+	endmenu
+
+	menu "<< Select Supported Languages Menu >>"
+		source "./Kconfigs/product/config.lang"
+	endmenu
+
+	source "./Kconfigs/product/config.rcu"
+
+	menu "<< Select Global Path >>"
+	source "./Kconfigs/product/config.path"
+	endmenu
+	
+	menu "<< Select Device Menu >>"
+		source "./Kconfigs/product/config.device"
+	endmenu
+
+	menu "<< Select Function Menu >>"
+		source "./Kconfigs/product/config.function"
+	endmenu
+
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config_root>
+  <config_data>
+    <include>etc/conf/gibbon.xml</include>
+    <splash_screen>animated</splash_screen>
+    <screen_render_display_list>true</screen_render_display_list>
+    <boot_url>gibbon://localhost/</boot_url>
+    <fps_target>30</fps_target>
+  </config_data>
+</config_root>

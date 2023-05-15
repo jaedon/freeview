@@ -1,0 +1,78 @@
+<!--
+<link href="emul/ext/css/redmond/jquery-ui-1.8.17.custom.css" rel="stylesheet"
+type="text/css" />
+-->
+<link href="fw/service/rcu/oipf_emul_console.css" rel="stylesheet" type="text/css" />
+<div id='divRemoteController'>
+    <img id="imgRemoteController" src="fw/service/rcu/images/jcngs-rcu.png" alt="jcngs-rcu.png" class="mapper" usemap="#001" />
+    <map id="mapRemoteController" name="001">
+        <area id="POWER" shape="circle" title="POWER" coords="55,32,20" alt="" />
+        <!-- TV -->
+        <area id="입력변환" shape="poly" title="입력변환:not defined" coords="96,28,110,28,124,50,82,50" alt="" />
+        <area id="TV전원" shape="rect" title="TV전원:not defined" coords="135,32,166,57" alt="" />
+        <area id="음소거" shape="circle" title="음소거:not defined" coords="156,76,15" alt="" />
+        <!-- TV -->
+        <area id="SURROUND_MODE_NEXT" shape="circle" title="음성변환" coords="46,76,15" alt="" />
+        <area id="MENU" shape="rect" title="나비" coords="79,59,123,78" alt="" />
+        <area id="BLUE" shape="circle" title="BLUE" coords="44,107,12" alt="" />
+        <area id="RED" shape="circle" title="RED" coords="83,100,12" alt="" />
+        <area id="GREEN" shape="circle" title="GREEN" coords="123,100,12" alt="" />
+        <area id="YELLOW" shape="circle" title="YELLOW" coords="164,107,12" alt="" />
+        <area id="LEFT" shape="poly" title="LEFT" coords="37,178,37,190,68,203,68,165" alt="" />
+        <area id="UP" shape="poly" title="UP" coords="80,155,125,155,113,132,92,132" alt="" />
+        <area id="RIGHT" shape="poly" title="RIGHT" coords="140,165,140,203,168,190,168,178" alt="" />
+        <area id="DOWN" shape="poly" title="DOWN" coords="80,210,125,210,115,235,95,235" alt="" />
+        <area id="ENTER" shape="rect" title="OK" coords="80,165,125,200" alt="" />
+        <area id="CHANNEL_UP" shape="poly" title="PAGE_UP" coords="21,140,52,129,50,154,22,172" alt="" />
+        <area id="CHANNEL_DOWN" shape="poly" title="PAGE_DOWN" coords="22,200,56,209,64,243,28,229" alt="" />
+        <area id="VOLUME_UP" shape="poly" title="VOLUME_UP" coords="152,125,182,140,186,170,154,157" alt="" />
+        <area id="VOLUME_DOWN" shape="poly" title="VOLUME_DOWN" coords="152,210,186,195,179,232,145,245" alt="" />
+        <area id="GUIDE" shape="circle" title="번조표(EPG)" coords="76,267,15"	alt="" />
+        <area id="BACK" shape="circle" title="모도루(뒤로)" coords="131,267,15"	alt=""/>
+        <area id="RECALL_FAVORITE_0" shape="circle" title="오꼬노미(선호채널)" coords="38,295,15"	alt=""/>
+        <area id="DATA_BROADCAST" shape="circle" title="데이타" coords="169,295,15"	alt=""/>
+        <area id="INFO" shape="poly" title="화면표시(i-plate)" coords="26,317,69,325,69,345,27,337" alt=""  style="" />
+        <area id="DIGITS" shape="poly" title="3행입력" coords="28,348,69,355,69,375,30,368" alt=""  style="" />
+        <area id="VOD" shape="rect" title="VOD" coords="81,311,125,342" alt="" />
+        <area id="BROWSER" shape="rect" title="브라우저" coords="81,355,125,374" alt="" />
+        <area id="LIST" shape="poly" title="번조일람(채널리스트)" coords="138,325,182,317,181,337,138,345" alt=""  style="" />
+        <area id="PROGRAM" shape="poly" title="번조내용(상세정보)" coords="138,355,179,348,177,368,138,375" alt=""  style="" />
+        <area id="DTT" shape="circle" title="DTT" coords="51,394,16"	alt=""/>
+        <area id="BS" shape="circle" title="BS" coords="103,398,16"	alt=""/>
+        <area id="CATV" shape="circle" title="CATV" coords="157,394,16"	alt=""/>
+        <area id="1" shape="poly" title="1" coords="27,413,74,418,74,443,30,436" alt=""  style="" />
+        <area id="2" shape="rect" title="2" coords="81,418,126,443" alt=""  style="" />
+        <area id="3" shape="poly" title="3" coords="133,418,179,413,176,436,133,443" alt=""  style="" />
+        <area id="4" shape="poly" title="4" coords="30,445,74,450,74,475,32,468" alt=""  style="" />
+        <area id="5" shape="rect" title="5" coords="81,450,126,475" alt=""  style="" />
+        <area id="6" shape="poly" title="6" coords="133,450,176,445,174,468,133,475" alt=""  style="" />
+        <area id="7" shape="poly" title="7" coords="33,477,74,483,74,507,36,501" alt=""  style="" />
+        <area id="8" shape="rect" title="8" coords="81,483,126,507" alt=""  style="" />
+        <area id="9" shape="poly" title="9" coords="133,483,174,477,171,501,133,507" alt=""  style="" />
+        <area id="0" shape="poly" title="0" coords="35,509,74,515,74,536,38,533" alt=""  style="" />
+        <area id="11" shape="rect" title="11" coords="81,515,126,536" alt=""  style="" />
+        <area id="12" shape="poly" title="12" coords="133,515,170,509,167,533,133,536" alt=""  style="" />
+        <area id="SUBTITLE" shape="poly" title="자막" coords="22,543,70,548,74,586,26,585" alt=""  style="" />
+        <area id="SEARCH" shape="poly" title="장르검색" coords="26,585,74,585,77,622,29,621" alt=""  style="" />
+        <area id="EXIT" shape="poly" title="원래화면" coords="29,619,77,621,80,656,32,655" alt=""  style="" />
+        <area id="ETC" shape="poly" title="타기능" coords="32,655,80,655,84,692,36,691" alt=""  style="" />
+        <area id="SHIFT" shape="poly" title="문자전환" coords="80,655,132,655,130,692,84,691" alt=""  style="" />
+        <area id="SCREEN_MODE_NEXT" shape="poly" title="화면모드" coords="141,555,185,558,183,587,138,587" alt=""  style="" />
+        <area id="STORE_FAVORITE_0" shape="poly" title="원터치선국" coords="138,587,183,587,180,624,135,624" alt=""  style="" />
+        <area id="OPTION" shape="poly" title="서브메뉴" coords="135,624,180,624,179,657,132,657" alt=""  style="" />
+        <area id="CLEAR" shape="poly" title="문자클리어" coords="132,657,179,657,175,691,129,691" alt=""  style="" />
+        <area id="LAST" shape="poly" title="전선국(이전채널)" coords="82,552,126,556,124,585,87,585" alt=""  style="" />
+        <area id="SETTING" shape="poly" title="설정" coords="87,585,124,585,122,614,90,614" alt=""  style="" />
+        <area id="RECOMMAND" shape="poly" title="오스스메(추천)" coords="90,614,122,614,119,645,93,645" alt=""  style="" />
+        <area id="BROADCAST_NETWORK" shape="circle" title="방송전환" coords="248,35,10"	alt="" />
+        <area id="CHANNEL_UP" shape="circle" title="CH +" coords="280,35,10"	alt="" />
+        <area id="CHANNEL_DOWN" shape="circle" title="CH -" coords="315,35,10"	alt="" />
+        <area id="WPS" shape="circle" title="WPS" coords="345,35,10"	alt="" />
+    </map>
+</div>
+<script src="fw/service/rcu/ext/jquery.maphilight.js" type="text/javascript"></script>
+<!--
+<script src="emul/ext/jquery-ui-1.8.17.custom.min.js"
+type="text/javascript"></script>
+-->
+<script src="fw/service/rcu/oipf_emul_console.js" type="text/javascript"></script>

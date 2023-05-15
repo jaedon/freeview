@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+</script>
+<link href="layout.css" rel="stylesheet" type="text/css"/>
+
+<script>
+var ws;
+
+var	json_set_output_default = '"sysctl":{"target":"output","operation":"set","property":{"tvscart":"rgb","vcrscart":"rgb","resolution":"1280x720p","tvaspectratio":"16:9","displayformat":"full","margincolor":"black","output":"enable"}}';
+var	json_get_output = '"sysctl":{"target":"output","operation":"get"}';
+
+var	json_set_antenna_default = '"meta":{"operation":"set","target":"antinfo","property":{"max_ant_count":16,"cur_ant_count":3,"antinfo":[{"valid":0},{"valid":1,"sat_type":"astra_1","sat_name":"MyAstra","antenna_type":"diseqc","antinfo":{"lnbfreq":-1,"lnbvoltage":"standard","22khztone":false,"diseqcver":"1.0","diseqcinput":"c","toneburst":"none","motorpos":0,"longitude":0}},{"valid":1,"sat_type":"astra_2","sat_name":"ASTRA_2","antenna_type":"diseqc","antinfo":{"lnbfreq":9750,"lnbvoltage":"standard","22khztone":false,"diseqcver":"1.0","diseqcinput":"b","toneburst":"none","motorpos":0,"longitude":0}},{"valid":1,"sat_type":"asiasat_3s","sat_name":"ASIASAT_3S","antenna_type":"diseqc","antinfo":{"lnbfreq":5150,"lnbvoltage":"standard","22khztone":true,"diseqcver":"1.0","diseqcinput":"b","toneburst":"none","motorpos":0,"longitude":0}}]}}';
+var	json_set_prepare_asiasat3s = '"builder":{"target":"none","operation":"set","property":{"action":[{"name":"name0","tunertype":"sat","mode":"do_prepare","option":{"do_network_scan":true,"with_network_id":false,"network_id":12345},"extern":{"antid":2,"sattype":"astra1"},"tpinfo":[{"frequency":10714,"symbolrate":22000},{"frequency":3680,"symbolrate":26670},{"frequency":3700,"symbolrate":27500},{"frequency":3706,"symbolrate":6000},{"frequency":3725,"symbolrate":4450},{"frequency":3729,"symbolrate":13650},{"frequency":3733,"symbolrate":6500},{"frequency":3746,"symbolrate":2628},{"frequency":3751,"symbolrate":2820},{"frequency":3755,"symbolrate":4418},{"frequency":3760,"symbolrate":26000},{"frequency":3780,"symbolrate":28100},{"frequency":3786,"symbolrate":5700},{"frequency":3793,"symbolrate":3000},{"frequency":3840,"symbolrate":26850},{"frequency":3860,"symbolrate":27500},{"frequency":3880,"symbolrate":27500},{"frequency":3920,"symbolrate":26850},{"frequency":3940,"symbolrate":28100},{"frequency":3960,"symbolrate":27500},{"frequency":3980,"symbolrate":28100},{"frequency":4000,"symbolrate":26850},{"frequency":4020,"symbolrate":27250},{"frequency":4040,"symbolrate":20400},{"frequency":4091,"symbolrate":13330},{"frequency":4103,"symbolrate":2895},{"frequency":4108,"symbolrate":2893},{"frequency":4111,"symbolrate":13650},{"frequency":4114,"symbolrate":7000},{"frequency":4130,"symbolrate":9333},{"frequency":4140,"symbolrate":27500},{"frequency":4180,"symbolrate":26666},{"frequency":12352,"symbolrate":30000},{"frequency":12378,"symbolrate":3100},{"frequency":12382,"symbolrate":3100},{"frequency":12465,"symbolrate":3100},{"frequency":12469,"symbolrate":2900},{"frequency":12683,"symbolrate":5800}]}]}}';
+var	json_start_builder = '"builder":{"target":"none","operation":"set","property":{"action":[{"name":"name0","tunertype":"sat","mode":"do_scan"}]}}';
+var	json_get_builder = '"builder":{"target":"name0","operation":"get"}';
+var	json_stop_builder = '"builder":{"target":"none","operation":"set","property":{"action":[{"name":"name0","tunertype":"sat","mode":"do_stop"}]}}';
+var json_free_builder = '"builder":{"target":"none","operation":"set","property":{"action":[{"name":"name0","tunertype":"sat","mode":"do_free"}]}}';
+
+$(document).ready(function(){
+    if("WebSocket" in window){
+        printOut("Connecting...");
+        ws = new WebSocket("ws://192.168.0.178:7681", "octo-protocol-via-websocket");
+
+        ws.onopen = function(){
+            printOut("Connected.");
+
+            $("#btn").click(sendMessage);
+            $("#sendoutput").click(sendMessageSetOutput);
+            $("#getoutput").click(sendMessageGetOutput);
+            $("#setantenna").click(sendMessageSetAntenna);
+            $("#pbAsiasat3s").click(sendMessagePrepare);
+            $("#startbuilder").click(sendMessageStartBuilder);
+			$("#getbuilder").click(sendMessageGetBuilderData);
+			$("#stopbuilder").click(sendMessageStopBuilder);
+			$("#freebuilder").click(sendMessageFreeBuilderData);
+            $("#txt").keyup(function(e){
+                if(e.keyCode == 13) sendMessage();
+            });
+        };
+        ws.onmessage = function(e){
+			printOut("<<<" + e.data);
+        };
+        ws.onclose = function(){
+            printOut("Connection Closed.");
+        }
+    } else {
+        printOut("Your browser doesn't support WebSocket.");
+    }
+
+});
+
+function sendMessage()
+{
+    ws.send($("#txt").val());
+    $("#txt").val("");
+}
+
+function sendMessageSetOutput()
+{
+	printOut(">>>" + json_set_output_default);
+    ws.send(json_set_output_default);
+}
+
+function sendMessageGetOutput()
+{
+	printOut(">>>" + json_get_output);
+    ws.send(json_get_output);
+}
+
+function sendMessageSetAntenna()
+{
+	printOut(">>>" + json_set_antenna_default);
+	ws.send(json_set_antenna_default);
+}
+
+function sendMessagePrepare()
+{
+	printOut(">>>" + json_set_prepare_asiasat3s);
+	ws.send(json_set_prepare_asiasat3s);
+}
+
+function sendMessageStartBuilder()
+{
+	printOut(">>>" + json_start_builder);
+	ws.send(json_start_builder);
+}
+
+function sendMessageGetBuilderData()
+{
+	printOut(">>>" + json_get_builder);
+	ws.send(json_get_builder);
+}
+
+function sendMessageStopBuilder()
+{
+	printOut(">>>" + json_stop_builder);
+	ws.send(json_stop_builder);
+}
+
+function sendMessageFreeBuilderData()
+{
+	printOut(">>>" + json_free_builder);
+	ws.send(json_free_builder);
+}
+
+function printOut(str)
+{
+    $("#output").append("<pre>"+str+"</pre>");
+}
+</script>
+</head>
+
+<body>
+	<H3>
+		Send Data To OCTO (manual)
+	</H3>
+    <input type="text" id="txt" />
+    <input type="button" id="btn" value="Send" /><br>
+	<H3>
+		Send SQC Data to OCTO
+	</H3>
+    <input type="button" id="sendoutput" value="SQC Send Default Output Setting"/>
+    <input type="button" id="getoutput" value="SQC Get Current Output Setting"/>
+	<H3>
+		Builder Test
+	</H3>
+    <input type="button" id="setantenna" value="META Set Default Antenna Info"/>
+    <input type="button" id="pbAsiasat3s" value="Prepare Builder for ASIASAT"/>
+    <input type="button" id="startbuilder" value="Start Builder"/>
+	<input type="button" id="getbuilder" value="Get Builder Result"/>
+	<input type="button" id="stopbuilder" value="Stop Builder"/>
+	<input type="button" id="freebuilder" value="Free Builder"/>
+    <div id="output"></div>
+</body>
+</html>

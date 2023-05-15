@@ -1,0 +1,19 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=PROGRAM
+TARGETNAME=RevocationTest
+UMTYPE=console
+
+SOURCES = \
+	..\main.c \
+
+INCLUDES = \
+    $(INCLUDES); \
+    $(_DRM_TEST_PATH)\Test_Suite_NDT; \
+    
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \
+    $(_DRM_TEST_DRMMANAGER_LIB) \
+    $(_DRM_TEST_TESTSUITENDT_LIB) \
+    $(_DRM_TEST_NETIO_LIB)    \

@@ -1,0 +1,192 @@
+##############################
+#                            #
+# [client-version]: 1.1.183  #
+#                            #
+##############################
+
+In this release, the following Jira defects have been resolved on the client:
+(LINK-692) WV_SessionCreate() ocassionally returns WVSessionStatus_InvalidLicense
+
+##############################
+#                            #
+# [client-version]: 1.1.175  #
+#                            #
+##############################
+
+In this release, the following Jira defects have been resolved on the client:
+(LINK-650) Add ability to test WV anti-rollback clock into linux versions of DRM client lib
+(LINK-696) Remove the GetCurrentTime callback from WV_Callbacks (in the client API)
+
+##############################
+#                            #
+# [client-version]: 1.1.162  #
+#                            #
+##############################
+
+In this release, the following Jira defects have been resolved on the client:
+(LINK-393) Add a function that returns the Widevine client library version number and (also) include the version number in WVNetflixAPI.h 
+
+LINK-393 was corrected to add a #define version number and remove the
+commented version number
+
+
+##############################
+#                            #
+# [client-version]: 1.1.158  #
+#                            #
+##############################
+
+In this release, the following Jira defects have been resolved on the client:
+
+(LINK-446) typedef uint8_t WV_AssetID[8] is in WVNetflixAPI.h twice
+(LINK-393) Add a function that returns the Widevine client library version number and (also) include the version number in WVNetflixAPI.h
+
+
+
+
+##############################
+#                            #
+# [client-version]: 1.1.139  #
+#                            #
+##############################
+
+In this release, the following Jira defects have been resolved on the client:
+
+(LINK-292) An invalid ECM does not result in an error or exception
+
+
+##############################
+#                            #
+# [client-version]: 1.1.135  #
+#                            #
+##############################
+
+In this release, the following Jira defects have been resolved on the client:
+
+(LINK-314) A GetCurrentTime callback that rolls back (or reverses) time is not detected
+(LINK-113) Anti-rollback clock seems non-functional
+(LINK-36) WV_AssetPolicy with start time == 0 and end time == Long.MAX_VALUE fails on client
+
+The secure clock has been implemented according to Netflix requirement documents.
+
+Note that the GetCurrentTime() callout is no longer used in the license expiration 
+computation.  The client OS native time function is called directly from the client 
+to reduce the potential for hacking.  
+
+GetCurrentTime() is still used for GUID calculation however, so please retain the 
+implementation.
+
+The periodic timer callout has been removed from the client API.
+
+#############################
+#                           #
+# [client-version]: 1.1.99  #
+#                           #
+#############################
+
+
+(1) AssetID has been changed on client and server from uint32 to uint8[8]
+
+(2) Added methods for encoding and decoding secure stops to a portable network-byte-order 
+base64 encoded string:
+
+-> Added to WVNetflixAPI.h:
+
+/*
+ *   WV_EncodeSecureStop
+ *   Convert a binary client-byte-order secure stop structure into a cross-platform
+ *   portable encoded string representation for transmission to the server.
+ *
+ *       [in] secureStop: A pointer to the client binary secure stop structure
+ *       [out] encodedSecureStop:  The WV_EncodedSecureStop which will
+ *            receive the encoded representation of the secureStop parameter
+ *
+ *  Returns: 
+ *       WVStopStatus code indicating success or error
+ */
+CLIENT_API WVStopStatus
+WV_EncodeSecureStop(WV_SecureStop *secureStop, WV_EncodedSecureStop encodedSecureStop);
+
+/* 
+ *   WV_DecodeSecureStop
+ *   Convert a cross-platform portable encoded secure stop structure
+ *   into its binary client-byte-order secure stop representation.
+ *
+ *     [in] encodedSecureStop:  The WV_EncodedSecureStop which contains
+ *         the encoded string representation of the secure stop
+ *     [out] secureStop: A pointer to the client binary secure stop structure
+ *
+ *  Returns: 
+ *       WVStopStatus code indicating success or error
+ */
+CLIENT_API WVStopStatus
+WV_DecodeSecureStop(WV_EncodedSecureStop encodedSecureStop, WV_SecureStop *secureStop);
+
+
+(3) Added version field to secure stop structure
+
+
+
+
+#############################
+#                           #
+# [client-version]: 1.1.92  #
+#                           # 
+#############################
+
+[LINK-107]: Remove dhParamSelect from client API
+
+>                 Key: LINK-107
+>                 URL: http://nflxpartnerpdjira.netflix.com/browse/LINK-107
+>             Project: Project Link
+>          Issue Type: Task
+>      Security Level: Default Link Security Level(Netflix and external partners) 
+>          Components: Widevine
+>            Reporter: Eli Chen
+>            Assignee: Jeff Tinker
+>            Priority: Major
+>
+> Please remove the dhParamSelect parameter from client API WV_GlobalInit().  The goal is that this parameter should be a link time option instead of run time.  We do not want the potential to run different dhParamSelect options in a shipped client code.  For testing purposes, we will select different DH parameters of the client library using the Makefile to select the right library to link against.
+> To be explicit, these are our requests:
+> 1) Remove dhParamSelect from WV_GlobalInit() 
+> 2) Provide separate client binary libraries for each DH parameter option.
+> 3) Label the client binary library with the DH parameter option
+> 4) In future releases, supply us versions of client binaries for all valid DH parameters.
+> 5) Verify that each client binary can only be run with 1 DH parameter, and that it's not easy to change the code to change the DH parameter.
+
+Response:
+
+1) Complete - dhParamSelect is no longer an argument to WV_GlobalInit()
+2) Complete - there are now three separate client libraries, one for each dh parameter group 0..2
+3) Complete - Label the client binary library with the DH parameter option
+4) Will do
+5) Complete - Physically removed the unused parameter groups from each each client library, so it's not easy to run the client with an alternate group.
+
+--------------------------------------------------------------------------------------------------
+
+[LINK-103]: WV_SecureStop doesn't compile on Wii
+
+>                 Key: LINK-103
+>                 URL: http://nflxpartnerpdjira.netflix.com/browse/LINK-103
+>             Project: Project Link
+>          Issue Type: Bug
+>      Security Level: Default Link Security Level(Netflix and external partners) 
+>          Components: Widevine
+>            Reporter: Eli Chen
+>            Assignee: Jeff Tinker
+>            Priority: Blocker
+>
+> Widevine:
+> Sorry for the late feedback, but the WV_SecureStop struct needs modification to build on the Wii.  The name for the struct needs to happen after the curly braces:
+> {code}
+> typedef struct {
+>     WV_AssetID assetID;
+>     WV_SessionID sessionID;
+>     uint8_t privateData[WV_SECURESTOP_PRIVATE_SIZE];
+> } WV_SecureStop;
+> {code}
+
+
+Fixed in WVNetflixAPI.h as requested
+
+

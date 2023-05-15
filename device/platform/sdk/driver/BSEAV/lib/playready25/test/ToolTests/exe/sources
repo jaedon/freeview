@@ -1,0 +1,14 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=PROGRAM
+TARGETNAME=ToolTest
+UMTYPE=console
+
+SOURCES =     \
+    ..\main.c \
+
+TARGETLIBS = $(TARGETLIBS)    \
+    $(_DRM_REFCODE_LIBS)      \
+    $(_DRM_TC_LIBS)           \
+    $(_DRM_TEST_TOOLTEST_LIB) \
+    $(_DRM_TEST_NETIO_LIB)    \

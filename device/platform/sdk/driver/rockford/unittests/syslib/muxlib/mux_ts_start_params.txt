@@ -1,0 +1,8 @@
+/* PARAM(_key,_field,_type,_help) */
+PARAM("video_0_pid",				video[0].uiPID,				uint16_t,	"\n\tVideo[0] PID")
+PARAM("video_0_stream_id",			video[0].uiPESStreamID,		uint8_t,	"\n\tVideo[0] PES Stream ID")
+PARAM("pcr_pid",					stPCRData.uiPID,			uint16_t,	"\n\tPCR PID")
+PARAM("pcr_interval",				stPCRData.uiInterval,		uint16_t,	"\n\tPCR Interval (in ms)")
+PARAM("service_latency_tolerance",	uiServiceLatencyTolerance,	unsigned,	"\n\tService Latency Tolerance (in ms)")
+PARAM("nrt",						bNonRealTimeMode,			bool,		"\n\tNon Real Time Mode (0=disable, 1=enable)")
+#undef PARAM

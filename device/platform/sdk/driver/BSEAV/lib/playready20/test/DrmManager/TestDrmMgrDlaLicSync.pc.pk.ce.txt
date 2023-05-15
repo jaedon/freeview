@@ -1,0 +1,639 @@
+33000:BVT:P0:PlayReady DLA Sync -- DLA License Enum, with time based license expiration
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(3,24, Valid Context,1,!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+33013:BVT:P0:PlayReady DLA Sync -- DLA License Enum, test getting an uncommitted licnese
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(3,24, Valid Context,1,!3x8NSroVg4eXCzWqPU!BA==)=0X80070103 (DRM_E_NOMORE)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+33001:BVT:P0:PlayReady DLA Sync -- DLA License Enum, with time based license expiration. Two in store, only one should be returned
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+'TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[((exists(secstate.FirstUseDate) && datediff(\"h\", secstate.FirstUseDate, machine.datetime) >= 2))?(secstate.deleted=1;deletelicense();0):(!exists(secstate.deleted) && (app.minseclevel >= 1000?1:(secstate.drmreason=3;0)) && machine.datetime >= secstate.OldSaveTime && (!exists(secstate.FirstUseDate) || datediff(\"h\", secstate.FirstUseDate, machine.datetime) < 2))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0;!exists(secstate.MinAppSecLevel)?secstate.MinAppSecLevel=1000:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestPrintSyncStore
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header3.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(lXqzQHyYKUu30unG3bUrMg==,{00000508-0000-0010-8000-00AA006D2EA5},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[((exists(secstate.FirstUseDate) && datediff(\"h\", secstate.FirstUseDate, machine.datetime) >= 20))?(secstate.deleted=1;deletelicense();0):(!exists(secstate.deleted) && machine.datetime >= secstate.OldSaveTime && (!exists(secstate.FirstUseDate) || datediff(\"h\", secstate.FirstUseDate, machine.datetime) < 20))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=20:0]]></ACTION></ONSTORE>",ZP2VR2tvZfFPOxozye9poU8CYSddBmqW*WC53!YFDL0S*qYP1TdeTA==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(3,3, Valid Context,1,!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerLicenseSyncEnumNext(3,3, Valid Context,1,!3x8NSroVg4eXCzWqPU!BA==)=0X80070103 (DRM_E_NOMORE)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+33002:BVT:P0:PlayReady DLA Sync -- DLA License Enum, with time based license expiration. IGNORE_THRESHOLD for HOURS, should get both Licenses. Added and played sequentially
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestPrintSyncStore
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestPrintSyncStore
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header3.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(lXqzQHyYKUu30unG3bUrMg==,{00000508-0000-0010-8000-00AA006D2EA5},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[((exists(secstate.FirstUseDate) && datediff(\"h\", secstate.FirstUseDate, machine.datetime) >= 20))?(secstate.deleted=1;deletelicense();0):(!exists(secstate.deleted) && machine.datetime >= secstate.OldSaveTime && (!exists(secstate.FirstUseDate) || datediff(\"h\", secstate.FirstUseDate, machine.datetime) < 20))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=20:0]]></ACTION></ONSTORE>",ZP2VR2tvZfFPOxozye9poU8CYSddBmqW*WC53!YFDL0S*qYP1TdeTA==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header4.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(cAdUvZ1SsEWNE/HpHopVFg==,{00000508-0000-0010-8000-00AA006D2EA6},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--;(secstate.PlayCount <= 0)?(secstate.deleted=1;deletelicense();0):0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=30:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=30:0]]></ACTION></ONSTORE>",ZP2VR2tvZfFPOxozye9poU8CYSddBmqW*WC53!YFDL0S*qYP1TdeTA==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(3,NULL, Valid Context,2,!3x8NSroVg4eXCzWqPU!BA==,lXqzQHyYKUu30unG3bUrMg==)
+TestManagerLicenseSyncEnumNext(3,NULL, Valid Context,2,!3x8NSroVg4eXCzWqPU!BA==,lXqzQHyYKUu30unG3bUrMg==)
+TestManagerLicenseSyncEnumNext(3,NULL, Valid Context,2,!3x8NSroVg4eXCzWqPU!BA==,lXqzQHyYKUu30unG3bUrMg==)=0X80070103 (DRM_E_NOMORE)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+33007:BVT:P0:PlayReady DLA Sync -- DLA License Enum, with time based license expiration. IGNORE_THRESHOLD for HOURS, should get both time Licenses, ignore the count one. All processed, then all played.
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header3.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(lXqzQHyYKUu30unG3bUrMg==,{00000508-0000-0010-8000-00AA006D2EA5},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[((exists(secstate.FirstUseDate) && datediff(\"h\", secstate.FirstUseDate, machine.datetime) >= 20))?(secstate.deleted=1;deletelicense();0):(!exists(secstate.deleted) && machine.datetime >= secstate.OldSaveTime && (!exists(secstate.FirstUseDate) || datediff(\"h\", secstate.FirstUseDate, machine.datetime) < 20))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=20:0]]></ACTION></ONSTORE>",ZP2VR2tvZfFPOxozye9poU8CYSddBmqW*WC53!YFDL0S*qYP1TdeTA==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header4.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(cAdUvZ1SsEWNE/HpHopVFg==,{00000508-0000-0010-8000-00AA006D2EA6},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--;(secstate.PlayCount <= 0)?(secstate.deleted=1;deletelicense();0):0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=30:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=30:0]]></ACTION></ONSTORE>",ZP2VR2tvZfFPOxozye9poU8CYSddBmqW*WC53!YFDL0S*qYP1TdeTA==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestPrintSyncStore
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header3.xml)
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header4.xml)
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(3,NULL, Valid Context,2,!3x8NSroVg4eXCzWqPU!BA==,lXqzQHyYKUu30unG3bUrMg==)
+TestManagerLicenseSyncEnumNext(3,NULL, Valid Context,2,!3x8NSroVg4eXCzWqPU!BA==,lXqzQHyYKUu30unG3bUrMg==)
+TestManagerLicenseSyncEnumNext(3,NULL, Valid Context,2,!3x8NSroVg4eXCzWqPU!BA==,lXqzQHyYKUu30unG3bUrMg==)=0X80070103 (DRM_E_NOMORE)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+33003:BVT:P0:PlayReady DLA Sync -- Generate License Challenge via SetKID
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestPrintSyncStore
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetRights(Play)
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,0,NULL,0,http://www.contoso.com/licenseacq.asp,37,http://www.contoso.com/licenseacq.asp,37,NULL,0,0)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+33017:FUNC:P1:PlayReady DLA Sync -- try SetKID with NULL Manager Context
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==,NULL)=0X80070057 (DRM_E_INVALIDARG)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+33018:FUNC:P1:PlayReady DLA Sync -- try SetKID with cchKid too small
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==, Normal, -1)=0X80070057 (DRM_E_INVALIDARG)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+33019:FUNC:P1:PlayReady DLA Sync -- try SetKID with cchKid too large
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==, Normal, +1)=0X80070057 (DRM_E_INVALIDARG)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+33020:FUNC:P1:PlayReady DLA Sync -- try SetKID with NULL pszKid
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerSetKID(NULL, Normal, +24 Make it seem to be the correct length)=0X80070057 (DRM_E_INVALIDARG)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+33012:BVT:P0:PlayReady DLA Sync -- Generate License Challenge when there isn't an entry
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,0,NULL,0,http://www.contoso.com/licenseacq.asp,37,NULL,NULL,NULL,0,0)=0x800480D0 (DRM_E_SYNC_ENTRYNOTFOUND)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+33004:BVT:P0:PlayReady DLA Sync -- Test license acquisition with cached content header, with time based license expiration. Two in store, only one should be returned
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestPrintSyncStore
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header3.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(lXqzQHyYKUu30unG3bUrMg==,{00000508-0000-0010-8000-00AA006D2EA5},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[((exists(secstate.FirstUseDate) && datediff(\"h\", secstate.FirstUseDate, machine.datetime) >= 20))?(secstate.deleted=1;deletelicense();0):(!exists(secstate.deleted) && machine.datetime >= secstate.OldSaveTime && (!exists(secstate.FirstUseDate) || datediff(\"h\", secstate.FirstUseDate, machine.datetime) < 20))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=20:0]]></ACTION></ONSTORE>",ZP2VR2tvZfFPOxozye9poU8CYSddBmqW*WC53!YFDL0S*qYP1TdeTA==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerInitResponse
+TestPrintSyncStore
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestPrintSyncStore
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header3.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(3,3, Valid Context,1,!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerLicenseSyncEnumNext(3,3, Valid Context,1,!3x8NSroVg4eXCzWqPU!BA==)=0X80070103 (DRM_E_NOMORE)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+33005:BVT:P0:PlayReady DLA Sync -- DLA License Enum, with count based license expiration. IGNORE_THRESHOLD for count, should get both Licenses, not get timed one
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--;(secstate.PlayCount <= 0)?(secstate.deleted=1;deletelicense();0):0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=10:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=10:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestPrintSyncStore
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header3.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(lXqzQHyYKUu30unG3bUrMg==,RANDOM,0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[((exists(secstate.FirstUseDate) && datediff(\"h\", secstate.FirstUseDate, machine.datetime) >= 20))?(secstate.deleted=1;deletelicense();0):(!exists(secstate.deleted) && machine.datetime >= secstate.OldSaveTime && (!exists(secstate.FirstUseDate) || datediff(\"h\", secstate.FirstUseDate, machine.datetime) < 20))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=20:0]]></ACTION></ONSTORE>",ZP2VR2tvZfFPOxozye9poU8CYSddBmqW*WC53!YFDL0S*qYP1TdeTA==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestPrintSyncStore
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header4.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(cAdUvZ1SsEWNE/HpHopVFg==,RANDOM,0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--;(secstate.PlayCount <= 0)?(secstate.deleted=1;deletelicense();0):0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=30:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=30:0]]></ACTION></ONSTORE>",ZP2VR2tvZfFPOxozye9poU8CYSddBmqW*WC53!YFDL0S*qYP1TdeTA==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(NULL,10, Valid Context,2,!3x8NSroVg4eXCzWqPU!BA==,cAdUvZ1SsEWNE/HpHopVFg==)
+TestManagerLicenseSyncEnumNext(NULL,10, Valid Context,2,!3x8NSroVg4eXCzWqPU!BA==,cAdUvZ1SsEWNE/HpHopVFg==)
+TestManagerLicenseSyncEnumNext(NULL,10, Valid Context,2,!3x8NSroVg4eXCzWqPU!BA==,cAdUvZ1SsEWNE/HpHopVFg==)=0X80070103 (DRM_E_NOMORE)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+33006:BVT:P0:PlayReady DLA Sync -- Test license acquisition with cached content header, with count based license expiration. IGNORE_THRESHOLD for count, should get both Licenses, not get timed one
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--;(secstate.PlayCount <= 0)?(secstate.deleted=1;deletelicense();0):0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=10:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=10:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header3.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(lXqzQHyYKUu30unG3bUrMg==,{00000508-0000-0010-8000-00AA006D2EA5},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[((exists(secstate.FirstUseDate) && datediff(\"h\", secstate.FirstUseDate, machine.datetime) >= 20))?(secstate.deleted=1;deletelicense();0):(!exists(secstate.deleted) && machine.datetime >= secstate.OldSaveTime && (!exists(secstate.FirstUseDate) || datediff(\"h\", secstate.FirstUseDate, machine.datetime) < 20))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=20:0]]></ACTION></ONSTORE>",ZP2VR2tvZfFPOxozye9poU8CYSddBmqW*WC53!YFDL0S*qYP1TdeTA==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header4.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(cAdUvZ1SsEWNE/HpHopVFg==,{00000509-0000-0010-8000-00AA006D2EA6},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--;(secstate.PlayCount <= 0)?(secstate.deleted=1;deletelicense();0):0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=30:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=30:0]]></ACTION></ONSTORE>",ZP2VR2tvZfFPOxozye9poU8CYSddBmqW*WC53!YFDL0S*qYP1TdeTA==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestPrintSyncStore
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header3.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header4.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(NULL,10, Valid Context,2,!3x8NSroVg4eXCzWqPU!BA==,cAdUvZ1SsEWNE/HpHopVFg==)
+TestManagerLicenseSyncEnumNext(NULL,10, Valid Context,2,!3x8NSroVg4eXCzWqPU!BA==,cAdUvZ1SsEWNE/HpHopVFg==)
+TestManagerLicenseSyncEnumNext(NULL,10, Valid Context,2,!3x8NSroVg4eXCzWqPU!BA==,cAdUvZ1SsEWNE/HpHopVFg==)=0X80070103 (DRM_E_NOMORE)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+
+33008:BVT:P0:PlayReady DLA Sync -- DLA License Enum, with count based license expiration. should get one timed license and one playcount one.
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--;(secstate.PlayCount <= 0)?(secstate.deleted=1;deletelicense();0):0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=10:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=10:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header3.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(lXqzQHyYKUu30unG3bUrMg==,{00000508-0000-0010-8000-00AA006D2EA5},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[((exists(secstate.FirstUseDate) && datediff(\"h\", secstate.FirstUseDate, machine.datetime) >= 20))?(secstate.deleted=1;deletelicense();0):(!exists(secstate.deleted) && machine.datetime >= secstate.OldSaveTime && (!exists(secstate.FirstUseDate) || datediff(\"h\", secstate.FirstUseDate, machine.datetime) < 20))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=20:0]]></ACTION></ONSTORE>",ZP2VR2tvZfFPOxozye9poU8CYSddBmqW*WC53!YFDL0S*qYP1TdeTA==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header4.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(cAdUvZ1SsEWNE/HpHopVFg==,{00000509-0000-0010-8000-00AA006D2EA6},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--;(secstate.PlayCount <= 0)?(secstate.deleted=1;deletelicense();0):0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=30:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=30:0]]></ACTION></ONSTORE>",ZP2VR2tvZfFPOxozye9poU8CYSddBmqW*WC53!YFDL0S*qYP1TdeTA==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header5.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(paKtK8IU9EOZ5gFVmNEcbw==,{00000503-0000-0010-8000-00AA006D2EA7},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(10,10, Valid Context,2,!3x8NSroVg4eXCzWqPU!BA==,paKtK8IU9EOZ5gFVmNEcbw==)
+TestManagerLicenseSyncEnumNext(10,10, Valid Context,2,!3x8NSroVg4eXCzWqPU!BA==,paKtK8IU9EOZ5gFVmNEcbw==)
+TestManagerLicenseSyncEnumNext(10,10, Valid Context,2,!3x8NSroVg4eXCzWqPU!BA==,paKtK8IU9EOZ5gFVmNEcbw==)=0X80070103 (DRM_E_NOMORE)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+33009:BVT:P0:PlayReady DLA Sync -- DLA License Enum, with count based license expiration. should get one timed license and one playcount one.
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--;(secstate.PlayCount <= 0)?(secstate.deleted=1;deletelicense();0):0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=10:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=10:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header3.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(lXqzQHyYKUu30unG3bUrMg==,{00000508-0000-0010-8000-00AA006D2EA5},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[((exists(secstate.FirstUseDate) && datediff(\"h\", secstate.FirstUseDate, machine.datetime) >= 20))?(secstate.deleted=1;deletelicense();0):(!exists(secstate.deleted) && machine.datetime >= secstate.OldSaveTime && (!exists(secstate.FirstUseDate) || datediff(\"h\", secstate.FirstUseDate, machine.datetime) < 20))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=20:0]]></ACTION></ONSTORE>",ZP2VR2tvZfFPOxozye9poU8CYSddBmqW*WC53!YFDL0S*qYP1TdeTA==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerSetHeader(NORMAL,header4.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(cAdUvZ1SsEWNE/HpHopVFg==,{00000509-0000-0010-8000-00AA006D2EA6},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--;(secstate.PlayCount <= 0)?(secstate.deleted=1;deletelicense();0):0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=30:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=30:0]]></ACTION></ONSTORE>",ZP2VR2tvZfFPOxozye9poU8CYSddBmqW*WC53!YFDL0S*qYP1TdeTA==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerSetHeader(NORMAL,header5.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(paKtK8IU9EOZ5gFVmNEcbw==,{00000503-0000-0010-8000-00AA006D2EA7},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestPrintSyncStore
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header3.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header4.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header5.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(10,10, Valid Context,2,!3x8NSroVg4eXCzWqPU!BA==,paKtK8IU9EOZ5gFVmNEcbw==)
+TestManagerLicenseSyncEnumNext(10,10, Valid Context,2,!3x8NSroVg4eXCzWqPU!BA==,paKtK8IU9EOZ5gFVmNEcbw==)
+TestManagerLicenseSyncEnumNext(10,10, Valid Context,2,!3x8NSroVg4eXCzWqPU!BA==,paKtK8IU9EOZ5gFVmNEcbw==)=0X80070103 (DRM_E_NOMORE)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+
+33010:BVT:P0:PlayReady DLA Sync -- DLA License Enum, with both count and time based. IGNORE_THRESHOLD for both params, should get all sync licenses, ignore unlim.
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--;(secstate.PlayCount <= 0)?(secstate.deleted=1;deletelicense();0):0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=10:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=10:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header3.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(lXqzQHyYKUu30unG3bUrMg==,{00000508-0000-0010-8000-00AA006D2EA5},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[((exists(secstate.FirstUseDate) && datediff(\"h\", secstate.FirstUseDate, machine.datetime) >= 20))?(secstate.deleted=1;deletelicense();0):(!exists(secstate.deleted) && machine.datetime >= secstate.OldSaveTime && (!exists(secstate.FirstUseDate) || datediff(\"h\", secstate.FirstUseDate, machine.datetime) < 20))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=20:0]]></ACTION></ONSTORE>",ZP2VR2tvZfFPOxozye9poU8CYSddBmqW*WC53!YFDL0S*qYP1TdeTA==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header4.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(cAdUvZ1SsEWNE/HpHopVFg==,{00000509-0000-0010-8000-00AA006D2EA6},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--;(secstate.PlayCount <= 0)?(secstate.deleted=1;deletelicense();0):0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=30:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=30:0]]></ACTION></ONSTORE>",ZP2VR2tvZfFPOxozye9poU8CYSddBmqW*WC53!YFDL0S*qYP1TdeTA==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header5.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(paKtK8IU9EOZ5gFVmNEcbw==,{00000503-0000-0010-8000-00AA006D2EA7},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header6.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(atl6YeSyy0SW/QbLdM6RkA==,{00000502-0000-0010-8000-00AA006D2EA8},0,  "<RIGHTS><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.MinAppSecLevel)?secstate.MinAppSecLevel=150:0]]></ACTION></ONSTORE></RIGHTS>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(NULL,NULL, Valid Context,4,!3x8NSroVg4eXCzWqPU!BA==,lXqzQHyYKUu30unG3bUrMg==,cAdUvZ1SsEWNE/HpHopVFg==,paKtK8IU9EOZ5gFVmNEcbw==)
+TestManagerLicenseSyncEnumNext(NULL,NULL, Valid Context,4,!3x8NSroVg4eXCzWqPU!BA==,lXqzQHyYKUu30unG3bUrMg==,cAdUvZ1SsEWNE/HpHopVFg==,paKtK8IU9EOZ5gFVmNEcbw==)
+TestManagerLicenseSyncEnumNext(NULL,NULL, Valid Context,4,!3x8NSroVg4eXCzWqPU!BA==,lXqzQHyYKUu30unG3bUrMg==,cAdUvZ1SsEWNE/HpHopVFg==,paKtK8IU9EOZ5gFVmNEcbw==)
+TestManagerLicenseSyncEnumNext(NULL,NULL, Valid Context,4,!3x8NSroVg4eXCzWqPU!BA==,lXqzQHyYKUu30unG3bUrMg==,cAdUvZ1SsEWNE/HpHopVFg==,paKtK8IU9EOZ5gFVmNEcbw==)
+TestManagerLicenseSyncEnumNext(NULL,NULL, Valid Context,4,!3x8NSroVg4eXCzWqPU!BA==,lXqzQHyYKUu30unG3bUrMg==,cAdUvZ1SsEWNE/HpHopVFg==,paKtK8IU9EOZ5gFVmNEcbw==)=0X80070103 (DRM_E_NOMORE)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+33011:BVT:P0:PlayReady DLA Sync -- DLA License Enum, with both count and time based. IGNORE_THRESHOLD for both params, should get all sync licenses, ignore unlim.
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--;(secstate.PlayCount <= 0)?(secstate.deleted=1;deletelicense();0):0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=10:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=10:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header3.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(lXqzQHyYKUu30unG3bUrMg==,{00000508-0000-0010-8000-00AA006D2EA5},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[((exists(secstate.FirstUseDate) && datediff(\"h\", secstate.FirstUseDate, machine.datetime) >= 20))?(secstate.deleted=1;deletelicense();0):(!exists(secstate.deleted) && machine.datetime >= secstate.OldSaveTime && (!exists(secstate.FirstUseDate) || datediff(\"h\", secstate.FirstUseDate, machine.datetime) < 20))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=20:0]]></ACTION></ONSTORE>",ZP2VR2tvZfFPOxozye9poU8CYSddBmqW*WC53!YFDL0S*qYP1TdeTA==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header4.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(cAdUvZ1SsEWNE/HpHopVFg==,{00000509-0000-0010-8000-00AA006D2EA6},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--;(secstate.PlayCount <= 0)?(secstate.deleted=1;deletelicense();0):0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=30:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=30:0]]></ACTION></ONSTORE>",ZP2VR2tvZfFPOxozye9poU8CYSddBmqW*WC53!YFDL0S*qYP1TdeTA==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header5.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(paKtK8IU9EOZ5gFVmNEcbw==,{00000503-0000-0010-8000-00AA006D2EA7},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[!exists(secstate.FirstUseDate)?secstate.FirstUseDate = machine.datetime:0]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=2:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header6.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(atl6YeSyy0SW/QbLdM6RkA==,{00000502-0000-0010-8000-00AA006D2EA8},0,  "<RIGHTS><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.MinAppSecLevel)?secstate.MinAppSecLevel=150:0]]></ACTION></ONSTORE></RIGHTS>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestPrintSyncStore
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header3.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header4.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header5.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header6.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(NULL,NULL, Valid Context,4,!3x8NSroVg4eXCzWqPU!BA==,lXqzQHyYKUu30unG3bUrMg==,cAdUvZ1SsEWNE/HpHopVFg==,paKtK8IU9EOZ5gFVmNEcbw==)
+TestManagerLicenseSyncEnumNext(NULL,NULL, Valid Context,4,!3x8NSroVg4eXCzWqPU!BA==,lXqzQHyYKUu30unG3bUrMg==,cAdUvZ1SsEWNE/HpHopVFg==,paKtK8IU9EOZ5gFVmNEcbw==)
+TestManagerLicenseSyncEnumNext(NULL,NULL, Valid Context,4,!3x8NSroVg4eXCzWqPU!BA==,lXqzQHyYKUu30unG3bUrMg==,cAdUvZ1SsEWNE/HpHopVFg==,paKtK8IU9EOZ5gFVmNEcbw==)
+TestManagerLicenseSyncEnumNext(NULL,NULL, Valid Context,4,!3x8NSroVg4eXCzWqPU!BA==,lXqzQHyYKUu30unG3bUrMg==,cAdUvZ1SsEWNE/HpHopVFg==,paKtK8IU9EOZ5gFVmNEcbw==)
+TestManagerLicenseSyncEnumNext(NULL,NULL, Valid Context,4,!3x8NSroVg4eXCzWqPU!BA==,lXqzQHyYKUu30unG3bUrMg==,cAdUvZ1SsEWNE/HpHopVFg==,paKtK8IU9EOZ5gFVmNEcbw==)=0X80070103 (DRM_E_NOMORE)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+33014:FUNC:P1:PlayReady DLA Sync -- LicenseSyncEnumNext without initing the enum context should fail
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--;(secstate.PlayCount <= 0)?(secstate.deleted=1;deletelicense();0):0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=10:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=10:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerLicenseSyncEnumNext(NULL,NULL, Valid Context,1,!3x8NSroVg4eXCzWqPU!BA==)=0X80070057 (DRM_E_INVALIDARG)
+
+33015:FUNC:P1:PlayReady DLA Sync -- LicenseSyncEnumNext with NULL context should fail
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerLicenseSyncEnumNext(NULL,NULL, NULL Context,4,!3x8NSroVg4eXCzWqPU!BA==,lXqzQHyYKUu30unG3bUrMg==,cAdUvZ1SsEWNE/HpHopVFg==,paKtK8IU9EOZ5gFVmNEcbw==)=0X80070057 (DRM_E_INVALIDARG)
+
+33016:FUNC:P1:PlayReady DLA Sync -- LicenseSyncEnumNext  with null pKID, expect the next header to be loaded
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},0,  "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--;(secstate.PlayCount <= 0)?(secstate.deleted=1;deletelicense();0):0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=10:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=10:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(NULL,NULL, Valid Context,NULL,!3x8NSroVg4eXCzWqPU!BA==)
+
+33021:BVT:P0:PlayReady DLA Sync -- DLA License Enum, with time based license expiration. XMR chains, only the root should be synced.
+TestManagerReinitialize(Reset)
+TestManagerAddXMRLicense(TwKrGLrYgEK3i4vwwC/jwg==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerAddXMRLicense(Acl2BY3ITE0qe11DalmK0D==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,ROOT,NULL,NULL,NULL,NULL, 7200, NULL, NULL, NULL, NULL, NULL, AES_128_ECB)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerAddXMRLicense(lFmb2gxg0Cr5bfEnJXgJeA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerSetRights( Play )
+TestManagerSetKID(TwKrGLrYgEK3i4vwwC/jwg==)
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID(lFmb2gxg0Cr5bfEnJXgJeA==)
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+TestManagerCommit
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(3,3, Valid Context,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerAddXMRLicense(Acl2BY3ITE0qe11DalmK0D==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,NULL,NULL,NULL,NULL,NULL, 14400, NULL, NULL, NULL, NULL, NULL, AES_128_ECB)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerLicenseSyncEnumNext(3,3, Valid Context,1)=0X80070103 (DRM_E_NOMORE)
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(3,3, Valid Context,1)=0X80070103 (DRM_E_NOMORE)
+
+33022:BVT:P0:PlayReady DLA Sync -- DLA License Enum, with time based license expiration. XML chains, only the root should be synced.
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,RANDOM,0,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--;(secstate.PlayCount <= 0)?(secstate.deleted=1;deletelicense();0):0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=5:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=10:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(lFmb2gxg0Cr5bfEnJXgJeA==,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerAddLicenseToResponse(TwKrGLrYgEK3i4vwwC/jwg==,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerSetRights( Play )
+TestManagerSetKID(TwKrGLrYgEK3i4vwwC/jwg==)
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+TestManagerCommit
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+TestManagerCommit
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID(lFmb2gxg0Cr5bfEnJXgJeA==)
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+TestManagerCommit
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(3,3, Valid Context,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,RANDOM,0,"<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--;(secstate.PlayCount <= 0)?(secstate.deleted=1;deletelicense();0):0]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[(!exists(secstate.deleted))]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=5:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=10:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerLicenseSyncEnumNext(3,3, Valid Context,1)=0X80070103 (DRM_E_NOMORE)
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(3,3, Valid Context,1)=0X80070103 (DRM_E_NOMORE)
+
+33023:BVT:PlayReady DLA Sync -- DLA License Enum. XMR chains, no root license. the root should be in the sync store.
+TestManagerReinitialize(Reset)
+TestManagerAddXMRLicense(TwKrGLrYgEK3i4vwwC/jwg==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerAddXMRLicense(lFmb2gxg0Cr5bfEnJXgJeA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerSetRights( Play )
+TestManagerSetKID(TwKrGLrYgEK3i4vwwC/jwg==)
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )=DRM_E_UPLINKLICENSENOTFOUND
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID(lFmb2gxg0Cr5bfEnJXgJeA==)
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )=DRM_E_UPLINKLICENSENOTFOUND
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(3,3, Valid Context,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerAddXMRLicense(Acl2BY3ITE0qe11DalmK0D==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,NULL,NULL,NULL,NULL,NULL, 14400, NULL, NULL, NULL, NULL, NULL, AES_128_ECB)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerLicenseSyncEnumNext(3,3, Valid Context,1)=0X80070103 (DRM_E_NOMORE)
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(3,3, Valid Context,1)=0X80070103 (DRM_E_NOMORE)
+
+33024:FUNC:PlayReady DLA Sync -- DLA License Enum. XMR Embedded leaf, no root license. the root should be in the sync store.
+Test_SetRandomSeed( RANDOM RandomSeedType )
+TestManagerReinitialize( Reset, FALSE, TRUE )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeWithEmbeddedLeaf2.eny )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )=DRM_E_UPLINKLICENSENOTFOUND
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(3,3, Valid Context,1,lFmb2gxg0Cr5bfEnJXgJeA==)
+TestManagerAddXMRLicense(lFmb2gxg0Cr5bfEnJXgJeA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,NULL,NULL,NULL,NULL,NULL, 14400, NULL, NULL, NULL, NULL, NULL, AES_128_ECB)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerCloseEnvelope(EnvelopeContextBuffer)
+TestPrintSyncStore
+TestManagerInitLicenseSyncEnum
+TestManagerLicenseSyncEnumNext(3,3, Valid Context,1)=0X80070103 (DRM_E_NOMORE)

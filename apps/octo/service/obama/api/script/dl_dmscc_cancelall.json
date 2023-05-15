@@ -1,0 +1,10 @@
+"downloader":{
+	"target":"dsmcc",
+	"operation":"set",
+	"property":{
+		"action":"cancelall",
+		"param":{
+			"handle" : 0
+		}
+	}
+}

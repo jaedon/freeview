@@ -1,0 +1,12 @@
+
+TARGETNAME=TestXMLBuilderA_ansi
+TARGETTYPE=PROGRAM
+UMTYPE=console
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS)   \
+    $(_DRM_TC_LIBS)        \
+    $(_DRM_TEST_XMLBUILDERA_LIB) \
+
+SOURCES =                        \
+    ../main.c                  

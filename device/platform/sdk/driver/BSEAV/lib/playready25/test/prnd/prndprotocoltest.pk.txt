@@ -1,0 +1,170 @@
+7010:BVT:TestPRNDProtocol Happy Path with 1 Rx-bound license
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDProtocolRegistration()
+TestPRNDProtocolProximityDetection()
+TestPRNDProtocolLicenseFetch(0 CID_IS_KID WITHOUT_CID_CALLBACK)
+
+7011:BVT:TestPRNDProtocol Proximity Detection times out
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDProtocolRegistration()
+' 10 ms is too long, so we time out.  Make sure to pass 0 for last parameter so we do not retry.
+TestPRNDProtocolProximityDetection(0 DROP_NOTHING, 10 SLEEP_MS, 0 RETRY_COUNT)=DRM_E_PRND_PROXIMITY_DETECTION_RESPONSE_TIMEOUT
+' The receiver can try again and succeed.
+TestPRNDProtocolProximityDetection()
+
+7012:FUNC:TestPRNDProtocol Proximity Detection dropped challenge
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDProtocolRegistration()
+' Drop the challenge.
+TestPRNDProtocolProximityDetection(1 DROP_CHALLENGE)
+' The receiver can try again and succeed.
+TestPRNDProtocolProximityDetection()
+
+7013:FUNC:TestPRNDProtocol Proximity Detection dropped response
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDProtocolRegistration()
+' Drop the response.
+TestPRNDProtocolProximityDetection(2 DROP_RESPONSE)
+' The receiver can try again and succeed.
+TestPRNDProtocolProximityDetection()
+
+7014:FUNC:TestPRNDProtocol Proximity Detection dropped result
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDProtocolRegistration()
+TestPRNDProtocolProximityDetection(4 DROP_RESULT)
+' Since proximity detection succeeded, a new prox start message causes Tx to directly return a successful result.
+TestPRNDProtocolProximityDetection(8 EXPECT_IMMEDIATE_RESULT)
+
+7016:FUNC:TestPRNDProtocol Happy Path with 2 licenses
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDProtocolRegistration()
+TestPRNDProtocolProximityDetection()
+TestPRNDProtocolLicenseFetch(0 CID_IS_KID WITHOUT_CID_CALLBACK, 2)
+
+7017:BVT:TestPRNDProtocol Happy Path with 9 licenses
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDProtocolRegistration()
+TestPRNDProtocolProximityDetection()
+TestPRNDProtocolLicenseFetch(0 CID_IS_KID WITHOUT_CID_CALLBACK, 9)
+
+7018:BVT:TestPRNDProtocol Happy Path without license request
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDProtocolRegistration()
+TestPRNDProtocolProximityDetection()
+TestPRNDProtocolLicenseFetch(4 CID_IS_KID WITHOUT_CID_CALLBACK SKIP_LICENSE_REQUEST, 2)
+
+7019:FUNC:TestPRNDProtocol License Fetch should fail if CLMID is invalid
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDProtocolRegistration()
+TestPRNDProtocolProximityDetection()
+TestPRNDProtocolLicenseFetch(8 CID_IS_KID WITHOUT_CID_CALLBACK BREAK_CLMID, 1)=DRM_E_PRND_LICENSE_RESPONSE_CLMID_INVALID
+
+7020:FUNC:TestPRNDProtocol License Fetch should fail if CLMID is invalid even if no request made
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDProtocolRegistration()
+TestPRNDProtocolProximityDetection()
+TestPRNDProtocolLicenseFetch(12 CID_IS_KID WITHOUT_CID_CALLBACK SKIP_LICENSE_REQUEST BREAK_CLMID, 1)=DRM_E_PRND_LICENSE_RESPONSE_CLMID_INVALID
+
+7021:BVT:TestPRNDProtocol License Fetch multiple times to get a number of different licenses
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDProtocolRegistration()
+TestPRNDProtocolProximityDetection()
+TestPRNDProtocolLicenseFetch(0 CID_IS_KID WITHOUT_CID_CALLBACK, 3)
+TestPRNDProtocolLicenseFetch(0 CID_IS_KID WITHOUT_CID_CALLBACK, 2)
+TestPRNDProtocolLicenseFetch(0 CID_IS_KID WITHOUT_CID_CALLBACK, 1)
+TestPRNDProtocolLicenseFetch(0 CID_IS_KID WITHOUT_CID_CALLBACK, 5)
+TestPRNDProtocolLicenseFetch(0 CID_IS_KID WITHOUT_CID_CALLBACK, 6)
+
+7024:FUNC:TestPRNDProtocol License Fetch with Custom CID fails without callback
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDProtocolRegistration()
+TestPRNDProtocolProximityDetection()
+TestPRNDProtocolLicenseFetch(1 CID_IS_KID WITHOUT_CID_CALLBACK)=DRM_E_PRND_LICENSE_REQUEST_CID_CALLBACK_REQUIRED
+
+7025:BVT:TestPRNDProtocol License Fetch with Custom CID succeeds with callback
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDProtocolRegistration()
+TestPRNDProtocolProximityDetection()
+TestPRNDProtocolLicenseFetch(3 CID_IS_KID WITH_CID_CALLBACK)
+
+7026:FUNC:TestPRNDProtocol Failure with no RevInfo
+SkipTestIf( !PRNDRxSupported )
+TestPRNDProtocolRegistration() = DRM_E_OUTDATED_REVOCATION_LIST
+
+7027:FUNC:TestPRNDProtocol Failure with no RevInfo but with clockoffset
+SkipTestIf( !PRNDRxSupported )
+TestPRNDCRLTimeOffset()
+TestPRNDProtocolRegistration() = DRM_E_OUTDATED_REVOCATION_LIST
+
+7028:FUNC:TestPRNDProtocol Failure with no clock offset
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDProtocolRegistration() = DRM_E_OUTDATED_REVOCATION_LIST
+
+7029:FUNC:TestPRNDProtocol RevInfo 30 seconds after expiration
+SkipTestIf( !PRNDRxSupported )
+TestPRNDCRLTimeOffset()
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDRevInfoOffset( 1 FORWARD_30_SECONDS_AFTER_EXPIRATION )
+
+7030:FUNC:TestPRNDProtocol RevInfo 30 seconds before expiration
+SkipTestIf( !PRNDRxSupported )
+TestPRNDCRLTimeOffset()
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDRevInfoOffset( 0 FORWARD_30_SECONDS_BEFORE_EXPIRATION )
+
+7031:FUNC:TestPRNDProtocol RevInfo 30 seconds after expiration with out of sync clocks
+SkipTestIf( !PRNDRxSupported )
+TestPRNDCRLTimeOffset()
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDRevInfoOffset( 3 FORWARD_30_SECONDS_AFTER_EXPIRATION CLOCKS_OUT_OF_SYNC )
+
+7032:FUNC:TestPRNDProtocol RevInfo 30 seconds before expiration with out of sync clocks
+SkipTestIf( !PRNDRxSupported )
+TestPRNDCRLTimeOffset()
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDRevInfoOffset( 2 FORWARD_30_SECONDS_BEFORE_EXPIRATION CLOCKS_OUT_OF_SYNC )
+
+7033:FUNC:Test DRM_PRND_INTERNAL_ProcessCertRevInfoCustomData, Happy Path
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage( FALSE, revpackage.xml )
+TestPRNDCRLTimeOffset()
+TestPRNDINTERNALProcessCertRevInfoCustomData()
+
+7034:FUNC:Test DRM_PRND_INTERNAL_ProcessCertRevInfoCustomData, BreakTxCertSigning
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage( FALSE, revpackage.xml )
+TestPRNDCRLTimeOffset()
+TestPRNDINTERNALProcessCertRevInfoCustomData( 1 BreakTxCertSigning ) = DRM_E_PRND_TRANSMITTER_UNAUTHORIZED
+
+7035:FUNC:Test DRM_PRND_INTERNAL_ProcessCertRevInfoCustomData, Fail Certificate Callback
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage( FALSE, revpackage.xml )
+TestPRNDCRLTimeOffset()
+TestPRNDINTERNALProcessCertRevInfoCustomData( 4 FailCertCallback ) = DRM_E_BCERT_VERIFICATION_ERRORS

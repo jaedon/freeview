@@ -1,0 +1,514 @@
+'Daily test cases
+
+'************************************************************************
+'BVT test case. Some test cases also cover ANSI version XML Parser
+
+39066:get a node from real license
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense9.txt,0,LICENSE,7,version,7,2.0.0.0,7,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNode(Dump,0,LICENSORINFO,12,NULL,0,NULL,0,0,Dump,0,Dump,0,128)
+TestXMLPUtilGetXMLNode(Dump,0,DATA,4,NULL,0,NULL,0,0,Dump,0,Dump,0,128)
+TestXMLPUtilGetXMLNode(Dump,0,KID,3,NULL,0,NULL,0,0,Dump,0,Dump,0,128)
+TestXMLPUtilReinitialize(0) 
+TestXMLPUtilGetXMLNode(XMLLicense9.txt,0,LICENSE,7,version,7,2.0.0.0,7,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNode(Dump,0,LICENSORINFO,12,NULL,0,NULL,0,0,Dump,0,Dump,0,128)
+TestXMLPUtilGetXMLNode(Dump,0,DATA,4,NULL,0,NULL,0,0,Dump,0,Dump,0,128)
+TestXMLPUtilGetXMLNode(Dump,0,LID,3,NULL,0,NULL,0,0,Dump,0,Dump,0,128)
+TestXMLPUtilReinitialize(0) 
+TestXMLPUtilGetXMLNodeA(XMLLicense17.txt,0,LICENSE,7,version,7,2.0.0.0,7,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeA(Dump,0,LICENSORINFO,12,NULL,0,NULL,0,0,Dump,0,Dump,0,128)
+TestXMLPUtilGetXMLNodeA(Dump,0,DATA,4,NULL,0,NULL,0,0,Dump,0,Dump,0,128)
+TestXMLPUtilGetXMLNodeA(Dump,0,KID,3,NULL,0,NULL,0,0,Dump,0,Dump,0,128)
+TestXMLPUtilReinitialize(0) 
+TestXMLPUtilGetXMLNodeA(XMLLicense17.txt,0,LICENSE,7,version,7,2.0.0.0,7,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeA(Dump,0,LICENSORINFO,12,NULL,0,NULL,0,0,Dump,0,Dump,0,128)
+TestXMLPUtilGetXMLNodeA(Dump,0,DATA,4,NULL,0,NULL,0,0,Dump,0,Dump,0,128)
+TestXMLPUtilGetXMLNodeA(Dump,0,LID,3,NULL,0,NULL,0,0,Dump,0,Dump,0,128)
+TestXMLPUtilReinitialize(0)
+
+'39067 is also covered 
+39065:Get a certificate from real license 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLSubNode(XMLLicense9.txt,0,CERTIFICATECHAIN,16,type,4,MSDRM,5,0,Dump,0,Dump,0,2,1)
+TestXMLPUtilGetXMLSubNode(Dump,0,CERTIFICATE,11,NULL,0,NULL,0,0,Dump,0,Dump,0,1,64)
+TestXMLPUtilReinitialize(0) 
+TestXMLPUtilGetXMLSubNode(XMLLicense9.txt,0,CERTIFICATECHAIN,16,type,4,MSDRM,5,0,Dump,0,Dump,0,2,1)
+TestXMLPUtilGetXMLSubNode(Dump,0,CERTIFICATE,11,NULL,0,NULL,0,1,Dump,0,Dump,0,1,64)
+TestXMLPUtilReinitialize(0) 
+TestXMLPUtilGetXMLSubNodeA(XMLLicense17.txt,0,CERTIFICATECHAIN,16,type,4,MSDRM,5,0,Dump,0,Dump,0,2,1)
+TestXMLPUtilGetXMLSubNodeA(Dump,0,CERTIFICATE,11,NULL,0,NULL,0,0,Dump,0,Dump,0,1,64)
+TestXMLPUtilReinitialize(0) 
+TestXMLPUtilGetXMLSubNodeA(XMLLicense17.txt,0,CERTIFICATECHAIN,16,type,4,MSDRM,5,0,Dump,0,Dump,0,2,1)
+TestXMLPUtilGetXMLSubNodeA(Dump,0,CERTIFICATE,11,NULL,0,NULL,0,1,Dump,0,Dump,0,1,64)
+TestXMLPUtilReinitialize(0) 
+ 
+39064:Get CDATA from real license 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLSubNode(XMLLicense9.txt,0,ONACTION,8,type,4,Restore,7,0,Dump,0,Dump,0,3,1)
+TestXMLPUtilGetXMLSubNode(Dump,0,CONDITION,9,NULL,0,NULL,0,0,Dump,0,Dump,0,1,64)
+TestXMLPUtilGetXMLNodeCData(Dump,0,NULL,0,1,0) 
+TestXMLPUtilGetXMLSubNode(XMLLicense9.txt,0,ONACTION,8,type,4,Backup,6,0,Dump,0,Dump,0,3,1)
+TestXMLPUtilGetXMLSubNode(Dump,0,CONDITION,9,NULL,0,NULL,0,0,Dump,0,Dump,0,1,64)
+TestXMLPUtilGetXMLNodeCData(Dump,0,NULL,0,2,0) 
+TestXMLPUtilGetXMLSubNode(XMLLicense9.txt,0,ONACTION,8,type,4,CREATE_PM_LICENSE,17,0,Dump,0,Dump,0,3,1)
+TestXMLPUtilGetXMLSubNode(Dump,0,CONDITION,9,NULL,0,NULL,0,0,Dump,0,Dump,0,1,64)
+TestXMLPUtilGetXMLNodeCData(Dump,0,NULL,0,pmlicense.rights = 19;pmlicense.appseclevel = 150;1,0) 
+TestXMLPUtilGetXMLSubNode(XMLLicense9.txt,0,ONACTION,8,type,4,Play,4,0,Dump,0,Dump,0,3,1)
+TestXMLPUtilGetXMLSubNode(Dump,0,CONDITION,9,NULL,0,NULL,0,0,Dump,0,Dump,0,1,64)
+TestXMLPUtilGetXMLNodeCData(Dump,0,NULL,0,3,0) 
+TestXMLPUtilReinitialize(0) 
+ 
+39063:Get KID and LID from a real license 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLSubNode(XMLLicense9.txt,0,KID,3,NULL,0,NULL,0,0,Dump,0,Dump,0,3,1)
+TestXMLPUtilGetXMLSubNode(XMLLicense9.txt,0,LID,3,NULL,0,NULL,0,0,Dump,0,Dump,0,3,1)
+TestXMLPUtilReinitialize(0) 
+TestXMLPUtilGetXMLSubNodeA(XMLLicense17.txt,0,KID,3,NULL,0,NULL,0,0,Dump,0,Dump,0,3,1)
+TestXMLPUtilGetXMLSubNodeA(XMLLicense17.txt,0,LID,3,NULL,0,NULL,0,0,Dump,0,Dump,0,3,1)
+TestXMLPUtilReinitialize(0)
+
+-------------------BVT ends here--------------------------
+39950:Enum subnode in XML string on the 0-th level and compare node name, attribute name, attribute value and whether this is a leaf node or not
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilEnumNextSubNode(<node1 attr1="one" attr2="two"><node11/><node2>data2</node2><node3><node4 attr4="four"/></node3></node1>,0,node1,<node11/><node2>data2</node2><node3><node4 attr4="four"/></node3>,attr1,one,0)
+TestXMLPUtilReinitialize(0)
+
+39951:Enum subnode in XML string on the 0-th level but do not return attribute name and value
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilEnumNextSubNode(<node1 attr1="one" attr2="two"><node11/><node2>data2</node2><node3><node4 attr4="four"/></node3></node1><node5/>,0,node1,nullstring,nullstring,nullstring,0)
+TestXMLPUtilReinitialize(0)
+
+39952:Enum subnode in XML string on the 1-th level, it should be a leaf node
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilEnumNextSubNode(<node1 attr1="one" attr2="two"><node2>data2</node2><node3><node4 attr4="four"/></node3></node1>,1,node2,data2,nullstring,nullstring,1)
+TestXMLPUtilReinitialize(0)
+
+39953:Enum subnode in XML string on the 1-th level
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilEnumNextSubNode(<node1 attr1="one" attr2="two"><node11/><node2>data2</node2><node3><node4 attr4="four"/></node3></node1><node5/>,1,node11,nullstring,nullstring,nullstring,1)
+TestXMLPUtilReinitialize(0)
+
+39954:Enum subnode in XML string with CDATA on the 1-th level
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilEnumNextSubNode(<node1 attr1="one" attr2="two"><![CDATA[1]]><node11/><node2>data2</node2><node3><node4 attr4="four"/></node3></node1><node5/>,1,node11,nullstring,nullstring,nullstring,1)
+TestXMLPUtilReinitialize(0)
+
+39920:Get node by path - call with f_pdstrXMLNodeOut == NULL, special case
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetSubNodeByPath(<node1 atr1="one"><node11/><node2>data2</node2><node3><node4 attr4="four"/></node3></node1>,node3/node4,nullstring,nullstring)
+TestXMLPUtilReinitialize(0)
+
+39919:Get node by path - node with some data a few levels down
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetSubNodeByPathA("<node1 atr1='one'><node11/><node2>data2</node2><node3><node4 attr4='four'/></node3></node1>","node3/node4",nullstring,nullstring,"<node4 attr4='four'/>")
+TestXMLPUtilReinitialize(0)
+
+39922:Get node by path - closed tag one level down
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetSubNodeByPathA("<node1 atr1='one'><node11/><node2>data2</node2></node1>","node11",nullstring,nullstring,"<node11/>")
+TestXMLPUtilReinitialize(0)
+
+39917:Get first node of second layer. Special node <TagName attr="value"/> 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLSubNode(XMLLicense18.txt,0,node1,5,atr1,4,oneone,6,0,Dump,0,Dump,0,1,1)
+TestXMLPUtilReinitialize(0) 
+ 
+39916:Get first node. Special node <TagName attr="value"/>   
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense19.txt,0,node1,5,atr1,4,oneone,6,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNode(XMLLicense19.txt,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNode(XMLLicense19.txt,0,node2,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNode(XMLLicense19.txt,0,node2,5,atr1,4,twoone,6,0,Dump,0,Dump,0,1)
+TestXMLPUtilReinitialize(0) 
+
+39918:Get the attribute from first node. Special node <TagName attr="value"/>   
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense19.txt,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeAttribute(Dump,0,atr1,4,NULL,0,oneone,0)
+TestXMLPUtilReinitialize(0) 
+
+39020:Get first node of second layer 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLSubNode(XMLLicense4.txt,0,node1,5,atr1,4,oneone,6,0,Dump,0,Dump,0,1,1)
+TestXMLPUtilGetXMLSubNodeA(XMLLicense14.txt,0,node1,5,atr1,4,oneone,6,0,Dump,0,Dump,0,1,1)
+TestXMLPUtilReinitialize(0) 
+
+39021:Get second node of second layer 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLSubNode(XMLLicense4.txt,0,node2,5,NULL,0,NULL,0,1,Dump,0,Dump,0,1,1)
+TestXMLPUtilGetXMLSubNodeA(XMLLicense14.txt,0,node2,5,NULL,0,NULL,0,1,Dump,0,Dump,0,1,1)
+TestXMLPUtilReinitialize(0) 
+ 
+39022:Get second node of third layer 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLSubNode(XMLLicense5.txt,0,node2,5,NULL,0,NULL,0,0,Dump,0,Dump,0,2,1)
+TestXMLPUtilGetXMLSubNodeA(XMLLicense15.txt,0,node2,5,NULL,0,NULL,0,0,Dump,0,Dump,0,2,1)
+TestXMLPUtilReinitialize(0) 
+ 
+39019:Get CData from a valid XML  
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense3.txt,0,CONDITION,9,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeCData(Dump,0,NULL,0,"(!exists(secstate.deleted)&&(app.minseclevel>=500?1:(secstate.drmreason=3;0)))",0)
+TestXMLPUtilReinitialize(0) 
+
+39319:Get CData from a valid XML - ANSI
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeA(XMLLicense20.txt,0,CONDITION,9,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeCDataA(Dump,0,NULL,0,"(!exists(secstate.deleted)&&(app.minseclevel>=500?1:(secstate.drmreason=3;0)))",0)
+TestXMLPUtilReinitialize(0) 
+
+'39017 and 9018 are also covered here
+39016:Get first attribute from first node  
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense2.txt,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeAttribute(Dump,0,atr1,4,NULL,0,oneone,0)
+TestXMLPUtilGetXMLNodeAttribute(Dump,0,atr2,4,NULL,0,onetwo,0)
+TestXMLPUtilGetXMLNodeAttribute(Dump,0,atr3,4,NULL,0,onethree,0)
+TestXMLPUtilReinitialize(0) 
+TestXMLPUtilGetXMLNodeA(XMLLicense12.txt,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeAttributeA(Dump,0,atr1,4,NULL,0,oneone,0)
+TestXMLPUtilGetXMLNodeAttributeA(Dump,0,atr2,4,NULL,0,onetwo,0)
+TestXMLPUtilGetXMLNodeAttributeA(Dump,0,atr3,4,NULL,0,onethree,0)
+TestXMLPUtilReinitialize(0) 
+
+39015:Get second node data with NULL attribute 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense1.txt,0,node,4,NULL,0,NULL,0,1,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeA(XMLLicense11.txt,0,node,4,NULL,0,NULL,0,1,Dump,0,Dump,0,1)
+TestXMLPUtilReinitialize(0) 
+
+'39013 is also covered
+39012:Get node with attribute 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense1.txt,0,node,4,atr1,4,oneone,6,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeA(XMLLicense11.txt,0,node,4,atr1,4,oneone,6,0,Dump,0,Dump,0,1)
+TestXMLPUtilReinitialize(0) 
+ 
+39014:Get node data with NULL attribute 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense1.txt,0,node,4,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeA(XMLLicense11.txt,0,node,4,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilReinitialize(0) 
+ 
+39072:Get CData with some leading characters 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCData(leading characters<CONDITION><![CDATA[1]]></CONDITION>,54,NULL,0,1,12)
+TestXMLPUtilReinitialize(0) 
+
+39372:Get CData with some leading characters - ANSI
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCDataA(leading characters<CONDITION><![CDATA[1]]></CONDITION>,54,NULL,0,1,12)
+TestXMLPUtilReinitialize(0) 
+
+39071:Get attribute with leading character 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeAttribute(leading character<node1 atr1="one">node1</node1>,48,atr1,4,NULL,0,one,12) 
+TestXMLPUtilGetXMLNodeAttributeA(leading character<node1 atr1="one">node1</node1>,48,atr1,4,NULL,0,one,12) 
+TestXMLPUtilReinitialize(0)
+
+39070:Get node with some leading characters
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense10.txt,0,node,4,atr1,4,oneone,6,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeA(XMLLicense16.txt,0,node,4,atr1,4,oneone,6,0,Dump,0,Dump,0,1)
+TestXMLPUtilReinitialize(0) 
+
+'************************************************************************
+'Negative test case
+
+39970:Enum subnode in XML string and fail because the closing tag is missing
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilEnumNextSubNode(<node1 attr1="one" attr2="two"><node11/><node2>data2</node2>,0,nullstring,nullstring,nullstring,nullstring,1)=0x8004c01f (DRM_E_NOXMLCLOSETAG)
+TestXMLPUtilReinitialize(0)
+
+39971:Enum subnode in XML string and fail because string is not valid XML
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilEnumNextSubNode(whatever,0,nullstring,nullstring,nullstring,nullstring,1)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+TestXMLPUtilReinitialize(0)
+
+39972:Enum subnode in XML string and fail because the closing tag was found before open tag
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilEnumNextSubNode(</node2><node1>data</node1>,0,nullstring,nullstring,nullstring,nullstring,1)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+TestXMLPUtilReinitialize(0)
+
+39923:Get node by path - and do not find anything
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetSubNodeByPathA(<node1 atr1="one"><node11/><node2>data2</node2><node3><node4 attr4='four'/></node3></node1>,node5,nullstring,nullstring)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+TestXMLPUtilReinitialize(0)
+
+39921:Get node by path using a bad tag name that starts with '.' and matching malformed XML, fail
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetSubNodeByPathA(TestXMLPUtilGetSubNodeByPathA("<node1 atr1='one'><node11/><node2>data2</node2><node3><.node4 attr4='four'/></node3></node1>","node3/.node4",nullstring,nullstring,"<node4 attr4='four'/>")=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+TestXMLPUtilReinitialize(0)
+
+39062:Get first node of second layer 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLSubNode(XMLLicense4.txt,0,node1,5,atr1,4,oneone,6,0,Dump,0,Dump,0,3,1)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+TestXMLPUtilGetXMLSubNode(XMLLicense4.txt,0,node1,5,atr1,4,oneone,6,0,Dump,0,Dump,0,1,1)
+TestXMLPUtilReinitialize(0) 
+
+39061:Get CData from xml node when there is not node tags 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCData(<![CDATA[1]]>,13,NULL,0,NULL,12)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+TestXMLPUtilReinitialize(0) 
+  
+39361:Get CData from xml node when there is not node tags - ANSI
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCDataA(<![CDATA[1]]>,13,NULL,0,NULL,12)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+TestXMLPUtilReinitialize(0) 
+  
+39060:Get CData from xml node when CData is nested node 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCData(<CONDITION1><CONDITION2><![CDATA[1]]></CONDITION2><CONDITION1>,62,NULL,0,NULL,12)=-2147172320(0X8004C020,DRM_E_INVALIDXMLTAG)
+TestXMLPUtilReinitialize(0) 
+
+39360:Get CData from xml node when CData is nested node - ANSI
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCDataA(<CONDITION1><CONDITION2><![CDATA[1]]></CONDITION2><CONDITION1>,62,NULL,0,NULL,12)=-2147172320(0X8004C020,DRM_E_INVALIDXMLTAG)
+TestXMLPUtilReinitialize(0) 
+
+39059:Get CData from xml node when there is no CData end tag 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCData(<CONDITION><![CDATA[></CONDITION>,40,NULL,0,NULL,12)=-2147172319
+TestXMLPUtilReinitialize(0) 
+
+39359:Get CData from xml node when there is no CData end tag - ANSI
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCDataA(<CONDITION><![CDATA[></CONDITION>,40,NULL,0,NULL,12)=-2147172319
+TestXMLPUtilReinitialize(0) 
+
+39058:Get CData from xml node without CDATA value  
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCData(<CONDITION><![CDATA[]]></CONDITION>,40,NULL,0,NULL,12)=-2147172319
+TestXMLPUtilReinitialize(0) 
+
+39358:Get CData from xml node without CDATA value - ANSI
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCDataA(<CONDITION><![CDATA[]]></CONDITION>,40,NULL,0,NULL,12)=-2147172319
+TestXMLPUtilReinitialize(0) 
+
+39057:Get CData from xml node with invalid CData name 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCData(<CONDITION><![NotCDATA[1]]></CONDITION>,40,NULL,0,NULL,12)=-2147172319
+TestXMLPUtilReinitialize(0) 
+
+39357:Get CData from xml node with invalid CData name - ANSI
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCDataA(<CONDITION><![NotCDATA[1]]></CONDITION>,40,NULL,0,NULL,12)=-2147172319
+TestXMLPUtilReinitialize(0) 
+
+39056:Get CData from xml node w/o open tag 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCData(</CONDITION>,12,NULL,0,NULL,12)=-2147172319
+TestXMLPUtilReinitialize(0) 
+
+39356:Get CData from xml node w/o open tag - ANSI
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCDataA(</CONDITION>,12,NULL,0,NULL,12)=-2147172319
+TestXMLPUtilReinitialize(0) 
+
+39055:Get CData from xml node with empty cdat 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCData(<CONDITION></CONDITION>,23,NULL,0,NULL,12)=-2147172319
+TestXMLPUtilReinitialize(0) 
+
+39355:Get CData from xml node with empty cdat - ANSI
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCDataA(<CONDITION></CONDITION>,23,NULL,0,NULL,12)=-2147172319
+TestXMLPUtilReinitialize(0) 
+
+39054:Get CData from xml node w/o CDATA 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCData(<CONDITION>no cdata</CONDITION>,31,NULL,0,NULL,12)=-2147172319
+TestXMLPUtilReinitialize(0) 
+
+39354:Get CData from xml node w/o CDATA - ANSI
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCDataA(<CONDITION>no cdata</CONDITION>,31,NULL,0,NULL,12)=-2147172319
+TestXMLPUtilReinitialize(0) 
+
+39053:Get CData from XML node w/o opena nd close tags  
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCData(noopenandclosetags,18,NULL,0,NULL,12)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+TestXMLPUtilReinitialize(0) 
+
+39353:Get CData from XML node w/o opena nd close tags - ANSI
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCDataA(noopenandclosetags,18,NULL,0,NULL,12)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+TestXMLPUtilReinitialize(0) 
+
+'39052 is also included
+39051:Get CData from an empty string XML  
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCData(EMPTY,0,NULL,0,NULL,12)=-2147024809
+TestXMLPUtilReinitialize(0) 
+
+39351:Get CData from an empty string XML - ANSI
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCDataA(EMPTY,0,NULL,0,NULL,12)=-2147024809
+TestXMLPUtilReinitialize(0) 
+
+39050:Get CData from a null string XML  
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCData(nullstring,0,NULL,0,NULL,12)=-2147024809
+TestXMLPUtilReinitialize(0) 
+
+39350:Get CData from a null string XML - ANSI
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCDataA(nullstring,0,NULL,0,NULL,12)=-2147024809
+TestXMLPUtilReinitialize(0) 
+
+39049:Get CData from a null XML  
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCData(NULL,0,NULL,0,NULL,12)=-2147024809
+TestXMLPUtilReinitialize(0) 
+
+39349:Get CData from a null XML - ANSI
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeCDataA(NULL,0,NULL,0,NULL,12)=-2147024809
+TestXMLPUtilReinitialize(0) 
+
+39048:Get attribute when the asking attribute is located at the second node 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeAttribute(<node1>node1</node1><node2 atr1="two">node2</node2>,52,atr1,4,NULL,0,NULL,12)=-2147172320 
+TestXMLPUtilReinitialize(0) 
+
+39047:Get attribute when there is not attribute  
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeAttribute(<node1>node1</node1>,20,atr1,4,NULL,0,NULL,12)=-2147172320 
+TestXMLPUtilGetXMLNodeAttribute(<node1 atr1="one">node1</node1>,31,atr1,4,NULL,0,NULL,12) 
+TestXMLPUtilReinitialize(0) 
+
+39046:Get attribute when node name is used as attribute name  
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeAttribute(<node1 atr1="one">node1</node1>,31,node1,5,NULL,0,NULL,12)=-2147172320 
+TestXMLPUtilGetXMLNodeAttribute(<node1 atr1="one">node1</node1>,31,atr1,4,NULL,0,NULL,12) 
+TestXMLPUtilReinitialize(0) 
+
+39045:Get attribute with attribute name is invalid nested attribute name 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeAttribute(<node1 atr1="one">node1<node2 attr2="two">node2</node2></node1>,63,atr2,4,NULL,0,NULL,12)=-2147172320 
+TestXMLPUtilGetXMLNodeAttribute(<node1 atr1="one">node1<node2 attr2="two">node2</node2></node1>,63,atr1,4,NULL,0,NULL,12) 
+TestXMLPUtilReinitialize(0) 
+
+39044:Get attribute with invalid attribute name 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeAttribute(<node atr1="one">node1</node>,29,atr2,4,NULL,0,NULL,12)=-2147172320 
+TestXMLPUtilGetXMLNodeAttribute(<node atr1="one">node1</node>,29,atr1,4,NULL,0,NULL,12)=0 
+TestXMLPUtilReinitialize(0) 
+
+39043:Get attribute with empty string attribute name 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNodeAttribute(NoOpenNoCloseTags,17,node1,5,NULL,0,NULL,12)=-2147172320 
+TestXMLPUtilGetXMLNodeAttribute(atr1="one",10,atr1,4,NULL,0,NULL,12)=-2147172320 
+TestXMLPUtilReinitialize(0) 
+
+'39042 is also covered
+39041:Get attribute with empty string attribute name 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense2.txt,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeAttribute(Dump,0,EMPTY,0,NULL,0,NULL,0)=-2147024809 
+TestXMLPUtilGetXMLNode(XMLLicense2.txt,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeAttribute(Dump,0,atr1,4,NULL,0,NULL,0)
+TestXMLPUtilReinitialize(0) 
+
+39040:Get attribute with null string attribute name 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense2.txt,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeAttribute(Dump,0,nullstring,0,NULL,0,NULL,0)=-2147024809 
+TestXMLPUtilGetXMLNode(XMLLicense2.txt,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeAttribute(Dump,0,atr1,4,NULL,0,NULL,0)
+TestXMLPUtilReinitialize(0) 
+
+39039:Get attribute with null attribute name 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense2.txt,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeAttribute(Dump,0,NULL,0,NULL,0,NULL,0)=-2147024809 
+TestXMLPUtilGetXMLNode(XMLLicense2.txt,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeAttribute(Dump,0,atr1,4,NULL,0,NULL,0)
+TestXMLPUtilReinitialize(0) 
+
+39038:Get attribute with empty string xml node
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense2.txt,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeAttribute(nullstring,0,atr1,4,NULL,0,NULL,12)=-2147024809 
+TestXMLPUtilGetXMLNode(XMLLicense2.txt,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeAttribute(Dump,0,atr1,4,NULL,0,NULL,0)
+TestXMLPUtilReinitialize(0) 
+
+39037:Get attribute with null string xml node
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense2.txt,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeAttribute(nullstring,0,atr1,4,NULL,0,NULL,12)=-2147024809 
+TestXMLPUtilGetXMLNode(XMLLicense2.txt,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeAttribute(Dump,0,atr1,4,NULL,0,NULL,0)
+TestXMLPUtilReinitialize(0) 
+
+39036:Get attribute with null xml node
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense2.txt,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeAttribute(NULL,0,atr1,4,NULL,0,NULL,12)=-2147024809 
+TestXMLPUtilGetXMLNode(XMLLicense2.txt,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)
+TestXMLPUtilGetXMLNodeAttribute(Dump,0,atr1,4,NULL,0,NULL,0)
+TestXMLPUtilReinitialize(0) 
+
+39035:Get node while attribute name is invalid 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense1.txt,0,node,4,at1r1,5,oneone,6,0,Dump,0,Dump,0,1)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+TestXMLPUtilReinitialize(0) 
+
+39034:Get node while attribute value is invalid 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense1.txt,0,node,4,atr1,4,one1one,7,0,Dump,0,Dump,0,1)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+TestXMLPUtilReinitialize(0) 
+
+39033:Get node while asking node does not exist 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense1.txt,0,node9,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+TestXMLPUtilReinitialize(0) 
+
+39032:Get node while xml has no close tag 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense8.txt,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)=-2147172321
+TestXMLPUtilReinitialize(0) 
+
+39031:Get node while xml has no open tag 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense7.txt,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+TestXMLPUtilReinitialize(0) 
+
+39030:Get node while xml has no open and close tags 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense6.txt,0,node,4,NULL,0,NULL,0,0,Dump,0,Dump,0,1)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+TestXMLPUtilReinitialize(0) 
+
+39029:Get node while both xmlNode and xmlNodeData are null 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense4.txt,0,EMPTY,0,NULL,0,NULL,0,0,NULL,0,NULL,0,1)=-2147024809
+TestXMLPUtilReinitialize(0) 
+
+39028:Get node while tag name is empty 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense4.txt,0,EMPTY,0,NULL,0,NULL,0,0,Dump,0,Dump,0,1)=-2147024809
+TestXMLPUtilReinitialize(0) 
+
+'39027 is also covered
+39248:Get node while tag name is NULL 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(XMLLicense4.txt,0,NULL,0,NULL,0,NULL,0,0,Dump,0,Dump,0,1)=-2147024809
+TestXMLPUtilReinitialize(0) 
+
+39025:Get node while xml is empty string 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(EMPTY,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)=-2147024809
+TestXMLPUtilReinitialize(0) 
+ 
+39023:Get node while xml is NULL 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(NULL,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,1)=-2147024809
+TestXMLPUtilReinitialize(0) 
+ 
+39024:Get node while xml has null string 
+TestXMLPUtilReinitialize(0)
+TestXMLPUtilGetXMLNode(Dump,0,node1,5,NULL,0,NULL,0,0,Dump,0,Dump,0,0)=-2147024809
+TestXMLPUtilReinitialize(0) 
+ 

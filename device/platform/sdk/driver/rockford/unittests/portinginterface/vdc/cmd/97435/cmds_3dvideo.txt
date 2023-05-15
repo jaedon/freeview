@@ -1,0 +1,27 @@
+ovc
+rul
+pb
+os
+ow
+de /data/videos/bump_H0_24Mbps_notag.mpg 11 11 0 0
+sleep
+
+cf 3
+
+bvncb 
+sleep
+
+s3dvideo 10
+sleep
+
+bvncb 
+sleep
+
+rul
+pb
+cw
+cs
+cd
+quit
+
+

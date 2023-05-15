@@ -1,0 +1,6 @@
+# Sweden Telenor
+
+	menu "Select Operator's specific configs"
+		comment "Select Operator's specific configs"
+	endmenu
+

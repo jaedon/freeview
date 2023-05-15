@@ -1,0 +1,11 @@
+
+TARGETNAME=PKTestCore
+TARGETTYPE=LIBRARY
+
+
+SOURCES = \
+	../apiparams.c \
+	../logger.c \
+	../tclib.c \
+	../TestVariableArray.c \
+

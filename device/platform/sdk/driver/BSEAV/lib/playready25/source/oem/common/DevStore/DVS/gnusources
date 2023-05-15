@@ -1,0 +1,12 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=oem_devstore_dvs
+TARGETTYPE=LIBRARY
+
+SOURCES = oemdevstore.c
+

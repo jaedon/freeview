@@ -1,0 +1,214 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+#
+
+include $(HUMAX_MAKE_DIR)/.config
+
+THIRDPARTY_DIR := $(HUMAX_TOP_DIR)/3rd_party
+#HUMAX_NFS_INSTALL_DIR := $(strip $(subst ",,/nfsroot/$(USER)/$(CONFIG_PRODUCT_NAME)/root))
+
+ifeq ($(CONFIG_ENHANCED_SECURITY),y)
+HUMAX_SUDO := sudo
+else
+HUMAX_SUDO :=
+endif
+
+ifeq ($(CONFIG_SUPPORT_HOMMA),y)
+ifeq ($(CONFIG_DEBUG), y)
+MXLIB_DIR = $(THIRDPARTY_DIR)/dlna/mxlib/lib/debug
+else
+MXLIB_DIR = $(THIRDPARTY_DIR)/dlna/mxlib/lib/release
+endif
+endif
+
+
+ifeq ($(CONFIG_SUPPORT_REMA),y)
+ifeq ($(CONFIG_DEBUG), y)
+HCWMP_DIR = $(THIRDPARTY_DIR)/cwmp/lib
+else
+HCWMP_DIR = $(THIRDPARTY_DIR)/cwmp/lib
+endif
+
+ifeq ($(CONFIG_SUPPORT_REMA_UNIT),y)
+ifeq ($(CONFIG_DEBUG), y)
+CUNIT_DIR = $(THIRDPARTY_DIR)/CUnit/lib
+else
+CUNIT_DIR = $(THIRDPARTY_DIR)/CUnit/lib
+endif
+endif
+
+endif
+
+
+ap_3rdparty :
+	@echo $@
+ifeq ($(CONFIG_3RD_MHEG_USE_SNT_ENGINE),y)
+ifeq ($(CONFIG_DEBUG), y)
+	@cp -rdf $(THIRDPARTY_DIR)/mheg/itk/debug/*.a 				$(HUMAX_STATIC_LIB_DIR)/
+	@cp -rdf $(THIRDPARTY_DIR)/mheg/itk/debug/license.lo 		$(HUMAX_STATIC_LIB_DIR)/
+else
+	@cp -rdf $(THIRDPARTY_DIR)/mheg/itk/release/*.a 			$(HUMAX_STATIC_LIB_DIR)/
+	@cp -rdf $(THIRDPARTY_DIR)/mheg/itk/release/license.lo		$(HUMAX_STATIC_LIB_DIR)/
+endif
+endif
+
+ifeq ($(CONFIG_SUPPORT_HOMMA),y)
+	@rm -f $(MXLIB_DIR)/*.so
+
+	@(cd $(MXLIB_DIR)/; ln -s libmxdlna_core.so.0 libmxdlna_core.so)
+	@cp -drpf $(MXLIB_DIR)/libmxdlna_core.so*		$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libmxdlna_core.so*		$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+
+	@(cd $(MXLIB_DIR)/; ln -s libmxkernel.so.0 libmxkernel.so)
+	@cp -drpf $(MXLIB_DIR)/libmxkernel.so*			$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libmxkernel.so*			$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+
+	@(cd $(MXLIB_DIR)/; ln -s libmxdtcp.so.0 libmxdtcp.so)
+	@cp -drpf $(MXLIB_DIR)/libmxdtcp.so*			$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libmxdtcp.so*			$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+
+	@(cd $(MXLIB_DIR)/; ln -s libmxfile.so.0 libmxfile.so)
+	@cp -drpf $(MXLIB_DIR)/libmxfile.so*			$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libmxfile.so*			$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+
+	@(cd $(MXLIB_DIR)/; ln -s libmxmedia.so.0 libmxmedia.so)
+	@cp -drpf $(MXLIB_DIR)/libmxmedia.so*			$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libmxmedia.so*			$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+
+	@(cd $(MXLIB_DIR)/; ln -s libmxres.so.0 libmxres.so)
+	@cp -drpf $(MXLIB_DIR)/libmxres.so*				$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libmxres.so*				$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+
+ifeq ($(CONFIG_HOMMA_DMP), y)
+	@(cd $(MXLIB_DIR)/; ln -s libmxdlna_mscp.so.0 libmxdlna_mscp.so)
+	@cp -drpf $(MXLIB_DIR)/libmxdlna_mscp.so*		$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libmxdlna_mscp.so*		$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+endif
+
+ifeq ($(CONFIG_HOMMA_USERCP), y)
+	@(cd $(MXLIB_DIR)/; ln -s libmxdlna_usercp.so.0 libmxdlna_usercp.so)
+	@cp -drpf $(MXLIB_DIR)/libmxdlna_usercp.so*			$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libmxdlna_usercp.so*			$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+endif
+
+ifeq ($(CONFIG_HOMMA_DMR), y)
+	@(cd $(MXLIB_DIR)/; ln -s libmxdlna_dmr.so.0 libmxdlna_dmr.so)
+	@cp -drpf $(MXLIB_DIR)/libmxdlna_dmr.so*		$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libmxdlna_dmr.so*		$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+endif
+
+ifeq ($(CONFIG_HOMMA_DMS), y)
+	@(cd $(MXLIB_DIR)/; ln -s libmxdbc.so.0 libmxdbc.so)
+	@cp -drpf $(MXLIB_DIR)/libmxdbc.so*		$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libmxdbc.so*		$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+
+	@(cd $(MXLIB_DIR)/; ln -s libmxdlna_dms.so.0 libmxdlna_dms.so)
+	@cp -drpf $(MXLIB_DIR)/libmxdlna_dms.so*		$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libmxdlna_dms.so*		$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+
+	@(cd $(MXLIB_DIR)/; ln -s libmxsqlite.so.0 libmxsqlite.so)
+	@cp -drpf $(MXLIB_DIR)/libmxsqlite.so*		$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libmxsqlite.so*		$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+
+	@(cd $(MXLIB_DIR)/; ln -s libHMS_transcoderWrapper.so.0 libHMS_transcoderWrapper.so)
+	@cp -drpf $(MXLIB_DIR)/libHMS_transcoderWrapper.so*		$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libHMS_transcoderWrapper.so*		$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+
+	@(cd $(MXLIB_DIR)/; ln -s libTranscoder_Control.so.0 libTranscoder_Control.so)
+	@cp -drpf $(MXLIB_DIR)/libTranscoder_Control.so*		$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libTranscoder_Control.so*		$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+endif
+
+ifeq ($(CONFIG_HOMMA_DIAL), y)
+	@(cd $(MXLIB_DIR)/; ln -s libmxdial_server.so.0 libmxdial_server.so)
+	@cp -drpf $(MXLIB_DIR)/libmxdial_server.so*		$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libmxdial_server.so*		$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+endif
+
+ifeq ($(CONFIG_HOMMA_WOON), y)
+	@(cd $(MXLIB_DIR)/; ln -s libras.so.0 libras.so)
+	@cp -drpf $(MXLIB_DIR)/libras.so*		$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libras.so*		$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+endif
+
+ifeq ($(CONFIG_SUPPORT_REMOTEAPP_ON_USERDEVICE),y)
+	@(cd $(MXLIB_DIR)/; ln -s libmxdlna_userdevice.so.0 libmxdlna_userdevice.so)
+	@cp -drpf $(MXLIB_DIR)/libmxdlna_userdevice.so*                 $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libmxdlna_userdevice.so*                 $(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+endif
+
+ifeq ($(CONFIG_HOMMA_SATIP), y)
+	@(cd $(MXLIB_DIR)/; ln -s libmxsatip_server.so.0 libmxsatip_server.so)
+	@cp -drpf $(MXLIB_DIR)/libmxsatip_server.so*		$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libmxsatip_server.so*		$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+
+	@(cd $(MXLIB_DIR)/; ln -s libmxsatip_upnp_server.so.0 libmxsatip_upnp_server.so)
+	@cp -drpf $(MXLIB_DIR)/libmxsatip_upnp_server.so*		$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libmxsatip_upnp_server.so*		$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+
+	@(cd $(MXLIB_DIR)/; ln -s libmxrtp_server.so.0 libmxrtp_server.so)
+	@cp -drpf $(MXLIB_DIR)/libmxrtp_server.so*		$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libmxrtp_server.so*		$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+
+	@(cd $(MXLIB_DIR)/; ln -s libmxrtsp_server.so.0 libmxrtsp_server.so)
+	@cp -drpf $(MXLIB_DIR)/libmxrtsp_server.so*		$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/libmxrtsp_server.so*		$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+
+	@(cd $(MXLIB_DIR)/; ln -s liblive555.so.0 liblive555.so)
+	@cp -drpf $(MXLIB_DIR)/liblive555.so*		$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(MXLIB_DIR)/liblive555.so*		$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+endif
+
+endif
+
+
+
+ifeq ($(CONFIG_SUPPORT_REMA),y)
+#	@(cd $(HCWMP_DIR)/; ln -s *.so*)
+	@cp -drpf $(HCWMP_DIR)/*.so*		$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(HCWMP_DIR)/*.so*		$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+
+ifeq ($(CONFIG_SUPPORT_REMA_UNIT),y)
+#	@(cd $(CUNIT_DIR)/; ln -s libcunit.so.0 libcunit.so)
+#	@cp -drpf $(CUNIT_DIR)/libcunit.so*		$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+#	@$(HUMAX_SUDO) cp -drpf $(CUNIT_DIR)/libcunit.so*		$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+	
+endif 
+	
+endif 
+
+
+
+ifeq ($(CONFIG_OP_JAPAN), y)
+	@cp -drpf $(THIRDPARTY_DIR)/tr069/lib/*.so*			$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(THIRDPARTY_DIR)/tr069/lib/*.so*			$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_3RD_BML), y)
+	@cp -drpf $(THIRDPARTY_DIR)/bml/lib/*.so*			$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(THIRDPARTY_DIR)/bml/lib/*.so*			$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_3RD_RFVOD), y)
+	@cp -drpf $(THIRDPARTY_DIR)/rfvod/lib/*.so			$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(THIRDPARTY_DIR)/rfvod/lib/*.so			$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_SUPPORT_NOVA_APP), y)
+	@cp -drpf $(THIRDPARTY_DIR)/nova/lib/*.so*			$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@$(HUMAX_SUDO) cp -drpf $(THIRDPARTY_DIR)/nova/lib/*.so*			$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_JANSSON), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/jansson/lib/*.a $(HUMAX_STATIC_LIB_DIR)/
+endif
+
+ap_3rdparty_clean :
+#	echo $@
+#	if [ -f $(HUMAX_STATIC_LIB_DIR)/*.a ]; then\
+#		rm -f $(HUMAX_STATIC_LIB_DIR)/*.a; \
+#	fi
+	@rm -rf $(HUMAX_STATIC_LIB_DIR)/*.a
+
+ap_3rdparty_distclean :
+#	@echo @ !!
+	@rm -rf $(HUMAX_STATIC_LIB_DIR)/*.a
+

@@ -1,0 +1,26 @@
+custom c3 ovc 3 3 0 hdm 
+x1 m2 os 0 0 ow cf 1 
+pb de /data/videos/cnnticker.mpg 21 21 0 1 
+stg 1 
+c2 oc 2 0 0 cdsp 0 1 0 0 x1 ch 1 och 0 0 dmn 1 m1 os ow cf 1
+de /data/videos/cnnticker.mpg 21 21 0 1  
+stg 1 
+bvncb 
+c3 cf 1 break 3 
+c3 cf 0 break 3 
+c3 cf 1 break 3 
+c2 cf 1 break 3 
+c2 cf 0 break 3 
+c2 cf 1 break 3 
+break 30 
+bvncb sleep 
+pb 
+c2 stg 0 
+c3 stg 0 
+c2 stg 1 
+c3 stg 1 
+break 10 
+c2 stg 0 
+c3 stg 0 
+c2 cw
+c3 cw cs cd q

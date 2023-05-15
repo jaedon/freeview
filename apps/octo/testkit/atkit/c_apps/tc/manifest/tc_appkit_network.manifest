@@ -1,0 +1,56 @@
+{
+	"RUN_ALL": false,
+
+	"RUN_CATEGORY":[
+		"network"
+		],
+
+	"RUN_TC":[
+
+		],
+
+	"TC_LIST": 
+		[
+		{
+			"tc_name": "TC_WIFI_GetAPList",
+			"category": ["network", "wifi"],
+			"argument": {
+				"timeout" : 10000
+			},
+			"expect_result": {
+				"result": 0 
+			}
+		},
+		{
+			"tc_name": "TC_WIFI_ConnectAP",
+			"category": ["network", "wifi"],
+			"argument": {
+				"essid": "hello", 
+				"key" : "123456"
+			},
+			"expect_result": {
+				"result": 0 
+			}
+		},
+		{
+			"tc_name": "TC_NETCONF_DeviceInfo",
+			"category": ["network", "netconf"],
+			"argument": {
+
+			},
+			"expect_result": {
+				"result": 0 
+			}
+		},
+		{
+			"tc_name": "TC_NETCONF_InternetConnection",
+			"category": ["network", "netconf"],
+			"argument": {
+			
+			},
+			"expect_result": {
+				"result": 0 
+			}
+		}
+		]
+}

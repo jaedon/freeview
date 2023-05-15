@@ -1,0 +1,18 @@
+# Brutus Program Guide
+# The first entry corresponds to channel 1, etc.
+# This is primarily used for naming the recorded files.
+# By default, I've commented out all lines in the program guide.
+# Brutus will select a default name in its place.
+
+# Analog
+#0: Line In
+#1: X-Men
+#2: CNN
+
+# Digital
+#3.1: Spiderman
+#3.2: Lord of the Rings
+#4.1: Ocean's 11
+#4.2: Venice
+#4.3: Harry Potter
+

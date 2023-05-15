@@ -1,0 +1,321 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+-include .config
+
+HUMAX_VERBOSE := @
+#HUMAX_VERBOSE :=
+
+ifeq ($(HUMAX_VERBOSE),@)
+HUMAX_TAR_FLAGS := -zxf
+else
+HUMAX_TAR_FLAGS := -zxvf
+endif
+
+HUMAX_BUSYBOX_NAME := busybox-*.tar.gz
+ifeq ($(CONFIG_PROD_CPU_BCM_ARM),y)
+HUMAX_CROSS := $(CONFIG_TOOLCHAIN_PATH)/bin/arm-linux-
+else
+ifeq ($(CONFIG_PROD_GCC_GLIBC),y)
+HUMAX_CROSS := $(CONFIG_TOOLCHAIN_PATH)/bin/mipsel-linux-gnu-
+else
+HUMAX_CROSS := $(CONFIG_TOOLCHAIN_PATH)/bin/mipsel-linux-uclibc-
+endif
+endif
+
+HUMAX_STRIP := $(HUMAX_CROSS)strip
+
+HUMAX_BUSYBOX_PACKAGE_DIR=$(HUMAX_PACKAGE_DIR)/busybox/$(HUMAX_DBG_MODEL_FOLDER)
+VMLINUZ_SRC_NAME := $(strip $(subst ",,$(HUMAX_PLATFORM_SRC)/vmlinuz-$(CONFIG_PRODUCT_NAME)))
+HUMAX_TFTP_TOP_DIR = /tftpboot
+HUMAX_TFTP_TARGET_NAME := $(strip $(subst ",,vmlinuz-$(USER)-$(HUMAX_INSTALL_NAME)))
+
+HUMAX_APP_STAGGING_TOP_DIR :=$(HUMAX_MAKE_DIR)/_gen_rootfs
+HUMAX_APP_STAGGING_ROOT_DIR :=$(HUMAX_APP_STAGGING_TOP_DIR)/root
+HUMAX_APP_STAGGING_IMG_DIR :=$(HUMAX_APP_STAGGING_TOP_DIR)/image
+
+HUMAX_APP_ADDTIONAL_ROOTFS_DIR := $(HUMAX_MAKE_DIR)/rootfs
+
+basefiles-stag :
+ifeq ($(strip $(CONFIG_HAVE_DOT_CONFIG)),y)
+ifneq ($(HUMAX_VERBOSE),@)
+	@echo =======================================
+	@echo target is $@
+	@echo $(HUMAX_APP_STAGGING_ROOT_DIR)
+	@echo $(HUMAX_APP_STAGGING_IMG_DIR)
+	@echo =======================================
+endif
+	@test -d $(HUMAX_APP_STAGGING_ROOT_DIR) || install -d -m 755 $(HUMAX_APP_STAGGING_ROOT_DIR)
+	@test -d $(HUMAX_APP_STAGGING_IMG_DIR) || install -d -m 755 $(HUMAX_APP_STAGGING_IMG_DIR)
+	@echo "---- Extract to $(HUMAX_APP_STAGGING_TOP_DIR) FOLDER"
+	@echo "---- Extract $(HUMAX_PLATFORM_SRC)/rootfs.tar.gz file"
+	@sudo tar $(HUMAX_TAR_FLAGS) $(HUMAX_PLATFORM_SRC)/rootfs.tar.gz -C $(HUMAX_APP_STAGGING_TOP_DIR)
+	@echo "---- Extract $(HUMAX_PLATFORM_SRC)/libs.tar.gz file"
+	@sudo tar $(HUMAX_TAR_FLAGS) $(HUMAX_PLATFORM_SRC)/libs.tar.gz -C $(HUMAX_APP_STAGGING_TOP_DIR)
+	@echo "---- Extract $(HUMAX_BUSYBOX_PACKAGE_DIR)/$(HUMAX_BUSYBOX_NAME) file"
+	@sudo tar $(HUMAX_TAR_FLAGS) $(HUMAX_BUSYBOX_PACKAGE_DIR)/$(HUMAX_BUSYBOX_NAME) -C $(HUMAX_APP_STAGGING_TOP_DIR)
+	@echo "---- Change File Ownership"
+	@sudo chown -R $(USER) $(HUMAX_APP_STAGGING_ROOT_DIR)
+	@sudo chown -R root:root $(HUMAX_APP_STAGGING_ROOT_DIR)/dev/*
+	@sudo chown -R $(USER) $(HUMAX_APP_STAGGING_ROOT_DIR)/usr
+	@echo "---- Change File execution mode"
+	-sudo find $(HUMAX_APP_STAGGING_ROOT_DIR)/ -type f -print0 | xargs -0r sudo chmod 600
+	-sudo find $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/bin -type f | xargs -r sudo chmod 700
+	-sudo find $(HUMAX_APP_STAGGING_ROOT_DIR)/home -type f -print0 | xargs -0r sudo chmod 700
+	-sudo find $(HUMAX_APP_STAGGING_ROOT_DIR)/bin/busybox -type f | xargs -r sudo chmod 700
+	@echo "---- Delete SVN hidden files.."
+	@sudo find $(HUMAX_APP_STAGGING_ROOT_DIR) -name ".svn" | xargs -r rm -rf
+	@echo "---- Copy Linux Kernel"
+	@cp  $(VMLINUZ_SRC_NAME) $(HUMAX_APP_STAGGING_IMG_DIR)/vmlinuz
+endif
+ifneq ($(strip $(CONFIG_HAVE_DOT_CONFIG)),y)
+	@echo you have to do xxx_defconfig, at first. in $@
+endif
+
+install-app-packges :
+ifeq ($(strip $(CONFIG_HAVE_DOT_CONFIG)),y)
+	@echo ---- Copy Application specific Package libraries.
+ifeq ($(CONFIG_PACKAGE_LIBCAP), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/libcap/lib64/* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/libcap/sbin/* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/sbin/
+endif
+ifeq ($(CONFIG_PACKAGE_SAMBA), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/samba/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+ifeq ($(CONFIG_SUPPORT_UMMA_SAMBA_CLIENT), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/samba/bin/smbtree $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/bin/
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/samba/bin/nmblookup $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/bin/
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/samba/bin/mount.cifs $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/bin/
+endif
+ifeq ($(CONFIG_SUPPORT_UMMA_SAMBA_SERVER), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/samba/bin/nmbd $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/bin/
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/samba/bin/smbd $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/bin/
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/samba/bin/smbpasswd $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/bin/
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/samba/etc/samba $(HUMAX_APP_STAGGING_ROOT_DIR)/etc/
+endif
+endif
+ifeq ($(CONFIG_PACKAGE_PROFTPD), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/proftpd/bin/proftpd $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/bin/
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/proftpd/etc/proftpd $(HUMAX_APP_STAGGING_ROOT_DIR)/etc/
+endif
+ifeq ($(CONFIG_PACKAGE_FFMPEG), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/ffmpeg/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_JPEG), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/jpeg/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_FREETYPE), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/freetype/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_LIBPNG), y)
+	#@cp -drpf $(HUMAX_PACKAGE_DIR)/libpng/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/zlib/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_ID3LIB), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/id3lib/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/zlib/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_LIBEXIF), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/libexif/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_LIBEXT2FS), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/libext2fs/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_CURL), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/libcurl/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_OPENSSL), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/openssl/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_LIBXML), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/libxml/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_LIBXML2), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/libxml2/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+
+ifeq ($(CONFIG_PACKAGE_LIBWEBP), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/libwebp/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_GRAPHITE2), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/graphite2/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_LIBOGG), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/libogg/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_LIBMNG), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/libmng/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_CARES), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/c-ares/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_GPERFTOOLS), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/gperftools/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_LIBMNG), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/libmng/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_ICU4C), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/icu4c/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_LCMS), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/lcms/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_TREMOR), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/Tremor/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_HARFBUZZ), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/harfbuzz/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_EXPAT), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/libexpat/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+
+#ifeq ($(CONFIG_PACKAGE_LIBLUA), y)
+#	@cp -drpf $(HUMAX_PACKAGE_DIR)/lua/bin/bin/* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/bin/
+#ifeq ($(CONFIG_DEBUG), y)
+#	@mkdir -p $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/local/share/lua/5.1/
+#	@cp -drpf $(HUMAX_TOP_DIR)/apps/humaxtv/octo/api/test/*.lua $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/local/share/lua/5.1/
+#endif
+#endif
+ifeq ($(CONFIG_PACKAGE_LIBNCURSES), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/ncurses/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_LIBREADLINE), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/readline/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_JANSSON), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/jansson/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/sqlite/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+ifeq ($(CONFIG_PACKAGE_SQLITE3_CLIENT),y)
+	cp -drpf $(HUMAX_PACKAGE_DIR)/sqlite/bin/sqlite* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/bin/
+endif
+ifeq ($(CONFIG_PACKAGE_LOG4C), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/log4c/lib/*.so*  $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+#	@cp -drpf $(HUMAX_PACKAGE_DIR)/log4c/lib/*.so*  $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_WEBSOCKET), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/libwebsocket/lib/*.so*  $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_PCD), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/pcd/lib/lib/*.so*  $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	mkdir -p $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/sbin
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/pcd/bin/target/usr/sbin/pcd  $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/sbin
+endif
+ifeq ($(CONFIG_PACKAGE_DNSMASQ), y)
+	mkdir -p $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/sbin
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/dnsmasq/sbin/dnsmasq  $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/sbin/
+endif
+ifeq ($(CONFIG_PACKAGE_NTPCLIENT), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/ntpclient/bin/ntpclient $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/bin/
+endif
+ifeq ($(CONFIG_PACKAGE_AXIS2), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/axis2/lib/*.so*  $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_PACKAGE_NODEJS), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/node.js/bin/node  $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/bin/
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/node.js/node_modules  $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/
+endif
+ifeq ($(CONFIG_PACKAGE_KEYS), y)
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/libgpg-error/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/libgcrypt/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/keyutils/bin/* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/bin/
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/keyutils/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/ecryptfs_utils/bin/* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/bin/
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/ecryptfs_utils/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/			
+endif
+ifeq ($(CONFIG_HOMMA_AIRPLAY), y)
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/libairplay/debug/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/libplist/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/libavahi/lib/*.so* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib
+endif
+ifeq ($(CONFIG_PROD_GCC_GLIBC_ASAN), y)
+	@$(HUMAX_CP) -dpf  $(CONFIG_TOOLCHAIN_PATH)/arm-linux-gnueabihf/lib/libasan*.so*  $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib
+endif
+ifeq ($(CONFIG_PACKAGE_OPENSSH), y)
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/openssh/bin/* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/bin
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/openssh/etc/* $(HUMAX_APP_STAGGING_ROOT_DIR)/etc
+	mkdir -p $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/libexec
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/openssh/libexec/* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/libexec
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/openssh/sbin/* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/sbin
+endif
+########################################################
+#### STRIP Command have to doing, at last.
+########################################################
+ifneq ($(CONFIG_DEBUG), y)
+	$(HUMAX_STRIP) --strip-unneeded $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/*so*
+endif
+else
+	@echo =======================================
+	@echo we can not doing !!! ---- $@
+	@echo =======================================
+endif
+
+basefiles-app:
+ifeq ($(strip $(CONFIG_HAVE_DOT_CONFIG)),y)
+	@echo ---- Extract Application specific rootfs files..
+	@$(MAKE) -C $(HUMAX_APP_ADDTIONAL_ROOTFS_DIR) base-rootfs
+else
+	@echo =======================================
+	@echo we can not doing !!! ---- $@
+	@echo =======================================
+endif
+
+basefiles : basefiles-stag install-app-packges basefiles-app FORCE
+ifeq ($(strip $(CONFIG_HAVE_DOT_CONFIG)),y)
+	@echo "---- Build NFS ROOT Folder"
+	@test -d $(HUMAX_NFS_TOP_DIR)/root || install -d -m 755 $(HUMAX_NFS_TOP_DIR)/root
+	@test -d $(HUMAX_NFS_TOP_DIR)/image || install -d -m 755 $(HUMAX_NFS_TOP_DIR)/image
+	@echo "---- Copy Stagging folder's contents to NFS folder."
+	@sudo cp -dprf $(HUMAX_APP_STAGGING_TOP_DIR)/* $(HUMAX_NFS_TOP_DIR)
+	@echo "---- Change File Ownership in NFS folder"
+	@sudo chown -R $(USER) $(HUMAX_NFS_INSTALL_DIR)
+	@sudo chown -R root:root $(HUMAX_NFS_INSTALL_DIR)/dev/*
+	@sudo chown -R $(USER) $(HUMAX_NFS_INSTALL_DIR)/usr
+	@echo "---- Change File execution mode in NFS folder"
+	-sudo find $(HUMAX_NFS_INSTALL_DIR) -type f -print0 | xargs -0r sudo chmod 600
+	-sudo find $(HUMAX_NFS_INSTALL_DIR)/home -type f -print0 | xargs -0r sudo chmod 700
+	sudo chmod -f 700 $(HUMAX_NFS_INSTALL_DIR)/lib/ld-*
+	sudo chmod -f 700 $(HUMAX_NFS_INSTALL_DIR)/lib/libpthread*
+	sudo chmod -f 700 $(HUMAX_NFS_INSTALL_DIR)/etc/init.d/*
+	sudo chmod -f 644 $(HUMAX_NFS_INSTALL_DIR)/etc/services
+	sudo chmod -f 700 $(HUMAX_NFS_INSTALL_DIR)/usr/sbin/*
+	sudo chmod -f 700 $(HUMAX_NFS_INSTALL_DIR)/usr/bin/*
+	sudo chmod -f 700 $(HUMAX_NFS_INSTALL_DIR)/usr/share/udhcpc/*
+	sudo chmod -f 700 $(HUMAX_NFS_INSTALL_DIR)/usr/share/zcip/*
+	sudo chmod -f 744 $(HUMAX_NFS_INSTALL_DIR)/usr/etc/hotplug.d/*
+	sudo chmod -f 700 $(HUMAX_NFS_INSTALL_DIR)/sbin/*
+	sudo chmod -f 700 $(HUMAX_NFS_INSTALL_DIR)/bin/*
+	sudo chmod -f 777 $(HUMAX_NFS_INSTALL_DIR)/var/lib/humaxtv
+	sudo chmod -f 777 $(HUMAX_NFS_INSTALL_DIR)/var/lib/humaxtv_backup
+	sudo chmod -f 777 $(HUMAX_NFS_INSTALL_DIR)/var/lib/humaxtv_user
+	@test ! -d $(HUMAX_NFS_INSTALL_DIR)/home/settop/rootfs || sudo chmod -f 700 $(HUMAX_NFS_INSTALL_DIR)/home/settop/rootfs/start.sh
+ifneq ($(CONFIG_ENABLE_SANDBOXING),y)
+	@test ! -d $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root || sudo chmod -f 700 $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/start.sh
+	@test ! -d $(HUMAX_NFS_INSTALL_DIR)/home/homma/root || sudo chmod -f 700 $(HUMAX_NFS_INSTALL_DIR)/home/homma/root/start.sh
+	@test ! -d $(HUMAX_NFS_INSTALL_DIR)/home/imma/root || sudo chmod -f 700 $(HUMAX_NFS_INSTALL_DIR)/home/imma/root/start.sh
+	@test ! -d $(HUMAX_NFS_INSTALL_DIR)/home/ipepg/root || sudo chmod -f 700 $(HUMAX_NFS_INSTALL_DIR)/home/ipepg/root/start.sh
+	@test ! -d $(HUMAX_NFS_INSTALL_DIR)/home/mheg/root || sudo chmod -f 700 $(HUMAX_NFS_INSTALL_DIR)/home/mheg/root/start.sh
+
+endif
+	@test ! -d $(HUMAX_NFS_INSTALL_DIR)/usr/local || sudo find $(HUMAX_NFS_INSTALL_DIR)/usr/local/bin -type f | xargs -r sudo chmod 700
+	@test ! -d $(HUMAX_NFS_INSTALL_DIR)/usr/local || sudo find $(HUMAX_NFS_INSTALL_DIR)/usr/local/sbin -type f | xargs -r sudo chmod 700
+	@echo "---- Delete SVN hidden files in NFS folder"
+	@sudo find $(HUMAX_NFS_INSTALL_DIR) -name ".svn" | xargs -r rm -rf
+	@echo "---- Copy Linux Kernel to TFTP Folder."
+	@cp  $(HUMAX_APP_STAGGING_IMG_DIR)/vmlinuz $(HUMAX_TFTP_TOP_DIR)/$(HUMAX_TFTP_TARGET_NAME)
+ifeq ($(CONFIG_ENHANCED_SECURITY),y)
+	$(CURDIR)/build_userheader.sh
+endif
+else
+	@echo you have to do xxx_defconfig, at first. in $@
+endif
+
+basefiles_distclean:
+ifeq ($(strip $(CONFIG_HAVE_DOT_CONFIG)),y)
+	sudo rm -rf  $(HUMAX_NFS_TOP_DIR)
+	sudo rm -rf  $(HUMAX_APP_STAGGING_TOP_DIR)
+else
+	@echo you have to do xxx_defconfig, at first. in $@
+endif

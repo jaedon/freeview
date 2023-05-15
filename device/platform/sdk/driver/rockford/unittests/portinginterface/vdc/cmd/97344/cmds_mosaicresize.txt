@@ -1,0 +1,40 @@
+rul
+ovc
+pb
+os 0 1
+ow
+de /data/videos/MosaicStreams/mosaic_4avc_4mp2_4vc1_cif.ts 1001 100 0 0 
+dm 0
+sleep
+ch 1
+och 0 1
+de /data/videos/MosaicStreams/mosaic_4avc_4mp2_4vc1_cif.ts 1002 100 0 0 
+dm 0
+sleep
+ch 2
+och 0 1
+de /data/videos/MosaicStreams/mosaic_4avc_4mp2_4vc1_cif.ts 1003 100 0 0 
+dm 0
+sleep
+ch 3
+och 0 1
+de /data/videos/MosaicStreams/mosaic_4avc_4mp2_4vc1_cif.ts 1004 100 0 0 
+dm 0
+sleep
+
+cf 3
+mosaic 1 1 255 1 0 0 0 4 960 540 1 0 2 0 0
+sleep
+
+clear sleep bvncb
+mosaicres 10 10 10 10
+bvncb
+
+sleep
+rul
+pb
+cw
+cs
+cd
+quit
+

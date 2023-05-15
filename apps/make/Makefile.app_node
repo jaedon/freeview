@@ -1,0 +1,93 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+#
+
+## this is temporary configuration. i have to delete below line... -_-!!!!
+
+HUMAX_VERBOSE := @
+#HUMAX_VERBOSE :=
+
+APP_NODE_HOME_DIR := $(HUMAX_TOP_DIR)/apps/appl/node/js_src
+APP_NODE_BASESRC_DIR := $(APP_NODE_HOME_DIR)
+#HUMAX_NFS_INSTALL_DIR := $(strip $(subst ",,/nfsroot/$(USER)/$(CONFIG_PRODUCT_NAME)/root))
+HUMAX_NFS_NODEAPP_DIR := $(HUMAX_NFS_INSTALL_DIR)/home/node
+
+
+HUMAX_APP_STAGGING_TOP_DIR=$(HUMAX_MAKE_DIR)/_gen_rootfs
+HUMAX_APP_STAGGING_ROOT_DIR=$(HUMAX_APP_STAGGING_TOP_DIR)/root
+HUMAX_APP_STAGGING_IMG_DIR=$(HUMAX_APP_STAGGING_TOP_DIR)/image
+HUMAX_NODEAPP_STAGGING_TARGET_DIR=$(HUMAX_APP_STAGGING_TOP_DIR)/root/home/node
+
+ifeq ($(CONFIG_ENHANCED_SECURITY),y)
+HUMAX_SUDO := sudo
+else
+HUMAX_SUDO :=
+endif
+
+ap_node-stag:
+	echo $(CONFIG_USES_NFSROOT)
+ifneq ($(HUMAX_VERBOSE),@)
+	echo ------------------------------
+	echo $(HUMAX_NODEAPP_STAGGING_TARGET_DIR)
+	echo $(APP_NODE_BASESRC_DIR)
+	echo ------------------------------
+endif
+	@echo "---- COPY Node App to $(HUMAX_NODEAPP_STAGGING_TARGET_DIR)"
+	@if [ ! -d $(HUMAX_NODEAPP_STAGGING_TARGET_DIR) ]; then \
+		mkdir -p $(HUMAX_NODEAPP_STAGGING_TARGET_DIR);echo "mkdir";	\
+	fi;
+
+	sudo rm -rf $(HUMAX_NODEAPP_STAGGING_TARGET_DIR)/*
+	sudo rm -rf $(HUMAX_NFS_NODEAPP_DIR)/*
+
+	@if [ -d $(APP_NODE_BASESRC_DIR) ]; then \
+		cp -dprf $(APP_NODE_BASESRC_DIR)/*		$(HUMAX_NODEAPP_STAGGING_TARGET_DIR)/;	\
+		sudo find $(HUMAX_NODEAPP_STAGGING_TARGET_DIR) -name ".svn" | xargs rm -rf; \
+	fi;
+
+
+# for release, java script & css minify
+# default is disabled, but we will always doing in release mode, near furure.
+ifneq ($(strip $(CONFIG_USES_NFSROOT)),y)
+	$(CURDIR)/minify_node.sh 2>&1 | tee minify_node.sh.log
+endif
+	
+
+ap_testnode-stag:
+	@if [ ! -d $(HUMAX_NODEAPP_STAGGING_TARGET_DIR) ]; then \
+		mkdir -p $(HUMAX_NODEAPP_STAGGING_TARGET_DIR);echo "mkdir";	\
+	fi;
+	echo $(HUMAX_NODEAPP_STAGGING_TARGET_DIR)
+	sudo rm -rf $(HUMAX_NODEAPP_STAGGING_TARGET_DIR)/*
+	sudo find $(HUMAX_NODEAPP_STAGGING_TARGET_DIR) -name ".svn" | xargs rm -rf; \
+	sudo rm -rf $(HUMAX_NODEAPP_STAGGING_TARGET_DIR)/oipf
+ap_testnode : ap_testnode-stag FORCE
+	@echo "---- COPY Test Node App to $(HUMAX_NFS_NODEAPP_DIR)"
+	@if [ ! -d $(HUMAX_NFS_NODEAPP_DIR) ]; then \
+		$(HUMAX_SUDO) mkdir -p $(HUMAX_NFS_NODEAPP_DIR);	\
+	fi;
+	@$(HUMAX_SUDO) cp -dprf $(HUMAX_NODEAPP_STAGGING_TARGET_DIR)/* $(HUMAX_NFS_NODEAPP_DIR)/
+
+ap_node : ap_node-stag FORCE
+	@echo "---- COPY Node App to $(HUMAX_NFS_NODEAPP_DIR)"
+	@if [ ! -d $(HUMAX_NFS_NODEAPP_DIR) ]; then \
+		$(HUMAX_SUDO) mkdir -p $(HUMAX_NFS_NODEAPP_DIR);	\
+	fi;
+	sudo rm -rf $(HUMAX_NODEAPP_STAGGING_TARGET_DIR)/node_modules
+	@(cd $(HUMAX_NODEAPP_STAGGING_TARGET_DIR)/; ln -s /usr/node_modules node_modules)
+	@$(HUMAX_SUDO) cp -dprf $(HUMAX_NODEAPP_STAGGING_TARGET_DIR)/* $(HUMAX_NFS_NODEAPP_DIR)/
+
+
+ap_node_clean :
+	@echo "---- delete -> $(HUMAX_NODEAPP_STAGGING_TARGET_DIR)"
+	@if [ -d $(HUMAX_NODEAPP_STAGGING_TARGET_DIR) ]; then \
+		sudo rm -rf $(HUMAX_NODEAPP_STAGGING_TARGET_DIR); \
+	fi;
+	@echo "---- delete -> $(HUMAX_NFS_NODEAPP_DIR)"
+	@if [ -d $(HUMAX_NFS_NODEAPP_DIR) ]; then \
+		sudo rm -rf $(HUMAX_NFS_NODEAPP_DIR); \
+	fi;
+
+ap_node_distclean : ap_node_clean

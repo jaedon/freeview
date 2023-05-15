@@ -1,0 +1,751 @@
+1944:FUNC:Binary Cert Builder can create a new cert chain
+Test_SetDefaultBuilderData(IssuerPCDevDom, 4 Issuer, pubkey1.dat, 4 Key usages, 240 Indiv Device Link and Domain, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_AddCert
+Test_CompareCertChains(basicchain.dat, 0, 236)
+
+19441:FUNC:Binary Cert Builder can create a new cert chain; using key buffer
+Test_SetDefaultBuilderData(IssuerPCDevDom, 4 Issuer, pubkey1.dat, 4 Key usages, 240 Indiv Device Link and Domain, testrootprivkey.dat, testrootpubkey.dat, 1 use key buffer)
+Test_AddCert
+Test_CompareCertChains(basicchain.dat, 0, 236)
+
+201:FUNC:Binary Cert Builder can create and add a Device cert to the end of an existing cert chain
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 1 Key usages, 1 Sign, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 1 Key Usages, 2 Encrypt)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert
+Test_CompareCertChains(basicDEVchain.dat, 0, 332)
+
+250:FUNC:Binary Cert Builder can create and add a Device cert to the end of an existing cert chain; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 1 Key usages, 1 Sign, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 1 Key Usages, 2 Encrypt)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert
+Test_CompareCertChains(basicDEVchain.dat, 0, 332)
+
+202:FUNC:Binary Cert Builder can create and add a Domain cert to the end of an existing cert chain
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(DomCert1, 3 Domain Type, pubkey2.dat, 1 Key usage, 2 EncryptKey, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDomainBuilderData(ServiceID123, DomainID, 12345 Revision, ClientID, http://www.contoso.com, 27 bytes counting null terminator)
+Test_SetManufacturerInfo(DomManufacturer, DomModel, DomModelNum)
+Test_AddCert
+Test_CompareCertChains(basicDOMchain.dat, 0, 340)
+
+251:FUNC:Binary Cert Builder can create and add a Domain cert to the end of an existing cert chain; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(DomCert1, 3 Domain Type, pubkey2.dat, 1 Key usage, 2 EncryptKey, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetDomainBuilderData(ServiceID123, DomainID, 12345 Revision, ClientID, http://www.contoso.com, 27 bytes counting null terminator)
+Test_SetManufacturerInfo(DomManufacturer, DomModel, DomModelNum)
+Test_AddCert
+Test_CompareCertChains(basicDOMchain.dat, 0, 340)
+
+203:FUNC:Binary Cert Builder can create and add a PC cert to the end of a cert chain, compare result to premade
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 1 Key usages, 1 Sign, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_AddKeyToBuilderData( pubkey3.dat, 1 Key Usages, 2 Encrypt)
+Test_SetManufacturerInfo(PCManufacturer, PCModel, PC1234567890)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert
+Test_CompareCertChains(basicPCchain.dat, 0, 316)
+
+252:FUNC:Binary Cert Builder can create and add a PC cert to the end of a cert chain, compare result to premade; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 1 Key usages, 1 Sign, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_AddKeyToBuilderData( pubkey3.dat, 1 Key Usages, 2 Encrypt)
+Test_SetManufacturerInfo(PCManufacturer, PCModel, PC1234567890)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert
+Test_CompareCertChains(basicPCchain.dat, 0, 316)
+
+204:FUNC:Binary Cert Builder can create and add an Issuer cert to the end of a cert chain, compare result to premade
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer Type, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetManufacturerInfo(IssuerManu, IssuerModel, ISN1234567890)
+Test_AddCert
+Test_CompareCertChains(basicISSUERchain.dat, 0, 300)
+
+253:FUNC:Binary Cert Builder can create and add an Issuer cert to the end of a cert chain, compare result to premade; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer Type, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetManufacturerInfo(IssuerManu, IssuerModel, ISN1234567890)
+Test_AddCert
+Test_CompareCertChains(basicISSUERchain.dat, 0, 300)
+
+205:FUNC:Binary Cert Builder can create a cert chain, compare result to premade
+Test_SetDefaultBuilderData(IssuerPCDevDom, 4 Issuer, pubkey1.dat, 4 Key usages, 240 Indiv Device Link and Domain, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_SetBuilderFlagData(1234 chain header flag, 0 basic info flag, 0 key flag, 0 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_SetBuilderFlagData(1234 chain header flag, 1234 basic info flag, 1234 key flag, 1234 manufacturer flag)
+Test_AddCert
+Test_CompareCertChains(flaggedDEVchain.dat, 0, 332)
+
+254:FUNC:Binary Cert Builder can create a cert chain, compare result to premade; using key buffer
+Test_SetDefaultBuilderData(IssuerPCDevDom, 4 Issuer, pubkey1.dat, 4 Key usages, 240 Indiv Device Link and Domain, testrootprivkey.dat, testrootpubkey.dat, 1 use key buffer)
+Test_SetBuilderFlagData(1234 chain header flag, 0 basic info flag, 0 key flag, 0 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_SetBuilderFlagData(1234 chain header flag, 1234 basic info flag, 1234 key flag, 1234 manufacturer flag)
+Test_AddCert
+Test_CompareCertChains(flaggedDEVchain.dat, 0, 332)
+
+206:FUNC:Binary Cert Builder rejects 0 key usages
+'Use 0 key usages in key usage info, currently rejected by builder as invalid
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer, pubkey1.dat, 0 key usages, 0 No key usages, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_AddCert = 0x8004C818 (DRM_E_BCERT_KEY_USAGES_NOT_SPECIFIED)
+
+255:FUNC:Binary Cert Builder rejects 0 key usages; using key buffer
+'Use 0 key usages in key usage info, currently rejected by builder as invalid
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer, pubkey1.dat, 0 key usages, 0 No key usages, testrootprivkey.dat, testrootpubkey.dat, 1 use key buffer)
+Test_AddCert = 0x8004C818 (DRM_E_BCERT_KEY_USAGES_NOT_SPECIFIED)
+
+207:FUNC:Binary Cert Builder should not create chains longer than 6 certs
+'Add more than 6 certs, builder should reject on 7th cert
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer, pubkey1.dat, 1 key usages, 8 Issuer-All, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerCert2, 4 Issuer, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerCert3, 4 Issuer, pubkey3.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey2.dat, pubkey2.dat, 0 use key handle)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerCert4, 4 Issuer, pubkey4.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey3.dat, pubkey3.dat, 0 use key handle)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerCert5, 4 Issuer, pubkey5.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey4.dat, pubkey4.dat, 0 use key handle)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerCert6, 4 Issuer, pubkey7.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey5.dat, pubkey5.dat, 0 use key handle)
+Test_AddCert
+Test_ClearBuilderData
+'privkey6 is malformed
+Test_SetDefaultBuilderData(IssuerCert8, 4 Issuer, pubkey8.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey7.dat, pubkey7.dat, 0 use key handle)
+Test_AddCert = 0X8004C801 (DRM_E_BCERT_CHAIN_TOO_DEEP)
+
+256:FUNC:Binary Cert Builder should not create chains longer than 6 certs; using key buffer
+'Add more than 6 certs, builder should reject on 7th cert
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer, pubkey1.dat, 1 key usages, 8 Issuer-All, testrootprivkey.dat, testrootpubkey.dat, 1 use key buffer)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerCert2, 4 Issuer, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerCert3, 4 Issuer, pubkey3.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey2.dat, pubkey2.dat, 1 use key buffer)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerCert4, 4 Issuer, pubkey4.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey3.dat, pubkey3.dat, 1 use key buffer)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerCert5, 4 Issuer, pubkey5.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey4.dat, pubkey4.dat, 1 use key buffer)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerCert6, 4 Issuer, pubkey7.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey5.dat, pubkey5.dat, 1 use key buffer)
+Test_AddCert
+Test_ClearBuilderData
+'privkey6 is malformed
+Test_SetDefaultBuilderData(IssuerCert8, 4 Issuer, pubkey8.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey7.dat, pubkey7.dat, 1 use key buffer)
+Test_AddCert = 0X8004C801 (DRM_E_BCERT_CHAIN_TOO_DEEP)
+
+208:FUNC:Binary Cert Builder should not add PC type object to Issuer cert.
+Test_SetDefaultBuilderData(IssuerPCDevDom, 4 Issuer, pubkey1.dat, 4 Key usages, 240 Indiv Device Link and Domain, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_AddCert = 0X80070057 (DRM_E_INVALIDARG)
+
+257:FUNC:Binary Cert Builder should not add PC type object to Issuer cert; using key buffer
+Test_SetDefaultBuilderData(IssuerPCDevDom, 4 Issuer, pubkey1.dat, 4 Key usages, 240 Indiv Device Link and Domain, testrootprivkey.dat, testrootpubkey.dat, 1 use key buffer)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_AddCert = 0X80070057 (DRM_E_INVALIDARG)
+
+210:FUNC:Do not allow adding an issuer cert with Issuer-Link key usage to a chain where the last cert is not an Issuer type with Issuer-Link key usage
+Test_SetDefaultBuilderData(IssuerPCDevDom, 4 Issuer, pubkey1.dat, 3 Key usages, 176 Indiv Device and Domain, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_SetBuilderFlagData(1234 chain header flag, 0 basic info flag, 0 key flag, 0 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerLink, 4 Issuer, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetBuilderFlagData(1234 chain header flag, 1234 basic info flag, 1234 key flag, 1234 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+'Verify that it is invalid 
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE
+
+258:FUNC:Do not allow adding an issuer cert with Issuer-Link key usage to a chain where the last cert is not an Issuer type with Issuer-Link key usage; using key buffer
+Test_SetDefaultBuilderData(IssuerPCDevDom, 4 Issuer, pubkey1.dat, 3 Key usages, 176 Indiv Device and Domain, testrootprivkey.dat, testrootpubkey.dat, 1 use key buffer)
+Test_SetBuilderFlagData(1234 chain header flag, 0 basic info flag, 0 key flag, 0 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerLink, 4 Issuer, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetBuilderFlagData(1234 chain header flag, 1234 basic info flag, 1234 key flag, 1234 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+'Verify that it is invalid 
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE
+
+211:FUNC:Do not allow adding a device cert to a chain where the last cert is not an Issuer type with Issuer-Device key usage
+Test_SetDefaultBuilderData(IssuerPCDevDom, 4 Issuer, pubkey1.dat, 3 Key usages, 208 Indiv Link and Domain, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_SetBuilderFlagData(1234 chain header flag, 0 basic info flag, 0 key flag, 0 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerLink, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_AddCert
+Test_ClearBuilderData
+'Verify that it is invalid
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE
+
+259:FUNC:Do not allow adding a device cert to a chain where the last cert is not an Issuer type with Issuer-Device key usage; using key buffer
+Test_SetDefaultBuilderData(IssuerPCDevDom, 4 Issuer, pubkey1.dat, 3 Key usages, 208 Indiv Link and Domain, testrootprivkey.dat, testrootpubkey.dat, 1 use key buffer)
+Test_SetBuilderFlagData(1234 chain header flag, 0 basic info flag, 0 key flag, 0 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerLink, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_AddCert
+Test_ClearBuilderData
+'Verify that it is invalid
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE
+
+212:FUNC:Do not allow adding a PC cert to a chain where the last cert is not an Issuer type with Issuer-Indiv key usage
+Test_SetDefaultBuilderData(IssuerPCDevDom, 4 Issuer, pubkey1.dat, 3 Key usages, 224 Link Device and Domain, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_SetBuilderFlagData(1234 chain header flag, 0 basic info flag, 0 key flag, 0 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_SetManufacturerInfo(PCManufacturer, PCModel, PC1234567890))
+Test_SetFeatureInfo(1 transmit, 1 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE
+
+260:FUNC:Do not allow adding a PC cert to a chain where the last cert is not an Issuer type with Issuer-Indiv key usage; using key buffer
+Test_SetDefaultBuilderData(IssuerPCDevDom, 4 Issuer, pubkey1.dat, 3 Key usages, 224 Link Device and Domain, testrootprivkey.dat, testrootpubkey.dat, 1 use key buffer)
+Test_SetBuilderFlagData(1234 chain header flag, 0 basic info flag, 0 key flag, 0 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_SetManufacturerInfo(PCManufacturer, PCModel, PC1234567890))
+Test_SetFeatureInfo(1 transmit, 1 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE
+
+213:FUNC:Do not allow adding a domain cert to a chain where the last cert is not an Issuer type with Issuer-Domain key usage
+Test_SetDefaultBuilderData(IssuerPCDevDom, 4 Issuer, pubkey1.dat, 3 Key usages, 112 Indiv Device and Link, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_SetBuilderFlagData(1234 chain header flag, 0 basic info flag, 0 key flag, 0 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(PCCert1, 3 Domain Type, pubkey2.dat, 1 Key usages, 2 Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDomainBuilderData(ServiceID123, DomainID, 12345 Revision, ClientID, http://www.contoso.com, 27 bytes counting null terminator)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE
+
+261:FUNC:Do not allow adding a domain cert to a chain where the last cert is not an Issuer type with Issuer-Domain key usage; using key buffer
+Test_SetDefaultBuilderData(IssuerPCDevDom, 4 Issuer, pubkey1.dat, 3 Key usages, 112 Indiv Device and Link, testrootprivkey.dat, testrootpubkey.dat, 1 use key buffer)
+Test_SetBuilderFlagData(1234 chain header flag, 0 basic info flag, 0 key flag, 0 manufacturer flag)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(PCCert1, 3 Domain Type, pubkey2.dat, 1 Key usages, 2 Encrypt, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetDomainBuilderData(ServiceID123, DomainID, 12345 Revision, ClientID, http://www.contoso.com, 27 bytes counting null terminator)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE
+
+214:FUNC:Build PC cert in two stages, should parse the result successfully, required key usages in place
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 40, 14, NULL)
+Test_SetFeatureInfo(3 transmiter receiver, 2 features supported)
+Test_AddCert
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_AddExtendedDataToCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2, 1, NULL, NULL, TRUE, FALSE, 2, 3 Sign and Encrypt)
+
+262:FUNC:Build PC cert in two stages, should parse the result successfully, required key usages in place; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 40, 14, NULL)
+Test_SetFeatureInfo(3 transmiter receiver, 2 features supported)
+Test_AddCert
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_AddExtendedDataToCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2, 1, NULL, NULL, TRUE, FALSE, 2, 3 Sign and Encrypt)
+
+215:FUNC:Build PC cert but not embed extended data there yet, expect parser failure
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, NULL)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2, 1, NULL, NULL, TRUE, FALSE, 2, 3 Sign and Encrypt)=0X8004C82F DRM_E_BCERT_HWIDINFO_IS_MISSING
+
+263:FUNC:Build PC cert but not embed extended data there yet, expect parser failure; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, NULL)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2, 1, NULL, NULL, TRUE, FALSE, 2, 3 Sign and Encrypt)=0X8004C82F DRM_E_BCERT_HWIDINFO_IS_MISSING
+
+216:FUNC:Builder (using parser verification) will allow a cert chain where the leaf has a higher security level than the root - expect error return code from parser
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer Type, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetManufacturerInfo(IssuerManu, IssuerModel, ISN1234567890)
+Test_SetSecurityLevel(200)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)=0X8004C80B DRM_E_BCERT_INVALID_SECURITY_LEVEL
+
+264:FUNC:Builder (using parser verification) will allow a cert chain where the leaf has a higher security level than the root - expect error return code from parser; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(IssuerCert1, 4 Issuer Type, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetManufacturerInfo(IssuerManu, IssuerModel, ISN1234567890)
+Test_SetSecurityLevel(200)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)=0X8004C80B DRM_E_BCERT_INVALID_SECURITY_LEVEL
+
+217:FUNC:Build PC cert like test#124 but with two cert keys - one for encryption, another for signing.
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 1 Key usage, 1 Sign, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_AddKeyToBuilderData( pubkey3.dat, 1 Key Usages, 2 Encrypt)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 40, 14, NULL)
+Test_SetFeatureInfo(3 transmiter receiver, 2 features supported)
+Test_AddCert
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_AddExtendedDataToCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+265:FUNC:Build PC cert like test#124 but with two cert keys - one for encryption, another for signing; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 1 Key usage, 1 Sign, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_AddKeyToBuilderData( pubkey3.dat, 1 Key Usages, 2 Encrypt)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 40, 14, NULL)
+Test_SetFeatureInfo(3 transmiter receiver, 2 features supported)
+Test_AddCert
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_AddExtendedDataToCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+218:FUNC:Build and parse a device cert with two keys, one of them has an unusual key usage
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 1 Key usages, 1 Sign, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 6 Encrypt and Sign CRL )
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+266:FUNC:Build and parse a device cert with two keys, one of them has an unusual key usage; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 1 Key usages, 1 Sign, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 6 Encrypt and Sign CRL )
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+219:FUNC:Build and parse a device cert with a keys that have duplicate key usages
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 3 Sign and Encrypt )
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+267:FUNC:Build and parse a device cert with a keys that have duplicate key usages; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 3 Sign and Encrypt )
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+220:FUNC:Build KeyFileSigner cert - chain of three certs
+Test_SetDefaultBuilderData(IssuerPCDevDomSignKeyFile, 4 Issuer, pubkey1.dat, 5 Key usages, 4336 Indiv Device Link and Domain and Sign KF Issuer, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_AddCert
+Test_SetDefaultBuilderData(IssuerSignKeyFile, 4 Issuer, pubkey2.dat, 1 Key usages, 4096 Sign KF Issuer, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_AddCert
+Test_SetDefaultBuilderData(KeyFileSigner, 10 KeyFile Signer, pubkey3.dat, 1 Key usages, 8192 Sign key file, privkey2.dat, pubkey2.dat, 0 use key handle)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 3)
+
+268:FUNC:Build KeyFileSigner cert - chain of three certs; using key buffer
+Test_SetDefaultBuilderData(IssuerPCDevDomSignKeyFile, 4 Issuer, pubkey1.dat, 5 Key usages, 4336 Indiv Device Link and Domain and Sign KF Issuer, testrootprivkey.dat, testrootpubkey.dat, 1 use key buffer)
+Test_AddCert
+Test_SetDefaultBuilderData(IssuerSignKeyFile, 4 Issuer, pubkey2.dat, 1 Key usages, 4096 Sign KF Issuer, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_AddCert
+Test_SetDefaultBuilderData(KeyFileSigner, 10 KeyFile Signer, pubkey3.dat, 1 Key usages, 8192 Sign key file, privkey2.dat, pubkey2.dat, 1 use key buffer)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 3)
+
+221:FUNC:Build Application cert
+Test_SetDefaultBuilderData(IssuerSignKeyFile, 4 Issuer, pubkey2.dat, 1 Key usages, 512 Issuer Application, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_AddCert
+Test_SetDefaultBuilderData(ApplicationCert, 8 Application, pubkey3.dat, 1 Key usages, 2 Encrypt, privkey2.dat, pubkey2.dat, 0 use key handle)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+269:FUNC:Build Application cert; using key buffer
+Test_SetDefaultBuilderData(IssuerSignKeyFile, 4 Issuer, pubkey2.dat, 1 Key usages, 512 Issuer Application, testrootprivkey.dat, testrootpubkey.dat, 1 use key buffer)
+Test_AddCert
+Test_SetDefaultBuilderData(ApplicationCert, 8 Application, pubkey3.dat, 1 Key usages, 2 Encrypt, privkey2.dat, pubkey2.dat, 1 use key buffer)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+222:FUNC:Add less than DRM_BCERT_MAX_KEY_USAGES (21) keys into a cert, should be okay
+'First add far less than DRM_BCERT_MAX_KEY_USAGES of keys
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 3 Sign and Encrypt, 15 )
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+'Now try adding exactly DRM_BCERT_MAX_KEY_USAGES of keys
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 3 Sign and Encrypt, MAX-1 )
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+270:FUNC:Add less than DRM_BCERT_MAX_KEY_USAGES (21) keys into a cert, should be okay; using key buffer
+'First add far less than DRM_BCERT_MAX_KEY_USAGES of keys
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 3 Sign and Encrypt, 15 )
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+'Now try adding exactly DRM_BCERT_MAX_KEY_USAGES of keys
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 3 Sign and Encrypt, MAX-1 )
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+223:FUNC:Add more than DRM_BCERT_MAX_KEY_USAGES keys into a cert, expect error
+Test_LoadBinCertChain(basicchain.dat)
+'Adds one key to a cert
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 3 Sign and Encrypt, MAX )
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)=0x8004C83A DRM_E_BCERT_TOO_MANY_PUBLIC_KEYS
+
+271:FUNC:Add more than DRM_BCERT_MAX_KEY_USAGES keys into a cert, expect error; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+'Adds one key to a cert
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 3 Sign and Encrypt, MAX )
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)=0x8004C83A DRM_E_BCERT_TOO_MANY_PUBLIC_KEYS
+
+224:FUNC:Add several keys, one without key usages, expect parser failure
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 3 Sign and Encrypt )
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 0 nothing )
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 3 Sign and Encrypt )
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert=0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE
+
+272:FUNC:Add several keys, one without key usages, expect parser failure; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 3 Sign and Encrypt )
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 0 nothing )
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 3 Sign and Encrypt )
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert=0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE
+
+225:FUNC:Add several keys, one with invalid key usage, expect parser failure
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 3 Sign and Encrypt )
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 65536 invalid )
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 3 Sign and Encrypt )
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert=0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE
+
+273:FUNC:Add several keys, one with invalid key usage, expect parser failure; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 3 Sign and Encrypt )
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 65536 invalid )
+Test_AddKeyToBuilderData( pubkey3.dat, 2 Key Usages, 3 Sign and Encrypt )
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert=0X8004C804 DRM_E_BCERT_INVALID_KEY_USAGE
+
+226:FUNC:Build PC cert but not embed extended data there yet, ignore lack of extended data if asked
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, NULL)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2, 1, NULL, NULL, TRUE, TRUE, 2, 3 Sign and Encrypt)
+
+274:FUNC:Build PC cert but not embed extended data there yet, ignore lack of extended data if asked; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, NULL)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2, 1, NULL, NULL, TRUE, TRUE, 2, 3 Sign and Encrypt)
+
+227:FUNC:Build PC cert - reject zero-length for extended data
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 0, 14, NULL)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert()=0x8004C82A DRM_E_BCERT_INVALID_EXTDATARECORD
+
+275:FUNC:Build PC cert - reject zero-length for extended data; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 0, 14, NULL)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert()=0x8004C82A DRM_E_BCERT_INVALID_EXTDATARECORD
+
+228:FUNC:Build PC cert - reject extended data type different from 14 (DRM_BCERT_OBJTYPE_EXTDATA_HWID)
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 20, extdata.txt)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2, 1, NULL, NULL, TRUE, FALSE, 2, 3 Sign and Encrypt)=0x8004C81D DRM_E_BCERT_UNEXPECTED_OBJECT_HEADER
+
+276:FUNC:Build PC cert - reject extended data type different from 14 (DRM_BCERT_OBJTYPE_EXTDATA_HWID); using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 20, extdata.txt)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2, 1, NULL, NULL, TRUE, FALSE, 2, 3 Sign and Encrypt)=0x8004C81D DRM_E_BCERT_UNEXPECTED_OBJECT_HEADER
+
+229:FUNC:Build PC cert in two stages, pass null ptr instead of extended data
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 40, 14, NULL)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_AddExtendedDataToCert(TRUE)=0x80070057
+
+277:FUNC:Build PC cert in two stages, pass null ptr instead of extended data; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 40, 14, NULL)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_AddExtendedDataToCert(TRUE)=0x80070057
+
+230:FUNC:Binary Cert Builder cannot build domain cert without serviceID
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(DomCert1, 3 Domain Type, pubkey2.dat, 1 Key usage, 2 EncryptKey, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDomainBuilderData(NULL, DomainID, 12345 Revision, ClientID, http://www.bad.contoso.com, 27 bytes counting null terminator)
+Test_AddCert=0x8004C80F DRM_E_BCERT_SERVICE_ID_NOT_SPECIFIED
+
+231:FUNC:Binary Cert Builder cannot build domain cert without accountID
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(DomCert1, 3 Domain Type, pubkey2.dat, 1 Key usage, 2 EncryptKey, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDomainBuilderData(ServiceID123, NULL, 12345 Revision, ClientID, http://www.bad.contoso.com, 27 bytes counting null terminator)
+Test_AddCert=0x8004C80E DRM_E_BCERT_ACCOUNT_ID_NOT_SPECIFIED
+
+232:FUNC:Binary Cert Builder cannot build domain cert without domain URL
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(DomCert1, 3 Domain Type, pubkey2.dat, 1 Key usage, 2 EncryptKey, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetDomainBuilderData(ServiceID123, DomainID, 12345 Revision, ClientID, NULL, 27 bytes counting null terminator)
+Test_AddCert=0x8004C811 DRM_E_BCERT_DOMAIN_URL_NOT_SPECIFIED
+
+233:FUNC:Cannot build PC cert with security version set into 0
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetPCBuilderData(PC1HardwareID, 0, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert=0x8004C805 DRM_E_BCERT_INVALID_SECURITY_VERSION
+
+234:FUNC:Cannot build Silverlight cert with security version set into 0
+Test_SetDefaultBuilderData(IssuerSilverlight, 4 Issuer, pubkey2.dat, 1 Key usages, 256 IssuerSilverlight, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_AddCert
+Test_SetDefaultBuilderData(Silverlight23456, 7 Silverlight Type, pubkey3.dat, 1 Key usages, 2 Encrypt key, privkey2.dat, pubkey2.dat, 0 use key handle)
+Test_SetSilverLightBuilderData(SilverlightHardwareID, NULL, 1 Platform x86)
+Test_SetManufacturerInfo(SilverlightManufacturer, SilverlightModel, SL1234567890)
+Test_AddCert=0x8004C805 DRM_E_BCERT_INVALID_SECURITY_VERSION
+
+235:FUNC:Cannot build Silverlight cert with incorrect platformId
+Test_SetDefaultBuilderData(IssuerSilverlight, 4 Issuer, pubkey2.dat, 1 Key usages, 256 IssuerSilverlight, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_AddCert
+Test_SetDefaultBuilderData(Silverlight23456, 7 Silverlight Type, pubkey3.dat, 1 Key usages, 2 Encrypt key, privkey2.dat, pubkey2.dat, 0 use key handle)
+Test_SetSilverLightBuilderData(SilverlightHardwareID, 0x1A2B3C4D security version, 20)
+Test_SetManufacturerInfo(SilverlightManufacturer, SilverlightModel, SL1234567890)
+Test_AddCert=0x8004C828 DRM_E_BCERT_INVALID_PLATFORM_IDENTIFIER
+
+236:FUNC:Cannot build metering certificate without Id 
+Test_SetDefaultBuilderData(IssuerMetering, 4 Issuer, pubkey1.dat, 1 Key usages, 2048 IssuerMetering, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_AddCert
+Test_SetDefaultBuilderData(Metering, 9 Metering Type, pubkey2.dat, 1 Key usages, 2 Encrypt key, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetMeteringBuilderData(NULL, http://www.bad.contoso.com, 27 bytes counting null terminator )
+Test_AddCert=0x8004C833 DRM_E_BCERT_METERING_ID_NOT_SPECIFIED
+
+237:FUNC:Cannot build metering certificate without metering URL
+Test_SetDefaultBuilderData(IssuerMetering, 4 Issuer, pubkey1.dat, 1 Key usages, 2048 IssuerMetering, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_AddCert
+Test_SetDefaultBuilderData(Metering, 9 Metering Type, pubkey2.dat, 1 Key usages, 2 Encrypt key, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_SetMeteringBuilderData(MeteringID, NULL, 29 bytes counting null terminator )
+Test_AddCert=0x8004C834 DRM_E_BCERT_METERING_URL_NOT_SPECIFIED
+
+238:FUNC:Call Add cert with small but non-zero new chain size, parse result successfully
+Test_SetDefaultBuilderData(IssuerMetering, 4 Issuer, pubkey1.dat, 1 Key usages, 2048 IssuerMetering, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 1)
+
+239:FUNC:Try to build certificate of invalid type
+Test_SetDefaultBuilderData(CertificateID, 50 invalid, pubkey1.dat, 1 Key usages, 2 EncryptKey, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_AddCert=0x8004C802 DRM_E_BCERT_INVALID_CERT_TYPE
+
+240:FUNC:Try to build certificate without certificate ID
+Test_SetDefaultBuilderData(NULL, 4 Issuer, pubkey1.dat, 1 Key usages, 2 EncryptKey, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_AddCert=0x8004C816 DRM_E_BCERT_CERT_ID_NOT_SPECIFIED
+
+241:FUNC:Cannot build server certificate without WarningDays 
+Test_SetDefaultBuilderData(IssuerServer, 4 Issuer, pubkey1.dat, 1 Key usages, 16384 IssuerServer, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_AddCert
+Test_SetDefaultBuilderData(Server, 11 Server Type, pubkey2.dat, 1 Key usages, 1 Sign key, privkey1.dat, pubkey1.dat, 0 use key handle)
+Test_AddCert=0x8004C83C DRM_E_BCERT_INVALID_WARNING_DAYS
+
+242:FUNC:Call Add issuer server cert with small but non-zero new chain size, parse result successfully
+Test_SetDefaultBuilderData(IssuerServer, 4 Issuer, pubkey1.dat, 1 Key usages, 16384 IssuerServer, testrootprivkey.dat, testrootpubkey.dat, 0 use key handle)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 1)
+
+278:FUNC:Binary Cert Builder cannot build domain cert without serviceID; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(DomCert1, 3 Domain Type, pubkey2.dat, 1 Key usage, 2 EncryptKey, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetDomainBuilderData(NULL, DomainID, 12345 Revision, ClientID, http://www.bad.contoso.com, 27 bytes counting null terminator)
+Test_AddCert=0x8004C80F DRM_E_BCERT_SERVICE_ID_NOT_SPECIFIED
+
+279:FUNC:Binary Cert Builder cannot build domain cert without accountID; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(DomCert1, 3 Domain Type, pubkey2.dat, 1 Key usage, 2 EncryptKey, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetDomainBuilderData(ServiceID123, NULL, 12345 Revision, ClientID, http://www.bad.contoso.com, 27 bytes counting null terminator)
+Test_AddCert=0x8004C80E DRM_E_BCERT_ACCOUNT_ID_NOT_SPECIFIED
+
+280:FUNC:Binary Cert Builder cannot build domain cert without domain URL; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(DomCert1, 3 Domain Type, pubkey2.dat, 1 Key usage, 2 EncryptKey, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetDomainBuilderData(ServiceID123, DomainID, 12345 Revision, ClientID, NULL, 27 bytes counting null terminator)
+Test_AddCert=0x8004C811 DRM_E_BCERT_DOMAIN_URL_NOT_SPECIFIED
+
+281:FUNC:Cannot build PC cert with security version set into 0; using key buffer
+Test_LoadBinCertChain(basicchain.dat)
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetPCBuilderData(PC1HardwareID, 0, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert=0x8004C805 DRM_E_BCERT_INVALID_SECURITY_VERSION
+
+282:FUNC:Cannot build Silverlight cert with security version set into 0; using key buffer
+Test_SetDefaultBuilderData(IssuerSilverlight, 4 Issuer, pubkey2.dat, 1 Key usages, 256 IssuerSilverlight, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_AddCert
+Test_SetDefaultBuilderData(Silverlight23456, 7 Silverlight Type, pubkey3.dat, 1 Key usages, 2 Encrypt key, privkey2.dat, pubkey2.dat, 1 use key buffer)
+Test_SetSilverLightBuilderData(SilverlightHardwareID, NULL, 1 Platform x86)
+Test_SetManufacturerInfo(SilverlightManufacturer, SilverlightModel, SL1234567890)
+Test_AddCert=0x8004C805 DRM_E_BCERT_INVALID_SECURITY_VERSION
+
+283:FUNC:Cannot build Silverlight cert with incorrect platformId; using key buffer
+Test_SetDefaultBuilderData(IssuerSilverlight, 4 Issuer, pubkey2.dat, 1 Key usages, 256 IssuerSilverlight, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_AddCert
+Test_SetDefaultBuilderData(Silverlight23456, 7 Silverlight Type, pubkey3.dat, 1 Key usages, 2 Encrypt key, privkey2.dat, pubkey2.dat, 1 use key buffer)
+Test_SetSilverLightBuilderData(SilverlightHardwareID, 0x1A2B3C4D security version, 20)
+Test_SetManufacturerInfo(SilverlightManufacturer, SilverlightModel, SL1234567890)
+Test_AddCert=0x8004C828 DRM_E_BCERT_INVALID_PLATFORM_IDENTIFIER
+
+284:FUNC:Cannot build metering certificate without Id; using key buffer
+Test_SetDefaultBuilderData(IssuerMetering, 4 Issuer, pubkey1.dat, 1 Key usages, 2048 IssuerMetering, testrootprivkey.dat, testrootpubkey.dat, 1 use key buffer)
+Test_AddCert
+Test_SetDefaultBuilderData(Metering, 9 Metering Type, pubkey2.dat, 1 Key usages, 2 Encrypt key, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetMeteringBuilderData(NULL, http://www.bad.contoso.com, 27 bytes counting null terminator )
+Test_AddCert=0x8004C833 DRM_E_BCERT_METERING_ID_NOT_SPECIFIED
+
+285:FUNC:Cannot build metering certificate without metering URL; using key buffer
+Test_SetDefaultBuilderData(IssuerMetering, 4 Issuer, pubkey1.dat, 1 Key usages, 2048 IssuerMetering, testrootprivkey.dat, testrootpubkey.dat, 1 use key buffer)
+Test_AddCert
+Test_SetDefaultBuilderData(Metering, 9 Metering Type, pubkey2.dat, 1 Key usages, 2 Encrypt key, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_SetMeteringBuilderData(MeteringID, NULL, 29 bytes counting null terminator )
+Test_AddCert=0x8004C834 DRM_E_BCERT_METERING_URL_NOT_SPECIFIED
+
+286:FUNC:Call Add cert with small but non-zero new chain size, parse result successfully; using key buffer
+Test_SetDefaultBuilderData(IssuerMetering, 4 Issuer, pubkey1.dat, 1 Key usages, 2048 IssuerMetering, testrootprivkey.dat, testrootpubkey.dat, 1 use key buffer)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 1)
+
+287:FUNC:Try to build certificate of invalid type; using key buffer
+Test_SetDefaultBuilderData(CertificateID, 50 invalid, pubkey1.dat, 1 Key usages, 2 EncryptKey, testrootprivkey.dat, testrootpubkey.dat, 1 use key buffer)
+Test_AddCert=0x8004C802 DRM_E_BCERT_INVALID_CERT_TYPE
+
+288:FUNC:Try to build certificate without certificate ID; using key buffer
+Test_SetDefaultBuilderData(NULL, 4 Issuer, pubkey1.dat, 1 Key usages, 2 EncryptKey, testrootprivkey.dat, testrootpubkey.dat, 1 use key buffer)
+Test_AddCert=0x8004C816 DRM_E_BCERT_CERT_ID_NOT_SPECIFIED
+
+289:FUNC:Cannot build server certificate without WarningDays; using key buffer
+Test_SetDefaultBuilderData(IssuerServer, 4 Issuer, pubkey1.dat, 1 Key usages, 16384 IssuerServer, testrootprivkey.dat, testrootpubkey.dat, 1 use key buffer)
+Test_AddCert
+Test_SetDefaultBuilderData(Server, 11 Server Type, pubkey2.dat, 1 Key usages, 1 Sign key, privkey1.dat, pubkey1.dat, 1 use key buffer)
+Test_AddCert=0x8004C83C DRM_E_BCERT_INVALID_WARNING_DAYS
+
+290:FUNC:Call Add issuer server cert with small but non-zero new chain size, parse result successfully; using key buffer
+Test_SetDefaultBuilderData(IssuerServer, 4 Issuer, pubkey1.dat, 1 Key usages, 16384 IssuerServer, testrootprivkey.dat, testrootpubkey.dat, 1 use key buffer)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 1)

@@ -1,0 +1,42 @@
+/**
+@mainpage API Reference
+
+<div style="padding: 1em; border: solid thin black; background-color:#ffffdd">
+    <span style="font-weight: bold">Important: </span>This is a supplemental
+    reference that describes the C++ application API to the NRD Platform. In
+    this version of the NRD Platform, you do not need to write an application;
+    Netflix has provided it for you. </div>
+
+<p>This document provides reference entries for the classes that make up the NRD
+Platform's <i><b>base library</b></i>. This library is a collection of classes that
+provide platform abstraction and common functionality to a NRD Platform application </p>
+
+<div style="height:150px">&nbsp;</div>
+*/
+
+
+/** @namespace netflix The parent namespace for all classes in the NRD Platform SDK.
+*
+*/
+
+/** @namespace netflix::http The SDK core HTTP client.
+*
+*/
+
+/** @namespace netflix::io IO interface.
+*
+*/
+
+/** @namespace netflix::mediacontrol The SDK core MediaControl interface (playback start, stop, and so forth).
+*
+*/
+
+/** @namespace netflix::nccp Netflix Content Control Protocol (NCCP) Client.
+*
+*/
+
+/** @namespace netflix::crypto Crypto interfaces used by the SDK (See also Crypto DPI).
+*
+*/
+
+

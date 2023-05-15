@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Cas/Irdeto">   
+    <interface name="Octopus.Appkit.Cas.Irdeto">
+
+    <method name="SetVirtualSecureCwMode">
+    	<arg type="b" name="virtualSecureCwMode" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="GetVirtualSecureCwMode">
+    	<arg type="b" name="cwMode" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+                                                                        
+    <method name="GetIrdetoClientVersionName">
+    	<arg type="s" name="versionName" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="IsCWE">
+    	<arg type="b" name="cwe" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="IsJTAG">
+    	<arg type="b" name="jtag" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="IsSBOOT">
+    	<arg type="b" name="sboot" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="IsOTP">
+    	<arg type="b" name="otp" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetIrdetoManCode">
+    	<arg type="s" name="mancode" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetIrdetoHwCode">
+    	<arg type="s" name="hwcode" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetIrdetoVariant">
+    	<arg type="s" name="variant" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetIrdetoSysId">
+    	<arg type="s" name="sysId" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetIrdetoKeyVer">
+    	<arg type="s" name="keyVer" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetIrdetoSigVer">
+    	<arg type="s" name="sigVer" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetControlByte">
+    	<arg type="u" name="controlByte" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <signal name="event">
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+
+  </interface>
+</node>

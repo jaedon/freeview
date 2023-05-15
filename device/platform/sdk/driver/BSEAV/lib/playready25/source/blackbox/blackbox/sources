@@ -1,0 +1,17 @@
+!include ..\..\drmbuild.cmn
+
+TARGETNAME=drmblackbox
+TARGETTYPE=LIBRARY
+
+C_DEFINES=$(C_DEFINES)    \
+    -DDRM_BUILDING_BLACKBOX_LIB=1
+
+SOURCES =                      \
+    ..\blackbox.c              \
+    ..\blackboxinternal.c      \
+    ..\blackboxkeyfileread.c   \
+    ..\blackboxprndrx.c        \
+    ..\blackboxprndtx.c        \
+    ..\blackboxdevcertsreal.c  \
+    ..\blackboxhal.c           \
+    ..\blackboxmodules.c       \

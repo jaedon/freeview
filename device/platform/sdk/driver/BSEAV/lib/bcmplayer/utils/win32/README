@@ -1,0 +1,10 @@
+This dir contains a Visual Studio project to build bcmplayer/utils.
+
+SetTop/bcmplayer/utils/win32/bcmplayerutils/bcmplayerutils.dsw is the workspace.
+
+Binaries can be found in:
+
+SetTop/bcmplayer/utils/win32/createindex/Debug/createindex.exe
+SetTop/bcmplayer/utils/win32/printindex/Debug/printindex.exe
+
+

@@ -1,0 +1,47 @@
+CI Pack  / Ci Driver, Release 2.3 26/07/99
+===============================================
+
+
+
+LIST                 27/07/99	    CI Pack /  CI Driver components
+
+
+PHYSTAT  C           01/08/99 
+PHYSDRV  C           27/07/99 
+TRANSTAT C           01/08/99 
+TRANS    C           01/08/99 
+SESSTAT  C           01/08/99 
+SESSION  C           01/08/99 
+TRANFIFO C           01/08/99 
+LINKSTAT C           01/08/99 
+PHYSICAL C           01/08/99 
+LINK     C           01/08/99 
+LINKFIFO C           01/08/99 
+SESSCOD  C           01/08/99 
+TRANSCOD C           01/08/99 
+
+
+SESSION  H           01/08/99  
+PHYSDRV  H           20/07/99  
+TRANS    H           01/08/99 
+DVB_COD  H           01/11/99 
+PDRIVER  H           01/08/99  
+ITC      H           01/11/99  
+MESSAGE  H           02/02/99 
+PHYSICAL H           01/08/99 
+LINK     H           01/08/99 
+PHYSTAT  H           01/08/99  
+LINKSTAT H           01/08/99 
+LINKFIFO H           01/08/99  
+SESSTAT  H           01/08/99  
+TRANSCOD H           01/08/99 
+TRANFIFO H           01/08/99 
+SESSCOD  H           01/08/99  
+TRANSTAT H           01/08/99  
+
+
+==================== end of CI Pack / CI Driver components ===================
+
+SIMRM    C          01/08/99 	application sample
+
+CI_PACK  TXT        26/07/99 	CI Pack readme

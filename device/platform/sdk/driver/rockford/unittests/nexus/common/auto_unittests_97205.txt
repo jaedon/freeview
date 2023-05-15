@@ -1,0 +1,129 @@
+############################################################
+#     Copyright (c) 2003-2011, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: auto_unittests_97205.txt $
+# $brcm_Revision: Hydra_Software_Devel/9 $
+# $brcm_Date: 11/4/11 4:26p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /rockford/unittests/nexus/common/auto_unittests_97205.txt $
+# 
+# Hydra_Software_Devel/9   11/4/11 4:26p slauzon
+# SWCHECKFRAME-80: enabled playback/trick_stress,
+# playback/frameadvance_stress and playback/playback_trick_loop
+# 
+# Hydra_Software_Devel/8   11/12/10 6:23p katrep
+# SWCHECKFRAME-80:transpost message_stress3 disbaled until fixed
+# 
+# Hydra_Software_Devel/7   11/12/10 2:36p slauzon
+# SWCHECKFRAME-80: removed duplicate entry of checkpoint_stress test
+# 
+# Hydra_Software_Devel/6   11/11/10 1:57p katrep
+# SWCHECKFRAME-80:disabled decode open test
+# 
+# Hydra_Software_Devel/5   11/1/10 12:03p slauzon
+# SWCHECKFRAME-80: commented out checkpoint_stress
+# 
+# Hydra_Software_Devel/4   10/22/10 4:30p slauzon
+# SWCHECKFRAME-80: added new tests
+# 
+# Hydra_Software_Devel/3   10/18/10 2:57p katrep
+# SW7405-4950:Disabled few invalid tests
+# 
+# Hydra_Software_Devel/2   10/18/10 11:58a katrep
+# SW7405-4950:Disabled few invalid tests
+# 
+# Hydra_Software_Devel/1   10/13/10 6:18p katrep
+# SW7405-3705:autotest scripts
+# 
+# Hydra_Software_Devel/8   9/10/10 8:06p slauzon
+# SW7125-480: commented out playback_trick_loop test.  Temporary measure
+# until SW7125-480 is resolved
+# 
+# Hydra_Software_Devel/7   8/16/10 5:06p slauzon
+# SWCHECKFRAME-80: added new graphics2d tests
+# 
+# 
+############################################################
+
+unittests/transport/message_stress1
+unittests/transport/message_stress2
+#unittests/transport/recpump  /* tesetd on 97405 */
+unittests/transport/open
+#unittests/video_decoder/mosaic_decode
+unittests/video_decoder/userdata_capture
+unittests/video_decoder/channel_change
+unittests/video_decoder/decoder_trick
+#unittests/display/display_vbi_stress  -disable_cgmsb
+unittests/display/pip_swap
+unittests/audio/codec_test
+unittests/graphics2d/palette_blit2
+unittests/graphics2d/blit 
+unittests/graphics2d/blit_performance
+unittests/graphics2d/blit_stress
+#unittests/graphics2d/checkpoint_stress
+unittests/graphics2d/fillrate
+unittests/graphics2d/packet_blit_stress
+unittests/playback/playback_stctrick
+unittests/playback/audio_switch
+unittests/playback/start_stop
+unittests/playback/playback_list
+unittests/playback/codec_mismatch
+unittests/playback/seek
+unittests/playback/playback_stop_start
+unittests/playback/playback_trick_loop
+unittests/record/allpass_record_from_playback
+#unittests/record/record_overflow_recovery
+unittests/record/record2
+unittests/record/record3
+#unittests/record/recpump_overflow_recovery /* only single record, this is tesetd on 97405 */
+#unittests/record/multiple_index_only_records /* only one record available on 97205 */
+unittests/record/record_play
+unittests/record/record_append_from_playpump
+unittests/open_tests/display_video_decoder
+#unittests/general/boot
+unittests/frontend/tune_untune
+unittests/surface/open
+unittests/surface/palette
+unittests/file/playback_with_cancel
+unittests/file/timeshift_jump
+
+#new tests 10-22-2010
+#unittests/transport/message_stress3
+unittests/transport/message_stress4
+unittests/transport/playpump_cc_test
+unittests/transport/message_dss
+unittests/transport/set_stc
+unittests/transport/tpit
+unittests/video_decoder/codec_test
+unittests/video_decoder/mosaic_playback_zorder_list
+unittests/video_decoder/callbacks
+unittests/video_decoder/dataready
+#unittests/video_decoder/open
+unittests/display/digital_cc_capture
+unittests/display/capture_buffer
+unittests/display/pq
+#unittests/display/display_vbi
+unittests/display/resize_window
+unittests/display/outputs
+unittests/graphics2d/blit
+unittests/graphics2d/premultiply_alpha1
+unittests/graphics2d/premultiply_alpha2
+unittests/graphics2d/blit_stress
+unittests/graphics2d/packet_blit_stress
+unittests/playback/trick_stress
+unittests/playback/playback_openpidchannel
+unittests/playback/frameadvance_stress
+unittests/playback/create_destroy
+#unittests/record/record_stress_test
+#unittests/record/record_with_timestamps
+

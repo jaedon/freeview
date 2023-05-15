@@ -1,0 +1,16 @@
+lxc.utsname = homma 
+lxc.tty = 1
+lxc.pts = 1024
+lxc.rootfs = /home/homma/root
+lxc.mount = /home/homma/fstab
+lxc.mount.entry=/lib /home/homma/root/lib none ro,bind 0 0
+lxc.mount.entry=/usr/lib /home/homma/root/usr/lib none ro,bind 0 0
+
+lxc.network.type = veth
+lxc.network.flags = up
+lxc.network.link = br0
+lxc.network.name = eth0
+lxc.network.hwaddr = 00:01:02:03:00:13
+lxc.network.ipv4 = 10.255.128.213/24
+
+

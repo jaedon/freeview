@@ -1,0 +1,7 @@
+[ubiarea]
+mode=ubi
+image=@CONFIG_PRODUCT_NAME@_gang.bin
+vol_id=0
+vol_size=79740928
+vol_type=dynamic
+vol_name=ubia

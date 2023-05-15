@@ -1,0 +1,6 @@
+
+TARGETTYPE=LIBRARY
+TARGETNAME=DatastoreTestAPI
+
+SOURCES = \
+    ../testdatastore.c \

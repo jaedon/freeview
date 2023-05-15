@@ -1,0 +1,13 @@
+11_maps_analyzer(exclude_this) own *
+00_netflix(file) maps netflix
+01_JSC_or_Qt(file) maps WTF,JavaScriptCore,libQt
+03_Unknown_in_general_heap maps possible_holes_in_heap
+02_Other_3rd_lib(file) maps *
+11_maps_analyzer(exclude_this) * libmaps_analyzer.so;libmaps_analyzer.so,libmaps_analyzer.so;libc,libmaps_analyzer.so;ld-linux
+05_JSC_or_Qt * WTF,JSC,libQt
+08_VideoDecoderRenderer * VideoRendererDFB
+07_StreamingNetworkBuffer * BufferManagerNative
+09_AudioDecoderRenderer * libasound,AudioRenderer,libpuls
+06_DFB * directfb
+04_ResourceCache_wo_headers * DataBuffer
+10_owner_not_found none no_owner_found_in_rss_chunk,possible_holes_in_rss,no_call_stack_avaialble

@@ -1,0 +1,28 @@
+custom
+load_rts 1
+pb
+c${vdc_compositor_id_0} ovc ${vdc_display_id_0} ${vdc_stg_id_0} 0 ${encode_nrt_mode_0}
+cf ${vdc_display_fmt_0} x${decode_instance_0} m${decode_feeder_0} os ${vdc_refresh_rate_0} 0 ow
+inite
+sae ${encode_instance_0} ${encode_channel_0} oe oech ${encode_multi_channel_mode_0}
+fe
+ude
+sae ${encode_instance_0} ${encode_channel_0} enc 107 frame_rate:${encode_frame_rate_0} frame_rate_variable_mode:${encode_frame_rate_variable_mode_0} bitrate_max:${encode_bitrate_0} protocol:${encode_protocol_0} profile:${encode_profile_0} level:${encode_level_0} gop_number_of_p:${encode_gop_number_of_p_0} gop_number_of_b:${encode_gop_number_of_b_0} end:0
+de ${source_file_0} ${source_pid_video_0} ${source_pid_pcr_0} ${source_type_0} ${source_protocol_0}
+break ${encode_time_0}
+sae ${encode_instance_0} ${encode_channel_0} xenc ${encode_stop_immediately_0}
+break 5
+sae ${encode_instance_0} ${encode_channel_0} se
+ude
+fe
+sae ${encode_instance_0} ${encode_channel_0} cech
+ce
+inite
+xde
+break 5
+ccdump
+de ${output_file_0} 0 0 3 ${output_protocol_0} 0 0
+break ${decode_time_0}
+xde
+pb
+q

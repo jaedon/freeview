@@ -1,0 +1,45 @@
+#############################################################################
+#
+#       Copyright (c) 2005-2012, Broadcom Corporation.
+#       All rights reserved.
+#       Confidential Property of Broadcom Corporation.
+# 
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.ape_decode $
+# $brcm_Revision: Hydra_Software_Devel/1 $
+# $brcm_Date: 7/10/12 9:25a $
+#
+# File Description:
+# 	Makefile for compiling ape_test unit test application for testing APE PI
+#
+# $brcm_Log: /rockford/unittests/portinginterface/ape/97422/Makefile.ape_decode $
+# 
+# Hydra_Software_Devel/1   7/10/12 9:25a jgarrett
+# SW7425-3457: Adding ape_decode application
+# 
+# 
+#############################################################################
+
+NAME=ape_decode
+
+# Name of application
+ifeq (${SYSTEM},vxworks)
+APP = $(NAME).out
+else
+APP = $(NAME)
+endif
+
+VPATH += $(NAME)
+
+# Application object file list, include path, and C flags
+APP_SOURCES = \
+ $(NAME).c 
+
+APP_INCLUDES = ./ ./$(NAME)/ 
+
+APP_CFLAGS += -DBDBG_DEBUG_BUILD
+
+include Makefile.common

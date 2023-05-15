@@ -1,0 +1,47 @@
+{
+	"RUN_ALL": false,
+
+	"RUN_CATEGORY":[
+		"repeatedly"
+		],
+
+	"RUN_TC":[
+
+		],
+	"TC_LIST":[
+		{
+			"tc_name": "TC_APPKIT_Recording_NormalCase",
+			"category": ["normal"],
+			"argument": {
+				"StartInfo": {
+					"eSuppSvcType": 0,
+					"nStartOffset": 0,
+					"ulDuration": 35,
+					"eStorageType": 1, 
+					"szName": "Normal Testing"
+				}
+			},
+			"expect_result": {
+				"result": 0
+			}
+		},
+		{
+			"tc_name": "TC_APPKIT_Recording_RepeatlyCase",
+			"category": ["repeatedly"],
+			"argument": {
+				"Number_of_loop": 5,
+				"StartInfo": {
+					"eSuppSvcType": 0,
+					"nStartOffset": 0,
+					"ulDuration": 180,
+					"eStorageType": 1,
+					"szName": "Repeatedly Testing"
+				}
+			},
+			"expect_result": {
+				"result": 0
+			}
+		}
+	]
+}
+

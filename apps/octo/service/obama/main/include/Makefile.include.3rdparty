@@ -1,0 +1,34 @@
+# DLNA 3rd-party include path
+ccflags-y += -I$(THIRDPARTY_DIR)/dlna/mxlib/mxdbc
+ccflags-y += -I$(THIRDPARTY_DIR)/dlna/mxlib/mxdlna
+ccflags-y += -I$(THIRDPARTY_DIR)/dlna/mxlib/mxdtcp
+ccflags-y += -I$(THIRDPARTY_DIR)/dlna/mxlib/mxfile
+ccflags-y += -I$(THIRDPARTY_DIR)/dlna/mxlib/mxkernel
+ccflags-y += -I$(THIRDPARTY_DIR)/dlna/mxlib/mxmedia
+ccflags-y += -I$(THIRDPARTY_DIR)/dlna/mxlib/mxplayer
+ccflags-y += -I$(THIRDPARTY_DIR)/dlna/mxlib/mxresource
+
+# Crypt include path
+ccflags-y += -I$(THIRDPARTY_DIR)/crypt/include
+
+# JPEG include path
+ccflags-y += -I$(THIRDPARTY_DIR)/jpeg/include
+
+# PNG include path
+ccflags-y += -I$(THIRDPARTY_DIR)/png/include
+
+# EXIF include path
+ccflags-y += -I$(THIRDPARTY_DIR)/
+
+# ID3 include path
+ccflags-y += -I$(THIRDPARTY_DIR)/id3/include
+
+# ZLIB include path
+ccflags-y += -I$(THIRDPARTY_DIR)/zlib/include
+
+# BML include path
+ccflags-y += -I$(THIRDPARTY_DIR)/bml/include
+
+# TR-069 include path
+ccflags-y += -I$(THIRDPARTY_DIR)/tr069/include
+

@@ -1,0 +1,16 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmsecureclockexternal
+TARGETTYPE=LIBRARY
+
+SOURCES =                      \
+    drmsecurelockmgrextern.c   \
+    drmsecurelockrequextern.c  \
+    drmsecurelockrespextern.c  \
+    drmsecurelockutilextern.c
+

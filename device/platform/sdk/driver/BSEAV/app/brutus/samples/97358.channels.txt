@@ -1,0 +1,70 @@
+# Dynamic Channel List for Brutus
+# Documentation can be found in BSEAV/app/brutus/docs/BrutusUsageGuide.doc.
+#
+# Tab or space separated fields, case insensitive
+# '#' marks the beginning of a line comment, all characters after
+# are ignored.
+
+# Default input is TS_IN (streamer input)
+STREAMER 0 0
+
+# 7335/7336 have ASI input  on channel 1
+STREAMER 0 1
+
+#Clear DirecTV Channel
+QPSK_DSS    0  1396.82  20.0    18v ToneOff
+PROGRAM PIDS pcr=0x78 video=0x78 video_type=MPEG2 audio=0x79 audio_type=MPEG
+
+# SDS Channels
+# QPSK_DVB clear E* Channel
+QPSK_DVB     0  1120.0  20.0    13v ToneOn
+8PSK_TURBO   0  1150.0  21.5 2/3   13v ToneOn 
+QPSK_TURBO   0  1300.0  25.0 7/8   13v ToneOn 
+QPSK_LDPC    0  1210.0  20.0   13v ToneOn 
+8PSK_LDPC    0  1050.0  30.0   13v ToneOn 
+QPSK_DVB     0  1400.0  20.0    13v ToneOn
+#8PSK_LDPC    0  1400.0  30.0   13v ToneOn 
+8PSK_TURBO   0  1150.0  21.5 2/3   13v ToneOn 
+DCII    	 0  1300.0  20.0    13v ToneOn
+#QPSK_DVB    0  1134.0  20.0    18v ToneOn
+#QPSK_DVB    0  1222.0  20.0    18v ToneOn
+#QPSK_DVB    0  1250.0  20.0    18v ToneOn
+#LDPC    0  1050.0  30.0   13v ToneOn 
+
+# Direct TV samples. You must specific the pids because
+# channel scan is not supported.
+#QPSK_DSS    0  1104.0  20.0    18v ToneOn
+#PROGRAM PIDS video=0x64 audio=0x65 audio_type=MPEG
+#QPSK_DSS_PES    0  1104.0  20.0    18v ToneOn
+#PROGRAM PIDS video=0x64 audio=0x65 audio_type=AC3
+
+# IP Settop Channels. PLAYBACK_IP_SUPPORT=y required (this is the default)
+IP_UDP          0  224.1.1.10  1234
+IP_UDP          0  224.1.1.11  1234
+IP_RTP          0  224.1.1.12  1234
+
+# OFDM with 2940/2930 daughter card
+OFDM        0  500.0   DEFAULT
+#OFDM       0  500.0   8   auto  high
+#OFDM       0  500.0   8   off   low
+
+
+########################################
+# Other samples
+
+# This is an example of setting a non-default
+# symbol rate and a non-default Annex.
+#QAM64      0  610.0   4.87  AnnexA
+
+# Samples of specifying video and audio formats instead of scanning
+#STREAMER 0 0
+#PROGRAM PIDS video=0x11 video_type=AVC pcr=0x11
+#PROGRAM PIDS video=0x11 video_type=VC1 pcr=0x11
+#PROGRAM PIDS video=0x11 audio=0x14 audio_type=AC3+
+#PROGRAM PIDS video=0x11 video_type=MPEG2 audio=0x14 audio_type=AAC
+
+# DSS streamer examples
+#STREAMER       0       0 DSS_ES
+#STREAMER       0       0 DSS_PES
+
+

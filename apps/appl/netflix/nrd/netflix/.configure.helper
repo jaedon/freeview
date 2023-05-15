@@ -1,0 +1,585 @@
+PROJECTS="$PROJECTS nrd"
+configHelper_nrd_helpOptions() {
+  true
+  echo '  --prefix=value                     Installation directory'
+  echo '                                     [default="${CMAKE_INSTALL_PREFIX}"]'
+  echo
+  echo '  --tee=value                        Set the TEE implementation. Default is '\''reference'\''.'
+  echo '                                     [default="reference"]'
+  echo
+  echo '  --use-mvc-split                    use MVC split mode'
+  echo '  --no-use-mvc-split                 [default=disabled]'
+  echo
+  echo '
+Streaming engine options:
+'
+    echo '  --ase-heuristics=value             Heuristics implementation to use'
+  echo '                                     [default="netflix"]'
+  echo
+  echo '
+Build options:
+'
+    echo '  --compile-resources                Whether to compile resources with the application or not'
+  echo '  --no-compile-resources             [default=disabled]'
+  echo
+  echo '  --coverage                         Compile with code coverage information'
+  echo '  --no-coverage                      [default=disabled]'
+  echo
+  echo '  --debug-code                       Enable debug code (-DBUILD_DEBUG)'
+  echo '  --no-debug-code                    [default=enabled]'
+  echo
+  echo '  --dpidir=value                     Additional directory where dpi source files can be located'
+  echo '                                     [default="${NRDP_ROOT_DIR}/dpidir"]'
+  echo
+  echo '  --gibbondir=value                  Additional directory where Gibbon source files can be located'
+  echo '                                     [default="${NRDP_ROOT_DIR}/gibbondir"]'
+  echo
+  echo '  --gperftools                       Compile using gperftools'
+  echo '  --no-gperftools                    [default=disabled]'
+  echo
+  echo '  --gprof                            Compile using GPROF'
+  echo '  --no-gprof                         [default=disabled]'
+  echo
+  echo '  --information                      Prints information about the build system when configuring'
+  echo '  --no-information                   [default=disabled]'
+  echo
+  echo '  --install                          Build installation targets'
+  echo '  --no-install                       [default=enabled]'
+  echo
+  echo '  --production-code                  Enable production code (-DBUILD_PRODUCTION)'
+  echo '  --no-production-code               [default=disabled]'
+  echo
+  echo '  --profile                          Compile for profling'
+  echo '  --no-profile                       [default=disabled]'
+  echo
+  echo '  --qa                               Build QA specific routines in nrd-core/NBP bridge'
+  echo '  --no-qa                            [default=enabled]'
+  echo
+  echo '  --shared                           Build shared libraries'
+  echo '  --no-shared                        [default=disabled]'
+  echo
+  echo '  --small                            Create smaller binaries by optimizing and stripping their symbols'
+  echo '  --no-small                         [default=disabled]'
+  echo
+  echo '  --symbols                          Build with debug symbols'
+  echo '  --no-symbols                       [default=enabled]'
+  echo
+  echo '  --system=value                     System type'
+  echo '                                     [default="auto"]'
+  echo
+  echo '
+DPI options:
+'
+    echo '  --dpi=value                        Sets the NRD DPI library to build. '\''system'\'' is a special value that means
+                                     use the passed LDFLAGS and CFLAGS but not
+                                     build anything. The NRDP SDK ships with
+                                     stub, reference-x86, and reference-sink DPI
+                                     implementations.'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --dpi-reference-audio-decoder=valueAudio decoder to use in reference DPI.'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --dpi-reference-audio-mixer=value  Audio mixer to use in reference DPI.'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --dpi-reference-audio-renderer=valueAudio renderer to use in reference DPI.'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --dpi-reference-drm=value          DRM implementation to use with the reference DPI. Only '\''none'\'' works with
+                                     the provided toolchain'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --dpi-reference-tts=value          Text to speech engine to use in reference DPI.'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --dpi-reference-video-decoder=valueVideo decoder to use in reference DPI.'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --dpi-reference-video-renderer=valueVideo renderer to use in reference DPI.'
+  echo '                                     [default="auto"]'
+  echo
+  echo '
+Gibbon options:
+'
+    echo '  --gibbon-animation-thread          Build with gibbon animation thread'
+  echo '  --no-gibbon-animation-thread       [default=enabled]'
+  echo
+  echo '  --gibbon-benchmarks                Build with gibbon benchmark'
+  echo '  --no-gibbon-benchmarks             [default=enabled]'
+  echo
+  echo '  --gibbon-bsdiff                    bsdiff - From 3rdParty'
+  echo '  --no-gibbon-bsdiff                 [default=enabled]'
+  echo
+  echo '  --gibbon-cotire                    Create Gibbon cotire targets'
+  echo '  --no-gibbon-cotire                 [default=disabled]'
+  echo
+  echo '  --gibbon-error=value               Error page'
+  echo '                                     [default="error.js"]'
+  echo
+  echo '  --gibbon-graphics=value            Gibbon graphics driver: directfb, gles2[-egl], null'
+  echo '                                     [default="directfb"]'
+  echo
+  echo '  --gibbon-image-jpeg=value          Use Gibbon JPEG image loader: yes, no, auto'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --gibbon-image-jpeg-method=value   JPEG DCT Method: fast, slow, float'
+  echo '                                     [default="fast"]'
+  echo
+  echo '  --gibbon-image-jpeg-upsample=value JPEG Fancy Upsample: yes, no'
+  echo '                                     [default="no"]'
+  echo
+  echo '  --gibbon-image-mng=value           Use Gibbon MNG image loader: yes, no, auto'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --gibbon-image-png=value           Use Gibbon PNG image loader: yes, no, auto'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --gibbon-image-webp=value          Use Gibbon WEBP image loader: yes, no, auto'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --gibbon-input=value               Gibbon input driver: '\''auto'\'' to let the platform select'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --gibbon-libedit=value             Use libedit if available: yes, no, auto'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --gibbon-memanalyzer=value         Build with memanalyzer: '\''no'\'', '\''static'\'', '\''shared'\'''
+  echo '                                     [default="no"]'
+  echo
+  echo '  --gibbon-mode=value                Gibbon link mode: executable,shared, static'
+  echo '                                     [default="executable"]'
+  echo
+  echo '  --gibbon-nice-threads              Configure Gibbon threads with setting nice priorities'
+  echo '  --no-gibbon-nice-threads           [default=enabled]'
+  echo
+  echo '  --gibbon-platform=value            Platform: posix'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --gibbon-script=value              Script: jsc'
+  echo '                                     [default="jsc"]'
+  echo
+  echo '  --gibbon-script-builtin-jsc        JavaScriptCore - From 3rdParty'
+  echo '  --no-gibbon-script-builtin-jsc     [default=enabled]'
+  echo
+  echo '  --gibbon-script-jsc-app            JavaScriptCore - Build the JSC console app'
+  echo '  --no-gibbon-script-jsc-app         [default=disabled]'
+  echo
+  echo '  --gibbon-script-jsc-assertions     JavaScriptCore - Assertions symbols'
+  echo '  --no-gibbon-script-jsc-assertions  [default=disabled]'
+  echo
+  echo '  --gibbon-script-jsc-backdoor       JavaScriptCore - With backdoor'
+  echo '  --no-gibbon-script-jsc-backdoor    [default=enabled]'
+  echo
+  echo '  --gibbon-script-jsc-backdoor-debuggerJavaScriptCore - Enable DEBUGGER'
+  echo '  --no-gibbon-script-jsc-backdoor-debugger[default=enabled]'
+  echo
+  echo '  --gibbon-script-jsc-backdoor-osallocator=valueJavaScriptCore - Enable OSALLOCATOR callback: yes, no, auto'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --gibbon-script-jsc-debug          JavaScriptCore - Debug mode'
+  echo '  --no-gibbon-script-jsc-debug       [default=disabled]'
+  echo
+  echo '  --gibbon-script-jsc-debug-symbols  JavaScriptCore - Debug symbols'
+  echo '  --no-gibbon-script-jsc-debug-symbols[default=disabled]'
+  echo
+  echo '  --gibbon-script-jsc-dynamic        JavaScriptCore - Build as a dynamic library'
+  echo '  --no-gibbon-script-jsc-dynamic     [default=enabled]'
+  echo
+  echo '  --gibbon-script-jsc-jit            JavaScriptCore - JIT enabled'
+  echo '  --no-gibbon-script-jsc-jit         [default=disabled]'
+  echo
+  echo '  --gibbon-script-jsc-verbose        JavaScriptCore - Build in verbose mode'
+  echo '  --no-gibbon-script-jsc-verbose     [default=disabled]'
+  echo
+  echo '  --gibbon-script-jsc-warnings       JavaScriptCore - Enable warnings'
+  echo '  --no-gibbon-script-jsc-warnings    [default=disabled]'
+  echo
+  echo '  --gibbon-signal-handler=value      Enable signal handlers if available: yes, no, auto'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --gibbon-surfacedecoder-fork=value Use processes when surface decoding'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --gibbon-tcmalloc                  Use tcmalloc for Gibbon'
+  echo '  --no-gibbon-tcmalloc               [default=enabled]'
+  echo
+  echo '  --gibbon-text-calc-padding         Calculate text padding based on the text run styles'
+  echo '  --no-gibbon-text-calc-padding      [default=disabled]'
+  echo
+  echo '  --gibbon-tilemanager               Run gibbon with tilemanager'
+  echo '  --no-gibbon-tilemanager            [default=disabled]'
+  echo
+  echo '
+JS options:
+'
+    echo '  --js-mdxjs=value                   Directory where mdxjs source can be located'
+  echo '                                     [default="${NRDP_ROOT_DIR}/mdxjs"]'
+  echo
+  echo '
+Networking library options:
+'
+    echo '  --net-fionread                     Enable TCP throughput measurement (FIONREAD)'
+  echo '  --no-net-fionread                  [default=enabled]'
+  echo
+  echo '  --net-http=value                   HTTP implementation to use'
+  echo '                                     [default="sockets"]'
+  echo
+  echo '
+libnrd options:
+'
+    echo '  --ase                              Build with C++ ASE'
+  echo '  --no-ase                           [default=enabled]'
+  echo
+  echo '  --crash-reporting=value            Enable crash reporting: breakpad, internal, off'
+  echo '                                     [default="off"]'
+  echo
+  echo '  --endian=value                     System endianness: auto, big, little, pdp'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --gpu-endian=value                 GPU endiannes: auto (same as CPU), big, little, pdp'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --mdx                              Build with mdx enabled'
+  echo '  --no-mdx                           [default=enabled]'
+  echo
+  echo '  --nrd=value                        Sets the nrds to build.'
+  echo '                                     [default="auto"]'
+  echo
+  echo '  --nrd-debug-instrumentation        Enable debug instrumentation'
+  echo '  --no-nrd-debug-instrumentation     [default=disabled]'
+  echo
+  echo '  --nrd-esplayer                     Enable elementary stream player'
+  echo '  --no-nrd-esplayer                  [default=enabled]'
+  echo
+  echo '  --nrd-instrumentation              Enable all instrumentation'
+  echo '  --no-nrd-instrumentation           [default=enabled]'
+  echo
+  echo '  --nrd-ipv6                         Enable IPv6 support'
+  echo '  --no-nrd-ipv6                      [default=disabled]'
+  echo
+  echo '  --nrd-on-instrumentation           Enable test instrumentation'
+  echo '  --no-nrd-on-instrumentation        [default=enabled]'
+  echo
+  echo '  --nrd-performance-markers          Enable performance profiling markers'
+  echo '  --no-nrd-performance-markers       [default=disabled]'
+  echo
+  echo '  --nrd-profiling-log                Enable performance profiling logging'
+  echo '  --no-nrd-profiling-log             [default=disabled]'
+  echo
+  echo '  --nrd-switched-instrumentation     Enable debug instrumentation'
+  echo '  --no-nrd-switched-instrumentation  [default=enabled]'
+  echo
+  echo '  --nrd-test-instrumentation         Enable test instrumentation'
+  echo '  --no-nrd-test-instrumentation      [default=disabled]'
+  echo
+  echo '  --nrd-webserver                    Enable webserver for nrd'
+  echo '  --no-nrd-webserver                 [default=enabled]'
+  echo
+  echo '  --nrdp-benchmarks                  Build benchmark applications'
+  echo '  --no-nrdp-benchmarks               [default=disabled]'
+  echo
+  echo '  --nrdp-exit                        Platform allows nrdp to exit'
+  echo '  --no-nrdp-exit                     [default=enabled]'
+  echo
+  echo '  --nrdp-mcsim-dump                  Enable input data dump for MediaControlSim'
+  echo '  --no-nrdp-mcsim-dump               [default=disabled]'
+  echo
+  echo '  --nrdp-memtest                     Build with debugging memory manager'
+  echo '  --no-nrdp-memtest                  [default=disabled]'
+  echo
+  echo '  --nrdp-samples                     Build NrdApp sample applications'
+  echo '  --no-nrdp-samples                  [default=disabled]'
+  echo
+  echo '  --nrdp-tests=value                 Sets the tests to build (use all to build all available tests)'
+  echo '                                     [default="none"]'
+  echo
+  echo '  --nrdp-tools=value                 Sets the tools to build (use all to build all available tools)'
+  echo '                                     [default="none"]'
+  echo
+  echo '  --objectcount                      Force object count'
+  echo '  --no-objectcount                   [default=disabled]'
+  echo
+  echo '  --partner-integration              Build with nrdil support'
+  echo '  --no-partner-integration           [default=enabled]'
+  echo
+  echo '  --scheduler=value                  Thread scheduling policy: rr, fifo, other'
+  echo '                                     [default="other"]'
+  echo
+  echo '  --socketizer                       Build with socketizer support'
+  echo '  --no-socketizer                    [default=disabled]'
+  echo
+  echo '  --tracing                          Force tracing'
+  echo '  --no-tracing                       [default=disabled]'
+  echo
+  echo '
+Symbol table options:
+'
+    echo '  --symbols-curl=value               Absolute path to the curl command line utility'
+  echo '                                     [default="curl"]'
+  echo
+  echo '  --symbols-folder=value             Folder name for symbol table uploads'
+  echo '                                     [default=""]'
+  echo
+  echo '  --symbols-gpg-keyring=value        Absolute path to a keyring to use to encrypt the symbol files before uploading'
+  echo '                                     [default=""]'
+  echo
+  echo '  --symbols-gpg-recipient=value      Recipient to use to encrypt the symbol files before uploading'
+  echo '                                     [default=""]'
+  echo
+  echo '  --symbols-password=value           Password for symbol table uploads'
+  echo '                                     [default=""]'
+  echo
+  echo '  --symbols-strip=value              Command line to pass to the strip utility after the debug symbols have been
+                                     moved out to the debug file'
+  echo '                                     [default="--strip-debug --strip-unneeded"]'
+  echo
+  echo '  --symbols-username=value           User name for symbol table uploads'
+  echo '                                     [default=""]'
+  echo
+}
+
+configHelper_nrd_helpEnv() {
+  true
+  echo '  DEBUG_FLAGS                        Debug flags'
+  echo '                                     '
+  echo '  DPI_LDFLAGS                        LDFLAGS used when linking against the DPI'
+  echo '                                     '
+  echo '  STRIP                              Path to the strip executable'
+  echo '                                     [default=strip]
+'
+  echo '  COVERAGE_COMMAND                   Path to coverage generation tool for ctest'
+  echo '                                     '
+  echo '  LD                                 LD executable'
+  echo '                                     '
+  echo '  OBJCOPY                            Path to the objcopy executable'
+  echo '                                     [default=objcopy]
+'
+  echo '  DUMP_SYMS                          Path to breakpad'\''s DUMP_SYMS executable'
+  echo '                                     [default=${TOOLCHAIN_DIRECTORY}/netflix/bin/dump_syms]
+'
+  echo '  TOOLCHAIN_DIRECTORY                Toolchain location'
+  echo '                                     '
+}
+
+configHelper_nrd_parseOption() {
+  OPT="$1"; case "$OPT" in
+  --enable-gibbon-cotire|--gibbon-cotire) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_COTIRE=1"; cmdFlags[gibbon-cotire]=1; defaults[gibbon-cotire]="OFF" ;;
+  --no-gibbon-cotire|--disable-gibbon-cotire) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_COTIRE=0"; cmdFlags[gibbon-cotire]=0; defaults[gibbon-cotire]="OFF" ;;
+  --gibbon-cotire=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_COTIRE=`echo $OPT | sed 's,^--gibbon-cotire=,,'`"; cmdFlags[gibbon-cotire]=`echo $OPT | sed 's,^--gibbon-cotire=,,'`; defaults[gibbon-cotire]="OFF" ;;
+  --enable-profile|--profile) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_PROFILE=1"; cmdFlags[profile]=1; defaults[profile]="OFF" ;;
+  --no-profile|--disable-profile) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_PROFILE=0"; cmdFlags[profile]=0; defaults[profile]="OFF" ;;
+  --profile=*) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_PROFILE=`echo $OPT | sed 's,^--profile=,,'`"; cmdFlags[profile]=`echo $OPT | sed 's,^--profile=,,'`; defaults[profile]="OFF" ;;
+  --with-application=*|--application=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g' -e 's/,/;/g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_APPLICATION=\"${opt}\""; cmdFlags[application]="${opt}";;
+  --enable-information|--information) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_INFORMATION=1"; cmdFlags[information]=1; defaults[information]="OFF" ;;
+  --no-information|--disable-information) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_INFORMATION=0"; cmdFlags[information]=0; defaults[information]="OFF" ;;
+  --information=*) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_INFORMATION=`echo $OPT | sed 's,^--information=,,'`"; cmdFlags[information]=`echo $OPT | sed 's,^--information=,,'`; defaults[information]="OFF" ;;
+  --enable-gibbon-script-jsc-verbose|--gibbon-script-jsc-verbose) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_VERBOSE=1"; cmdFlags[gibbon-script-jsc-verbose]=1; defaults[gibbon-script-jsc-verbose]="OFF" ;;
+  --no-gibbon-script-jsc-verbose|--disable-gibbon-script-jsc-verbose) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_VERBOSE=0"; cmdFlags[gibbon-script-jsc-verbose]=0; defaults[gibbon-script-jsc-verbose]="OFF" ;;
+  --gibbon-script-jsc-verbose=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_VERBOSE=`echo $OPT | sed 's,^--gibbon-script-jsc-verbose=,,'`"; cmdFlags[gibbon-script-jsc-verbose]=`echo $OPT | sed 's,^--gibbon-script-jsc-verbose=,,'`; defaults[gibbon-script-jsc-verbose]="OFF" ;;
+  --enable-tracing|--tracing) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_TRACING=1"; cmdFlags[tracing]=1; defaults[tracing]="OFF" ;;
+  --no-tracing|--disable-tracing) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_TRACING=0"; cmdFlags[tracing]=0; defaults[tracing]="OFF" ;;
+  --tracing=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_TRACING=`echo $OPT | sed 's,^--tracing=,,'`"; cmdFlags[tracing]=`echo $OPT | sed 's,^--tracing=,,'`; defaults[tracing]="OFF" ;;
+  --with-gibbon-image-jpeg-method=*|--gibbon-image-jpeg-method=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_IMAGE_JPEG_METHOD=\"${opt}\""; cmdFlags[gibbon-image-jpeg-method]="${opt}";;
+  --enable-gibbon-text-calc-padding|--gibbon-text-calc-padding) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_TEXT_CALC_PADDING=1"; cmdFlags[gibbon-text-calc-padding]=1; defaults[gibbon-text-calc-padding]="OFF" ;;
+  --no-gibbon-text-calc-padding|--disable-gibbon-text-calc-padding) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_TEXT_CALC_PADDING=0"; cmdFlags[gibbon-text-calc-padding]=0; defaults[gibbon-text-calc-padding]="OFF" ;;
+  --gibbon-text-calc-padding=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_TEXT_CALC_PADDING=`echo $OPT | sed 's,^--gibbon-text-calc-padding=,,'`"; cmdFlags[gibbon-text-calc-padding]=`echo $OPT | sed 's,^--gibbon-text-calc-padding=,,'`; defaults[gibbon-text-calc-padding]="OFF" ;;
+  --with-dpi-reference-video-renderer=*|--dpi-reference-video-renderer=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DDPI_REFERENCE_VIDEO_RENDERER=\"${opt}\""; cmdFlags[dpi-reference-video-renderer]="${opt}";;
+  --with-symbols-folder=*|--symbols-folder=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DSYMBOLS_FOLDER=\"${opt}\""; cmdFlags[symbols-folder]="${opt}";;
+  --with-gibbon-script-jsc-backdoor-osallocator=*|--gibbon-script-jsc-backdoor-osallocator=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_BACKDOOR_OSALLOCATOR=\"${opt}\""; cmdFlags[gibbon-script-jsc-backdoor-osallocator]="${opt}";;
+  --with-symbols-password=*|--symbols-password=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DSYMBOLS_PASSWORD=\"${opt}\""; cmdFlags[symbols-password]="${opt}";;
+  --with-crash-reporting=*|--crash-reporting=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_CRASH_REPORTING=\"${opt}\""; cmdFlags[crash-reporting]="${opt}";;
+  --enable-socketizer|--socketizer) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_SOCKETIZER=1"; cmdFlags[socketizer]=1; defaults[socketizer]="OFF" ;;
+  --no-socketizer|--disable-socketizer) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_SOCKETIZER=0"; cmdFlags[socketizer]=0; defaults[socketizer]="OFF" ;;
+  --socketizer=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_SOCKETIZER=`echo $OPT | sed 's,^--socketizer=,,'`"; cmdFlags[socketizer]=`echo $OPT | sed 's,^--socketizer=,,'`; defaults[socketizer]="OFF" ;;
+  --enable-gibbon-script-jsc-jit|--gibbon-script-jsc-jit) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_JIT=1"; cmdFlags[gibbon-script-jsc-jit]=1; defaults[gibbon-script-jsc-jit]="OFF" ;;
+  --no-gibbon-script-jsc-jit|--disable-gibbon-script-jsc-jit) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_JIT=0"; cmdFlags[gibbon-script-jsc-jit]=0; defaults[gibbon-script-jsc-jit]="OFF" ;;
+  --gibbon-script-jsc-jit=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_JIT=`echo $OPT | sed 's,^--gibbon-script-jsc-jit=,,'`"; cmdFlags[gibbon-script-jsc-jit]=`echo $OPT | sed 's,^--gibbon-script-jsc-jit=,,'`; defaults[gibbon-script-jsc-jit]="OFF" ;;
+  --with-gpu-endian=*|--gpu-endian=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_GPU_ENDIAN=\"${opt}\""; cmdFlags[gpu-endian]="${opt}";;
+  --enable-debug-code|--debug-code) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_DEBUG=1"; cmdFlags[debug-code]=1; defaults[debug-code]="ON" ;;
+  --no-debug-code|--disable-debug-code) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_DEBUG=0"; cmdFlags[debug-code]=0; defaults[debug-code]="ON" ;;
+  --debug-code=*) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_DEBUG=`echo $OPT | sed 's,^--debug-code=,,'`"; cmdFlags[debug-code]=`echo $OPT | sed 's,^--debug-code=,,'`; defaults[debug-code]="ON" ;;
+  --with-gibbon-partnerbridge=*|--gibbon-partnerbridge=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_PARTNERBRIDGE=\"${opt}\""; cmdFlags[gibbon-partnerbridge]="${opt}";;
+  --with-net-http=*|--net-http=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DNET_HTTP=\"${opt}\""; cmdFlags[net-http]="${opt}";;
+  --with-nrdp-tests=*|--nrdp-tests=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g' -e 's/,/;/g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_TESTS=\"${opt}\""; cmdFlags[nrdp-tests]="${opt}";;
+  --with-endian=*|--endian=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_ENDIAN=\"${opt}\""; cmdFlags[endian]="${opt}";;
+  --enable-gibbon-script-jsc-debug-symbols|--gibbon-script-jsc-debug-symbols) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_DEBUG_SYMBOLS=1"; cmdFlags[gibbon-script-jsc-debug-symbols]=1; defaults[gibbon-script-jsc-debug-symbols]="OFF" ;;
+  --no-gibbon-script-jsc-debug-symbols|--disable-gibbon-script-jsc-debug-symbols) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_DEBUG_SYMBOLS=0"; cmdFlags[gibbon-script-jsc-debug-symbols]=0; defaults[gibbon-script-jsc-debug-symbols]="OFF" ;;
+  --gibbon-script-jsc-debug-symbols=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_DEBUG_SYMBOLS=`echo $OPT | sed 's,^--gibbon-script-jsc-debug-symbols=,,'`"; cmdFlags[gibbon-script-jsc-debug-symbols]=`echo $OPT | sed 's,^--gibbon-script-jsc-debug-symbols=,,'`; defaults[gibbon-script-jsc-debug-symbols]="OFF" ;;
+  --with-ase-heuristics=*|--ase-heuristics=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DASE_HEURISTICS=\"${opt}\""; cmdFlags[ase-heuristics]="${opt}";;
+  --enable-objectcount|--objectcount) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_OBJECTCOUNT=1"; cmdFlags[objectcount]=1; defaults[objectcount]="OFF" ;;
+  --no-objectcount|--disable-objectcount) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_OBJECTCOUNT=0"; cmdFlags[objectcount]=0; defaults[objectcount]="OFF" ;;
+  --objectcount=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_OBJECTCOUNT=`echo $OPT | sed 's,^--objectcount=,,'`"; cmdFlags[objectcount]=`echo $OPT | sed 's,^--objectcount=,,'`; defaults[objectcount]="OFF" ;;
+  --with-gibbon-libedit=*|--gibbon-libedit=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_LIBEDIT=\"${opt}\""; cmdFlags[gibbon-libedit]="${opt}";;
+  --enable-gperftools|--gperftools) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_GPERFTOOLS=1"; cmdFlags[gperftools]=1; defaults[gperftools]="OFF" ;;
+  --no-gperftools|--disable-gperftools) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_GPERFTOOLS=0"; cmdFlags[gperftools]=0; defaults[gperftools]="OFF" ;;
+  --gperftools=*) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_GPERFTOOLS=`echo $OPT | sed 's,^--gperftools=,,'`"; cmdFlags[gperftools]=`echo $OPT | sed 's,^--gperftools=,,'`; defaults[gperftools]="OFF" ;;
+  --with-gibbon-mode=*|--gibbon-mode=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_MODE=\"${opt}\""; cmdFlags[gibbon-mode]="${opt}";;
+  --enable-symbols|--symbols) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_SYMBOLS=1"; cmdFlags[symbols]=1; defaults[symbols]="ON" ;;
+  --no-symbols|--disable-symbols) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_SYMBOLS=0"; cmdFlags[symbols]=0; defaults[symbols]="ON" ;;
+  --symbols=*) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_SYMBOLS=`echo $OPT | sed 's,^--symbols=,,'`"; cmdFlags[symbols]=`echo $OPT | sed 's,^--symbols=,,'`; defaults[symbols]="ON" ;;
+  --with-gibbon-platform=*|--gibbon-platform=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_PLATFORM=\"${opt}\""; cmdFlags[gibbon-platform]="${opt}";;
+  --with-dpi-reference-audio-decoder=*|--dpi-reference-audio-decoder=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DDPI_REFERENCE_AUDIO_DECODER=\"${opt}\""; cmdFlags[dpi-reference-audio-decoder]="${opt}";;
+  --with-prefix=*|--prefix=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DCMAKE_INSTALL_PREFIX=\"${opt}\""; cmdFlags[prefix]="${opt}";;
+  --with-gibbon-memanalyzer=*|--gibbon-memanalyzer=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_MEMANALYZER=\"${opt}\""; cmdFlags[gibbon-memanalyzer]="${opt}";;
+  --with-gibbon-input=*|--gibbon-input=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_INPUT=\"${opt}\""; cmdFlags[gibbon-input]="${opt}";;
+  --enable-gibbon-script-jsc-assertions|--gibbon-script-jsc-assertions) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_ASSERTIONS=1"; cmdFlags[gibbon-script-jsc-assertions]=1; defaults[gibbon-script-jsc-assertions]="OFF" ;;
+  --no-gibbon-script-jsc-assertions|--disable-gibbon-script-jsc-assertions) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_ASSERTIONS=0"; cmdFlags[gibbon-script-jsc-assertions]=0; defaults[gibbon-script-jsc-assertions]="OFF" ;;
+  --gibbon-script-jsc-assertions=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_ASSERTIONS=`echo $OPT | sed 's,^--gibbon-script-jsc-assertions=,,'`"; cmdFlags[gibbon-script-jsc-assertions]=`echo $OPT | sed 's,^--gibbon-script-jsc-assertions=,,'`; defaults[gibbon-script-jsc-assertions]="OFF" ;;
+  --with-gibbon-error=*|--gibbon-error=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_ERROR=\"${opt}\""; cmdFlags[gibbon-error]="${opt}";;
+  --enable-nrd-profiling-log|--nrd-profiling-log) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_PROFILING_LOG=1"; cmdFlags[nrd-profiling-log]=1; defaults[nrd-profiling-log]="OFF" ;;
+  --no-nrd-profiling-log|--disable-nrd-profiling-log) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_PROFILING_LOG=0"; cmdFlags[nrd-profiling-log]=0; defaults[nrd-profiling-log]="OFF" ;;
+  --nrd-profiling-log=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_PROFILING_LOG=`echo $OPT | sed 's,^--nrd-profiling-log=,,'`"; cmdFlags[nrd-profiling-log]=`echo $OPT | sed 's,^--nrd-profiling-log=,,'`; defaults[nrd-profiling-log]="OFF" ;;
+  --with-nrdsystem=*|--nrdsystem=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_NRDSYSTEM=\"${opt}\""; cmdFlags[nrdsystem]="${opt}";;
+  --with-gibbon-surfacedecoder-fork=*|--gibbon-surfacedecoder-fork=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SURFACEDECODER_FORK=\"${opt}\""; cmdFlags[gibbon-surfacedecoder-fork]="${opt}";;
+  --enable-nrd-esplayer|--nrd-esplayer) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_ESPLAYER=1"; cmdFlags[nrd-esplayer]=1; defaults[nrd-esplayer]="ON" ;;
+  --no-nrd-esplayer|--disable-nrd-esplayer) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_ESPLAYER=0"; cmdFlags[nrd-esplayer]=0; defaults[nrd-esplayer]="ON" ;;
+  --nrd-esplayer=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_ESPLAYER=`echo $OPT | sed 's,^--nrd-esplayer=,,'`"; cmdFlags[nrd-esplayer]=`echo $OPT | sed 's,^--nrd-esplayer=,,'`; defaults[nrd-esplayer]="ON" ;;
+  --enable-gibbon-script-builtin-jsc|--gibbon-script-builtin-jsc) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_BUILTIN_JSC=1"; cmdFlags[gibbon-script-builtin-jsc]=1; defaults[gibbon-script-builtin-jsc]="ON" ;;
+  --no-gibbon-script-builtin-jsc|--disable-gibbon-script-builtin-jsc) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_BUILTIN_JSC=0"; cmdFlags[gibbon-script-builtin-jsc]=0; defaults[gibbon-script-builtin-jsc]="ON" ;;
+  --gibbon-script-builtin-jsc=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_BUILTIN_JSC=`echo $OPT | sed 's,^--gibbon-script-builtin-jsc=,,'`"; cmdFlags[gibbon-script-builtin-jsc]=`echo $OPT | sed 's,^--gibbon-script-builtin-jsc=,,'`; defaults[gibbon-script-builtin-jsc]="ON" ;;
+  --with-nrdp-tools=*|--nrdp-tools=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g' -e 's/,/;/g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_TOOLS=\"${opt}\""; cmdFlags[nrdp-tools]="${opt}";;
+  --with-gibbon-graphics=*|--gibbon-graphics=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_GRAPHICS=\"${opt}\""; cmdFlags[gibbon-graphics]="${opt}";;
+  --with-gibbon-image-jpeg=*|--gibbon-image-jpeg=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_IMAGE_JPEG=\"${opt}\""; cmdFlags[gibbon-image-jpeg]="${opt}";;
+  --with-gibbon-image-webp=*|--gibbon-image-webp=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_IMAGE_WEBP=\"${opt}\""; cmdFlags[gibbon-image-webp]="${opt}";;
+  --with-js-mdxjs=*|--js-mdxjs=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DJS_MDXJS_DIRECTORY=\"${opt}\""; cmdFlags[js-mdxjs]="${opt}";;
+  --with-symbols-gpg-recipient=*|--symbols-gpg-recipient=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DSYMBOLS_GPG_RECIPIENT=\"${opt}\""; cmdFlags[symbols-gpg-recipient]="${opt}";;
+  --with-gibbon-image-jpeg-upsample=*|--gibbon-image-jpeg-upsample=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_IMAGE_JPEG_UPSAMPLE=\"${opt}\""; cmdFlags[gibbon-image-jpeg-upsample]="${opt}";;
+  --with-dpi=*|--dpi=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DDPI_IMPLEMENTATION=\"${opt}\""; cmdFlags[dpi]="${opt}";;
+  --enable-qa|--qa) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_QA=1"; cmdFlags[qa]=1; defaults[qa]="ON" ;;
+  --no-qa|--disable-qa) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_QA=0"; cmdFlags[qa]=0; defaults[qa]="ON" ;;
+  --qa=*) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_QA=`echo $OPT | sed 's,^--qa=,,'`"; cmdFlags[qa]=`echo $OPT | sed 's,^--qa=,,'`; defaults[qa]="ON" ;;
+  --enable-gibbon-script-jsc-backdoor|--gibbon-script-jsc-backdoor) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_BACKDOOR=1"; cmdFlags[gibbon-script-jsc-backdoor]=1; defaults[gibbon-script-jsc-backdoor]="ON" ;;
+  --no-gibbon-script-jsc-backdoor|--disable-gibbon-script-jsc-backdoor) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_BACKDOOR=0"; cmdFlags[gibbon-script-jsc-backdoor]=0; defaults[gibbon-script-jsc-backdoor]="ON" ;;
+  --gibbon-script-jsc-backdoor=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_BACKDOOR=`echo $OPT | sed 's,^--gibbon-script-jsc-backdoor=,,'`"; cmdFlags[gibbon-script-jsc-backdoor]=`echo $OPT | sed 's,^--gibbon-script-jsc-backdoor=,,'`; defaults[gibbon-script-jsc-backdoor]="ON" ;;
+  --with-symbols-username=*|--symbols-username=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DSYMBOLS_USERNAME=\"${opt}\""; cmdFlags[symbols-username]="${opt}";;
+  --enable-gibbon-tilemanager|--gibbon-tilemanager) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_TILEMANAGER=1"; cmdFlags[gibbon-tilemanager]=1; defaults[gibbon-tilemanager]="OFF" ;;
+  --no-gibbon-tilemanager|--disable-gibbon-tilemanager) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_TILEMANAGER=0"; cmdFlags[gibbon-tilemanager]=0; defaults[gibbon-tilemanager]="OFF" ;;
+  --gibbon-tilemanager=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_TILEMANAGER=`echo $OPT | sed 's,^--gibbon-tilemanager=,,'`"; cmdFlags[gibbon-tilemanager]=`echo $OPT | sed 's,^--gibbon-tilemanager=,,'`; defaults[gibbon-tilemanager]="OFF" ;;
+  --enable-production-code|--production-code) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_PRODUCTION=1"; cmdFlags[production-code]=1; defaults[production-code]="OFF" ;;
+  --no-production-code|--disable-production-code) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_PRODUCTION=0"; cmdFlags[production-code]=0; defaults[production-code]="OFF" ;;
+  --production-code=*) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_PRODUCTION=`echo $OPT | sed 's,^--production-code=,,'`"; cmdFlags[production-code]=`echo $OPT | sed 's,^--production-code=,,'`; defaults[production-code]="OFF" ;;
+  --enable-gibbon-animation-thread|--gibbon-animation-thread) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_ANIMATION_THREAD=1"; cmdFlags[gibbon-animation-thread]=1; defaults[gibbon-animation-thread]="ON" ;;
+  --no-gibbon-animation-thread|--disable-gibbon-animation-thread) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_ANIMATION_THREAD=0"; cmdFlags[gibbon-animation-thread]=0; defaults[gibbon-animation-thread]="ON" ;;
+  --gibbon-animation-thread=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_ANIMATION_THREAD=`echo $OPT | sed 's,^--gibbon-animation-thread=,,'`"; cmdFlags[gibbon-animation-thread]=`echo $OPT | sed 's,^--gibbon-animation-thread=,,'`; defaults[gibbon-animation-thread]="ON" ;;
+  --enable-nrd-instrumentation|--nrd-instrumentation) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_INSTRUMENTATION=1"; cmdFlags[nrd-instrumentation]=1; defaults[nrd-instrumentation]="ON" ;;
+  --no-nrd-instrumentation|--disable-nrd-instrumentation) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_INSTRUMENTATION=0"; cmdFlags[nrd-instrumentation]=0; defaults[nrd-instrumentation]="ON" ;;
+  --nrd-instrumentation=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_INSTRUMENTATION=`echo $OPT | sed 's,^--nrd-instrumentation=,,'`"; cmdFlags[nrd-instrumentation]=`echo $OPT | sed 's,^--nrd-instrumentation=,,'`; defaults[nrd-instrumentation]="ON" ;;
+  --with-dpi-reference-tts=*|--dpi-reference-tts=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DDPI_REFERENCE_TTS=\"${opt}\""; cmdFlags[dpi-reference-tts]="${opt}";;
+  --with-nrdp-application=*|--nrdp-application=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_APPLICATION=\"${opt}\""; cmdFlags[nrdp-application]="${opt}";;
+  --with-gibbon-signal-handler=*|--gibbon-signal-handler=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SIGNAL_HANDLER=\"${opt}\""; cmdFlags[gibbon-signal-handler]="${opt}";;
+  --enable-nrdp-memtest|--nrdp-memtest) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_MEMTEST=1"; cmdFlags[nrdp-memtest]=1; defaults[nrdp-memtest]="OFF" ;;
+  --no-nrdp-memtest|--disable-nrdp-memtest) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_MEMTEST=0"; cmdFlags[nrdp-memtest]=0; defaults[nrdp-memtest]="OFF" ;;
+  --nrdp-memtest=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_MEMTEST=`echo $OPT | sed 's,^--nrdp-memtest=,,'`"; cmdFlags[nrdp-memtest]=`echo $OPT | sed 's,^--nrdp-memtest=,,'`; defaults[nrdp-memtest]="OFF" ;;
+  --enable-gibbon-script-jsc-warnings|--gibbon-script-jsc-warnings) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_WARNINGS=1"; cmdFlags[gibbon-script-jsc-warnings]=1; defaults[gibbon-script-jsc-warnings]="OFF" ;;
+  --no-gibbon-script-jsc-warnings|--disable-gibbon-script-jsc-warnings) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_WARNINGS=0"; cmdFlags[gibbon-script-jsc-warnings]=0; defaults[gibbon-script-jsc-warnings]="OFF" ;;
+  --gibbon-script-jsc-warnings=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_WARNINGS=`echo $OPT | sed 's,^--gibbon-script-jsc-warnings=,,'`"; cmdFlags[gibbon-script-jsc-warnings]=`echo $OPT | sed 's,^--gibbon-script-jsc-warnings=,,'`; defaults[gibbon-script-jsc-warnings]="OFF" ;;
+  --enable-nrdp-benchmarks|--nrdp-benchmarks) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_BENCHMARKS=1"; cmdFlags[nrdp-benchmarks]=1; defaults[nrdp-benchmarks]="OFF" ;;
+  --no-nrdp-benchmarks|--disable-nrdp-benchmarks) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_BENCHMARKS=0"; cmdFlags[nrdp-benchmarks]=0; defaults[nrdp-benchmarks]="OFF" ;;
+  --nrdp-benchmarks=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_BENCHMARKS=`echo $OPT | sed 's,^--nrdp-benchmarks=,,'`"; cmdFlags[nrdp-benchmarks]=`echo $OPT | sed 's,^--nrdp-benchmarks=,,'`; defaults[nrdp-benchmarks]="OFF" ;;
+  --with-gibbon-script=*|--gibbon-script=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT=\"${opt}\""; cmdFlags[gibbon-script]="${opt}";;
+  --with-gibbon-image-png=*|--gibbon-image-png=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_IMAGE_PNG=\"${opt}\""; cmdFlags[gibbon-image-png]="${opt}";;
+  --with-tee=*|--tee=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DTEE_IMPLEMENTATION=\"${opt}\""; cmdFlags[tee]="${opt}";;
+  --with-dpi-reference-drm=*|--dpi-reference-drm=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DDPI_REFERENCE_DRM=\"${opt}\""; cmdFlags[dpi-reference-drm]="${opt}";;
+  --enable-gibbon-script-jsc-dynamic|--gibbon-script-jsc-dynamic) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_DYNAMIC=1"; cmdFlags[gibbon-script-jsc-dynamic]=1; defaults[gibbon-script-jsc-dynamic]="ON" ;;
+  --no-gibbon-script-jsc-dynamic|--disable-gibbon-script-jsc-dynamic) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_DYNAMIC=0"; cmdFlags[gibbon-script-jsc-dynamic]=0; defaults[gibbon-script-jsc-dynamic]="ON" ;;
+  --gibbon-script-jsc-dynamic=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_DYNAMIC=`echo $OPT | sed 's,^--gibbon-script-jsc-dynamic=,,'`"; cmdFlags[gibbon-script-jsc-dynamic]=`echo $OPT | sed 's,^--gibbon-script-jsc-dynamic=,,'`; defaults[gibbon-script-jsc-dynamic]="ON" ;;
+  --enable-gibbon-bsdiff|--gibbon-bsdiff) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_BSDIFF=1"; cmdFlags[gibbon-bsdiff]=1; defaults[gibbon-bsdiff]="ON" ;;
+  --no-gibbon-bsdiff|--disable-gibbon-bsdiff) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_BSDIFF=0"; cmdFlags[gibbon-bsdiff]=0; defaults[gibbon-bsdiff]="ON" ;;
+  --gibbon-bsdiff=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_BSDIFF=`echo $OPT | sed 's,^--gibbon-bsdiff=,,'`"; cmdFlags[gibbon-bsdiff]=`echo $OPT | sed 's,^--gibbon-bsdiff=,,'`; defaults[gibbon-bsdiff]="ON" ;;
+  --enable-gibbon-script-jsc-debug|--gibbon-script-jsc-debug) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_DEBUG=1"; cmdFlags[gibbon-script-jsc-debug]=1; defaults[gibbon-script-jsc-debug]="OFF" ;;
+  --no-gibbon-script-jsc-debug|--disable-gibbon-script-jsc-debug) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_DEBUG=0"; cmdFlags[gibbon-script-jsc-debug]=0; defaults[gibbon-script-jsc-debug]="OFF" ;;
+  --gibbon-script-jsc-debug=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_DEBUG=`echo $OPT | sed 's,^--gibbon-script-jsc-debug=,,'`"; cmdFlags[gibbon-script-jsc-debug]=`echo $OPT | sed 's,^--gibbon-script-jsc-debug=,,'`; defaults[gibbon-script-jsc-debug]="OFF" ;;
+  --with-nrd=*|--nrd=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g' -e 's/,/;/g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_APPLICATION=\"${opt}\""; cmdFlags[nrd]="${opt}";;
+  --enable-gibbon-script-jsc-backdoor-debugger|--gibbon-script-jsc-backdoor-debugger) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_BACKDOOR_DEBUGGER=1"; cmdFlags[gibbon-script-jsc-backdoor-debugger]=1; defaults[gibbon-script-jsc-backdoor-debugger]="ON" ;;
+  --no-gibbon-script-jsc-backdoor-debugger|--disable-gibbon-script-jsc-backdoor-debugger) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_BACKDOOR_DEBUGGER=0"; cmdFlags[gibbon-script-jsc-backdoor-debugger]=0; defaults[gibbon-script-jsc-backdoor-debugger]="ON" ;;
+  --gibbon-script-jsc-backdoor-debugger=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_BACKDOOR_DEBUGGER=`echo $OPT | sed 's,^--gibbon-script-jsc-backdoor-debugger=,,'`"; cmdFlags[gibbon-script-jsc-backdoor-debugger]=`echo $OPT | sed 's,^--gibbon-script-jsc-backdoor-debugger=,,'`; defaults[gibbon-script-jsc-backdoor-debugger]="ON" ;;
+  --enable-nrd-performance-markers|--nrd-performance-markers) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_PERFORMANCE_MARKERS=1"; cmdFlags[nrd-performance-markers]=1; defaults[nrd-performance-markers]="OFF" ;;
+  --no-nrd-performance-markers|--disable-nrd-performance-markers) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_PERFORMANCE_MARKERS=0"; cmdFlags[nrd-performance-markers]=0; defaults[nrd-performance-markers]="OFF" ;;
+  --nrd-performance-markers=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_PERFORMANCE_MARKERS=`echo $OPT | sed 's,^--nrd-performance-markers=,,'`"; cmdFlags[nrd-performance-markers]=`echo $OPT | sed 's,^--nrd-performance-markers=,,'`; defaults[nrd-performance-markers]="OFF" ;;
+  --with-scheduler=*|--scheduler=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_SCHEDULER_TYPE=\"${opt}\""; cmdFlags[scheduler]="${opt}";;
+  --enable-gprof|--gprof) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_GPROF=1"; cmdFlags[gprof]=1; defaults[gprof]="OFF" ;;
+  --no-gprof|--disable-gprof) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_GPROF=0"; cmdFlags[gprof]=0; defaults[gprof]="OFF" ;;
+  --gprof=*) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_GPROF=`echo $OPT | sed 's,^--gprof=,,'`"; cmdFlags[gprof]=`echo $OPT | sed 's,^--gprof=,,'`; defaults[gprof]="OFF" ;;
+  --with-dpi-reference-video-decoder=*|--dpi-reference-video-decoder=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DDPI_REFERENCE_VIDEO_DECODER=\"${opt}\""; cmdFlags[dpi-reference-video-decoder]="${opt}";;
+  --enable-gibbon-nice-threads|--gibbon-nice-threads) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_NICE_THREADS=1"; cmdFlags[gibbon-nice-threads]=1; defaults[gibbon-nice-threads]="ON" ;;
+  --no-gibbon-nice-threads|--disable-gibbon-nice-threads) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_NICE_THREADS=0"; cmdFlags[gibbon-nice-threads]=0; defaults[gibbon-nice-threads]="ON" ;;
+  --gibbon-nice-threads=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_NICE_THREADS=`echo $OPT | sed 's,^--gibbon-nice-threads=,,'`"; cmdFlags[gibbon-nice-threads]=`echo $OPT | sed 's,^--gibbon-nice-threads=,,'`; defaults[gibbon-nice-threads]="ON" ;;
+  --enable-coverage|--coverage) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_COVERAGE=1"; cmdFlags[coverage]=1; defaults[coverage]="OFF" ;;
+  --no-coverage|--disable-coverage) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_COVERAGE=0"; cmdFlags[coverage]=0; defaults[coverage]="OFF" ;;
+  --coverage=*) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_COVERAGE=`echo $OPT | sed 's,^--coverage=,,'`"; cmdFlags[coverage]=`echo $OPT | sed 's,^--coverage=,,'`; defaults[coverage]="OFF" ;;
+  --enable-small|--small) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_SMALL=1"; cmdFlags[small]=1; defaults[small]="OFF" ;;
+  --no-small|--disable-small) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_SMALL=0"; cmdFlags[small]=0; defaults[small]="OFF" ;;
+  --small=*) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_SMALL=`echo $OPT | sed 's,^--small=,,'`"; cmdFlags[small]=`echo $OPT | sed 's,^--small=,,'`; defaults[small]="OFF" ;;
+  --enable-nrd-debug-instrumentation|--nrd-debug-instrumentation) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_DEBUG_INSTRUMENTATION=1"; cmdFlags[nrd-debug-instrumentation]=1; defaults[nrd-debug-instrumentation]="OFF" ;;
+  --no-nrd-debug-instrumentation|--disable-nrd-debug-instrumentation) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_DEBUG_INSTRUMENTATION=0"; cmdFlags[nrd-debug-instrumentation]=0; defaults[nrd-debug-instrumentation]="OFF" ;;
+  --nrd-debug-instrumentation=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_DEBUG_INSTRUMENTATION=`echo $OPT | sed 's,^--nrd-debug-instrumentation=,,'`"; cmdFlags[nrd-debug-instrumentation]=`echo $OPT | sed 's,^--nrd-debug-instrumentation=,,'`; defaults[nrd-debug-instrumentation]="OFF" ;;
+  --enable-gibbon-tcmalloc|--gibbon-tcmalloc) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_TCMALLOC=1"; cmdFlags[gibbon-tcmalloc]=1; defaults[gibbon-tcmalloc]="ON" ;;
+  --no-gibbon-tcmalloc|--disable-gibbon-tcmalloc) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_TCMALLOC=0"; cmdFlags[gibbon-tcmalloc]=0; defaults[gibbon-tcmalloc]="ON" ;;
+  --gibbon-tcmalloc=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_TCMALLOC=`echo $OPT | sed 's,^--gibbon-tcmalloc=,,'`"; cmdFlags[gibbon-tcmalloc]=`echo $OPT | sed 's,^--gibbon-tcmalloc=,,'`; defaults[gibbon-tcmalloc]="ON" ;;
+  --enable-shared|--shared) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_SHARED_LIBS=1"; cmdFlags[shared]=1; defaults[shared]="OFF" ;;
+  --no-shared|--disable-shared) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_SHARED_LIBS=0"; cmdFlags[shared]=0; defaults[shared]="OFF" ;;
+  --shared=*) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_SHARED_LIBS=`echo $OPT | sed 's,^--shared=,,'`"; cmdFlags[shared]=`echo $OPT | sed 's,^--shared=,,'`; defaults[shared]="OFF" ;;
+  --enable-nrd-webserver|--nrd-webserver) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_WEBSERVER_ENABLED=1"; cmdFlags[nrd-webserver]=1; defaults[nrd-webserver]="ON" ;;
+  --no-nrd-webserver|--disable-nrd-webserver) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_WEBSERVER_ENABLED=0"; cmdFlags[nrd-webserver]=0; defaults[nrd-webserver]="ON" ;;
+  --nrd-webserver=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_WEBSERVER_ENABLED=`echo $OPT | sed 's,^--nrd-webserver=,,'`"; cmdFlags[nrd-webserver]=`echo $OPT | sed 's,^--nrd-webserver=,,'`; defaults[nrd-webserver]="ON" ;;
+  --enable-install|--install) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_INSTALL_TARGET=1"; cmdFlags[install]=1; defaults[install]="ON" ;;
+  --no-install|--disable-install) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_INSTALL_TARGET=0"; cmdFlags[install]=0; defaults[install]="ON" ;;
+  --install=*) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_INSTALL_TARGET=`echo $OPT | sed 's,^--install=,,'`"; cmdFlags[install]=`echo $OPT | sed 's,^--install=,,'`; defaults[install]="ON" ;;
+  --with-symbols-strip=*|--symbols-strip=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DSYMBOLS_STRIP=\"${opt}\""; cmdFlags[symbols-strip]="${opt}";;
+  --enable-nrdp-exit|--nrdp-exit) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_EXIT=1"; cmdFlags[nrdp-exit]=1; defaults[nrdp-exit]="ON" ;;
+  --no-nrdp-exit|--disable-nrdp-exit) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_EXIT=0"; cmdFlags[nrdp-exit]=0; defaults[nrdp-exit]="ON" ;;
+  --nrdp-exit=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_EXIT=`echo $OPT | sed 's,^--nrdp-exit=,,'`"; cmdFlags[nrdp-exit]=`echo $OPT | sed 's,^--nrdp-exit=,,'`; defaults[nrdp-exit]="ON" ;;
+  --with-gibbon-image-mng=*|--gibbon-image-mng=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_IMAGE_MNG=\"${opt}\""; cmdFlags[gibbon-image-mng]="${opt}";;
+  --with-gibbondir=*|--gibbondir=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_GIBBON_DIRECTORY=\"${opt}\""; cmdFlags[gibbondir]="${opt}";;
+  --enable-mdx|--mdx) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_MDX_ENABLED=1"; cmdFlags[mdx]=1; defaults[mdx]="ON" ;;
+  --no-mdx|--disable-mdx) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_MDX_ENABLED=0"; cmdFlags[mdx]=0; defaults[mdx]="ON" ;;
+  --mdx=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_MDX_ENABLED=`echo $OPT | sed 's,^--mdx=,,'`"; cmdFlags[mdx]=`echo $OPT | sed 's,^--mdx=,,'`; defaults[mdx]="ON" ;;
+  --enable-net-fionread|--net-fionread) CMAKE_FLAGS="$CMAKE_FLAGS -DNET_FIONREAD=1"; cmdFlags[net-fionread]=1; defaults[net-fionread]="ON" ;;
+  --no-net-fionread|--disable-net-fionread) CMAKE_FLAGS="$CMAKE_FLAGS -DNET_FIONREAD=0"; cmdFlags[net-fionread]=0; defaults[net-fionread]="ON" ;;
+  --net-fionread=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNET_FIONREAD=`echo $OPT | sed 's,^--net-fionread=,,'`"; cmdFlags[net-fionread]=`echo $OPT | sed 's,^--net-fionread=,,'`; defaults[net-fionread]="ON" ;;
+  --enable-compile-resources|--compile-resources) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_COMPILE_RESOURCES=1"; cmdFlags[compile-resources]=1; defaults[compile-resources]="OFF" ;;
+  --no-compile-resources|--disable-compile-resources) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_COMPILE_RESOURCES=0"; cmdFlags[compile-resources]=0; defaults[compile-resources]="OFF" ;;
+  --compile-resources=*) CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_COMPILE_RESOURCES=`echo $OPT | sed 's,^--compile-resources=,,'`"; cmdFlags[compile-resources]=`echo $OPT | sed 's,^--compile-resources=,,'`; defaults[compile-resources]="OFF" ;;
+  --enable-nrd-test-instrumentation|--nrd-test-instrumentation) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_TEST_INSTRUMENTATION=1"; cmdFlags[nrd-test-instrumentation]=1; defaults[nrd-test-instrumentation]="OFF" ;;
+  --no-nrd-test-instrumentation|--disable-nrd-test-instrumentation) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_TEST_INSTRUMENTATION=0"; cmdFlags[nrd-test-instrumentation]=0; defaults[nrd-test-instrumentation]="OFF" ;;
+  --nrd-test-instrumentation=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_TEST_INSTRUMENTATION=`echo $OPT | sed 's,^--nrd-test-instrumentation=,,'`"; cmdFlags[nrd-test-instrumentation]=`echo $OPT | sed 's,^--nrd-test-instrumentation=,,'`; defaults[nrd-test-instrumentation]="OFF" ;;
+  --enable-nrdp-mcsim-dump|--nrdp-mcsim-dump) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_MCSIM_DUMP=1"; cmdFlags[nrdp-mcsim-dump]=1; defaults[nrdp-mcsim-dump]="OFF" ;;
+  --no-nrdp-mcsim-dump|--disable-nrdp-mcsim-dump) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_MCSIM_DUMP=0"; cmdFlags[nrdp-mcsim-dump]=0; defaults[nrdp-mcsim-dump]="OFF" ;;
+  --nrdp-mcsim-dump=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_MCSIM_DUMP=`echo $OPT | sed 's,^--nrdp-mcsim-dump=,,'`"; cmdFlags[nrdp-mcsim-dump]=`echo $OPT | sed 's,^--nrdp-mcsim-dump=,,'`; defaults[nrdp-mcsim-dump]="OFF" ;;
+  --with-system=*|--system=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_NRDSYSTEM=\"${opt}\""; cmdFlags[system]="${opt}";;
+  --enable-gibbon-script-jsc-app|--gibbon-script-jsc-app) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_APP=1"; cmdFlags[gibbon-script-jsc-app]=1; defaults[gibbon-script-jsc-app]="OFF" ;;
+  --no-gibbon-script-jsc-app|--disable-gibbon-script-jsc-app) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_APP=0"; cmdFlags[gibbon-script-jsc-app]=0; defaults[gibbon-script-jsc-app]="OFF" ;;
+  --gibbon-script-jsc-app=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_SCRIPT_JSC_APP=`echo $OPT | sed 's,^--gibbon-script-jsc-app=,,'`"; cmdFlags[gibbon-script-jsc-app]=`echo $OPT | sed 's,^--gibbon-script-jsc-app=,,'`; defaults[gibbon-script-jsc-app]="OFF" ;;
+  --enable-nrd-on-instrumentation|--nrd-on-instrumentation) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_ON_INSTRUMENTATION=1"; cmdFlags[nrd-on-instrumentation]=1; defaults[nrd-on-instrumentation]="ON" ;;
+  --no-nrd-on-instrumentation|--disable-nrd-on-instrumentation) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_ON_INSTRUMENTATION=0"; cmdFlags[nrd-on-instrumentation]=0; defaults[nrd-on-instrumentation]="ON" ;;
+  --nrd-on-instrumentation=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_ON_INSTRUMENTATION=`echo $OPT | sed 's,^--nrd-on-instrumentation=,,'`"; cmdFlags[nrd-on-instrumentation]=`echo $OPT | sed 's,^--nrd-on-instrumentation=,,'`; defaults[nrd-on-instrumentation]="ON" ;;
+  --with-dpi-reference-audio-mixer=*|--dpi-reference-audio-mixer=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DDPI_REFERENCE_AUDIO_MIXER=\"${opt}\""; cmdFlags[dpi-reference-audio-mixer]="${opt}";;
+  --with-symbols-gpg-keyring=*|--symbols-gpg-keyring=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DSYMBOLS_GPG_KEYRING=\"${opt}\""; cmdFlags[symbols-gpg-keyring]="${opt}";;
+  --with-dpi-reference-audio-renderer=*|--dpi-reference-audio-renderer=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DDPI_REFERENCE_AUDIO_RENDERER=\"${opt}\""; cmdFlags[dpi-reference-audio-renderer]="${opt}";;
+  --with-symbols-curl=*|--symbols-curl=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DSYMBOLS_CURL=\"${opt}\""; cmdFlags[symbols-curl]="${opt}";;
+  --enable-use-mvc-split|--use-mvc-split) CMAKE_FLAGS="$CMAKE_FLAGS -DUSE_MVC_SPLIT=1"; cmdFlags[use-mvc-split]=1; defaults[use-mvc-split]="OFF" ;;
+  --no-use-mvc-split|--disable-use-mvc-split) CMAKE_FLAGS="$CMAKE_FLAGS -DUSE_MVC_SPLIT=0"; cmdFlags[use-mvc-split]=0; defaults[use-mvc-split]="OFF" ;;
+  --use-mvc-split=*) CMAKE_FLAGS="$CMAKE_FLAGS -DUSE_MVC_SPLIT=`echo $OPT | sed 's,^--use-mvc-split=,,'`"; cmdFlags[use-mvc-split]=`echo $OPT | sed 's,^--use-mvc-split=,,'`; defaults[use-mvc-split]="OFF" ;;
+  --with-dpidir=*|--dpidir=*) opt=`echo $OPT | sed -e 's,--.*=\(.*\),\1,g'`; CMAKE_FLAGS="$CMAKE_FLAGS -DBUILD_DPI_DIRECTORY=\"${opt}\""; cmdFlags[dpidir]="${opt}";;
+  --enable-ase|--ase) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_ASE=1"; cmdFlags[ase]=1; defaults[ase]="ON" ;;
+  --no-ase|--disable-ase) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_ASE=0"; cmdFlags[ase]=0; defaults[ase]="ON" ;;
+  --ase=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_ASE=`echo $OPT | sed 's,^--ase=,,'`"; cmdFlags[ase]=`echo $OPT | sed 's,^--ase=,,'`; defaults[ase]="ON" ;;
+  --enable-nrdp-samples|--nrdp-samples) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_SAMPLES=1"; cmdFlags[nrdp-samples]=1; defaults[nrdp-samples]="OFF" ;;
+  --no-nrdp-samples|--disable-nrdp-samples) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_SAMPLES=0"; cmdFlags[nrdp-samples]=0; defaults[nrdp-samples]="OFF" ;;
+  --nrdp-samples=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_SAMPLES=`echo $OPT | sed 's,^--nrdp-samples=,,'`"; cmdFlags[nrdp-samples]=`echo $OPT | sed 's,^--nrdp-samples=,,'`; defaults[nrdp-samples]="OFF" ;;
+  --enable-nrd-switched-instrumentation|--nrd-switched-instrumentation) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_SWITCHED_INSTRUMENTATION=1"; cmdFlags[nrd-switched-instrumentation]=1; defaults[nrd-switched-instrumentation]="ON" ;;
+  --no-nrd-switched-instrumentation|--disable-nrd-switched-instrumentation) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_SWITCHED_INSTRUMENTATION=0"; cmdFlags[nrd-switched-instrumentation]=0; defaults[nrd-switched-instrumentation]="ON" ;;
+  --nrd-switched-instrumentation=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_SWITCHED_INSTRUMENTATION=`echo $OPT | sed 's,^--nrd-switched-instrumentation=,,'`"; cmdFlags[nrd-switched-instrumentation]=`echo $OPT | sed 's,^--nrd-switched-instrumentation=,,'`; defaults[nrd-switched-instrumentation]="ON" ;;
+  --enable-partner-integration|--partner-integration) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_PARTNER_INTEGRATION=1"; cmdFlags[partner-integration]=1; defaults[partner-integration]="ON" ;;
+  --no-partner-integration|--disable-partner-integration) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_PARTNER_INTEGRATION=0"; cmdFlags[partner-integration]=0; defaults[partner-integration]="ON" ;;
+  --partner-integration=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_PARTNER_INTEGRATION=`echo $OPT | sed 's,^--partner-integration=,,'`"; cmdFlags[partner-integration]=`echo $OPT | sed 's,^--partner-integration=,,'`; defaults[partner-integration]="ON" ;;
+  --enable-gibbon-benchmarks|--gibbon-benchmarks) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_BENCHMARKS=1"; cmdFlags[gibbon-benchmarks]=1; defaults[gibbon-benchmarks]="ON" ;;
+  --no-gibbon-benchmarks|--disable-gibbon-benchmarks) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_BENCHMARKS=0"; cmdFlags[gibbon-benchmarks]=0; defaults[gibbon-benchmarks]="ON" ;;
+  --gibbon-benchmarks=*) CMAKE_FLAGS="$CMAKE_FLAGS -DGIBBON_BENCHMARKS=`echo $OPT | sed 's,^--gibbon-benchmarks=,,'`"; cmdFlags[gibbon-benchmarks]=`echo $OPT | sed 's,^--gibbon-benchmarks=,,'`; defaults[gibbon-benchmarks]="ON" ;;
+  --enable-nrd-ipv6|--nrd-ipv6) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_IPV6=1"; cmdFlags[nrd-ipv6]=1; defaults[nrd-ipv6]="OFF" ;;
+  --no-nrd-ipv6|--disable-nrd-ipv6) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_IPV6=0"; cmdFlags[nrd-ipv6]=0; defaults[nrd-ipv6]="OFF" ;;
+  --nrd-ipv6=*) CMAKE_FLAGS="$CMAKE_FLAGS -DNRDP_HAS_IPV6=`echo $OPT | sed 's,^--nrd-ipv6=,,'`"; cmdFlags[nrd-ipv6]=`echo $OPT | sed 's,^--nrd-ipv6=,,'`; defaults[nrd-ipv6]="OFF" ;;
+  *) return 1;;
+  esac;return 0;
+}

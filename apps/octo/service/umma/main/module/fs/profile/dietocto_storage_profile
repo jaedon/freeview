@@ -1,0 +1,30 @@
+{
+	"README": {
+		"TYPE": "Select one device among Internal, Detachable, eSATA_HDD, USB_HDD, USB_Flash or MMC",
+		"PVR": "Select one option among Main, Sub, or None",
+		"FS": "Select one file system(for format) among EXT2, EXT3, EXT4, FAT16, FAT32, NTFS, XFS or None"
+	},
+	"DeviceCount": 3,
+	"Profile": {
+		"1": {
+			"TYPE": "Internal",
+			"PVR": "Main",
+			"FS": "EXT3"
+		},
+		"2": {
+			"TYPE": "Detachable",
+			"PVR": "Sub",
+			"FS": "NTFS"
+		},
+		"3": {
+			"TYPE": "USB_HDD",
+			"PVR": "None",
+			"FS": "EXT3"
+		},
+		"4": {
+			"TYPE": "USB_Flash",
+			"PVR": "None",
+			"FS": "FAT32"
+		}
+	}
+}

@@ -1,0 +1,16 @@
+# Verimatrix
+comment "Configuration of Verimatrix. (MW_CAS_VERIMATRIX_XXX)"
+	config MW_CAS_VERIMATRIX_IPTV
+		bool
+		prompt "Support the IPTV"
+		default n
+		depends on MW_CAS_VERIMATRIX
+	config MW_CAS_VERIMATRIX_DVB
+		bool
+		prompt "Support the DVB only"
+		default n
+		depends on MW_CAS_VERIMATRIX
+#	config MW_CAS_VERIMATRIX_SEPARATED_LIB_DIR
+#		string
+#		prompt "Set if the verimatrix library should be in a separated flash partition"
+#		default ""

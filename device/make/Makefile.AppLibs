@@ -1,0 +1,1104 @@
+
+
+# Copyright (C) 2006 HUMAX Co., Ltd. All rights reserved.
+#
+
+# buildroot.uclibc.org
+# version : buildroot-2010.08.tar.bz2
+
+PLATFORM_TARGETS += directfb stagecraft
+BCM_DIR=$(NEXUS_TOP)/..
+
+
+#APPLIBS_DIR=$(PLATFORM_DIR)/AppLibs
+APPLIBS_DIR=$(BCM_DIR)/AppLibs
+
+APPLIBS_CONFIG=APPLIBS_TOP=$(APPLIBS_DIR) \
+	NEXUS_TOP=$(BCM_DIR)/nexus \
+	BSEAV_TOP=$(BCM_DIR)/BSEAV
+
+################################################################
+# PLAYREADY DRM
+playready:
+	$(HUMAX_MAKE) -C $(NEXUS_TOP)/../BSEAV/lib/playready/source -f makefile.cmn $(NEXUS_CONFIG) projects
+
+playready-clean:
+	$(HUMAX_MAKE) -C $(NEXUS_TOP)/../BSEAV/lib/playready/source -f makefile.cmn $(NEXUS_CONFIG) clean
+
+playready-distclean: playready-clean
+
+###############################################################
+# PLAYREADY DRM 2.5
+ifeq ($(CONFIG_PLAYREADY_25), y)
+TARGETS += playready25
+endif
+playready25:
+	@echo "building playready 2.5"
+	$(HUMAX_MAKE) -C $(NEXUS_TOP)/../BSEAV/lib/playready25/source -I$(NEXUS_TOP)/../BSEAV/lib/security/common_crypto/include $(NEXUS_CONFIG) INSTALL_DIR=$(NEXUS_TOP)/../BSEAV/lib/playready25/source/playready all
+playready25-clean:
+	$(HUMAX_MAKE) -C $(NEXUS_TOP)/../BSEAV/lib/playready25/source $(NEXUS_CONFIG) clean
+playready25-distclean:
+	$(HUMAX_MAKE) -C $(NEXUS_TOP)/../BSEAV/lib/playready25/source $(NEXUS_CONFIG) distclean
+
+################################################################
+# MS DRM
+
+ifeq ($(CONFIG_MSDRM),y)
+TARGETS += msdrm
+endif
+
+msdrm:
+	$(HUMAX_MAKE) -C $(NEXUS_TOP)/../BSEAV/lib/drm/mssrc/wmdrmpd10/src -f makefile.cmn $(NEXUS_CONFIG) projects
+
+msdrm-clean:
+	$(HUMAX_MAKE) -C $(NEXUS_TOP)/../BSEAV/lib/drm/mssrc/wmdrmpd10/src -f makefile.cmn clean
+
+msdrm-distclean: msdrm-clean
+
+ifeq ($(CONFIG_DIRECTFB),y)
+DIRECTFB_DIR=$(APPLIBS_DIR)/opensource/directfb
+DIRECTFB_VER=$(shell ls $(DIRECTFB_DIR)/src/broadcom_files/public/DirectFB/)
+ifeq ($(DIRECTFB_VER),1.4.15)
+DIRECTFB_BUILD_DIR=$(DIRECTFB_DIR)/build/$(DIRECTFB_VER)
+else
+ifeq ($(DIRECTF_VER),1.4.17)
+DIRECTFB_BUILD_DIR=$(DIRECTFB_DIR)/build
+else
+DIRECTFB_VER=$(shell grep -m1 "^DIRECTFB_VERSION" $(DIRECTFB_DIR)/build/directfb_common.inc | cut -d '=' -f2 | cut -d ' ' -f2)
+DIRECTFB_BUILD_DIR=$(DIRECTFB_DIR)/build
+endif
+endif
+
+ifeq ($(CONFIG_PRODUCT_DEVICE_DEBUG_LOG),y)
+DIRECTFB_BIN_DIR=$(DIRECTFB_DIR)/bin/DirectFB-$(DIRECTFB_VER)_multi_debug_build.$(CONFIG_PLATFORM)$(CONFIG_CHIP_REV)
+DIRECTFB_DEBUG=y
+DIRECTFB_COMPILE_MODE=debug
+else
+DIRECTFB_BIN_DIR=$(DIRECTFB_DIR)/bin/DirectFB-$(DIRECTFB_VER)_multi_release_build.$(CONFIG_PLATFORM)$(CONFIG_CHIP_REV)
+DIRECTFB_DEBUG=n
+DIRECTFB_COMPILE_MODE=release
+endif
+DIRECTFB_PREFIX=/usr
+DIRECTFB_PC_DIR=$(HUMAX_NFS_INSTALL_DIR)/$(DIRECTFB_PREFIX)/lib/pkgconfig
+DIRECTFB_TARGET_DIR_CHIP_REV=`echo $(CONFIG_CHIP_REV) | tr '[:upper:]' '[:lower:]'`
+DIRECTFB_ARCH=$(B_REFSW_ARCH)
+
+DIRECTFB_TARGET_DIR=$(APPLIBS_DIR)/target/$(CONFIG_PLATFORM)$(DIRECTFB_TARGET_DIR_CHIP_REV).$(DIRECTFB_ARCH).$(DIRECTFB_COMPILE_MODE)
+KERNEL_VERSION=$(shell echo $(KERNELRELEASE) | sed -e 's/\-svn[0-9]*//' | sed -e 's/\+//')
+ifeq ($(DIRECTFB_VER),1.4.15)
+DIRECTFB_FUSION_INC=$(DIRECTFB_DIR)/build/$(DIRECTFB_VER)/$(CONFIG_PLATFORM)_linuxuser/fusion_$(DIRECTFB_ARCH)_linux-$(KERNEL_VERSION)/include
+else
+DIRECTFB_FUSION_INC=$(DIRECTFB_DIR)/build/$(DIRECTFB_VER)/$(CONFIG_PLATFORM)_linuxuser/include
+endif
+
+DIRECTFB_CONFIG=DIRECTFB_IR_INPUT=y \
+	DIRECTFB_IR_PROTOCOL=CirNec \
+	DIRECTFB_IR_KEYCODES=remotea	
+
+ifeq ($(CONFIG_DIRECTFB_INPUT),y)
+DIRECTFB_INPUT_DEF=linuxinput
+ifeq ($(CONFIG_DIRECTFB_INPUT_KEYBOARD),y)
+DIRECTFB_INPUT_KEYBOARD=,keyboard
+endif
+ifeq ($(CONFIG_DIRECTFB_INPUT_MOUSE),y)
+DIRECTFB_INPUT_MOUSE=,ps2mouse
+endif
+DIRECTFB_CONFIG += DIRECTFB_INPUTDRIVERS=$(DIRECTFB_INPUT_DEF)$(DIRECTFB_INPUT_KEYBOARD)$(DIRECTFB_INPUT_MOUSE)
+endif
+
+ifeq ($(CONFIG_DIRECTFB_4K_DISPLAY),y)
+DIRECTFB_CONFIG += DIRECTFB_4K_DISPLAY_SUPPORT=y
+endif
+
+ifeq ($(CONFIG_NETFLIX_SUPPORT),y)
+DIRECTFB_CONFIG += DIRECTFB_NETFLIX_SUPPORT=y
+endif
+
+ifeq ($(CONFIG_BCM_GRAPHICS3D),y)
+DIRECTFB_CONFIG += ROCKFORD_TOP=$(BCM_DIR)/rockford
+endif
+
+ifeq ($(DIRECTFB_VER),1.4.15)
+DIRECTFB_CONFIG+=FUSION_VERSION='8.9.0'
+endif
+NEXUS_CONFIGS=$(subst PLATFORM=$(PLATFORM),,$(subst NEXUS_PLATFORM=$(PLATFORM),,$(NEXUS_CONFIG)))
+NEXUS_CONFIGS+=NEXUS_PLATFORM=$(PLATFORM)
+ifeq ($(DIRECTFB_VER),1.4.15)
+NEXUS_CONFIGS+=B_REFSW_CROSS_COMPILE=$(HUMAX_CROSS)
+endif
+NEXUS_CONFIGS+=APPLIBS_INSTALL_PREFIX=/usr
+
+CONFIG_CHIP_NUM=$(shell echo $(CONFIG_PLATFORM) | sed 's/.\(.*\)/\1/')
+else
+
+ifeq ($(CONFIG_PRODUCT_DEVICE_DEBUG_LOG),y)
+DIRECTFB_COMPILE_MODE=debug
+else
+DIRECTFB_COMPILE_MODE=release
+endif
+DIRECTFB_ARCH=$(B_REFSW_ARCH)
+DIRECTFB_TARGET_DIR_CHIP_REV=`echo $(CONFIG_CHIP_REV) | tr '[:upper:]' '[:lower:]'`
+DIRECTFB_TARGET_DIR=$(APPLIBS_DIR)/target/$(CONFIG_PLATFORM)$(DIRECTFB_TARGET_DIR_CHIP_REV).$(DIRECTFB_ARCH).$(DIRECTFB_COMPILE_MODE)
+
+endif
+
+ifneq ($(CONFIG_PRODUCT_IMAGE_FACTORY),)
+else
+ifeq ($(CONFIG_DIRECTFB),y)
+TARGETS += dfb
+endif
+endif
+
+#	TARGET_DIR=$(HUMAX_NFS_INSTALL_DIR) //install
+#
+
+#export DIRECTFB_BUILD_DIR APPLIBS_CONFIG DIRECTFB_CONFIG
+
+dfb: 
+	@find $(DIRECTFB_DIR) -name ".configured" -exec touch {} \;
+	$(MAKE) -C $(DIRECTFB_BUILD_DIR) $(NEXUS_CONFIGS) $(APPLIBS_CONFIG) $(DIRECTFB_CONFIG) "HUMAX_CONFIG_DIR=$(HUMAX_PLATFORM_CONFIG_DIR)" MULTI_BUILD=y MAKE_OPTIONS=-j8 DEBUG=$(DIRECTFB_DEBUG) BUILD_SAWMAN=y DIRECTFB_MULTI=y DIRECTFB_GFX_PACKET_BUFFER=y DIRECTFB_VERSION="$(DIRECTFB_VER)" DIRECTFB_SW_DITHERING=n BUILD_PPDFB=y BUILD_TESTS=y DIRECTFB_KEY_INPUT=y DIRECTFB_SET_HDMI_COLORSPACE=$(CONFIG_HDMI_OUT_20) install
+	@cp -dpR $(DIRECTFB_TARGET_DIR)/usr/lib/* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@cp -rdn $(DIRECTFB_TARGET_DIR)/usr/etc $(HUMAX_PREPARE_ROOT_DIR)/usr/
+	@rm -rf $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/modules
+	@rm -f $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/libnexus.ko
+	@cp -dpR $(DIRECTFB_TARGET_DIR)/usr/lib/modules/fusion.ko $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/$(KERNELRELEASE)/bcm$(CONFIG_CHIP_NUM)/
+	perl $(HUMAX_TOOL_DIR)/depmod/depmod.pl -b $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/$(KERNELRELEASE) -k $(KERNEL_DIR)/vmlinux
+	@-find $(HUMAX_PREPARE_ROOT_DIR) -type d \( -name CVS -o -name .svn \) | xargs rm -rf
+
+	@if [ ! -d $(HUMAX_WORK_DIR)/include/directfb ]; then \
+		echo "Create directfb symbolic link" ; \
+		ln -s $(DIRECTFB_BIN_DIR)/usr/include/directfb $(HUMAX_WORK_DIR)/include/directfb ;\
+	fi;
+	
+	@if [ ! -d $(HUMAX_WORK_DIR)/include/sawman ]; then \
+		echo "Create sawman symbolic link" ; \
+		ln -s $(DIRECTFB_BIN_DIR)/usr/include/sawman $(HUMAX_WORK_DIR)/include/sawman ; \
+	fi;
+
+	@if [ ! -d $(HUMAX_WORK_DIR)/include/fusion ]; then \
+		echo "Create fusion symbolic link" ; \
+		ln -s $(DIRECTFB_FUSION_INC) $(HUMAX_WORK_DIR)/include/fusion ; \
+	fi;
+
+dfb-install:
+	@cp -dpR $(DIRECTFB_TARGET_DIR)/usr/lib/* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@cp -rdpR $(DIRECTFB_TARGET_DIR)/usr/etc $(HUMAX_PREPARE_ROOT_DIR)/usr/etc
+	@rm -rf $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/modules
+	@rm -f $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/libnexus.ko
+	@cp -dpR $(DIRECTFB_TARGET_DIR)/usr/lib/modules/fusion.ko $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/$(KERNELRELEASE)/bcm$(CONFIG_CHIP_NUM)/
+	perl $(HUMAX_TOOL_DIR)/depmod/depmod.pl -b $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/$(KERNELRELEASE) -k $(KERNEL_DIR)/vmlinux
+	@-find $(HUMAX_PREPARE_ROOT_DIR) -type d \( -name CVS -o -name .svn \) | xargs rm -rf
+
+dfb-clean:
+	$(MAKE) -C $(DIRECTFB_BUILD_DIR) $(NEXUS_CONFIGS) $(APPLIBS_CONFIG) $(DIRECTFB_CONFIG) MULTI_BUILD=y MAKE_OPTIONS=-j8 DEBUG=y BUILD_SAWMAN=y DIRECTFB_MULTI=y DIRECTFB_GFX_PACKET_BUFFER=y DIRECTFB_VERSION="$(DIRECTFB_VER)" DIRECTFB_SW_DITHERING=n BUILD_PPDFB=y BUILD_TESTS=y clean
+
+dfb-distclean:
+	$(MAKE) -C $(DIRECTFB_BUILD_DIR) $(NEXUS_CONFIGS) $(APPLIBS_CONFIG) $(DIRECTFB_CONFIG) MULTI_BUILD=y MAKE_OPTIONS=-j8 DEBUG=y BUILD_SAWMAN=y DIRECTFB_MULTI=y DIRECTFB_GFX_PACKET_BUFFER=y DIRECTFB_VERSION="$(DIRECTFB_VER)" DIRECTFB_SW_DITHERING=n BUILD_PPDFB=y BUILD_TESTS=y distclean
+	@-$(HUMAX_RM) $(DIRECTFB_BIN_DIR)
+
+	@if [ -L $(HUMAX_WORK_DIR)/include/directfb ]; then \
+		echo "Remove directfb symbolic link" ; \
+		rm $(HUMAX_WORK_DIR)/include/directfb ;\
+	fi;
+	
+	@if [ -L $(HUMAX_WORK_DIR)/include/sawman ]; then \
+		echo "Remove sawman symbolic link" ; \
+		rm $(HUMAX_WORK_DIR)/include/sawman ; \
+	fi;
+
+	@if [ -L $(HUMAX_WORK_DIR)/include/fusion ]; then \
+		echo "Remove fusion symbolic link" ; \
+		rm $(HUMAX_WORK_DIR)/include/fusion ; \
+	fi;
+
+directfb-build:
+	$(MAKE) -C $(DIRECTFB_BUILD_DIR) $(NEXUS_CONFIGS) $(APPLIBS_CONFIG) $(DIRECTFB_CONFIG) DIRECTFB_VER=$(DIRECTFB_VER) directfb-humax
+	@cp -dpR $(DIRECTFB_BIN_DIR)/* $(HUMAX_NFS_INSTALL_DIR)
+	@-find $(HUMAX_NFS_INSTALL_DIR)/$(DIRECTFB_PREFIX) -type d \( -name CVS -o -name .svn \) | xargs rm -rf
+
+directfb-copyinclude:
+	@mkdir -p $(HUMAX_NFS_INSTALL_DIR)/usr/local/include/freetype2
+	@cp -dpR $(APPLIBS_DIR)/opensource/freetype/freetype-2.3.7/include/* $(HUMAX_NFS_INSTALL_DIR)/usr/local/include/freetype2
+	@cp -dpR $(APPLIBS_DIR)/opensource/jpeg/jpeg-6b/*.h $(HUMAX_NFS_INSTALL_DIR)/usr/local/include
+	@cp -dpR $(APPLIBS_DIR)/opensource/libpng/libpng-1.2.29/png.h $(HUMAX_NFS_INSTALL_DIR)/usr/local/include
+	@cp -dpR $(APPLIBS_DIR)/opensource/libpng/libpng-1.2.29/pngconf.h $(HUMAX_NFS_INSTALL_DIR)/usr/local/include
+	@cp -dpR $(APPLIBS_DIR)/opensource/zlib/zlib-1.2.3/zlib.h $(HUMAX_NFS_INSTALL_DIR)/usr/local/include
+	@cp -dpR $(APPLIBS_DIR)/opensource/zlib/zlib-1.2.3/zconf.h $(HUMAX_NFS_INSTALL_DIR)/usr/local/include
+
+%.pc:
+	@sed -i -e '/Cflags:/s;$(DIRECTFB_BIN_DIR)/$(DIRECTFB_PREFIX);\$${prefix};g;\
+		 /Libs/s;$(DIRECTFB_BIN_DIR)/$(DIRECTFB_PREFIX)/lib;\$${libdir};g' $(DIRECTFB_PC_DIR)/$@
+
+directfb: directfb-build directfb-copyinclude directfb-internal.pc directfb.pc direct.pc fusion.pc sawman.pc
+	@echo "DirectFB"
+
+directfb-clean:
+	$(MAKE) -C $(APPLIBS_BUILD_DIR) $(NEXUS_CONFIGS) $(APPLIBS_CONFIG) $(DIRECTFB_CONFIG) DIRECTFB_VER=$(DIRECTFB_VER) directfb-humax-clean
+#	$(MAKE) -C $(APPLIBS_BUILD_DIR) $(NEXUS_CONFIGS) $(APPLIBS_CONFIG) clean
+	@echo "DirectFB Clean"
+
+directfb-distclean:
+	@echo "DirectFB Distclean"
+
+.PHONY: directfb directfb-clean directfb-distclean
+
+################################################################
+
+STAGECRAFT_VER=2.x
+STAGECRAFT_GCC_VER=4.4.5
+STAGECRAFT_DIR=$(APPLIBS_DIR)/thirdparty/adobe/stagecraft/$(STAGECRAFT_VER)
+STAGECRAFT_BUILD_DIR=$(STAGECRAFT_DIR)/build
+
+STAGECRAFT_TARGET_LIB_DIR=$(HUMAX_NFS_INSTALL_DIR)/opt/stagecraft-2.0/bin
+STAGECRAFT_TARGET_BIN_DIR=$(HUMAX_NFS_INSTALL_DIR)/opt/stagecraft-2.0/bin
+STAGECRAFT_TARGET_RESOURCE_DIR=$(HUMAX_NFS_INSTALL_DIR)/opt/adobe/stagecraft/fonts
+
+STAGECRAFT_CONFIG=RAP_AACSBR_SUPPORT=y \
+	SC_BUILD_MODE=debug \
+	SC_DFB_BUILD_MODE=debug \
+	SC_DFB_BUILD_VER=$(DIRECTFB_VER) \
+	SC_PLATFORM=directfb \
+	SC_GRAPHICS=directfb
+#	SC_GRAPHICS_STUB=y
+
+stagecraft:
+	@mkdir -p $(STAGECRAFT_TARGET_LIB_DIR)
+	@mkdir -p $(STAGECRAFT_TARGET_BIN_DIR)
+	@mkdir -p $(STAGECRAFT_TARGET_RESOURCE_DIR)
+	$(MAKE) -C $(APPLIBS_BUILD_DIR) $(NEXUS_CONFIG) $(APPLIBS_CONFIG) $(STAGECRAFT_CONFIG) STAGECRAFT_VER=$(STAGECRAFT_VER) stagecraft-humax
+	@echo "StageCraft"
+	@cp $(STAGECRAFT_DIR)/bin/$(STAGECRAFT_GCC_VER)/lib*.so $(STAGECRAFT_TARGET_LIB_DIR)
+#	@cp $(STAGECRAFT_DIR)/bin/$(STAGECRAFT_GCC_VER)/dfb_* $(STAGECRAFT_TARGET_BIN_DIR)	
+	@cp $(STAGECRAFT_DIR)/bin/$(STAGECRAFT_GCC_VER)/dfb_stagecraft $(STAGECRAFT_TARGET_BIN_DIR)/stagecraft	
+	@cp $(STAGECRAFT_DIR)/bin/$(STAGECRAFT_GCC_VER)_canvas/* $(STAGECRAFT_TARGET_BIN_DIR)
+	@cp $(STAGECRAFT_DIR)/bin/$(STAGECRAFT_GCC_VER)_resource/* $(STAGECRAFT_TARGET_RESOURCE_DIR)
+
+stagecraft-clean:
+	$(MAKE) -C $(APPLIBS_BUILD_DIR) $(NEXUS_CONFIG) $(APPLIBS_CONFIG) STAGECRAFT_VER=$(STAGECRAFT_VER) stagecraft-humax-clean
+#	$(MAKE) -C $(APPLIBS_BUILD_DIR) $(NEXUS_CONFIG) $(APPLIBS_CONFIG) clean
+	@echo "StageCraft Clean"
+
+stagecraft-distclean:
+	@echo "StageCraft Distclean"
+
+.PHONY: stagecraft stagecraft-clean stagecraft-distclean
+
+################################################################
+# MEM Test
+ifeq ($(CONFIG_PRODUCT_IMAGE_HWTEST),y)
+ifeq ($(CONFIG_MEMTEST),y)
+TARGETS += mem
+endif
+endif
+
+MEM_CONFIG ?= HUMAX_PREPARE_ROOT_DIR=$(HUMAX_PREPARE_ROOT_DIR)
+
+mem:
+	$(HUMAX_MAKE) -C $(APPLIBS_DIR)/opensource/memtester/src $(NEXUS_CONFIG) $(APPLIBS_CONFIG) $(MEM_CONFIG) NEXUS_VERSION=$(NEXUS_VERSION) all
+	-@cp -f $(APPLIBS_DIR)/opensource/memtester/src/memtester  $(HUMAX_PREPARE_ROOT_DIR)/usr/bin
+	-@cp -f $(APPLIBS_DIR)/opensource/memtester/bin/single_allCached_MIPS  $(HUMAX_PREPARE_ROOT_DIR)/usr/bin
+	-@cp -f $(APPLIBS_DIR)/opensource/memtester/bin/dual_allCached_MIPS  $(HUMAX_PREPARE_ROOT_DIR)/usr/bin
+
+mem-clean: 
+	$(HUMAX_MAKE) -C $(APPLIBS_DIR)/opensource/memtester/src $(NEXUS_CONFIG) $(APPLIBS_CONFIG) $(MEM_CONFIG) NEXUS_VERSION=$(NEXUS_VERSION) clean
+
+mem-distclean: mem-clean
+
+################################################################
+# CRC Test
+ifeq ($(CONFIG_PRODUCT_IMAGE_HWTEST),y)
+ifeq ($(CONFIG_CRCTEST),y)
+TARGETS += crc
+endif
+endif
+
+CRC_CONFIG ?= HUMAX_PREPARE_ROOT_DIR=$(HUMAX_PREPARE_ROOT_DIR)
+
+crc: crc_prepare
+	$(HUMAX_MAKE) -C $(APPLIBS_DIR)/broadcom/diagnostic/crc $(NEXUS_CONFIG) $(APPLIBS_CONFIG) $(CRC_CONFIG) NEXUS_VERSION=$(NEXUS_VERSION) all
+	-@cp -f $(NEXUS_TOP)/bin/crc* $(HUMAX_PREPARE_ROOT_DIR)/usr/bin
+	-@cp -f $(NEXUS_TOP)/bin/libb_dtcp_ip.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	-@cp -f $(NEXUS_TOP)/bin/libcrc-nexus.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	-@cp -f $(NEXUS_TOP)/bin/libb_playback_ip.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	-@cp -f $(NEXUS_TOP)/bin/libb_os.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	-@cp -f $(BCM_DIR)/BSEAV/lib/security/bcrypt/lib/libbcrypt.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	-@chmod 775  $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/crc*
+	-@chmod 775  $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/libb_dtcp_ip.so
+	-@chmod 775  $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/libcrc-nexus.so
+	-@chmod 775  $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/libb_playback_ip.so	
+	-@chmod 775  $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/libb_os.so
+	-@chmod 775  $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/libbcrypt.so
+
+crc-clean: crc_prepare_clean
+	$(HUMAX_MAKE) -C $(APPLIBS_DIR)/broadcom/diagnostic/crc $(NEXUS_CONFIG) $(APPLIBS_CONFIG) $(CRC_CONFIG) clean
+
+crc-distclean: crc-clean
+
+crc_prepare:
+	-@cp -rf $(HUMAX_PACKAGE_MAKE_DIR)/openssl/include/openssl $(NEXUS_TOP)/lib/playback_ip/include
+	-@cp -rf $(HUMAX_PACKAGE_MAKE_DIR)/openssl/include/openssl $(NEXUS_TOP)/lib/dtcp_ip/include
+	-@cp -f $(HUMAX_PACKAGE_MAKE_DIR)/openssl/lib/libcrypto.so $(NEXUS_TOP)/bin
+	-@cp -f $(HUMAX_PACKAGE_MAKE_DIR)/openssl/lib/libssl.so $(NEXUS_TOP)/bin
+	-@cp -f $(HUMAX_PREPARE_ROOT_DIR)/lib/libdl.so.0 $(NEXUS_TOP)/bin		
+
+crc_prepare_clean:
+	-@rm -rf $(NEXUS_TOP)/lib/playback_ip/include/openssl
+	-@rm -rf $(NEXUS_TOP)/lib/dtcp_ip/include/openssl
+	-@rm -f $(NEXUS_TOP)/bin/crc*
+	-@rm -f $(NEXUS_TOP)/bin/libcrypto.so
+	-@rm -f $(NEXUS_TOP)/bin/libssl.so
+	-@rm -f $(NEXUS_TOP)/bin/libdl.so.0
+	-@rm -f $(NEXUS_TOP)/bin/libb_playback_ip*
+	-@rm -f $(NEXUS_TOP)/bin/libb_dtcp_ip*
+	-@rm -f $(NEXUS_TOP)/bin/libb_os*
+
+#################### OpenGL #####################
+###############################################
+ifeq ($(CONFIG_BCM_GRAPHICS3D),y)
+ifeq ($(CONFIG_DIRECTFB),y)
+TARGETS += opengl-dfb 
+else
+TARGETS += opengl-nxpl
+endif
+endif
+
+OPENGL_CONFIG=DIRECTFB_INSTALL_LIB_DIR=$(DIRECTFB_BIN_DIR)/usr/lib \
+				DIRECTFB_INSTALL_INCLUDE_DIR=$(DIRECTFB_BIN_DIR)/usr/include \
+				PLATFORM=$(PLATFORM) \
+				BCHP_VER=$(BCHP_VER) \
+				B_REFSW_DEBUG=$(CONFIG_PRODUCT_IMAGE_DEBUG) \
+				HUMAX_PLATFORM_BASE=y \
+				NEXUS_PLATFORM=$(PLATFORM)	\
+				V3D_DEBUG=$(CONFIG_PRODUCT_IMAGE_DEBUG) \
+				B_REFSW_ARCH=$(B_REFSW_ARCH)
+
+ifeq ($(CONFIG_DEVICE_MODE_USER),y)
+OPENGL_CONFIG+=NEXUS_MODE=client
+endif
+
+V3D_DIR = $(NEXUS_TOP)/../rockford/middleware/v3d
+V3D_PLATFORM_DIR = $(NEXUS_TOP)/../rockford/middleware/platform
+
+check_opengl_dep:
+ifneq ($(CONFIG_DIRECTFB),y)
+	@echo "need feature : CONFIG_DIRECTFB=y"
+	@/bin/false
+endif
+ifneq ($(CONFIG_BCM_GRAPHICS3D),y)
+	@echo "need feature : CONFIG_BCM_GRAPHICS3D=y"
+	@/bin/false
+endif
+
+ifeq ($(shell expr $(NEXUS_TREE) ">=" TREE_1502),1)
+APPLIBS_TARGET_ROOTDIR=$(DIRECTFB_TARGET_DIR)
+APPLIBS_TARGET_LIB_DIR=$(APPLIBS_TARGET_ROOTDIR)/usr/lib
+DIRECTFB_TARGET_BIN_DFB_VER_DIR=usr/bin/directfb/1.7
+
+IS_VC5 := $(shell test -e $(NEXUS_TOP)/../magnum/basemodules/chp/include/$(BCHP_CHIP)/rdb/$(BCHP_VER_LOWER)/bchp_v3d_tfu.h && echo y)
+ifeq ($(IS_VC5),y)
+V3D_PREFIX ?= vc5
+else
+V3D_PREFIX ?= v3d
+endif
+
+V3D_DIR = $(NEXUS_TOP)/../rockford/middleware/$(V3D_PREFIX)/driver
+V3D_PLATFORM_DIR = $(NEXUS_TOP)/../rockford/middleware/$(V3D_PREFIX)/platform
+
+OPENGL_CONFIG+=APPLIBS_TARGET_LIB_DIR=$(APPLIBS_TARGET_LIB_DIR) \
+				DIRECTFB_TARGET_BIN_DFB_VER_DIR=$(DIRECTFB_TARGET_BIN_DFB_VER_DIR) \
+				APPLIBS_TARGET_ROOTDIR=$(APPLIBS_TARGET_ROOTDIR) \
+				V3D_DIR=$(V3D_DIR) \
+				V3D_PLATFORM_DIR=$(V3D_PLATFORM_DIR)
+endif
+
+##################### OpenGL-DFB #####################
+opengl-dfb: check_opengl_dep
+ifeq ($(shell expr $(NEXUS_TREE) ">=" TREE_1502),1)
+	@$(HUMAX_MAKE) -C $(V3D_DIR) -f V3DDriver.mk $(OPENGL_CONFIG) OBJDIR=$(V3D_DIR) LIBDIR=$(APPLIBS_TARGET_LIB_DIR)
+	@$(HUMAX_MAKE) -C $(V3D_PLATFORM_DIR)/directfb -f platform_directfb.mk $(OPENGL_CONFIG) OBJDIR=$(V3D_PLATFORM_DIR) LIBDIR=$(APPLIBS_TARGET_LIB_DIR)
+	@cp -f $(APPLIBS_TARGET_LIB_DIR)/*.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+else
+	@$(HUMAX_MAKE) -C $(V3D_DIR) -f V3DDriver.mk $(OPENGL_CONFIG)
+	@$(HUMAX_MAKE) -C $(V3D_PLATFORM_DIR)/directfb -f platform_directfb.mk $(OPENGL_CONFIG)
+	@cp -f $(NEXUS_TOP)/bin/libv3ddriver.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+ifeq 	($(CONFIG_PRODUCT_IMAGE_DEBUG),y)
+	@cp -f $(V3D_PLATFORM_DIR)/directfb/lib_$(PLATFORM)_debug/libdbpl.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+else	
+	@cp -f $(V3D_PLATFORM_DIR)/directfb/lib_$(PLATFORM)_release/libdbpl.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+endif
+endif
+	@if [ ! -d $(HUMAX_WORK_DIR)/include/opengl ]; then \
+		echo "Create opengl symbolic link" ; \
+		ln -s $(V3D_DIR)/interface/khronos/include $(HUMAX_WORK_DIR)/include/opengl ;\
+	fi;
+	@if [ ! -d $(HUMAX_WORK_DIR)/include/directfb ]; then \
+		echo "Create directfb include path" ; \
+		mkdir -p $(HUMAX_WORK_DIR)/include/directfb ;\
+	fi;
+	@$(HUMAX_CP) $(V3D_PLATFORM_DIR)/directfb/default_directfb.h $(HUMAX_WORK_DIR)/include/directfb/
+	
+opengl-dfb-distclean:
+ifeq ($(shell expr $(NEXUS_TREE) ">=" TREE_1502),1)
+	@$(HUMAX_MAKE) -C $(V3D_DIR) -f V3DDriver.mk $(OPENGL_CONFIG) OBJDIR=$(V3D_DIR) LIBDIR=$(APPLIBS_TARGET_LIB_DIR) clean
+	@$(HUMAX_MAKE) -C $(V3D_PLATFORM_DIR)/directfb -f platform_directfb.mk $(OPENGL_CONFIG) OBJDIR=$(V3D_PLATFORM_DIR) LIBDIR=$(APPLIBS_TARGET_LIB_DIR) clean
+else
+	@$(HUMAX_MAKE) -C $(V3D_DIR) -f V3DDriver.mk $(OPENGL_CONFIG) clean
+	@$(HUMAX_MAKE) -C $(V3D_PLATFORM_DIR)/directfb -f platform_directfb.mk $(OPENGL_CONFIG) clean
+endif	
+	@if [ -L $(HUMAX_WORK_DIR)/include/opengl ]; then \
+		echo "Remove opengl symbolic link" ; \
+		rm $(HUMAX_WORK_DIR)/include/opengl ; \
+	fi;
+	-rm $(HUMAX_WORK_DIR)/include/directfb/default_directfb.h
+
+opengl-dfb-clean: opengl-dfb-distclean
+
+##################### OpenGL-NXPL #####################	
+opengl-nxpl:
+ifeq ($(shell expr $(NEXUS_TREE) ">=" TREE_1502),1)
+	@$(HUMAX_MAKE) -C $(V3D_DIR) -f V3DDriver.mk $(OPENGL_CONFIG) OBJDIR=$(V3D_DIR) LIBDIR=$(APPLIBS_TARGET_LIB_DIR)
+	@$(HUMAX_MAKE) -C $(V3D_PLATFORM_DIR)/nexus -f platform_nexus.mk $(OPENGL_CONFIG) OBJDIR=$(V3D_PLATFORM_DIR) LIBDIR=$(APPLIBS_TARGET_LIB_DIR)
+	@cp -f $(APPLIBS_TARGET_LIB_DIR)/*.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+else
+	@$(HUMAX_MAKE) -C $(V3D_DIR) -f V3DDriver.mk $(OPENGL_CONFIG)
+	@$(HUMAX_MAKE) -C $(V3D_PLATFORM_DIR)/nexus -f platform_nexus.mk $(OPENGL_CONFIG)
+	@cp -f $(NEXUS_TOP)/bin/libv3ddriver.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+endif	
+ifeq 	($(CONFIG_PRODUCT_IMAGE_DEBUG),y)
+	@cp -f $(V3D_PLATFORM_DIR)/nexus/lib_$(PLATFORM)_debug/libnxpl.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+else	
+	@cp -f $(V3D_PLATFORM_DIR)/nexus/lib_$(PLATFORM)_release/libnxpl.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+endif
+	@if [ ! -d $(HUMAX_WORK_DIR)/include/opengl ]; then \
+		echo "Create opengl symbolic link" ; \
+		ln -s $(BCM_DIR)/rockford/middleware/v3d/interface/khronos/include $(HUMAX_WORK_DIR)/include/opengl ;\
+	fi;
+	
+opengl-nxpl-distclean:
+ifeq ($(shell expr $(NEXUS_TREE) ">=" TREE_1502),1)
+	@$(HUMAX_MAKE) -C $(V3D_DIR) -f V3DDriver.mk $(OPENGL_CONFIG) OBJDIR=$(V3D_DIR) LIBDIR=$(APPLIBS_TARGET_LIB_DIR) clean
+	@$(HUMAX_MAKE) -C $(V3D_PLATFORM_DIR)/nexus -f platform_nexus.mk $(OPENGL_CONFIG) OBJDIR=$(V3D_PLATFORM_DIR) LIBDIR=$(APPLIBS_TARGET_LIB_DIR) clean
+else
+	@$(HUMAX_MAKE) -C $(V3D_DIR) -f V3DDriver.mk $(OPENGL_CONFIG) clean
+	@$(HUMAX_MAKE) -C $(V3D_PLATFORM_DIR)/nexus -f platform_nexus.mk $(OPENGL_CONFIG) clean
+endif	
+	@if [ -L $(HUMAX_WORK_DIR)/include/opengl ]; then \
+		echo "Remove opengl symbolic link" ; \
+		rm $(HUMAX_WORK_DIR)/include/opengl ; \
+	fi;
+
+opengl-nxpl-clean: opengl-nxpl-distclean
+
+#################### Cube App ####################
+cube-dfb:
+	@$(HUMAX_MAKE) -C $(NEXUS_TOP)/../rockford/applications/khronos/v3d/directfb/cube $(OPENGL_CONFIG) cube
+ifeq ($(shell expr $(NEXUS_TREE) ">=" TREE_1502),1)
+	@cp -af $(APPLIBS_TARGET_ROOTDIR)/$(DIRECTFB_TARGET_BIN_DFB_VER_DIR)/cube  $(HUMAX_PREPARE_ROOT_DIR)/usr/bin
+	@cp -af $(APPLIBS_TARGET_ROOTDIR)/$(DIRECTFB_TARGET_BIN_DFB_VER_DIR)/cube  $(HUMAX_NFS_INSTALL_DIR)/usr/bin
+else
+	@cp -af $(NEXUS_TOP)/../rockford/applications/khronos/v3d/directfb/cube/cube  $(HUMAX_PREPARE_ROOT_DIR)/usr/bin
+	@cp -af $(NEXUS_TOP)/../rockford/applications/khronos/v3d/directfb/cube/cube  $(HUMAX_NFS_INSTALL_DIR)/usr/bin
+endif
+
+cube-dfb-distclean:
+	@$(HUMAX_MAKE) -C $(NEXUS_TOP)/../rockford/applications/khronos/v3d/directfb/cube $(OPENGL_CONFIG) cube-clean
+
+cube-dfb-clean: cube-dfb-distclean
+
+#################### Earth_es2 App ####################
+earth-dfb:
+	@$(HUMAX_MAKE) -C $(NEXUS_TOP)/../rockford/applications/khronos/v3d/directfb/earth_es2 $(OPENGL_CONFIG) earth_es2
+	@cp -af $(NEXUS_TOP)/../rockford/applications/khronos/v3d/directfb/earth_es2/earth_es2  $(HUMAX_PREPARE_ROOT_DIR)/usr/bin
+	@cp -af $(NEXUS_TOP)/../rockford/applications/khronos/v3d/directfb/earth_es2/earth_es2  $(HUMAX_NFS_INSTALL_DIR)/usr/bin
+	@if [ ! -d $(HUMAX_PREPARE_ROOT_DIR)/share/opengl ]; then \
+		mkdir $(HUMAX_PREPARE_ROOT_DIR)/share/opengl; \
+	fi
+	@if [ ! -d $(HUMAX_PREPARE_ROOT_DIR)/share/opengl/earth_es2 ]; then \
+		mkdir $(HUMAX_PREPARE_ROOT_DIR)/share/opengl/earth_es2; \
+	fi
+	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/share/opengl ]; then \
+		mkdir $(HUMAX_NFS_INSTALL_DIR)/share/opengl; \
+	fi
+	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/share/opengl/earth_es2 ]; then \
+		mkdir $(HUMAX_NFS_INSTALL_DIR)/share/opengl/earth_es2; \
+	fi
+	@cp -rf $(NEXUS_TOP)/../rockford/applications/khronos/v3d/nexus/earth_es2/textures $(HUMAX_PREPARE_ROOT_DIR)/share/opengl/earth_es2
+	@cp -rf $(NEXUS_TOP)/../rockford/applications/khronos/v3d/nexus/earth_es2/textures $(HUMAX_NFS_INSTALL_DIR)/share/opengl/earth_es2
+	@ln -sf ../../share/opengl/earth_es2/textures $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/textures
+	@ln -sf ../../share/opengl/earth_es2/textures $(HUMAX_NFS_INSTALL_DIR)/usr/bin/textures
+	
+earth-dfb-distclean:
+	@$(HUMAX_MAKE) -C $(NEXUS_TOP)/../rockford/applications/khronos/v3d/directfb/earth_es2 $(OPENGL_CONFIG) earth_es2-clean
+
+earth-dfb-clean: cube-dfb-distclean
+
+################################################################
+# NetApp 
+#########
+#### 
+## Target
+##
+ifeq ($(CONFIG_NETAPP),y)
+TARGETS += netapp
+endif
+
+#### 
+## Build Param
+##
+ifeq ($(CONFIG_NETAPP),y)
+NETAPP_TOP := $(HUMAX_WORK_DIR)/platform/sdk/AppLibs/broadcom/netapp
+NETAPP_INST_MODULES_DIR:=/lib/modules/$(KERNELRELEASE)/kernel/drivers
+NETAPP_INC := $(wildcard ${NETAPP_TOP}/build/common.inc)
+ifneq (${NETAPP_INC},)
+NETAPP_TARGET_DIR:=/usr
+include ${NETAPP_TOP}/build/common.inc
+NETAPP_TARGET_FW_DIR:=/lib/firmware/brcm
+endif
+export NETAPP_OUTPUT_DIR
+NETAPP_BUILD_PARAMS := \
+		LINUX=$(KERNEL_DIR) \
+		NEXUS_TOP=$(NEXUS_TOP) \
+		CC=$(HUMAX_CROSS)gcc \
+		CXX=$(HUMAX_CROSS)c++ \
+		LD=$(HUMAX_CROSS)ld \
+		STRIP=$(HUMAX_CROSS)strip \
+		CROSS_COMPILE=$(HUMAX_CROSS) \
+		NETAPP_TARGET_DIR=${NETAPP_TARGET_DIR} \
+		NETAPP_TARGET_FW_DIR=${NETAPP_TARGET_FW_DIR} \
+		NETAPP_INST_MODULES_DIR=${NETAPP_INST_MODULES_DIR} \
+		NETAPP_ZEROCONF=n \
+		NETAPP_IEEE1905=n \
+		NETAPP_IPERF=n \
+		NETAPP_NFC=n \
+		NETAPP_NEXUS=n \
+		NETAPP_GPIO=n \
+		MULTI_BUILD=y \
+		VERBOSE=y \
+		HUMAX_PLATFORM_BASE=y \
+		CONFIG_PRODUCT_NAME=$(CONFIG_PRODUCT_NAME) \
+		CONFIG_BCM43567=$(CONFIG_BCM43567) \
+
+NETAPP_BUILD_PARAMS += CROSS_HOST=$(B_REFSW_ARCH)
+
+ifeq ($(CONFIG_NETAPP_BRIDGING),)
+NETAPP_BUILD_PARAMS += NETAPP_BRIDGING=n
+endif
+
+ifeq ($(CONFIG_NETAPP_VOICE_RECOGNITION),) #flac GPL2.0, json-c
+NETAPP_BUILD_PARAMS += NETAPP_VOICE_RECOGNITION=n
+endif
+
+ifeq ($(CONFIG_NETAPP_HOTPLUG),) #udev GPL2.0, libudev is LGPL2.1.
+NETAPP_BUILD_PARAMS += NETAPP_HOTPLUG=n
+endif
+
+ifeq ($(CONFIG_NETAPP_DATABASE),) #json-c, sqlite3
+NETAPP_BUILD_PARAMS += NETAPP_DATABASE=n
+endif
+
+ifeq ($(CONFIG_NETAPP_SSDP),) #libcurl
+NETAPP_BUILD_PARAMS += NETAPP_SSDP=n
+endif
+
+ifeq ($(CONFIG_NETAPP_DHCP),) #dhcp server
+NETAPP_BUILD_PARAMS += NETAPP_DHCP=n
+endif
+
+ifeq ($(CONFIG_NETAPP_DHCPC),) #dhcp client
+NETAPP_BUILD_PARAMS += NETAPP_DHCPC=n
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI),)
+NETAPP_BUILD_PARAMS += NETAPP_WIFI=n
+else
+NETAPP_BUILD_PARAMS += NETAPP_WIFI=y
+# This is only needed when using Aardvark driver
+# NETAPP_BUILD_PARAMS += NETAPP_WIFI_NVRAM_FILE= #TODO
+ifeq ($(CONFIG_NETAPP_WIFI_FALCON),y)
+NETAPP_BUILD_PARAMS += NETAPP_WIFI_DRIVER=falcon
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_AARDVARK),y)
+NETAPP_BUILD_PARAMS += NETAPP_WIFI_DRIVER=aardvark
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_BISON),y)
+NETAPP_BUILD_PARAMS += NETAPP_WIFI_DRIVER=bison
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_DHD),y)
+NETAPP_BUILD_PARAMS += NETAPP_WIFI_DRIVER=dhd
+endif
+
+ifneq ($(CONFIG_NETAPP_WIFI_CHIP),)
+NETAPP_BUILD_PARAMS += NETAPP_WIFI_CHIP=$(CONFIG_NETAPP_WIFI_CHIP)
+# Falcon -  43236b 43238b
+# Aardvark - 4360nic, 43143b0, 43236b, 43238b, 43526b, 43242a1, 4360b
+# Bison - 43569a0, 43570a0, 43569a2, 43570a2, 43602a1
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_P2P),)
+NETAPP_BUILD_PARAMS += NETAPP_WIFI_P2P=n
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_WPS),)
+NETAPP_BUILD_PARAMS += NETAPP_WIFI_WPS=n
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_TEST),)
+NETAPP_BUILD_PARAMS += NETAPP_WIFI_TEST=n
+endif
+endif #End of $(CONFIG_NETAPP_WIFI)
+
+ifeq ($(CONFIG_NETAPP_BLUETOOTH),)
+NETAPP_BUILD_PARAMS += NETAPP_BLUETOOTH=n
+else
+NETAPP_BUILD_PARAMS += NETAPP_BLUETOOTH=y
+
+#TODO
+#ifneq ($(CONFIG_NETAPP_BTPKG_VERSION),)
+#NETAPP_BUILD_PARAMS += BT_PKG_VERSION=$(CONFIG_NETAPP_BTPKG_VERSION)
+#endif
+ifneq ($(CONFIG_NETAPP_BTDEV_PATH),)
+NETAPP_BUILD_PARAMS += NETAPP_BTDEV_PATH=$(CONFIG_NETAPP_BTDEV_PATH)
+endif
+
+endif #End of $(CONFIG_NETAPP_BLUETOOTH)
+
+ifeq ($(CONFIG_NETAPP_MIRACAST),)
+NETAPP_BUILD_PARAMS += NETAPP_MIRACAST=n
+endif
+ifeq ($(CONFIG_NETAPP_DISABLED_WIRED_SUPPORT),y)
+NETAPP_BUILD_PARAMS += NETAPP_DISABLED_WIRED_SUPPROT=y
+endif
+endif #End of $(CONFIG_NETAPP)
+
+#### 
+## Make
+##
+ifeq ($(CONFIG_NETAPP),y)
+netapp-build :
+	@$(HUMAX_RM) -f $(NETAPP_TOP)/*.tgz
+	@$(MAKE) -C $(NETAPP_TOP)/build $(NETAPP_BUILD_PARAMS)
+
+netapp-install :
+	@echo "************* Netapp lib installing ***************"
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/libnetapp.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/
+ifeq ($(CONFIG_NETAPP_HOTPLUG),y)
+	@echo "************* Netapp hotplug lib installing ***************"
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/libudev.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/
+endif
+
+ifeq ($(CONFIG_NETAPP_DATABASE),y)
+	@echo "************* Netapp DB lib installing ***************"
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/libsqlite3.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/libjson.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/
+ifeq ($(CONFIG_PRODUCT_IMAGE_HWTEST),y)
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/bin/sqlite3 $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/
+endif
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI),y)
+	@echo "************* WiFi .ko installing(TODO:Modify location to install) ***************"
+	@if ! [ -d $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/wifi ] ; then \
+		mkdir -p $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/wifi; \
+	fi
+#TODO
+ifeq ($(CONFIG_NETAPP_WIFI_FALCON),y)
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/modules/dhd.ko $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/wifi/
+#	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/modules/dhd_mfg.ko $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/wifi/
+endif
+#TODO
+ifeq ($(CONFIG_NETAPP_WIFI_AARDVARK),y)
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "4360nic")
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/modules/wl_pcie.ko $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/wifi/	
+else
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/modules/bcm_dbus.ko $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/wifi/
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/modules/wl.ko $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/wifi/
+endif
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_BISON),y)
+
+#TODO
+
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_DHD),y)
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "43602a1")
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/modules/dhd_pcie.ko $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/wifi/	
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "43570a2")
+	@if ! [ -d $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/modules ] ; then \
+		mkdir -p $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/modules; \
+	fi
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/modules/dhd_pcie.ko $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/modules/
+endif
+endif
+
+	perl $(HUMAX_TOOL_DIR)/depmod/depmod.pl -b $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/$(KERNELRELEASE) -k $(KERNEL_DIR)/vmlinux
+#	@if ! [ -d $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/drivers/brcm ] ; then \
+#		mkdir -p $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/drivers/brcm; \
+#	fi
+
+#ifeq ($(CONFIG_NETAPP_WIFI_FALCON),y)
+#	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/modules/dhd.ko $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/drivers/brcm/
+#	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/modules/dhd_mfg.ko $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/drivers/brcm/
+#endif
+#ifeq ($(CONFIG_NETAPP_WIFI_AARDVARK),y)
+#ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "4360nic")
+#	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/modules/wl_pcie.ko $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/drivers/brcm/
+#else
+#	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/modules/bcm_dbus.ko $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/drivers/brcm/
+#	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/modules/wl.ko $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/drivers/brcm/
+#endif
+#endif
+	@echo "************* WiFi lib/bin installing ***************"
+ifneq ($(CONFIG_NETAPP_WIFI_CHIP), "4360nic")
+	@$(HUMAX_CP) -f $(NETAPP_OUTPUT_DIR)/lib/libusb.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/
+	@$(HUMAX_CP) -f $(NETAPP_OUTPUT_DIR)/bin/bcmdl $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/
+endif
+	@$(HUMAX_CP) -f $(NETAPP_OUTPUT_DIR)/lib/libbwl.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/
+	@$(HUMAX_CP) -f $(NETAPP_OUTPUT_DIR)/bin/wl $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/
+ifeq ($(CONFIG_PRODUCT_IMAGE_HWTEST),y)
+	@$(HUMAX_CP) -f $(NETAPP_OUTPUT_DIR)/bin/libusb-config $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "43570a2")
+	@$(HUMAX_CP) -f $(NETAPP_OUTPUT_DIR)/bin/dhd $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/
+endif
+
+	@if ! [ -d $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm ] ; then \
+		mkdir -p $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm; \
+	fi
+	@echo "************* WiFi nvm/firmware installing ***************"
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "43242a1")
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/firmware/brcm/bcm43242-firmware.bin $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/firmware/brcm/bcm43242.nvm $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "43236b")
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/firmware/brcm/bcm43236-firmware.bin $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/firmware/brcm/bcm43236.nvm $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "4360nic")
+	#@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/firmware/brcm/bcm4360-firmware.bin $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/firmware/brcm/bcm4360.nvm $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "43602a1")
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/firmware/brcm/bcm43602-firmware.bin $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/firmware/brcm/bcm43602-mfg_firmware.bin $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/firmware/brcm/*.nvm $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "43570a2")
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/firmware/brcm/bcm43570-firmware.bin $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/firmware/brcm/bcm43570.nvm $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_P2P),y)
+	@echo "************* WiFi P2P lib/bin installing ***************"
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/libbcmp2p*.a $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/
+endif
+ifeq ($(CONFIG_NETAPP_WIFI_WPS),y)
+	@echo "************* WiFi WPS lib/bin installing ***************"
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/libwps*.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/
+endif
+endif
+
+ifeq ($(CONFIG_NETAPP_BLUETOOTH),y)
+	@echo "************* Bluetooth  btusb/bthid.ko installing(TODO:Modify location to install) ***************"
+	@if ! [ -d $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/bluetooth ] ; then \
+		mkdir -p $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/bluetooth; \
+	fi
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/modules/btusb.ko $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/bluetooth/
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/modules/bthid.ko $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/bluetooth/
+#	@if ! [ -d $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/drivers/brcm ] ; then \
+#		mkdir -p $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/drivers/brcm; \
+#	fi
+#	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/modules/btusb.ko $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/drivers/brcm/
+#	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/modules/bthid.ko $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/drivers/brcm/
+# For Dependecny
+	perl $(HUMAX_TOOL_DIR)/depmod/depmod.pl -b $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/$(KERNELRELEASE) -k $(KERNEL_DIR)/vmlinux
+
+	@echo "************* Bluetooth lib/bin installing ***************"
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/libbsa.so $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/bin/bsa_server $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/bin/btdl $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/
+ifneq ($(CONFIG_NETAPP_VERSION), "8.3.6")
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/bin/txpower.txt $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/
+endif
+ifeq ($(CONFIG_PRODUCT_IMAGE_HWTEST),y)
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/bin/app_* $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/bin/simple_app $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/
+endif
+
+	@echo "************* Depending on modules, Bluetooth PatchRam installing ***************"
+ifeq ($(CONFIG_SWB_B70_BT), y)
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/firmware/brcm/BCM20702A1_001.002.014.0472.0485_detuned_cl1.hcd $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/BCM20702.hcd
+endif
+ifeq ($(CONFIG_HWM_BCM43242U_BTU), y)
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/firmware/brcm/BCM43242A1_001.002.007.0073.0106.hcd $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/BCM43242.hcd
+endif
+
+endif
+ifeq ($(CONFIG_NETAPP_VOICE_RECOGNITION),y)
+	@echo "************* Voice Regonition lib/bin installing ***************"
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/lib/libFLAC.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/
+ifeq ($(CONFIG_PRODUCT_IMAGE_HWTEST),y)
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/bin/flac $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/
+	@$(HUMAX_CP) -dpR $(NETAPP_OUTPUT_DIR)/bin/metaflac $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/
+endif
+endif
+
+netapp : netapp-build netapp-install
+netapp-uninstall :
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libnetapp.so 
+ifeq ($(CONFIG_NETAPP_HOTPLUG),y)
+	@echo "************* Netapp hotplug lib uninstalling ***************"
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libudev.so* 
+endif
+
+ifeq ($(CONFIG_NETAPP_DATABASE),y)
+	@echo "************* Netapp DB lib/bin uninstalling ***************"
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libsqlite3.so* 
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libjson.so* 
+ifeq ($(CONFIG_PRODUCT_IMAGE_HWTEST),y)
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/bin/sqlite3
+endif
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI),y)
+	@echo "************* WiFi .ko uninstalling(TODO:Modify location to install) ***************"
+ifeq ($(CONFIG_NETAPP_WIFI_FALCON),y)
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)${NETAPP_INST_MODULES_DIR}/wifi/dhd.ko
+#	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)${NETAPP_INST_MODULES_DIR}/wifi/dhd_mfg.ko
+endif
+ifeq ($(CONFIG_NETAPP_WIFI_AARDVARK),y)
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "4360nic")
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)${NETAPP_INST_MODULES_DIR}/wifi/wl_pcie.ko 
+else
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)${NETAPP_INST_MODULES_DIR}/wifi/bcm_dbus.ko
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)${NETAPP_INST_MODULES_DIR}/wifi/wl.ko 
+endif
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_BISON),y)
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)${NETAPP_INST_MODULES_DIR}/wifi/dhd.ko
+endif
+
+#	@$(HUMAX_RM) -rf $(HUMAX_NFS_INSTALL_DIR)/lib/modules/drivers/brcm
+
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "43570a2")
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/lib/modules/dhd_pcie.ko
+endif
+
+	@echo "************* WiFi lib/bin uninstalling ***************"
+ifneq ($(CONFIG_NETAPP_WIFI_CHIP), "4360nic")
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libusb*.so* 
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/bin/bcmdl
+endif
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libbwl.so
+ifeq ($(CONFIG_PRODUCT_IMAGE_HWTEST),y)
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/bin/wl
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/bin/libusb-config 
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "43570a2")
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/bin/dhd
+endif
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "43242a1")
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/lib/firmware/brcm/bcm43242-firmware.bin
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/lib/firmware/brcm/bcm43242.nvm
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "43236b")
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/lib/firmware/brcm/bcm43236-firmware.bin
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/lib/firmware/brcm/bcm43236.nvm
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "4360nic")
+	#@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/lib/firmware/brcm/bcm4360-firmware.bin
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/lib/firmware/brcm/bcm4360.nvm
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "43570a2")
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/firmware/brcm/bcm43570-firmware.bin
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/firmware/brcm/bcm43570.nvm
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_P2P),y)
+	@echo "************* WiFi P2P lib/bin uninstalling ***************"
+	@$(HUMAX_RM) -f  $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libbcmp2p*.a
+endif
+ifeq ($(CONFIG_NETAPP_WIFI_WPS),y)
+	@echo "************* WiFi WPS lib/bin uninstalling ***************"
+	@$(HUMAX_RM) -f  $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libwps*.so
+endif
+endif
+
+ifeq ($(CONFIG_NETAPP_BLUETOOTH),y)
+	@echo "************* Bluetooth  btusb/bthid.ko uninstalling(TODO:Modify location to install) ***************"
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)${NETAPP_INST_MODULES_DIR}/bluetooth/btusb.ko
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)${NETAPP_INST_MODULES_DIR}/bluetooth/bthid.ko
+#	@$(HUMAX_RM) -rf $(HUMAX_NFS_INSTALL_DIR)/lib/modules/drivers/brcm
+	@echo "************* Bluetooth lib/bin uninstalling ***************"
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libbsa.so
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/bin/bsa_server
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/bin/btdl
+ifneq ($(CONFIG_NETAPP_VERSION), "8.3.6")
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/bin/txpower.txt
+endif
+ifeq ($(CONFIG_PRODUCT_IMAGE_HWTEST),y)
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/bin/app_*
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/bin/simple_app
+endif
+
+	@echo "************* Bluetooth PatchRam uninstalling ***************"
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/lib/firmware/brcm/*.hcd
+
+endif
+
+ifeq ($(CONFIG_NETAPP_VOICE_RECOGNITION),y)
+	@echo "************* Bluetooth Voice Regonition lib/bin uninstalling ***************"
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libFLAC.so*
+ifeq ($(CONFIG_PRODUCT_IMAGE_HWTEST),y)
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/bin/flac
+	@$(HUMAX_RM) -f $(HUMAX_NFS_INSTALL_DIR)/usr/bin/metaflac
+endif
+endif
+
+
+netapp-remove :
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/libnetapp.so 
+ifeq ($(CONFIG_NETAPP_HOTPLUG),y)
+	@echo "************* Netapp hotplug lib removing ***************"
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/libudev.so* 
+endif
+
+ifeq ($(CONFIG_NETAPP_DATABASE),y)
+	@echo "************* Netapp DB lib/bin removing ***************"
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/libsqlite3.so* 
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/libjson.so* 
+ifeq ($(CONFIG_PRODUCT_IMAGE_HWTEST),y)
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/sqlite3
+endif
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI),y)
+	@echo "************* WiFi .ko removing(TODO:Modify location to install) ***************"
+ifeq ($(CONFIG_NETAPP_WIFI_FALCON),y)
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/wifi/dhd.ko
+#	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/wifi/dhd_mfg.ko
+endif
+ifeq ($(CONFIG_NETAPP_WIFI_AARDVARK),y)
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "4360nic")
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/wifi/wl_pcie.ko 
+else
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/wifi/bcm_dbus.ko
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/wifi/wl.ko 
+endif
+endif
+ifeq ($(CONFIG_NETAPP_WIFI_BISON),y)
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/wifi/dhd.ko
+endif
+#	@$(HUMAX_RM) -rf $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/drivers/brcm
+
+ifeq ($(CONFIG_NETAPP_WIFI_DHD),y)
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "43570a2")
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/modules/dhd_pcie.ko
+endif
+endif
+
+	@echo "************* WiFi lib/bin removing ***************"
+ifneq ($(CONFIG_NETAPP_WIFI_CHIP), "4360nic")
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/libusb*.so* 
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/bcmdl
+endif
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/libbwl.so
+ifeq ($(CONFIG_PRODUCT_IMAGE_HWTEST),y)
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/wl
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/libusb-config 
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "43570a2")
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/dhd
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "43242a1")
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/bcm43242-firmware.bin
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/bcm43242.nvm
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "43236b")
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/bcm43236-firmware.bin
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/bcm43236.nvm
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "4360nic")
+	#@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/bcm4360-firmware.bin
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/bcm4360.nvm
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_CHIP), "43570a2")
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/firmware/brcm/bcm43570-firmware.bin
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/firmware/brcm/bcm43570.nvm
+endif
+
+ifeq ($(CONFIG_NETAPP_WIFI_P2P),y)
+	@echo "************* WiFi P2P lib/bin removing ***************"
+	@$(HUMAX_RM) -f  $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/libbcmp2p*.a
+endif
+ifeq ($(CONFIG_NETAPP_WIFI_WPS),y)
+	@echo "************* WiFi WPS lib/bin removing ***************"
+	@$(HUMAX_RM) -f  $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/libwps*.so
+endif
+endif
+
+ifeq ($(CONFIG_NETAPP_BLUETOOTH),y)
+	@echo "************* Bluetooth  btusb/bthid.ko removing(TODO:Modify location to install) ***************"
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/bluetooth/btusb.ko
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)${NETAPP_INST_MODULES_DIR}/bluetooth/bthid.ko
+#	@$(HUMAX_RM) -rf $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/drivers/brcm
+	@echo "************* Bluetooth lib/bin removing ***************"
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/libbsa.so
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/bsa_server
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/btdl
+ifneq ($(CONFIG_NETAPP_VERSION), "8.3.6")
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/txpower.txt
+endif
+ifeq ($(CONFIG_PRODUCT_IMAGE_HWTEST),y)
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/app_*
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/simple_app
+endif
+	@echo "************* Bluetooth PatchRam uninstalling ***************"
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/lib/firmware/brcm/*.hcd
+endif
+
+ifeq ($(CONFIG_NETAPP_VOICE_RECOGNITION),y)
+	@echo "************* Bluetooth Voice Regonition lib/bin removing ***************"
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/libFLAC.so*
+ifeq ($(CONFIG_PRODUCT_IMAGE_HWTEST),y)
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/flac
+	@$(HUMAX_RM) -f $(HUMAX_PREPARE_ROOT_DIR)/usr/bin/metaflac
+endif
+endif
+
+
+netapp-clean : netapp-uninstall netapp-remove
+	@$(MAKE) -C $(NETAPP_TOP)/build $(NETAPP_BUILD_PARAMS) clean
+	
+netapp-distclean : netapp-uninstall netapp-remove
+	@$(MAKE) -C $(NETAPP_TOP)/build $(NETAPP_BUILD_PARAMS) distclean
+	@$(HUMAX_RM) -f $(NETAPP_TOP)/*.tgz
+
+.PHONY: netapp-build netapp-install netapp netapp-uninstall netapp-remove netapp-clean netapp-distclean
+endif
+
+################################################################
+# End of NetApp 
+#########
+

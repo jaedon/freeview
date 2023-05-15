@@ -1,0 +1,20 @@
+{
+	"type" : "stream_event",
+	"info" : {
+		"handle" : 0,
+		"event" : "stream_desc_evt",
+		"param" : [
+			{
+				"carousel_id" : 0,
+				"pid" : 0,
+				"url" : "",
+				"description" : "",
+				"event_name" : "",
+				"obj_info_length" : 0,
+				"obj_info" : "",
+				"event_id" : 0,
+				"association_tag" : 0			
+			}
+		]
+	}
+}

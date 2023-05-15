@@ -1,0 +1,62 @@
+# This file lists the test areas for the PlayReady Device Porting Kit.
+# The items are folder name and test app name.
+# Items are separated by spaces. Comment lines and empty lines are ignored.
+
+# Very Slow running areas first
+drmmanager DrmManagerTest.exe
+Test_Suite_NDT Test_Suite_NDT.exe
+
+# Slow running areas next
+LiveTV LiveTVTest.exe
+ConsoleNDT ConsoleNDT.exe
+LicEval TestLicEval.exe
+DeviceStore DeviceStoreTest.exe
+hds HDSTest.exe
+LicAcqV3 TestLicAcqV3.exe
+DomainAPI DomainTest.exe
+tooltests ToolTest.exe
+
+# Fast running areas next
+synclist testsynclist_ansi.exe
+Metering MeteringTest.exe
+Performance PerformanceTest.exe
+ViewRights RefViewRightsTest_ansi.exe
+ExprEval RefTestExprEval_ansi.exe
+licparser RefLicParserTest_ansi.exe
+Secstore testsecstore_ansi.exe
+coreembedding CoreEmbedding.exe
+MeterCertStore MeterCertStoreTest.exe
+blackbox BlackBoxTest.exe
+XMLSig XMLSigTest_ansi.exe
+ConsoleNDR ConsoleNDR.exe
+revocation RevocationTest.exe
+DomainStore DomainStoreTest.exe
+SecureClock RefSecureClockTest_ansi.exe
+devicedevcert DeviceDevcertTest.exe
+
+# Very Fast running areas last
+DataStore DataStoreTest.exe
+PolicyState PolicyStateTest.exe
+xmr XmrTest.exe
+certs BCertTest.exe
+Meta MetaTest.exe
+KeyFile KeyFileTest.exe
+Crypto CryptoTest.exe
+DevcertParser DCParserTest.exe
+header HeaderTest.exe
+InitParser InitParserTest.exe
+licstore testlicstore_ansi.exe
+UTF UTFTest.exe
+Utils UtilTest.exe
+XMLBuilder testxmlbuilder_ansi.exe
+XMLBuilderA TestXMLBuilderA_ansi.exe
+XMLParser testxmlparser_ansi.exe
+OEM OEMTest.exe
+cmdlnpars reftestcmdlnparser_ansi.exe
+noncestore NonceStoreTest.exe
+
+# The following test areas are not currently built into a separate exe
+DrmManagerCE DrmManagerCE.exe
+WM7Signoff WM7Signoff.exe
+WM7SecureChamber WM7SecureChamber.exe
+

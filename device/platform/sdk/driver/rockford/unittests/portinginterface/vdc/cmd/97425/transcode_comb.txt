@@ -1,0 +1,33 @@
+custom c3 ovc 3 5 0 0 cf 2 bg ff 14 93 
+x1 m2 os 0 0 msf 22 mdf 22 ow pb de /data/videos/cnnticker.mpg 21 21 0 1 
+dnr 30 2 80 2 90 2 70
+mad 1 1 1 0 0 1 18 
+c2 oc 2 6 0 1 cf 2 x1 ch 1 och 0 0 dmn 1 m1 os msf 22 mdf 22 ow set_bw 1000000 2 
+de /data/videos/italyriviera-spiderman2_cc_short.mpg 11 11 0 1 
+dnr 30 2 80 2 90 2 70
+mad 1 1 1 0 0 1 18 
+inite 
+sae 0 0 oe 
+sae 0 0 oech 0 
+fe 
+sleep
+sae 0 0 enc 106 5 2000000 0 2 31 1 30 0 0 0 0 0
+bvncb 
+c3 cf 1 break 3 
+c3 cf 2 break 3 
+c3 cf 1 break 3 
+c2 cf 1 break 3
+c2 cf 2 break 3 
+c2 cf 1 break 3 
+break 30 
+bvncb 
+sae 0 0 se 0 sleep
+xenc 0 sleep 
+cech 1 sleep
+fe sleep 
+sae 0 0 cech 
+sae 0 0 ce sleep
+inite
+sleep pb 
+c2 cw 
+c3 cw cs cd q

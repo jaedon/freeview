@@ -1,0 +1,138 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Output/Video">   
+    <interface name="Octopus.Appkit.Output.Video">
+
+    <method name="SupportComposite">
+    	<arg type="b" name="support" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SupportTvScart">
+    	<arg type="b" name="support" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SupportVcrScart">
+    	<arg type="b" name="support" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetSupportTvScartFormat">
+    	<arg type="u" name="scartFormat" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetSupportVcrScartFormat">
+    	<arg type="u" name="scartFormat" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetTvScartFormat">
+    	<arg type="u" name="scartFormat" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetTvScartFormat">
+    	<arg type="u" name="scartFormat" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+    
+    <method name="SetVcrScartFormat">
+    	<arg type="u" name="scartFormat" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetVcrScartFormat">
+    	<arg type="u" name="scartFormat" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>           
+    
+    <method name="SetScartPath">
+    	<arg type="u" name="scartPath" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetScartPath">
+    	<arg type="u" name="scartPath" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>           
+        
+    <method name="SetResolutionSelect">
+    	<arg type="u" name="resolutionSelect" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetResolutionSelect">
+    	<arg type="u" name="resolutionSelect" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>        
+
+    <method name="GetResolutionStatus">
+    	<arg type="u" name="resolutionStatus" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+        
+    <method name="SetTvAspectRatio">
+    	<arg type="u" name="tvAspectRatio" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetTvAspectRatio">
+    	<arg type="u" name="tvAspectRatio" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="GetPictureRate">
+    	<arg type="u" name="pictureRate" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+    <method name="SetDfcSelect">
+    	<arg type="u" name="dfcSelect" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+        
+    <method name="GetDfcSelect">
+    	<arg type="u" name="dfcSelect" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="GetDfcStatus">
+    	<arg type="u" name="dfcStatus" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="SetBackGroundColor">
+    	<arg type="y" name="red" direction="in" />
+    	<arg type="y" name="green" direction="in" />
+    	<arg type="y" name="blue" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+        
+    <method name="GetBackGroundColor">
+    	<arg type="(yyy)" name="info" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+
+    <method name="SetAvEnable">
+    	<arg type="b" name="enable" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+        
+    <method name="GetAvEnable">
+    	<arg type="b" name="enable" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetCompositeStandard">
+    	<arg type="u" name="compositeStandard" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                                
+
+    <signal name="event">
+    </signal>
+
+
+  </interface>
+</node>

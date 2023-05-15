@@ -1,0 +1,13 @@
+menu "Kernel configuration options"
+
+config KERNEL_INITRAMFS
+	bool
+	prompt "Initramfs"
+	default y if INITRAMFS_LINUX
+
+config KERNEL_DEVTMPFS
+	bool
+	prompt "Select y if you use devfstmp on kernel"
+	default n
+	
+endmenu

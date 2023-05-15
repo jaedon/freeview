@@ -1,0 +1,19 @@
+DRM_SUPPORT_XMLHASH=0
+!include ..\..\reftest.cmn
+
+TARGETNAME=BCertTest
+TARGETTYPE=PROGRAM
+UMTYPE=console
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS)   \
+    $(_DRM_TC_LIBS)        \
+    $(_DRM_TEST_BCERT_LIB) \
+    $(_DRM_TOOLSCOMMON_LIB)
+
+INCLUDES = \
+    $(INCLUDES);                 \
+    $(_DRM_SOURCE_PATH)\certs;   \
+
+SOURCES =                        \
+    ..\main.c

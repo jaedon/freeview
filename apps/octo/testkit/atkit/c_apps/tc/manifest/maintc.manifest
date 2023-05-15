@@ -1,0 +1,80 @@
+{
+	"RUN_ALL": false,
+
+	"RUN_CATEGORY":[
+		"sample"
+		],
+
+	"RUN_TC":[
+
+		],
+
+	"TC_LIST": 
+		[
+		{
+			"tc_name": "TC_SAMPLE_CalcPlus",
+			"category": ["sample"],
+			"argument": {
+				"number1": 9,
+				"number2": 824
+			},
+			"expect_result": {
+				"result": 833
+			}
+		},
+		{
+			"tc_name": "TC_SAMPLE_CalcMinus",
+			"category": ["sample"],
+			"argument": {
+				"number1": 9,
+				"number2": 824
+			},
+			"expect_result": {
+				"result": -815
+			}
+		},
+		{
+			"tc_name": "TC_SAMPLE_CalcMultiply",
+			"category": ["sample"],
+			"argument": {
+				"number1": 8,
+				"number2": 4
+			},
+			"expect_result": {
+				"result": 31 
+			}
+		},
+		{
+			"tc_name": "TC_SAMPLE_CalcDivide",
+			"category": ["sample"],
+			"argument": {
+				"number1": 8,
+				"number2": 4
+			},
+			"expect_result": {
+				"result": 2 
+			}
+		},
+		{
+			"tc_name": "TC_SAMPLE_DummyTest",
+			"category": ["sample"]
+		},
+		{
+			"tc_name": "TC_SAMPLE_GetMagicString",
+			"category": ["sample"],
+			"expect_result": {
+				"magic_string" : "Linear SVC"
+			}
+		},
+		{
+			"tc_name": "TC_OUTPUT_AUDIO_VolumeTest",
+			"category": ["output", "audio"],
+			"argument": {
+				"initial_volume": 0,
+				"volume_gab": 5,
+				"interval_ms": 200
+			}
+		}
+	]
+}
+

@@ -1,0 +1,320 @@
+.player.disabled .btn {
+  background-color: rgba(255, 255, 255, 0.05);
+  opacity: 0.08;
+}
+.player .btn {
+  background-repeat: no-repeat;
+  background-position: 50% 16px;
+  line-height: 50px;
+  padding: 25px 50px;
+  background-color: rgba(255, 255, 255, 0.15);
+  white-space: nowrap;
+}
+.player .btn.stop,
+.player .btn.sub {
+  background-image: none;
+  padding: 0px 83px;
+}
+.player .btn.stop.disabled,
+.player .btn.sub.disabled {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #525252;
+}
+.player .btn.-afd-leaf {
+  background-color: #2EB2FF;
+  color: #000000;
+}
+.player .btn.play {
+  background-image: url(../images/102_BTN_Play_N.png);
+}
+.player .btn.play.-afd-leaf {
+  background-image: url(../images/102_BTN_Play_C.png);
+}
+.player .btn.pause {
+  background-image: url(../images/102_BTN_Pause_N.png);
+}
+.player .btn.pause.-afd-leaf {
+  background-image: url(../images/102_BTN_Pause_C.png);
+}
+.player.live .btn.stop,
+.player.live .btn.sub {
+  background: rgba(255, 255, 255, 0.3);
+  color: #D2D2D2;
+  opacity: .3;
+}
+.player.live .btn.stop.disabled,
+.player.live .btn.sub.disabled {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #525252;
+}
+.player.live .playbar.-afd-leaf .current .pointer {
+  background: url(../images/340_PB_Player_Current_Pointer01_C.png) 0px 100% no-repeat;
+}
+.player.live .playbar .current .pointer {
+  background: url(../images/340_PB_Player_Current_Pointer01_N.png) 0px 100% no-repeat;
+}
+.player .prev {
+  background-image: url(../images/102_BTN_Previous_N.png);
+}
+.player .prev.-afd-leaf {
+  background-image: url(../images/102_BTN_Previous_C.png);
+}
+.player .next {
+  background-image: url(../images/102_BTN_Next_N.png);
+}
+.player .next.-afd-leaf {
+  background-image: url(../images/102_BTN_Next_C.png);
+}
+.player .fr {
+  background-image: url(../images/102_BTN_FR_N.png);
+}
+.player .fr.-afd-leaf {
+  background-image: url(../images/102_BTN_FR_C.png);
+}
+.player .ff {
+  background-image: url(../images/102_BTN_FF_N.png);
+}
+.player .ff .-afd-leaf {
+  background-image: url(../images/102_BTN_FF_C.png);
+}
+.player .title {
+  color: #FFFFFF;
+  font-size: 40px;
+  margin: auto;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+  text-overflow: ellipsis;
+  top: -65px;
+  white-space: nowrap;
+  width: 600px;
+  font-family: "PrismFontB";
+  opacity: 1;
+  -webkit-transform: translate(0, 0px);
+  -webkit-transition: all 320ms cubic-bezier(0.675, 0.29, 0, 0.91);
+  -o-transform: translate(0, 0px);
+  -o-transition: all 320ms cubic-bezier(0.675, 0.29, 0, 0.91);
+}
+.player .restrictInfo {
+  position: absolute;
+  font-family: "PrismFontL";
+  color: #f8ff44;
+  font-size: 22px;
+  left: -350px;
+  width: 1000px;
+  text-align: center;
+  white-space: nowrap;
+  bottom: 50px;
+}
+.player .formatInfo {
+  position: absolute;
+  font-family: "PrismFontL";
+  color: #999999;
+  font-size: 22px;
+  top: -13px;
+  margin: 0px 0px 0px -140px;
+  text-align: center;
+  white-space: nowrap;
+  left: -170px;
+}
+.player .text {
+  color: #C8C8C8;
+  font-family: "PrismFontL";
+  font-size: 22px;
+  position: relative;
+  top: -17px;
+  width: 70px;
+}
+.player .split {
+  background: url(../images/107_Line_PB.png) no-repeat;
+  top: -22px;
+  height: 41px;
+  line-height: 41px;
+  padding: 0px 0px 0px 17px;
+  position: absolute;
+  width: 3px;
+}
+.player .playbar .buffer {
+  background: #FFFFFF;
+  height: 3px;
+  position: absolute;
+}
+.player .playbar .buffer:after {
+  background: url(../images/340_PB_Player_Buffer_Pointer.png) no-repeat;
+  content: "";
+  height: 9px;
+  position: absolute;
+  right: -5px;
+  top: -3px;
+  width: 9px;
+}
+.player .playbar .current {
+  background: #2EB2FF;
+  height: 3px;
+  position: absolute;
+  -o-transition: all 0.3s cubic-bezier(0.675, 0.29, 0, 0.91);
+}
+.player .playbar .current .pointer {
+  background: url(../images/340_PB_Player_Current_Pointer02_N.png) 0px 100% no-repeat;
+  bottom: -14px;
+  height: 80px;
+  position: absolute;
+  right: -154px;
+  width: 170px;
+  z-index: 1;
+}
+.player .playbar .current .pointerTime {
+  /*background: rgba(255, 255, 255, 0.149);*/
+  color: #D2D2D2;
+  font-size: 26px;
+  height: 31px;
+  line-height: 31px;
+  min-width: 170px;
+  padding: 11px 3px;
+  position: absolute;
+  text-align: center;
+}
+.player .playbar .current:after {
+  background: url(../images/424_ME_M_Pointer.png) no-repeat;
+  content: "";
+  height: 23px;
+  position: absolute;
+  right: -12px;
+  top: -9px;
+  width: 21px;
+}
+.player .playbar .track {
+  background: rgba(255, 255, 255, 0.196);
+  height: 2px;
+  width: 352px;
+}
+.player .playbar.-afd-leaf .current .pointer {
+  background: url(../images/340_PB_Player_Current_Pointer02_C.png) 0px 100% no-repeat;
+}
+.player .playbar.-afd-leaf .current .pointerTime {
+  /*background: #2EB2FF;*/
+  color: #000000;
+}
+.player.disabled .playbar .current {
+  opacity: 0;
+}
+.player.disabled .repeat,
+.player.disabled .shuffle {
+  opacity: 0;
+}
+.player #state {
+  background: url(../images/341_PB_Play.png) no-repeat;
+  position: relative;
+  top: -22px;
+  width: 70px;
+  height: 47px;
+}
+.player #state.pause {
+  background: url(../images/341_PB_Pause.png) no-repeat;
+}
+.player #state.fr64 {
+  background: url(../images/341_PB_FB_x64.png) no-repeat;
+}
+.player #state.fr32 {
+  background: url(../images/341_PB_FB_x32.png) no-repeat;
+}
+.player #state.fr16 {
+  background: url(../images/341_PB_FB_x16.png) no-repeat;
+}
+.player #state.fr08 {
+  background: url(../images/341_PB_FB_x08.png) no-repeat;
+}
+.player #state.fr04 {
+  background: url(../images/341_PB_FB_x04.png) no-repeat;
+}
+.player #state.fr02 {
+  background: url(../images/341_PB_FB_x02.png) no-repeat;
+}
+.player #state.ff02 {
+  background: url(../images/341_PB_FF_x02.png) no-repeat;
+}
+.player #state.ff04 {
+  background: url(../images/341_PB_FF_x04.png) no-repeat;
+}
+.player #state.ff08 {
+  background: url(../images/341_PB_FF_x08.png) no-repeat;
+}
+.player #state.ff16 {
+  background: url(../images/341_PB_FF_x16.png) no-repeat;
+}
+.player #state.ff32 {
+  background: url(../images/341_PB_FF_x32.png) no-repeat;
+}
+.player #state.ff64 {
+  background: url(../images/341_PB_FF_x64.png) no-repeat;
+}
+.player.chase .playbar .current {
+  background: #de3e3e;
+}
+.player.chase.live #state {
+  background: url(../images/341_PB_REC_Live.png) no-repeat;
+}
+.player.chase #state {
+  background: url(../images/341_PB_REC_Play.png) no-repeat;
+}
+.player.chase #state.pause {
+  background: url(../images/341_PB_REC_Pause.png) no-repeat;
+}
+.player.chase #state.fr02 {
+  background: url(../images/341_PB_REC_FB_x02.png) no-repeat;
+}
+.player.chase #state.fr04 {
+  background: url(../images/341_PB_REC_FB_x04.png) no-repeat;
+}
+.player.chase #state.fr08 {
+  background: url(../images/341_PB_REC_FB_x08.png) no-repeat;
+}
+.player.chase #state.fr16 {
+  background: url(../images/341_PB_REC_FB_x16.png) no-repeat;
+}
+.player.chase #state.fr32 {
+  background: url(../images/341_PB_REC_FB_x32.png) no-repeat;
+}
+.player.chase #state.fr64 {
+  background: url(../images/341_PB_REC_FB_x64.png) no-repeat;
+}
+.player.chase #state.ff02 {
+  background: url(../images/341_PB_REC_FF_x02.png) no-repeat;
+}
+.player.chase #state.ff04 {
+  background: url(../images/341_PB_REC_FF_x04.png) no-repeat;
+}
+.player.chase #state.ff08 {
+  background: url(../images/341_PB_REC_FF_x08.png) no-repeat;
+}
+.player.chase #state.ff16 {
+  background: url(../images/341_PB_REC_FF_x16.png) no-repeat;
+}
+.player.chase #state.ff32 {
+  background: url(../images/341_PB_REC_FF_x32.png) no-repeat;
+}
+.player.chase #state.ff64 {
+  background: url(../images/341_PB_REC_FF_x64.png) no-repeat;
+}
+.player .repeat,
+.player .shuffle {
+  position: relative;
+  top: -15px;
+  width: 31px;
+  height: 30px;
+}
+.player .repeat.all {
+  background: url(../images/424_ME_M_Repeat_A.png) no-repeat;
+}
+.player .repeat.no {
+  background: url(../images/424_ME_M_Repeat_N.png) no-repeat;
+}
+.player .repeat.one {
+  background: url(../images/424_ME_M_Repeat_O.png) no-repeat;
+}
+.player .shuffle.on {
+  background: url(../images/424_ME_M_Shuffle.png) no-repeat;
+}
+.player .shuffle.off {
+  background: url(../images/424_ME_M_Shuffle_N.png) no-repeat;
+}

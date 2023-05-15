@@ -1,0 +1,11 @@
+"downloader":{
+	"target":"dsmcc",
+	"operation":"set",
+	"property":{
+		"action":"stop",
+		"param":{
+			"handle" : 0,
+			"carousel_id" : 0
+		}
+	}
+}

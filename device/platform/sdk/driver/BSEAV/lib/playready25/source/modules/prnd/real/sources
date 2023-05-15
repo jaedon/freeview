@@ -1,0 +1,9 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmprndreal
+TARGETTYPE=LIBRARY
+
+SOURCES =                            \
+    drmprndformat.c                  \
+    drmprndinternal.c                \
+

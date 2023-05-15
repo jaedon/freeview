@@ -1,0 +1,19 @@
+#
+obj-y := vk_clock.o
+obj-y += vk_dbgmem.o
+obj-y += vk_event.o
+obj-y += vk_mem.o
+obj-y += vk_msg.o
+obj-y += vk_sem.o
+obj-y += vk_system.o
+obj-y += vk_task.o
+obj-y += vk_test.o
+obj-y += vk_timer.o
+obj-y += vk_mutex.o
+obj-y += vk_ipc.o
+obj-y += vk_socket.o
+obj-y += vk_rpc.o
+obj-y += vk_intr.o
+obj-y += vk_sig.o
+obj-y += vk_ftp.o
+obj-y += vkernel.o

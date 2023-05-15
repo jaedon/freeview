@@ -1,0 +1,9 @@
+
+TARGETNAME=tstlicgen
+TARGETTYPE=LIBRARY
+
+SOURCES = \
+    tlicgen.c \
+    tresponsegen.c \
+    setclientid.c \
+    licgenxmr.c \

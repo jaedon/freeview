@@ -1,0 +1,94 @@
+<?xml version="1.0" ?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0">
+
+    <specVersion>
+        <major>1</major>
+        <minor>0</minor>
+    </specVersion>
+
+    <actionList>
+
+        <action>
+            <name>RegisterDevice</name>
+            <argumentList>
+                <argument>
+                    <name>OldSessionID</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_SessionID</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>LicensePushType</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_LicensePushType</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>LicensePushAddress</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_LicensePushAddress</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>RegistrationRequestMessage</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_GenericData</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>ResponseSessionID</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>A_ARG_TYPE_SessionID</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>RegistrationResponseMessage</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>A_ARG_TYPE_GenericData</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>FetchLicense</name>
+            <argumentList>
+                <argument>
+                    <name>SessionID</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_SessionID</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>LicenseRequestMessage</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_GenericData</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>LicenseResponseMessage</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>A_ARG_TYPE_GenericData</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+    </actionList>
+
+    <serviceStateTable>
+
+        <stateVariable sendEvents="no">
+            <name>A_ARG_TYPE_SessionID</name>
+            <dataType>bin.base64</dataType>
+        </stateVariable>
+
+        <stateVariable sendEvents="no">
+            <name>A_ARG_TYPE_LicensePushType</name>
+            <dataType>i4</dataType>
+        </stateVariable>
+
+        <stateVariable sendEvents="no">
+            <name>A_ARG_TYPE_LicensePushAddress</name>
+            <dataType>string</dataType>
+        </stateVariable>
+
+        <stateVariable sendEvents="no">
+            <name>A_ARG_TYPE_GenericData</name>
+            <dataType>bin.base64</dataType>
+        </stateVariable>
+
+    </serviceStateTable>
+
+</scpd>

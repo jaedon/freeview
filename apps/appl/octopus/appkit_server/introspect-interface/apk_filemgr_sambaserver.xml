@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Filemgr/Sambaserver">   
+    <interface name="Octopus.Appkit.Filemgr.Sambaserver">
+
+    <method name="Start">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="Stop">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="SetConfig">
+    	<arg type="(u)" name="configInfo" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+                                                                           
+    <method name="GetServerInfo">
+    	<arg type="(u)" name="smbInfo" direction="out" />
+    		<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="SetPassword">
+    	<arg type="s" name="userName" direction="in" />
+    	<arg type="s" name="currentPassword" direction="in" />    	
+			<arg type="s" name="newPassword" direction="in" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="CheckPassword">
+    	<arg type="s" name="userName" direction="in" />
+    	<arg type="s" name="password" direction="in" />    	
+			<arg type="b" name="isVaild" direction="out" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+                                                                            
+    <method name="SetPermission">
+    	<arg type="s" name="userName" direction="in" />
+    	<arg type="(u)" name="sharedInfo" direction="in" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetSharedList">
+    	<arg type="s" name="userName" direction="in" />
+    	<arg type="a(u)" name="sharedInfoList" direction="out" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="SetPublicAccess">
+    	<arg type="s" name="userName" direction="in" />
+    	<arg type="b" name="access" direction="in" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetPublicAccess">
+    	<arg type="s" name="userName" direction="in" />
+    	<arg type="b" name="access" direction="out" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <signal name="event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+
+  </interface>
+</node>

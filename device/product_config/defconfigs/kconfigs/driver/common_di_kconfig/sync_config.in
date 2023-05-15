@@ -1,0 +1,42 @@
+##########################################
+# DI AV sync configuration menu
+##########################################
+
+config SYNC_CHANNEL
+	bool
+	prompt "SYNC_CHANNEL"
+	default y
+	
+config SYNC_RECOVERY
+	bool
+	prompt "SYNC_RECOVERY"
+	default n
+
+config ASTM
+	bool
+	prompt "Using ASTM"
+	default y
+	
+	config ASTM_DEVIANT_COUNT_THRESHOLD
+		depends on ASTM
+		bool
+		prompt "Using ASTM_DEVIANT_COUNT_THRESHOLD"
+		default n
+		
+		config ASTM_DEVIANT_COUNT_THRESHOLD_VALUE
+			depends on ASTM_DEVIANT_COUNT_THRESHOLD
+			int
+			prompt "set ASTM_DEVIANT_COUNT_THRESHOLD_VALUE"
+			default 2
+	
+	config ASTM_ASYNC_TIMER
+		bool
+		prompt "ASTM_ASYNC_TIMER - For poor PCR conditions, Timer Change sync mode from ASTM to ASYNC "
+		default n
+		depends on ASTM
+		
+	config ASTM_SYNC_AUDIO_MASTER
+  	depends on ASTM
+		bool
+		prompt "ASTM_SYNC_AUDIO_MASTER - Sync to audio master regardless call order of A/V"
+		default n

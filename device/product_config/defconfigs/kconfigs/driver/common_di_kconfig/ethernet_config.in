@@ -1,0 +1,39 @@
+##########################################
+# DI ETHERNET configuration menu
+##########################################
+
+config ETHERNET
+	bool
+	prompt "ETHERNET"
+	default n
+
+config WIRELESS_USB
+	bool
+	prompt "WIRELESS_USB"
+	default n
+
+config IPV6
+	bool
+	prompt "IPV6"
+	default n
+
+config ETH_EXT_PHY
+        bool
+        prompt "ETH_EXT_PHY"
+        default n
+
+config WAKE_ON_LAN
+        bool
+        prompt "WAKE_ON_LAN"
+        default n
+
+config DHCPCD
+	bool
+	prompt "DHCPCD"
+	default n
+
+config ETHERNET_FTP
+	bool
+	prompt "ETHERNET FTP"
+	depends on ETHERNET
+	default n

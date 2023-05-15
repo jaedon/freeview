@@ -1,0 +1,64 @@
+1048: verify well formed registration request message ( another cert is covered in 1008 )
+Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+Test_SetCertificate(files\DeviceTestCert1.crt)
+Test_WmdrmNetPackRegistrationMessage()
+
+1065: verify well formed registration response ( another cert is covered in 1009 )
+Test_SetSerialNumber(00000001234567890000000123456789)
+Test_SetCertificate(files\DeviceTestCert1.crt)
+Test_SetPrivateKeyDirectly(files\DeviceTestRSAPrivKey1.bin)
+Test_WmdrmNetUnpackRegistrationResponseMessage(files\RegistrationResponse1.bin)
+
+1079: verify well formed proximity start message
+Test_WmdrmNetPackProximityStartMessage(files\RegistrationResponse.bin)
+Test_WmdrmNetPackProximityStartMessage(files\RegistrationResponse1.bin)
+
+1350: verify parsing proximity challenge message
+Test_WmdrmNetUnpackProximityChallengeMessage()
+
+1362: verify well formed proximity response message
+Test_WmdrmNetPackProximityResponseMessage()
+
+1005: verify parsing proximity result message
+Test_WmdrmNetUnpackProximityResultMessage()
+
+1006: verify parsing of revocation response message
+Test_InitializeRevocationListResponse(1)
+Test_AddRevocationListToResponse(2, files\crl_wmdrmnd_5.b64_wchar)
+Test_WmdrmNetPackRevocationListResponseMessage()
+Test_VerifyRevocationListResponse()
+
+1007: verify well formed revocation request message
+Test_WmdrmNetPackRevocationListRequestMessage({cd75e604-543d-4a9c-9f09-fe6d24e8bf90})
+Test_WmdrmNetUnpackRevocationListRequestMessage()
+
+1008: verify well formed registration request message ( same as 1048 but differerent cert )
+Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+Test_SetCertificate(files\DeviceTestCert2.crt)
+Test_WmdrmNetPackRegistrationMessage()
+
+1009: verify well formed registration response ( same as 1065 but different cert )
+Test_SetSerialNumber(00000001234567890000000123456789)
+Test_SetCertificate(files\DeviceTestCert2.crt)
+Test_SetPrivateKeyDirectly(files\DeviceTestRSAPrivKey2.bin)
+Test_WmdrmNetUnpackRegistrationResponseMessage(files\RegistrationResponse2.bin)
+
+1119: verify XMR parse root license from MDEserver
+Test_SetSerialNumber(00000000000000000000000000000000)
+Test_SetCertificate(DeviceTestCert.crt)
+Test_SetPrivateKeyDirectly(ndrpriv.dat)
+Test_DrmXmrUnpackRootLicense(files\NDT-RootLicense.bin)
+
+1125: verify XMR parse root license and leaf license from MDEserver
+Test_SetSerialNumber(00000000000000000000000000000000)
+Test_SetCertificate(DeviceTestCert.crt)
+Test_SetPrivateKeyDirectly(ndrpriv.dat)
+Test_DrmXmrUnpackRootLicense(files\NDT-RootLicense.bin)
+Test_DrmXmrUnpackLeafLicense(files\NDT-LeafLicense.bin)
+
+1478: verify failiure when XMR leaf license has greater security level than root
+Test_SetSerialNumber(edd00d00faced00d00faced00d00face)
+Test_SetCertificate(DeviceTestCert.crt)
+Test_SetPrivateKeyDirectly(ndrpriv.dat)
+Test_DrmXmrUnpackRootLicense(files\NDT-RootLicense-150.bin)
+Test_DrmXmrUnpackLeafLicense(files\NDT-LeafLicense-1000.bin)=0x8004CE01

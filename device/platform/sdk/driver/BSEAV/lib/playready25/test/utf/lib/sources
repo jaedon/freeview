@@ -1,0 +1,8 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=LIBRARY
+TARGETNAME=UTFTestAPI
+
+SOURCES = \
+	..\utftest.c \
+

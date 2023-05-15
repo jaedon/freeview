@@ -1,0 +1,9 @@
+obj-$(CONFIG_HOMMA_DMP) += cmd_dmp.o
+obj-$(CONFIG_HOMMA_DMS) += cmd_dms.o
+obj-$(CONFIG_HOMMA_DMR) += cmd_dmr.o
+obj-$(CONFIG_HOMMA_DIAL) += cmd_dial.o
+obj-$(CONFIG_HOMMA_WOON) += cmd_woonserver.o
+obj-$(CONFIG_HOMMA_SATIP) += cmd_satip.o
+obj-$(CONFIG_HOMMA_AIRPLAY) += cmd_airplay.o
+obj-$(CONFIG_HOMMA_RC) += cmd_rc.o
+obj-$(CONFIG_HOMMA_USERCP) += cmd_usercp.o

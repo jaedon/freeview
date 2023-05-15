@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config_root>
+  <config_data>
+    <cache_text_render>true</cache_text_render>
+    <alpha_format>RGBA32_PM</alpha_format>
+    <opaque_format>RGBA32_PM</opaque_format>
+    <text_format>A8</text_format>
+    <surface_atlas_enabled>true</surface_atlas_enabled>
+  </config_data>
+</config_root>

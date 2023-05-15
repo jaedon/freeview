@@ -1,0 +1,206 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Util/Builder">   
+    <interface name="Octopus.Appkit.Util.Builder">
+
+    <method name="OpenSession">
+    	<arg type="u" name="deliveryType" direction="in" />
+    	<arg type="s" name="scanType" direction="in" />
+    	<arg type="(uus)" name="actionInfo" direction="in" />
+        <arg type="u" name="builderHandle" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="CloseSession">
+    	<arg type="u" name="builderHandle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="ClearBuildInfo">
+    	<arg type="u" name="builderHandle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                        
+
+    <method name="AddBuildInfo_Sat">
+    	<arg type="u" name="builderHandle" direction="in" />
+        <arg type="(uuuuuuuuuuuusi(issu(uuuuuuuuuuuu)))" name="tunerParam" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <method name="AddBuildInfo_Ter">
+    	<arg type="u" name="builderHandle" direction="in" />
+        <arg type="(uuuuuuuuuuuu(uuuuuuu))" name="tunerParam" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+   
+    <method name="AddBuildInfo_Cab">
+    	<arg type="u" name="builderHandle" direction="in" />
+        <arg type="(uuuuuuii)" name="tunerParam" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+  
+    <method name="RemoveBuildInfo">
+    	<arg type="u" name="builderHandle" direction="in" />
+        <arg type="(u)" name="buildInfo" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+ 
+    <method name="GetOption">
+    	<arg type="u" name="builderHandle" direction="in" />
+        <arg type="(uubbub)" name="buildOption" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+ 
+    <method name="SetOption">
+    	<arg type="u" name="builderHandle" direction="in" />
+        <arg type="(uubbub)" name="buildOption" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <method name="GetBuilderStatus">
+    	<arg type="u" name="builderHandle" direction="in" />
+        <arg type="(uuuuuu(u))" name="info" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="GetBuilderSignalStatus">
+    	<arg type="u" name="builderHandle" direction="in" />
+        <arg type="(ii)" name="info" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="GetBuilderSvcInfo">
+    	<arg type="u" name="builderHandle" direction="in" />
+        <arg type="i" name="startIndex" direction="in" />
+        <arg type="i" name="count" direction="in" />
+        <arg type="a(uuus)" name="svcInfoList" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="GetScanType">
+    	<arg type="u" name="builderHandle" direction="in" />
+        <arg type="s" name="scanType" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                         
+
+    <method name="StartScan">
+    	<arg type="u" name="builderHandle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+
+    <method name="StopScan">
+    	<arg type="u" name="builderHandle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+    
+    <method name="PauseScan">
+    	<arg type="u" name="builderHandle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+
+    <method name="ResumeScan">
+    	<arg type="u" name="builderHandle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+
+    <method name="SetAdditionalNumbers">
+    	<arg type="u" name="builderHandle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+
+    <method name="MotorGotoPosition">
+    	<arg type="u" name="builderHandle" direction="in" />
+    	<arg type="i" name="position" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+
+    <method name="MotorStorePosition">
+    	<arg type="u" name="builderHandle" direction="in" />
+    	<arg type="i" name="position" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+
+    <method name="MotorResetPosition">
+    	<arg type="u" name="builderHandle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+
+    <method name="MotorRecalcuate">
+    	<arg type="u" name="builderHandle" direction="in" />
+    	<arg type="i" name="position" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+
+    <method name="MotorMove">
+    	<arg type="u" name="builderHandle" direction="in" />
+    	<arg type="u" name="direction" direction="in" />
+        <arg type="u" name="mode" direction="in" />
+        <arg type="i" name="step" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+
+    <method name="MotorStop">
+    	<arg type="u" name="builderHandle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+
+    <method name="MotorSetLimit">
+    	<arg type="u" name="builderHandle" direction="in" />
+    	<arg type="u" name="direction" direction="in" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+    
+    <method name="MotorEnableLimit">
+    	<arg type="u" name="builderHandle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <method name="MotorDisableLimit">
+    	<arg type="u" name="builderHandle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <method name="MotorGotoDegree">
+    	<arg type="u" name="builderHandle" direction="in" />
+        <arg type="i" name="degree" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <method name="MotorGotoSatellite">
+    	<arg type="u" name="builderHandle" direction="in" />
+        <arg type="i" name="satellite" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <method name="MotorSetMyLongitude">
+        <arg type="i" name="newLongitude" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <method name="MotorSetMyLatitude">
+        <arg type="i" name="newLatitude" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <method name="MotorGetMyLongitude">
+        <arg type="i" name="myLongitude" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <method name="MotorGetMyLatitude">
+        <arg type="i" name="myLatitude" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <signal name="event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+      <arg type="u" name="param4" direction="in"/>      
+    </signal>
+
+
+  </interface>
+</node>

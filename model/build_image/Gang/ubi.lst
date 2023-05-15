@@ -1,0 +1,34 @@
+[UBI_ALL
+	"root.squa.wEncSign"		$00
+	"vmlinuz.wEncSign"			$A016000
+	"nvram.bin"					$14922000
+]
+
+[UBI_CODE
+	"root.squa.wEncSign"		$00
+	"vmlinuz.wEncSign"			$A016000
+	"ff.bin"					$A414FFF
+]
+
+[UBI_RAWFS
+	"ff.bin"					$0
+	"ff.bin"					$A50CFFF
+]
+
+[UBI_NVRAM
+	"nvram.bin"					$0
+]
+
+[MG_NVRAM
+	"ronvram.bin"				$0
+	"ronvram.bin"				$7C000
+	"rwnvram.bin"				$F8000
+	"rwnvram.bin"				$136000
+	"ff.bin"					$1EFFFF
+]
+
+[RF_K_NVR
+	"root.squa.wEncSign"		$00
+	"vmlinuz.wEncSign"			$A016000
+	"ubi_nvram_mg.bin"			$14922000
+]

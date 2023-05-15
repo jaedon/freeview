@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Sysinfo/Tuner">   
+    <interface name="Octopus.Appkit.Sysinfo.Tuner">
+
+    <method name="GetDeviceNum">
+    	<arg type="u" name="deviceNumber" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="GetDevType">
+    	<arg type="i" name="index" direction="in" />
+    	<arg type="u" name="deliveryType" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="IsLocked">
+    	<arg type="i" name="index" direction="in" />
+    	<arg type="b" name="locked" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetSignalLevel">
+    	<arg type="i" name="index" direction="in" />
+    	<arg type="i" name="signalLevel" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetSignalQuality">
+    	<arg type="i" name="index" direction="in" />
+    	<arg type="i" name="signalQuality" direction="out" />4
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetAgc">
+    	<arg type="i" name="index" direction="in" />
+    	<arg type="i" name="agc" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+    
+    <method name="GetBer">
+    	<arg type="i" name="index" direction="in" />
+    	<arg type="d" name="ber" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="GetSnr">
+    	<arg type="i" name="index" direction="in" />
+    	<arg type="d" name="snr" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+    <method name="GetInputPower">
+    	<arg type="i" name="index" direction="in" />
+    	<arg type="d" name="inputPower" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>           
+                                                                            
+    <method name="GetTuneParam">
+    	<arg type="i" name="index" direction="in" />
+    	<arg type="(u)" name="tunerParam" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="GetTunerIdByTripleId">
+    	<arg type="i" name="onId" direction="in" />
+    	<arg type="i" name="tsId" direction="in" />
+    	<arg type="i" name="svcId" direction="in" />
+    	<arg type="i" name="tunerId" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+        
+    <signal name="event">
+    </signal>
+
+
+  </interface>
+</node>

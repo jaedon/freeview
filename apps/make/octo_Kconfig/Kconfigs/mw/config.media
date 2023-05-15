@@ -1,0 +1,397 @@
+################################################
+#					MW/MEDIA Configuration					#
+################################################
+
+comment "MW/MM(MULTIMEDIA) Configuration."
+
+
+	comment "PVR features"
+
+	config MW_MM_PVR
+		depends on MW_MULTIMEDIA
+		bool "MW_MM_PVR - Support PVR"
+		default y
+
+		config MW_MM_PVR_INTERNAL
+			depends on MW_MM_PVR
+			bool "MW_MM_PVR_INTERNAL - Use Internal HDD for PVR"
+			default n
+
+		choice
+			depends on MW_MM_PVR
+			prompt "PVR Partition Profiling"
+			default MW_MM_PVR_PARTITION_PROFILE_NORMAL
+
+			config MW_MM_PVR_PARTITION_PROFILE_NORMAL
+				depends on MW_MM_PVR
+				bool "MW_MM_PVR_PARTITION_PROFILE_NORMAL - Normal PVR Partition Profile"
+
+			config MW_MM_PVR_PARTITION_PROFILE_TVAPPS
+				depends on MW_MM_PVR
+				bool "MW_MM_PVR_PARTITION_PROFILE_TVAPPS - Normal Profile + TV Apps"
+		endchoice
+
+		choice
+			depends on MW_MM_PVR
+			prompt "PVR Directory Profiling"
+			default MW_MM_PVR_DIR_PROFILE_BASE
+
+			config MW_MM_PVR_DIR_PROFILE_BASE
+				depends on MW_MM_PVR
+				bool "MW_MM_PVR_DIR_PROFILE_BASE - Base PVR Directory Profile"
+
+			config MW_MM_PVR_DIR_PROFILE_LEGACY
+				depends on MW_MM_PVR
+				bool "MW_MM_PVR_DIR_PROFILE_LEGACY - PVR Directory Profile same as OCTO 1.0"
+
+			config MW_MM_PVR_DIR_PROFILE_MEDIA_IN_VIDEO
+				depends on MW_MM_PVR
+				bool "MW_MM_PVR_DIR_PROFILE_MEDIA_IN_VIDEO - Video and Media share the same directory"
+		endchoice
+
+		config MW_MM_DELAYED_REC
+			depends on MW_MM_PVR
+			bool "MW_MM_DELAYED_REC - Support Delayed Recording"
+			default n
+
+		config MW_MM_CHUNK_BLOCK_RECORD
+			depends on MW_MM_PVR
+			bool "MW_MM_CHUNK_BLOCK_RECORD - TSR File is chunked for the use of delayed record"
+			default n
+
+		config MW_MM_KEYWORD_REC
+			depends on MW_MM_PVR
+			bool "MW_MM_KEYWORD_REC - Support Keyword Base Recording"
+			default n
+
+		config MW_MM_MAX_TSRREC_NUM
+			depends on MW_MM_PVR
+			int "MW_MM_MAX_TSRREC_NUM - Max number of TSR recording working at the same time"
+			default 1
+
+		config MW_MM_MAX_REC_NUM
+			depends on MW_MM_PVR
+			int "MW_MM_MAX_REC_NUM - Max number of recording working at the same time"
+			default 1
+
+		config MW_MM_LIMIT_REC
+			depends on MW_MM_PVR
+			bool "MW_MM_LIMIT_REC - Enable Limitation of number of recording working at the same time (low speed media device)"
+			default n
+
+		config MW_MM_LIMIT_REC_NUM
+			depends on MW_MM_PVR && MW_MM_LIMIT_REC
+			int "MW_MM_LIMIT_REC_NUM - Limit number of recording working at the same time (low speed media device)"
+			default 1
+
+		config MW_MM_HDD_FORMAT_JIGSW
+			depends on MW_MM_PVR
+			bool "MW_MM_HDD_FORMAT_JIGSW - automatic internal SATA HDD format SW for JIG"
+			default n
+
+		config MW_MM_BIG_STORAGE_FORMAT
+			depends on MW_MM_PVR
+			bool "MW_MM_BIG_STORAGE_FORMAT - support ext3 format of a large device such as 2TB HDD using the latest e2fsprogs"
+			default n
+
+		config MW_MM_STORAGE_HOLD_PAIRING
+			depends on MW_MM_PVR
+			bool "MW_MM_STORAGE_HOLD_PAIRING - support to hold pairing device, inspite of stb reboot. "
+			default n
+
+		config MW_MM_AUTO_BOOKMARK
+			depends on MW_MM_PVR
+			bool "MW_MM_AUTO_BOOKMARK - support automatic Bookmark when EIT changed message is in."
+			default n
+
+		config MW_MM_MAX_CONNECTABLE_PVR_STORAGE_NUM
+			depends on MW_MM_PVR
+			int "MW_MM_MAX_CONNECTABLE_PVR_STORAGE_NUM - Max number of connectable PVR storage"
+			default 1
+
+		config MW_MM_MAX_CONNECTABLE_PLAYBACK_STORAGE_NUM
+			depends on MW_MM_PVR
+			int "MW_MM_MAX_CONNECTABLE_PLAYBACK_STORAGE_NUM - Max number of connectable Playback storage"
+			default 1
+
+		config MW_MM_TSR_DURATION
+			depends on MW_MM_PVR
+			int "MW_MM_TSR_DURATION - Default duration(minutes) of TSR."
+			default 5400
+
+		config MW_MM_AIT_REC
+			depends on MW_MM_PVR
+			bool "MW_MM_AIT_REC - Support Ait Recording"
+			default n
+
+		config MW_MM_REC_WITH_EPG
+			depends on MW_MM_PVR
+			bool "MW_MM_REC_WITH_EPG - Execute EPG during Recording"
+			default n
+
+		config MW_MM_FULLTS_REC
+			depends on MW_MM_PVR
+			bool "MW_MM_FULLTS_REC - Record all the full TS"
+			default n
+
+	comment "PVR Operator Specification"
+
+
+	comment "Media"
+	config MW_MM_MEDIA
+		depends on MW_MULTIMEDIA
+		bool "MW_MM_MEDIA - support MP3, Photo and Movie"
+		default n
+
+		config MW_MM_MEDIA_PHOTO
+			depends on MW_MM_MEDIA
+			bool "MW_MM_MEDIA_PHOTO - photo viewer"
+			default y
+
+		config MW_MM_MEDIA_PHOTO_RESIZE_ROTATE
+			depends on MW_MM_MEDIA_PHOTO
+			bool "MW_MM_MEDIA_PHOTO_RESIZE_ROTATE - photo resize rotate viewer support"
+			default n
+
+		config MW_MM_HWJPEG
+			depends on MW_MM_MEDIA
+			bool "MW_MM_HWJPEG - Use HW decoder for JPEG decoding"
+			default n
+
+		config MW_MM_MEDIA_MUSIC
+			depends on MW_MM_MEDIA
+			bool "MW_MM_MEDIA_MUSIC - music player"
+			default y
+
+		config MW_MM_MEDIA_DVIX
+			depends on MW_MM_MEDIA
+			select MW_MM_MEDIA_XVID
+			bool "MW_MM_MEDIA_DVIX - Divx player"
+			default n
+
+			config MW_MM_MEDIA_XSUB
+				depends on MW_MM_MEDIA_DVIX
+				bool "MW_MM_MEDIA_XSUB - Subtitle for DivX (XSUB, embedded subtitle)"
+				default n
+
+			config MEDIA_DIVX_DRM
+				depends on MW_MM_MEDIA_DVIX
+				bool "MEDIA_DIVX_DRM - Support DivX DRM of divx.com"
+				default n
+
+		config MW_MM_MEDIA_XVID
+			depends on MW_MM_MEDIA
+			bool "MW_MM_MEDIA_XVID - Xvid player"
+			default y if (MW_MM_MEDIA_DVIX = y)
+
+		config MW_MM_MEDIA_XVID_INFO
+			depends on MW_MM_MEDIA
+			bool "MW_MM_MEDIA_XVID_INFO - save last player information(last position)"
+			default n
+
+		config MW_MM_MEDIA_SBTL_FILE
+			depends on MW_MM_MEDIA
+			bool "MW_MM_MEDIA_SBTL_FILE - External subtitle file for movie (.smi, .srt, ...)"
+			default n
+
+		config MW_MM_MEDIA_SPTS
+			depends on MW_MM_MEDIA
+			bool "MW_MM_MEDIA_SPTS - Single Program TS player"
+			default n
+
+		config MW_MM_MEDIA_EXT_USB_COPYDEL_LIMIT_TSR
+			depends on MW_MM_MEDIA
+			bool "MW_MM_MEDIA_EXT_USB_COPYDEL_LIMIT_TSR - Support Notice Possiblity while TSR or Recording"
+			default n
+
+		config MW_MM_MEDIA_ASX
+			depends on MW_MM_MEDIA
+			bool "MW_MM_MEDIA_ASX - Support ASX Format"
+			default n
+
+	comment "IMMMA"
+	config IMMA_SESSION_MAX
+		depends on SUPPORT_IMMA
+		int "IMMA - Max number of cso session"
+		default 32
+
+	comment "HOMMA"
+	config HOMMA_CDI
+		depends on SUPPORT_HOMMA
+		bool "HOMMA - Use chip driver interface"
+		default n
+
+	config HOMMA_DMP
+		depends on SUPPORT_HOMMA
+		bool "HOMMA - Support DLNA DMP"
+		default y
+
+	config HOMMA_DMR
+		depends on SUPPORT_HOMMA
+		bool "HOMMA - Support DLNA DMR"
+		default n
+
+	config HOMMA_DMS
+		depends on SUPPORT_HOMMA
+		bool "HOMMA - Support DLNA DMS"
+		default n
+
+	config HOMMA_WOON
+		depends on SUPPORT_HOMMA
+		bool "HOMMA - Support DLNA WOON"
+		default n
+
+	config HOMMA_AIRPLAY
+		depends on SUPPORT_HOMMA
+		bool "HOMMA - Support Air Play"
+		default n
+		select PACKAGE_LIBXML2
+		select PACKAGE_OPENSSL
+
+	config HOMMA_DIAL
+		depends on SUPPORT_HOMMA
+		bool "HOMMA - Support DIAL"
+		default n
+
+	config HOMMA_SATIP
+		depends on SUPPORT_HOMMA
+		bool "HOMMA - Support SAT>IP"
+		default n
+
+		config HOMMA_SATIP_SERVER
+			depends on HOMMA_SATIP
+			bool "HOMMA - Support SAT>IP Server"
+			default n
+
+		config HOMMA_SATIP_CLIENT
+			depends on HOMMA_SATIP
+			bool "HOMMA - Support SAT>IP Client"
+			default n
+
+	config HOMMA_RC
+		depends on SUPPORT_HOMMA
+		bool "HOMMA - Support RC"
+		default n
+
+	config HOMMA_USERCP
+		depends on SUPPORT_HOMMA
+		bool "HOMMA - Support USER CP"
+		default n
+
+	comment "NOVA"
+	config NOVA_SATIP_SERVER
+		depends on SUPPORT_NOVA_APP
+		bool "NOVA - Support SAT>IP Server"
+		default n
+
+	config NOVA_SATIP_CLIENT
+		depends on SUPPORT_NOVA_APP
+		bool "NOVA - Support SAT>IP Client"
+		default n
+
+	comment "DLNA"
+	config MW_MM_DLNA
+		depends on MW_MULTIMEDIA
+		bool "MW_MM_DLNA - support DLNA features"
+		default y
+
+		choice
+			depends on MW_MM_DLNA
+			prompt "Choice DLNA Library Type"
+			default MW_MM_DLNA_LIBTYPE_VALUPS
+
+			config MW_MM_DLNA_LIBTYPE_VALUPS
+				depends on MW_MM_DLNA
+				bool "MW_MM_DLNA_LIBTYPE_VALUPS - Use Valups DLNA Library"
+
+			config MW_MM_DLNA_LIBTYPE_BRCM
+				depends on MW_MM_DLNA
+				bool "MW_MM_DLNA_LIBTYPE_BRCM - Use BRCM DLNA Library"
+		endchoice
+
+		config MW_MM_DLNA_DMP
+			depends on MW_MM_DLNA
+			bool "MW_MM_DLNA_DMP - support DMP( Digital Media Player )"
+			default y
+
+			config MW_MM_DLNA_DMP_SI
+				depends on MW_MM_DLNA_DMP
+				bool "MW_MM_DLNA_DMP_SI - support the parsing DMP SI"
+				default n
+
+			config MW_MM_DLNA_DMP_RECORD
+				depends on MW_MM_DLNA_DMP
+				bool "MW_MM_DLNA_DMP_RECORD - support DLNA-RECORD Function"
+				default n
+
+			config MW_MM_DLNA_DMP_DUBBING
+				depends on MW_MM_DLNA_DMP
+				bool "MW_MM_DLNA_DMP_DUBBING - support DLNA-DUBBING Function"
+				default n
+
+		config MW_MM_DLNA_DMS
+			depends on MW_MM_DLNA
+			bool "MW_MM_DLNA_DMS - support DMS( Digital Media Server )"
+			default n
+
+			config MW_MM_DLNA_LIVESTREAMING
+				depends on MW_MM_DLNA_DMS
+				bool "MW_MM_DLNA_LIVESTREAMING - support the live streaming function as the DMS"
+				default n
+
+			config MW_MM_DLNA_DMS_JAPAN
+				depends on MW_MM_DLNA_DMS
+				bool "MW_MM_DLNA_DMS_JAPAN - support the JAPAN DMS"
+				default n
+
+		config MW_MM_DLNA_DMR
+			depends on MW_MM_DLNA
+			bool "MW_MM_DLNA_DMR - support DMR( Digital Media Renderer )"
+			default n
+
+            config MW_MM_DLNA_DMR_FLING
+                depends on MW_MM_DLNA_DMR
+                bool "MW_MM_DLNA_DMR_FLING- support Fling( Use DLNA DMR )"
+                default n
+
+		config MW_MM_DLNA_RUIS
+			depends on MW_MM_DLNA
+			bool "MW_MM_DLNA_RUIS - support RUIS( Remote User Interface )"
+			default n
+
+		config MW_MM_DLNA_WOON
+			depends on MW_MM_DLNA
+			bool "MW_MM_WOON - support WOON (mandatory needs DMS)"
+			default n
+
+			config MW_MM_DLNA_WOON_SERVER
+				depends on MW_MM_DLNA_WOON
+				bool "MW_MM_DLNA_WOON_SERVER - support the woon service function as the DMS"
+				default n
+
+			config MW_MM_DLNA_WOON_CLIENT
+				depends on MW_MM_DLNA_WOON
+				bool "MW_MM_DLNA_WOON_CLIENT - support the woon service function as the DMP(MSCP)"
+				default n
+
+	config MW_MM_IPTUNER
+		depends on MW_MULTIMEDIA
+		bool "MW_MM_IPTUNER - Support IPTUNER"
+		default n
+
+	comment "External (BD) Recording Function"
+	config MW_MM_EXT_RECORD
+		depends on MW_MULTIMEDIA
+		bool "MW_MM_EXT_RECORD - Support EXT-Record (BD, etc)"
+		default n
+
+	comment "Transcoding Function"
+	config MW_MM_TRANSCODING
+		depends on MW_MULTIMEDIA
+		bool "MW_MM_TRANSCODING - Support the transcoding function"
+		default n
+
+		config MW_MM_TRANSCODING_TEMP_DI
+			depends on MW_MM_TRANSCODING
+			bool "MW_MM_TRANSCODING_TEMP_DI - Use the temporary DI transcoding"
+			default n

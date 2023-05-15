@@ -1,0 +1,19 @@
+#define PLAYREADY_PRODUCT_DEVICE_PK
+
+#define RC_FILE_TYPE                    VFT_APP
+#define RC_VERSION_FILE_DESCRIPTION     "Microsoft PlayReady PRND Reference Transmitter"
+#define RC_VERSION_INTERNAL_NAME        "PRNDTransmitter.exe"
+#define RC_VERSION_ORIGINAL_FILE_NAME   "PRNDTransmitter.exe"
+
+#include <PlayReadyVersions.h>
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Type Libraries
+//
+
+// Embed the type library as a resource so we can load it directly from the
+// module through LoadLibrary without the need to register the TLB file
+
+1       TYPELIB             "PRND_UPnP_TxService.tlb"
+

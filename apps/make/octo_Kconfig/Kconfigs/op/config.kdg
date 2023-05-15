@@ -1,0 +1,37 @@
+# KDG
+
+menu "Select Operator's specific configs"
+	comment "Select Operator's specific configs"
+
+	config OP_SKYD_SERVICE_MENU
+		depends on OP_KDG
+		bool "OP_SKYD_SERVICE_MENU - Deutch's Service Menu on / off"
+		default y
+
+	config OP_KDG_GROUPLIST
+		depends on OP_KDG
+		bool "OP_KDG_GROUPLIST - KDG's specific lcn features on / off"
+		default y
+
+	config OP_KDG_DONT_USE_TV_RADIO_GROUP
+		depends on OP_KDG
+		bool "OP_KDG_DONT_USE_TV_RADIO_GROUP - KDG specified scenario - doesn't use tv radio UI Group"
+		default y
+
+	config OP_KDG_LAST_SVC_UPDATE_SAME_SVC_DIFF_GROUP
+		depends on OP_KDG
+		bool "OP_KDG_LAST_SVC_UPDATE_SAME_SVC_DIFF_GROUP - Last Svc Update (with different Group even though same svc)"
+		default y
+
+	config OP_KDG_SAME_KIND_SVC_IS_POSSIBLE_IN_ONE_FAVOURITE
+		depends on OP_KDG
+		bool "OP_KDG_SAME_KIND_SVC_IS_POSSIBLE_IN_ONE_FAVOURITE - Same kind svc could be inserted on one favourite "
+		default y
+
+	config OP_KDG_SW_UPDATE_CANCEL_ALLOW
+		depends on OP_KDG
+		bool "OP_KDG_SW_UPDATE_CANCEL_ALLOW - cancel enabled during SW Update Searching UI"
+		default y
+
+endmenu
+

@@ -1,0 +1,8 @@
+/sbin/rmmod brcmdrv bcm7041
+
+#
+# gHD=1 sets high defintion decode support
+#
+/sbin/insmod brcmdrv.o gHD=1
+/sbin/insmod bcm7041.o
+

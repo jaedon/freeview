@@ -1,0 +1,20 @@
+/home1/sechdlr/root/media 	/home/nova/root/media 	none defaults,bind 0 0
+/home1/sechdlr/root/mnt 	/home/nova/root/mnt 	none defaults,bind 0 0
+
+/tmp 		/home/nova/root/tmp 		none 	defaults,bind 0 0
+/opt 		/home/nova/root/opt 		none 	defaults,bind 0 0
+/bin 		/home/nova/root/bin 		none 	defaults,bind 0 0
+/sbin 		/home/nova/root/sbin 		none 	defaults,bind 0 0
+/etc 		/home/nova/root/etc 		none 	defaults,bind 0 0
+/usr/bin 	/home/nova/root/usr/bin 	none 	defaults,bind 0 0
+/usr/sbin 	/home/nova/root/usr/sbin 	none 	defaults,bind 0 0
+/usr/local 	/home/nova/root/usr/local 	none 	defaults,bind 0 0
+/usr/fonts 	/home/nova/root/usr/fonts 	none 	defaults,bind 0 0
+/usr/tara 	/home/nova/root/usr/tara 	none 	defaults,bind 0 0
+/var 		/home/nova/root/var 		none 	rbind,create=dir 0 0
+/dev 		/home/nova/root/dev 		none 	defaults,bind 0 0
+/dev/nexus 	/home/nova/root/dev/nexus 	tmpfs 	rw,bind 0 0
+
+none 		/home/nova/root/dev/pts 	devpts 	defaults 0 0
+none 		/home/nova/root/proc 		proc 	defaults 0 0
+none 		/home/nova/root/sys 		sysfs 	defaults 0 0

@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeApplicationManager.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeAsync.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeAVComponent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeBookmark.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeCapabilities.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeChannel.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeConfiguration.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeDebug.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeDisc.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeDownload.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeDrmAgent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeHAirplay.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeHConfiguration.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeHContentManager.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeHDial.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeHDlna.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeHFtpManager.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeHmxDLNA.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeHmxMediaScan.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeHmxStorageUtil.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeHOperatorFreesat.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeHSamba.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeHSatip.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeHWoon.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeOOIFTypes.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeParentalControlManager.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeProgramme.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeRecording.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeSearch.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeSecurity.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeSignalInfo.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeTuner.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeVideoBroadcast.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\include\NativeVideoOnDemand.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\ChannelScanParameters.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HAirplay.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HBluetoothManager.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HCamStateChangeEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HCasActionIrEmmForcedOta.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HCasActionIrEmmForcedOtaEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HCasUi.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HChannelImportExport.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HChannelImportExportEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HClockRecovery.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HClockRecoveryEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HColdBootDone.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HColdBootDoneEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HConfiguration.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HContentManager.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HDataTypes.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HDial.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HDlna.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HFrontPanel.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HFtpManager.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HLcnUpdate.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HLcnUpdateEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HLocalSystem.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMasterConfiguration.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXLogicalStorage.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXOperatorFeature.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXOperatorFreesat.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXOperatorFreesatDialAppState.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXOperatorFreesatDialUpdateEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXOperatorFreesatMetaEpgEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXOperatorFreesatMetaRCEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXOperatorFreesatMetaUpdateEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXOperatorFreesatMhegAppState.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXOperatorFreesatMhegUpdateEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXPhysicalStorage.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXPhysicalStorageAttachedEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXPhysicalStorageCheckDiskEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXPhysicalStorageDetachedEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXPhysicalStorageStatusEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXStorageDetachProgressEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXStorageFormatProgressEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXStorageRecoveryProgressEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXStorageUtil.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMX_Audio.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMX_Dlna.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMX_Media.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMX_MediaScan.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMX_Output.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HNetworkInterface.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HSamba.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HSatip.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HSmartcardStateChangedEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HSoftwareUpdate.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HSwUpdateEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HSwupDetectEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HSwupUpdateEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HUserActionIdleEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HVideoBroadcast.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HVideoOnDemand.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HWoon.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\NativeHBluetoothManager.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\PVREvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\RecordingFileOpEvent.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\bplait.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\bplcookie.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\bpldb.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\bpldsmcc.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\bplglobal.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\bplgraphic.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\bplinit.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\bplkeyinput.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\bplpmt.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\bpltype.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\htype.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplairplay.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplantinfo.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplappmgr.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplavcomponent.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplavoutput.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplbluetoothmanager.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplbookmark.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplbroadcast.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplbuilder.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplcas.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplcasbc.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplchannel.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplcollection.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\opldial.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\opldiscinfo.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\opldmp.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\opldmr.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\opldms.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\opldrmagent.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplevent.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplfavourite.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplfavouritehandle.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplfilemgr.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplfrontpanel.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplftpmgr.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplhmxdrm.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\opljlabslocalsystem.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\opljlabssysteminfo.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\opllocalsystem.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\opllogcapture.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplmail.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplmediascan.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplmetadatasearch.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplmetadatasearchhandle.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplmultiviewcomponent.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplnagrapcmanager.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplnetservice.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplnetwork.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oploperator_freesat.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplparser_japan.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplpcmanager.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplplayready_freesat.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplppvhistory.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplprogramme.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplprogramme.hpp" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplprogramme_japan.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplquery.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplqueryhandle.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplrcf.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplrecorder.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplrecording.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplsamba.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplsatip.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplscheduledprogramme.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplscheduler.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplsearchmanager.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplsearchmanager_def.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplsearchresult.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplsearchresultshandle.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplsignalinfo.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplsqcinfo_freesat.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplstorageutil.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplstreamevent.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplswupdate.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\opltuner.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\opltype.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplvideobroadcasthandle.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplvideobroadcasthandle_def.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplvideohandle.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplvod.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplvodavchandle.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplvodextapphandle.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplvodhandle.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplvodhandle_def.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplvodhtml5handle.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplvodjlabshandle.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplvodjlabshandle_def.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplvod_avc.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplvod_extapp.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplvod_html5.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplvod_jlabs.h" />
+    <ClInclude Include="..\..\..\base-2.0\port\include\oplwoon.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\ChannelScanParameters.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HAirplay.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HBluetoothManager.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HCamStateChangeEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HCasActionIrEmmForcedOta.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HCasActionIrEmmForcedOtaEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HCasUi.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HChannelImportExport.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HChannelImportExportEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HClockRecovery.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HClockRecoveryEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HColdBootDone.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HColdBootDoneEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HConfiguration.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HContentManager.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HDial.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HDlna.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HFrontPanel.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HFtpManager.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HLcnUpdate.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HLcnUpdateEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HLocalSystem.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMasterConfiguration.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXLogicalStorage.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXOperatorFeature.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXOperatorFreesat.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXOperatorFreesatDialAppState.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXOperatorFreesatDialUpdateEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXOperatorFreesatMetaEpgEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXOperatorFreesatMetaRCEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXOperatorFreesatMetaUpdateEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXOperatorFreesatMhegAppState.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXOperatorFreesatMhegUpdateEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXPhysicalStorage.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXPhysicalStorageAttachedEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXPhysicalStorageCheckDiskEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXPhysicalStorageDetachedEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXPhysicalStorageStatusEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXStorageDetachProgressEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXStorageFormatProgressEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXStorageRecoveryProgressEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMXStorageUtil.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMX_Audio.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMX_Dlna.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMX_Media.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMX_MediaScan.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HMX_Output.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HNetworkInterface.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HSamba.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HSatip.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HSmartcardStateChangedEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HSoftwareUpdate.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HSwUpdateEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HSwupDetectEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HSwupUpdateEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HUserActionIdleEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HVideoBroadcast.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HVideoOnDemand.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\HWoon.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\NativeHAirplay.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\NativeHBluetoothManager.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\NativeHConfiguration.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\NativeHContentManager.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\NativeHDial.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\NativeHDlna.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\NativeHFtpManager.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\NativeHmxDLNA.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\NativeHmxMediaScan.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\NativeHOperatorFreesat.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\NativeHSamba.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\NativeHSatip.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\NativeHWoon.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\PVREvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\humax-impl\jsplugins\oipf\src\humax\RecordingFileOpEvent.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\port\src\opl\IPService\oplairplay_x.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\port\src\opl\IPService\opldial.c" />
+    <ClCompile Include="..\..\..\base-2.0\port\src\opl\IPService\opldmp_x.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\port\src\opl\IPService\opldmr_x.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\port\src\opl\IPService\opldms_x.cpp" />
+    <ClCompile Include="..\..\..\base-2.0\port\src\opl\IPService\oplsatip.c" />
+    <ClCompile Include="..\..\..\base-2.0\port\src\opl\IPService\oplwoon_x.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{CC6F5379-94F1-4892-BFD7-19441309F958}</ProjectGuid>
+    <RootNamespace>HOMMA</RootNamespace>
+    <ProjectName>base-2.0</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

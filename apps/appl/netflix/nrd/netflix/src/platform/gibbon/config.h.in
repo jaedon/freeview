@@ -1,0 +1,83 @@
+/*
+ * (c) 1997-2015 Netflix, Inc.  All content herein is protected by
+ * U.S. copyright and other applicable intellectual property laws and
+ * may not be copied without the express permission of Netflix, Inc.,
+ * which reserves all rights.  Reuse of any of this content for any
+ * purpose without the permission of Netflix, Inc. is strictly
+ * prohibited.
+ */
+
+ // This file was automatically generated. Do not modify!
+
+#ifndef GIBBON_CONFIG_H
+#define GIBBON_CONFIG_H
+#define NRDP_PLATFORM_INTERNAL
+
+// Surface Decoder
+#cmakedefine HAVE_LIBJPEG
+#cmakedefine HAVE_LIBPNG
+#cmakedefine HAVE_LIBMNG
+#cmakedefine HAVE_LIBWEBP
+// Surface Decoder Features
+#cmakedefine GIBBON_SURFACEDECODER_FORK
+#cmakedefine HAVE_LIBWEBP_PREMUL
+
+// Core
+#cmakedefine GIBBON_TILEMANAGER
+#cmakedefine HAVE_SIGNAL_HANDLERS
+#cmakedefine HAVE_GIBBON_TCMALLOC
+#cmakedefine GIBBON_CORE_POSIX
+
+// Script engine
+#cmakedefine GIBBON_SCRIPTENGINE_JSC
+#cmakedefine GIBBON_SCRIPTENGINE_JSC_DEBUG
+
+// Input
+#cmakedefine GIBBON_INPUT_DIRECTFB
+#cmakedefine GIBBON_INPUT_NULL
+#cmakedefine GIBBON_INPUT_X11
+#cmakedefine GIBBON_INPUT_DEVINPUT
+
+// Graphics
+#cmakedefine GIBBON_GRAPHICSENGINE_DIRECTFB
+#cmakedefine GIBBON_GRAPHICSENGINE_NULL
+#cmakedefine GIBBON_GRAPHICSENGINE_GLES2
+#cmakedefine GIBBON_GRAPHICSENGINE_GLES2_IOS
+#cmakedefine GIBBON_GRAPHICSENGINE_GLES2_GLX
+#cmakedefine GIBBON_GRAPHICSENGINE_GLES2_EGL
+#cmakedefine GIBBON_GRAPHICSENGINE_GLES2_OSX
+
+// Text
+#cmakedefine GIBBON_TEXT_HARFBUZZ
+#cmakedefine GIBBON_FREETYPE_USE_MALLOC
+#cmakedefine GIBBON_TEXT_CALC_PADDING
+
+// Console
+#cmakedefine HAVE_LIBEDIT
+
+// Network
+#cmakedefine GIBBON_NETWORK_HST
+
+// Options
+#define GIBBON_PLATFORM "@GIBBON_PLATFORM@"
+#define GIBBON_SCRIPT "@GIBBON_SCRIPT@"
+#define GIBBON_INPUT "@GIBBON_INPUT@"
+#define GIBBON_NETWORK "@GIBBON_NETWORK@"
+#define GIBBON_GRAPHICS "@GIBBON_GRAPHICS@"
+#define GIBBON_TEXT "@GIBBON_TEXT@"
+#define GIBBON_EVENTLOOP "@GIBBON_EVENTLOOP@"
+
+// Memory reduction
+#cmakedefine GIBBON_AGGRESSIVE_GC
+#cmakedefine HAVE_MALLOC_TRIM
+#cmakedefine HAVE_MALLINFO
+
+// JPEG options
+#cmakedefine GIBBON_JPEG_UPSAMPLE
+#cmakedefine GIBBON_JPEG_SLOW
+#cmakedefine GIBBON_JPEG_FLOAT
+
+// Random build id
+#define GIBBON_BUILD_ID "@GIBBON_BUILD_ID@"
+
+#endif //NRDBASE_GIBBON_H

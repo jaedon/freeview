@@ -1,0 +1,11 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmxmlbuildercrypto
+TARGETTYPE=LIBRARY
+
+C_DEFINES=$(C_DEFINES)    \
+    -DDRM_BUILDING_DRMXMLBUILDER_LIB
+
+SOURCES =                 \
+    drmxmlbuildercrypto.c
+

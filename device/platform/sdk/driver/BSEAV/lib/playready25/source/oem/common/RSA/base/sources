@@ -1,0 +1,12 @@
+!include ..\..\..\..\drmbuild.cmn
+
+TARGETNAME=oemrsabase
+TARGETTYPE=LIBRARY
+
+C_DEFINES= $(C_DEFINES)             \
+    -DDRM_BUILDING_OEMRSALIB_LIB    \
+
+SOURCES =          \
+    oemrsa.c       \
+    oemrsakeygen.c
+

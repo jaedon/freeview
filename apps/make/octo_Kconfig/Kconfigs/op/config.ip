@@ -1,0 +1,26 @@
+# IP Server Configuration
+
+config IPEPG_SERVER_URL
+	string
+	prompt "set IP-EPG url"
+	default "http://www.humaxtvportal.com"
+
+config RP_SERVER_URL
+	string
+	prompt "set RP Server url"
+	default "http://www.humaxtvportal.com"
+
+config APPPORTAL_SERVER_URL
+	string
+	prompt "set Apps Portal Server url"
+	default "http://www.humaxtvportal.com"
+
+config IPOTA_SERVER_URL
+	string
+	prompt "set IP OTA server url"
+	default "http://www.humaxtvportal.com"
+
+config NTP_SERVER_URL
+	string
+	prompt "set NTP server url"
+	default "pool.ntp.org"

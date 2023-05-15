@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config_root>
+  <config_data>
+    <include>etc/conf/common.xml</include>
+    <disable_logabsolute>true</disable_logabsolute>
+    <splash_screen>http://localcontrol.netflix.com/js/splash.js</splash_screen>
+    <appboot_url>http://appboot.netflix.com/appboot/</appboot_url>
+    <ui_cert>etc/certs/ui_ca.pem</ui_cert>
+    <!-- <inject_js>http://localcontrol.netflix.com/js/nrdjs.js</inject_js> -->
+    <capabilities>
+      <gibbon>
+        <effects>
+          <blur>
+            <accelerated>false</accelerated>
+          </blur>
+          <desaturate>
+            <accelerated>false</accelerated>
+          </desaturate>
+          <tint>
+            <accelerated>false</accelerated>
+          </tint>
+          <mask>
+            <accelerated>false</accelerated>
+          </mask>
+        </effects>
+        <splash>
+          <updatable>true</updatable>
+          <device>false</device>
+        </splash>
+      </gibbon>
+    </capabilities>
+    <include>etc/conf/platform.xml</include>
+    <include>etc/conf/graphics.xml</include>
+    <include>etc/conf/input.xml</include>
+    <include>etc/conf/oem.xml</include>
+  </config_data>
+</config_root>

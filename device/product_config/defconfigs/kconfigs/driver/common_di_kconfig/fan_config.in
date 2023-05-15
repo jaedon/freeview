@@ -1,0 +1,49 @@
+##########################################
+# DI FAN configuration menu
+##########################################
+
+config FAN
+	bool
+	prompt "FAN"
+	default n
+	
+	config NEW_FAN_SCENARIO
+		bool
+		prompt "NEW_FAN_SCENARIO"
+		default y
+		help
+			Apply new fan scenario
+		depends on FAN
+
+	config FAN_SCENARIO_30
+		bool
+		prompt "FAN_SCENARIO_30"
+		default n
+		help
+			Apply fan scenario 3.0
+		depends on FAN
+
+
+	config FAN_PWM2_TEMP
+		bool
+		prompt "FAN_PWM_NUM2"
+		default n
+		help
+			Apply fan pwm2
+		depends on FAN
+
+	config FAN_CONTROLLED_BY_GPIO
+		bool
+		prompt "FAN_CONTROLLED_BY_GPIO"
+		default n
+		help
+			fan controlled by gpio
+		depends on FAN
+
+	config FAN_FEEDBACK_BY_LEVEL
+		bool
+		prompt "FAN_FEEDBACK_BY_LEVEL"
+		default n
+		help
+			fan feedback by level
+		depends on FAN

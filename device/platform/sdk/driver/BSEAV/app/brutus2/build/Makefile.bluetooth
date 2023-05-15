@@ -1,0 +1,169 @@
+############################################################
+#     Copyright (c) 2003-2012, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.bluetooth $
+# $brcm_Revision: 1 $
+# $brcm_Date: 1/12/12 7:01p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /BSEAV/app/brutus2/build/Makefile.bluetooth $
+# 
+# 1   1/12/12 7:01p tokushig
+# SW7405-5581: Brutus2 initial check in
+# 
+# 8   12/22/09 12:13p mward
+# SW7125-150: Default LIBBLUEZ_ARCH=mipsel-linux if ARCH is not set.
+# 
+# 7   3/16/09 4:50p randyjew
+# PR45723: libbte called from Makefile.brutus
+# 
+# 6   8/27/08 10:45a erickson
+# PR45723: convert libbte rule
+#
+# 5   8/27/08 7:21a erickson
+# PR42789: change directory for BTE
+#
+# 4   8/15/08 10:08a erickson
+# PR42789: bluetooth update
+#
+# 3   8/13/08 10:12a erickson
+# PR42789: make build more silent
+#
+# 2   8/13/08 6:43a erickson
+# PR42789: prevent DESTDIR definition from messing up libbluez make
+#
+# 1   8/13/08 5:26a erickson
+# PR42789: updates for BLUETOOTH_SUPPORT
+#
+############################################################
+
+#
+# This Makefile requires the following inputs:
+# 1) BSEAV
+# 2) include tools.mak (a standard Makefile .inc for setting up the Broadcom reference sw build)
+#
+# This Makefile does the following:
+# 1) configure and build the bluez library in BSEAV/lib/bluetooth/bluez*
+#      This is needed to communicate with the Linux bluedriver
+# 2) build the BTE libraries in BSEAV/lib/bluetooth/bte*
+#      This is the Broadcom Bluetooth-Embedded stack. It talks to the Linux bluetooth driver.
+# 3) set BLUETOOTH_CFLAGS and BLUETOOTH_LIBS for the application to use bluetooth bluez and bte libraries
+#
+BSEAV = $(shell cd "../../.." && pwd)
+BLUETOOTH_DIR = $(BSEAV)/lib/bluetooth
+LIBBLUEZ_DIR = $(BLUETOOTH_DIR)/bluez-libs-2.25
+UTILSBLUEZ_DIR = $(BLUETOOTH_DIR)/bluez-utils-2.25
+
+# LIBBTE_DIR points to the BTE stack
+LIBBTE_DIR = $(BLUETOOTH_DIR)/bte3.13.1_stb
+LIBBTE_PROJECT_DIR = $(BLUETOOTH_DIR)/bte3.13.1_stb/Projects/bte
+
+#################################
+#
+# define BLUETOOTH_CFLAGS and BLUETOOTH_LIBS for the application
+#
+
+# needed for brutus code
+BLUETOOTH_CFLAGS += -DBLUETOOTH_SUPPORT
+BLUETOOTH_CFLAGS += -I$(LIBBTE_PROJECT_DIR)/main
+
+BLUETOOTH_LIBS += \
+	$(LIBBTE_PROJECT_DIR)/build/obj/bte_app.lib \
+	$(LIBBLUEZ_DIR)/src/.libs/libbluetooth.a
+
+#################################
+#
+# build bluez libraries
+#
+.PHONY: libbluez utilsbluez libbte
+.PHONY: clean-libbluez clean-utilsbluez clean-libbte
+
+#OTHER_MAKES += libbte libbluez utilsbluez 
+OTHER_CLEANS += clean-libbluez clean-utilsbluez clean-libbte
+
+ifeq ($(VERBOSE),)
+REDIR_LIBBLUEZ := > /dev/null
+else
+REDIR_LIBBLUEZ :=
+endif
+
+ifeq ($(ARCH),)
+LIBBLUEZ_ARCH=mipsel-linux
+else
+# lib doesn't support mips-uclibc, so convert
+LIBBLUEZ_ARCH=$(ARCH)
+ifeq ($(ARCH),mipsel-uclibc)
+LIBBLUEZ_ARCH=mipsel-linux
+endif
+ifeq ($(ARCH),mips-uclibc)
+LIBBLUEZ_ARCH=mips-linux
+endif
+endif
+
+# configure lib if Makefile doesn't exist
+.PHONY: config-libbluez
+config-libbluez:
+	#speed of machine vs. granularity of creation/modification creates the need for a little sleep after configure
+	@if [ ! -e $(LIBBLUEZ_DIR)/Makefile ]; then \
+		cd $(LIBBLUEZ_DIR); \
+		echo [Config.... libbluetooth]; \
+		./configure -q --prefix=$(LIBBLUEZ_DIR)/src/.libs --exec-prefix=$(LIBBLUEZ_DIR)/src/.libs \
+			--host=$(LIBBLUEZ_ARCH) \
+			--enable-static=yes --enable-shared=no $(REDIR_LIBBLUEZ); \
+	fi
+
+$(LIBBLUEZ_DIR)/src/.libs/libbluetooth.a: config-libbluez
+	@if ! $(MAKE) -q -C $(LIBBLUEZ_DIR) >& /dev/null; then \
+		echo [Build..... libbluetooth]; \
+		$(MAKE) DESTDIR= -C $(LIBBLUEZ_DIR) install $(REDIR_LIBBLUEZ); \
+	fi
+
+libbluez: $(LIBBLUEZ_DIR)/src/.libs/libbluetooth.a
+
+clean-libbluez:
+	-@if [ -e $(LIBBLUEZ_DIR)/Makefile ]; then \
+		$(MAKE) -C $(LIBBLUEZ_DIR) distclean >& /dev/null; \
+	fi
+
+# configure lib if Makefile doesn't exist
+.PHONY: config-utilsbluez
+config-utilsbluez:
+	#speed of machine vs. granularity of creation/modification creates the need for a little sleep after configure
+	@if [ ! -e $(UTILSBLUEZ_DIR)/Makefile ]; then \
+		cd $(UTILSBLUEZ_DIR); \
+		echo [Config.... bluetooth utils]; \
+		./configure -q --prefix=$(LIBBLUEZ_DIR)/src/.libs --exec-prefix=$(LIBBLUEZ_DIR)/src/.libs \
+			--host=$(LIBBLUEZ_ARCH) \
+			--enable-static=yes --enable-shared=no $(REDIR_UTILSBLUEZ); \
+	fi
+
+$(LIBBLUEZ_DIR)/src/.libs/sbin/hciconfig: config-utilsbluez
+	@if ! $(MAKE) -q -C $(UTILSBLUEZ_DIR) >& /dev/null; then \
+		echo [Build..... bluetooth utils]; \
+		$(MAKE) -C $(UTILSBLUEZ_DIR) install $(REDIR_UTILSBLUEZ); \
+	fi
+
+#
+# Build the BTE app into a library
+#
+libbte: utilsbluez
+	$(MAKE) -C $(LIBBTE_PROJECT_DIR)/build obj/bte_app.lib
+clean-libbte: utilsbluez
+	$(MAKE) -C $(LIBBTE_PROJECT_DIR)/build clean
+
+utilsbluez: libbluez $(LIBBLUEZ_DIR)/src/.libs/sbin/hciconfig
+
+clean-utilsbluez:
+	-@if [ -e $(UTILSBLUEZ_DIR)/Makefile ]; then \
+		$(MAKE) -C $(UTILSBLUEZ_DIR) distclean >& /dev/null; \
+	fi
+

@@ -1,0 +1,48 @@
+1235:FUNC:Test the presense of tools (secureclock)
+RunPregenTool(secureclockcreateresponse.exe)=0x00000002 (DRM_S_MORE_DATA)
+RunPregenTool(secureclockgeneratechallenge.exe)=0x00000002 (DRM_S_MORE_DATA)
+RunPregenTool(secureclockprocessresponse.exe)=0x00000002 (DRM_S_MORE_DATA)
+
+
+1240:FUNC:Test with "-?" as command line argument should return DRM_SUCCESS (secureclock)
+RunPregenTool(secureclockcreateresponse.exe -?)
+RunPregenTool(secureclockgeneratechallenge.exe -?)
+RunPregenTool(secureclockprocessresponse.exe -?)
+
+
+1245:FUNC:Secure Clock tools e2e test 
+SkipTestIf(!WMDRMSupported)
+'Generate secure clock challenge
+RunPregenToolEx(secureclockgeneratechallenge.exe -l:ClkChallenge.chlg -s:SCDataStore.hds)
+'Request the secure clock server for response
+Test_API_CheckFilePresense(SCDataStore.hds)
+Test_API_CheckFilePresense(ClkChallenge.chlg)
+RunPregenToolEx(secureclockcreateresponse.exe -l:ClkChallenge.chlg -r:ClkResponse.resp)
+Test_API_CheckFilePresense(ClkResponse.resp)
+RunPregenToolEx(secureclockprocessresponse.exe -r:ClkResponse.resp -s:SCDataStore.hds )
+
+
+1252:FUNC:Secure Clock generate challenge with -u option
+SkipTestIf(!WMDRMSupported)
+Delete(ClkChallenge.chlg)
+Delete(SCDataStore.hds) 
+RunPregenToolEx(secureclockgeneratechallenge.exe -l:ClkChallenge.chlg -s:SCDataStore.hds -u:secureclockurl.txt)
+Test_API_CheckFilePresense(ClkChallenge.chlg)
+Test_API_CheckFilePresense(SCDataStore.hds)
+Test_API_CheckFilePresense(secureclockurl.txt)
+
+
+1257:FUNC:Invalid list of parameters for secure clock tools
+'Missing "-l" parameter
+RunPregenToolEx(Secureclockgeneratechallenge.exe -s:LocalDataStore.hds -u:secureclockurl.txt)=0x80070667 (DRM_E_INVALID_COMMAND_LINE)
+'Parameter "-a" instead of "-l" 
+RunPregenToolEx(Secureclockcreateresponse.exe -r:ClkResponse.resp -a:ClkChallenge.chlg )=0x80070667 (DRM_E_INVALID_COMMAND_LINE)
+'Missing "-r" parameter
+RunPregenToolEx(Secureclockcreateresponse.exe -l:ClkChallenge.chlg)=0x80070667 (DRM_E_INVALID_COMMAND_LINE)
+'Parameter "-l" instead of "-r" 
+RunPregenToolEx(Secureclockprocessresponse.exe -l:ClkResponse.resp -s:LocalDataStore.hds)=0x80070667 (DRM_E_INVALID_COMMAND_LINE)
+'Missing "-s" parameter
+RunPregenToolEx(Secureclockgeneratechallenge.exe -l:ClkChallenge.chlg -u:secureclockurl.txt)=0x80070667 (DRM_E_INVALID_COMMAND_LINE)
+'Parameter "-a" instead of "-r" 
+RunPregenToolEx(Secureclockprocessresponse.exe -l:ClkResponse.resp -a:LocalDataStore.hds)=0x80070667 (DRM_E_INVALID_COMMAND_LINE)
+

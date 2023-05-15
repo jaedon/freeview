@@ -1,0 +1,12 @@
+# MGR CAS include path
+
+ccflags-$(CONFIG_3RD_BML)			+= -I$(OCTO_THIRDPARTY_PORT_DIR)/bml/include
+ccflags-$(CONFIG_3RD_RFVOD)			+= -I$(OCTO_THIRDPARTY_PORT_DIR)/rfvod/include
+
+ccflags-y 							+= -I$(OCTO_TVMANAGER_DIR)/oapi_manager
+
+ccflags-$(CONFIG_MW_CI)				+= -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/cas/base/ci/include
+ccflags-$(CONFIG_MW_CAS_CONAX)		+= -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/cas/base/conax/include
+
+ccflags-y += -I$(OCTO_DIR)/main/oxserver
+

@@ -1,0 +1,11 @@
+1201:BVT: Create a device certificate.
+SkipTestIf( !DeviceAssetsSupported, !WMDRMNetSupported )
+Test_CreateDeviceCertificate(ndmodelcert1.xml, ndmodelcertprivkey1.xml, 10240, nddevicecert1.xml, nddeviceprikey1.bin)
+
+1202:BVT: Create a model certicate.
+SkipTestIf( !DeviceAssetsSupported, !WMDRMNetSupported )
+Test_CreateModelCertificate(unsignedtemplate.xml, companyprivkey.xml, companypubkeymodulusb64.txt, ndmodelcert.xml, ndmodelprikey.bin)
+
+1203:BVT: Create a company certicate.
+SkipTestIf( !DeviceAssetsSupported, !WMDRMNetSupported )
+Test_CreateCompanyCertificate(rootprivkey.xml, rootpubkeymodulusb64.txt, ndcompanycert.xml, ndcompanyprikey.bin)

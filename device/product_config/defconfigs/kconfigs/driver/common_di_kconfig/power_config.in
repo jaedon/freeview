@@ -1,0 +1,9 @@
+##########################################
+# DI POWER configuration menu
+##########################################
+
+config NO_MICOM_POWER_CONTROL
+	bool
+	prompt "CONFIG_NO_MICOM_POWER_CONTROL"
+	default n
+

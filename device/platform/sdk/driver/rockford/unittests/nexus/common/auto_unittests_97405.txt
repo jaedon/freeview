@@ -1,0 +1,255 @@
+############################################################
+#     Copyright (c) 2003-2012, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: auto_unittests_97405.txt $
+# $brcm_Revision: Hydra_Software_Devel/41 $
+# $brcm_Date: 3/12/12 10:07a $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /rockford/unittests/nexus/common/auto_unittests_97405.txt $
+# 
+# Hydra_Software_Devel/41   3/12/12 10:07a randyjew
+# SWCFE-713:correct error in path to multiprocess test
+# 
+# Hydra_Software_Devel/40   3/12/12 9:58a randyjew
+# SWCFE-713: Add surface_compositor and multiprocess tests
+# 
+# Hydra_Software_Devel/39   2/9/12 4:14p erickson
+# SW7405-5599: remove record/record_overflow_recovery until PR resolved
+# 
+# Hydra_Software_Devel/38   1/20/12 10:25a erickson
+# SWCFE-713: remove surface_compositor tests until we can switch to
+# 2.6.31/37
+# 
+# Hydra_Software_Devel/37   12/19/11 12:04p erickson
+# SW7231-540: add multithreaded_fill
+# 
+# Hydra_Software_Devel/36   12/16/11 11:57a erickson
+# SW7425-1261: enable dqt_trick
+# 
+# Hydra_Software_Devel/35   12/16/11 11:56a erickson
+# SW7420-2197: enable surface_compositor unittests
+# 
+# Hydra_Software_Devel/34   12/16/11 11:44a erickson
+# SW7405-5325: add packetsub1 test
+# 
+# Hydra_Software_Devel/33   12/14/11 3:17p erickson
+# SW7231-536: add unit tests
+# 
+# Hydra_Software_Devel/32   11/15/11 9:05a erickson
+# SW7405-5479: disable codec_mismatch until RAP is fixed
+# 
+# Hydra_Software_Devel/31   11/10/11 10:20a erickson
+# SW7405-5478: reenable codec_mismatch test
+# 
+# Hydra_Software_Devel/30   10/27/11 3:32p erickson
+# SW7425-1581: add display_crc unittest
+# 
+# Hydra_Software_Devel/29   10/27/11 1:52p erickson
+# SW7231-415: add unittest that would have caught this bug
+# 
+# Hydra_Software_Devel/28   10/21/11 9:09a erickson
+# SW7420-1992: remove test that isn't ready
+# 
+# Hydra_Software_Devel/27   10/12/11 11:48a erickson
+# SW7425-1261: add dqt_trick placeholder
+# 
+# Hydra_Software_Devel/26   10/10/11 10:32a erickson
+# SW7420-1992: add surface_compositor/client_flavors
+# 
+# Hydra_Software_Devel/25   9/19/11 1:55p ahulse
+# SW7405-5416: add unittests/display/video_input_shutdown
+# 
+# Hydra_Software_Devel/24   9/15/11 2:12p katrep
+# SW7405-4989:disabled codedcmismatch test
+# 
+# Hydra_Software_Devel/23   9/15/11 10:32a erickson
+# SW7405-5489: add record_stress_test2
+# 
+# Hydra_Software_Devel/22   9/9/11 11:23a katrep
+# SW7405-4989:disable codec mismatch test
+# 
+# Hydra_Software_Devel/21   9/8/11 2:18p erickson
+# SW7425-1267: add unittest for GFD
+# 
+# Hydra_Software_Devel/20   8/31/11 2:15p jtna
+# SW7405-4989: re-enable record_stress_test and record_with_timestamps
+# 
+# Hydra_Software_Devel/19   7/29/11 10:33a erickson
+# SW7425-1029: add timebase unittest
+# 
+# Hydra_Software_Devel/18   7/14/11 2:54p erickson
+# SWDEPRECATED-2425: sort tests
+# 
+# Hydra_Software_Devel/17   7/11/11 1:07p erickson
+# SWDEPRECATED-2425: add display/heaps
+# 
+# Hydra_Software_Devel/16   7/7/11 12:41p erickson
+# SW7405-5394: add unittests/display/synclock_master
+# 
+# Hydra_Software_Devel/15   7/6/11 10:55a erickson
+# SW7405-5342: reenabled unittests/dma/dma_mixedmode_stress
+# 
+# Hydra_Software_Devel/14   6/3/11 4:28p erickson
+# SWDEPRECATED-3044: add two tests
+# 
+# Hydra_Software_Devel/13   6/3/11 2:17p erickson
+# SW7405-5349: add general memory tests
+# 
+# Hydra_Software_Devel/12   6/3/11 12:18p erickson
+# SWDEPRECATED-3044: reenable mosaic_decode
+# 
+# Hydra_Software_Devel/11   5/31/11 5:16p erickson
+# SWDEPRECATED-3044: comment out two failing tests
+# 
+# Hydra_Software_Devel/10   5/27/11 2:00p erickson
+# SW7405-5339: modify display open test
+# 
+# Hydra_Software_Devel/9   5/27/11 12:25p erickson
+# SWDEPRECATED-3044: reenable tests, add testse
+# 
+# Hydra_Software_Devel/8   11/11/10 1:51p katrep
+# SW7405-4989:Diable record_stress_test
+# 
+# Hydra_Software_Devel/7   11/5/10 9:33a katrep
+# SW7405-4989:diabled tests which are consitantly failing
+# 
+# Hydra_Software_Devel/6   11/4/10 2:20p katrep
+# SW7400-2955:disabled message_stress3, reenabled several stress tests
+# 
+# Hydra_Software_Devel/5   11/3/10 4:38p katrep
+# SW7405-4986: temporarily disable record overflow recovery test
+# 
+# Hydra_Software_Devel/4   11/3/10 11:52a katrep
+# SW7405-4985: Diabled mosiac_decode test till issue is fixed
+# 
+# Hydra_Software_Devel/3   10/22/10 4:30p slauzon
+# SWCHECKFRAME-80: added new tests
+# 
+# Hydra_Software_Devel/2   10/18/10 11:58a katrep
+# SW7405-4950:Disabled few invalid tests
+# 
+# Hydra_Software_Devel/1   10/13/10 6:18p katrep
+# SW7405-3705:autotest scripts
+# 
+# Hydra_Software_Devel/8   9/10/10 8:06p slauzon
+# SW7125-480: commented out playback_trick_loop test.  Temporary measure
+# until SW7125-480 is resolved
+# 
+# Hydra_Software_Devel/7   8/16/10 5:06p slauzon
+# SWCHECKFRAME-80: added new graphics2d tests
+# 
+############################################################
+
+unittests/audio/codec_test
+unittests/display/capture_buffer
+unittests/display/digital_cc_capture
+unittests/display/display_crc
+unittests/display/display_vbi
+unittests/display/display_vbi_stress  -disable_cgmsb
+unittests/display/graphics_stress
+unittests/display/heaps
+unittests/display/open
+unittests/display/outputs
+unittests/display/pip_swap
+unittests/display/pq
+unittests/display/resize_window
+unittests/display/synclock_master
+unittests/display/video_input_shutdown
+unittests/dma/dma_api_usage
+unittests/dma/dma_bulk
+unittests/dma/dma_callbacks
+unittests/dma/dma_chain
+unittests/dma/dma_crypto
+unittests/dma/dma_mixedmode
+unittests/dma/dma_mixedmode_stress
+unittests/file/playback_with_cancel
+unittests/file/timeshift_jump
+unittests/frontend/tune_untune
+unittests/general/alloc
+unittests/general/boot
+unittests/general/memory
+unittests/general/sleep
+unittests/general/watchdog
+unittests/graphics2d/blit 
+unittests/graphics2d/blit_performance
+unittests/graphics2d/blit_stress
+unittests/graphics2d/checkpoint_stress
+unittests/graphics2d/dualcontext_multithreaded_fill
+unittests/graphics2d/fillrate
+unittests/graphics2d/multithreaded_fill
+unittests/graphics2d/packet_and_function
+unittests/graphics2d/packet_blit_stress
+unittests/graphics2d/palette_blit2
+unittests/graphics2d/premultiply_alpha1
+unittests/graphics2d/premultiply_alpha2
+unittests/open_tests/display_video_decoder
+unittests/playback/audio_switch
+# TODO: enable codec_mismatch when RAP is fixed
+#unittests/playback/codec_mismatch
+unittests/playback/create_destroy
+unittests/playback/dqt_trick
+unittests/playback/frameadvance_stress
+unittests/playback/playback_list
+unittests/playback/playback_openpidchannel
+unittests/playback/playback_stctrick
+unittests/playback/playback_stop_start
+unittests/playback/playback_trick_loop
+unittests/playback/seek
+unittests/playback/start_stop
+unittests/playback/trick_stress
+unittests/record/allpass_record_from_playback
+unittests/record/multiple_index_only_records
+unittests/record/record2
+unittests/record/record3
+unittests/record/record_append_from_playpump
+# SW7405-5599 - removing until fixed
+#unittests/record/record_overflow_recovery  
+unittests/record/record_play
+unittests/record/record_stress_test
+unittests/record/record_stress_test2
+unittests/record/record_with_timestamps
+unittests/record/recpump_overflow_recovery
+unittests/surface/open
+unittests/surface/palette
+unittests/surface_compositor/client_flavors
+unittests/surface_compositor/multibuffered_stress
+unittests/surface_compositor/setsurface_stress
+unittests/transport/message_dss
+unittests/transport/message_stress1
+unittests/transport/message_stress2
+unittests/transport/message_stress3
+unittests/transport/message_stress4
+unittests/transport/open
+unittests/transport/packetsub1
+unittests/transport/playpump_cc_test
+unittests/transport/recpump
+unittests/transport/set_stc
+unittests/transport/timebase
+unittests/transport/tpit
+unittests/video_decoder/callbacks
+unittests/video_decoder/channel_change
+unittests/video_decoder/codec_test
+unittests/video_decoder/dataready
+unittests/video_decoder/decoder_trick
+unittests/video_decoder/mosaic_decode 
+unittests/video_decoder/mosaic_playback_zorder_list
+unittests/video_decoder/open
+unittests/video_decoder/userdata_capture
+# Multi-process tests
+rockford/unittests/nexus/multiprocess/bad_join
+rockford/unittests/nexus/multiprocess/simple_server -mode protected -timeout 60 | 15 | rockford/unittests/nexus/multiprocess/ir_input_client
+rockford/unittests/nexus/multiprocess/simple_server -mode untrusted -timeout 60 | 15 | rockford/unittests/nexus/multiprocess/simple_client
+rockford/unittests/nexus/multiprocess/simple_server -mode untrusted -timeout 60 | 15 | rockford/unittests/nexus/multiprocess/untrusted_client
+#nexus/examples/multiprocess/decode_server -timeout 120 | 15 |  nexus/examples/multiprocess/playpump_scatter_gather_client
+rockford/unittests/nexus/multiprocess/stress_server join_stress_client
+rockford/unittests/nexus/multiprocess/stress_server alloc_stress_client

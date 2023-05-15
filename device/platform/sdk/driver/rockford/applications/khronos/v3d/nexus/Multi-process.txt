@@ -1,0 +1,114 @@
+V3D examples over Nexus
+=======================
+
+Some of the V3D examples will work both in single-process and multi-process configuration.
+These instructions tell you how to build and run in both configurations, in both user and kernel space.
+
+The build lines below will be given for the 'cube' application, but are applicable to earth_es2, poly_rate, 
+poly_rate_es1, vg_star & benchmark with appropriate name substitutions.
+
+Single-process user mode
+------------------------
+
+Build:
+
+cd vobs/rockford/applications/khronos/v3d/nexus/cube
+unset surface_compositor
+unset NEXUS_MODE
+unset CLIENT
+make clean
+make
+
+Run:
+
+cd vobs/nexus/bin
+nexus cube
+
+
+Single-process kernel mode
+--------------------------
+
+Build:
+
+cd vobs/rockford/applications/khronos/v3d/nexus/cube
+unset surface_compositor
+unset CLIENT
+export NEXUS_MODE=proxy
+make clean
+make
+
+Run:
+
+cd vobs/nexus/bin
+nexus cube
+
+
+Multi-process user mode
+-----------------------
+
+Build the client app:
+
+cd vobs/rockford/applications/khronos/v3d/nexus/cube
+export surface_compositor=y
+export NEXUS_MODE=client
+export CLIENT=y
+make clean
+make
+
+Build the server app:
+
+cd vobs/nexus/build
+unset NEXUS_MODE
+unset CLIENT
+make clean
+make
+
+cd vobs/nexus/examples/multiprocess
+export surface_compositor=y
+make blit_server
+
+Run:
+
+In one telnet or console:
+cd vobs/nexus/bin
+nexus blit_server
+
+In a separate telnet:
+./cube client=0 &
+./cube client=1 &
+
+
+Multi-process kernel mode
+-----------------------
+
+Build the client app:
+
+cd vobs/rockford/applications/khronos/v3d/nexus/cube
+export surface_compositor=y
+export NEXUS_MODE=proxy
+export CLIENT=y
+make clean
+make
+
+Build the server app:
+
+cd vobs/nexus/build
+export surface_compositor=y
+export NEXUS_MODE=proxy
+unset CLIENT
+make clean
+make
+
+cd vobs/nexus/examples/multiprocess
+make blit_server
+
+Run:
+
+In one telnet or console:
+cd vobs/nexus/bin
+nexus blit_server
+
+In a separate telnet:
+./cube client=0 &
+./cube client=1 &
+

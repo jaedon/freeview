@@ -1,0 +1,12 @@
+
+TARGETTYPE=LIBRARY
+TARGETNAME=LicEvalTestAPI
+UMTYPE=console
+
+SOURCES = \
+	../liceval.c \
+
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \

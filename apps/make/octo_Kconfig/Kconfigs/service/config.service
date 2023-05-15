@@ -1,0 +1,9 @@
+################################################
+#					AP UI Configuration					#
+################################################
+
+comment "Service Configuration."
+
+# UI System
+	source "./Kconfigs/service/config.streaming"
+

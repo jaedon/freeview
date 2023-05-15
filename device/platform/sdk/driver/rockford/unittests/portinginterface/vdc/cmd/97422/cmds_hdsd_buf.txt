@@ -1,0 +1,30 @@
+ovc
+pb
+x1 och 0 0
+os
+ow
+lipsync 1 0 0
+c1
+oc
+ow
+lipsync 1 0 0
+c0
+cf 3
+dnr 30 2 80 2 90 2 70
+mad 1 1 0 0 0 0
+
+lipstress
+sbvn 11 11 0 1 31 31 0 1 0 200
+lipstress
+
+sleep
+pb
+c1
+cw
+cd
+c0
+cw
+cs
+cd
+quit
+

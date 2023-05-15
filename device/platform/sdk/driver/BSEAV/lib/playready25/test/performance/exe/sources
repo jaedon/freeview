@@ -1,0 +1,31 @@
+#
+# Microsoft (r) PlayReady (r)
+# Copyright (c) Microsoft Corporation. All rights reserved.
+#
+
+DRM_SUPPORT_PERFORMANCE=1
+!include ..\..\reftest.cmn
+
+TARGETTYPE=PROGRAM
+TARGETNAME=PerformanceTest
+UMTYPE=console
+
+SOURCES =      \
+    ..\main.c  \
+
+TARGETLIBS = $(TARGETLIBS)       \
+    $(_DRM_REFCODE_LIBS)         \
+    $(_DRM_TC_LIBS)              \
+    $(_DRM_TEST_PERFORMANCE_LIB) \
+    \
+    $(DRM_PK_TEST_LIB_PATH)\generatorutils.lib \
+    $(_DRM_TEST_LIVETV_LIB)      \
+    $(_DRM_TEST_DRMMANAGER_LIB)  \
+    $(_DRM_TEST_HEADER_LIB)      \
+    $(_DRM_TEST_NETIO_LIB)       \
+    $(_DRM_TEST_CRYPTO_LIB)      \
+
+!if "$(DRM_BUILD_PLATARCH)" == "WIN32_X64"
+TARGETLIBS = $(TARGETLIBS)                                                                 \
+    ..\..\..\..\..\..\obj\source\pk\wmdrm-md\test\crypto\amd64_lib\$(O)\setacx64.obj  \
+!endif

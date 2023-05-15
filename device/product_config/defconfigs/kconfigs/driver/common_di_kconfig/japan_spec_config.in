@@ -1,0 +1,9 @@
+##########################################
+# JAPAN SPEC configuration menu
+##########################################
+
+config JAPAN_SPEC
+	bool
+	prompt "JAPAN Specification"
+	default n
+

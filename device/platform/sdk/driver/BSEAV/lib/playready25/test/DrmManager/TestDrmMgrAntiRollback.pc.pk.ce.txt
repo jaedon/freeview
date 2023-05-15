@@ -1,0 +1,752 @@
+51237:BVT: rollback clock by 60 seconds and license should fail due to antirollback (XMR)
+SkipTestIf(!VIEWRIGHTSSupported, !SystemTimeChangeSupported)
+TestManagerSetRights(Play)
+TestManagerAddXMRLicense(KQNXs2nvVdiUypvlgcROrA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,NULL,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetKID( KQNXs2nvVdiUypvlgcROrA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+Test_ChangeTimeSeconds(-60)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTS_NOT_AVAILABLE
+TestManagerCommit
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+
+
+51238:BVT: rollback clock by 200 seconds and license should fail due to antirollback and DRM_LIC_CheckClockRollback should have been triggered (XMR)
+SkipTestIf(!SystemTimeChangeSupported)
+TestManagerAddXMRLicense(KQNXs2nvVdiUypvlgcROrA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,NULL,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_ChangeTimeSeconds(400)
+TestManagerReinitialize(Reset)
+Test_ChangeTimeSeconds(-200)
+TestManagerReinitialize(Reset)
+TestManagerSetKID( KQNXs2nvVdiUypvlgcROrA== )
+TestManagerSetRights(Play)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTS_NOT_AVAILABLE
+Test_ChangeTimeSeconds(100)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTS_NOT_AVAILABLE
+Test_ChangeTimeSeconds(102)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+Test_ChangeTimeSeconds(502)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C009 DRM_E_LICENSE_EXPIRED
+
+
+11223:BVT: rollback clock by 200 seconds and DOMAIN license should fail due to antirollback and DRM_LIC_CheckClockRollback should have been triggered (XMR)
+SkipTestIf(!DomainSupported, !SystemTimeChangeSupported)
+' Fire up DRM
+TestManagerReinitialize(Reset)
+
+' Join Domain
+GenerateDomainJoinResponse( TEST_DOMAIN_JOIN_RESPONSE_VAR, HelloWorld, 2, NjU0MzIxMDk4NzY1NDMyMQ==, AH+03juKbUGbHl1V/QIwRA==, DomainCertChainForEmbeddingTest.dat, 5, 0x45a2db00, "qsvqMkfM/LdfprO42rOBT1hAMLQjbkZy+oMgGdD3LZg=", 0x45a03800, "ercDEr7JUw3IU+hRQwC9M4cQ+8ACYM36c90Qe9hupEk=", 0x459d9500, "DOB4Eclbzex72jutbaCnGd5MrXK8L/fXZX2UT6faWMM=", 0x459af200, "8tA7hrpMroHJibgBoedBPjTjvtabuM6H9OqK+WLogbU=", 0x45984f00, "mpYLdZ8Y2XIV0NxvwXeJDzGiisJgorsmsrxtj+KAr1M=" )
+ProcessDomainJoinResponse( TEST_DOMAIN_JOIN_RESPONSE_VAR )=DRM_S_MORE_DATA
+
+' Add domain-bound license with expiration date
+TestManagerAddXMRLicense( AVhTknNlJOjo7F6b7HeNxg==, {C58BFCC3-08F1-4090-A8E5-F56809A732AA}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, 3600, NULL, NULL, NULL, OMIT, NULL, AES_128_CTR, NULL, NjU0MzIxMDk4NzY1NDMyMQ==  )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+
+' Embed domain-bound license into file
+TestManagerSetRights(Play)
+TestCopyFile( files\EnvelopeForEmbeddingTest.eny, files\EnvelopeWithEmbeddedDomainFor51239.eny )
+TestManagerOpenEnvelope( EnvelopeContextBuffer,files\EnvelopeWithEmbeddedDomainFor51239.eny )
+TestManagerUpdateEmbeddedStore
+VerifyEmbeddedLicenseAPI( AVhTknNlJOjo7F6b7HeNxg==, {C58BFCC3-08F1-4090-A8E5-F56809A732AA} )
+TestManagerEnvelopeWritePlayReadyObject( EnvelopeContextBuffer, files\EnvelopeWithEmbeddedDomainFor51239.eny )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerCloseEnvelope( EnvelopeContextBuffer )
+TestManagerClose()
+
+' Wipe the HDS so the license is ONLY embedded and there are no secure store entries for it
+TestManagerReinitialize(Reset, TRUE)
+
+' Rejoin domain
+GenerateDomainJoinResponse( TEST_DOMAIN_JOIN_RESPONSE_VAR, HelloWorld, 2, NjU0MzIxMDk4NzY1NDMyMQ==, AH+03juKbUGbHl1V/QIwRA==, DomainCertChainForEmbeddingTest.dat, 5, 0x45a2db00, "qsvqMkfM/LdfprO42rOBT1hAMLQjbkZy+oMgGdD3LZg=", 0x45a03800, "ercDEr7JUw3IU+hRQwC9M4cQ+8ACYM36c90Qe9hupEk=", 0x459d9500, "DOB4Eclbzex72jutbaCnGd5MrXK8L/fXZX2UT6faWMM=", 0x459af200, "8tA7hrpMroHJibgBoedBPjTjvtabuM6H9OqK+WLogbU=", 0x45984f00, "mpYLdZ8Y2XIV0NxvwXeJDzGiisJgorsmsrxtj+KAr1M=" )
+ProcessDomainJoinResponse( TEST_DOMAIN_JOIN_RESPONSE_VAR )=DRM_S_MORE_DATA
+
+' Verify embedded license works
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope( EnvelopeContextBuffer,files\EnvelopeWithEmbeddedDomainFor51239.eny )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerCloseEnvelope( EnvelopeContextBuffer )
+TestManagerClose()
+
+' Wipe the HDS so the license is ONLY embedded and there are no secure store entries for it
+TestManagerReinitialize(Reset, TRUE)
+
+' Rejoin domain
+GenerateDomainJoinResponse( TEST_DOMAIN_JOIN_RESPONSE_VAR, HelloWorld, 2, NjU0MzIxMDk4NzY1NDMyMQ==, AH+03juKbUGbHl1V/QIwRA==, DomainCertChainForEmbeddingTest.dat, 5, 0x45a2db00, "qsvqMkfM/LdfprO42rOBT1hAMLQjbkZy+oMgGdD3LZg=", 0x45a03800, "ercDEr7JUw3IU+hRQwC9M4cQ+8ACYM36c90Qe9hupEk=", 0x459d9500, "DOB4Eclbzex72jutbaCnGd5MrXK8L/fXZX2UT6faWMM=", 0x459af200, "8tA7hrpMroHJibgBoedBPjTjvtabuM6H9OqK+WLogbU=", 0x45984f00, "mpYLdZ8Y2XIV0NxvwXeJDzGiisJgorsmsrxtj+KAr1M=" )
+ProcessDomainJoinResponse( TEST_DOMAIN_JOIN_RESPONSE_VAR )=DRM_S_MORE_DATA
+
+' Rollback clock
+Test_ChangeTimeSeconds(-200)
+
+' Trigger rollback detection
+TestManagerReinitialize(Reset)
+
+' Verify bind fails on the embedded license due to rollback
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope( EnvelopeContextBuffer,files\EnvelopeWithEmbeddedDomainFor51239.eny )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTS_NOT_AVAILABLE
+
+' Restore clock
+Test_ChangeTimeSeconds(200)
+
+' Verify embedded license works after clock restoration
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerCloseEnvelope( EnvelopeContextBuffer )
+TestManagerClose()
+
+
+11224:BVT: rollback clock by two days
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL, header1.xml )
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt, DRdSjIAZVg==  )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0001-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONCLOCKROLLBACK><ACTION><![CDATA[secstate.OldSaveTime<secstate.global.savedatetime?secstate.OldSaveTime=secstate.global.savedatetime:0]]></ACTION></ONCLOCKROLLBACK><ONSELECT><CONDITION><![CDATA[machine.datetime >= secstate.OldSaveTime]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+Test_ChangeTimeSeconds(-172800)
+' License Sync allows Drm_Reader_Bind to know if there was a valid license that is now expired. Without License Sync, we don't know if there ever was a good license.
+If(LicenseSyncSupported)
+    TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=DRM_E_LICENSE_EXPIRED
+Else
+    TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=DRM_E_RIGHTS_NOT_AVAILABLE
+EndIf
+
+
+51224:BVT: rollback clock by two days (XMR)
+SkipTestIf(!SystemTimeChangeSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader( NORMAL, music1V4header.xml )
+TestManagerAddXMRLicense( nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL , NULL , NULL , NULL , 2000 , NULL , 2000 , 1000 )
+TestManagerEncrypt( AES CipherType, 100 DataLengthToEncrypt, NULL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, Use Callback function)
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NORMAL AesCtrContext )
+Test_ChangeTimeSeconds(-172800)
+' License Sync allows Drm_Reader_Bind to know if there was a valid license that is now expired. Without License Sync, we don't know if there ever was a good license.
+If(LicenseSyncSupported)
+    TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, Use Callback function)=DRM_E_LICENSE_EXPIRED
+Else
+    TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, Use Callback function)=DRM_E_RIGHTS_NOT_AVAILABLE
+EndIf
+
+
+11237:BVT: rollback clock by 20 seconds. It should be OK since it is still within 30 second grace period.
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt, DRdSjIAZVg== )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0002-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONCLOCKROLLBACK><ACTION><![CDATA[secstate.OldSaveTime<secstate.global.savedatetime?secstate.OldSaveTime=secstate.global.savedatetime:0]]></ACTION></ONCLOCKROLLBACK><ONSELECT><CONDITION><![CDATA[machine.datetime >= secstate.OldSaveTime]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+Test_ChangeTimeSeconds(-20)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+
+
+10279:FUNC:rollback clock by one minute
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt, DRdSjIAZVg== )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0002-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONCLOCKROLLBACK><ACTION><![CDATA[secstate.OldSaveTime<secstate.global.savedatetime?secstate.OldSaveTime=secstate.global.savedatetime:0]]></ACTION></ONCLOCKROLLBACK><ONSELECT><CONDITION><![CDATA[machine.datetime >= secstate.OldSaveTime]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+Test_ChangeTimeSeconds(-60)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0X8004C009 DRM_E_LICENSE_EXPIRED
+
+
+10280:FUNC:rollback clock by two days with multiple licenses
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0003-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONCLOCKROLLBACK><ACTION><![CDATA[secstate.OldSaveTime<secstate.global.savedatetime?secstate.OldSaveTime=secstate.global.savedatetime:0]]></ACTION></ONCLOCKROLLBACK><ONSELECT><CONDITION><![CDATA[machine.datetime >= secstate.OldSaveTime]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerAddLicenseToResponse(!4x8NSroVg4eXCzWqPU!BA==,{00000508-0004-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONCLOCKROLLBACK><ACTION><![CDATA[secstate.OldSaveTime<secstate.global.savedatetime?secstate.OldSaveTime=secstate.global.savedatetime:0]]></ACTION></ONCLOCKROLLBACK><ONSELECT><CONDITION><![CDATA[machine.datetime >= secstate.OldSaveTime]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+Test_ChangeTimeSeconds(-172800)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0X8004C009 DRM_E_LICENSE_EXPIRED
+
+
+10281:FUNC:rollback clock by two days with multiple licenses with the same KID
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0003-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONCLOCKROLLBACK><ACTION><![CDATA[secstate.OldSaveTime<secstate.global.savedatetime?secstate.OldSaveTime=secstate.global.savedatetime:0]]></ACTION></ONCLOCKROLLBACK><ONSELECT><CONDITION><![CDATA[machine.datetime >= secstate.OldSaveTime]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0004-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONCLOCKROLLBACK><ACTION><![CDATA[secstate.OldSaveTime<secstate.global.savedatetime?secstate.OldSaveTime=secstate.global.savedatetime:0]]></ACTION></ONCLOCKROLLBACK><ONSELECT><CONDITION><![CDATA[machine.datetime >= secstate.OldSaveTime]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+Test_ChangeTimeSeconds(-172800)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0X8004C009 DRM_E_LICENSE_EXPIRED
+
+
+10282:FUNC:set clock ahead by two days
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0003-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONCLOCKROLLBACK><ACTION><![CDATA[secstate.OldSaveTime<secstate.global.savedatetime?secstate.OldSaveTime=secstate.global.savedatetime:0]]></ACTION></ONCLOCKROLLBACK><ONSELECT><CONDITION><![CDATA[machine.datetime >= secstate.OldSaveTime]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+Test_ChangeTimeSeconds(172800)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+
+
+10283:FUNC:rollback clock by two days while the license does not have any rollback attribute
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0008-0010-8000-00AA006D2EA4},0, NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+Test_ChangeTimeSeconds(-172800)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+
+
+10284:FUNC:restore the rollbacked clock won't restore the license
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt, DRdSjIAZVg== )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0003-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONCLOCKROLLBACK><ACTION><![CDATA[secstate.OldSaveTime<secstate.global.savedatetime?secstate.OldSaveTime=secstate.global.savedatetime:0]]></ACTION></ONCLOCKROLLBACK><ONSELECT><CONDITION><![CDATA[machine.datetime >= secstate.OldSaveTime]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+Test_ChangeTimeSeconds(-172800)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0X8004C009 DRM_E_LICENSE_EXPIRED
+
+
+10285:FUNC:rollback clock to a time before the license is valid
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt, DRdSjIAZVg== )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0003-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONCLOCKROLLBACK><ACTION><![CDATA[secstate.OldSaveTime<secstate.global.savedatetime?secstate.OldSaveTime=secstate.global.savedatetime:0]]></ACTION></ONCLOCKROLLBACK><ONSELECT><CONDITION><![CDATA[machine.datetime >= secstate.OldSaveTime]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+Test_ChangeTimeSeconds(-34372800)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0X8004C009 DRM_E_LICENSE_EXPIRED
+
+
+10287:FUNC:rollback clock with DeleteOnRollback enabled in root
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt, DRdSjIAZVg== )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONCLOCKROLLBACK><ACTION><![CDATA[secstate.deleted=1; deletelicense()]]></ACTION></ONCLOCKROLLBACK><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,1)
+TestEnumLicense(Acl2BY3ITE0qe11DalmK0D==,XML,1)
+Test_ChangeTimeSeconds(-172800)
+TestManagerReinitialize(Reset)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=DRM_E_UPLINK_LICENSE_NOT_FOUND
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,1)
+TestEnumLicense(Acl2BY3ITE0qe11DalmK0D==,XML,0)
+
+
+10288:FUNC:rollback clock with DeleteOnRollback enabled in leaf
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt, DRdSjIAZVg== )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,RANDOM,0, NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONCLOCKROLLBACK><ACTION><![CDATA[secstate.deleted=1; deletelicense()]]></ACTION></ONCLOCKROLLBACK><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,1)
+TestEnumLicense(Acl2BY3ITE0qe11DalmK0D==,XML,1)
+Test_ChangeTimeSeconds(-172800)
+TestManagerReinitialize(Reset)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0X8004C013 DRM_E_LICENSE_NOT_FOUND
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,0)
+TestEnumLicense(Acl2BY3ITE0qe11DalmK0D==,XML,1)
+
+
+10289:FUNC:rollback clock with DeleteOnRollback enabled in leaf and root
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt, DRdSjIAZVg== )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONCLOCKROLLBACK><ACTION><![CDATA[secstate.deleted=1; deletelicense()]]></ACTION></ONCLOCKROLLBACK><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONCLOCKROLLBACK><ACTION><![CDATA[secstate.deleted=1; deletelicense()]]></ACTION></ONCLOCKROLLBACK><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,1)
+TestEnumLicense(Acl2BY3ITE0qe11DalmK0D==,XML,1)
+Test_ChangeTimeSeconds(-172800)
+TestManagerReinitialize(Reset)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0X8004C013 DRM_E_LICENSE_NOT_FOUND
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,0)
+TestEnumLicense(Acl2BY3ITE0qe11DalmK0D==,XML,0)
+
+
+10290:FUNC:rollback clock with DeleteOnRollback enabled in simple license
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt, DRdSjIAZVg== )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONCLOCKROLLBACK><ACTION><![CDATA[secstate.deleted=1; deletelicense()]]></ACTION></ONCLOCKROLLBACK><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,1)
+Test_ChangeTimeSeconds(-172800)
+TestManagerReinitialize(Reset)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0X8004C013 DRM_E_LICENSE_NOT_FOUND
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,0)
+
+
+10300:FUNC:rollback clock with DisableOnRollback enabled in root
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt, DRdSjIAZVg== )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONCLOCKROLLBACK><ACTION><![CDATA[secstate.OldSaveTime<secstate.global.savedatetime?secstate.OldSaveTime=secstate.global.savedatetime:0]]></ACTION></ONCLOCKROLLBACK><ONSELECT><CONDITION><![CDATA[machine.datetime >= secstate.OldSaveTime]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,1)
+TestEnumLicense(Acl2BY3ITE0qe11DalmK0D==,XML,1)
+Test_ChangeTimeSeconds(-172800)
+TestManagerReinitialize(Reset)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=DRM_E_UPLINK_LICENSE_NOT_FOUND
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,1)
+TestEnumLicense(Acl2BY3ITE0qe11DalmK0D==,XML,1)
+
+
+10301:FUNC:rollback clock with DisableOnRollback enabled in leaf
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt, DRdSjIAZVg== )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,RANDOM,0, NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONCLOCKROLLBACK><ACTION><![CDATA[secstate.OldSaveTime<secstate.global.savedatetime?secstate.OldSaveTime=secstate.global.savedatetime:0]]></ACTION></ONCLOCKROLLBACK><ONSELECT><CONDITION><![CDATA[machine.datetime >= secstate.OldSaveTime]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,1)
+TestEnumLicense(Acl2BY3ITE0qe11DalmK0D==,XML,1)
+Test_ChangeTimeSeconds(-172800)
+TestManagerReinitialize(Reset)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0X8004C00B DRM_E_RIGHTS_NOT_AVAILABLE
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,1)
+TestEnumLicense(Acl2BY3ITE0qe11DalmK0D==,XML,1)
+
+
+10302:FUNC:rollback clock with DisableOnRollback enabled in leaf and root
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt, DRdSjIAZVg== )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONCLOCKROLLBACK><ACTION><![CDATA[secstate.OldSaveTime<secstate.global.savedatetime?secstate.OldSaveTime=secstate.global.savedatetime:0]]></ACTION></ONCLOCKROLLBACK><ONSELECT><CONDITION><![CDATA[machine.datetime >= secstate.OldSaveTime]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONCLOCKROLLBACK><ACTION><![CDATA[secstate.OldSaveTime<secstate.global.savedatetime?secstate.OldSaveTime=secstate.global.savedatetime:0]]></ACTION></ONCLOCKROLLBACK><ONSELECT><CONDITION><![CDATA[machine.datetime >= secstate.OldSaveTime]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,1)
+TestEnumLicense(Acl2BY3ITE0qe11DalmK0D==,XML,1)
+Test_ChangeTimeSeconds(-172800)
+TestManagerReinitialize(Reset)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0X8004C00B DRM_E_RIGHTS_NOT_AVAILABLE
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,1)
+TestEnumLicense(Acl2BY3ITE0qe11DalmK0D==,XML,1)
+
+
+10303:FUNC:rollback clock with DisableOnRollback enabled in simple license
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt, DRdSjIAZVg== )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONCLOCKROLLBACK><ACTION><![CDATA[secstate.OldSaveTime<secstate.global.savedatetime?secstate.OldSaveTime=secstate.global.savedatetime:0]]></ACTION></ONCLOCKROLLBACK><ONSELECT><CONDITION><![CDATA[machine.datetime >= secstate.OldSaveTime]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,1)
+Test_ChangeTimeSeconds(-172800)
+TestManagerReinitialize(Reset)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0X8004C00B DRM_E_RIGHTS_NOT_AVAILABLE
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,1)
+
+
+10432:FUNC:Drm_LicenseAcq_ProcessResponse (binding) should fail when machine clock is rolled back for 2 days
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt, DRdSjIAZVg== )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0001-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONCLOCKROLLBACK><ACTION><![CDATA[deletelicense()]]></ACTION></ONCLOCKROLLBACK><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+Test_ChangeTimeSeconds(-172800)
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=-2147172333(0x8004c013, DRM_E_LICENSE_NOT_FOUND)
+
+
+10905:FUNC: Process a V4 XMR license, rollback the clock, and process a V2 XML license.
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+TestManagerInitResponse
+TestManagerAddXMRLicense(0qqx5q4y2kOTJDJTZSnwUw==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D== , NULL , NULL , 3600)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(Acl2BY3ITE0qe11DalmK0D==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerReinitialize( Reset, FALSE, FALSE )
+Test_ChangeTimeSeconds(-172800)
+TestManagerInitialize( Dump )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0001-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONCLOCKROLLBACK><ACTION><![CDATA[secstate.OldSaveTime<secstate.global.savedatetime?secstate.OldSaveTime=secstate.global.savedatetime:0]]></ACTION></ONCLOCKROLLBACK><ONSELECT><CONDITION><![CDATA[machine.datetime >= secstate.OldSaveTime]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.OldSaveTime)?secstate.OldSaveTime=machine.datetime:0]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+
+51251:BVT: rollback clock by 60 seconds and license should fail due to antirollback - Root has EXP date (XMR)
+'Root has EXP date, Leaf does not.
+SkipTestIf(!VIEWRIGHTSSupported, !SystemTimeChangeSupported)
+TestManagerSetRights(Play)
+TestManagerAddXMRLicense(KQNXs2nvVdiUypvlgcROrA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(Acl2BY3ITE0qe11DalmK0D==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,NULL,NULL,NULL,NULL,NULL,500,NULL, NULL, NULL, NULL, NULL, AES_128_ECB)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetKID( KQNXs2nvVdiUypvlgcROrA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+Test_ChangeTimeSeconds(-60)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=DRM_E_UPLINK_LICENSE_NOT_FOUND
+TestManagerCommit
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+
+
+51252:BVT: rollback clock by 60 seconds and license should fail due to antirollback - Leaf has EXP date (XMR)
+'Leaf has EXP date, Root does not.
+SkipTestIf(!VIEWRIGHTSSupported, !SystemTimeChangeSupported)
+TestManagerSetRights(Play)
+TestManagerAddXMRLicense(KQNXs2nvVdiUypvlgcROrA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(Acl2BY3ITE0qe11DalmK0D==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, AES_128_ECB)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetKID( KQNXs2nvVdiUypvlgcROrA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+Test_ChangeTimeSeconds(-60)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTS_NOT_AVAILABLE
+TestManagerCommit
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+
+
+51253:BVT: rollback clock by 60 seconds and license should fail due to antirollback - Leaf AND Root have EXP dates (XMR)
+'Root AND Leaf have EXP date.
+SkipTestIf(!VIEWRIGHTSSupported, !SystemTimeChangeSupported)
+TestManagerSetRights(Play)
+TestManagerAddXMRLicense(KQNXs2nvVdiUypvlgcROrA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(Acl2BY3ITE0qe11DalmK0D==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,NULL,NULL,NULL,NULL,NULL,500, NULL, NULL, NULL, NULL, NULL, AES_128_ECB)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetKID( KQNXs2nvVdiUypvlgcROrA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+Test_ChangeTimeSeconds(-60)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTS_NOT_AVAILABLE
+TestManagerCommit
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+
+
+51254:BVT: rollback clock by 200 seconds and license should fail due to antirollback and DRM_LIC_CheckClockRollback should have been triggered - Root has EXP date (XMR)
+SkipTestIf(!SystemTimeChangeSupported)
+'Root has EXP date, Root does not.
+TestManagerAddXMRLicense(KQNXs2nvVdiUypvlgcROrA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(Acl2BY3ITE0qe11DalmK0D==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,NULL,NULL,NULL,NULL,NULL,500, NULL, NULL, NULL, NULL, NULL, AES_128_ECB)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_ChangeTimeSeconds(400)
+TestManagerReinitialize(Reset)
+Test_ChangeTimeSeconds(-200)
+TestManagerReinitialize(Reset)
+TestManagerSetKID( KQNXs2nvVdiUypvlgcROrA== )
+TestManagerSetRights(Play)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=DRM_E_UPLINK_LICENSE_NOT_FOUND
+Test_ChangeTimeSeconds(100)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=DRM_E_UPLINK_LICENSE_NOT_FOUND
+Test_ChangeTimeSeconds(102)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+Test_ChangeTimeSeconds(502)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=DRM_E_UPLINK_LICENSE_NOT_FOUND
+
+
+51255:BVT: rollback clock by 200 seconds and license should fail due to antirollback and DRM_LIC_CheckClockRollback should have been triggered - Leaf has EXP date (XMR)
+SkipTestIf(!SystemTimeChangeSupported)
+'Leaf has EXP date, Root does not.
+TestManagerAddXMRLicense(KQNXs2nvVdiUypvlgcROrA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(Acl2BY3ITE0qe11DalmK0D==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, AES_128_ECB)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_ChangeTimeSeconds(400)
+TestManagerReinitialize(Reset)
+Test_ChangeTimeSeconds(-200)
+TestManagerReinitialize(Reset)
+TestManagerSetKID( KQNXs2nvVdiUypvlgcROrA== )
+TestManagerSetRights(Play)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTS_NOT_AVAILABLE
+Test_ChangeTimeSeconds(100)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTS_NOT_AVAILABLE
+Test_ChangeTimeSeconds(102)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+Test_ChangeTimeSeconds(502)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C009 DRM_E_LICENSE_EXPIRED
+
+
+51256:BVT: rollback clock by 200 seconds and license should fail due to antirollback and DRM_LIC_CheckClockRollback should have been triggered  - Leaf AND Root have EXP dates (XMR)
+SkipTestIf(!SystemTimeChangeSupported)
+'Root AND Leaf have EXP date.
+TestManagerAddXMRLicense(KQNXs2nvVdiUypvlgcROrA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(Acl2BY3ITE0qe11DalmK0D==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,NULL,NULL,NULL,NULL,NULL,500, NULL, NULL, NULL, NULL, NULL, AES_128_ECB)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_ChangeTimeSeconds(400)
+TestManagerReinitialize(Reset)
+Test_ChangeTimeSeconds(-200)
+TestManagerReinitialize(Reset)
+TestManagerSetKID( KQNXs2nvVdiUypvlgcROrA== )
+TestManagerSetRights(Play)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTS_NOT_AVAILABLE
+Test_ChangeTimeSeconds(100)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTS_NOT_AVAILABLE
+Test_ChangeTimeSeconds(102)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+Test_ChangeTimeSeconds(502)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C009 DRM_E_LICENSE_EXPIRED
+
+
+51264:BVT: Testing deleteOnRollback XML and disableOnRollback XMR licenses rollback correctly for each type - Root enabled for delete and exp in both XML and XMR
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+'Root has EXP date, Leaf does not.
+'XML license has DeleteOnRollback enabled in Root
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerAddXMRLicense(KQNXs2nvVdiUypvlgcROrA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(Acl2BY3ITE0qe11DalmK0D==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,NULL,NULL,NULL,NULL,NULL,500, NULL, NULL, NULL, NULL, NULL, AES_128_ECB)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt, DRdSjIAZVg== )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(4wEEq1ixJEC1na7nmgJT5g==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONCLOCKROLLBACK><ACTION><![CDATA[secstate.deleted=1; deletelicense()]]></ACTION></ONCLOCKROLLBACK><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,4wEEq1ixJEC1na7nmgJT5g==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,1)
+TestEnumLicense(4wEEq1ixJEC1na7nmgJT5g==,XML,1)
+Test_ChangeTimeSeconds(-172800)
+TestManagerReinitialize(Reset)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=DRM_E_UPLINK_LICENSE_NOT_FOUND
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,1)
+TestEnumLicense(4wEEq1ixJEC1na7nmgJT5g==,XML,0)
+Test_ChangeTimeSeconds(172800)
+Test_ChangeTimeSeconds(400)
+TestManagerReinitialize(Reset)
+Test_ChangeTimeSeconds(-200)
+TestManagerReinitialize(Reset)
+TestManagerSetKID( KQNXs2nvVdiUypvlgcROrA== )
+TestManagerSetRights(Play)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=DRM_E_UPLINK_LICENSE_NOT_FOUND
+Test_ChangeTimeSeconds(100)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=DRM_E_UPLINK_LICENSE_NOT_FOUND
+Test_ChangeTimeSeconds(102)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+Test_ChangeTimeSeconds(502)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=DRM_E_UPLINK_LICENSE_NOT_FOUND
+
+
+51265:BVT: Testing deleteOnRollback XML and disableOnRollback XMR licenses rollback correctly for each type - Leaf enabled for delete and exp in both XML and XMR
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+'Leaf has EXP date, Root does not.
+'XML license has DeleteOnRollback enabled in Leaf
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerAddXMRLicense(KQNXs2nvVdiUypvlgcROrA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(Acl2BY3ITE0qe11DalmK0D==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, AES_128_ECB)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt, DRdSjIAZVg== )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(4wEEq1ixJEC1na7nmgJT5g==,RANDOM,0, NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONCLOCKROLLBACK><ACTION><![CDATA[secstate.deleted=1; deletelicense()]]></ACTION></ONCLOCKROLLBACK><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,1,4wEEq1ixJEC1na7nmgJT5g==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,1)
+TestEnumLicense(4wEEq1ixJEC1na7nmgJT5g==,XML,1)
+Test_ChangeTimeSeconds(-172800)
+TestManagerReinitialize(Reset)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0X8004C013 DRM_E_LICENSE_NOT_FOUND
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,0)
+TestEnumLicense(4wEEq1ixJEC1na7nmgJT5g==,XML,1)
+Test_ChangeTimeSeconds(172800)
+Test_ChangeTimeSeconds(400)
+TestManagerReinitialize(Reset)
+Test_ChangeTimeSeconds(-200)
+TestManagerReinitialize(Reset)
+TestManagerSetKID( KQNXs2nvVdiUypvlgcROrA== )
+TestManagerSetRights(Play)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTS_NOT_AVAILABLE
+Test_ChangeTimeSeconds(100)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTS_NOT_AVAILABLE
+Test_ChangeTimeSeconds(102)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+Test_ChangeTimeSeconds(502)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C009 DRM_E_LICENSE_EXPIRED
+
+
+51266:BVT: Testing deleteOnRollback XML and disableOnRollback XMR licenses rollback correctly for each type - Leaf AND Root enabled for delete and exp in both XML and XMR
+SkipTestIf(!WMDRMSupported, !SystemTimeChangeSupported)
+'Root AND Leaf have EXP date.
+'XML license has DeleteOnRollback enabled in Root AND Leaf
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerAddXMRLicense(KQNXs2nvVdiUypvlgcROrA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(Acl2BY3ITE0qe11DalmK0D==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,NULL,NULL,NULL,NULL,NULL,500, NULL, NULL, NULL, NULL, NULL, AES_128_ECB)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt, DRdSjIAZVg== )
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(4wEEq1ixJEC1na7nmgJT5g==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONCLOCKROLLBACK><ACTION><![CDATA[secstate.deleted=1; deletelicense()]]></ACTION></ONCLOCKROLLBACK><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONCLOCKROLLBACK><ACTION><![CDATA[secstate.deleted=1; deletelicense()]]></ACTION></ONCLOCKROLLBACK><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,1,4wEEq1ixJEC1na7nmgJT5g==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,1)
+TestEnumLicense(4wEEq1ixJEC1na7nmgJT5g==,XML,1)
+Test_ChangeTimeSeconds(-172800)
+TestManagerReinitialize(Reset)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0X8004C013 DRM_E_LICENSE_NOT_FOUND
+TestEnumLicense(!3x8NSroVg4eXCzWqPU!BA==,XML,0)
+TestEnumLicense(4wEEq1ixJEC1na7nmgJT5g==,XML,0)
+Test_ChangeTimeSeconds(172800)
+Test_ChangeTimeSeconds(400)
+TestManagerReinitialize(Reset)
+Test_ChangeTimeSeconds(-200)
+TestManagerReinitialize(Reset)
+TestManagerSetKID( KQNXs2nvVdiUypvlgcROrA== )
+TestManagerSetRights(Play)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTS_NOT_AVAILABLE
+Test_ChangeTimeSeconds(100)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTS_NOT_AVAILABLE
+Test_ChangeTimeSeconds(102)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+Test_ChangeTimeSeconds(502)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C009 DRM_E_LICENSE_EXPIRED
+
+
+51267:FUNC: Make clock function always return zero and license should fail due to antirollback (XMR)
+SkipTestIf(!SystemTimeChangeSupported)
+' Have to do this FIRST for the test to be valid
+Test_SetFlagOEMTimeOffsetIsAbsolute(TRUE)
+TestManagerSetRights(Play)
+TestManagerAddXMRLicense(KQNXs2nvVdiUypvlgcROrA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,NULL,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetKID( KQNXs2nvVdiUypvlgcROrA== )
+' License Sync allows Drm_Reader_Bind to know if there was a valid license that is now expired. Without License Sync, we don't know if there ever was a good license.
+If(LicenseSyncSupported)
+    TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=DRM_E_LICENSE_EXPIRED
+Else
+    TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=DRM_E_RIGHTS_NOT_AVAILABLE
+EndIf
+TestManagerCommit
+If(ViewRightsSupported)
+    TestManagerGetLicenseData(Dump,3,Dump,1,0)
+EndIf
+

@@ -1,0 +1,25 @@
+SQUASHFS_DIR=squashfs
+
+EXCLUSE = $(OUTPUT_DIR)/usr/lib/*
+EXCLUSE += $(OUTPUT_DIR)/usr/bin/*
+EXCLUSE += $(OUTPUT_DIR)/opt/share/*
+
+define build_squashfs
+	$(MAKE) -C $(TOOLS_DIR)/$(SQUASHFS_DIR) $(1)
+endef
+
+squashfs-tools:
+	@if [ ! -f $(TOOLS_DIR)/$(SQUASHFS_DIR)/mksquashfs ]; then \
+		$(call build_squashfs,);\
+	fi;
+
+	@sudo $(TOOLS_DIR)/$(SQUASHFS_DIR)/mksquashfs $(TARGET_DIR) $(OUTPUT_DIR)/image/root.squa -all-root -noappend
+	@sudo chown -R $(USER) $(OUTPUT_DIR)/image
+	@sudo chmod 666 $(OUTPUT_DIR)/image/root.squa
+
+squashfs-tools-clean:
+	$(call build_squashfs, clean)
+
+squashfs-tools-distclean: squashfs-tools-clean
+
+.PHONY: squashfs-tools squashfs-tools-clean squashfs-tools-distclean

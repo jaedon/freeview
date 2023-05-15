@@ -1,0 +1,63 @@
+#
+#	Makefile for BPL
+#
+#	Written by Jongwon Kim
+#		2011. 8. 19.
+#
+
+TOPDIR		:= ../
+include $(TOPDIR)makehead.env
+
+APPDIR		:= $(PWD)/../humaxtv/
+
+INCDIR1		:= $(APPDIR)/appkit/base
+INCDIR2		:= $(APPDIR)/hlib/include
+INCDIR3		:= $(APPDIR)/medusa/corelib/gorgon
+INCDIR4		:= $(APPDIR)/octo/oapi/include
+INCDIR5		:= $(APPDIR)/octo/oapi/include/oapi
+
+CFLAGS		+= -I$(INCDIR1) -I$(INCDIR2) -I$(INCDIR3) -I$(INCDIR4) -I$(INCDIR5)
+
+QTMETASRC	:=
+C_SRC		:=	bpl/bplgraphic.c	\
+				bpl/bplait.c		\
+				bpl/bpldsmcc.c		\
+				bpl/bpldebug.c		\
+				opl/oplswupdate.c	\
+				opl/oplbroadcast.c	\
+				opl/oplchannel.c	\
+				opl/oplfavourite.c	\
+				opl/opllocalsystem.c	\
+				opl/oplparentalrating.c	\
+				opl/oplvod.c			\
+				opl/oplrecorder.c			\
+				opl/oplsearchresult.c			\
+				opl/opldiscinfo.c			\
+				opl/oplprogramme.c		\
+				opl/oplquery.c		\
+				opl/oplmetadatasearch.c		\
+				opl/oplscheduledprogramme.c		\
+				opl/oplrecording.c		\
+				opl/oplscheduler.c		\
+				opl/oplbuilder.c		\
+				opl/oplantinfo.c		\
+				opl/oplsqcinfo_freesat.c
+				
+CXX_SRC		:=	bpl/bplait_x.cpp		\
+				opl/oplbroadcast_x.cpp	\
+				opl/oplchannel_x.cpp	\
+				opl/opllocalsystem_x.cpp	\
+				opl/oplparentalrating_x.cpp	\
+				opl/opldiscinfo_x.cpp	\
+				opl/oplmediascan_x.cpp \
+				opl/oplnetwork_x.cpp \
+				opl/opldmp_x.cpp
+
+TARGET		:= libbpl.a
+
+### Targets
+$(TARGET): $(OBJS)
+	$(AR) rs $@ $(OBJS)
+	$(STRIP) $(TARGET)
+
+include $(TOPDIR)maketail.env

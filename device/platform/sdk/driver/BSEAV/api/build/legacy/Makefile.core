@@ -1,0 +1,351 @@
+############################################################
+#     Copyright (c) 2005-2007, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.core $
+# $brcm_Revision: 15 $
+# $brcm_Date: 1/11/07 2:32p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# Created: 02/09/2001 by Marcus Kellerman
+#
+# $brcm_Log: /BSEAV/api/build/legacy/Makefile.core $
+# 
+# 15   1/11/07 2:32p jgarrett
+# PR 27004: Adding transition.inc
+# 
+# 14   9/25/06 2:44p gmohile
+# PR 24129: Add sds proxy path for 7313
+# 
+# 13   9/20/06 11:48a gmohile
+# PR 24129: Added support for 7313
+# 
+# 12   11/2/05 6:11p vsilyaev
+# PR 16982: PR17883: moved out raptor microcode from the kernel
+# 
+# 11   9/15/05 11:31a erickson
+# PR17148: add required basemodules
+# 
+# 10   9/15/05 10:27a erickson
+# PR17048: default CONFIG_XVD_SUPPORT for 97318AVC
+# 
+# 8   7/20/05 6:45p vsilyaev
+# PR 16385: Merge IP record feature
+# 
+# PROD_IPSTB_REFSW_Devel/1   6/30/05 11:03a wesleyl
+# PR15072: Add bsettop_timer.c
+# 
+# 7   4/27/05 2:51p wesleyl
+# PR15072: change to big-endian for vxworks
+# 
+# 6   3/9/05 7:44p vsilyaev
+# PR 14402: Moved compose into the toplevel makefile.
+# 
+# 5   3/5/05 3:06p vsilyaev
+# PR 14226: Compile images only for platforms where it's necessary.
+# 
+# 4   2/28/05 5:02p vsilyaev
+# PR 14226: Added 7411 microcode.
+# 
+# 3   2/18/05 3:58p erickson
+# PR14180: vxworks cleanup
+# 
+# 2   2/15/05 4:50p vsilyaev
+# PR13158: XVD moved into the kernel driver.
+# 
+# 1   2/7/05 6:52p dlwin
+# Merge down for release 2005_REFSW_MERGETOMAIN:
+# 
+# Irvine_BSEAVSW_Devel/16   1/28/05 11:13a erickson
+# PR13908: refactor to make external include of Makefile.core correct
+# 
+# Irvine_BSEAVSW_Devel/15   1/26/05 3:38p bandrews
+# PR13158: 97318AVC support
+# 
+# Irvine_BSEAVSW_Devel/14   1/26/05 3:37p bandrews
+# PR13158: 97318AVC support
+# 
+# Irvine_BSEAVSW_Devel/13   1/26/05 11:25a erickson
+# PR13908: moved BCM_BOARD_NO to api.mak and cleaned up use of magnum
+# .inc fles
+# 
+# Irvine_BSEAVSW_Devel/12   1/25/05 5:12p erickson
+# PR13908: Settop API makefile rework
+# 
+# Irvine_BSEAVSW_Devel/11   1/12/05 12:29p vsilyaev
+# PR 13803: Added 7411 initialization code.
+# 
+# Irvine_BSEAVSW_Devel/10   12/14/04 12:23p vsilyaev
+# PR13158: Added 7411 support to 97318 platform
+# 
+# Irvine_BSEAVSW_Devel/9   11/24/04 3:44p vsilyaev
+# PR13165: Added timer module.
+# 
+# Irvine_BSEAVSW_Devel/8   11/5/04 10:42a arbisman
+# PR13139: Add vxWorks support for legacy platforms
+# 
+# Irvine_BSEAVSW_Devel/7   7/6/04 4:30p erickson
+# PR11771: settop api dataflow redesign
+# 
+# Irvine_BSEAVSW_Devel/6   7/6/04 3:54p erickson
+# PR11771: settop api dataflow redesign
+# 
+# Irvine_BSEAVSW_Devel/5   5/12/04 10:23a erickson
+# PR10967: added standard header
+############################################################
+
+#
+# Makefile.common is included by all Makefile.XXX's.
+# It is used to build the settop api libraries.
+#
+
+include $(BSEAV)/api/build/Makefile.common
+
+BCM_CHIP = ${CHIP}
+BCM_BOARD = bcm${BCM_BOARD_NO}
+ifeq (${SYSTEM}, vxworks)
+BCM_ENDIAN = be
+else
+BCM_ENDIAN = le
+endif
+include ${BSETTOP}/build/legacy/settop.mak
+
+ifeq (${SYSTEM}, vxworks)
+# All legacy chips use the same kernel interface code 
+KERNELINTF_OS = ${SETTOP}/kernelinterface/vxworks/bcm97110 ${SETTOP}/kernelinterface/vxworks
+OS=vxworks
+else 
+KERNELINTF_OS = ${SETTOP}/kernelinterface/linuxuser
+OS=linuxuser
+endif
+
+BCM_INCLUDE = \
+	$(HWINTF)				\
+	$(HW_CHIP)	\
+	$(HW_CHIP_ENDIAN)	\
+	$(HW_CHIP_BME)		\
+	$(HW_BOARD_ENDIAN) 	\
+	$(HW_BOARD) 			\
+	$(DEVICE)				\
+	$(KERNELINTF_OS)		\
+	$(KERNELINTF)			\
+	$(KFIR_INC) 			\
+	${PI_INCLUDE}			\
+	${SUPERIO}				\
+	${SURFACEDRAW}		\
+	$(GFXCTRL) 			\
+	$(GFX_CHIP) 			\
+	$(GFX2D) 				\
+	$(PI_GFX2D) 			\
+	$(TRANSPORT) 			\
+	$(MISCLIB) 			\
+	$(MPEGVIDEO_INC)	\
+	$(DISPCTRL) \
+	$(MPEGAUDIO) \
+	${SDS_PF} \
+	${QAMMAIN} \
+	${QAM_3250_BOARD} \
+	$(SL_CFG_DISP) \
+	$(SL_MPEGVIDEO) \
+	$(MPEGVIDEO) \
+	${SL_CHANLIB} \
+	${DMACTRL} \
+	${PI_RFMOD} \
+	${VID_CHIP} \
+	${SMARTCARD}
+
+# vbi
+BCM_INCLUDE += \
+	${PI_CCE_CHIP} \
+	${PI_CCE_CHIP} \
+	${PI_CCE} \
+	${PI_CCD_CHIP} \
+	${PI_CCD} \
+	${PI_TT_CHIP} \
+	${PI_TT} \
+	${SL_TT} \
+	${SL_VBI}
+
+# M2M DMA (or BLT_DMA) is broken on 7312 7318 7327 7329
+ifneq ($(findstring $(CHIP),7312 7313 7318 7327 7329), $(CHIP))
+BSETTOP_CFLAGS += -DCONFIG_M2M_DMA_SUPPORT
+endif
+
+# Tuner support
+ifneq ($(findstring $(CHIP),7318), $(CHIP))
+BSETTOP_CFLAGS += -DCONFIG_TUNER_SUPPORT
+endif
+
+# SDS_TURBO_SUPPORT
+# TODO: This should be moved to a central config file and it should only be enabled if CONFIG_DEMOD_SDS_SUPPORT=y
+ifneq ($(findstring $(CHIP),7312 7313 7318 7327), $(CHIP))
+BSETTOP_CFLAGS += -DCONFIG_SDS_TURBO_SUPPORT
+endif
+
+ifeq ($(findstring $(CHIP),7312 7313 7314 7315 7317 7318 7319 7320 7327 7328 7329), $(CHIP))
+DRIVER_SUBDIR=973xx
+CFLAGS += -DBCM73XX
+DSS_SUPPORT = y
+else
+DRIVER_SUBDIR=971xx
+endif
+
+ifeq ($(SYSTEM), vxworks)
+DRIVER_DIR=$(BSEAV)/vxworks/driver
+else
+DRIVER_DIR=$(BSEAV)/linux/driver
+endif
+BSETTOP_CFLAGS += -I${DRIVER_DIR}/common -I${DRIVER_DIR}/${DRIVER_SUBDIR}
+
+#
+# The following depend on api.mak
+#
+
+ODIR = $(BSETTOP_BIN)
+
+BCM_INCLUDE += \
+	$(HWINTF)				\
+	$(HW_CHIP)	\
+	$(HW_CHIP_ENDIAN)	\
+	$(HW_CHIP_BME)		\
+	$(HW_BOARD_ENDIAN) 	\
+	$(HW_BOARD) 			\
+	$(DEVICE)				\
+	$(KERNELINTF_OS)		\
+	$(KERNELINTF)			\
+	$(KFIR_INC) 			\
+	${PI_INCLUDE}			\
+	${SUPERIO}				\
+	${SURFACEDRAW}		\
+	$(GFXCTRL) 			\
+	$(GFX_CHIP) 			\
+	$(GFX2D) 				\
+	$(PI_GFX2D) 			\
+	$(TRANSPORT) 			\
+	$(MISCLIB) 			\
+	$(MPEGVIDEO_INC)	\
+	$(DISPCTRL) \
+	${SDS_PF} \
+	$(MPEGAUDIO) \
+	${QAMPF} \
+	${QAMMAIN} \
+	${QAM_3125} \
+	${QAM_3250} \
+	${QAM_3250_BOARD} \
+	$(SL_CFG_DISP) \
+	$(SL_MPEGVIDEO) \
+	$(MPEGVIDEO) \
+	${SL_CHANLIB} \
+	${DMACTRL} \
+	${PI_RFMOD} \
+	${MPEGENCODER} \
+	${PI_BTSC} \
+	${VID_CHIP}
+
+ifeq ($(DSS_SUPPORT),y)
+CFLAGS += -DDSS_SUPPORT
+endif
+
+ifeq ($(INTERNAL_DOCSIS_SUPPORT),y)
+CFLAGS += -DINTERNAL_DOCSIS_SUPPORT
+endif
+
+CFLAGS += -I${BSETTOP}/src/legacy
+
+
+# Flavors
+ifeq ($(PLATFORM),97319)
+CFLAGS += -DB_CHIP_FLAVOR=7319
+endif
+ifeq ($(PLATFORM),97111)
+CFLAGS += -DB_CHIP_FLAVOR=7111
+endif
+ifeq ($(PLATFORM),97112)
+CFLAGS += -DB_CHIP_FLAVOR=7112
+endif
+ifeq ($(PLATFORM),97317)
+CFLAGS += -DB_CHIP_FLAVOR=7317
+endif
+ifeq ($(PLATFORM),97314)
+CFLAGS += -DB_CHIP_FLAVOR=7314
+endif
+
+CFLAGS += $(patsubst %, -I%, ${BCM_INCLUDE})
+
+vpath %.c $(BSETTOP)/src/legacy
+
+ROCKFORD := ${MAGNUM}/../rockford
+include $(ROCKFORD)/modules/basemodules.inc
+CFLAGS += -I$(MAGNUM)/basemodules/chp
+CFLAGS += -I$(MAGNUM)/basemodules/reg
+
+ifeq ($(PLATFORM),97318AVC)
+CONFIG_XVD_SUPPORT=y
+endif
+
+ifeq (${CONFIG_XVD_SUPPORT}, y)
+CFLAGS += -DCONFIG_XVD_SUPPORT=1
+SRCS += bsettop_image.c
+CFLAGS += -I${DRIVER_DIR}/7411
+include $(ROCKFORD)/modules/img.inc
+include $(ROCKFORD)/modules/7411_img.inc
+include $(ROCKFORD)/modules/7411/rap_img.inc
+endif
+
+ifeq ($(PLATFORM),97313)
+CFLAGS += -I$(SDS_PROXY) 
+endif
+
+
+SRCS += \
+	bsettop.c \
+	bsettop_priv.c \
+	bsettop_decode.c \
+	bsettop_display.c \
+	bsettop_graphics.c \
+	bsettop_message.c \
+	bsettop_stream.c \
+	bsettop_stubs.c \
+	bsettop_tuner.c \
+	bsettop_user_io.c \
+	bsettop_pcm.c \
+	bsettop_smartcard.c \
+	bsettop_vbi.c \
+	bsettop_base.c \
+	bsettop_api_thunks.c \
+	bsettop_config.c \
+	bsettop_core.c \
+	driver_io.c \
+	reg.c \
+	bsettop_cipher.c
+
+ifeq (${SYSTEM}, vxworks)
+SRCS += \
+	bsettop_core.c \
+	bsettop_thread.c \
+	bsettop_vxworks.c \
+	bsettop_timer.c
+else
+SRCS += \
+	bsettop_timer.c \
+	proxy_graphics.c \
+	bsettop_linux.c \
+	bsettop_base_mem.c
+endif
+
+# Include transition.inc file at the end of the build
+# Do not fail on this, it should be harmless on older builds
+ifeq ($(wildcard $(ROCKFORD)/modules/transition.inc),)
+$(warning $(ROCKFORD)/modules/transition.inc is missing.  This may cause problems in your build.)
+else
+include $(ROCKFORD)/modules/transition.inc
+endif
+

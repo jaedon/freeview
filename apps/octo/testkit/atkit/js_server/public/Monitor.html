@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/mystyle.css">
+		<script language="javascript" type="text/javascript" src="/jquery-1.7.1.min.js"></script>
+		<script language="javascript" type="text/javascript" src="/Monitor.js"></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+		<script type="text/javascript">
+			google.charts.load('current', {'packages':['gauge', 'corechart']});
+			google.charts.setOnLoadCallback(drawChart);
+
+
+			var gauge_data;
+			var gauge_options;
+			var gauge_chart;
+
+			var memfree_data = [];
+			var memfree_options;
+			var memfree_chart;
+
+			var cpu_donut_data;
+			var cpu_donut_options;
+			var cpu_donut_chart;
+
+			var mem_donut_data;
+			var mem_donut_options;
+			var mem_donut_chart;
+
+			function drawChart() {
+				gauge_data = google.visualization.arrayToDataTable([
+						['Label', 'Value'],
+						['CPU', 50],
+						['Memory', 50]
+						]);
+
+				gauge_options = {
+					redFrom: 90, redTo: 100,
+					yellowFrom: 75, yellowTo: 90,
+					minorTicks: 5
+				};
+
+				gauge_chart = new google.visualization.Gauge(document.getElementById('chart_gauge'));
+
+				// MemFree Area Chart
+				memfree_options = {
+					title: 'MemFreeSize',
+					hAxis: {title: 'MemFreeSize',  titleTextStyle: {color: 'red'}},
+					explorer: {maxZoomIn:.1, maxZoomOut:10}
+				}
+
+				memfree_chart = new google.visualization.AreaChart(document.getElementById('chart_memfree')); 
+
+
+				// CPU Donut Chart
+				cpu_donut_data = [
+						['Process', 'UsedCpuRate'],
+						['Process1', 50],
+						['Process2', 50]
+						];
+
+				cpu_donut_options = {
+					title: 'UsedCpuRate',
+					pieHole: 0.2,
+/*					pieSliceText: 'label', */
+					slices: {0: {offset: 0.1},
+						1: {offset: 0.1},
+						2: {offset: 0.1}
+					}
+					
+				};
+
+				cpu_donut_chart = new google.visualization.PieChart(document.getElementById('chart_cpu_donut'));
+
+				// MEM Donut Chart
+				mem_donut_data = [
+						['Process', 'UsedMemRate'],
+						['Process1', 50],
+						['Process2', 50]
+						];
+
+				mem_donut_options = {
+					title: 'UsedMemRate',
+				   	pieHole: 0.2,
+/*				   	pieSliceText: 'label', */
+					slices: {0: {offset: 0.2},
+						1: {offset: 0.3},
+						2: {offset: 0.4}
+					}
+				};
+
+				mem_donut_chart = new google.visualization.PieChart(document.getElementById('chart_mem_donut'));
+
+			}
+
+
+			function drawGaugeChart() {
+				gauge_chart.draw(gauge_data, gauge_options);
+			}
+
+			function drawMemFreeChart() {
+				var data = google.visualization.arrayToDataTable(memfree_data);
+				memfree_chart.draw(data, memfree_options);
+			}
+	
+
+			function drawCpuDonutChart() {
+				var data = google.visualization.arrayToDataTable(cpu_donut_data);
+				cpu_donut_chart.draw(data, cpu_donut_options);
+			}
+
+			function drawMemDonutChart() {
+				var data = google.visualization.arrayToDataTable(mem_donut_data);
+				mem_donut_chart.draw(data, mem_donut_options);
+			}
+
+
+		
+
+		</script>
+
+		<!-- Set WebSocket ############################## -->
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			window.onload = startSocketIO;
+		</script>
+		<!-- Set WebSocket ############################## -->
+	</head>
+	<body>
+		<h1> CPU/Memory Usage Monitor </h1>
+		<hr/>
+		<FORM>
+			Interval
+			<INPUT type="TEXT" id='interval' class="text rosy" />
+			<INPUT type="BUTTON" class="button rosy" value="Start" onclick='startMonitorButtonClicked()'/>
+			<INPUT type="BUTTON" class="button rosy" value="Stop" onclick='stopMonitorButtonClicked()'/>
+		</FORM>
+
+		<FORM>
+			<div id="chart_gauge" style="float: left; width: 50%; height: 250px;"></div>
+			<div id="chart_memfree" style="float: left; width: 50%; height: 250px;"></div>
+		</FORM>
+
+		<FORM>
+			<div id="chart_cpu_donut" style="float: left; width: 50%; height: 800px;"></div>
+			<div id="chart_mem_donut" style="float: left; width: 50%; height: 800px;"></div>
+		</FORM>
+	</body>
+</html>
+

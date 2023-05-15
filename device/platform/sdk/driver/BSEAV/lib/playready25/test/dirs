@@ -1,0 +1,146 @@
+#-----------------------------------------------------------------------------
+# This file is read by both the NTBUILD tool and the Porting Kit's makefile
+# system. The latter requires the order of directories to be:
+#     1st - Directories that build headers
+#     2nd - Directories that build objects
+#     3rd - Directories that build libraries
+#     4th - Directories that build executables and DLLs
+# This is analagous to the PASS0, PASS1a/1b, and PASS2 phases of NTBUILD.
+#
+# If one lib packages up another, the final lib must appear later in the list.
+#
+# DIRS is read by NTBUILD and the Porting Kit if DRM_DIRS isn't present.
+#
+# DRM_DIRS is the optional override for use by the Porting Kit. Directory
+# selection can be restricted by platform, architecture, or a combo as follows:
+# DRM_DIRS=foo{ARM} bar{ANSI} baz{ANSI_X86}
+#
+# Supported tags (out of the box):
+# - Platform: ANSI
+# - Architecture: X86, AMD64/X64, ARM
+# - PlatArch: Platform and Arch separated by an underscore (e.g. ANSI_X86)
+#-----------------------------------------------------------------------------
+
+DIRS =                                                                                                        \
+    common{!PPC}                                                                                              \
+    netio                                                                                                     \
+    testcore                                                                                                  \
+    tstutils                                                                                                  \
+    toemimp                                                                                                   \
+    tools{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                        \
+    meta{!PLAYREADY_PRODUCT_WP8}                                                                              \
+    metering                                                                                                  \
+    hds{!PLAYREADY_PRODUCT_WP8}                                                                               \
+    drmmanager{!PLAYREADY_PRODUCT_WP8}                                                                        \
+    XboxApi{!PLAYREADY_PRODUCT_WP8}                                                                           \
+    licstore{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                     \
+    secstore{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                     \
+    header{!PLAYREADY_PRODUCT_WP8}                                                                            \
+    XMLParser{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                    \
+    XMLBuilder{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                   \
+    xmr{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                          \
+    LicEval{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                      \
+    utils{!PLAYREADY_PRODUCT_WP8}                                                                             \
+    ExprEval{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                     \
+    Crypto{!PLAYREADY_PRODUCT_WP8}                                                                            \
+    blackbox{!PLAYREADY_PRODUCT_WP8}                                                                          \
+    licparser{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                    \
+    viewrights{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                   \
+    SecureClock{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                  \
+    synclist{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                     \
+    devicedevcert{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                \
+    DevcertParser{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                \
+    bcrl{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                         \
+    devicestore{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                  \
+    metercertstore{!PPC,!PLAYREADY_PRODUCT_WP8}                                                               \
+    domainstore{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                  \
+    xmlsig{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                       \
+    utf{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                          \
+    XMLBuilderA{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                  \
+    domainapi{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                    \
+    licacqv3{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                     \
+    ToolTests{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                    \
+    OEM{!PLAYREADY_PRODUCT_WP8}                                                                               \
+    certs{!PLAYREADY_PRODUCT_WP8}                                                                             \
+    cmdlnpars{!PK_CODECOVERAGE_BUILD,!PPC,!PLAYREADY_PRODUCT_WP8}                                             \
+    ConsoleNDT{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                   \
+    Test_Suite_NDT{!PPC,!PLAYREADY_PRODUCT_WP8}                                                               \
+    ConsoleNDR{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                   \
+    datastore{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                    \
+    initparser{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                   \
+    CoreEmbedding{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                \
+    noncestore{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                   \
+    Revocation{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                   \
+    RefLibrary{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                   \
+    PolicyState{!PPC,!PLAYREADY_PRODUCT_WP8}                                                                  \
+    KeyFile{!PLAYREADY_PRODUCT_WP8}                                                                           \
+    LiveTV{!PLAYREADY_PRODUCT_WP8}                                                                            \
+    Performance{!PLAYREADY_PRODUCT_WP8}                                                                       \
+    Coverage{PK_CODECOVERAGE_BUILD,!DRM_CC_PRIVATE_BUILD,!PLAYREADY_PRODUCT_WP8}                              \
+    Plugins{!PK_CODECOVERAGE_BUILD,!PPC,!PLAYREADY_PRODUCT_WP8}                                               \
+    Activation{!PLAYREADY_PRODUCT_WP8}                                                                        \
+    MPR{PPC,!PLAYREADY_PRODUCT_WP8}                                                                           \
+    greenlight{PPC,!PLAYREADY_PRODUCT_WP8}                                                                    \
+    prnd{!PLAYREADY_PRODUCT_WP8}                                                                              \
+    m2tsencryptor{!PLAYREADY_PRODUCT_WP8}                                                                     \
+    licgen{!PLAYREADY_PRODUCT_WP8}                                                                            \
+    mathsafe{!PLAYREADY_PRODUCT_WP8}                                                                          \
+    ddcnobackcompat{!PK_CODECOVERAGE_BUILD,!PPC,!PLAYREADY_PRODUCT_WP8}                                       \
+    ddcnoprnd{!PK_CODECOVERAGE_BUILD,!PPC,!PLAYREADY_PRODUCT_WP8}                                             \
+
+DRM_DIRS =                                              \
+    netio                                               \
+    testcore                                            \
+    tstutils                                            \
+    toemimp                                             \
+    tools                                               \
+    meta                                                \
+    metering                                            \
+    hds                                                 \
+    drmmanager                                          \
+    licstore                                            \
+    secstore                                            \
+    header                                              \
+    XMLParser                                           \
+    XMLBuilder                                          \
+    xmr                                                 \
+    LicEval                                             \
+    utils                                               \
+    ExprEval                                            \
+    Crypto                                              \
+    blackbox                                            \
+    licparser                                           \
+    viewrights                                          \
+    SecureClock                                         \
+    synclist                                            \
+    devicedevcert                                       \
+    DevcertParser                                       \
+    devicestore                                         \
+    metercertstore                                      \
+    domainstore                                         \
+    xmlsig                                              \
+    utf                                                 \
+    XMLBuilderA                                         \
+    domainapi                                           \
+    licacqv3                                            \
+    ToolTests{X86,AMD64}                                \
+    OEM                                                 \
+    certs                                               \
+    cmdlnpars                                           \
+    ConsoleNDT                                          \
+    Test_Suite_NDT                                      \
+    ConsoleNDR                                          \
+    datastore                                           \
+    initparser                                          \
+    CoreEmbedding                                       \
+    noncestore                                          \
+    Revocation                                          \
+    PolicyState                                         \
+    KeyFile                                             \
+    LiveTV                                              \
+    Performance                                         \
+    prnd                                                \
+    m2tsencryptor{!DRM_SUPPORT_SECUREOEMHAL_PLAY_ONLY}  \
+    licgen                                              \
+    mathsafe                                            \
+

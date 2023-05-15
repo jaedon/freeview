@@ -1,0 +1,35 @@
+############################################################################
+#     Copyright (c) 2011 Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Kbuild $
+# $brcm_Revision: 1 $
+# $brcm_Date: 3/7/11 4:39p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /BSEAV/linux/driver/usermode/Kbuild $
+# 
+############################################################################
+
+obj-m += nexus.o
+nexus-objs += \
+    nexus_driver.o \
+    b_bare_os.o \
+    nexus_driver_firmware.o \
+    libmagnum.a \
+    libnexus.a \
+    __divdi3.o \
+    __moddi3.o \
+    __umoddi3.o \
+    __udivmoddi4.o 
+
+# __divdi3.o & friends are libgcc files obtained from uclinux-rootfs-2.6.31-2.4.tar.bz2.tar.bz2, uclinux-rootfs/user/root_sign/libgcc
+

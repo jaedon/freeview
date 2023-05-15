@@ -1,0 +1,32 @@
+' This file tests xxx when PFD_MAX_CONTENT_SESSIONS == 5
+
+1169: Open media session when another session is already open without force
+Test_DRM_PFD_Initialize(C:\\WMDRMPD\sample.hds)
+Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+Test_SetCertificate(C:\\WMDRMPFD\\DeviceTestCert.crt)
+Test_Drm_Pfd_Registration_ProcessRequest()
+Test_SetPrivateKey(C:\\WMDRMPFD\\ansi_rsa_key.bin)
+Test_Drm_Pfd_Registration_GenerateResponse()
+Test_Proximity(0)
+Test_Drm_Pfd_Aavt_OpenMediaSession(C:\\WMDRMPFD\\jazz1.wma,0,47361,C:\\WMDRMPFD\\jazz1_output.wma)
+Test_Drm_Pfd_Aavt_OpenMediaSession(C:\\WMDRMPFD\\jazz2.wma,0,47361,C:\\WMDRMPFD\\jazz2_output.wma)
+Test_Drm_Pfd_Aavt_OpenMediaSession(C:\\WMDRMPFD\\jazz3.wma,0,47361,C:\\WMDRMPFD\\jazz3_output.wma)
+Test_Drm_Pfd_Aavt_OpenMediaSession(C:\\WMDRMPFD\\jazz5.wma,0,47361,C:\\WMDRMPFD\\jazz5_output.wma)
+Test_Drm_Pfd_Aavt_OpenMediaSession(C:\\WMDRMPFD\\jazz7.wma,0,47361,C:\\WMDRMPFD\\jazz7_output.wma)
+Test_Drm_Pfd_Aavt_OpenMediaSession(C:\\WMDRMPFD\\jazz_clear.wma,0,47361,C:\\WMDRMPFD\\jazz2output.wma)=DRM_E_ND_MEDIA_SESSION_LIMIT_REACHED
+
+1176: Open media session when another session is already open with force
+Test_DRM_PFD_Initialize(C:\\WMDRMPD\sample.hds)
+Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+Test_SetCertificate(C:\\WMDRMPFD\\DeviceTestCert.crt)
+Test_Drm_Pfd_Registration_ProcessRequest()
+Test_SetPrivateKey(C:\\WMDRMPFD\\ansi_rsa_key.bin)
+Test_Drm_Pfd_Registration_GenerateResponse()
+Test_Proximity(0)
+Test_Drm_Pfd_Aavt_OpenMediaSession(C:\\WMDRMPFD\\jazz1.wma,0,47361,C:\\WMDRMPFD\\jazz1_output.wma)
+Test_Drm_Pfd_Aavt_OpenMediaSession(C:\\WMDRMPFD\\jazz2.wma,0,47361,C:\\WMDRMPFD\\jazz2_output.wma)
+Test_Drm_Pfd_Aavt_OpenMediaSession(C:\\WMDRMPFD\\jazz3.wma,0,47361,C:\\WMDRMPFD\\jazz3_output.wma)
+Test_Drm_Pfd_Aavt_OpenMediaSession(C:\\WMDRMPFD\\jazz5.wma,0,47361,C:\\WMDRMPFD\\jazz5_output.wma)
+Test_Drm_Pfd_Aavt_OpenMediaSession(C:\\WMDRMPFD\\jazz7.wma,0,47361,C:\\WMDRMPFD\\jazz7_output.wma)
+Test_Drm_Pfd_Aavt_OpenMediaSession(C:\\WMDRMPFD\\jazz_clear.wma,1,47361,C:\\WMDRMPFD\\jazz_clear_output.wma)
+

@@ -1,0 +1,13 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=LIBRARY
+TARGETNAME=LicEvalTestAPI
+UMTYPE=console
+
+SOURCES = \
+	..\LicEval.c \
+
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \

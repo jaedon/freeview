@@ -1,0 +1,29 @@
+custom c5 ovc 5 5 0 0 cf 2 x1 m3 os 0 0 ow pb 
+de /data/videos/italyriviera-spiderman2_cc_short.mpg 11 11 0 1  
+mad 1 1 1 0 0 1 18 dnr 30 2 80 2 90 2 70 
+c4 oc 4 6 0 0 cf 2 x1 ch 1 och 0 0 dmn 1 m2 os ow 
+de /data/videos/cnnticker.mpg 21 21 0 1 
+mad 1 1 1 0 0 1 18 dnr 30 2 80 2 90 2 70 
+c3 oc 3 8 0 0 cf 2 x0 ch 0 och 0 0 dmn 0 m1 os ow 
+de /data/videos/italyriviera-spiderman2_cc_short.mpg 11 11 0 1 
+mad 1 1 1 0 0 1 18 dnr 30 2 80 2 90 2 70 
+c2 oc 2 7 0 0 cf 2 x0 ch 1 och 0 0 dmn 1 m0 os ow 
+de /data/videos/cnnticker.mpg 21 21 0 1 
+mad 1 1 1 0 0 1 18 dnr 30 2 80 2 90 2 70 
+clear sleep bvncb 
+break 3 c5 cf 2 
+break 3 c4 cf 2 
+break 3 c3 cf 2 
+break 3 c2 cf 2 
+break 3 c5 cf 1 
+break 3 c4 cf 1 
+break 3 c3 cf 1 
+break 3 c2 cf 1 
+break 10 
+bvncb 
+pb 
+c2 cw
+c3 cw cs cd
+c4 cw
+c5 cw cs cd
+q

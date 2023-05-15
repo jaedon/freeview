@@ -1,0 +1,27 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+ifneq ($(strip $(CONFIG_HAVE_DOT_CONFIG)),y)
+
+basefiles_distclean:
+	@echo you have to do xxx_defconfig, at first. in $@
+ap_driver_distclean:
+	@echo you have to do xxx_defconfig, at first. in $@
+ap_cas_distclean:
+	@echo you have to do xxx_defconfig, at first. in $@
+ap_browser_distclean:
+	@echo you have to do xxx_defconfig, at first. in $@
+ap_driver_clean:
+	@echo you have to do xxx_defconfig, at first. in $@
+ap_cas_clean:
+	@echo you have to do xxx_defconfig, at first. in $@
+ap_browser_clean:
+	@echo you have to do xxx_defconfig, at first. in $@
+humaxtv-clean:
+	@echo you have to do xxx_defconfig, at first. in $@
+
+.PHONY: basefiles_distclean ap_driver_distclean ap_cas_distclean ap_browser_distclean ap_driver_clean ap_cas_clean ap_browser_clean humaxtv-clean
+
+endif
+

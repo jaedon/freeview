@@ -1,0 +1,100 @@
+<root>	
+	<row><onid>1</onid><tsid>1026</tsid><svcid>10030</svcid><hsvc>120</hsvc><CHName>CNBC Europe</CHName><CHNum>98</CHNum></row>
+	<row><onid>1</onid><tsid>1068</tsid><svcid>28522</svcid><hsvc>119</hsvc><CHName>CNN Int.</CHName><CHNum>97</CHNum></row>
+	<row><onid>1</onid><tsid>1091</tsid><svcid>31220</svcid><hsvc>118</hsvc><CHName>EuroNews</CHName><CHNum>96</CHNum></row>
+	<row><onid>1</onid><tsid>1026</tsid><svcid>10050</svcid><hsvc>117</hsvc><CHName>BBC World</CHName><CHNum>95</CHNum></row>
+	<row><onid>318</onid><tsid>8500</tsid><svcid>951</svcid><hsvc>116</hsvc><CHName>RSI LA 2 HD</CHName><CHNum>94</CHNum></row>
+	<row><onid>318</onid><tsid>1700</tsid><svcid>14051</svcid><hsvc>115</hsvc><CHName>RSI LA 1 HD</CHName><CHNum>93</CHNum></row>
+	<row><onid>318</onid><tsid>12300</tsid><svcid>17204</svcid><hsvc>114</hsvc><CHName>RTS Deux HD</CHName><CHNum>92</CHNum></row>
+	<row><onid>318</onid><tsid>12300</tsid><svcid>17203</svcid><hsvc>113</hsvc><CHName>RTS Un HD</CHName><CHNum>91</CHNum></row>
+	<row><onid>1</onid><tsid>1115</tsid><svcid>13102</svcid><hsvc>112</hsvc><CHName>GoTV</CHName><CHNum>90</CHNum></row>
+	<row><onid>1</onid><tsid>1115</tsid><svcid>13141</svcid><hsvc>111</hsvc><CHName>BTV</CHName><CHNum>89</CHNum></row>
+	<row><onid>1</onid><tsid>1115</tsid><svcid>88</svcid><hsvc>110</hsvc><CHName>LT1-OOE</CHName><CHNum>88</CHNum></row>
+	<row><onid>1</onid><tsid>8192</tsid><svcid>20007</svcid><hsvc>109</hsvc><CHName>Puls 4 Austria</CHName><CHNum>87</CHNum></row>
+	<row><onid>1</onid><tsid>1003</tsid><svcid>13221</svcid><hsvc>108</hsvc><CHName>ORF Sport +</CHName><CHNum>86</CHNum></row>
+	<row><onid>1</onid><tsid>1003</tsid><svcid>13223</svcid><hsvc>107</hsvc><CHName>ATV 2</CHName><CHNum>85</CHNum></row>
+	<row><onid>1</onid><tsid>1003</tsid><svcid>13228</svcid><hsvc>106</hsvc><CHName>ATV HD</CHName><CHNum>84</CHNum></row>
+	<row><onid>1</onid><tsid>1115</tsid><svcid>13101</svcid><hsvc>105</hsvc><CHName>ORF III</CHName><CHNum>83</CHNum></row>
+	<row><onid>1</onid><tsid>1007</tsid><svcid>4912</svcid><hsvc>104</hsvc><CHName>ORF 2 HD</CHName><CHNum>82</CHNum></row>
+	<row><onid>1</onid><tsid>1007</tsid><svcid>4911</svcid><hsvc>103</hsvc><CHName>ORF 1 HD</CHName><CHNum>81</CHNum></row>
+	<row><onid>1</onid><tsid>8192</tsid><svcid>13013</svcid><hsvc>102</hsvc><CHName>Hitradio OE3</CHName><CHNum>80</CHNum></row>
+	<row><onid>1</onid><tsid>8192</tsid><svcid>13014</svcid><hsvc>101</hsvc><CHName>ORF 2 Europe</CHName><CHNum>79</CHNum></row>
+	<row><onid>1</onid><tsid>1091</tsid><svcid>28820</svcid><hsvc>100</hsvc><CHName>VOX CH</CHName><CHNum>78</CHNum></row>
+	<row><onid>1</onid><tsid>1089</tsid><svcid>12041</svcid><hsvc>99</hsvc><CHName>Super RTL CH</CHName><CHNum>77</CHNum></row>
+	<row><onid>1</onid><tsid>1082</tsid><svcid>20003</svcid><hsvc>98</hsvc><CHName>Kabel 1 Schweiz</CHName><CHNum>76</CHNum></row>
+	<row><onid>1</onid><tsid>1082</tsid><svcid>20001</svcid><hsvc>97</hsvc><CHName>ProSieben Schweiz</CHName><CHNum>75</CHNum></row>
+	<row><onid>1</onid><tsid>1082</tsid><svcid>20006</svcid><hsvc>96</hsvc><CHName>SAT.1 CH</CHName><CHNum>74</CHNum></row>
+	<row><onid>1</onid><tsid>1013</tsid><svcid>12400</svcid><hsvc>95</hsvc><CHName>RTL 2 CH</CHName><CHNum>73</CHNum></row>
+	<row><onid>1</onid><tsid>1091</tsid><svcid>28825</svcid><hsvc>94</hsvc><CHName>RTL CH</CHName><CHNum>72</CHNum></row>
+	<row><onid>1</onid><tsid>1053</tsid><svcid>21103</svcid><hsvc>93</hsvc><CHName>QVC HD</CHName><CHNum>71</CHNum></row>
+	<row><onid>1</onid><tsid>1109</tsid><svcid>5400</svcid><hsvc>92</hsvc><CHName>Sonnenklar.TV HD</CHName><CHNum>70</CHNum></row>
+	<row><onid>1</onid><tsid>1053</tsid><svcid>21104</svcid><hsvc>91</hsvc><CHName>HSE24 HD</CHName><CHNum>69</CHNum></row>
+	<row><onid>133</onid><tsid>7</tsid><svcid>775</svcid><hsvc>90</hsvc><CHName>MediaShop meine Ein.</CHName><CHNum>68</CHNum></row>
+	<row><onid>1</onid><tsid>5500</tsid><svcid>5502</svcid><hsvc>89</hsvc><CHName>1-2-3.tv HD</CHName><CHNum>67</CHNum></row>
+	<row><onid>1</onid><tsid>1091</tsid><svcid>31210</svcid><hsvc>88</hsvc><CHName>HSE24 Extra HD</CHName><CHNum>66</CHNum></row>
+	<row><onid>1</onid><tsid>1113</tsid><svcid>12601</svcid><hsvc>87</hsvc><CHName>K-TV</CHName><CHNum>65</CHNum></row>
+	<row><onid>1</onid><tsid>1102</tsid><svcid>48</svcid><hsvc>86</hsvc><CHName>ERF</CHName><CHNum>64</CHNum></row>
+	<row><onid>1</onid><tsid>1108</tsid><svcid>12122</svcid><hsvc>85</hsvc><CHName>Bibel TV</CHName><CHNum>63</CHNum></row>
+	<row><onid>133</onid><tsid>7</tsid><svcid>71</svcid><hsvc>84</hsvc><CHName>HC deutsch</CHName><CHNum>62</CHNum></row>
+	<row><onid>133</onid><tsid>5</tsid><svcid>772</svcid><hsvc>83</hsvc><CHName>iM1</CHName><CHNum>61</CHNum></row>
+	<row><onid>1</onid><tsid>1078</tsid><svcid>28676</svcid><hsvc>82</hsvc><CHName>VIVA Germany</CHName><CHNum>60</CHNum></row>
+	<row><onid>133</onid><tsid>7</tsid><svcid>65</svcid><hsvc>81</hsvc><CHName>DELUXE MUSIC</CHName><CHNum>59</CHNum></row>
+	<row><onid>1</onid><tsid>1078</tsid><svcid>28680</svcid><hsvc>80</hsvc><CHName>NICK/COMEDY</CHName><CHNum>58</CHNum></row>
+	<row><onid>1</onid><tsid>1010</tsid><svcid>11160</svcid><hsvc>79</hsvc><CHName>KIKA HD</CHName><CHNum>57</CHNum></row>
+	<row><onid>1</onid><tsid>1089</tsid><svcid>12040</svcid><hsvc>78</hsvc><CHName>Super RTL</CHName><CHNum>56</CHNum></row>
+	<row><onid>1</onid><tsid>1091</tsid><svcid>31200</svcid><hsvc>77</hsvc><CHName>Eurosport Deutschland</CHName><CHNum>55</CHNum></row>
+	<row><onid>133</onid><tsid>33</tsid><svcid>900</svcid><hsvc>76</hsvc><CHName>SPORT1</CHName><CHNum>54</CHNum></row>
+	<row><onid>318</onid><tsid>15500</tsid><svcid>607</svcid><hsvc>75</hsvc><CHName>DW-TV Europe</CHName><CHNum>53</CHNum></row>
+	<row><onid>1</onid><tsid>1019</tsid><svcid>10304</svcid><hsvc>74</hsvc><CHName>SWR RP HD</CHName><CHNum>52</CHNum></row>
+	<row><onid>1</onid><tsid>1073</tsid><svcid>28229</svcid><hsvc>73</hsvc><CHName>MDR S-Anhalt</CHName><CHNum>51</CHNum></row>
+	<row><onid>1</onid><tsid>1025</tsid><svcid>10328</svcid><hsvc>72</hsvc><CHName>NDR FS MV HD</CHName><CHNum>50</CHNum></row>
+	<row><onid>1</onid><tsid>1073</tsid><svcid>28206</svcid><hsvc>71</hsvc><CHName>rbb Berlin</CHName><CHNum>49</CHNum></row>
+	<row><onid>133</onid><tsid>33</tsid><svcid>661</svcid><hsvc>70</hsvc><CHName>AstroTV</CHName><CHNum>48</CHNum></row>
+	<row><onid>133</onid><tsid>33</tsid><svcid>51</svcid><hsvc>69</hsvc><CHName>TELE 5</CHName><CHNum>47</CHNum></row>
+	<row><onid>1</onid><tsid>1053</tsid><svcid>21100</svcid><hsvc>68</hsvc><CHName>ANIXE HD</CHName><CHNum>46</CHNum></row>
+	<row><onid>133</onid><tsid>5</tsid><svcid>1793</svcid><hsvc>67</hsvc><CHName>DAS VIERTE</CHName><CHNum>45</CHNum></row>
+	<row><onid>133</onid><tsid>7</tsid><svcid>768</svcid><hsvc>66</hsvc><CHName>RNF</CHName><CHNum>44</CHNum></row>
+	<row><onid>1</onid><tsid>1015</tsid><svcid>4713</svcid><hsvc>65</hsvc><CHName>Die neue Zeit</CHName><CHNum>43</CHNum></row>
+	<row><onid>1</onid><tsid>1115</tsid><svcid>13113</svcid><hsvc>64</hsvc><CHName>L-TV / TVM</CHName><CHNum>42</CHNum></row>
+	<row><onid>1</onid><tsid>1003</tsid><svcid>13227</svcid><hsvc>63</hsvc><CHName>DAF</CHName><CHNum>41</CHNum></row>
+	<row><onid>1</onid><tsid>1021</tsid><svcid>4605</svcid><hsvc>60</hsvc><CHName>rfo Regional Oberbayern</CHName><CHNum>38</CHNum></row>
+	<row><onid>1</onid><tsid>1021</tsid><svcid>4604</svcid><hsvc>62</hsvc><CHName>munchen.TV</CHName><CHNum>40</CHNum></row>
+	<row><onid>1</onid><tsid>1021</tsid><svcid>4602</svcid><hsvc>61</hsvc><CHName>INTV</CHName><CHNum>39</CHNum></row>
+	<row><onid>133</onid><tsid>33</tsid><svcid>63</svcid><hsvc>59</hsvc><CHName>DMAX</CHName><CHNum>37</CHNum></row>
+	<row><onid>1</onid><tsid>1025</tsid><svcid>10331</svcid><hsvc>58</hsvc><CHName>PHOENIX HD</CHName><CHNum>36</CHNum></row>
+	<row><onid>1</onid><tsid>1051</tsid><svcid>28723</svcid><hsvc>57</hsvc><CHName>EinsPlus</CHName><CHNum>35</CHNum></row>
+	<row><onid>1</onid><tsid>1201</tsid><svcid>28396</svcid><hsvc>56</hsvc><CHName>EinsFestival HD</CHName><CHNum>34</CHNum></row>
+	<row><onid>1</onid><tsid>1051</tsid><svcid>28721</svcid><hsvc>55</hsvc><CHName>tagesschau24</CHName><CHNum>33</CHNum></row>
+	<row><onid>133</onid><tsid>5</tsid><svcid>776</svcid><hsvc>54</hsvc><CHName>SIXX</CHName><CHNum>32</CHNum></row>
+	<row><onid>133</onid><tsid>5</tsid><svcid>74</svcid><hsvc>53</hsvc><CHName>Joiz</CHName><CHNum>31</CHNum></row>
+	<row><onid>1</onid><tsid>1107</tsid><svcid>17505</svcid><hsvc>52</hsvc><CHName>Prosieben MAXX</CHName><CHNum>30</CHNum></row>
+	<row><onid>1</onid><tsid>1089</tsid><svcid>12061</svcid><hsvc>51</hsvc><CHName>RTL Nitro</CHName><CHNum>29</CHNum></row>
+	<row><onid>1</onid><tsid>1107</tsid><svcid>17504</svcid><hsvc>50</hsvc><CHName>SAT.1 Gold</CHName><CHNum>28</CHNum></row>
+	<row><onid>1</onid><tsid>1107</tsid><svcid>17503</svcid><hsvc>49</hsvc><CHName>N24</CHName><CHNum>27</CHNum></row>
+	<row><onid>1</onid><tsid>1091</tsid><svcid>31220</svcid><hsvc>48</hsvc><CHName>EuroNews</CHName><CHNum>26</CHNum></row>
+	<row><onid>1</onid><tsid>1089</tsid><svcid>12090</svcid><hsvc>47</hsvc><CHName>n-tv</CHName><CHNum>25</CHNum></row>
+	<row><onid>1</onid><tsid>1010</tsid><svcid>11170</svcid><hsvc>46</hsvc><CHName>ZDFinfo HD</CHName><CHNum>24</CHNum></row>
+	<row><onid>1</onid><tsid>1011</tsid><svcid>11140</svcid><hsvc>45</hsvc><CHName>zdf.kultur HD</CHName><CHNum>23</CHNum></row>
+	<row><onid>1</onid><tsid>1011</tsid><svcid>11130</svcid><hsvc>44</hsvc><CHName>zdf_neo HD</CHName><CHNum>22</CHNum></row>
+	<row><onid>1</onid><tsid>1010</tsid><svcid>11150</svcid><hsvc>43</hsvc><CHName>3sat HD</CHName><CHNum>21</CHNum></row>
+	<row><onid>1</onid><tsid>1019</tsid><svcid>10303</svcid><hsvc>42</hsvc><CHName>SWR BW HD</CHName><CHNum>20</CHNum></row>
+	<row><onid>1</onid><tsid>1093</tsid><svcid>28487</svcid><hsvc>41</hsvc><CHName>BR-alpha</CHName><CHNum>19</CHNum></row>
+	<row><onid>1</onid><tsid>1093</tsid><svcid>28486</svcid><hsvc>40</hsvc><CHName>SR Fernsehen</CHName><CHNum>18</CHNum></row>
+	<row><onid>1</onid><tsid>1201</tsid><svcid>28325</svcid><hsvc>39</hsvc><CHName>WDR Koln HD</CHName><CHNum>17</CHNum></row>
+	<row><onid>1</onid><tsid>1101</tsid><svcid>28108</svcid><hsvc>38</hsvc><CHName>hr-fernsehen</CHName><CHNum>16</CHNum></row>
+	<row><onid>1</onid><tsid>1025</tsid><svcid>10325</svcid><hsvc>37</hsvc><CHName>BR Sud HD</CHName><CHNum>15</CHNum></row>
+	<row><onid>1</onid><tsid>1007</tsid><svcid>4914</svcid><hsvc>36</hsvc><CHName>ServusTV HD Deutschland</CHName><CHNum>14</CHNum></row>
+	<row><onid>1</onid><tsid>1019</tsid><svcid>10302</svcid><hsvc>35</hsvc><CHName>arte HD</CHName><CHNum>13</CHNum></row>
+	<row><onid>1</onid><tsid>1107</tsid><svcid>17500</svcid><hsvc>34</hsvc><CHName>SAT.1</CHName><CHNum>12</CHNum></row>
+	<row><onid>1</onid><tsid>1107</tsid><svcid>17502</svcid><hsvc>33</hsvc><CHName>kabel eins</CHName><CHNum>11</CHNum></row>	
+	<row><onid>1</onid><tsid>1107</tsid><svcid>17501</svcid><hsvc>32</hsvc><CHName>ProSieben</CHName><CHNum>10</CHNum></row>
+	<row><onid>1</onid><tsid>1089</tsid><svcid>12060</svcid><hsvc>31</hsvc><CHName>VOX</CHName><CHNum>9</CHNum></row>
+	<row><onid>1</onid><tsid>1089</tsid><svcid>12020</svcid><hsvc>30</hsvc><CHName>RTL2</CHName><CHNum>8</CHNum></row>
+	<row><onid>1</onid><tsid>1089</tsid><svcid>12003</svcid><hsvc>29</hsvc><CHName>RTL Television</CHName><CHNum>7</CHNum></row>
+	<row><onid>1</onid><tsid>1011</tsid><svcid>11110</svcid><hsvc>28</hsvc><CHName>ZDF HD</CHName><CHNum>6</CHNum></row>
+	<row><onid>1</onid><tsid>1019</tsid><svcid>10301</svcid><hsvc>27</hsvc><CHName>Das Erste HD</CHName><CHNum>5</CHNum></row>
+	<row><onid>1</onid><tsid>1015</tsid><svcid>4704</svcid><hsvc>26</hsvc><CHName>3+</CHName><CHNum>4</CHNum></row>
+	<row><onid>318</onid><tsid>8500</tsid><svcid>911</svcid><hsvc>25</hsvc><CHName>SRF Info</CHName><CHNum>3</CHNum></row>
+	<row><onid>318</onid><tsid>12300</tsid><svcid>17202</svcid><hsvc>24</hsvc><CHName>SRF zwei HD</CHName><CHNum>2</CHNum></row>
+	<row><onid>318</onid><tsid>12300</tsid><svcid>17201</svcid><hsvc>23</hsvc><CHName>SRF 1 HD</CHName><CHNum>1</CHNum></row>
+</root>

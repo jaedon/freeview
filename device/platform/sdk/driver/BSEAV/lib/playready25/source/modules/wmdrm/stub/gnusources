@@ -1,0 +1,22 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmwmdrmstub
+TARGETTYPE=LIBRARY
+
+SOURCES =                         \
+    drmdevcertstub.c              \
+    drmwmdrmexprevalstub.c        \
+    drmwmdrmexprfuncstub.c        \
+    drmwmdrmexprvariablestub.c    \
+    drmwmdrmlicacqrespstub.c      \
+    drmwmdrmlicchainstub.c        \
+    drmwmdrmlicenseparserstub.c   \
+    drmwmdrmlicevalstub.c         \
+    drmwmdrmoplstub.c             \
+    drmwmdrmutilstub.c
+

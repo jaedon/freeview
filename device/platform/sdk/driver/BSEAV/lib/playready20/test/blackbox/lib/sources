@@ -1,0 +1,7 @@
+
+TARGETTYPE=LIBRARY
+TARGETNAME=BlackBoxTestAPI
+
+SOURCES = \
+    ../blackboxtest.c \
+    ../binding.c \

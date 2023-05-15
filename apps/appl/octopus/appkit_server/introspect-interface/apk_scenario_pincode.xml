@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Scenario/Pincode">   
+    <interface name="Octopus.Appkit.Scenario.Pincode">
+
+    <method name="Check">
+    	<arg type="s" name="pinString" direction="in" />
+    	<arg type="b" name="reval" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="Verify">
+    	<arg type="s" name="pinString" direction="in" />
+    	<arg type="b" name="reval" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+                                                                        
+    <method name="Set">
+    	<arg type="s" name="oldPinString" direction="in" />
+    	<arg type="s" name="newPinString" direction="in" />
+    	<arg type="b" name="reval" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="Reset">
+    	<arg type="s" name="newPinString" direction="in" />
+    	<arg type="b" name="reval" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+
+    <method name="SetTemporaryBlock">
+    	<arg type="s" name="pinString" direction="in" />
+    	<arg type="b" name="blocked" direction="in" />
+    	<arg type="b" name="reval" direction="out" />
+    	  <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetTemporaryBlock">
+    	<arg type="b" name="blocked" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+            
+    <signal name="event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+
+  </interface>
+</node>

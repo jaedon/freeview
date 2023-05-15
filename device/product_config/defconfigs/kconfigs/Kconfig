@@ -1,0 +1,155 @@
+# Platform configuration
+
+menu "Platform Configuration"
+
+config PRODUCT_NAME
+	string
+	prompt "Require product name for building each customized compile options"
+	default "base7356"
+
+config BOARD_REVISION
+	string
+	prompt "Require board revision number"
+	default "rev0.1"
+
+config PRODUCT_APP_NAME
+	string
+	prompt "Require application name"
+	default "octo"
+
+	choice 
+		prompt "MIPS/ARM"
+		default MIPS	
+
+	config ARM
+		bool "ARM ARCH"	
+
+	config MIPS
+		bool "MIPS ARCH"	
+
+	endchoice
+
+endmenu
+
+menu "Select S/W image mode "
+choice
+	prompt "Debug/release"
+	default PRODUCT_IMAGE_DEBUG
+
+	config PRODUCT_IMAGE_DEBUG
+		bool "Debug"
+	
+	config PRODUCT_IMAGE_RELEASE
+		bool "Release"
+
+endchoice
+endmenu
+
+menu "Select application image type "
+choice
+	prompt "Application type"
+	default PRODUCT_IMAGE_HWTEST
+
+	config PRODUCT_IMAGE_HWTEST
+		bool "H/W test S/W"
+
+	config PRODUCT_IMAGE_UOCTO
+		bool "uOCTO for OTA S/W"
+		select INITRAMFS_LINUX if PRODUCT_IMAGE_RELEASE
+
+	config PRODUCT_IMAGE_UPGRADER
+		bool "UPGRADER S/W"
+		select INITRAMFS_LINUX if PRODUCT_IMAGE_RELEASE
+
+	config PRODUCT_IMAGE_FACTORY
+		bool "Factory S/W"
+		select INITRAMFS_LINUX if PRODUCT_IMAGE_RELEASE
+
+	config PRODUCT_IMAGE_DIAGNOSTIC
+		bool "Diagnostic S/W"
+
+	config PRODUCT_IMAGE_OCTO
+		bool "OCTO S/W"
+
+	config PRODUCT_IMAGE_OCTO20
+		bool "OCTO 2.0 S/W"
+
+	config PRODUCT_IMAGE_NOAPP
+		bool "No Application S/W"
+
+endchoice
+endmenu
+
+menu "Select process type "
+choice
+	prompt "Single/multi-process"
+	default PRODUCT_SINGLE_PROCESS
+
+	config PRODUCT_SINGLE_PROCESS
+		bool "Single"
+	
+	config PRODUCT_MULTI_PROCESS
+		bool "Multi"
+endchoice
+endmenu
+
+
+menu  "Select file-system"
+config TARGET_ROOTFS_SQUASHFS
+	depends on PRODUCT_IMAGE_RELEASE || PRODUCT_IMAGE_DEVELOP_RELEASE
+	bool "squashfs" 
+	default y if PRODUCT_IMAGE_HWTEST || PRODUCT_IMAGE_OCTO || PRODUCT_IMAGE_OCTO20
+	help
+		Build a squashfs-lzma root filesystem At normal release mode
+
+config INITRAMFS_LINUX
+	depends on PRODUCT_IMAGE_FACTORY || PRODUCT_IMAGE_UOCTO || PRODUCT_IMAGE_UPGRADER
+	bool "initram"
+	prompt "Initramfs linux system"
+	default y if PRODUCT_IMAGE_RELEASE
+	help
+		Buile a inintramfs linux filesystem At Factory mode
+endmenu
+	
+menu "Enable debug log"
+config PRODUCT_KERNEL_DEBUG_LOG
+	bool
+	prompt "Kernel log"
+	default y if PRODUCT_IMAGE_DEBUG || PRODUCT_IMAGE_HWTEST || DEVELOP 
+
+config PRODUCT_ROOTFS_DEBUG_LOG
+	bool
+	prompt "Rootfs log"
+	default y if PRODUCT_IMAGE_DEBUG || PRODUCT_IMAGE_HWTEST || PRODUCT_IMAGE_FACTORY
+
+config PRODUCT_DEVICE_DEBUG_LOG
+	bool
+	prompt "Device log"
+	default y if PRODUCT_IMAGE_DEBUG || PRODUCT_IMAGE_HWTEST
+
+config PRODUCT_DI_DEBUG_LOG
+	bool
+	prompt "Driver log"
+	default y if PRODUCT_IMAGE_DEBUG || PRODUCT_IMAGE_HWTEST || PRODUCT_IMAGE_FACTORY || DEVELOP
+
+config PRODUCT_APP_DEBUG_LOG
+	bool
+	prompt "Application log"
+	default y if PRODUCT_IMAGE_DEBUG || PRODUCT_IMAGE_HWTEST
+endmenu
+
+config HAVE_DOT_CONFIG
+	bool
+	default y
+
+menu "Enable features"
+config AUTO_BUILD_IMAGE
+	depends on PRODUCT_IMAGE_RELEASE
+	bool "Auto Build Image"
+	default n
+
+config DEVELOP
+	depends on PRODUCT_IMAGE_RELEASE
+	bool "Develop Release Image"
+	default n
+endmenu

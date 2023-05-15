@@ -1,0 +1,41 @@
+##########################################
+# DI SCART configuration menu
+##########################################
+
+config SCART
+	bool
+	prompt "SCART"
+	default y
+
+choice
+	prompt "Select SCART"
+	default SCART_GPIO   
+	config SCART_6417
+		bool
+		prompt "SCART_6417"
+		depends on SCART
+
+	config SCART_NULL
+		bool
+		prompt "SCART_NULL"
+		depends on SCART
+
+	config SCART_GPIO
+		bool
+		prompt "SCART_GPIO"
+		depends on SCART
+endchoice
+
+		choice
+			depends on SCART_GPIO
+			prompt "Select SCART_GPIO_SLB"
+			default SCART_GPIO_SLB2  
+			config SCART_GPIO_SLB1
+				bool
+				prompt "SCART_GPIO_SLB1"
+		
+			config SCART_GPIO_SLB2
+				bool
+				prompt "SCART_GPIO_SLB2"
+		endchoice
+

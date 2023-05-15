@@ -1,0 +1,177 @@
+################################################
+#    Operator Spec. Configuration              #
+################################################
+
+comment	"Select Operator.(OP_XXX)"
+	config OP_ZIGGO
+		bool "OP_ZIGGO - Support ZIGGO spec."
+		default n
+
+	config OP_UK_DTT
+		bool "OP_UK_DTT - Support UK DTT spec."
+		default n
+
+	config OP_FREESAT
+		bool "OP_FREESAT - Support UK Freesat spec"
+		default n
+
+	config OP_AUS_DTT
+		bool "OP_AUS_DTT - Support Australia DTT spec."
+		default n
+
+	config OP_APS
+		bool "OP_APS - Support APS spec."
+		default n
+
+	config OP_NORDIG
+		bool "OP_NORDIG - Support Nordig Unified 2.0 spec."
+		default n
+
+	config OP_TIVU
+		bool "OP_TIVU - Support Italian TIVU spec."
+		default n
+
+	config OP_ITALY_DBOOK
+		bool "OP_ITALY_DBOOK - Support Italian ITALY_DBOOK spec."
+		default n
+
+	config OP_HD_TNT
+		bool "OP_HT_TNT- Support HD TNT Spec for France DTT "
+		default n
+
+	config OP_SKYD
+		bool "OP_SKYD - Support Germany SKY D spec."
+		default n
+
+	config OP_KDG
+		bool "OP_KDG - Support KDG spec."
+		default n
+
+	config OP_CANALREADY
+		bool "OP_CANALREADY - Support CANAL READY Spec for CANALSAT."
+		default n
+
+	config OP_RCS
+		bool "OP_RCS - Support RCS spec."
+		default n
+
+	config OP_NTVPLUS
+		bool "OP_NTVPLUS - Support NTV+ spec."
+		default n
+
+	config OP_DIGITURK
+		bool "OP_DIGITURK - support Digiturk Specification"
+		default n
+
+	config OP_MIDDLE_EAST
+		bool "OP_MIDDLE EAST - support MiddleEast Specification(Humax AutoSearch, Humax-Irdeto OTA)"
+		default n
+
+	config OP_TRUEVISION
+		bool "OP_TRUEVISION - Support TrueVision spec."
+		default n
+
+	config OP_UPC
+		bool "OP_UPC - Support UPC spec."
+		default n
+
+	config OP_SPAIN_TDT
+		bool "OP_SPAIN_TDT - Support Spain TDT spec."
+		default n
+
+	config OP_SKYLINK
+		bool "OP_SKYLINK - Support Skylink spec."
+		default n
+
+	config OP_SWISS_CANAL
+		bool "OP_SWISS_CANAL - Support SWISS CANAL spec."
+		default n
+
+	config OP_MOSTELECOM
+		bool "OP_MOSTELECOM - Support mostelecom spec."
+		default n
+
+	config OP_RUSSIA_TVT
+		bool "OP_RUSSIA_TVT - Support Russia TVT spec."
+		default n
+
+	config OP_SES
+		bool "OP_SES - Support SES spec."
+		default n
+
+	config OP_ERTELECOM
+		bool "OP_ERTELECOM - Support ER Telecom spec."
+		default n
+
+	config OP_ORF
+		bool "ORF - Support ORF spec."
+		default n
+
+	config OP_TDC
+		bool "OP_TDC - Support Denmark TDC spec."
+		default n
+
+	config OP_TELENOR
+		bool "OP_TELENOR - Support Sweden Telenor spec."
+		default n
+		
+	config OP_AMX
+		bool "OP_AMX - Support AMX spec."
+		default n
+
+	config OP_MBC
+		bool "OP_MBC - Support MBC spec."
+		default n
+
+
+comment	"Operator specific sub configurations"
+
+################################################
+#    Operator Spec. Configuration              #
+################################################
+	source "./Kconfigs/op/config.ip"
+
+	if (OP_ZIGGO = y)
+		source "./Kconfigs/op/config.ziggo"
+	endif
+	if (OP_UK_DTT = y)
+		source "./Kconfigs/op/config.ukter"
+	endif
+	if (OP_FREESAT = y)
+		source "./Kconfigs/op/config.ukfreesat"
+	endif
+	if (OP_AUS_DTT_DBOOK = y)
+		source "./Kconfigs/op/config.auster"
+	endif
+	if (OP_NORDIG = y)
+		source "./Kconfigs/op/config.nordig"
+	endif
+	if (OP_SKYD = y)
+		source "./Kconfigs/op/config.skyd"
+	endif
+	if (OP_KDG = y)
+		source "./Kconfigs/op/config.kdg"
+	endif
+	if (OP_RCS = y)
+		source "./Kconfigs/op/config.rcs"
+	endif
+	if (OP_ERTELECOM = y)
+		source "./Kconfigs/op/config.ertelecom"
+	endif
+	if (OP_SES = y)
+		source "./Kconfigs/op/config.ses"
+	endif
+	if (OP_ORF = y)
+		source "./Kconfigs/op/config.orf"
+	endif
+	if (OP_TDC = y)
+		source "./Kconfigs/op/config.tdc"
+	endif
+	if (OP_TELENOR = y)
+		source "./Kconfigs/op/config.telenor"
+	endif
+	if (OP_MBC = y)
+		source "./Kconfigs/op/config.mbc"
+	endif
+	
+	

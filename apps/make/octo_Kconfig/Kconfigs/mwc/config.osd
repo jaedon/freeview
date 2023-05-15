@@ -1,0 +1,94 @@
+###################################################
+#					MW Common/OSD Configuration					#
+###################################################
+
+comment "MWC/OSD Configuration. (MWC_OSD_XXX)"
+
+	config MWC_OSD_HORIZONTAL
+		int "MWC_OSD_HORIZONTAL - Horizontal resolution of OSD frame buffer"
+		default 1280
+
+	config MWC_OSD_VERTICAL
+		int "MWC_OSD_VERTICAL - Vertical resolution of OSD frame buffer"
+		default 720
+
+	comment "MWC/OSD Profile (MWC_OSD_PROFILE_XXX)"
+	choice
+		prompt "Screen Plane Profiles"
+		default MWC_OSD_PROFILE_BASIC
+
+		config MWC_OSD_PROFILE_BASIC
+			bool "MWC_OSD_PROFILE_BASIC : OSD/DATA"
+
+		config MWC_OSD_PROFILE_OSD_ONLY
+			bool "MWC_OSD_PROFILE_OSD_ONLY : OSD (MINIOCTO)"
+
+		config MWC_OSD_PROFILE_BROWSER
+			bool "MWC_OSD_PROFILE_BROWSER : OSD/DATA/AUX"
+
+		config MWC_OSD_PROFILE_MHEG
+			bool "MWC_OSD_PROFILE_MHEG : OSD/DATA/AUX"
+
+		config MWC_OSD_PROFILE_MHEG_BGIMAGE
+			bool "MWC_OSD_PROFILE_MHEG_BGIMAGE : OSD/DATA/AUX/BG1"
+
+		config MWC_OSD_PROFILE_MHP
+			bool "MWC_OSD_PROFILE_MHP : OSD/DATA/AUX"
+	endchoice
+
+	config MWC_OSD_BOOTUP_SPLASH
+		bool "MWC_OSD_BOOTUP_SPLASH - shows splash screen on bootup"
+		default n
+
+	config MWC_OSD_BGPLANE1
+		bool "MWC_OSD_BGPLANE1 - use 1st background  plane"
+		default n
+
+	config MWC_OSD_BGPLANE1_AS_BG
+		depends on MWC_OSD_BGPLANE1
+		bool "MWC_OSD_BGPLANE1_AS_BG - use it behind the video plane, must not select USE_BGPLANE2_AS_BG with this"
+		default n
+
+	config MWC_OSD_BGPLANE2
+		depends on MWC_OSD_BGPLANE1
+		bool "MWC_OSD_BGPLANE2 - use 2nd background  plane"
+		default n
+
+	config MWC_OSD_BGPLANE2_AS_BG
+		depends on MWC_OSD_BGPLANE2
+		bool "MWC_OSD_BGPLANE2_AS_BG - use it behind the video plane, must not select USE_BGPLANE1_AS_BG with this"
+		default n
+
+	config MWC_OSD_SCALABLE_PLANE
+		bool "MWC_OSD_SCALABLE_PLANE - able to set in-out window for each OSD plane"
+		default n
+
+	config MWC_OSD_RESIZABLE_DATA_PLANE
+		bool "MWC_OSD_RESIZABLE_DATA_PLANE - Resizable Data Plane option for Subtitle, Teletext and HD Subtitle"
+		default n
+
+	config MWC_OSD_SBTL_ON_UIPLANE
+		bool "MWC_OSD_SBTL_ON_UIPLANE - Draw subtitle/teletext/caption on UI Plane."
+		default n
+
+	choice
+		prompt "Select Target OSD Color Format"
+		default MWC_OSD_32BIT_TRUECOLOR
+
+		config MWC_OSD_32BIT_TRUECOLOR
+			bool "MWC_OSD_32BIT_TRUECOLOR - 32bit true color (ARGB8888)"
+		config MWC_OSD_16BIT_TRUECOLOR
+			bool "MWC_OSD_16BIT_TRUECOLOR - 16bit true color (ARGB4444)"
+	endchoice
+
+	config MWC_OSD_PNG_PREMULTIPLY_ALPHA
+		bool "MWC_OSD_PNG_PREMULTIPLY_ALPHA - Use premultipling alpha to color"
+		default n
+		help
+			use UI stock image png facility
+
+	config MWC_OSD_UNLOAD_STOCK_IMAGE
+		bool "MWC_OSD_UNLOAD_STOCK_IMAGE - The application unloads the loaded stock images when it is destroyed."
+		default n
+
+

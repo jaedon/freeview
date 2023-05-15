@@ -1,0 +1,12 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmdeviceassetsstub
+TARGETTYPE=LIBRARY
+
+SOURCES =                            \
+    drmblobcachestub.c               \
+    drmdeviceassetsutilstub.c        \
+    drmdevicedevcertstub.c           \
+    drmrevocationstorehds.c          \
+    drmsecstorestub.c                \
+

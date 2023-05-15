@@ -1,0 +1,1687 @@
+<fontManager>
+    <settings>
+        <hinting>true</hinting>
+        <autohinter>false</autohinter>
+        <hinting_mode>normal</hinting_mode>
+        <!--  default values for emboldening and slanting
+        <embolden_factor>1</embolden_factor>
+        <slant_factor>0.375</slant_factor>
+        -->
+        <!--  The default priority is 100. A higher number means prefer
+              that font more -->
+    </settings>
+    <fonts>
+        <Arial_for_Netflix>
+            <settings>
+                <aliases>Helvetica, Sans, serif</aliases>
+            </settings>
+            <!--
+                Font file: Arial_for_Netflix-R.ttf
+
+                Family: Arial_for_Netflix
+                Style: Regular
+                Glyph count: 919
+            -->
+            <regular>
+                <file>fonts/Arial_for_Netflix-R.ttf</file>
+                <settings>
+                    <bbox>-136,-621+143x1864</bbox>
+                    <default_bbox>-1006,-665+2222x1864</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (95 characters) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (96 characters) -->
+                    <block3>000100-00017F</block3> <!-- Latin Extended-A (128 characters) -->
+                    <block4>000180-00024F</block4> <!-- Latin Extended-B (24 characters) -->
+                    <block5>000250-0002AF</block5> <!-- IPA Extensions (9 characters) -->
+                    <block6>0002B0-0002FF</block6> <!-- Spacing Modifier Letters (9 characters) -->
+                    <block7>000300-00036F</block7> <!-- Combining Diacritical Marks (10 characters) -->
+                    <block8>000370-0003FF</block8> <!-- Greek and Coptic (73 characters) -->
+                    <block9>000400-0004FF</block9> <!-- Cyrillic (122 characters) -->
+                    <block10>000600-0006FF</block10> <!-- Arabic (1 character) -->
+                    <block11>001E00-001EFF</block11> <!-- Latin Extended Additional (97 characters) -->
+                    <block12>002000-00206F</block12> <!-- General Punctuation (29 characters) -->
+                    <block13>002070-00209F</block13> <!-- Superscripts and Subscripts (28 characters) -->
+                    <block14>0020A0-0020CF</block14> <!-- Currency Symbols (14 characters) -->
+                    <block15>002100-00214F</block15> <!-- Letterlike Symbols (10 characters) -->
+                    <block16>002150-00218F</block16> <!-- Number Forms (6 characters) -->
+                    <block17>002190-0021FF</block17> <!-- Arrows (16 characters) -->
+                    <block18>002200-0022FF</block18> <!-- Mathematical Operators (17 characters) -->
+                    <block19>002300-0023FF</block19> <!-- Miscellaneous Technical (4 characters) -->
+                    <block20>002500-00257F</block20> <!-- Box Drawing (40 characters) -->
+                    <block21>002580-00259F</block21> <!-- Block Elements (8 characters) -->
+                    <block22>0025A0-0025FF</block22> <!-- Geometric Shapes (33 characters) -->
+                    <block23>002600-0026FF</block23> <!-- Miscellaneous Symbols (28 characters) -->
+                    <block24>00FB00-00FB4F</block24> <!-- Alphabetic Presentation Forms (5 characters) -->
+                    <block25>00FE30-00FE4F</block25> <!-- CJK Compatibility Forms (2 characters) -->
+                    <block26>00FE70-00FEFF</block26> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Latn,*-Grek,*-Cyrl</languages>
+                <priority>200</priority>
+            </regular>
+            <!--
+                Font file: Arial_for_Netflix-B.ttf
+
+                Family: Arial_for_Netflix
+                Style: Bold
+                Glyph count: 905
+            -->
+            <bold>
+                <file>fonts/Arial_for_Netflix-B.ttf</file>
+                <settings>
+                    <bbox>-215,-621+217x1864</bbox>
+                    <default_bbox>-911,-771+2222x1864</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (95 characters) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (96 characters) -->
+                    <block3>000100-00017F</block3> <!-- Latin Extended-A (128 characters) -->
+                    <block4>000180-00024F</block4> <!-- Latin Extended-B (24 characters) -->
+                    <block5>000250-0002AF</block5> <!-- IPA Extensions (9 characters) -->
+                    <block6>0002B0-0002FF</block6> <!-- Spacing Modifier Letters (9 characters) -->
+                    <block7>000300-00036F</block7> <!-- Combining Diacritical Marks (10 characters) -->
+                    <block8>000370-0003FF</block8> <!-- Greek and Coptic (73 characters) -->
+                    <block9>000400-0004FF</block9> <!-- Cyrillic (122 characters) -->
+                    <block10>000600-0006FF</block10> <!-- Arabic (1 character) -->
+                    <block11>001E00-001EFF</block11> <!-- Latin Extended Additional (97 characters) -->
+                    <block12>002000-00206F</block12> <!-- General Punctuation (29 characters) -->
+                    <block13>002070-00209F</block13> <!-- Superscripts and Subscripts (28 characters) -->
+                    <block14>0020A0-0020CF</block14> <!-- Currency Symbols (14 characters) -->
+                    <block15>002100-00214F</block15> <!-- Letterlike Symbols (10 characters) -->
+                    <block16>002150-00218F</block16> <!-- Number Forms (6 characters) -->
+                    <block17>002190-0021FF</block17> <!-- Arrows (16 characters) -->
+                    <block18>002200-0022FF</block18> <!-- Mathematical Operators (17 characters) -->
+                    <block19>002300-0023FF</block19> <!-- Miscellaneous Technical (4 characters) -->
+                    <block20>002500-00257F</block20> <!-- Box Drawing (40 characters) -->
+                    <block21>002580-00259F</block21> <!-- Block Elements (8 characters) -->
+                    <block22>0025A0-0025FF</block22> <!-- Geometric Shapes (33 characters) -->
+                    <block23>002600-0026FF</block23> <!-- Miscellaneous Symbols (28 characters) -->
+                    <block24>00FB00-00FB4F</block24> <!-- Alphabetic Presentation Forms (5 characters) -->
+                    <block25>00FE30-00FE4F</block25> <!-- CJK Compatibility Forms (2 characters) -->
+                    <block26>00FE70-00FEFF</block26> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Latn,*-Grek,*-Cyrl</languages>
+                <priority>200</priority>
+            </bold>
+            <!--
+                Font file: Arial_for_Netflix-I.ttf
+
+                Family: Arial_for_Netflix
+                Style: Italic
+                Glyph count: 930
+            -->
+            <italic>
+                <file>fonts/Arial_for_Netflix-I.ttf</file>
+                <settings>
+                    <bbox>-248,-621+349x1864</bbox>
+                    <default_bbox>-918,-665+2222x1864</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (95 characters) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (96 characters) -->
+                    <block3>000100-00017F</block3> <!-- Latin Extended-A (128 characters) -->
+                    <block4>000180-00024F</block4> <!-- Latin Extended-B (24 characters) -->
+                    <block5>000250-0002AF</block5> <!-- IPA Extensions (9 characters) -->
+                    <block6>0002B0-0002FF</block6> <!-- Spacing Modifier Letters (9 characters) -->
+                    <block7>000300-00036F</block7> <!-- Combining Diacritical Marks (10 characters) -->
+                    <block8>000370-0003FF</block8> <!-- Greek and Coptic (73 characters) -->
+                    <block9>000400-0004FF</block9> <!-- Cyrillic (122 characters) -->
+                    <block10>000600-0006FF</block10> <!-- Arabic (1 character) -->
+                    <block11>001E00-001EFF</block11> <!-- Latin Extended Additional (97 characters) -->
+                    <block12>002000-00206F</block12> <!-- General Punctuation (29 characters) -->
+                    <block13>002070-00209F</block13> <!-- Superscripts and Subscripts (28 characters) -->
+                    <block14>0020A0-0020CF</block14> <!-- Currency Symbols (14 characters) -->
+                    <block15>002100-00214F</block15> <!-- Letterlike Symbols (10 characters) -->
+                    <block16>002150-00218F</block16> <!-- Number Forms (6 characters) -->
+                    <block17>002190-0021FF</block17> <!-- Arrows (16 characters) -->
+                    <block18>002200-0022FF</block18> <!-- Mathematical Operators (17 characters) -->
+                    <block19>002300-0023FF</block19> <!-- Miscellaneous Technical (4 characters) -->
+                    <block20>002500-00257F</block20> <!-- Box Drawing (40 characters) -->
+                    <block21>002580-00259F</block21> <!-- Block Elements (8 characters) -->
+                    <block22>0025A0-0025FF</block22> <!-- Geometric Shapes (33 characters) -->
+                    <block23>002600-0026FF</block23> <!-- Miscellaneous Symbols (28 characters) -->
+                    <block24>00FB00-00FB4F</block24> <!-- Alphabetic Presentation Forms (5 characters) -->
+                    <block25>00FE30-00FE4F</block25> <!-- CJK Compatibility Forms (2 characters) -->
+                    <block26>00FE70-00FEFF</block26> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Latn,*-Grek,*-Cyrl</languages>
+                <priority>200</priority>
+            </italic>
+            <boldItalic>
+                <file>fonts/Arial_for_Netflix-I.ttf</file>
+                <settings>
+                    <embolden>true</embolden>
+                    <bbox>-248,-621+349x1864</bbox>
+                    <default_bbox>-918,-665+2222x1864</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (95 characters) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (96 characters) -->
+                    <block3>000100-00017F</block3> <!-- Latin Extended-A (128 characters) -->
+                    <block4>000180-00024F</block4> <!-- Latin Extended-B (24 characters) -->
+                    <block5>000250-0002AF</block5> <!-- IPA Extensions (9 characters) -->
+                    <block6>0002B0-0002FF</block6> <!-- Spacing Modifier Letters (9 characters) -->
+                    <block7>000300-00036F</block7> <!-- Combining Diacritical Marks (10 characters) -->
+                    <block8>000370-0003FF</block8> <!-- Greek and Coptic (73 characters) -->
+                    <block9>000400-0004FF</block9> <!-- Cyrillic (122 characters) -->
+                    <block10>000600-0006FF</block10> <!-- Arabic (1 character) -->
+                    <block11>001E00-001EFF</block11> <!-- Latin Extended Additional (97 characters) -->
+                    <block12>002000-00206F</block12> <!-- General Punctuation (29 characters) -->
+                    <block13>002070-00209F</block13> <!-- Superscripts and Subscripts (28 characters) -->
+                    <block14>0020A0-0020CF</block14> <!-- Currency Symbols (14 characters) -->
+                    <block15>002100-00214F</block15> <!-- Letterlike Symbols (10 characters) -->
+                    <block16>002150-00218F</block16> <!-- Number Forms (6 characters) -->
+                    <block17>002190-0021FF</block17> <!-- Arrows (16 characters) -->
+                    <block18>002200-0022FF</block18> <!-- Mathematical Operators (17 characters) -->
+                    <block19>002300-0023FF</block19> <!-- Miscellaneous Technical (4 characters) -->
+                    <block20>002500-00257F</block20> <!-- Box Drawing (40 characters) -->
+                    <block21>002580-00259F</block21> <!-- Block Elements (8 characters) -->
+                    <block22>0025A0-0025FF</block22> <!-- Geometric Shapes (33 characters) -->
+                    <block23>002600-0026FF</block23> <!-- Miscellaneous Symbols (28 characters) -->
+                    <block24>00FB00-00FB4F</block24> <!-- Alphabetic Presentation Forms (5 characters) -->
+                    <block25>00FE30-00FE4F</block25> <!-- CJK Compatibility Forms (2 characters) -->
+                    <block26>00FE70-00FEFF</block26> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Latn,*-Grek,*-Cyrl</languages>
+                <priority>200</priority>
+            </boldItalic>
+        </Arial_for_Netflix>
+
+        <LastResort>
+            <settings>
+                <synthesize>true</synthesize>
+            </settings>
+            <regular>
+                <file>fonts/LastResort.ttf</file>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (128 characters) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (128 characters) -->
+                    <block3>000100-00017F</block3> <!-- Latin Extended-A (128 characters) -->
+                    <block4>000180-00024F</block4> <!-- Latin Extended-B (208 characters) -->
+                    <block5>000250-0002AF</block5> <!-- IPA Extensions (96 characters) -->
+                    <block6>0002B0-0002FF</block6> <!-- Spacing Modifier Letters (80 characters) -->
+                    <block7>000300-00036F</block7> <!-- Combining Diacritical Marks (112 characters) -->
+                    <block8>000370-0003FF</block8> <!-- Greek and Coptic (127 characters) -->
+                    <block9>000400-0004FF</block9> <!-- Cyrillic (255 characters) -->
+                    <block10>000500-00052F</block10> <!-- Cyrillic Supplement (20 characters) -->
+                    <block11>000530-00058F</block11> <!-- Armenian (86 characters) -->
+                    <block12>000590-0005FF</block12> <!-- Hebrew (87 characters) -->
+                    <block13>000600-0006FF</block13> <!-- Arabic (235 characters) -->
+                    <block14>000700-00074F</block14> <!-- Syriac (77 characters) -->
+                    <block15>000750-00077F</block15> <!-- Arabic Supplement (30 characters) -->
+                    <block16>000780-0007BF</block16> <!-- Thaana (50 characters) -->
+                    <block17>0007C0-0007FF</block17> <!-- NKo (59 characters) -->
+                    <block18>000900-00097F</block18> <!-- Devanagari (110 characters) -->
+                    <block19>000980-0009FF</block19> <!-- Bengali (91 characters) -->
+                    <block20>000A00-000A7F</block20> <!-- Gurmukhi (77 characters) -->
+                    <block21>000A80-000AFF</block21> <!-- Gujarati (83 characters) -->
+                    <block22>000B00-000B7F</block22> <!-- Oriya (81 characters) -->
+                    <block23>000B80-000BFF</block23> <!-- Tamil (71 characters) -->
+                    <block24>000C00-000C7F</block24> <!-- Telugu (80 characters) -->
+                    <block25>000C80-000CFF</block25> <!-- Kannada (86 characters) -->
+                    <block26>000D00-000D7F</block26> <!-- Malayalam (78 characters) -->
+                    <block27>000D80-000DFF</block27> <!-- Sinhala (80 characters) -->
+                    <block28>000E00-000E7F</block28> <!-- Thai (87 characters) -->
+                    <block29>000E80-000EFF</block29> <!-- Lao (65 characters) -->
+                    <block30>000F00-000FFF</block30> <!-- Tibetan (195 characters) -->
+                    <block31>001000-00109F</block31> <!-- Myanmar (78 characters) -->
+                    <block32>0010A0-0010FF</block32> <!-- Georgian (83 characters) -->
+                    <block33>001100-0011FF</block33> <!-- Hangul Jamo (240 characters) -->
+                    <block34>001200-00137F</block34> <!-- Ethiopic (356 characters) -->
+                    <block35>001380-00139F</block35> <!-- Ethiopic Supplement (26 characters) -->
+                    <block36>0013A0-0013FF</block36> <!-- Cherokee (85 characters) -->
+                    <block37>001400-00167F</block37> <!-- Unified Canadian Aboriginal Syllabics (630 characters) -->
+                    <block38>001680-00169F</block38> <!-- Ogham (29 characters) -->
+                    <block39>0016A0-0016FF</block39> <!-- Runic (81 characters) -->
+                    <block40>001700-00171F</block40> <!-- Tagalog (20 characters) -->
+                    <block41>001720-00173F</block41> <!-- Hanunoo (23 characters) -->
+                    <block42>001740-00175F</block42> <!-- Buhid (20 characters) -->
+                    <block43>001760-00177F</block43> <!-- Tagbanwa (18 characters) -->
+                    <block44>001780-0017FF</block44> <!-- Khmer (114 characters) -->
+                    <block45>001800-0018AF</block45> <!-- Mongolian (155 characters) -->
+                    <block46>001900-00194F</block46> <!-- Limbu (66 characters) -->
+                    <block47>001950-00197F</block47> <!-- Tai Le (35 characters) -->
+                    <block48>001980-0019DF</block48> <!-- New Tai Lue (80 characters) -->
+                    <block49>0019E0-0019FF</block49> <!-- Khmer Symbols (32 characters) -->
+                    <block50>001A00-001A1F</block50> <!-- Buginese (30 characters) -->
+                    <block51>001B00-001B7F</block51> <!-- Balinese (121 characters) -->
+                    <block52>001D00-001D7F</block52> <!-- Phonetic Extensions (128 characters) -->
+                    <block53>001D80-001DBF</block53> <!-- Phonetic Extensions Supplement (64 characters) -->
+                    <block54>001DC0-001DFF</block54> <!-- Combining Diacritical Marks Supplement (13 characters) -->
+                    <block55>001E00-001EFF</block55> <!-- Latin Extended Additional (246 characters) -->
+                    <block56>001F00-001FFF</block56> <!-- Greek Extended (233 characters) -->
+                    <block57>002000-00206F</block57> <!-- General Punctuation (106 characters) -->
+                    <block58>002070-00209F</block58> <!-- Superscripts and Subscripts (34 characters) -->
+                    <block59>0020A0-0020CF</block59> <!-- Currency Symbols (22 characters) -->
+                    <block60>0020D0-0020FF</block60> <!-- Combining Diacritical Marks for Symbols (32 characters) -->
+                    <block61>002100-00214F</block61> <!-- Letterlike Symbols (79 characters) -->
+                    <block62>002150-00218F</block62> <!-- Number Forms (50 characters) -->
+                    <block63>002190-0021FF</block63> <!-- Arrows (112 characters) -->
+                    <block64>002200-0022FF</block64> <!-- Mathematical Operators (256 characters) -->
+                    <block65>002300-0023FF</block65> <!-- Miscellaneous Technical (232 characters) -->
+                    <block66>002400-00243F</block66> <!-- Control Pictures (39 characters) -->
+                    <block67>002440-00245F</block67> <!-- Optical Character Recognition (11 characters) -->
+                    <block68>002460-0024FF</block68> <!-- Enclosed Alphanumerics (160 characters) -->
+                    <block69>002500-00257F</block69> <!-- Box Drawing (128 characters) -->
+                    <block70>002580-00259F</block70> <!-- Block Elements (32 characters) -->
+                    <block71>0025A0-0025FF</block71> <!-- Geometric Shapes (96 characters) -->
+                    <block72>002600-0026FF</block72> <!-- Miscellaneous Symbols (176 characters) -->
+                    <block73>002700-0027BF</block73> <!-- Dingbats (174 characters) -->
+                    <block74>0027C0-0027EF</block74> <!-- Miscellaneous Mathematical Symbols-A (39 characters) -->
+                    <block75>0027F0-0027FF</block75> <!-- Supplemental Arrows-A (16 characters) -->
+                    <block76>002800-0028FF</block76> <!-- Braille Patterns (256 characters) -->
+                    <block77>002900-00297F</block77> <!-- Supplemental Arrows-B (128 characters) -->
+                    <block78>002980-0029FF</block78> <!-- Miscellaneous Mathematical Symbols-B (128 characters) -->
+                    <block79>002A00-002AFF</block79> <!-- Supplemental Mathematical Operators (256 characters) -->
+                    <block80>002B00-002BFF</block80> <!-- Miscellaneous Symbols and Arrows (31 characters) -->
+                    <block81>002C00-002C5F</block81> <!-- Glagolitic (94 characters) -->
+                    <block82>002C60-002C7F</block82> <!-- Latin Extended-C (17 characters) -->
+                    <block83>002C80-002CFF</block83> <!-- Coptic (114 characters) -->
+                    <block84>002D00-002D2F</block84> <!-- Georgian Supplement (38 characters) -->
+                    <block85>002D30-002D7F</block85> <!-- Tifinagh (55 characters) -->
+                    <block86>002D80-002DDF</block86> <!-- Ethiopic Extended (79 characters) -->
+                    <block87>002E00-002E7F</block87> <!-- Supplemental Punctuation (26 characters) -->
+                    <block88>002E80-002EFF</block88> <!-- CJK Radicals Supplement (115 characters) -->
+                    <block89>002F00-002FDF</block89> <!-- Kangxi Radicals (214 characters) -->
+                    <block90>002FF0-002FFF</block90> <!-- Ideographic Description Characters (12 characters) -->
+                    <block91>003000-00303F</block91> <!-- CJK Symbols and Punctuation (64 characters) -->
+                    <block92>003040-00309F</block92> <!-- Hiragana (93 characters) -->
+                    <block93>0030A0-0030FF</block93> <!-- Katakana (96 characters) -->
+                    <block94>003100-00312F</block94> <!-- Bopomofo (40 characters) -->
+                    <block95>003130-00318F</block95> <!-- Hangul Compatibility Jamo (94 characters) -->
+                    <block96>003190-00319F</block96> <!-- Kanbun (16 characters) -->
+                    <block97>0031A0-0031BF</block97> <!-- Bopomofo Extended (24 characters) -->
+                    <block98>0031C0-0031EF</block98> <!-- CJK Strokes (16 characters) -->
+                    <block99>0031F0-0031FF</block99> <!-- Katakana Phonetic Extensions (16 characters) -->
+                    <block100>003200-0032FF</block100> <!-- Enclosed CJK Letters and Months (242 characters) -->
+                    <block101>003300-0033FF</block101> <!-- CJK Compatibility (256 characters) -->
+                    <block102>003400-004DBF</block102> <!-- CJK Unified Ideographs Extension A (6582 characters) -->
+                    <block103>004DC0-004DFF</block103> <!-- Yijing Hexagram Symbols (64 characters) -->
+                    <block104>004E00-009FFF</block104> <!-- CJK Unified Ideographs (20924 characters) -->
+                    <block105>00A000-00A48F</block105> <!-- Yi Syllables (1165 characters) -->
+                    <block106>00A490-00A4CF</block106> <!-- Yi Radicals (55 characters) -->
+                    <block107>00A700-00A71F</block107> <!-- Modifier Tone Letters (27 characters) -->
+                    <block108>00A720-00A7FF</block108> <!-- Latin Extended-D (2 characters) -->
+                    <block109>00A800-00A82F</block109> <!-- Syloti Nagri (44 characters) -->
+                    <block110>00A840-00A87F</block110> <!-- Phags-pa (56 characters) -->
+                    <block111>00AC00-00D7AF</block111> <!-- Hangul Syllables (11172 characters) -->
+                    <block112>00D800-00DB7F</block112> <!-- High Surrogates (896 characters) -->
+                    <block113>00DB80-00DBFF</block113> <!-- High Private Use Surrogates (128 characters) -->
+                    <block114>00DC00-00DFFF</block114> <!-- Low Surrogates (1024 characters) -->
+                    <block115>00E000-00F8FF</block115> <!-- Private Use Area (6400 characters) -->
+                    <block116>00F900-00FAFF</block116> <!-- CJK Compatibility Ideographs (467 characters) -->
+                    <block117>00FB00-00FB4F</block117> <!-- Alphabetic Presentation Forms (58 characters) -->
+                    <block118>00FB50-00FDFF</block118> <!-- Arabic Presentation Forms-A (595 characters) -->
+                    <block119>00FE00-00FE0F</block119> <!-- Variation Selectors (16 characters) -->
+                    <block120>00FE10-00FE1F</block120> <!-- Vertical Forms (10 characters) -->
+                    <block121>00FE20-00FE2F</block121> <!-- Combining Half Marks (4 characters) -->
+                    <block122>00FE30-00FE4F</block122> <!-- CJK Compatibility Forms (32 characters) -->
+                    <block123>00FE50-00FE6F</block123> <!-- Small Form Variants (26 characters) -->
+                    <block124>00FE70-00FEFF</block124> <!-- Arabic Presentation Forms-B (141 characters) -->
+                    <block125>00FF00-00FFEF</block125> <!-- Halfwidth and Fullwidth Forms (225 characters) -->
+                    <block126>00FFF0-00FFFF</block126> <!-- Specials (7 characters) -->
+                    <block127>010000-01007F</block127> <!-- Linear B Syllabary (128 characters) -->
+                    <block128>010080-0100FF</block128> <!-- Linear B Ideograms (128 characters) -->
+                    <block129>010100-01013F</block129> <!-- Aegean Numbers (64 characters) -->
+                    <block130>010140-01018F</block130> <!-- Ancient Greek Numbers (80 characters) -->
+                    <block131>010190-0101CF</block131> <!-- Ancient Symbols (64 characters) -->
+                    <block132>0101D0-0101FF</block132> <!-- Phaistos Disc (48 characters) -->
+                    <block133>010280-01029F</block133> <!-- Lycian (32 characters) -->
+                    <block134>0102A0-0102DF</block134> <!-- Carian (64 characters) -->
+                    <block135>010300-01032F</block135> <!-- Old Italic (48 characters) -->
+                    <block136>010330-01034F</block136> <!-- Gothic (32 characters) -->
+                    <block137>010380-01039F</block137> <!-- Ugaritic (32 characters) -->
+                    <block138>0103A0-0103DF</block138> <!-- Old Persian (64 characters) -->
+                    <block139>010400-01044F</block139> <!-- Deseret (80 characters) -->
+                    <block140>010450-01047F</block140> <!-- Shavian (48 characters) -->
+                    <block141>010480-0104AF</block141> <!-- Osmanya (48 characters) -->
+                    <block142>010800-01083F</block142> <!-- Cypriot Syllabary (64 characters) -->
+                    <block143>010840-01085F</block143> <!-- Imperial Aramaic (32 characters) -->
+                    <block144>010900-01091F</block144> <!-- Phoenician (32 characters) -->
+                    <block145>010920-01093F</block145> <!-- Lydian (32 characters) -->
+                    <block146>010980-01099F</block146> <!-- Meroitic Hieroglyphs (32 characters) -->
+                    <block147>0109A0-0109FF</block147> <!-- Meroitic Cursive (96 characters) -->
+                    <block148>010A00-010A5F</block148> <!-- Kharoshthi (96 characters) -->
+                    <block149>010A60-010A7F</block149> <!-- Old South Arabian (32 characters) -->
+                    <block150>010B00-010B3F</block150> <!-- Avestan (64 characters) -->
+                    <block151>010B40-010B5F</block151> <!-- Inscriptional Parthian (32 characters) -->
+                    <block152>010B60-010B7F</block152> <!-- Inscriptional Pahlavi (32 characters) -->
+                    <block153>010C00-010C4F</block153> <!-- Old Turkic (80 characters) -->
+                    <block154>010E60-010E7F</block154> <!-- Rumi Numeral Symbols (32 characters) -->
+                    <block155>011000-01107F</block155> <!-- Brahmi (128 characters) -->
+                    <block156>011080-0110CF</block156> <!-- Kaithi (80 characters) -->
+                    <block157>0110D0-0110FF</block157> <!-- Sora Sompeng (48 characters) -->
+                    <block158>011100-01114F</block158> <!-- Chakma (80 characters) -->
+                    <block159>011180-0111DF</block159> <!-- Sharada (96 characters) -->
+                    <block160>011680-0116CF</block160> <!-- Takri (80 characters) -->
+                    <block161>012000-0123FF</block161> <!-- Cuneiform (1024 characters) -->
+                    <block162>012400-01247F</block162> <!-- Cuneiform Numbers and Punctuation (128 characters) -->
+                    <block163>013000-01342F</block163> <!-- Egyptian Hieroglyphs (1072 characters) -->
+                    <block164>016800-016A3F</block164> <!-- Bamum Supplement (576 characters) -->
+                    <block165>016F00-016F9F</block165> <!-- Miao (160 characters) -->
+                    <block166>01B000-01B0FF</block166> <!-- Kana Supplement (256 characters) -->
+                    <block167>01D000-01D0FF</block167> <!-- Byzantine Musical Symbols (256 characters) -->
+                    <block168>01D100-01D1FF</block168> <!-- Musical Symbols (256 characters) -->
+                    <block169>01D200-01D24F</block169> <!-- Ancient Greek Musical Notation (80 characters) -->
+                    <block170>01D300-01D35F</block170> <!-- Tai Xuan Jing Symbols (96 characters) -->
+                    <block171>01D360-01D37F</block171> <!-- Counting Rod Numerals (32 characters) -->
+                    <block172>01D400-01D7FF</block172> <!-- Mathematical Alphanumeric Symbols (1024 characters) -->
+                    <block173>01EE00-01EEFF</block173> <!-- Arabic Mathematical Alphabetic Symbols (256 characters) -->
+                    <block174>01F000-01F02F</block174> <!-- Mahjong Tiles (48 characters) -->
+                    <block175>01F030-01F09F</block175> <!-- Domino Tiles (112 characters) -->
+                    <block176>01F0A0-01F0FF</block176> <!-- Playing Cards (96 characters) -->
+                    <block177>01F100-01F1FF</block177> <!-- Enclosed Alphanumeric Supplement (256 characters) -->
+                    <block178>01F200-01F2FF</block178> <!-- Enclosed Ideographic Supplement (256 characters) -->
+                    <block179>01F300-01F5FF</block179> <!-- Miscellaneous Symbols And Pictographs (768 characters) -->
+                    <block180>01F600-01F64F</block180> <!-- Emoticons (80 characters) -->
+                    <block181>01F680-01F6FF</block181> <!-- Transport And Map Symbols (128 characters) -->
+                    <block182>01F700-01F77F</block182> <!-- Alchemical Symbols (128 characters) -->
+                    <block183>020000-02A6DF</block183> <!-- CJK Unified Ideographs Extension B (42720 characters) -->
+                    <block184>02A700-02B73F</block184> <!-- CJK Unified Ideographs Extension C (4160 characters) -->
+                    <block185>02B740-02B81F</block185> <!-- CJK Unified Ideographs Extension D (224 characters) -->
+                    <block186>02F800-02FA1F</block186> <!-- CJK Compatibility Ideographs Supplement (544 characters) -->
+                    <block187>0E0000-0E007F</block187> <!-- Tags (128 characters) -->
+                    <block188>0E0100-0E01EF</block188> <!-- Variation Selectors Supplement (240 characters) -->
+                    <block189>0F0000-0FFFFF</block189> <!-- Supplementary Private Use Area-A (65536 characters) -->
+                    <block190>100000-10FFFF</block190> <!-- Supplementary Private Use Area-B (65536 characters) -->
+                </blocks>
+            </regular>
+            <priority>1</priority>
+        </LastResort>
+
+        <CC_Monospaced_serif>
+            <settings>
+                <synthesize>true</synthesize>
+            </settings>
+            <regular>
+                <file>fonts/ScreenSerifMonoForNetflix.ttf</file>
+                <settings>
+                    <bbox>-72,-471+0x2157</bbox>
+                    <default_bbox>-72,-471+2120x2628</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (95 characters) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (96 characters) -->
+                    <block3>000100-00017F</block3> <!-- Latin Extended-A (128 characters) -->
+                    <block4>000180-00024F</block4> <!-- Latin Extended-B (48 characters) -->
+                    <block5>0002B0-0002FF</block5> <!-- Spacing Modifier Letters (9 characters) -->
+                    <block6>000370-0003FF</block6> <!-- Greek and Coptic (73 characters) -->
+                    <block7>000400-0004FF</block7> <!-- Cyrillic (98 characters) -->
+                    <block8>001E00-001EFF</block8> <!-- Latin Extended Additional (8 characters) -->
+                    <block9>002000-00206F</block9> <!-- General Punctuation (23 characters) -->
+                    <block10>002070-00209F</block10> <!-- Superscripts and Subscripts (1 character) -->
+                    <block11>0020A0-0020CF</block11> <!-- Currency Symbols (16 characters) -->
+                    <block12>002100-00214F</block12> <!-- Letterlike Symbols (7 characters) -->
+                    <block13>002150-00218F</block13> <!-- Number Forms (4 characters) -->
+                    <block14>002190-0021FF</block14> <!-- Arrows (7 characters) -->
+                    <block15>002200-0022FF</block15> <!-- Mathematical Operators (17 characters) -->
+                    <block16>002300-0023FF</block16> <!-- Miscellaneous Technical (4 characters) -->
+                    <block17>002500-00257F</block17> <!-- Box Drawing (40 characters) -->
+                    <block18>002580-00259F</block18> <!-- Block Elements (8 characters) -->
+                    <block19>0025A0-0025FF</block19> <!-- Geometric Shapes (15 characters) -->
+                    <block20>002600-0026FF</block20> <!-- Miscellaneous Symbols (11 characters) -->
+                    <block21>00E000-00F8FF</block21> <!-- Private Use Area (4 characters) -->
+                    <block22>00FB00-00FB4F</block22> <!-- Alphabetic Presentation Forms (2 characters) -->
+                    <block23>00FE70-00FEFF</block23> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Latn,*-Grek,*-Cyrl</languages>
+            </regular>
+        </CC_Monospaced_serif>
+
+        <CC_Proportional_serif>
+            <settings>
+                <synthesize>true</synthesize>
+            </settings>
+            <regular>
+                <file>fonts/ScreenSerifForNetflix.ttf</file>
+                <settings>
+                    <bbox>-196,-471+156x2169</bbox>
+                    <default_bbox>-453,-471+3271x2640</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (95 characters) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (96 characters) -->
+                    <block3>000100-00017F</block3> <!-- Latin Extended-A (128 characters) -->
+                    <block4>000180-00024F</block4> <!-- Latin Extended-B (48 characters) -->
+                    <block5>0002B0-0002FF</block5> <!-- Spacing Modifier Letters (9 characters) -->
+                    <block6>000370-0003FF</block6> <!-- Greek and Coptic (73 characters) -->
+                    <block7>000400-0004FF</block7> <!-- Cyrillic (98 characters) -->
+                    <block8>001E00-001EFF</block8> <!-- Latin Extended Additional (8 characters) -->
+                    <block9>002000-00206F</block9> <!-- General Punctuation (23 characters) -->
+                    <block10>002070-00209F</block10> <!-- Superscripts and Subscripts (1 character) -->
+                    <block11>0020A0-0020CF</block11> <!-- Currency Symbols (16 characters) -->
+                    <block12>002100-00214F</block12> <!-- Letterlike Symbols (7 characters) -->
+                    <block13>002150-00218F</block13> <!-- Number Forms (4 characters) -->
+                    <block14>002190-0021FF</block14> <!-- Arrows (7 characters) -->
+                    <block15>002200-0022FF</block15> <!-- Mathematical Operators (17 characters) -->
+                    <block16>002300-0023FF</block16> <!-- Miscellaneous Technical (4 characters) -->
+                    <block17>002500-00257F</block17> <!-- Box Drawing (40 characters) -->
+                    <block18>002580-00259F</block18> <!-- Block Elements (8 characters) -->
+                    <block19>0025A0-0025FF</block19> <!-- Geometric Shapes (15 characters) -->
+                    <block20>002600-0026FF</block20> <!-- Miscellaneous Symbols (11 characters) -->
+                    <block21>00E000-00F8FF</block21> <!-- Private Use Area (4 characters) -->
+                    <block22>00FB00-00FB4F</block22> <!-- Alphabetic Presentation Forms (2 characters) -->
+                    <block23>00FE70-00FEFF</block23> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Latn,*-Grek,*-Cyrl</languages>
+            </regular>
+        </CC_Proportional_serif>
+
+        <CC_Monospaced_sanserif>
+            <settings>
+                <synthesize>true</synthesize>
+            </settings>
+            <regular>
+                <file>fonts/ScreenSansMonoForNetflix.ttf</file>
+                <settings>
+                    <bbox>-113,-615+0x2144</bbox>
+                    <default_bbox>-113,-652+2048x2144</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (95 characters) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (96 characters) -->
+                    <block3>000100-00017F</block3> <!-- Latin Extended-A (128 characters) -->
+                    <block4>000180-00024F</block4> <!-- Latin Extended-B (48 characters) -->
+                    <block5>0002B0-0002FF</block5> <!-- Spacing Modifier Letters (9 characters) -->
+                    <block6>000370-0003FF</block6> <!-- Greek and Coptic (73 characters) -->
+                    <block7>000400-0004FF</block7> <!-- Cyrillic (98 characters) -->
+                    <block8>001E00-001EFF</block8> <!-- Latin Extended Additional (8 characters) -->
+                    <block9>002000-00206F</block9> <!-- General Punctuation (23 characters) -->
+                    <block10>002070-00209F</block10> <!-- Superscripts and Subscripts (1 character) -->
+                    <block11>0020A0-0020CF</block11> <!-- Currency Symbols (16 characters) -->
+                    <block12>002100-00214F</block12> <!-- Letterlike Symbols (7 characters) -->
+                    <block13>002150-00218F</block13> <!-- Number Forms (4 characters) -->
+                    <block14>002190-0021FF</block14> <!-- Arrows (7 characters) -->
+                    <block15>002200-0022FF</block15> <!-- Mathematical Operators (17 characters) -->
+                    <block16>002300-0023FF</block16> <!-- Miscellaneous Technical (4 characters) -->
+                    <block17>002500-00257F</block17> <!-- Box Drawing (40 characters) -->
+                    <block18>002580-00259F</block18> <!-- Block Elements (8 characters) -->
+                    <block19>0025A0-0025FF</block19> <!-- Geometric Shapes (15 characters) -->
+                    <block20>002600-0026FF</block20> <!-- Miscellaneous Symbols (11 characters) -->
+                    <block21>00E000-00F8FF</block21> <!-- Private Use Area (4 characters) -->
+                    <block22>00FB00-00FB4F</block22> <!-- Alphabetic Presentation Forms (2 characters) -->
+                    <block23>00FE70-00FEFF</block23> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Latn,*-Grek,*-Cyrl</languages>
+            </regular>
+        </CC_Monospaced_sanserif>
+
+        <CC_Proportional_sanserif>
+            <settings>
+                <synthesize>true</synthesize>
+            </settings>
+            <regular>
+                <file>fonts/Arial_for_Netflix-R.ttf</file>
+                <settings>
+                    <bbox>-136,-621+143x1864</bbox>
+                    <default_bbox>-1006,-665+2222x1864</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (95 characters) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (96 characters) -->
+                    <block3>000100-00017F</block3> <!-- Latin Extended-A (128 characters) -->
+                    <block4>000180-00024F</block4> <!-- Latin Extended-B (24 characters) -->
+                    <block5>000250-0002AF</block5> <!-- IPA Extensions (9 characters) -->
+                    <block6>0002B0-0002FF</block6> <!-- Spacing Modifier Letters (9 characters) -->
+                    <block7>000300-00036F</block7> <!-- Combining Diacritical Marks (10 characters) -->
+                    <block8>000370-0003FF</block8> <!-- Greek and Coptic (73 characters) -->
+                    <block9>000400-0004FF</block9> <!-- Cyrillic (122 characters) -->
+                    <block10>000600-0006FF</block10> <!-- Arabic (1 character) -->
+                    <block11>001E00-001EFF</block11> <!-- Latin Extended Additional (97 characters) -->
+                    <block12>002000-00206F</block12> <!-- General Punctuation (29 characters) -->
+                    <block13>002070-00209F</block13> <!-- Superscripts and Subscripts (28 characters) -->
+                    <block14>0020A0-0020CF</block14> <!-- Currency Symbols (14 characters) -->
+                    <block15>002100-00214F</block15> <!-- Letterlike Symbols (10 characters) -->
+                    <block16>002150-00218F</block16> <!-- Number Forms (6 characters) -->
+                    <block17>002190-0021FF</block17> <!-- Arrows (16 characters) -->
+                    <block18>002200-0022FF</block18> <!-- Mathematical Operators (17 characters) -->
+                    <block19>002300-0023FF</block19> <!-- Miscellaneous Technical (4 characters) -->
+                    <block20>002500-00257F</block20> <!-- Box Drawing (40 characters) -->
+                    <block21>002580-00259F</block21> <!-- Block Elements (8 characters) -->
+                    <block22>0025A0-0025FF</block22> <!-- Geometric Shapes (33 characters) -->
+                    <block23>002600-0026FF</block23> <!-- Miscellaneous Symbols (28 characters) -->
+                    <block24>00FB00-00FB4F</block24> <!-- Alphabetic Presentation Forms (5 characters) -->
+                    <block25>00FE30-00FE4F</block25> <!-- CJK Compatibility Forms (2 characters) -->
+                    <block26>00FE70-00FEFF</block26> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+              <languages>*-Latn,*-Grek,*-Cyrl</languages>
+            </regular>
+
+        </CC_Proportional_sanserif>
+
+        <CC_Casual>
+            <settings>
+                <synthesize>true</synthesize>
+            </settings>
+            <regular>
+                <file>fonts/AshleyScriptForNetflix.ttf</file>
+                <settings>
+                    <bbox>-342,-684+409x2144</bbox>
+                    <default_bbox>-528,-684+3040x2828</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (96 characters) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (96 characters) -->
+                    <block3>000100-00017F</block3> <!-- Latin Extended-A (128 characters) -->
+                    <block4>000180-00024F</block4> <!-- Latin Extended-B (48 characters) -->
+                    <block5>0002B0-0002FF</block5> <!-- Spacing Modifier Letters (9 characters) -->
+                    <block6>000370-0003FF</block6> <!-- Greek and Coptic (73 characters) -->
+                    <block7>000400-0004FF</block7> <!-- Cyrillic (98 characters) -->
+                    <block8>001E00-001EFF</block8> <!-- Latin Extended Additional (8 characters) -->
+                    <block9>002000-00206F</block9> <!-- General Punctuation (23 characters) -->
+                    <block10>002070-00209F</block10> <!-- Superscripts and Subscripts (1 character) -->
+                    <block11>0020A0-0020CF</block11> <!-- Currency Symbols (16 characters) -->
+                    <block12>002100-00214F</block12> <!-- Letterlike Symbols (7 characters) -->
+                    <block13>002150-00218F</block13> <!-- Number Forms (4 characters) -->
+                    <block14>002190-0021FF</block14> <!-- Arrows (7 characters) -->
+                    <block15>002200-0022FF</block15> <!-- Mathematical Operators (17 characters) -->
+                    <block16>002300-0023FF</block16> <!-- Miscellaneous Technical (4 characters) -->
+                    <block17>002500-00257F</block17> <!-- Box Drawing (40 characters) -->
+                    <block18>002580-00259F</block18> <!-- Block Elements (8 characters) -->
+                    <block19>0025A0-0025FF</block19> <!-- Geometric Shapes (15 characters) -->
+                    <block20>002600-0026FF</block20> <!-- Miscellaneous Symbols (11 characters) -->
+                    <block21>00E000-00F8FF</block21> <!-- Private Use Area (5 characters) -->
+                    <block22>00FB00-00FB4F</block22> <!-- Alphabetic Presentation Forms (2 characters) -->
+                    <block23>00FE70-00FEFF</block23> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Latn,*-Grek,*-Cyrl</languages>
+            </regular>
+        </CC_Casual>
+
+        <CC_Cursive>
+            <settings>
+                <synthesize>true</synthesize>
+            </settings>
+            <regular>
+                <file>fonts/FloridianScriptForNetflix.ttf</file>
+                <settings>
+                    <bbox>-662,-831+704x2306</bbox>
+                    <default_bbox>-662,-832+4722x3138</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (96 characters) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (96 characters) -->
+                    <block3>000100-00017F</block3> <!-- Latin Extended-A (128 characters) -->
+                    <block4>000180-00024F</block4> <!-- Latin Extended-B (48 characters) -->
+                    <block5>0002B0-0002FF</block5> <!-- Spacing Modifier Letters (9 characters) -->
+                    <block6>000370-0003FF</block6> <!-- Greek and Coptic (73 characters) -->
+                    <block7>000400-0004FF</block7> <!-- Cyrillic (98 characters) -->
+                    <block8>001E00-001EFF</block8> <!-- Latin Extended Additional (8 characters) -->
+                    <block9>002000-00206F</block9> <!-- General Punctuation (23 characters) -->
+                    <block10>002070-00209F</block10> <!-- Superscripts and Subscripts (1 character) -->
+                    <block11>0020A0-0020CF</block11> <!-- Currency Symbols (16 characters) -->
+                    <block12>002100-00214F</block12> <!-- Letterlike Symbols (7 characters) -->
+                    <block13>002150-00218F</block13> <!-- Number Forms (4 characters) -->
+                    <block14>002190-0021FF</block14> <!-- Arrows (7 characters) -->
+                    <block15>002200-0022FF</block15> <!-- Mathematical Operators (17 characters) -->
+                    <block16>002300-0023FF</block16> <!-- Miscellaneous Technical (4 characters) -->
+                    <block17>002500-00257F</block17> <!-- Box Drawing (40 characters) -->
+                    <block18>002580-00259F</block18> <!-- Block Elements (8 characters) -->
+                    <block19>0025A0-0025FF</block19> <!-- Geometric Shapes (15 characters) -->
+                    <block20>002600-0026FF</block20> <!-- Miscellaneous Symbols (11 characters) -->
+                    <block21>00E000-00F8FF</block21> <!-- Private Use Area (4 characters) -->
+                    <block22>00FB00-00FB4F</block22> <!-- Alphabetic Presentation Forms (2 characters) -->
+                    <block23>00FE70-00FEFF</block23> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Latn,*-Grek,*-Cyrl</languages>
+            </regular>
+        </CC_Cursive>
+
+        <CC_Smallcaps>
+            <settings>
+                <synthesize>true</synthesize>
+            </settings>
+            <regular>
+                <file>fonts/PlateGothicForNetflix.ttf</file>
+                <settings>
+                    <bbox>-243,-508+242x2144</bbox>
+                    <default_bbox>-243,-508+3158x2144</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (96 characters) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (96 characters) -->
+                    <block3>000100-00017F</block3> <!-- Latin Extended-A (128 characters) -->
+                    <block4>000180-00024F</block4> <!-- Latin Extended-B (48 characters) -->
+                    <block5>0002B0-0002FF</block5> <!-- Spacing Modifier Letters (9 characters) -->
+                    <block6>000370-0003FF</block6> <!-- Greek and Coptic (73 characters) -->
+                    <block7>000400-0004FF</block7> <!-- Cyrillic (98 characters) -->
+                    <block8>001E00-001EFF</block8> <!-- Latin Extended Additional (8 characters) -->
+                    <block9>002000-00206F</block9> <!-- General Punctuation (23 characters) -->
+                    <block10>002070-00209F</block10> <!-- Superscripts and Subscripts (1 character) -->
+                    <block11>0020A0-0020CF</block11> <!-- Currency Symbols (16 characters) -->
+                    <block12>002100-00214F</block12> <!-- Letterlike Symbols (7 characters) -->
+                    <block13>002150-00218F</block13> <!-- Number Forms (4 characters) -->
+                    <block14>002190-0021FF</block14> <!-- Arrows (7 characters) -->
+                    <block15>002200-0022FF</block15> <!-- Mathematical Operators (17 characters) -->
+                    <block16>002300-0023FF</block16> <!-- Miscellaneous Technical (4 characters) -->
+                    <block17>002500-00257F</block17> <!-- Box Drawing (40 characters) -->
+                    <block18>002580-00259F</block18> <!-- Block Elements (8 characters) -->
+                    <block19>0025A0-0025FF</block19> <!-- Geometric Shapes (15 characters) -->
+                    <block20>002600-0026FF</block20> <!-- Miscellaneous Symbols (11 characters) -->
+                    <block21>00E000-00F8FF</block21> <!-- Private Use Area (4 characters) -->
+                    <block22>00FB00-00FB4F</block22> <!-- Alphabetic Presentation Forms (2 characters) -->
+                    <block23>00FE70-00FEFF</block23> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Latn,*-Grek,*-Cyrl</languages>
+            </regular>
+        </CC_Smallcaps>
+
+        <Traditional_Chinese>
+            <!--
+            Font file: resources/gibbon/fonts/MHeiM-B5HK_CForNetflix.ttf
+
+
+            Family: MHeiCMediumBig5HKForNetflix
+            Style: Regular
+            Glyph count: 22566
+            -->
+            <regular>
+                <file>fonts/MHeiM-B5HK_CForNetflix.ttf</file>
+                <settings>
+                    <bbox>0,-48+-1x214</bbox>
+                    <default_bbox>-18,-48+274x277</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (1 character) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (1 character) -->
+                    <block3>003000-00303F</block3> <!-- CJK Symbols and Punctuation (64 characters) -->
+                    <block4>003040-00309F</block4> <!-- Hiragana (85 characters) -->
+                    <block5>0030A0-0030FF</block5> <!-- Katakana (87 characters) -->
+                    <block6>003100-00312F</block6> <!-- Bopomofo (41 characters) -->
+                    <block7>003200-0032FF</block7> <!-- Enclosed CJK Letters and Months (254 characters) -->
+                    <block8>003300-0033FF</block8> <!-- CJK Compatibility (11 characters) -->
+                    <block9>003400-004DBF</block9> <!-- CJK Unified Ideographs Extension A (564 characters) -->
+                    <block10>004E00-009FFF</block10> <!-- CJK Unified Ideographs (15317 characters) -->
+                    <block11>00FE70-00FEFF</block11> <!-- Arabic Presentation Forms-B (1 character) -->
+                    <block12>00FF00-00FFEF</block12> <!-- Halfwidth and Fullwidth Forms (225 characters) -->
+                    <block13>020000-02A6DF</block13> <!-- CJK Unified Ideographs Extension B (1682 characters) -->
+                </blocks>
+                <languages>zh-Hant</languages>
+            </regular>
+            <italic>
+                <file>fonts/MHeiM-B5HK_CForNetflix.ttf</file>
+                <settings>
+                    <slant>true</slant>
+                    <bbox>0,-48+-1x214</bbox>
+                    <default_bbox>-18,-48+274x277</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (1 character) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (1 character) -->
+                    <block3>003000-00303F</block3> <!-- CJK Symbols and Punctuation (64 characters) -->
+                    <block4>003040-00309F</block4> <!-- Hiragana (85 characters) -->
+                    <block5>0030A0-0030FF</block5> <!-- Katakana (87 characters) -->
+                    <block6>003100-00312F</block6> <!-- Bopomofo (41 characters) -->
+                    <block7>003200-0032FF</block7> <!-- Enclosed CJK Letters and Months (254 characters) -->
+                    <block8>003300-0033FF</block8> <!-- CJK Compatibility (11 characters) -->
+                    <block9>003400-004DBF</block9> <!-- CJK Unified Ideographs Extension A (564 characters) -->
+                    <block10>004E00-009FFF</block10> <!-- CJK Unified Ideographs (15317 characters) -->
+                    <block11>00FE70-00FEFF</block11> <!-- Arabic Presentation Forms-B (1 character) -->
+                    <block12>00FF00-00FFEF</block12> <!-- Halfwidth and Fullwidth Forms (225 characters) -->
+                    <block13>020000-02A6DF</block13> <!-- CJK Unified Ideographs Extension B (1682 characters) -->
+                </blocks>
+                <languages>zh-Hant</languages>
+            </italic>
+        </Traditional_Chinese>
+
+        <Simplified_Chinese>
+            <!--
+            Font file: resources/gibbon/fonts/MHeiM18030_CForNetflix.ttf
+
+            Family: MHeiGB18030CMediumForNetflix
+            Style: Regular
+            Glyph count: 10752
+            -->
+            <regular>
+                <file>fonts/MHeiM18030_CForNetflix.ttf</file>
+                <settings>
+                    <bbox>0,-48+-3x208</bbox>
+                    <default_bbox>-20,-48+260x227</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (1 character) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (1 character) -->
+                    <block3>002000-00206F</block3> <!-- General Punctuation (1 character) -->
+                    <block4>003000-00303F</block4> <!-- CJK Symbols and Punctuation (64 characters) -->
+                    <block5>003040-00309F</block5> <!-- Hiragana (85 characters) -->
+                    <block6>0030A0-0030FF</block6> <!-- Katakana (87 characters) -->
+                    <block7>003100-00312F</block7> <!-- Bopomofo (37 characters) -->
+                    <block8>003200-0032FF</block8> <!-- Enclosed CJK Letters and Months (254 characters) -->
+                    <block9>003400-004DBF</block9> <!-- CJK Unified Ideographs Extension A (1 character) -->
+                    <block10>004E00-009FFF</block10> <!-- CJK Unified Ideographs (10453 characters) -->
+                    <block11>00FE70-00FEFF</block11> <!-- Arabic Presentation Forms-B (1 character) -->
+                    <block12>00FF00-00FFEF</block12> <!-- Halfwidth and Fullwidth Forms (225 characters) -->
+                </blocks>
+                <languages>zh-Hans</languages>
+            </regular>
+            <italic>
+                <file>fonts/MHeiM18030_CForNetflix.ttf</file>
+                <settings>
+                    <slant>true</slant>
+                    <bbox>0,-48+-3x208</bbox>
+                    <default_bbox>-20,-48+260x227</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (1 character) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (1 character) -->
+                    <block3>002000-00206F</block3> <!-- General Punctuation (1 character) -->
+                    <block4>003000-00303F</block4> <!-- CJK Symbols and Punctuation (64 characters) -->
+                    <block5>003040-00309F</block5> <!-- Hiragana (85 characters) -->
+                    <block6>0030A0-0030FF</block6> <!-- Katakana (87 characters) -->
+                    <block7>003100-00312F</block7> <!-- Bopomofo (37 characters) -->
+                    <block8>003200-0032FF</block8> <!-- Enclosed CJK Letters and Months (254 characters) -->
+                    <block9>003400-004DBF</block9> <!-- CJK Unified Ideographs Extension A (1 character) -->
+                    <block10>004E00-009FFF</block10> <!-- CJK Unified Ideographs (10453 characters) -->
+                    <block11>00FE70-00FEFF</block11> <!-- Arabic Presentation Forms-B (1 character) -->
+                    <block12>00FF00-00FFEF</block12> <!-- Halfwidth and Fullwidth Forms (225 characters) -->
+                </blocks>
+                <languages>zh-Hans</languages>
+            </italic>
+        </Simplified_Chinese>
+
+        <Korean>
+            <!--
+            Font file: resources/gibbon/fonts/YDGothic120ProForNetflix.ttf
+
+            Family: YDGothic120ProForNetflix
+            Style: Regular
+            Glyph count: 13633
+            -->
+            <regular>
+                <file>fonts/YDGothic120ProForNetflix.ttf</file>
+                <settings>
+                    <bbox>-12,-240+21x803</bbox>
+                    <default_bbox>-12,-240+1012x1043</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (1 character) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (1 character) -->
+                    <block3>001100-0011FF</block3> <!-- Hangul Jamo (256 characters) -->
+                    <block4>003000-00303F</block4> <!-- CJK Symbols and Punctuation (64 characters) -->
+                    <block5>003040-00309F</block5> <!-- Hiragana (92 characters) -->
+                    <block6>0030A0-0030FF</block6> <!-- Katakana (95 characters) -->
+                    <block7>003100-00312F</block7> <!-- Bopomofo (41 characters) -->
+                    <block8>003130-00318F</block8> <!-- Hangul Compatibility Jamo (94 characters) -->
+                    <block9>0031F0-0031FF</block9> <!-- Katakana Phonetic Extensions (15 characters) -->
+                    <block10>003200-0032FF</block10> <!-- Enclosed CJK Letters and Months (254 characters) -->
+                    <block11>003300-0033FF</block11> <!-- CJK Compatibility (84 characters) -->
+                    <block12>00AC00-00D7AF</block12> <!-- Hangul Syllables (11172 characters) -->
+                    <block13>00FE70-00FEFF</block13> <!-- Arabic Presentation Forms-B (1 character) -->
+                    <block14>00FF00-00FFEF</block14> <!-- Halfwidth and Fullwidth Forms (225 characters) -->
+                </blocks>
+                <languages>ko-Kore</languages>
+            </regular>
+            <italic>
+                <file>fonts/YDGothic120ProForNetflix.ttf</file>
+                <settings>
+                    <slant>true</slant>
+                    <bbox>-12,-240+21x803</bbox>
+                    <default_bbox>-12,-240+1012x1043</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (1 character) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (1 character) -->
+                    <block3>001100-0011FF</block3> <!-- Hangul Jamo (256 characters) -->
+                    <block4>003000-00303F</block4> <!-- CJK Symbols and Punctuation (64 characters) -->
+                    <block5>003040-00309F</block5> <!-- Hiragana (92 characters) -->
+                    <block6>0030A0-0030FF</block6> <!-- Katakana (95 characters) -->
+                    <block7>003100-00312F</block7> <!-- Bopomofo (41 characters) -->
+                    <block8>003130-00318F</block8> <!-- Hangul Compatibility Jamo (94 characters) -->
+                    <block9>0031F0-0031FF</block9> <!-- Katakana Phonetic Extensions (15 characters) -->
+                    <block10>003200-0032FF</block10> <!-- Enclosed CJK Letters and Months (254 characters) -->
+                    <block11>003300-0033FF</block11> <!-- CJK Compatibility (84 characters) -->
+                    <block12>00AC00-00D7AF</block12> <!-- Hangul Syllables (11172 characters) -->
+                    <block13>00FE70-00FEFF</block13> <!-- Arabic Presentation Forms-B (1 character) -->
+                    <block14>00FF00-00FFEF</block14> <!-- Halfwidth and Fullwidth Forms (225 characters) -->
+                </blocks>
+                <languages>ko-Kore</languages>
+            </italic>
+        </Korean>
+
+        <Japanese>
+            <!--
+            Font file: resources/gibbon/fonts/HeiseiMaruGoth213_CForNetflix.ttf
+
+            Family: HeiseiMaruGoth0213CForNetflix
+            Style: Regular
+            Glyph count: 15287
+            -->
+            <regular>
+                <file>fonts/HeiseiMaruGoth213_CForNetflix.ttf</file>
+                <settings>
+                    <bbox>0,-36+-1x220</bbox>
+                    <default_bbox>-22,-38+257x234</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (1 character) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (1 character) -->
+                    <block3>000180-00024F</block3> <!-- Latin Extended-B (5 characters) -->
+                    <block4>000250-0002AF</block4> <!-- IPA Extensions (48 characters) -->
+                    <block5>0002B0-0002FF</block5> <!-- Spacing Modifier Letters (10 characters) -->
+                    <block6>000300-00036F</block6> <!-- Combining Diacritical Marks (24 characters) -->
+                    <block7>001E00-001EFF</block7> <!-- Latin Extended Additional (1 character) -->
+                    <block8>001F00-001FFF</block8> <!-- Greek Extended (4 characters) -->
+                    <block9>002000-00206F</block9> <!-- General Punctuation (7 characters) -->
+                    <block10>002100-00214F</block10> <!-- Letterlike Symbols (4 characters) -->
+                    <block11>002150-00218F</block11> <!-- Number Forms (25 characters) -->
+                    <block12>002190-0021FF</block12> <!-- Arrows (4 characters) -->
+                    <block13>002200-0022FF</block13> <!-- Mathematical Operators (46 characters) -->
+                    <block14>002300-0023FF</block14> <!-- Miscellaneous Technical (20 characters) -->
+                    <block15>002400-00243F</block15> <!-- Control Pictures (1 character) -->
+                    <block16>002460-0024FF</block16> <!-- Enclosed Alphanumerics (66 characters) -->
+                    <block17>002500-00257F</block17> <!-- Box Drawing (32 characters) -->
+                    <block18>0025A0-0025FF</block18> <!-- Geometric Shapes (3 characters) -->
+                    <block19>002600-0026FF</block19> <!-- Miscellaneous Symbols (8 characters) -->
+                    <block20>002700-0027BF</block20> <!-- Dingbats (12 characters) -->
+                    <block21>002900-00297F</block21> <!-- Supplemental Arrows-B (2 characters) -->
+                    <block22>002980-0029FF</block22> <!-- Miscellaneous Mathematical Symbols-B (3 characters) -->
+                    <block23>003000-00303F</block23> <!-- CJK Symbols and Punctuation (36 characters) -->
+                    <block24>003040-00309F</block24> <!-- Hiragana (93 characters) -->
+                    <block25>0030A0-0030FF</block25> <!-- Katakana (96 characters) -->
+                    <block26>0031F0-0031FF</block26> <!-- Katakana Phonetic Extensions (16 characters) -->
+                    <block27>003200-0032FF</block27> <!-- Enclosed CJK Letters and Months (254 characters) -->
+                    <block28>003300-0033FF</block28> <!-- CJK Compatibility (29 characters) -->
+                    <block29>003400-004DBF</block29> <!-- CJK Unified Ideographs Extension A (164 characters) -->
+                    <block30>004E00-009FFF</block30> <!-- CJK Unified Ideographs (9502 characters) -->
+                    <block31>00F900-00FAFF</block31> <!-- CJK Compatibility Ideographs (82 characters) -->
+                    <block32>00FE70-00FEFF</block32> <!-- Arabic Presentation Forms-B (1 character) -->
+                    <block33>00FF00-00FFEF</block33> <!-- Halfwidth and Fullwidth Forms (225 characters) -->
+                    <block34>020000-02A6DF</block34> <!-- CJK Unified Ideographs Extension B (303 characters) -->
+                </blocks>
+                <languages>ja-Jpan</languages>
+            </regular>
+            <italic>
+                <file>fonts/HeiseiMaruGoth213_CForNetflix.ttf</file>
+                <settings>
+                    <slant>true</slant>
+                    <bbox>0,-36+-1x220</bbox>
+                    <default_bbox>-22,-38+257x234</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (1 character) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (1 character) -->
+                    <block3>000180-00024F</block3> <!-- Latin Extended-B (5 characters) -->
+                    <block4>000250-0002AF</block4> <!-- IPA Extensions (48 characters) -->
+                    <block5>0002B0-0002FF</block5> <!-- Spacing Modifier Letters (10 characters) -->
+                    <block6>000300-00036F</block6> <!-- Combining Diacritical Marks (24 characters) -->
+                    <block7>001E00-001EFF</block7> <!-- Latin Extended Additional (1 character) -->
+                    <block8>001F00-001FFF</block8> <!-- Greek Extended (4 characters) -->
+                    <block9>002000-00206F</block9> <!-- General Punctuation (7 characters) -->
+                    <block10>002100-00214F</block10> <!-- Letterlike Symbols (4 characters) -->
+                    <block11>002150-00218F</block11> <!-- Number Forms (25 characters) -->
+                    <block12>002190-0021FF</block12> <!-- Arrows (4 characters) -->
+                    <block13>002200-0022FF</block13> <!-- Mathematical Operators (46 characters) -->
+                    <block14>002300-0023FF</block14> <!-- Miscellaneous Technical (20 characters) -->
+                    <block15>002400-00243F</block15> <!-- Control Pictures (1 character) -->
+                    <block16>002460-0024FF</block16> <!-- Enclosed Alphanumerics (66 characters) -->
+                    <block17>002500-00257F</block17> <!-- Box Drawing (32 characters) -->
+                    <block18>0025A0-0025FF</block18> <!-- Geometric Shapes (3 characters) -->
+                    <block19>002600-0026FF</block19> <!-- Miscellaneous Symbols (8 characters) -->
+                    <block20>002700-0027BF</block20> <!-- Dingbats (12 characters) -->
+                    <block21>002900-00297F</block21> <!-- Supplemental Arrows-B (2 characters) -->
+                    <block22>002980-0029FF</block22> <!-- Miscellaneous Mathematical Symbols-B (3 characters) -->
+                    <block23>003000-00303F</block23> <!-- CJK Symbols and Punctuation (36 characters) -->
+                    <block24>003040-00309F</block24> <!-- Hiragana (93 characters) -->
+                    <block25>0030A0-0030FF</block25> <!-- Katakana (96 characters) -->
+                    <block26>0031F0-0031FF</block26> <!-- Katakana Phonetic Extensions (16 characters) -->
+                    <block27>003200-0032FF</block27> <!-- Enclosed CJK Letters and Months (254 characters) -->
+                    <block28>003300-0033FF</block28> <!-- CJK Compatibility (29 characters) -->
+                    <block29>003400-004DBF</block29> <!-- CJK Unified Ideographs Extension A (164 characters) -->
+                    <block30>004E00-009FFF</block30> <!-- CJK Unified Ideographs (9502 characters) -->
+                    <block31>00F900-00FAFF</block31> <!-- CJK Compatibility Ideographs (82 characters) -->
+                    <block32>00FE70-00FEFF</block32> <!-- Arabic Presentation Forms-B (1 character) -->
+                    <block33>00FF00-00FFEF</block33> <!-- Halfwidth and Fullwidth Forms (225 characters) -->
+                    <block34>020000-02A6DF</block34> <!-- CJK Unified Ideographs Extension B (303 characters) -->
+                </blocks>
+                <languages>ja-Jpan</languages>
+            </italic>
+        </Japanese>
+
+        <Arabic>
+            <!--
+                Font file: Arabic_for_Netflix-R.ttf
+
+                Family: Arabic_for_Netflix
+                Style: Regular
+                Glyph count: 498
+            -->
+            <regular>
+                <file>fonts/Arabic_for_Netflix-R.ttf</file>
+                <settings>
+                    <bbox>-70,-434+459x1911</bbox>
+                    <default_bbox>-471,-434+2972x2345</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (1 character) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (1 character) -->
+                    <block3>000600-0006FF</block3> <!-- Arabic (218 characters) -->
+                    <block4>000750-00077F</block4> <!-- Arabic Supplement (30 characters) -->
+                    <block5>0025A0-0025FF</block5> <!-- Geometric Shapes (1 character) -->
+                    <block6>00FB50-00FDFF</block6> <!-- Arabic Presentation Forms-A (94 characters) -->
+                    <block7>00FE70-00FEFF</block7> <!-- Arabic Presentation Forms-B (86 characters) -->
+                </blocks>
+                <languages>*-Arab</languages>
+            </regular>
+
+            <!--
+                Font file: Arabic_for_Netflix-B.ttf
+
+                Family: Arabic_for_Netflix
+                Style: Bold
+                Glyph count: 500
+            -->
+            <bold>
+                <file>fonts/Arabic_for_Netflix-B.ttf</file>
+                <settings>
+                    <bbox>-70,-434+463x2069</bbox>
+                    <default_bbox>-471,-434+2907x2503</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (1 character) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (1 character) -->
+                    <block3>000600-0006FF</block3> <!-- Arabic (218 characters) -->
+                    <block4>000750-00077F</block4> <!-- Arabic Supplement (30 characters) -->
+                    <block5>0025A0-0025FF</block5> <!-- Geometric Shapes (1 character) -->
+                    <block6>00FB50-00FDFF</block6> <!-- Arabic Presentation Forms-A (94 characters) -->
+                    <block7>00FE70-00FEFF</block7> <!-- Arabic Presentation Forms-B (86 characters) -->
+                </blocks>
+                <languages>*-Arab</languages>
+            </bold>
+        </Arabic>
+
+        <Thai>
+            <!--
+                Font file: HandsetSansThai-Regular.ttf
+
+                Family: Handset Sans Thai
+                Style: Regular
+                Glyph count: 103
+            -->
+            <regular>
+                <file>fonts/HandsetSansThai-Regular.ttf</file>
+                <settings>
+                    <bbox>-461,-520+178x2065</bbox>
+                    <default_bbox>-1050,-524+1907x2285</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (3 characters) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (1 character) -->
+                    <block3>000E00-000E7F</block3> <!-- Thai (87 characters) -->
+                    <block4>002000-00206F</block4> <!-- General Punctuation (3 characters) -->
+                    <block5>0025A0-0025FF</block5> <!-- Geometric Shapes (1 character) -->
+                    <block6>00FE70-00FEFF</block6> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Thai</languages>
+            </regular>
+
+            <!--
+                Font file: HandsetSansThai-Bold.ttf
+
+                Family: Handset Sans Thai
+                Style: Bold
+                Glyph count: 103
+            -->
+            <bold>
+                <file>fonts/HandsetSansThai-Bold.ttf</file>
+                <settings>
+                    <bbox>-532,-520+103x2064</bbox>
+                    <default_bbox>-1010,-524+2003x2286</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (3 characters) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (1 character) -->
+                    <block3>000E00-000E7F</block3> <!-- Thai (87 characters) -->
+                    <block4>002000-00206F</block4> <!-- General Punctuation (3 characters) -->
+                    <block5>0025A0-0025FF</block5> <!-- Geometric Shapes (1 character) -->
+                    <block6>00FE70-00FEFF</block6> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Thai</languages>
+            </bold>
+        </Thai>
+
+        <Armenian>
+            <!--
+                Font file: HandsetSansArmenian-Regular.ttf
+
+                Family: Handset Sans Armenian
+                Style: Regular
+                Glyph count: 98
+            -->
+            <regular>
+                <file>fonts/HandsetSansArmenian-Regular.ttf</file>
+                <settings>
+                    <bbox>-113,-492+41x1577</bbox>
+                    <default_bbox>-113,-492+2988x1577</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (3 characters) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (1 character) -->
+                    <block3>000530-00058F</block3> <!-- Armenian (87 characters) -->
+                    <block4>00FB00-00FB4F</block4> <!-- Alphabetic Presentation Forms (5 characters) -->
+                    <block5>00FE70-00FEFF</block5> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Armn</languages>
+            </regular>
+
+            <!--
+                Font file: HandsetSansArmenian-Bold.ttf
+
+                Family: Handset Sans Armenian
+                Style: Bold
+                Glyph count: 98
+            -->
+            <bold>
+                <file>fonts/HandsetSansArmenian-Bold.ttf</file>
+                <settings>
+                    <bbox>-131,-492+57x1595</bbox>
+                    <default_bbox>-131,-492+3234x1595</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (3 characters) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (1 character) -->
+                    <block3>000530-00058F</block3> <!-- Armenian (87 characters) -->
+                    <block4>00FB00-00FB4F</block4> <!-- Alphabetic Presentation Forms (5 characters) -->
+                    <block5>00FE70-00FEFF</block5> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Armn</languages>
+            </bold>
+        </Armenian>
+
+        <Georgian>
+            <!--
+                Font file: Georgian_for_Netflix-R.ttf
+
+                Family: Georgian_for_Netflix
+                Style: Regular
+                Glyph count: 51
+            -->
+            <regular>
+                <file>fonts/Georgian_for_Netflix-R.ttf</file>
+                <settings>
+                    <bbox>0,-526+61x1507</bbox>
+                    <default_bbox>0,-526+1886x1536</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (1 character) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (1 character) -->
+                    <block3>0010A0-0010FF</block3> <!-- Georgian (45 characters) -->
+                    <block4>00FE70-00FEFF</block4> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Geor</languages>
+            </regular>
+
+            <!--
+                Font file: Georgian_for_Netflix-B.ttf
+
+                Family: Georgian_for_Netflix
+                Style: Bold
+                Glyph count: 51
+            -->
+            <bold>
+                <file>fonts/Georgian_for_Netflix-B.ttf</file>
+                <settings>
+                    <bbox>0,-526+18x1544</bbox>
+                    <default_bbox>0,-526+1894x1544</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000000-00007F</block1> <!-- Basic Latin (1 character) -->
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (1 character) -->
+                    <block3>0010A0-0010FF</block3> <!-- Georgian (45 characters) -->
+                    <block4>00FE70-00FEFF</block4> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Geor</languages>
+            </bold>
+        </Georgian>
+
+        <Hebrew>
+            <!--
+                Font file: Hebrew_for_Netflix-R.ttf
+
+                Family: Hebrew_for_Netflix
+                Style: Regular
+                Glyph count: 137
+            -->
+            <regular>
+                <file>fonts/Hebrew_for_Netflix-R.ttf</file>
+                <settings>
+                    <bbox>0,-430+-15x1466</bbox>
+                    <default_bbox>-614,-431+1322x1734</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000080-0000FF</block1> <!-- Latin-1 Supplement (1 character) -->
+                    <block2>000590-0005FF</block2> <!-- Hebrew (87 characters) -->
+                    <block3>0025A0-0025FF</block3> <!-- Geometric Shapes (1 character) -->
+                    <block4>00FB00-00FB4F</block4> <!-- Alphabetic Presentation Forms (34 characters) -->
+                    <block5>00FE70-00FEFF</block5> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Hebr</languages>
+            </regular>
+
+            <!--
+                Font file: Hebrew_for_Netflix-B.ttf
+
+                Family: Hebrew_for_Netflix
+                Style: Bold
+                Glyph count: 136
+            -->
+            <bold>
+                <file>fonts/Hebrew_for_Netflix-B.ttf</file>
+                <settings>
+                    <bbox>0,-430+-25x1467</bbox>
+                    <default_bbox>-614,-431+1384x1734</default_bbox>
+                </settings>
+                <blocks>
+                    <block1>000080-0000FF</block1> <!-- Latin-1 Supplement (1 character) -->
+                    <block2>000590-0005FF</block2> <!-- Hebrew (87 characters) -->
+                    <block3>0025A0-0025FF</block3> <!-- Geometric Shapes (1 character) -->
+                    <block4>00FB00-00FB4F</block4> <!-- Alphabetic Presentation Forms (34 characters) -->
+                    <block5>00FE70-00FEFF</block5> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Hebr</languages>
+            </bold>
+        </Hebrew>
+
+        <Devanagari>
+            <!--
+                Font file: HandsetSansDevanagari-Regular.ttf
+
+                Family: Handset Sans Devanagari
+                Style: Regular
+                Glyph count: 901
+            -->
+            <regular>
+                <file>fonts/HandsetSansDevanagari-Regular.ttf</file>
+                <settings>
+                    <bbox>-338,-548+338x1836</bbox>
+                    <default_bbox>-1242,-806+4124x3565</default_bbox>
+                </settings>
+                <blocks>
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (4 characters) -->
+                    <block3>0002B0-0002FF</block3> <!-- Spacing Modifier Letters (1 character) -->
+                    <block4>000900-00097F</block4> <!-- Devanagari (128 characters) -->
+                    <block5>001CD0-001CFF</block5> <!-- Vedic Extensions (39 characters) -->
+                    <block6>002000-00206F</block6> <!-- General Punctuation (10 characters) -->
+                    <block7>0020A0-0020CF</block7> <!-- Currency Symbols (1 character) -->
+                    <block8>002200-0022FF</block8> <!-- Mathematical Operators (1 character) -->
+                    <block9>0025A0-0025FF</block9> <!-- Geometric Shapes (1 character) -->
+                    <block10>00A830-00A83F</block10> <!-- Common Indic Number Forms (10 characters) -->
+                    <block11>00A8E0-00A8FF</block11> <!-- Devanagari Extended (28 characters) -->
+                    <block12>00FE70-00FEFF</block12> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Deva</languages>
+            </regular>
+
+            <!--
+                Font file: HandsetSansDevanagari-Bold.ttf
+
+                Family: Handset Sans Devanagari
+                Style: Bold
+                Glyph count: 906
+            -->
+            <bold>
+                <file>fonts/HandsetSansDevanagari-Bold.ttf</file>
+                <settings>
+                    <bbox>-362,-565+362x1836</bbox>
+                    <default_bbox>-1359,-806+3209x2759</default_bbox>
+                </settings>
+                <blocks>
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (4 characters) -->
+                    <block3>0002B0-0002FF</block3> <!-- Spacing Modifier Letters (1 character) -->
+                    <block4>000900-00097F</block4> <!-- Devanagari (128 characters) -->
+                    <block5>001CD0-001CFF</block5> <!-- Vedic Extensions (39 characters) -->
+                    <block6>002000-00206F</block6> <!-- General Punctuation (10 characters) -->
+                    <block7>0020A0-0020CF</block7> <!-- Currency Symbols (1 character) -->
+                    <block8>002200-0022FF</block8> <!-- Mathematical Operators (1 character) -->
+                    <block9>0025A0-0025FF</block9> <!-- Geometric Shapes (1 character) -->
+                    <block10>00A830-00A83F</block10> <!-- Common Indic Number Forms (10 characters) -->
+                    <block11>00A8E0-00A8FF</block11> <!-- Devanagari Extended (28 characters) -->
+                    <block12>00FE70-00FEFF</block12> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Deva</languages>
+            </bold>
+        </Devanagari>
+
+        <Bengali>
+            <!--
+                Font file: HandsetSansBengali-Regular.ttf
+
+                Family: Handset Sans Bengali
+                Style: Regular
+                Glyph count: 577
+            -->
+            <regular>
+                <file>fonts/HandsetSansBengali-Regular.ttf</file>
+                <settings>
+                    <bbox>-21,-600+166x1878</bbox>
+                    <default_bbox>-1433,-806+4557x2684</default_bbox>
+                </settings>
+                <blocks>
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (4 characters) -->
+                    <block3>000900-00097F</block3> <!-- Devanagari (2 characters) -->
+                    <block4>000980-0009FF</block4> <!-- Bengali (92 characters) -->
+                    <block5>002000-00206F</block5> <!-- General Punctuation (10 characters) -->
+                    <block6>0020A0-0020CF</block6> <!-- Currency Symbols (1 character) -->
+                    <block7>002200-0022FF</block7> <!-- Mathematical Operators (1 character) -->
+                    <block8>0025A0-0025FF</block8> <!-- Geometric Shapes (1 character) -->
+                    <block9>00FE70-00FEFF</block9> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Beng</languages>
+            </regular>
+
+            <!--
+                Font file: HandsetSansBengali-Bold.ttf
+
+                Family: Handset Sans Bengali
+                Style: Bold
+                Glyph count: 577
+            -->
+            <bold>
+                <file>fonts/HandsetSansBengali-Bold.ttf</file>
+                <settings>
+                    <bbox>-24,-600+176x1878</bbox>
+                    <default_bbox>-1519,-806+4901x2684</default_bbox>
+                </settings>
+                <blocks>
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (4 characters) -->
+                    <block3>000900-00097F</block3> <!-- Devanagari (2 characters) -->
+                    <block4>000980-0009FF</block4> <!-- Bengali (92 characters) -->
+                    <block5>002000-00206F</block5> <!-- General Punctuation (10 characters) -->
+                    <block6>0020A0-0020CF</block6> <!-- Currency Symbols (1 character) -->
+                    <block7>002200-0022FF</block7> <!-- Mathematical Operators (1 character) -->
+                    <block8>0025A0-0025FF</block8> <!-- Geometric Shapes (1 character) -->
+                    <block9>00FE70-00FEFF</block9> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Beng</languages>
+            </bold>
+        </Bengali>
+
+        <Tamil>
+            <!--
+                Font file: HandsetSansTamil-Regular.ttf
+
+                Family: Handset Sans Tamil
+                Style: Regular
+                Glyph count: 217
+            -->
+            <regular>
+                <file>fonts/HandsetSansTamil-Regular.ttf</file>
+                <settings>
+                    <bbox>-4,-658+101x1726</bbox>
+                    <default_bbox>-882,-658+5363x2384</default_bbox>
+                </settings>
+                <blocks>
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (6 characters) -->
+                    <block3>000900-00097F</block3> <!-- Devanagari (2 characters) -->
+                    <block4>000B80-000BFF</block4> <!-- Tamil (72 characters) -->
+                    <block5>002000-00206F</block5> <!-- General Punctuation (10 characters) -->
+                    <block6>002070-00209F</block6> <!-- Superscripts and Subscripts (4 characters) -->
+                    <block7>0020A0-0020CF</block7> <!-- Currency Symbols (1 character) -->
+                    <block8>002200-0022FF</block8> <!-- Mathematical Operators (1 character) -->
+                    <block9>0025A0-0025FF</block9> <!-- Geometric Shapes (1 character) -->
+                    <block10>00FE70-00FEFF</block10> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>ta-Taml</languages>
+            </regular>
+
+            <!--
+                Font file: HandsetSansTamil-Bold.ttf
+
+                Family: Handset Sans Tamil
+                Style: Bold
+                Glyph count: 218
+            -->
+            <bold>
+                <file>fonts/HandsetSansTamil-Bold.ttf</file>
+                <settings>
+                    <bbox>-4,-658+60x1742</bbox>
+                    <default_bbox>-1045,-658+6148x2400</default_bbox>
+                </settings>
+                <blocks>
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (6 characters) -->
+                    <block3>000900-00097F</block3> <!-- Devanagari (2 characters) -->
+                    <block4>000B80-000BFF</block4> <!-- Tamil (72 characters) -->
+                    <block5>002000-00206F</block5> <!-- General Punctuation (10 characters) -->
+                    <block6>002070-00209F</block6> <!-- Superscripts and Subscripts (4 characters) -->
+                    <block7>0020A0-0020CF</block7> <!-- Currency Symbols (1 character) -->
+                    <block8>002200-0022FF</block8> <!-- Mathematical Operators (1 character) -->
+                    <block9>0025A0-0025FF</block9> <!-- Geometric Shapes (1 character) -->
+                    <block10>00FE70-00FEFF</block10> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>ta-Taml</languages>
+            </bold>
+        </Tamil>
+
+        <Telugu>
+            <!--
+                Font file: HandsetSansTelugu-Regular.ttf
+
+                Family: Handset Sans Telugu
+                Style: Regular
+                Glyph count: 762
+            -->
+            <regular>
+                <file>fonts/HandsetSansTelugu-Regular.ttf</file>
+                <settings>
+                    <bbox>-4,-739+120x1780</bbox>
+                    <default_bbox>-2711,-959+6500x2739</default_bbox>
+                </settings>
+                <blocks>
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (4 characters) -->
+                    <block3>000900-00097F</block3> <!-- Devanagari (2 characters) -->
+                    <block4>000C00-000C7F</block4> <!-- Telugu (93 characters) -->
+                    <block5>002000-00206F</block5> <!-- General Punctuation (10 characters) -->
+                    <block6>0020A0-0020CF</block6> <!-- Currency Symbols (1 character) -->
+                    <block7>002200-0022FF</block7> <!-- Mathematical Operators (1 character) -->
+                    <block8>0025A0-0025FF</block8> <!-- Geometric Shapes (1 character) -->
+                    <block9>00FE70-00FEFF</block9> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>te-Telu</languages>
+            </regular>
+
+            <!--
+                Font file: HandsetSansTelugu-Bold.ttf
+
+                Family: Handset Sans Telugu
+                Style: Bold
+                Glyph count: 762
+            -->
+            <bold>
+                <file>fonts/HandsetSansTelugu-Bold.ttf</file>
+                <settings>
+                    <bbox>-4,-739+171x1780</bbox>
+                    <default_bbox>-2711,-959+6500x2739</default_bbox>
+                </settings>
+                <blocks>
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (4 characters) -->
+                    <block3>000900-00097F</block3> <!-- Devanagari (2 characters) -->
+                    <block4>000C00-000C7F</block4> <!-- Telugu (93 characters) -->
+                    <block5>002000-00206F</block5> <!-- General Punctuation (10 characters) -->
+                    <block6>0020A0-0020CF</block6> <!-- Currency Symbols (1 character) -->
+                    <block7>002200-0022FF</block7> <!-- Mathematical Operators (1 character) -->
+                    <block8>0025A0-0025FF</block8> <!-- Geometric Shapes (1 character) -->
+                    <block9>00FE70-00FEFF</block9> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>te-Telu</languages>
+            </bold>
+        </Telugu>
+
+        <Gujarati>
+            <!--
+                Font file: HandsetSansGujarati-Regular.ttf
+
+                Family: Handset Sans Gujarati
+                Style: Regular
+                Glyph count: 741
+            -->
+            <regular>
+                <file>fonts/HandsetSansGujarati-Regular.ttf</file>
+                <settings>
+                    <bbox>-321,-555+126x1836</bbox>
+                    <default_bbox>-1270,-806+3940x2642</default_bbox>
+                </settings>
+                <blocks>
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (4 characters) -->
+                    <block3>000900-00097F</block3> <!-- Devanagari (2 characters) -->
+                    <block4>000A80-000AFF</block4> <!-- Gujarati (84 characters) -->
+                    <block5>002000-00206F</block5> <!-- General Punctuation (10 characters) -->
+                    <block6>0020A0-0020CF</block6> <!-- Currency Symbols (1 character) -->
+                    <block7>002200-0022FF</block7> <!-- Mathematical Operators (1 character) -->
+                    <block8>0025A0-0025FF</block8> <!-- Geometric Shapes (1 character) -->
+                    <block9>00A830-00A83F</block9> <!-- Common Indic Number Forms (10 characters) -->
+                    <block10>00FE70-00FEFF</block10> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>gu-Gujr</languages>
+            </regular>
+
+            <!--
+                Font file: HandsetSansGujarati-Bold.ttf
+
+                Family: Handset Sans Gujarati
+                Style: Bold
+                Glyph count: 740
+            -->
+            <bold>
+                <file>fonts/HandsetSansGujarati-Bold.ttf</file>
+                <settings>
+                    <bbox>-301,-548+168x1836</bbox>
+                    <default_bbox>-1398,-806+4246x2642</default_bbox>
+                </settings>
+                <blocks>
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (4 characters) -->
+                    <block3>000900-00097F</block3> <!-- Devanagari (2 characters) -->
+                    <block4>000A80-000AFF</block4> <!-- Gujarati (84 characters) -->
+                    <block5>002000-00206F</block5> <!-- General Punctuation (10 characters) -->
+                    <block6>0020A0-0020CF</block6> <!-- Currency Symbols (1 character) -->
+                    <block7>002200-0022FF</block7> <!-- Mathematical Operators (1 character) -->
+                    <block8>0025A0-0025FF</block8> <!-- Geometric Shapes (1 character) -->
+                    <block9>00A830-00A83F</block9> <!-- Common Indic Number Forms (10 characters) -->
+                    <block10>00FE70-00FEFF</block10> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>gu-Gujr</languages>
+            </bold>
+        </Gujarati>
+
+        <Kannada>
+            <!--
+                Font file: HandsetSansKannada-Regular.ttf
+
+                Family: Handset Sans Kannada
+                Style: Regular
+                Glyph count: 451
+            -->
+            <regular>
+                <file>fonts/HandsetSansKannada-Regular.ttf</file>
+                <settings>
+                    <bbox>-4,-765+4x1656</bbox>
+                    <default_bbox>-942,-1087+3487x1656</default_bbox>
+                </settings>
+                <blocks>
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (4 characters) -->
+                    <block3>000900-00097F</block3> <!-- Devanagari (2 characters) -->
+                    <block4>000C80-000CFF</block4> <!-- Kannada (86 characters) -->
+                    <block5>002000-00206F</block5> <!-- General Punctuation (10 characters) -->
+                    <block6>0020A0-0020CF</block6> <!-- Currency Symbols (1 character) -->
+                    <block7>002200-0022FF</block7> <!-- Mathematical Operators (1 character) -->
+                    <block8>0025A0-0025FF</block8> <!-- Geometric Shapes (1 character) -->
+                    <block9>00FE70-00FEFF</block9> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>kn-Knda</languages>
+            </regular>
+
+            <!--
+                Font file: HandsetSansKannada-Bold.ttf
+
+                Family: Handset Sans Kannada
+                Style: Bold
+                Glyph count: 451
+            -->
+            <bold>
+                <file>fonts/HandsetSansKannada-Bold.ttf</file>
+                <settings>
+                    <bbox>-4,-770+4x1656</bbox>
+                    <default_bbox>-978,-1087+4788x2743</default_bbox>
+                </settings>
+                <blocks>
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (4 characters) -->
+                    <block3>000900-00097F</block3> <!-- Devanagari (2 characters) -->
+                    <block4>000C80-000CFF</block4> <!-- Kannada (86 characters) -->
+                    <block5>002000-00206F</block5> <!-- General Punctuation (10 characters) -->
+                    <block6>0020A0-0020CF</block6> <!-- Currency Symbols (1 character) -->
+                    <block7>002200-0022FF</block7> <!-- Mathematical Operators (1 character) -->
+                    <block8>0025A0-0025FF</block8> <!-- Geometric Shapes (1 character) -->
+                    <block9>00FE70-00FEFF</block9> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>kn-Knda</languages>
+            </bold>
+        </Kannada>
+
+        <Malayalam>
+            <!--
+                Font file: HandsetSansMalayalam-Regular.ttf
+
+                Family: Handset Sans Malayalam
+                Style: Regular
+                Glyph count: 318
+            -->
+            <regular>
+                <file>fonts/HandsetSansMalayalam-Regular.ttf</file>
+                <settings>
+                    <bbox>-179,-690+987x1727</bbox>
+                    <default_bbox>-1655,-784+6433x2511</default_bbox>
+                </settings>
+                <blocks>
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (4 characters) -->
+                    <block3>000300-00036F</block3> <!-- Combining Diacritical Marks (2 characters) -->
+                    <block4>000900-00097F</block4> <!-- Devanagari (2 characters) -->
+                    <block5>000D00-000D7F</block5> <!-- Malayalam (98 characters) -->
+                    <block6>002000-00206F</block6> <!-- General Punctuation (10 characters) -->
+                    <block7>0020A0-0020CF</block7> <!-- Currency Symbols (1 character) -->
+                    <block8>002200-0022FF</block8> <!-- Mathematical Operators (1 character) -->
+                    <block9>0025A0-0025FF</block9> <!-- Geometric Shapes (1 character) -->
+                    <block10>00FE70-00FEFF</block10> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>ml-Mlym</languages>
+            </regular>
+
+            <!--
+                Font file: HandsetSansMalayalam-Bold.ttf
+
+                Family: Handset Sans Malayalam
+                Style: Bold
+                Glyph count: 318
+            -->
+            <bold>
+                <file>fonts/HandsetSansMalayalam-Bold.ttf</file>
+                <settings>
+                    <bbox>-189,-690+1097x1743</bbox>
+                    <default_bbox>-1917,-761+7157x2504</default_bbox>
+                </settings>
+                <blocks>
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (4 characters) -->
+                    <block3>000300-00036F</block3> <!-- Combining Diacritical Marks (2 characters) -->
+                    <block4>000900-00097F</block4> <!-- Devanagari (2 characters) -->
+                    <block5>000D00-000D7F</block5> <!-- Malayalam (98 characters) -->
+                    <block6>002000-00206F</block6> <!-- General Punctuation (10 characters) -->
+                    <block7>0020A0-0020CF</block7> <!-- Currency Symbols (1 character) -->
+                    <block8>002200-0022FF</block8> <!-- Mathematical Operators (1 character) -->
+                    <block9>0025A0-0025FF</block9> <!-- Geometric Shapes (1 character) -->
+                    <block10>00FE70-00FEFF</block10> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>ml-Mlym</languages>
+            </bold>
+        </Malayalam>
+
+        <Gurmukhi>
+            <!--
+                Font file: HandsetSansGurmukhi-Regular.ttf
+
+                Family: Handset Sans Gurmukhi
+                Style: Regular
+                Glyph count: 301
+            -->
+            <regular>
+                <file>fonts/HandsetSansGurmukhi-Regular.ttf</file>
+                <settings>
+                    <bbox>-321,-806+98x1836</bbox>
+                    <default_bbox>-1083,-806+4220x2642</default_bbox>
+                </settings>
+                <blocks>
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (4 characters) -->
+                    <block3>000900-00097F</block3> <!-- Devanagari (2 characters) -->
+                    <block4>000A00-000A7F</block4> <!-- Gurmukhi (79 characters) -->
+                    <block5>002000-00206F</block5> <!-- General Punctuation (10 characters) -->
+                    <block6>0020A0-0020CF</block6> <!-- Currency Symbols (1 character) -->
+                    <block7>002200-0022FF</block7> <!-- Mathematical Operators (1 character) -->
+                    <block8>0025A0-0025FF</block8> <!-- Geometric Shapes (1 character) -->
+                    <block9>002600-0026FF</block9> <!-- Miscellaneous Symbols (1 character) -->
+                    <block10>00A830-00A83F</block10> <!-- Common Indic Number Forms (10 characters) -->
+                    <block11>00FE70-00FEFF</block11> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Guru</languages>
+            </regular>
+
+            <!--
+                Font file: HandsetSansGurmukhi-Bold.ttf
+
+                Family: Handset Sans Gurmukhi
+                Style: Bold
+                Glyph count: 301
+            -->
+            <bold>
+                <file>fonts/HandsetSansGurmukhi-Bold.ttf</file>
+                <settings>
+                    <bbox>-301,-806+116x1836</bbox>
+                    <default_bbox>-1373,-806+4676x2642</default_bbox>
+                </settings>
+                <blocks>
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (4 characters) -->
+                    <block3>000900-00097F</block3> <!-- Devanagari (2 characters) -->
+                    <block4>000A00-000A7F</block4> <!-- Gurmukhi (79 characters) -->
+                    <block5>002000-00206F</block5> <!-- General Punctuation (10 characters) -->
+                    <block6>0020A0-0020CF</block6> <!-- Currency Symbols (1 character) -->
+                    <block7>002200-0022FF</block7> <!-- Mathematical Operators (1 character) -->
+                    <block8>0025A0-0025FF</block8> <!-- Geometric Shapes (1 character) -->
+                    <block9>002600-0026FF</block9> <!-- Miscellaneous Symbols (1 character) -->
+                    <block10>00A830-00A83F</block10> <!-- Common Indic Number Forms (10 characters) -->
+                    <block11>00FE70-00FEFF</block11> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Guru</languages>
+            </bold>
+        </Gurmukhi>
+
+        <Oriya>
+            <!--
+                Font file: HandsetSansOriya-Regular.ttf
+
+                Family: Handset Sans Oriya
+                Style: Regular
+                Glyph count: 618
+            -->
+            <regular>
+                <file>fonts/HandsetSansOriya-Regular.ttf</file>
+                <settings>
+                    <bbox>-4,-449+94x1817</bbox>
+                    <default_bbox>-1409,-979+3439x2857</default_bbox>
+                </settings>
+                <blocks>
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (4 characters) -->
+                    <block3>000900-00097F</block3> <!-- Devanagari (2 characters) -->
+                    <block4>000B00-000B7F</block4> <!-- Oriya (90 characters) -->
+                    <block5>002000-00206F</block5> <!-- General Punctuation (10 characters) -->
+                    <block6>0020A0-0020CF</block6> <!-- Currency Symbols (1 character) -->
+                    <block7>002200-0022FF</block7> <!-- Mathematical Operators (1 character) -->
+                    <block8>0025A0-0025FF</block8> <!-- Geometric Shapes (1 character) -->
+                    <block9>00FE70-00FEFF</block9> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Orya</languages>
+            </regular>
+
+            <!--
+                Font file: HandsetSansOriya-Bold.ttf
+
+                Family: Handset Sans Oriya
+                Style: Bold
+                Glyph count: 618
+            -->
+            <bold>
+                <file>fonts/HandsetSansOriya-Bold.ttf</file>
+                <settings>
+                    <bbox>-4,-453+70x1862</bbox>
+                    <default_bbox>-1534,-979+3797x2857</default_bbox>
+                </settings>
+                <blocks>
+                    <block2>000080-0000FF</block2> <!-- Latin-1 Supplement (4 characters) -->
+                    <block3>000900-00097F</block3> <!-- Devanagari (2 characters) -->
+                    <block4>000B00-000B7F</block4> <!-- Oriya (90 characters) -->
+                    <block5>002000-00206F</block5> <!-- General Punctuation (10 characters) -->
+                    <block6>0020A0-0020CF</block6> <!-- Currency Symbols (1 character) -->
+                    <block7>002200-0022FF</block7> <!-- Mathematical Operators (1 character) -->
+                    <block8>0025A0-0025FF</block8> <!-- Geometric Shapes (1 character) -->
+                    <block9>00FE70-00FEFF</block9> <!-- Arabic Presentation Forms-B (1 character) -->
+                </blocks>
+                <languages>*-Orya</languages>
+            </bold>
+        </Oriya>
+
+    </fonts>
+</fontManager>

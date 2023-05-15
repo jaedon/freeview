@@ -1,0 +1,109 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/test/test_mediaplay.js" />
+        <item url="file://$PROJECT_DIR$/test.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/csysinfotuner.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cfilemgrsambaclient.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/ccasnagra.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cmediaairplay.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cfilemgrstorage.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutildsmcc.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/test.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/coutputvideo.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cfilemgrbase.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutilnetwork.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/coutputpanel.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutildatastreamer.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/coutputhdmi.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cmetaservice.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cmediarecord.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutilbuilder.js" />
+        <item url="file://$PROJECT_DIR$/test/control.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/csysinfostb.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cscenariobase.js" />
+        <item url="file://$PROJECT_DIR$/test/scenario.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutildrmagent.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/ccasci.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutilswupdate.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cmetaschedule.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/ccasaction.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/util/dbus_connect.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutilextdev.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/tdata.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/ccasirdeto.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/ccasmmi.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cscenariopincode.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cmetaquery.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/coutputaudio.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cmetarecord.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/test/test_service.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cfilemgrgroup.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cdlnautil.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cfilemgrsambaserver.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cfilemgrbrowse.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cfilemgrftpserver.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutilpower.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cmetaantenna.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutilexe.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cmediaplay.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutildb.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/octopus-client/octopus.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/test/scenario_live_allchannelechange.js" />
+      <root url="file://$PROJECT_DIR$/test/scenario_live_allchannelechange.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/csysinfotuner.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cfilemgrsambaclient.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutildsmcc.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/test.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cfilemgrbase.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutildatastreamer.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cmediarecord.js" />
+      <root url="file://$PROJECT_DIR$/test/control.js" />
+      <root url="file://$PROJECT_DIR$/test/scenario.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/ccasaction.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/tdata.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/ccasirdeto.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/test/test_service.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cmetarecord.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cfilemgrgroup.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cfilemgrftpserver.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutilpower.js" />
+      <root url="file://$PROJECT_DIR$/test.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/test/test_mediaplay.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/ccasnagra.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cmediaairplay.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cfilemgrstorage.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/coutputvideo.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/coutputpanel.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutilnetwork.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/coutputhdmi.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cmetaservice.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutilbuilder.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/csysinfostb.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cscenariobase.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutildrmagent.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/ccasci.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutilswupdate.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cmetaschedule.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/util/dbus_connect.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutilextdev.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/ccasmmi.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cmetaquery.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cscenariopincode.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/coutputaudio.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cdlnautil.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cfilemgrbrowse.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cfilemgrsambaserver.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cmetaantenna.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutilexe.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cmediaplay.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/lib/interface/cutildb.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/octopus-client/octopus.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

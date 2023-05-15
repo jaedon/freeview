@@ -1,0 +1,10 @@
+"sysctl":{
+	"target":"massstorage",
+	"operation":"get",
+	"property":{
+		"get_action":"storage_info", 
+		"param_info":{
+			"dev_id":1
+		}
+	}
+}

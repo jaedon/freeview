@@ -1,0 +1,20 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmblackbox
+TARGETTYPE=LIBRARY
+
+SOURCES =                   \
+    blackbox.c              \
+    blackboxinternal.c      \
+    blackboxkeyfileread.c   \
+    blackboxprndrx.c        \
+    blackboxprndtx.c        \
+    blackboxdevcertsreal.c  \
+    blackboxhal.c           \
+    blackboxmodules.c       \
+

@@ -1,0 +1,15 @@
+#ifndef __APK_SCENARIO_PINCODE_H__
+#define __APK_SCENARIO_PINCODE_H__
+
+HERROR	APK_SCENARIO_PINCODE_Init(void);
+HBOOL	APK_SCENARIO_PINCODE_Check(const HCHAR *pszPinStr);
+HBOOL	APK_SCENARIO_PINCODE_Verify(const HCHAR *pszPinStr);
+HBOOL	APK_SCENARIO_PINCODE_Set(const HCHAR *pszOldPinStr, const HCHAR *pszNewPinStr);
+HBOOL	APK_SCENARIO_PINCODE_Reset(const HCHAR *pszNewPinStr);
+HBOOL	APK_SCENARIO_PINCODE_SetTemporaryBlock(const HCHAR *pszPinStr, HBOOL bBlocked);
+HBOOL	APK_SCENARIO_PINCODE_GetTemporaryBlock(void);
+
+#endif // __APK_SCENARIO_PINCODE_H__
+
+
+

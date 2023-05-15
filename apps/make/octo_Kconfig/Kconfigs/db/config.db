@@ -1,0 +1,33 @@
+###################################################
+#				Database(Service, Setup) Configuration				#
+###################################################
+
+comment	 "Database(Service, Setup) Configuration. (DB_XXX)"
+
+	config DB_JSON
+		bool "DB_JSON - for using HxUDB data storage system"
+		default y
+
+	choice
+		prompt "Service DB's System"
+		default DB_SVC_MANAGER
+
+		config DB_SVC_MANAGER
+			bool "DB_SVC_MANAGER - for using service db, with ram file system"
+	endchoice
+
+	source "./Kconfigs/db/config.rsv"
+	source "./Kconfigs/db/config.setup"
+	source "./Kconfigs/db/config.svc"
+
+	config DB_MAIL
+		bool "DB_MAIL - Use Mail."
+		default n
+
+	config DB_GENRE
+		bool "DB_GENRE - Use Genre."
+		default n
+
+	config DB_DES
+		bool "DB_DES - Use Des."
+		default n

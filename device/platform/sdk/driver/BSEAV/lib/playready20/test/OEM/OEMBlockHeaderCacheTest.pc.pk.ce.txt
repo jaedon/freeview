@@ -1,0 +1,5 @@
+32150:FUNC:P1:Get and update block header cache data
+TestOEMBlockHeaderCache
+
+32160:FUNC:P1:Check that Oem_Hds_ClearBlockHeaderCache actually clears the cache
+TestOEMClearBlockHeaderCache

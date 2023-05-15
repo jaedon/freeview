@@ -1,0 +1,20 @@
+-------------------BVT ends here--------------------------
+'REVOCATION TESTS
+
+' DRM_MGR_StoreRevocationLists test cases
+
+30470: Set WMDRMND and Dev CRLs with NULL RLVI using DRM_MGR_StoreRevocationLists.
+If(WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><RESTRICTIONS><COMPRESSEDDIGITALVIDEO level='300'/></RESTRICTIONS><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerStoreRevocationLists(FALSE, 3, {CCDE5A55-A688-4405-A88B-D13F90D5BA3E},NULL, {3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, files\crl_device_1, {CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerGetRevocationList({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, files\crl_device_1.b64_wchar)
+TestManagerGetRevocationList({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, NULL)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+EndIf
+

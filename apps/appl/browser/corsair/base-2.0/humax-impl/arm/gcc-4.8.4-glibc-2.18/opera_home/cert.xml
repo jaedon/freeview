@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<certificates>
+	<cert>
+		<file-name>youtubev4_roots.pem</file-name>
+		<type>root</type>
+		<encrypt>PEM</encrypt>
+		<common-name>.youtube.com</common-name>
+		<domains>
+			<url>.youtube.com</url>
+		</domains>
+		<password></password>
+	</cert>
+	
+	<cert>
+		<file-name>htvdev_portal_ccert_2k_20101106.p12</file-name>
+		<type>client</type>
+		<encrypt>P12</encrypt>
+		<common-name>htvdev.humaxtvportal.com</common-name>
+		<domains>
+			<url>.humaxtvportal.com</url>
+		</domains>
+		<password></password>
+	</cert>
+
+	<cert>
+		<file-name>humax_tvportal_rootcert_2k_20101106_pub.pem</file-name>
+		<type>root</type>
+		<encrypt>PEM</encrypt>
+		<common-name>www.humaxtvportal.com</common-name>
+	</cert>
+
+	<cert>
+		<file-name>hdr1000s_20120406.p12</file-name>
+		<type>client</type>
+		<encrypt>P12</encrypt>
+		<common-name>hdr1000s.humaxdigital.com</common-name>
+		<domains>
+			<url>.bbc.co.uk</url>
+		</domains>
+		<password>humax20120406@!</password>
+	</cert>
+	<cert>
+		<file-name>rootcert_1k_20101001.pem</file-name>
+		<type>root</type>
+		<encrypt>PEM</encrypt>
+		<common-name>hdr1000s.humaxdigital.com</common-name>
+		<domains>
+			<url>.bbc.co.uk</url>
+		</domains>
+		<password>humax20101kssl</password>
+	</cert>
+	<cert>
+		<file-name>icordhdplus-20100517.p12</file-name>
+		<type>client</type>
+		<encrypt>P12</encrypt>
+		<common-name>icordhdplus.humaxdigital.com</common-name>
+		<domains>
+			<url>.n-tv.de</url>
+			<url>.rtl.de</url>
+			<url>.kochbar.de</url>
+			<url>.clipfish.de</url>
+			<url>.wetter.de</url>
+			<url>.vox.de</url>
+			<url>.sport.de</url>
+			<url>.vip.de</url>
+			<url>.frauenzimmer.de</url>
+			<url>.wkw.de</url>
+			<url>.gzsz.de</url>
+			<url>.dsds.de</url>
+			<url>.supertalent.de</url>
+			<url>.superrtl.de</url>
+			<url>.toggo.de</url>
+			<url>.rtl2.de</url>
+		</domains>
+	</cert>
+</certificates>

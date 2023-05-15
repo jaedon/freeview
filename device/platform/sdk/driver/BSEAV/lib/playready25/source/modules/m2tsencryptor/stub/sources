@@ -1,0 +1,9 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmm2tsencryptorstub
+TARGETTYPE=LIBRARY
+
+SOURCES =                             \
+    drmm2tsencryptorAPIsstub.c        \
+    drmm2tsencryptorstub.c            \
+

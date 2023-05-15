@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Util/Db">   
+    <interface name="Octopus.Appkit.Util.Db">
+
+    <method name="Remove">
+    	<arg type="s" name="key" direction="in" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetInt">
+    	<arg type="s" name="key" direction="in" />
+        <arg type="i" name="value" direction="in" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+                                                                        
+    <method name="GetInt">
+    	<arg type="s" name="key" direction="in" />
+        <arg type="i" name="value" direction="out" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetStr">
+    	<arg type="s" name="key" direction="in" />
+        <arg type="s" name="string" direction="in" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetStr">
+    	<arg type="s" name="key" direction="in" />
+        <arg type="s" name="value" direction="out" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+  </interface>
+</node>

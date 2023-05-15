@@ -1,0 +1,20 @@
+/tmp /home/corsair/root/tmp none defaults,bind 0 0
+/shared /home/corsair/root/shared none defaults,bind 0 0
+/home1/sechdlr/root/media /home/corsair/root/media none defaults,bind 0 0
+/opt /home/corsair/root/opt none defaults,bind 0 0
+/home1/sechdlr/root/mnt /home/corsair/root/mnt none defaults,bind 0 0
+/bin /home/corsair/root/bin none defaults,bind 0 0
+/sbin /home/corsair/root/sbin none defaults,bind 0 0
+/etc /home/corsair/root/etc none defaults,bind 0 0
+/usr/bin /home/corsair/root/usr/bin none defaults,bind 0 0
+/usr/browser /home/corsair/root/usr/browser none defaults,bind 0 0
+/usr/sbin /home/corsair/root/usr/sbin none defaults,bind 0 0
+/usr/local /home/corsair/root/usr/local none defaults,bind 0 0
+/usr/fonts /home/corsair/root/usr/fonts none defaults,bind 0 0
+/usr/string /home/corsair/root/usr/string none defaults,bind 0 0
+/var /home/corsair/root/var none defaults,bind 0 0
+/dev /home/corsair/root/dev none defaults,bind 0 0
+
+none /home/corsair/root/dev/pts devpts defaults 0 0
+none /home/corsair/root/proc proc defaults 0 0
+none /home/corsair/root/sys sysfs defaults 0 0

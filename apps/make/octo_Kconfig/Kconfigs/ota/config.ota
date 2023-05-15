@@ -1,0 +1,166 @@
+comment "OTA Spec. Configuration (PROD_OTA_XXX)"
+
+	choice
+		prompt "OTA Selection"
+		default OTA_SINGLE
+
+		config OTA_SINGLE
+			bool "OTA_SINGLE - STB can handle single OTA scheams"
+
+		config OTA_MULTIPLE
+			bool "OTA_MULTIPLE - STB can handle the multiple OTA scheams"
+
+		config OTA_NONE
+			bool "OTA_NONE - Don't support any OTA module"
+	endchoice
+
+	comment "OTA disabled."
+		depends on OTA_NONE
+	comment "Select an OTA Specifications"
+		depends on OTA_SINGLE
+	comment "Select more than one OTA Specifications"
+		depends on OTA_MULTIPLE
+
+	config OTA_ASTRA
+		depends on MW_CH_SATELLITE
+		bool "OTA_ASTRA - Support ASTRA OTA"
+
+	config OTA_DVBSSU
+		bool "OTA_DVBSSU - Support DVB-SSU OTA"
+		help
+			DVB SSU OTA - Signaled by NIT Linkage Descriptor
+
+	config OTA_DTT_EU
+		depends on MW_CH_TERRESTRIAL
+		bool "OTA_DTT_EU - Support DTT-EU OTA"
+		help
+			OTA_DTT_EU - This is DVB SSU OTA in Terrestrial
+
+	config OTA_DTT_UK_SSU
+		depends on OP_UK_DTT_DBOOK && OP_UK_DTT_DBOOK_VER_6
+		bool "OTA_DTT_UK_SSU - Support DTT-UK DVB-SSU OTA"
+		default y	if (OP_UK_DTT_DBOOK = y) && (OP_UK_DTT_DBOOK_VER_6 = y)
+
+	config OTA_DTT_UK
+		depends on OP_UK_DTT_DBOOK
+		bool "OTA_DTT_UK - Support DTT-UK OTA"
+		default y	if (OP_UK_DTT_DBOOK = y) && (OP_UK_DTT_DBOOK_VER_6 != y)
+
+	config OTA_APS
+		depends on PROD_HMS1000S || OP_APS
+		bool "OTA_APS - Support APS OTA"
+		default y	if (OP_APS = y)||(PROD_HMS1000S=y)
+
+	config OTA_SKYD
+		depends on OP_SKYD
+		bool "OTA_SKYD - Support SKYD OTA"
+		default y	if (OP_SKYD = y)
+
+	config OTA_KDG
+		bool "OTA_KDG - Support KDG OTA"
+		default y	if (OP_KDG = y)
+
+	config OTA_IRDETO
+		bool "OTA_IRDETO - Support IRDETO OTA"
+		default y	if (IRDETO = y)
+
+	config OTA_IRDETO_LOADER_V5
+		depends on OTA_IRDETO
+		bool "OTA_IRDETO_LOADER_V5 - Support IRDETO OTA Loader version 5"
+		default y	if (IRDETO = y)
+
+	config OTA_HUMAX
+		bool "OTA_HUMAX - Support HUMAX OTA"
+		config OTA_HUMAX_RCS
+			depends on OP_RCS && OTA_HUMAX
+			bool "OTA_HUMAX_RCS - Support linkage descriptor in SDT for RCS"
+			default y	if (OP_RCS = y) && (OTA_HUMAX = y)
+
+	config OTA_NTVPLUS
+		depends on OP_NTVPLUS
+		bool "OTA_NTVPLUS - Support NTVPLUS"
+		default y	if (OP_NTVPLUS = y)
+
+	config OTA_UPC
+		depends on OP_UPC
+		bool "OTA_UPC - Support UPC OTA"
+		default y	if (OP_UPC = y)
+	
+	config OTA_SES
+		depends on OP_SES
+		bool "OTA_SES - Support SES OTA"
+		default n
+
+	config NAGRA_SSD_OTA_TEST
+		depends on OTA_SES
+		bool "OTA_SES - Support NAGRA SSD TEST"
+		default n
+
+	config BURST_OTA
+		depends on OTA_SES
+		bool "OTA_SES - Support BURST UDPATE"
+		default n
+
+	config OTA_FSATSSU
+		depends on OP_FREESAT && !PROD_HMS1000S
+		bool "OP_FREESAT - Support Freesat OTA"
+		default y	if (OP_FREESAT = y)
+	
+	config OTA_IP
+		depends on MW_INET
+		bool "OTA_IP - Support IP OTA"
+		default y	if (MW_INET = y)
+
+	config OTA_CHECK_AT_POWER_ON
+		depends on OTA_MULTIPLE || OTA_SINGLE
+		bool "OTA_CHECK_AT_POWER_ON - Support OTA Re-checking at Power ON"
+		default n
+
+	config OTA_CHECK_AT_STAND_BY
+		depends on OTA_MULTIPLE || OTA_SINGLE
+		bool "OTA_CHECK_AT_STAND_BY - Support OTA Re-checking at Standby"
+		default n
+
+	config OTA_DETECT
+		depends on OTA_MULTIPLE || OTA_SINGLE
+		bool "OTA_DETECT - Support OTA Detection"
+		default y
+
+		config OTA_DETECT_BG
+			depends on OTA_DETECT
+			bool "OTA_DETECT_BG - Support OTA Background Detecttion in live"
+			default y	if (OTA_HUMAX = y) || (OTA_SATDVBSSU)
+
+	config OTA_DOWNLOAD
+		depends on OTA_MULTIPLE || OTA_SINGLE
+		bool "OTA_DOWNLOAD - Support OTA Image Download"
+		default y
+
+		config OTA_DOWNLOAD_BG
+			depends on OTA_DOWNLOAD
+			bool "OTA_DOWNLOAD_BG - Support OTA Background Download in live"
+			default y	if (OTA_HUMAX = y)
+
+	config OTA_LIVE_ENABLE
+		depends on OTA_DETECT_BG || OTA_DOWNLOAD_BG
+		bool "OTA_LIVE_ENABLE - can detect/download OTA in watching the live TV"
+		default n
+
+		config OTA_LIVE_HUMAX
+			depends on OTA_LIVE_ENABLE && OTA_DETECT_BG && OTA_DOWNLOAD_BG
+			bool "OTA_LIVE_HUMAX - Support Humax OTA in watching the live TV"
+			default y	if (OTA_HUMAX = y)
+
+		config OTA_LIVE_DVBSSU
+			depends on OTA_LIVE_ENABLE && OTA_DETECT_BG
+			bool "OTA_LIVE_DVBSSU - detect DVB-SSU OTA in watching the live TV"
+			default n
+
+		config OTA_LIVE_UPC
+			depends on OTA_LIVE_ENABLE && OTA_DETECT_BG
+			bool "OTA_LIVE_UPC - detect DVB-SSU OTA in watching the live TV"
+			default n
+			
+	config OTA_USE_PKG_VERSION
+		bool "OTA_USE_PKG_VERSION - Use APP version information from NVRAM(PGK_VERSON) prior to Header file"
+		default n

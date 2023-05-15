@@ -1,0 +1,7 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=LIBRARY
+TARGETNAME=PKCommonTestAPI
+
+SOURCES = \
+	..\PKCommonTestApi.c \

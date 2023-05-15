@@ -1,0 +1,52 @@
+<configuration>
+
+  <!-- Layout -->
+  
+  <layout name="FilePattern" type="PatternLayout">
+    <!--  <param name="pattern" value= "${level:width=1} ${isodatetime} [${category:width=20}] ${message}${newline}" /> -->
+    <!--  <param name="pattern" value= "${level:width=1} ${datetime} [${category:width=20}] ${message}${newline}" /> -->
+    <!--  <param name="pattern" value= "${level:width=1} ${time} [${category:width=20}] ${message}${newline}" /> -->
+    <!--  <param name="pattern" value= "${level:width=1} ${ticks} [${category:width=20}] ${message}${newline}" /> -->
+
+     <param name="pattern" value= "${level:width=1} ${isodatetime} [${category:width=20}] ${message}${newline}" /> 
+  </layout>
+
+
+  
+  <!-- Appender -->
+
+  <appender name="Console" type="ConsoleAppender" minLevel="TRACE" maxLevel="FATAL">
+    <layout-ref ref="FilePattern" />
+    <param name="levelColor" value="FATAL,red,black" />
+    <param name="levelColor" value="ERROR,red,black" />
+    <param name="levelColor" value="WARNING,yellow,black" />
+    <param name="levelColor" value="INFO,gray,black" />
+    <param name="levelColor" value="DEBUG,darkgray,black" />
+  </appender>
+
+  <appender name="File" type="FileAppender" minLevel="TRACE" maxLevel="FATAL">
+    <layout-ref ref="FilePattern" />  
+    <param name="fileName" value="/local/../../../../Data/AppNovaspreadServerFileDemo.log" />
+  </appender>
+  
+  <appender name="Syslogger" type="SyslogAppender" minLevel="TRACE" maxLevel="FATAL">
+    <layout-ref ref="FilePattern" />  
+    <param name="destinationIpAddress" value="127.0.0.1" />
+  </appender>
+ 
+
+
+  <!-- Logger -->
+  
+  <!-- Note that Assertions are logged as FATAL messages. So never
+       switch of a logger. Enable at least level=FATAL. -->
+  
+  <logger name="" level="INFO">
+    <appender-ref ref="Console" />  
+    <!--
+    <appender-ref ref="File" />
+    <appender-ref ref="Syslogger" />
+    -->
+  </logger>                    
+    
+</configuration>

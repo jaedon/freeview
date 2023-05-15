@@ -1,0 +1,435 @@
+config CHANNEL
+	bool
+	prompt "Enable Channel & Select Type"
+	default y
+
+	config FRONTEND_SAT
+		bool
+		prompt "Enable SAT Tuner module"
+
+	config FRONTEND_CAB
+		bool
+		prompt "Enable CAB Tuner module"
+
+	config FRONTEND_TER
+		bool
+		prompt "Enable TER Tuner module"
+
+	config NUM_OF_SAT_CHANNEL
+		int "Number of SAT channel"
+		range 0 10
+		default 1
+		depends on FRONTEND_SAT
+
+	config PLATFORM_DB4506
+		bool
+		prompt "Enable PLATFORM_DB4506"
+		default n
+		depends on FRONTEND_SAT
+
+		config BRCM_MOD_NEXUS_FRONTEND_4506
+			bool
+			prompt "BCM4506 with NEXUS"
+			default n
+			depends on PLATFORM_DB4506
+
+		config BRCM_MOD_NEXUS_FRONTEND_4506_VER
+			string
+			prompt "BCM4506 Chip Version"
+			default "A1"
+			depends on PLATFORM_DB4506
+
+	config PLATFORM_DB7346
+		bool
+		prompt "Enable PLATFORM_DB7346"
+		default n
+		depends on FRONTEND_SAT
+
+	config PLATFORM_DB7358
+		bool
+		prompt "Enable PLATFORM_DB7358"
+		default n
+		depends on FRONTEND_SAT
+
+	config PLATFORM_DB7362
+		bool
+		prompt "Enable PLATFORM_DB7362"
+		default n
+		depends on FRONTEND_SAT
+
+	config PLATFORM_DB4538
+		bool
+		prompt "Enable PLATFORM_DB4538"
+		default n
+		depends on FRONTEND_SAT
+
+		config BRCM_MOD_NEXUS_FRONTEND_4538
+			bool
+			prompt "BCM4538 with NEXUS"
+			default y
+			depends on PLATFORM_DB4538
+
+	config PLATFORM_DB45216
+		bool
+		prompt "Enable PLATFORM_DB45216"
+		default n
+		depends on FRONTEND_SAT
+
+		config BRCM_MOD_NEXUS_FRONTEND_45216
+			bool
+			prompt "BCM452xx with NEXUS"
+			default y
+			depends on PLATFORM_DB45216
+
+		config BHAB_DONT_USE_INTERRUPT
+			bool
+			prompt "HAB Polling mode with BCM452xx"
+			default n
+			depends on PLATFORM_DB45216
+
+	config PLATFORM_LA8286
+		bool
+		prompt "Enable PLATFORM_LA8286"
+		default n
+		depends on FRONTEND_SAT
+
+	config PLATFORM_LA8296
+		bool
+		prompt "Enable PLATFORM_LA8296"
+		default n
+		depends on FRONTEND_SAT
+
+	config PLATFORM_LA8297
+		bool
+		prompt "Enable PLATFORM_LA8297"
+		default n
+		depends on FRONTEND_SAT
+
+	config PLATFORM_LDT1803
+		bool
+		prompt "Enable PLATFORM_LDT1803"
+		default n
+		depends on FRONTEND_SAT
+
+		config SUPPORT_SURGE_PROTECTION
+			bool
+			prompt "surge protection with DT1803"
+			default n
+			depends on PLATFORM_LDT1803
+
+	config PLATFORM_LA8305
+		bool
+		prompt "Enable PLATFORM_LA8305"
+		default n
+		depends on FRONTEND_SAT
+
+	config PLATFORM_LA8304
+		bool
+		prompt "Enable PLATFORM_LA8304"
+		default n
+		depends on FRONTEND_SAT
+		
+	config SUPPORT_SELECTABLE_RF
+		bool
+		prompt "Support Selectable RF Input"
+		default n
+		depends on FRONTEND_SAT
+
+	config SUPPORT_2TUNER_1RFINPUT
+		bool
+		prompt "Support 2-Tuner with 1-RF Input"
+		default n
+		depends on FRONTEND_SAT
+
+	config SUPPORT_CROSS_TUNER_ID
+		bool
+		prompt "Support CROSS_TUNER_ID"
+		default n
+		depends on FRONTEND_SAT
+
+	config SUPPORT_REALTIME_GETTING_SIGNALINFO
+		bool
+		prompt "Support Realtime Getting Signal Info"
+		default n
+		depends on FRONTEND_SAT
+
+	config SUPPORT_ADVANCED_SIGNALINFO
+		bool
+		prompt "SUPPORT_ADVANCED_SIGNALINFO"
+		default n
+		depends on FRONTEND_SAT
+
+	config SUPPORT_VAST_AU_SIGNALINFO
+		bool
+		prompt "Support VAST AU Signal Info"
+		default n
+		depends on FRONTEND_SAT
+
+	config SUPPORT_CI_PLUS_CERTI
+		bool
+		prompt "Support CI+ Certification"
+		default n
+		depends on FRONTEND_SAT
+
+	config NUM_OF_CAB_CHANNEL
+		int "Number of CAB channel"
+		range 0 10
+		default 1
+		depends on FRONTEND_CAB
+
+	config PLATFORM_DP10024
+		bool
+		prompt "Enable PLATFORM_DP10024"
+		default n
+		depends on FRONTEND_CAB
+
+	config PLATFORM_TN182I2
+		bool
+		prompt "Enable PLATFORM_TN182I2"
+		default n
+		depends on FRONTEND_CAB
+
+	config PLATFORM_DP10025
+		bool
+		prompt "Enable PLATFORM_DP10025"
+		default n
+		depends on FRONTEND_CAB
+
+	config PLATFORM_TN18260
+		bool
+		prompt "Enable PLATFORM_TN18260"
+		default n
+		depends on FRONTEND_CAB
+
+	config PLATFORM_DB3128
+		bool
+		prompt "Enable PLATFORM_DB3128"
+		default n
+		depends on FRONTEND_CAB
+
+		config BRCM_MOD_NEXUS_FRONTEND_3128
+			bool
+			prompt "BCM3128 with NEXUS"
+			default y
+			depends on PLATFORM_DB3128
+
+		config BRCM_MOD_NEXUS_FRONTEND_312x_VER
+			string
+			prompt "312x chip revision"
+			default "C0"
+			depends on BRCM_MOD_NEXUS_FRONTEND_3128
+
+	config PLATFORM_TM241SF
+		bool
+		prompt "Enable PLATFORM_TM241SF"
+		default n
+		depends on FRONTEND_CAB
+
+	config PLATFORM_DB3383
+		bool
+		prompt "Enable PLATFORM_DB3383"
+		default n
+		depends on FRONTEND_CAB
+
+		config BRCM_MOD_NEXUS_PLATFORM_7445_CABLE
+			bool
+			prompt "NEXUS Frontend related with DOCSIS chipset"
+			default n
+			depends on PLATFORM_DB3383
+
+		config BRCM_MOD_NEXUS_FRONTEND_3383
+			bool
+			prompt "BCM3383 with NEXUS"
+			default n
+			depends on PLATFORM_DB3383
+
+	config PLATFORM_DB7584
+		bool
+		prompt "Enable PLATFORM_DB7584"
+		default n
+		depends on FRONTEND_CAB
+
+  config PLATFORM_DB7581
+		bool
+		prompt "Enable PLATFORM_DB7581"
+		default n
+		depends on FRONTEND_CAB
+
+	config DEMOD_TSMF
+		bool
+		prompt "DEMOD_TSMF"
+		default n
+		depends on FRONTEND_CAB
+
+	config NUM_OF_TER_CHANNEL
+		int "Number of TER channel"
+		range 0 10
+		default 1
+		depends on FRONTEND_TER
+
+	config PLATFORM_DP10048
+		bool
+		prompt "Enable TER PLATFORM_DP10048"
+		default n
+		depends on FRONTEND_TER
+
+	config PLATFORM_DS2820
+		bool
+		prompt "Enable TER PLATFORM_DS2820"
+		default n
+		depends on FRONTEND_TER
+
+	config PLATFORM_DT90507
+		bool
+		prompt "Enable TER PLATFORM_DT90507"
+		default n
+		depends on FRONTEND_TER
+
+	config PLATFORM_DT90517
+		bool
+		prompt "Enable TER PLATFORM_DT90517"
+		default n
+		depends on FRONTEND_TER
+
+	config PLATFORM_MXL683
+		bool
+		prompt "Enable TER PLATFORM_MXL683"
+		default n
+		depends on FRONTEND_TER
+
+	config XTAL_CAP_23
+		bool
+		prompt "Enable TER XTAL_CAP_23"
+		default n
+		depends on FRONTEND_TER
+
+	config XTAL_CAP_23_10_5
+		bool
+		prompt "Enable TER XTAL_CAP_23_10_5"
+		default n
+		depends on FRONTEND_TER
+
+	config LONG_RF_TRACE
+		bool
+		prompt "Enable TER LONG_RF_TRACE"
+		default n
+		depends on FRONTEND_TER
+
+	config PLATFORM_DB3461
+		bool
+		prompt "Enable TER PLATFORM_DB3461"
+		default n
+		depends on FRONTEND_TER
+
+		config BRCM_MOD_NEXUS_FRONTEND_3461
+			bool
+			prompt "BCM3461 with NEXUS"
+			default y
+			depends on PLATFORM_DB3461
+
+	config PLATFORM_DB7563
+		bool
+		prompt "Enable TER PLATFORM_DB7563"
+		default n
+		depends on FRONTEND_TER
+
+	config PLATFORM_TN2117
+		bool
+		prompt "Enable TER PLATFORM_TN2117"
+		default n
+		depends on FRONTEND_TER
+
+	config PLATFORM_TN3114
+		bool
+		prompt "Enable TER PLATFORM_TN3114"
+		default n
+		depends on FRONTEND_TER
+
+	config PLATFORM_TN7320X
+		bool
+		prompt "Enable TER PLATFORM_TN7320X"
+		default n
+		depends on FRONTEND_TER
+
+	config PLATFORM_TN18273
+		bool
+		prompt "Enable TER PLATFORM_TN18273"
+		default n
+		depends on FRONTEND_TER
+
+	config PLATFORM_TN18275
+		bool
+		prompt "Enable TER PLATFORM_TN18275"
+		default n
+		depends on FRONTEND_TER
+
+	config COMMON_SHORTCIRCUIT
+		bool
+		prompt "Enable COMMON_SHORTCIRCUIT"
+		default n
+		depends on FRONTEND_TER
+
+	config SUPPORT_ADVANCED_TUNING
+		bool
+		prompt "Support advanced tuning"
+		default n
+		depends on FRONTEND_TER
+
+config I2C_MAP_FOR_2TUNER
+	bool
+	prompt "Enable I2C_MAP_FOR_2TUNER"
+	default n
+
+config I2C_MAP_FOR_4TUNER
+	bool
+	prompt "Enable I2C_MAP_FOR_4TUNER"
+	default n
+
+config TASKBASE_FW_DOWNLOAD
+	bool
+	prompt "Enable TASKBASE_FW_DOWNLOAD"
+	default n
+
+config DEMOD_INTERNAL
+	bool
+	prompt "DEMOD_INTERNAL"
+	default n
+
+config DEMOD_EXTERNAL
+	bool
+	prompt "DEMOD_EXTERNAL"
+	default n
+
+config EXT_DEMOD_POWER_CONTROL
+		bool
+		prompt "independent power control of external demod(for loop through control in S3)"
+		default n
+		depends on DEMOD_EXTERNAL
+		
+config BRCM_MOD_USE_SPI_FRONTEND
+	bool
+	prompt "USE SPI MODE"
+	default n
+
+config BRCM_MOD_USE_I2C_FRONTEND
+	bool
+	prompt "USE I2C MODE"
+	default n
+	
+config SUPPORT_QAM_ANNEX_B
+	bool
+	prompt "SUPPORT ANNEX B"
+	default n	
+	default FRONTEND_CAB	
+
+config REALTIME_GETTING_SIGNALINFO		
+	bool		
+	prompt "GET REALTIME SIGNALINFO"		
+	default n		
+	depends on FRONTEND_CAB	
+
+config DEMOD_TEMPERATURE		
+	bool		
+	prompt "SUPPORT DEMOD DEMOD_TEMPERATURE"		
+	default n		
+

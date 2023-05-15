@@ -1,0 +1,17 @@
+Before compiling please change the following in TestWebCrypto.cpp
+1. In getReeWebCrypto change the kpe and kph to appropriate values
+	These should be pre-shared keys.
+2. Prime and generator can be changed if needed.
+
+This test has to be compiled with debug.
+
+NOTE: On failure test would print Shared Secret length for debug purpose.
+
+Compile:
+=======
+	<PATH TO NRDP>/nrdapp/14.1/configure --nrdlib=<PATH TO NRDP>/nrdlib/14.1 --mdxlib=<PATH TO NRDP>/mdxlib/14.1 --toolchain=/usr/local/i686-netflix-linux-gnu-4.1 --nrdapp-tests=DiffieHellman
+	make TestDiffieHellman
+	
+Run:
+===
+	./tests/DiffieHellman/TestDiffieHellman <PATH TO MANUF_SS>

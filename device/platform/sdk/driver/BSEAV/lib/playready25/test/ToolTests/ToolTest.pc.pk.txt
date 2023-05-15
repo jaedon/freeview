@@ -1,0 +1,360 @@
+1020:BVT:Test the presense of tools
+RunPregenTool(ChkHDS.exe)=0x00000002 (DRM_S_MORE_DATA)
+RunPregenTool(drmcipher_test.exe)
+RunPregenTool(drmcrypto_test.exe)
+RunPregenTool(generatecompanycertrequest.exe)=0x00000002 (DRM_S_MORE_DATA)
+RunPregenTool(generatemodelcert.exe)=0x00000002 (DRM_S_MORE_DATA)
+RunPregenTool(generatekeypair.exe)=0x00000002 (DRM_S_MORE_DATA)
+RunPregenTool(HeaderVerify.exe)=0x00000002 (DRM_S_MORE_DATA)
+RunPregenTool(drmfileviewer.exe)=0x00000002 (DRM_S_MORE_DATA)
+RunPregenTool(licensecleanstore.exe)=0x00000002 (DRM_S_MORE_DATA)
+RunPregenTool(licensegeneratechallenge.exe)=0x00000002 (DRM_S_MORE_DATA)
+RunPregenTool(licenseprocessresponse.exe)=0x00000002 (DRM_S_MORE_DATA)
+RunPregenTool(licenseviewstore.exe)=0x00000002 (DRM_S_MORE_DATA)
+RunPregenTool(metercertstore.exe)=0x00000002 (DRM_S_MORE_DATA)
+RunPregenTool(meteringcreateresponse.exe)=0x00000002 (DRM_S_MORE_DATA)
+RunPregenTool(meteringgeneratechallenge.exe)=0x00000002 (DRM_S_MORE_DATA)
+RunPregenTool(meteringprocessresponse.exe)=0x00000002 (DRM_S_MORE_DATA)
+RunPregenTool(player.exe)=0x00000002 (DRM_S_MORE_DATA)
+RunPregenTool(profilescope.exe)
+RunPregenTool(synclistgeneratechallenge.exe)=0x00000002 (DRM_S_MORE_DATA)
+'RunPregenTool(syncgeneratelicensechallenges.exe)=0x00000002 (DRM_S_MORE_DATA)
+
+
+'1003:FUNC:Go through metering tools
+'RunPregenTool(Meteringgeneratechallenge.exe -s:LocalDataStore.hds -m:MeterCert.xml -o:MeterChallenge.chlg)
+'RunPregenTool(GenMeterResponse.vbs MeterChallenge.chlg Response.resp)
+'RunPregenTool(Meteringprocessresponse.exe -s:LocalDataStore.hds -i:Response.resp)
+
+
+1083:FUNC:Call chkhds.exe with different combos of arguments
+Test_API_CheckFilePresense(sample.hds)
+RunPregenTool(ChkHDS.exe -r -s:sample.hds)
+RunPregenTool(ChkHDS.exe -f -s:sample.hds)
+RunPregenTool(ChkHDS.exe -d:h -s:sample.hds)
+RunPregenTool(ChkHDS.exe -?)
+RunPregenTool(ChkHDS.exe -n:4C696353746F72650000000000000000 -s:sample.hds)
+RunPregenTool("ChkHDS.exe -b:2,c -s:sample.hds")
+RunPregenTool(ChkHDS.exe -d:r -s:sample.hds)
+RunPregenTool(ChkHDS.exe -t:4C696353746F72650000000000000000/BEABEA9E0778D24BAEF459E7A8DAEDED/83BFE784E9715749B531AEACA5927846 -s:sample.hds)=0x8004C024 DRM_HDSSLOTNOTFOUND
+RunPregenTool(ChkHDS.exe -n:12345353746F72650000000000000000 -s:sample.hds)=0x8004C023 DRM_HDSNAMESPACENOTFOUND
+
+
+' ------------------------- License Sync Tools -------------------------
+1364:FUNC:SyncListGenerateChallenge Tool (all parameter combinations, using sample.hds)
+SkipTestIf(!WMDRMSupported)
+RunPregenTool(synclistgeneratechallenge.exe -?)
+
+'Creates HDS with 1k4s.response.xml. This is license with playcount policy and metering ID.
+Test_API_CheckFilePresense(1k4s.response.xml)
+RunPregenToolEx(licenseprocessresponse.exe -r:1k4s.response.xml -s:MeterTestStore.hds -t)
+
+RunPregenToolEx(synclistgeneratechallenge.exe -s:MeterTestStore.hds -o:output.xml)
+Test_API_CheckFilePresense(output.xml)
+RunPregenToolEx(synclistgeneratechallenge.exe -s:MeterTestStore.hds -o:output.xml -c:11)
+Test_API_CheckFilePresense(output.xml)
+RunPregenToolEx(synclistgeneratechallenge.exe -s:MeterTestStore.hds -o:output.xml -h:24)
+Test_API_CheckFilePresense(output.xml)
+RunPregenToolEx(synclistgeneratechallenge.exe -s:MeterTestStore.hds -o:output.xml -c:12 -h:24)
+Test_API_CheckFilePresense(output.xml)
+Delete(MeterTestStore.hds)
+' ------------------------- License Sync Tools -------------------------
+
+
+' ------------------------- Generate Key Pair Tool -------------------------
+1366:FUNC:GenerateKeyPair Tool (all parameter combinations)
+RunPregenTool(generatekeypair.exe -?)
+RunPregenTool(generatekeypair.exe -o:output.txt -p:ECC160)
+Test_API_CheckFilePresense(output.txt)
+RunPregenTool(generatekeypair.exe -x:output.xml -p:ECC256)
+Test_API_CheckFilePresense(output.xml)
+RunPregenTool(generatekeypair.exe -o:output.txt -x:output.xml -p:ECC256 -r)
+Test_API_CheckFilePresense(output.txt)
+Test_API_CheckFilePresense(output.xml)
+RunPregenTool(generatekeypair.exe -o:out1024.txt -x:out1024.xml -p:RSA1024)
+Test_API_CheckFilePresense(out1024.txt)
+Test_API_CheckFilePresense(out1024.xml)
+RunPregenTool(generatekeypair.exe -o:out2048.txt -x:out2048.xml -p:RSA2048)
+Test_API_CheckFilePresense(out2048.txt)
+Test_API_CheckFilePresense(out2048.xml)
+' ------------------------- Generate Key Pair Tool -------------------------
+
+
+' ------------------------- License Clean Store Tool -------------------------
+1368:FUNC:LicenseCleanStore Tool
+SkipTestIf(!WMDRMSupported)
+RunPregenTool(licensecleanstore.exe -?)
+'Creates HDS with 1k4s.response.xml. This is license with playcount policy and metering ID.
+Test_API_CheckFilePresense(1k4s.response.xml)
+RunPregenToolEx(licenseprocessresponse.exe -r:1k4s.response.xml -s:MeterTestStore.hds -t)
+RunPregenToolEx(licensecleanstore.exe -s:MeterTestStore.hds)
+Delete(MeterTestStore.hds)
+' ------------------------- License Clean Store Tool -------------------------
+
+
+1377:FUNC:HeaderVerify successfully verifies a valid asf header
+SkipTestIf(!WMDRMSupported)
+Test_API_CheckFilePresense(jazz_cocktail_V24_wma.asf)
+RunPregenToolEx(HeaderVerify.exe -s:tempstore.hds -v -c:jazz_cocktail_V24_wma.asf)
+Test_API_CheckFilePresense(jazz_aes_V4_wma.pya)
+RunPregenToolEx(HeaderVerify.exe -s:tempstore.hds -v -c:jazz_aes_V4_wma.pya)
+
+
+1378:FUNC:HeaderVerify successfully rejects an invalid asf header
+SkipTestIf(!WMDRMSupported)
+RunPregenToolEx(HeaderVerify.exe -s:tempstore.hds -v -c:invalid_V24.asf) = 0x80041104 (DRM_E_CH_KID_MISSING)
+
+
+1380:BVT:LicenseGenerateChallenge: LicenseGenerateChallenge.exe should succeed for a V4 content.
+SkipTestIf(!WMDRMSupported)
+Test_API_CheckFilePresense(jazzv4_aes.eny)
+RunPregenToolEx(licensegeneratechallenge.exe -c:jazzv4_aes.eny -o:jazzv4.chlg.xml -s:tempstore.hds)
+Test_API_CheckFilePresense(jazzv4.chlg.xml)
+
+
+1381:FUNC:LicenseProcessResponse: LicenseProcessResponse.exe should succeed when processing a valid V3 license response.
+SkipTestIf(!WMDRMSupported)
+Test_API_CheckFilePresense(sample.responsev3.xml)
+RunPregenToolEx(licenseprocessresponse.exe -r:sample.responsev3.xml -s:tempstore.hds) = 0x00000002 (DRM_S_MORE_DATA)
+
+
+1382:FUNC:LicenseProcessResponse: LicenseProcessResponse.exe should succeed when processing a valid V3 license response and generate an ack challenge.
+SkipTestIf(!WMDRMSupported)
+Test_API_CheckFilePresense(sample.responsev3.xml)
+RunPregenToolEx(licenseprocessresponse.exe -r:sample.responsev3.xml -o:sample.ackchlg.xml -s:tempstore.hds)
+
+
+1383:FUNC:LicenseProcessResponse: LicenseProcessResponse.exe should succeed when processing a valid V2 license response.
+SkipTestIf(!WMDRMSupported)
+Test_API_CheckFilePresense(1k1s.response.xml)
+RunPregenToolEx(licenseprocessresponse.exe -r:1k1s.response.xml -s:tempstore.hds)
+
+
+1384:FUNC:LicenseProcessResponse: LicenseProcessResponse.exe should succeed when processing a valid license ack response.
+SkipTestIf(!WMDRMSupported)
+Test_API_CheckFilePresense(sample.ackresponse.xml)
+RunPregenToolEx(licenseprocessresponse.exe -r:sample.ackresponse.xml -s:tempstore.hds -a) = 0x00000002 (DRM_S_MORE_DATA)
+
+1061:FUNC:Player: Player.exe should succeed when playing a V2 content with a matching V2 license.
+SkipTestIf(!WMDRMSupported)
+Test_API_CheckFilePresense(1k1s.response.xml)
+RunPregenToolEx(licenseprocessresponse.exe -r:1k1s.response.xml -s:tempstore.hds)
+Test_API_CheckFilePresense(1k1s.eny)
+RunPregenToolEx(player.exe -s:tempstore.hds -c:1k1s.eny -o:1k1s.txt)
+
+
+1062:FUNC:Player: Player.exe should fail when playing a V4 content without a V3 matching license.
+SkipTestIf(!WMDRMSupported)
+Test_API_CheckFilePresense(jazzv4_aes.eny)
+RunPregenToolEx(player.exe -s:tempstore.hds -c:jazzv4_aes.eny -o:jazzv4.wma) = 0x8004c013 (DRM_E_LICENSE_NOT_FOUND)
+
+
+1063:FUNC:Player: Player.exe should fail when playing a V2 content without a matching V2 license.
+SkipTestIf(!WMDRMSupported)
+Test_API_CheckFilePresense(1k1s.eny)
+RunPregenToolEx(player.exe -s:tempstore.hds -c:1k1s.eny -o:1k1s.txt) = 0x8004c013 (DRM_E_LICENSE_NOT_FOUND)
+
+
+1080:FUNC:ProfileScope: ProfileScope.exe should succeed.
+RunPregenTool(profilescope.exe)
+
+
+1090:FUNC:generatecompanycertrequest: generatecompanycertrequest.exe should succeed
+RunPregenTool(generatecompanycertrequest.exe -r:ContosoRequest_1090.xml -p:ContosoPrivKeys_1090.xml -m:Contoso)
+Test_API_CheckFilePresense(ContosoRequest_1090.xml)
+Test_API_CheckFilePresense(ContosoPrivKeys_1090.xml)
+
+
+1091:FUNC:generatemodelcert: generatemodelcert.exe should succeed with correct parameters and create 4 new files
+Test_API_CheckFilePresense(SampleDACResponsePR.dat)
+Test_API_CheckFilePresense(SampleDACResponseWMDRMPD.xml)
+Test_API_CheckFilePresense(unsignedtemplate.dat)
+Test_API_CheckFilePresense(SamplePrivKeys.xml)
+RunPregenTool(generatemodelcert.exe -b:SampleDACResponsePR.dat -d:SampleDACResponseWMDRMPD.xml -u:unsignedtemplate.dat -f:SamplePrivKeys.xml -g:GroupCertificatePlayReady.dat -t:GroupCertificateWMDRMPD.xml -h:GroupPrivKeyPlayReady.dat -k:GroupPrivKeyWMDRMPD.dat)
+Test_API_CheckFilePresense(GroupCertificatePlayReady.dat) 
+Test_API_CheckFilePresense(GroupCertificateWMDRMPD.xml) 
+Test_API_CheckFilePresense(GroupPrivKeyPlayReady.dat) 
+Test_API_CheckFilePresense(GroupPrivKeyWMDRMPD.dat)
+
+
+1092:FUNC:generatemodelcert: generatemodelcert.exe should fail because of mismatching private keys file
+RunPregenTool(generatecompanycertrequest.exe -r:ContosoRequest_1092.xml -p:ContosoPrivKeys_1092.xml -m:Contoso)
+Test_API_CheckFilePresense(SampleDACResponsePR.dat)
+Test_API_CheckFilePresense(SampleDACResponseWMDRMPD.xml)
+Test_API_CheckFilePresense(unsignedtemplate.dat)
+Test_API_CheckFilePresense(ContosoPrivKeys_1092.xml)
+RunPregenTool(generatemodelcert.exe -b:SampleDACResponsePR.dat -d:SampleDACResponseWMDRMPD.xml -u:unsignedtemplate.dat -f:ContosoPrivKeys_1092.xml -g:GroupCertificatePlayReady.dat -t:GroupCertificateWMDRMPD.xml -h:GroupPrivKeyPlayReady.dat -k:GroupPrivKeyWMDRMPD.dat) = 0x800480CF (DRM_E_INVALID_SIGNATURE)
+
+
+1093:FUNC:generatemodelcert: generatemodelcert.exe should succeed when asked to create only PlayReady binary certificate
+Test_API_CheckFilePresense(SampleDACResponsePR.dat)
+Test_API_CheckFilePresense(unsignedtemplate.dat)
+Test_API_CheckFilePresense(SamplePrivKeys.xml)
+RunPregenTool(generatemodelcert.exe -b:SampleDACResponsePR.dat -u:unsignedtemplate.dat -f:SamplePrivKeys.xml -g:GroupCertificatePlayReady.dat -h:GroupPrivKeyPlayReady.dat)
+Test_API_CheckFilePresense(GroupCertificatePlayReady.dat) 
+Test_API_CheckFilePresense(GroupPrivKeyPlayReady.dat) 
+
+
+1094:FUNC:generatemodelcert: generatemodelcert.exe should fail in unsignedtemplate file does not contain XML tag needed for PlayReady certificate
+Test_API_CheckFilePresense(SampleDACResponsePR.dat)
+Test_API_CheckFilePresense(files\unsignedtemplatenosecuritylevel.xml)
+Test_API_CheckFilePresense(SamplePrivKeys.xml)
+RunPregenTool(generatemodelcert.exe -b:SampleDACResponsePR.dat -u:files\unsignedtemplatenosecuritylevel.xml -f:SamplePrivKeys.xml -g:GroupCertificatePlayReady.dat -h:GroupPrivKeyPlayReady.dat)=0x8004C04F (DRM_E_XMLNOTFOUND)
+
+
+1095:FUNC:generatemodelcert: generatemodelcert.exe should fail in unsignedtemplate file has invalid security level value
+Test_API_CheckFilePresense(SampleDACResponsePR.dat)
+Test_API_CheckFilePresense(files\unsignedtemplateinvalidsecuritylevel.xml)
+Test_API_CheckFilePresense(SamplePrivKeys.xml)
+RunPregenTool(generatemodelcert.exe -b:SampleDACResponsePR.dat -u:files\unsignedtemplateinvalidsecuritylevel.xml -f:SamplePrivKeys.xml -g:GroupCertificatePlayReady.dat -h:GroupPrivKeyPlayReady.dat)=0x80070057 (DRM_E_INVALIDARG)
+
+
+1096:FUNC:generatemodelcert: generatemodelcert.exe should fail in unsignedtemplate file is not in unicode format
+Test_API_CheckFilePresense(SampleDACResponsePR.dat)
+Test_API_CheckFilePresense(unsignedtemplatewmdrmnd.xml)
+Test_API_CheckFilePresense(SamplePrivKeys.xml)
+RunPregenTool(generatemodelcert.exe -b:SampleDACResponsePR.dat -u:unsignedtemplatewmdrmnd.xml -f:SamplePrivKeys.xml -g:GroupCertificatePlayReady.dat -h:GroupPrivKeyPlayReady.dat)=0x8004C04F (DRM_E_XMLNOTFOUND)
+
+
+1002:FUNC:generatemodelcert: generatemodelcert.exe should succeed when asked to create only PlayReady binary certificate using the updated interface for this tool
+Test_API_CheckFilePresense(SampleDACResponsePR.dat)
+Test_API_CheckFilePresense(unsignedtemplate.dat)
+Test_API_CheckFilePresense(SamplePrivKeys.xml)
+RunPregenTool(generatemodelcert.exe -h:GroupPrivKeyPlayReady.dat -f:SamplePrivKeys.xml -g:GroupCertificatePlayReady.dat -b:SampleDACResponsePR.dat -u:unsignedtemplate.dat -z:PR)
+Test_API_CheckFilePresense(GroupCertificatePlayReady.dat)
+Test_API_CheckFilePresense(GroupPrivKeyPlayReady.dat)
+
+
+963:FUNC:generatemodelcert: generatemodelcert.exe should allow creation of WMDRMPD certificate only
+Test_API_CheckFilePresense(SampleDACResponseWMDRMPD.xml)
+Test_API_CheckFilePresense(unsignedtemplate.dat)
+Test_API_CheckFilePresense(SamplePrivKeys.xml)
+RunPregenTool(generatemodelcert.exe -d:SampleDACResponseWMDRMPD.xml -u:unsignedtemplate.dat -f:SamplePrivKeys.xml -t:GroupCertificateWMDRMPD.xml -k:GroupPrivKeyWMDRMPD.dat)
+Test_API_CheckFilePresense(GroupCertificateWMDRMPD.xml) 
+Test_API_CheckFilePresense(GroupPrivKeyWMDRMPD.dat)
+
+
+964:FUNC:generatemodelcert: generatemodelcert.exe should error out if there are not enough parameters to create any type of certificate
+Test_API_CheckFilePresense(unsignedtemplate.dat)
+Test_API_CheckFilePresense(SamplePrivKeys.xml)
+RunPregenTool(generatemodelcert.exe -u:unsignedtemplate.dat)=0x80070057 (DRM_E_INVALIDARG)
+
+
+965:FUNC:generatemodelcert: generatemodelcert.exe should allow creation of WMDRMPD certificate only using the updated interface for this tool
+Test_API_CheckFilePresense(SampleDACResponseWMDRMPD.xml)
+Test_API_CheckFilePresense(unsignedtemplate.dat)
+Test_API_CheckFilePresense(SamplePrivKeys.xml)
+RunPregenTool(generatemodelcert.exe -z:pD -u:unsignedtemplate.dat -b:SampleDACResponseWMDRMPD.xml -g:GroupCertificateWMDRMPD.xml -h:GroupPrivKeyWMDRMPD.dat -f:SamplePrivKeys.xml)
+Test_API_CheckFilePresense(GroupCertificateWMDRMPD.xml) 
+Test_API_CheckFilePresense(GroupPrivKeyWMDRMPD.dat)
+
+
+1032:FUNC:DrmCipher_Test.exe runs successfully
+RunPregenTool( drmcipher_test.exe )
+
+
+1033:FUNC:DrmCrypto_Test.exe runs successfully
+RunPregenTool( drmcrypto_test.exe )
+
+
+1034:FUNC:PerfTool.exe runs successfully with optional arguments
+RunPregenTool(perftool.exe -p:sampleprofilelog.dat -o:output.dat)
+Test_API_CheckFilePresense(sampleprofilelog.dat)
+Test_API_CheckFilePresense(output.dat)
+
+
+1035:FUNC:PerfTool.exe runs successfully with optional arguments
+Test_API_CheckFilePresense(sampleperfconfig.txt)
+RunPregenTool(perftool.exe -p:sampleprofilelog.dat -o:output.dat -c:sampleperfconfig.txt -t:1035)
+Test_API_CheckFilePresense(sampleprofilelog.dat)
+Test_API_CheckFilePresense(output.dat)
+
+
+1036:FUNC:LicenseViewStore.exe runs successfully when a store is specified
+Test_API_CheckFilePresense(sample.hds)
+RunPregenTool(licenseviewstore.exe -s:sample.hds )=0x80070103 (DRM_E_NOMORE)
+
+
+1037:FUNC:LicenseViewStore.exe runs successfully when a store and KID are specified
+Test_API_CheckFilePresense(sample.hds)
+RunPregenTool(licenseviewstore.exe -s:sample.hds -k:2bZFRQSh+pvG4ljRDzlBjQ==)=0x80070103 (DRM_E_NOMORE)
+
+
+1038:FUNC:LicenseViewStore.exe returns DRM_E_FILENOTFOUND when a nonexistent store is specified
+RunPregenTool(licenseviewstore.exe -s:nonexistentstore.hds)=0x80030002 (DRM_E_FILENOTFOUND)
+
+
+1039:FUNC:Test metercertstore.exe executable. 
+SkipTestIf(!WMDRMSupported)
+'Fails if metering cert is absent.
+RunPregenToolEx(metercertstore.exe -s:NewMeterStore.hds -m:metercertNonExisting.xml)=0x8003006E (DRM_E_FILEOPEN)
+'Store sample meter certificate.
+Test_API_CheckFilePresense(metercert.xml)
+RunPregenToolEx(metercertstore.exe -s:NewMeterStore.hds -m:metercert.xml)
+
+
+1379:FUNC:Test metering tools. Creates HDS with  license. Plays it. Process metering data
+SkipTestIf(!WMDRMSupported)
+'Creates HDS with 1k4s.response.xml. This is license with playcount policy and metering ID.
+Test_API_CheckFilePresense(1k4s.response.xml)
+RunPregenToolEx(licenseprocessresponse.exe -r:1k4s.response.xml -s:MeterTestStore.hds -t)
+'Plays content corresponding to the license 2 times.
+Test_API_CheckFilePresense(1k4s.eny)
+RunPregenToolEx(player.exe -c:1k4s.eny -o:1k4s.txt -s:MeterTestStore.hds -t)
+Test_API_CheckFilePresense(1k4s.txt)
+RunPregenToolEx(player.exe -c:1k4s.eny -o:1k4s.txt -s:MeterTestStore.hds -t)
+Test_API_CheckFilePresense(1k4s.txt)
+'Creates metering challenge from content played 2 times.
+Test_API_CheckFilePresense(metercert.xml)
+RunPregenToolEx(meteringgeneratechallenge.exe -s:MeterTestStore.hds -m:metercert.xml -o:meterchallenge.txt) 
+Test_API_CheckFilePresense(meterchallenge.txt)
+'Creates response from metering data ( server emulation )
+Test_API_CheckFilePresense(metercert.privkey.xml)
+RunPregenToolEx(meteringcreateresponse.exe -p:metercert.privkey.xml -i:meterchallenge.txt -m:metercert.xml -o:meterresponse.txt)
+Test_API_CheckFilePresense(meterresponse.txt)
+'Store response in HDS file.
+RunPregenToolEx(meteringprocessresponse.exe -s:MeterTestStore.hds -i:meterresponse.txt)
+
+
+1104:FUNC:Binary cert viewer should successfully parse correct PlayReady certificates
+Test_API_CheckFilePresense(bgroupcert.dat)
+RunPregenTool(bcertdump.exe -b:bgroupcert.dat)
+Test_API_CheckFilePresense(SampleDACResponsePR.dat)
+RunPregenTool(bcertdump.exe -b:SampleDACResponsePR.dat -v -format:hex)
+Test_API_CheckFilePresense(files\samplebinarycertb64.dat)
+RunPregenTool(bcertdump.exe -b:files\samplebinarycertb64.dat -e -v -format:b64)
+
+
+1512:FUNC:Call DrmFileViewer.exe with different args
+Test_API_CheckFilePresense(jazzv4_aes.eny)
+RunPregenTool(drmfileviewer.exe -c:jazzv4_aes.eny )
+Test_API_CheckFilePresense(jazz_aes_V4_wma.pya)
+RunPregenTool(drmfileviewer.exe -c:jazz_aes_V4_wma.pya )
+Test_API_CheckFilePresense(jazz_cocktail_V24_wma.asf)
+RunPregenTool(drmfileviewer.exe -c:jazz_cocktail_V24_wma.asf )
+
+
+1110:BVT:Test with "-?" as command line argument should return DRM_SUCCESS
+RunPregenTool(ChkHDS.exe -?)
+RunPregenTool(generatecompanycertrequest.exe -?)
+RunPregenTool(generatemodelcert.exe -?)
+RunPregenTool(generatemodelcert.exe -?:Legacy)
+RunPregenTool(generatekeypair.exe -?)
+RunPregenTool(HeaderVerify.exe -?)  
+RunPregenTool(drmfileviewer.exe -?)
+RunPregenTool(licensecleanstore.exe -?)
+RunPregenTool(licensegeneratechallenge.exe -?)
+RunPregenTool(licenseprocessresponse.exe -?)
+RunPregenTool(licenseviewstore.exe -?)
+RunPregenTool(metercertstore.exe -?)
+RunPregenTool(meteringcreateresponse.exe -?)
+RunPregenTool(meteringgeneratechallenge.exe -?)
+RunPregenTool(meteringprocessresponse.exe -?)
+RunPregenTool(player.exe -?)
+RunPregenTool(synclistgeneratechallenge.exe -?)
+
+
+1514:BVT:Test the -r option of OTADLAClient
+SkipTestIf(!WMDRMSupported)
+RunPregenToolEx(otadlaclient.exe -r)
+

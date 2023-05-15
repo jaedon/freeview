@@ -1,0 +1,2 @@
+DIRS = profile lib AES bignum cbc cipher des DevStore rc4 RSA ecc md5 pkcrypto keyfile sha
+

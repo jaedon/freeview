@@ -1,0 +1,19 @@
+# Temporary Confuguration
+
+	comment "Temporary Specifications"
+
+	config TEMP_PVR_NEW_MODULE
+		bool "TEMP_PVR_NEW_MODULE - New PVR AP/MW module"
+		default n
+
+	config TEMP_ANGA
+		bool "TEMP_ANGA - For 2012 ANGA Show"
+		default n
+	
+	config TEMP_REMOVE_SCHEDULE_BY_REC_INSTANCE
+		bool "TEMP_REMOVE_SCHEDULE_BY_REC_INSTANCE"
+		default n
+	config TEMP_DLIB_NO_AUTOMATIC_TRASHING
+		bool "TEMP_DLIB_NO_AUTOMATIC_TRASHING"
+		default n
+

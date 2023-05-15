@@ -1,0 +1,19 @@
+#echo ARG1=$1, ARG2=$2, ARG3=$3
+
+export HUMAX_CROSS=$1
+export RESTNODE_SRC_DIR=$2
+
+#echo HUMAX_CROSS is $HUMAX_CROSS
+#echo RESTNODE_SRC_DIR is $RESTNODE_SRC_DIR
+
+export CC=${HUMAX_CROSS}gcc
+export CXX=${HUMAX_CROSS}g++
+export AR=${HUMAX_CROSS}ar
+export RANLIB=${HUMAX_CROSS}ranlib
+export LINK=$CXX
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${HUMAX_CROSS}ld
+
+#echo CC is $CC
+
+cd ${RESTNODE_SRC_DIR}
+make $3

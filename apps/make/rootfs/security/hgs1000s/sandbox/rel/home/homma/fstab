@@ -1,0 +1,18 @@
+/tmp /home/homma/root/tmp none defaults,bind 0 0
+/home1/sechdlr/root/media /home/homma/root/media none defaults,bind 0 0
+/opt /home/homma/root/opt none defaults,bind 0 0
+/home1/sechdlr/root/mnt /home/homma/root/mnt none defaults,bind 0 0
+/bin /home/homma/root/bin none defaults,bind 0 0
+/sbin /home/homma/root/sbin none defaults,bind 0 0
+/etc /home/homma/root/etc none defaults,bind 0 0
+/usr/bin /home/homma/root/usr/bin none defaults,bind 0 0
+/usr/sbin /home/homma/root/usr/sbin none defaults,bind 0 0
+/usr/local /home/homma/root/usr/local none defaults,bind 0 0
+/usr/fonts /home/homma/root/usr/fonts none defaults,bind 0 0
+/var /home/homma/root/var none rbind,create=dir 0 0
+/dev /home/homma/root/dev none defaults,bind 0 0
+/dev/nexus /home/homma/root/dev/nexus tmpfs rw,bind 0 0
+
+none /home/homma/root/dev/pts devpts defaults 0 0
+none /home/homma/root/proc proc defaults 0 0
+none /home/homma/root/sys sysfs defaults 0 0

@@ -1,0 +1,25 @@
+#
+# Microsoft (r) PlayReady (r)
+# Copyright (c) Microsoft Corporation. All rights reserved.
+#
+
+TARGETNAME=PRInitiatorSampleApp
+TARGETTYPE=PROGRAM
+UMTYPE=console
+UMENTRY=wmain
+
+INCLUDES =                    \
+    $(INCLUDES)               \
+    $(_DRM_SOURCE_PATH)\tools\common; \
+    $(_DRM_SOURCE_PATH)\Initiators;
+
+
+SOURCES = \
+	clientlogs.c \
+	drminitiators.c 
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS)	 \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmtoolscommon.lib \
+    $(DRM_PK_TEST_LIB_PATH)\toemimp.lib   \

@@ -1,0 +1,17 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmdeviceassetsstub
+TARGETTYPE=LIBRARY
+
+SOURCES =                     \
+    drmblobcachestub.c        \
+    drmdeviceassetsutilstub.c \
+    drmdevicedevcertstub.c    \
+    drmrevocationstorehds.c   \
+    drmsecstorestub.c         \
+

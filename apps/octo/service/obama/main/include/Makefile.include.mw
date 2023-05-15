@@ -1,0 +1,12 @@
+# DB API
+ccflags-y += -I$(OCTO_DB_DIR)/include
+
+# PAL API
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/pal/include
+
+# SVC API
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/include
+
+# SVC Plug-In API
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/include_plugin
+

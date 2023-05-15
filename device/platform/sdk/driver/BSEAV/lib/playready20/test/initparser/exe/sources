@@ -1,0 +1,16 @@
+
+TARGETTYPE=PROGRAM
+TARGETNAME=InitParserTest
+UMTYPE=console
+
+SOURCES = \
+	../main.c \
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \
+    $(_DRM_TEST_INITPARSER_LIB) \
+
+INCLUDES = \
+    $(INCLUDES);                 \
+    $(_DRM_SOURCE_PATH)\initiators;  \

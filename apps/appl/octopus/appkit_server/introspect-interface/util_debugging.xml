@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Util/Debugging">   
+    <interface name="Octopus.Util.Debugging">
+        
+    </interface>
+</node>

@@ -1,0 +1,24 @@
+body {
+    margin:50px;
+    background:transparent;
+    font-size: 18px;
+    line-height: 1.23;
+}
+
+h1 {
+	background: url("./311_DW_Icon_Status.png") 70px 50% no-repeat, 
+				url("./107_Line_DW_Yellow.png") no-repeat, 
+				url("./107_Line_DW_Yellow.png") 0px 100% no-repeat, 
+				rgba(0, 0, 0, 0.804);
+	color: #FFFF00;
+	top: 293px;
+	left: 0px;
+	font-size: 1em;
+	margin: auto;
+	overflow-wrap: break-word;
+	padding: 33px 50px 33px 165px;
+	position: absolute;
+	right: 0px;
+	text-align: left;
+	width: 585px;
+}

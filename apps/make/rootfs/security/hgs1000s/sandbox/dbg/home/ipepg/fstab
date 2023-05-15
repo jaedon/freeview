@@ -1,0 +1,18 @@
+/tmp /home/ipepg/root/tmp none defaults,bind 0 0
+/home1/sechdlr/root/media /home/ipepg/root/media none defaults,bind 0 0
+/opt /home/ipepg/root/opt none defaults,bind 0 0
+/home1/sechdlr/root/mnt /home/ipepg/root/mnt none defaults,bind 0 0
+/bin /home/ipepg/root/bin none defaults,bind 0 0
+/sbin /home/ipepg/root/sbin none defaults,bind 0 0
+/etc /home/ipepg/root/etc none defaults,bind 0 0
+/usr/bin /home/ipepg/root/usr/bin none defaults,bind 0 0
+/usr/sbin /home/ipepg/root/usr/sbin none defaults,bind 0 0
+/usr/local /home/ipepg/root/usr/local none defaults,bind 0 0
+/usr/fonts /home/ipepg/root/usr/fonts none defaults,bind 0 0
+/var /home/ipepg/root/var none rbind,create=dir 0 0
+/dev /home/ipepg/root/dev none defaults,bind 0 0
+/dev/nexus /home/ipepg/root/dev/nexus tmpfs rw,bind 0 0
+
+none /home/ipepg/root/dev/pts devpts defaults 0 0
+none /home/ipepg/root/proc proc defaults 0 0
+none /home/ipepg/root/sys sysfs defaults 0 0

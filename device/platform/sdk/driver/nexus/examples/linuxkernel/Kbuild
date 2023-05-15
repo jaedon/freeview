@@ -1,0 +1,28 @@
+############################################################################
+#     Copyright (c) 2011 Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Kbuild $
+# $brcm_Revision: 1 $
+# $brcm_Date: 3/7/11 4:39p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /BSEAV/linux/driver/usermode/Kbuild $
+# 
+############################################################################
+
+obj-m += linuxkernel_example.o
+linuxkernel_example-objs += \
+    driver.o \
+    libnexus.a \
+    libmagnum.a
+
+EXTRA_CFLAGS += $(NEXUS_CFLAGS) -w

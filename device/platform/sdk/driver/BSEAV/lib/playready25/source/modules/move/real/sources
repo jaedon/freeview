@@ -1,0 +1,11 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmmovereal
+TARGETTYPE=LIBRARY
+
+SOURCES =              \
+    drmmoveformat.c    \
+    drmmoveimp.c       \
+    drmmovestore.c     \
+    moveutilreal.c
+

@@ -1,0 +1,14 @@
+obj-y += itc.o
+obj-y += link.o
+obj-y += linkfifo.o
+obj-y += linkstat.o
+obj-y += physdrv.o
+obj-y += physical.o
+obj-y += phystat.o
+obj-y += sesscod.o
+obj-y += session.o
+obj-y += sesstat.o
+obj-y += tranfifo.o
+obj-y += trans.o
+obj-y += transcod.o
+obj-y += transtat.o

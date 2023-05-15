@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<network>
+        <device>
+                <name>eth0</name>
+                <priority>1</priority>
+        </device>
+         <device>
+                <name>eth1</name>
+                <priority>2</priority>
+        </device>
+        <device>
+                <name>eth2</name>
+                <priority>3</priority>
+        </device>
+        <device>
+                <name>wlan0</name>
+                <priority>4</priority>
+        </device>
+		<device>
+			<name>eth3</name>
+			<priority>5</priority>
+		</device>
+</network>

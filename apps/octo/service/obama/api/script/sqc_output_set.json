@@ -1,0 +1,1 @@
+"sysctl":{"target":"output","operation":"set","property":{"tvscart":"rgb","vcrscart":"rgb","resolution":"1280x720p","tvaspectratio":"16:9","displayformat":"full","margincolor":"black","output":"enable"}}

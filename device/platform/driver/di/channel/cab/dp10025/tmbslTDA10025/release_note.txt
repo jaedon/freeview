@@ -1,0 +1,290 @@
+/*============================================================================*/
+/* All paths with the same configuration                                      */
+/* Flow: IF0->CDP1->TS0                                                       */
+/*       IF1->CDP0->TS1                                                       */
+/* TS:   serial                                                               */
+/* TS:   clock output                                                         */
+/*============================================================================*/
+
+---- tmbslTDA10025 CFG 0.0.0.8 - tmbslTDA10025 2.2.46 -------------
+    - Make XTAL PLL configurable
+
+---- tmbslTDA10025 CFG 0.0.0.7 - tmbslTDA10025 2.2.41 -------------
+    - add TS clocks disabled in stand-by mode
+
+---- tmbslTDA10025 CFG 0.0.0.6 - tmbslTDA10025 2.2.40 -------------
+    - define specific range for Extended Timing recovery
+    
+---- tmbslTDA10025 CFG 0.0.0.5 - tmbslTDA10025 2.2.37 -------------
+    - enable the Extended Timing recovery for all paths
+
+---- tmbslTDA10025 CFG 0.0.0.4 - tmbslTDA10025 2.2.33 -------------
+    - add Extended Timing recovery configuration
+
+---- tmbslTDA10025 CFG 0.0.0.3 - tmbslTDA10025 2.2.14 -------------
+    - IF-CDP-TS path configuration
+
+---- tmbslTDA10025 CFG 0.0.0.2 - tmbslTDA10025 2.2.12 -------------
+    - change diversity management (in order to handle multiple paths)
+
+---- tmbslTDA10025 CFG 0.0.0.1 - tmbslTDA10025 2.2.8  -------------
+    - initial version
+
+
+/*============================================================================*/
+/* tmbslTDA10025 release note                                                 */
+/*============================================================================*/
+
+----  tmbslTDA10025 2.2.48 -----------------------------
+    - apply reset to ADC FIFOs when exiting the full stand-by mode
+
+----  tmbslTDA10025 2.2.47 -----------------------------
+    - remove redondant call to iTDA10025_ConfigurePLL() in HWinit
+
+----  tmbslTDA10025 2.2.46 -----------------------------
+    - Make XTAL PLL configurable
+
+----  tmbslTDA10025 2.2.45 -----------------------------
+    - allow extended SR recovery in J83B (still selectable in the configuration file)
+
+----  tmbslTDA10025 2.2.44 -----------------------------
+    - improve error management
+
+----  tmbslTDA10025 2.2.43 -----------------------------
+    - reduce I2C traffic when TSMF is disabled
+
+----  tmbslTDA10025 2.2.42 -----------------------------
+    - change CtlTrkDirGain back to default in J83B/256QAM due to SNR regression at high RF frequencies
+
+----  tmbslTDA10025 2.2.41 -----------------------------
+    - adjust EqEfLeakageAlpha for CCI improvement
+    - add the possibility to configure the driver for only one path (case of TDA10028)
+      (Call tmbslTDA10025_Open with TDA10025_ChannelSelectionIpA_SinglePath in Additionnal Data)
+    - add the config TDA10025_TsCfg_ClkInStdbyOn to keep the TS clock enabled in stand-by mode (for shared TS clock configuration)
+
+----  tmbslTDA10025 2.2.40 -----------------------------
+    - remove unused functions
+    - consolidate the oscillator start-up with 2ms waiting time
+    - define ranges for extended symbol rate recovery
+
+----  tmbslTDA10025 2.2.39 -----------------------------
+    - correct SetPowerState to allow Suspend state (same as Standby)
+
+----  tmbslTDA10025 2.2.38 -----------------------------
+    - simplication of PLL configuration
+
+----  tmbslTDA10025 2.2.37 -----------------------------
+    - apply default config for extended SR range
+
+----  tmbslTDA10025 2.2.36 -----------------------------
+    - current optimization in stand-by for a single stream in serial TS mode
+
+----  tmbslTDA10025 2.2.35 -----------------------------
+    - improve SNR estimation from tmbslTDA10025_GetChannelEsno
+
+----  tmbslTDA10025 2.2.34 -----------------------------
+    - add tmbslTDA10025_SetExtendSymbolRateRange (Extend Timing Recovery)
+
+----  tmbslTDA10025 2.2.33 -----------------------------
+    - HwInit works with PLL in stand-by
+
+----  tmbslTDA10025 2.2.32 -----------------------------
+    - improve algo to remove long long (under TMBSL_TDA10025_NO_64BITS compilation flag)
+
+----  tmbslTDA10025 2.2.31 -----------------------------
+    - correct tmbslHCDP_GetFECMode to return AnnexC FEC mode
+
+----  tmbslTDA10025 2.2.30 -----------------------------
+    - add the possiblity to remove long long (under TMBSL_TDA10025_NO_64BITS compilation flag)
+
+----  tmbslTDA10025 2.2.29 -----------------------------
+    - fix in TS interface configuration
+
+----  tmbslTDA10025 2.2.28 -----------------------------
+    - remove unused functionalities
+
+----  tmbslTDA10025 2.2.27 -----------------------------
+    - add annex C support
+
+----  tmbslTDA10025 2.2.26 -----------------------------
+    - equalizer optimisation
+
+----  tmbslTDA10025 2.2.25 -----------------------------
+    - SignalToInterference max value set to 100
+
+----  tmbslTDA10025 2.2.24 -----------------------------
+    - improvement of phase noise performance
+
+----  tmbslTDA10025 2.2.23 -----------------------------
+    - remove unused functionalities
+
+----  tmbslTDA10025 2.2.22 -----------------------------
+    - correction of I2C write and read problem in Big Endian
+
+----  tmbslTDA10025 2.2.21 -----------------------------
+    - disable PLL in full stand-by (ES2 only)
+
+----  tmbslTDA10025 2.2.20 -----------------------------
+    - disable tri-state modes in stand-by to reduce current consumption
+    - disable useless clocks in stand-by mode
+    
+----  tmbslTDA10025 2.2.19 -----------------------------
+    - achieve hardware reset through Reset_Control register
+
+----  tmbslTDA10025 2.2.18 -----------------------------
+    - add APIs for TSMF (JQAM)
+
+----  tmbslTDA10025 2.2.17 -----------------------------
+    - fix bug in TSMF input configuration
+
+----  tmbslTDA10025 2.2.16 -----------------------------
+    - update tmbslTDA10025 comments for documentation
+
+----  tmbslTDA10025 2.2.15 -----------------------------
+    - fix bug in lock time estimation for ES1 samples
+
+----  tmbslTDA10025 2.2.14 -----------------------------
+    - IF-CDP-TS path configuration added
+
+----  tmbslTDA10025 2.2.13 -----------------------------
+    - optimisation in J83B 256QAM for Kirsche test
+    
+----  tmbslTDA10025 2.2.12 -----------------------------
+    - Change diversity management (in order to handle multiple paths)
+
+----  tmbslTDA10025 2.2.11 -----------------------------
+    - tmbslTDA10025_GetFECMode returns an error when called in stand-by
+
+----  tmbslTDA10025 2.2.10 -----------------------------
+    - implement MUTEX
+    - modification to reflect new architecture (API remain the same)
+
+----  tmbslTDA10025 2.2.9 ------------------------------
+    - improve Power saving
+    - improvement for Kirche test
+    - fix bug for last lock event for ES2
+    - ES2 compatibility
+
+----  tmbslTDA10025 2.2.8 ------------------------------
+    - modification of diversity management
+
+----  tmbslTDA10025 2.2.7 ------------------------------
+    - ES1 and ES2 samples management
+    - tmbslTDA10025_GetIFAGCThreshold returns an error in Standby mode
+
+----  tmbslTDA10025 2.2.6 ------------------------------
+    - change APIs to match architecture template
+
+----  tmbslTDA10025 2.2.5 ------------------------------
+    - Added possibility to configure the internal path in the config file
+    - tmbslTDA10025SetPowerState is now functionning
+    
+----  tmbslTDA10025 2.2.4 ------------------------------
+    - Updated PnBER measurement
+    - Updated BER measurement
+    - Added function to set and get BER window
+
+----  tmbslTDA10025 2.2.3 ------------------------------
+    - Uncor blocks are returned by GetBER (block coded)
+    - increase number of samples required for GetBER measurement (from 10e7 to 10e8)
+
+----  tmbslTDA10025 2.2.2 ------------------------------
+    - GetBER is no more stuck in error mode
+
+----  tmbslTDA10025 2.2.1 ------------------------------
+    - Change AAGC Threshold default value to 0x0C;
+
+----  tmbslTDA10025 2.2.0 ------------------------------
+    - integrate new tmbslHCDP architecture (use of tmbslHCDP)
+    - new API to retrieve configured Symbol Rate (tmbslTDA10025GetConfiguredSR)
+    - new API to retrieve configured Spectral Inversion (tmbslTDA10025GetConfiguredSI)
+    - new API to retrieve configured IF (tmbslTDA10025GetConfiguredIF)
+    - new API to retrieve IF offset (tmbslTDA10025GetIFOffset)
+
+----  tmbslTDA10025 2.1.18 ------------------------------
+    - Corrected some division by 0 bugs
+    - Modify the IF AGC Threshold configuration access
+
+----  tmbslTDA10025 2.1.17 ------------------------------
+    - Add tmbslTDA10025GetUncorStatus
+
+----  tmbslTDA10025 2.1.16 ------------------------------
+    - lock improvement in 128QAM
+
+----  tmbslTDA10025 2.1.15 ------------------------------
+    - Set Sampling clock to 60MHz 
+    - invert ADCs clocks
+
+----  tmbslTDA10025 2.1.14 ------------------------------
+    - Add PLL settings configuration
+
+----  tmbslTDA10025 2.1.13 ------------------------------
+    - add tmbslTDA10025GetSignalQuality
+
+----  tmbslTDA10025 2.1.11 ------------------------------
+    - remove compilation warning
+    - remove tmbslTDA10025GetSignalLevel
+
+----  tmbslTDA10025 2.1.10 ------------------------------
+    - IF frequency offset available using the DerotateFreq registers
+    
+----  tmbslTDA10025 2.1.9 ------------------------------
+    - add lock time estimation from the Timers registers (first lock event)
+
+----  tmbslTDA10025 2.1.8 ------------------------------
+    - Enable Automatic Spectral inversion
+    - add tmbslTDA10025ClearUncor API
+
+----  tmbslTDA10025 2.1.7 ------------------------------
+    - AFC disable correction for 128 QAM (HCDP)
+    - CAGC out set initialised
+
+----  tmbslTDA10025 2.1.6 ------------------------------
+    - modification in GetBER API (HCDP)
+
+----  tmbslTDA10025 2.1.5 ------------------------------
+    - update BER and UNCOR measurement (infinite window)
+
+
+----  tmbslTDA10025 2.1.4 ------------------------------
+    - Disable AFC coarse loop.
+    - Changed the BER window to 100000.
+    - Added ADC enable in the reset function.
+
+----  tmbslTDA10025 2.1.3 ------------------------------
+    - Changed TS default settings
+    - Changed TS default clk polarity setting
+
+----  tmbslTDA10025 2.1.2 ------------------------------
+    - Corrected a bug where GetIF returned an error althought there was no error.
+
+----  tmbslTDA10025 2.1.1 ------------------------------
+    - Corrected a bug in AGC curve.
+    - Increased performance in low SR by changing, the MiMaxWrWait, MiMinWrWait, MiMaxRdWait, MiMinRdWait values in HCDP_Reset().
+    - Removed wait in HCDP_DRIVER_GetBER() to avoid freezing the host.
+    - Increased number of instance to 6.
+
+----  tmbslTDA10025 2.1.0 ------------------------------
+    - Changed IP selection API. IP is not longer selected by a parameter in every functions but is now selected by tUnit.
+
+----  tmbslTDA10025 2.0.4 ------------------------------
+    - Removed echo patch.
+    
+----  tmbslTDA10025 2.0.3 ------------------------------
+    - Updated to last HCDP driver.
+    
+----  tmbslTDA10025 2.0.2 ------------------------------
+    - Inversed IPs addresses.
+    - Inversed AGCs.
+    - Added AGCCurve initialisation for both IPs.
+    - Set AGC thresholds to correct values.
+    - Added PADs activation at initialisation.
+    - Corrected bug which prevented to use AnnexB standard.
+    - Set AnnexA standard as default standard.
+    
+----  tmbslTDA10025 2.0.1 ------------------------------
+    - Intermediate version.
+    
+----  tmbslTDA10025 2.0.0 ------------------------------
+    - Creation.
+

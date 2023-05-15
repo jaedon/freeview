@@ -1,0 +1,8 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=LIBRARY
+TARGETNAME=CryptoTestAPI
+
+SOURCES = \
+	..\CryptoTest.c \
+	..\tstcryptodata.c \

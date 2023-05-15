@@ -1,0 +1,1 @@
+"builder":{"target":"none","operation":"set","property":{"action":[{"name":"name0","tunertype":"sat","mode":"do_motorcontrol", "motor":{"control":"stop","direction":"east","timeout":false,"param":-1}}]}}

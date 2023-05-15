@@ -1,0 +1,28 @@
+# Dynamic Channel List for Brutus
+#
+# Tab or space separated fields, case insensitive
+# '#' marks the beginning of a line comment, all characters after
+# are ignored.
+
+QPSK_DVB        0       1119.0  20.0    13v ToneOn
+
+# 8PSK from the lab headend
+8PSK            0       1150.0  21.5    13v ToneOn
+
+QPSK_DVB        0       1134.0  20.0    18v ToneOn
+QPSK_DVB        0       1222.0  20.0    18v ToneOn
+QPSK_DVB        0       1250.0  20.0    18v ToneOn
+
+# Direct TV sample using SDS daughter card.
+# You must specific the pids because
+# channel scan is not supported.
+QPSK_DSS    0  1104.0  20.0    18v ToneOn
+PROGRAM PIDS 0x64 0x64 0x65 0x3
+QPSK_DSS_PES    0  1104.0  20.0    18v ToneOn
+PROGRAM PIDS 0x64 0x64 0x65 0x3
+
+
+# Other samples
+#STREAMER      0       0
+#STREAMER      0       1 DSS_ES
+#STREAMER      0       1 DSS_PES

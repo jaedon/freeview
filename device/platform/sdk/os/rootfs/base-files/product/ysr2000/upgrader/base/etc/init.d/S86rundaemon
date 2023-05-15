@@ -1,0 +1,59 @@
+#!/bin/sh
+
+#mount pseudo terminal slave
+mkdir -p /dev/pts
+mount -t devpts devpts /dev/pts -ogid=$TTYGRP,mode=$TTYMODE
+
+if [ -e /usr/sbin/telnetd ] ; then
+     echo "Starting telnet daemon"
+     /usr/sbin/telnetd -l /bin/sh &
+fi
+
+if [ -e /usr/sbin/tftpd ] ; then
+     echo "Starting tftpd daemon"
+     /usr/sbin/tftpd -d /var/tmp &
+fi
+
+if [ -e /usr/local/sbin/iptables ] ; then
+     echo "Starting iptables daemon"
+     /usr/local/sbin/iptables -A INPUT -i eth0 -p udp --dport 69 -j DROP &
+     /usr/local/sbin/iptables -A INPUT -i lo -p udp --dport 69 -j DROP &
+     /usr/local/sbin/iptables -A INPUT -i eth1:1 -p udp --dport 69 -j ACCEPT &
+fi
+
+eth0_ipaddr=$(echo `ifconfig eth0 2>/dev/null|awk '/inet addr:/ {print $2}'|sed 's/addr://'`)
+echo ipaddr=$eth0_ipaddr
+if [ "x$eth0_ipaddr" != "x" ]; then
+     echo "eth0 already has ipaddr: $eth0_ipaddr"
+else
+#     brctl addbr br0
+#     brctl addif br0 eth0
+#     brctl addif br0 eth1
+#     ifconfig br0 up
+#     ifconfig br0:0 192.168.1.50 up
+#     ifconfig br0:1 10.0.10.116 up
+     echo "Try to allocate ip address to eth0"
+     if [ -e /sbin/udhcpc ] ; then
+         echo "Starting udhcpc"
+         sbin/udhcpc --retries 2 -q -n -b -i eth0 &
+     fi
+fi
+
+eth1_1_ipaddr=$(echo `ifconfig eth1:1 2>/dev/null|awk '/inet addr:/ {print $2}'|sed 's/addr://'`)
+echo eth1_1_ipaddr=$eth1_1_ipaddr
+if [ "x$eth1_1_ipaddr" != "x" ]; then
+     echo "eth1:1 already has ipaddr: $eth1_1_ipaddr"
+else
+     ifconfig eth1:1 169.254.119.5 netmask 255.255.255.0 up
+     echo "eth1:1 has ipaddr: 169.254.119.5"
+fi
+
+eth1_2_ipaddr=$(echo `ifconfig eth1:2 2>/dev/null|awk '/inet addr:/ {print $2}'|sed 's/addr://'`)
+echo eth1_2_ipaddr=$eth1_2_ipaddr
+if [ "x$eth1_2_ipaddr" != "x" ]; then
+     echo "eth1:2 already has ipaddr: $eth1_2_ipaddr"
+else
+     ifconfig eth1:2 192.168.1.100 netmask 255.255.255.0 up
+     echo "eth1:2 has ipaddr: 192.168.1.100"
+fi
+

@@ -1,0 +1,51 @@
+# /*++
+# Copyright (c) Microsoft Corporation.  All rights reserved.
+# --*/
+
+#
+# This is the list of PK test areas, and their associated test executable, for the Linux platform.
+#
+
+blackbox        BlackBoxTest.exe
+certs           BCertTest.exe
+cmdlnpars       RefTestCmdLnParser.exe
+ConsoleNDR      ConsoleNDR.exe
+ConsoleNDT      ConsoleNDT.exe
+CoreEmbedding   CoreEmbeddingTest.exe
+Crypto          CryptoTest.exe
+Datastore       DatastoreTest.exe
+devicedevcert   DeviceDevcertTest.exe
+devicestore     DeviceStoreTest.exe
+domainapi       DomainTest.exe
+domainstore     DomainStoreTest.exe
+DrmManager      DrmManagerTest.exe
+HDS             HDSTest.exe
+Header          HeaderTest.exe
+initparser      InitParserTest.exe
+KeyFile         KeyFileTest.exe
+licacqv3        TestLicAcqV3.exe
+LicEval         LicEvalTest.exe
+licgen          LicgenTest.exe
+LicStore        TestLicStore.exe
+LiveTV          LiveTVTest.exe
+m2tsencryptor   M2TSEncryptorTest.exe
+mathsafe        MathSafeTest.exe
+meta            MetaTest.exe
+metercertstore  MeterCertStoreTest.exe
+Metering        MeteringTest.exe
+noncestore      NonceStoreTest.exe
+OEM             OEMTest.exe
+performance     PerformanceTest.exe
+PolicyState     PolicyStateTest.exe
+prnd            prndtest.exe
+SecStore        TestSecStore.exe
+SecureClock     SecureClockTest.exe
+SyncList        Testsynclist.exe
+Test_Suite_NDT  Test_Suite_NDT.exe
+utf             UTFTest.exe
+Utils           UtilTest.exe
+XMLBuilder      TestXMLBuilder.exe
+XMLBuilderA     TestXMLBuilderA.exe
+XMLParser       TestXMLParser.exe
+xmlsig          XMLSigTest.exe
+xmr             XmrTest.exe

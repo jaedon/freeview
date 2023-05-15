@@ -1,0 +1,77 @@
+##########################################
+# DI FS  configuration menu
+##########################################
+
+config FS
+	bool
+	prompt "FS"
+	default y
+
+	config EXT
+		bool
+		prompt "EXT"
+		default n
+
+	config EXT_LIB
+		bool
+		prompt "EXT LIBRARY"
+		default n
+
+	config EXT4
+		bool
+		prompt "EXT4"
+		default n
+
+	config EXT4_LIB
+		bool
+		prompt "EXT4 LIBRARY"
+		default n
+
+	config XFS
+		bool
+		prompt "XFS"
+		default n
+
+	config XFS_LIB
+		bool
+		prompt "XFS LIBRARY"
+		default n
+		
+	config NTFS_RW
+		bool
+		prompt "NTFS_RW"
+		default n
+
+	config NTFS_RW_LIB
+		bool
+		prompt "NTFS_RW LIBRARY"
+		default n
+
+	config FS_INFO_FROM_BLKID
+		bool
+		prompt "FS_INFO_FROM_BLKID"
+		default n
+
+config UBIFS_DB
+	bool
+	prompt "UBIFS DB area"
+	default n
+
+config UBIFS_DB_DATA_MAX_FS_SIZE
+	int
+	prompt "UBIFS DB data area's the maximum file system size in logical eraseblocks"
+	default 0
+	depends on UBIFS_DB
+
+config UBIFS_DB_BACKUP_MAX_FS_SIZE
+        int
+        prompt "UBIFS DB backup area's the maximum file system size in logical eraseblocks"
+        default 0
+        depends on UBIFS_DB
+
+config UBIFS_DB_USER_MAX_FS_SIZE
+        int
+        prompt "UBIFS DB user area's the maximum file system size in logical eraseblocks"
+        default 0
+        depends on UBIFS_DB
+

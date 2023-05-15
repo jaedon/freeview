@@ -1,0 +1,231 @@
+
+41000:DRT:P0:Add a new meter cert and verify it
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo)
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo)
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisissomelongermetercert,some)
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisissomelongermetercert,some)
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,this,somelongerlainfo)
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,this,somelongerlainfo)
+TestDeleteMeterCert(S30IE1Q8hk25v64NV3ExqQ==)
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,,)=0X8004C3F2 DRM_E_METERCERT_NOT_FOUND
+
+41001:BVT:P0:Invalidate a meter cert 
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo) 
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo) 
+TestInvalidateMeterCert(S30IE1Q8hk25v64NV3ExqQ==)
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,,somelainfo)
+
+
+41002:BVT:P0:Invalidate a cert that isn't in the store
+TestOpenMeterCertStore
+TestInvalidateMeterCert(S30IE1Q8hk25v64NV3ExqQ==)=0X8004C3F2 DRM_E_METERCERT_NOT_FOUND
+
+41003:FUNC:P1:Try to open cert store with bad HDS
+TestOpenMeterCertStore(NULL)=-2147024809 (0x80070057 DRM_E_INVALIDARG)
+
+41004:BVT:P0:Test closing a valid Metercertstore
+TestOpenMeterCertStore
+TestCloseMeterCertStore
+
+41005:BVT:P0:Test opening an enum structure with an entry in the store and enuming that entry
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo)
+TestMeterCertInitEnum
+TestMeterCertEnumNext(S30IE1Q8hk25v64NV3ExqQ==,somelainfo, Valid Enum,thisisametercert)
+TestMeterCertEnumNext(S30IE1Q8hk25v64NV3ExqQ==,somelainfo, Valid Enum,thisisametercert)=-2147024637 (0x80070103 DRM_E_NOMORE)
+
+41006:BVT:P0:Test Enumerating through an entry without a cert in the store
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,,)
+TestMeterCertInitEnum
+TestMeterCertEnumNext(S30IE1Q8hk25v64NV3ExqQ==,, Valid Enum,)
+TestMeterCertEnumNext(S30IE1Q8hk25v64NV3ExqQ==,, Valid Enum,)=-2147024637 (0x80070103 DRM_E_NOMORE)
+
+41007:BVT:P0:Test Enumerating through an empty store
+TestOpenMeterCertStore
+TestMeterCertInitEnum
+TestMeterCertEnumNext(,, Valid Enum,)=-2147024637 (0x80070103 DRM_E_NOMORE)
+
+41008:BVT:P0:Test enumerating through several certs
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo)
+TestMeterCertUpdate(pIKx8Wsy5aYRQN8LLIIcTQ==,thisisanothermetercert,someotherlainfo)
+TestMeterCertInitEnum
+TestMeterCertEnumNext(S30IE1Q8hk25v64NV3ExqQ==,somelainfo, Valid Enum,thisisametercert)
+TestMeterCertEnumNext(pIKx8Wsy5aYRQN8LLIIcTQ==,someotherlainfo, Valid Enum,thisisanothermetercert)
+TestMeterCertEnumNext(S30IE1Q8hk25v64NV3ExqQ==,somelainfo, Valid Enum,thisisametercert)=-2147024637 (0x80070103 DRM_E_NOMORE)
+
+41009:BVT:P0:Test creating a new entry with DRM_MCS_UpdateMeterCert
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo)
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo)
+
+41010:BVT:P0:Test updating a cert with DRM_MCS_UpdateMeterCert
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo)
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisadifferentmetercert,somelainfo)
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisadifferentmetercert,somelainfo)
+
+41011:BVT:P0:Test updating lainfo with DRM_MCS_UpdateMeterCert
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo)
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,someotherlainfo)
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,someotherlainfo)
+
+41012:BVT:P0:Test updating a cert and lainfo with DRM_MCS_UpdateMeterCert
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo)
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisadifferentmetercert,someotherlainfo)
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisadifferentmetercert,someotherlainfo)
+
+41013:BVT:P0:Get information for an MID in the store which doesn't have a cert
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,,somelainfo)
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,,somelainfo)
+
+41014:BVT:P0:Get information for an MID not in the store, expect DRM_E_METERCERT_NOT_FOUND
+TestOpenMeterCertStore
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,,somelainfo)=0X8004C3F2 DRM_E_METERCERT_NOT_FOUND
+
+41015:BVT:P0:Try to invalidate an MID already missing a cert
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,,somelainfo)
+TestInvalidateMeterCert(S30IE1Q8hk25v64NV3ExqQ==)
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,,somelainfo)
+
+41016:BVT:P0:test deleting a cert store entry with all of its info present
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo)
+TestDeleteMeterCert(S30IE1Q8hk25v64NV3ExqQ==)
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,,)=0X8004C3F2 DRM_E_METERCERT_NOT_FOUND
+
+41017:BVT:P0:test deleting an invalidated cert store entry
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,,somelainfo)
+TestDeleteMeterCert(S30IE1Q8hk25v64NV3ExqQ==)
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,,)=0X8004C3F2 DRM_E_METERCERT_NOT_FOUND
+
+41018:FUNC:P1:Test closing an already closed Metercertstore
+TestOpenMeterCertStore
+TestCloseMeterCertStore
+TestCloseMeterCertStore
+
+41019:FUNC:P1:Test closing null Metercertstore
+TestOpenMeterCertStore
+TestCloseMeterCertStore(NULL) = 0x80070057 DRM_E_INVALIDARG
+
+41020:FUNC:P1:Test updating lainfo with DRM_MCS_UpdateMeterCert with NULL
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert, somelainfo )
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert, NULL )
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert, somelainfo )
+
+41021:FUNC:P1:Test updating metercert with DRM_MCS_UpdateMeterCert with NULL
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert, somelainfo )
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,NULL, somelainfo )
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert, somelainfo )
+
+41022:FUNC:P1:Test updating metercert with DRM_MCS_UpdateMeterCert with larger Metercert -- walk this in debugger to verify that the hds resizes
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert, somelainfo )
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisalargermetercert, somelainfo )
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisalargermetercert, somelainfo )
+
+41023:FUNC:P1:Test updating metercert with DRM_MCS_UpdateMeterCert with smaller Metercert -- walk this in debugger to verify that the hds resizes
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisalargermetercert, somelainfo )
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert, somelainfo )
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert, somelainfo )
+
+41024:FUNC:P1:Test updating metercert with DRM_MCS_UpdateMeterCert with larger lainfo -- walk this in debugger to verify that the hds resizes
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert, somelainfo )
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert, somelargerlainfo )
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert, somelargerlainfo )
+
+41025:FUNC:P1:Test updating metercert with DRM_MCS_UpdateMeterCert with smaller lainfo -- walk this in debugger to verify that the hds resizes
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert, somelargerlainfo )
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert, somelainfo )
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert, somelainfo )
+
+41026:FUNC:P1:Test updating metercert with DRM_MCS_UpdateMeterCert with NULL Manager Context
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert, somelainfo, NULL ) = 0x80070057 DRM_E_INVALIDARG
+
+41027:FUNC:P1:Test updating metercert with DRM_MCS_UpdateMeterCert with NULL MID
+TestOpenMeterCertStore
+TestMeterCertUpdate(NULL,thisisametercert, somelainfo ) = 0x80070057 DRM_E_INVALIDARG
+
+41028:FUNC:P1:Test init enum with NULL Metercert context
+TestOpenMeterCertStore
+TestMeterCertInitEnum(NULL, Valid ENUM) = 0X80070057 DRM_E_INVALIDARG
+
+41029:FUNC:P1:Test init enum with NULL Metercert context
+TestOpenMeterCertStore
+TestMeterCertInitEnum( Valid Context, NULL ) = 0X80070057 DRM_E_INVALIDARG
+
+41030:FUNC:P1:Test EnumNext with NULL MID
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo)
+TestMeterCertInitEnum
+TestMeterCertEnumNext(NULL,somelainfo, Valid Enum,thisisametercert) = 0X80070057 DRM_E_INVALIDARG
+
+41031:FUNC:P1:Test EnumNext with NULL SlotHint
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo)
+TestMeterCertInitEnum
+TestMeterCertEnumNext(S30IE1Q8hk25v64NV3ExqQ==,somelainfo, Valid Enum,thisisametercert, NULL)
+
+41032:FUNC:P1:Test EnumNext with NULL Enum Context
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo)
+TestMeterCertInitEnum
+TestMeterCertEnumNext(S30IE1Q8hk25v64NV3ExqQ==,somelainfo, NULL,thisisametercert)=0x80070057 DRM_E_INVALIDARG
+
+41033:FUNC:P1:Try getting MID info with buffers taht are too small
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert, somelainfo )
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert, somelainfo, FALSE, FALSE )
+
+41034:FUNC:P1:Try to Invalidate using a NULL MID
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo) 
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo) 
+TestInvalidateMeterCert(NULL)=0x80070057 DRM_E_INVALIDARG
+
+41035:FUNC:P1:Try to Invalidate using a NULL Enum Context
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo) 
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo) 
+TestInvalidateMeterCert(S30IE1Q8hk25v64NV3ExqQ==, NULL)=0x80070057 DRM_E_INVALIDARG
+
+41036:FUNC:P1:Try to Delete using a NULL MID
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo) 
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo) 
+TestDeleteMeterCert(NULL)=0x80070057 DRM_E_INVALIDARG
+
+41037:FUNC:P1:Try to Delete using a NULL Enum Context
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo) 
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo) 
+TestDeleteMeterCert(S30IE1Q8hk25v64NV3ExqQ==,NULL)=0x80070057 DRM_E_INVALIDARG
+
+41038:FUNC:P1:test deleting a MID not in the store
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo)
+TestDeleteMeterCert(D30IE1Q8hk25v64NV3ExqQ==)=0X8004C3F2 DRM_E_METERCERT_NOT_FOUND
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo)
+
+410545:PERF:DISABLED:Test updating a cert and lainfo with DRM_MCS_UpdateMeterCert
+RestoreDeviceStore(InitialCert,InitialStore)
+TestOpenMeterCertStore
+TestMeterCertUpdate(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo)
+StartProfiling(410545.dat)
+TestMeterCertUpdate(S40IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo)
+TestMeterCertGetByMID(S30IE1Q8hk25v64NV3ExqQ==,thisisametercert,somelainfo)
+StopProfiling

@@ -1,0 +1,19 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=xmrlicgen
+TARGETTYPE=LIBRARY
+
+SOURCES =          \
+    CheckSum.c     \
+    DerivedKeys.c  \
+    domain.c       \
+    rightsparser.c \
+    stringutils.c  \
+    timeutils.c    \
+    XMRLicGen.c    \
+

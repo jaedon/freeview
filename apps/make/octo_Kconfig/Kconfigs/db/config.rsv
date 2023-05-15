@@ -1,0 +1,15 @@
+#############################################
+#					Reservation DB Configuration					#
+#############################################
+
+comment	"Reservation DB Configuration. (DB_RSV_XXX)"
+
+	choice
+		prompt "Reservation DB's System"
+		default DB_RSV_JSON
+
+		config DB_RSV_JSON
+			bool "DB_RSV_JSON - for using reservation db, with JSON file"
+	endchoice
+
+

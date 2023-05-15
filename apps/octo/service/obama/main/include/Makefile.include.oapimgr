@@ -1,0 +1,32 @@
+# Common include path */
+ccflags-y += -I$(HLIB_DIR)/include
+ccflags-y += -I$(SILIB_DIR)/include
+ccflags-y += -I$(DLIB_DIR)/include
+ccflags-y += -I$(OCTO_DIR)/main/include
+ccflags-y += -I$(OCTO_UTILS_DIR)/utils/include
+ccflags-y += -I$(OCTO_DIR)/main/toolkit
+
+# TV Manager */
+ccflags-y += -I$(OCTO_TVMANAGER_DIR)/include
+ccflags-y += -I$(OCTO_TVMANAGER_DIR)/mgr/include
+ccflags-y += -I$(OCTO_TVMANAGER_DIR)/bus/include
+ccflags-y += -I$(OCTO_TVMANAGER_DIR)/mgr/cas/include
+ccflags-y += -I$(OCTO_TVMANAGER_DIR)/om/include
+
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/include
+
+
+# DB
+ccflags-y += -I$(OCTO_DB_DIR)/include
+
+# MW include path
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/svc/include
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/svc/common/include
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/svc/cas/include
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/svc/si/local_include
+ccflags-$(CONFIG_MW_CI) += -I$(OCTO_TVSERVICE_DIR)/svc/cas/port/include
+ccflags-$(CONFIG_MW_CAS) += -I$(OCTO_TVSERVICE_DIR)/svc/cas/port/include
+
+# PAL include path
+#ccflags-y += -I$(OCTO_TVSERVICE_DIR)/pal/include
+

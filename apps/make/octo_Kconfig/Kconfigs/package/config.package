@@ -1,0 +1,179 @@
+################################################
+#				Open Source Package Configuration				#
+################################################
+
+comment "Open Source Package Selection. (PACKAGE_XXX)"
+
+	config PACKAGE_AVINFO
+		bool "PACKAGE_AVINFO - AV info probe for XVID codec filtering."
+		default n
+
+	config PACKAGE_FREETYPE
+		bool "PACKAGE_FREETYPE - FreeType 2.3.5 or over"
+		default y
+
+	config PACKAGE_ZLIB
+		bool "PACKAGE_ZLIB - zlib"
+		default y
+
+	config PACKAGE_JPEG
+		bool "PACKAGE_JPEG - libjpeg-6b"
+		default y
+
+	config PACKAGE_LIBPNG
+		bool "PACKAGE_LIBPNG - libpng"
+		default y
+
+	config PACKAGE_ID3LIB
+		bool "PACKAGE_ID3LIB - libid3"
+		default y
+
+	config PACKAGE_LIBEXIF
+		bool "PACKAGE_LIBEXIF - libexif"
+		default y
+
+	config PACKAGE_LIBEXT2FS
+		bool "PACKAGE_LIBEXT2FS - libext2fs"
+		default n
+
+	config PACKAGE_CURL
+		bool "PACKAGE_CURL - libcurl"
+		default n
+
+	config PACKAGE_OPENSSL
+		bool "PACKAGE_OPENSSL - libssl"
+		default y
+
+	config PACKAGE_PCX
+		bool "PACKAGE_PCX - pcx module"
+		default n
+
+	config PACKAGE_LIBXML
+		bool "PACKAGE_LIBXML - xml module"
+		default n
+
+	config PACKAGE_LIBXML2
+		bool "PACKAGE_LIBXML2 - xml module"
+		default y
+
+	config PACKAGE_LIBLUA
+		bool "PACKAGE_LIBLUA - LUA static library module"
+		default n
+
+	config PACKAGE_LIBREADLINE
+		bool "PACKAGE_LIBREADLINE - GNU readline module"
+		depends on PACKAGE_LIBLUA
+		default y
+
+	config PACKAGE_LIBNCURSES
+		bool "PACKAGE_LIBNCURSES - ncurses module"
+		depends on PACKAGE_LIBLUA
+		default y
+
+	config PACKAGE_JANSSON
+		bool "PACKAGE_JANSSON - json format module"
+		default y
+
+	config PACKAGE_DIRECTFB
+		bool "PACKAGE_DIRECTFB - directfb module for octo 2.0"
+		default y
+
+	config PACKAGE_WEBSOCKET
+		bool "PACKAGE_WEBSOCKET - Include WebSocket Library for OCTO 2.0"
+		default n
+
+	config PACKAGE_LOG4C
+		bool "PACKAGE_LOG4C - Include Log4c Library for OCTO 2.0"
+		default y
+
+	config PACKAGE_PCD
+		bool "PACKAGE_PCD - Process Control Daemon for multi-process"
+		default n
+
+	config PACKAGE_DNSMASQ
+		bool "PACKAGE_DNSMASQ - lightweight DNS forwarder"
+		default n
+
+	config PACKAGE_NTPCLIENT
+		bool "PACKAGE_NTPCLIENT - Network Time Protocol"
+		default n
+
+	config PACKAGE_AXIS2
+                bool "PACKAGE_AXIS2 - PACKAGE_AXIS2"
+                default n
+
+	config PACKAGE_FFMPEG
+		bool "PACKAGE_FFMPEG - ffmpeg package for extracting thumbnail"
+		default n
+
+	config PACKAGE_SAMBA
+		bool "PACKAGE_SAMBA - samba package for sambaclient"
+		default n
+
+	config PACKAGE_PROFTPD
+		bool "PACKAGE_PROFTPD - proftpd package for ftp server"
+		default n
+	config PACKAGE_LIBWEBP
+		bool "PACKAGE_LIBWEBP - libwebp package "
+		default n
+
+	config PACKAGE_GRAPHITE2
+		bool "PACKAGE_GRAPHITE2 - libgraphite2 package "
+		default n
+
+	config PACKAGE_LIBOGG
+		bool "PACKAGE_LIBOGG - libogg package "
+		default n
+
+	config PACKAGE_CARES
+		bool "PACKAGE_CARES - libcares package "
+		default n
+
+	config PACKAGE_GPERFTOOLS
+		bool "PACKAGE_GPERFTOOLS - libtcmalloc_minimal package "
+		default n
+
+	config PACKAGE_LIBMNG
+		bool "PACKAGE_LIBMNG - libmng package "
+		default n
+
+	config PACKAGE_ICU4C
+		bool "PACKAGE_ICU4C - libicu* package "
+		default n
+
+	config PACKAGE_LCMS
+		bool "PACKAGE_LCMS - liblcms package "
+		default n
+
+	config PACKAGE_TREMOR
+		bool "PACKAGE_TREMOR - libvorbisidec package "
+		default n
+
+	config PACKAGE_HARFBUZZ
+		bool "PACKAGE_HARFBUZZ - libharfbuzz package "
+		default n
+
+	config PACKAGE_EXPAT
+		bool "PACKAGE_LIBEXPAT - libexpat package"
+		default n
+
+	config PACKAGE_CAP
+		bool "PACKAGE_CAP - libcap package for enhanced security (limit root capabilities)"
+		default n
+
+	config PACKAGE_NODEJS
+		bool "PACKAGE_NODEJS - node.js package for REST Web Server"
+		default n
+
+	config PACKAGE_OPENSSH
+		bool "PACKAGE_OPENSSH - binary executables using ssh"
+		default n
+
+	config PACKAGE_SQLITE3_CLIENT
+		bool "PACKAGE_SQLITE3_CLIENT - sqlite3 binary executables"
+		default n
+
+	config PACKAGE_KEYS
+		bool "PACKAGE_KEYS - keyutils package for encrypt keys"
+		default n
+

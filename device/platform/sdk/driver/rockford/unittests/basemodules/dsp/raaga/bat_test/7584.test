@@ -1,0 +1,25 @@
+############################################################
+#     Copyright (c) 2003-2011, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: 7422.test $
+# $brcm_Revision: Hydra_Software_Devel/2 $
+# $brcm_Date: 1/26/11 10:59p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /rockford/unittests/basemodules/dsp/raaga/bat_test/7422.test $
+# 
+# Hydra_Software_Devel/2   1/26/11 10:59p slauzon
+# SWCHECKFRAME-80: added brcm header, removed bogus test
+# 
+############################################################
+
+raaga_test -cmd -strnum 1  -pcr 17 -audio 20 -audiotype 5 -pkttype 0 -path /data/videos/difmus1_ac3_11_14.ts -pb

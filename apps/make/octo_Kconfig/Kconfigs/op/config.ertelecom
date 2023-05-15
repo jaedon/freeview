@@ -1,0 +1,6 @@
+# Russia ER Telecom
+
+	menu "Select Operator's specific configs"
+		comment "Select Operator's specific configs"
+	endmenu
+

@@ -1,0 +1,534 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Media/Play">   
+    <interface name="Octopus.Appkit.Media.Play">
+
+    <!-- BASE -->
+    <method name="GetViewNumber">
+    	<arg type="u" name="viewNum" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetMainViewId">
+    	<arg type="u" name="viewId" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="GetMainViewId">
+    	<arg type="u" name="viewId" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetPlayType">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="u" name="playType" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="GetNeedRadioBg">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="b" name="bNeed" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetSessionId">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="u" name="sessionId" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="GetRequestId">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="u" name="playType" direction="in" />
+        <arg type="u" name="requestId" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <!-- FOR MHEG -->
+    <method name="GetStreamAspectRatio">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="u" name="aspectRatio" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="GetMhegDisplayPoint">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="i" name="refWidth" direction="in" />
+    	<arg type="i" name="refHeight" direction="in" />
+    	<arg type="i" name="videoPointX" direction="in" />                
+    	<arg type="i" name="videoPointY" direction="in" />                        
+      <arg type="(ii)" name="scaledSize" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+        
+    <method name="StartAudioClip">
+    	<arg type="u" name="requestId" direction="in" />
+    	<arg type="au" name="buffer" direction="in" />
+    	<arg type="u" name="bufferBytes" direction="in" />
+    	<arg type="u" name="audioCodec" direction="in" />
+    	<arg type="u" name="loopCount" direction="in" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>             
+                
+    <method name="PauseAudioClip">
+        <arg type="u" name="requestId" direction="in" />
+    </method>                    
+
+    <method name="ResumeAudioClip">
+        <arg type="u" name="requestId" direction="in" />
+    </method>
+    
+    <method name="StopAudioClip">
+        <arg type="u" name="requestId" direction="in" />
+    </method>   
+    
+    <method name="SetVideoFreeze">
+        <arg type="u" name="viewId" direction="in" />
+        <arg type="b" name="freeze" direction="in" />
+    </method>                 
+
+    <method name="SetAudioFreeze">
+        <arg type="u" name="viewId" direction="in" />
+        <arg type="b" name="freeze" direction="in" />
+    </method>                 
+       
+    <!-- TRACK -->
+    <method name="SetComponentIndex">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="u" name="compType" direction="in" />
+    	<arg type="i" name="compIndex" direction="in" />        
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                     
+                                                                                                                                 
+    <method name="GetComponentNum">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="u" name="compType" direction="in" />
+    	<arg type="i" name="compCount" direction="out" />        
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                     
+
+    <method name="GetSubtitleComponent">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="i" name="compIndex" direction="in" />        
+    	<arg type="(iiyiiiis)" name="componet" direction="out" />        
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                     
+
+    <method name="GetComponentIndex">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="u" name="compType" direction="in" />
+    	<arg type="i" name="compIndex" direction="out" />        
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <!-- PLAYER_CONTROL -->
+    <method name="StartLive">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="(iiiii)" name="startInfo" direction="in" />
+    	<arg type="u" name="sessionId" direction="out" />        
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="StartPvrPb">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="(ii)" name="startInfo" direction="in" />
+    	<arg type="u" name="sessionId" direction="out" />        
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="StartTsrPb">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="(iiii)" name="startInfo" direction="in" />
+    	<arg type="u" name="sessionId" direction="out" />        
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+                    
+    <method name="StartMedia">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="(iiiiis)" name="startInfo" direction="in" />
+    	<arg type="u" name="sessionId" direction="out" />        
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="Stop">
+    	<arg type="u" name="viewId" direction="in" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+    
+    <method name="SetPlaySpeed">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="i" name="speed" direction="in" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+ 
+    <method name="SetPlayPosition">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="u" name="position" direction="in" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>         
+    
+    <!-- PLAYER_GETTER -->
+    <method name="GetPlaySpeed">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="i" name="speed" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>             
+
+    <method name="GetPlayPosition">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="u" name="position" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>             
+    
+    <method name="GetPlayState">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="u" name="state" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>             
+    
+    <method name="GetPlayError">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="u" name="error" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>             
+    
+    <method name="GetBufferedTime">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="u" name="bufferred" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>             
+    
+    <method name="GetDurationTime">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="u" name="durationTime" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>             
+    
+    <method name="GetTsrStartTime">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="u" name="tstStartTime" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>             
+    
+     <method name="GetSupportedSpeeds">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="u" name="maxNumSpeed" direction="in" />
+    	<arg type="ai" name="speedList" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+    <method name="GetTrickRestrictMode">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="u" name="trickRestrictMode" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+    
+     <method name="GetVideoSize">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="(iiii)" name="videoSize" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+    <!-- VIEW_CONTROL -->
+     <method name="SetVideoSize">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="i" name="startX" direction="in" />
+      <arg type="i" name="startY" direction="in" />
+    	<arg type="i" name="width" direction="in" />
+    	<arg type="i" name="height" direction="in" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+       
+     <method name="ResetVideoSize">
+    	<arg type="u" name="viewId" direction="in" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+     <method name="SetPigRect">
+    	<arg type="u" name="viewId" direction="in" />
+    	<arg type="u" name="zOrder" direction="in" />
+        <arg type="i" name="isX" direction="in" />
+    	<arg type="i" name="isY" direction="in" />
+    	<arg type="i" name="iW" direction="in" />
+    	<arg type="i" name="iH" direction="in" />
+    	<arg type="i" name="irW" direction="in" />
+    	<arg type="i" name="irH" direction="in" />
+        <arg type="i" name="osX" direction="in" />
+    	<arg type="i" name="osY" direction="in" />
+    	<arg type="i" name="oW" direction="in" />
+    	<arg type="i" name="oH" direction="in" />
+    	<arg type="i" name="orW" direction="in" />
+    	<arg type="i" name="orH" direction="in" />
+    	<arg type="u" name="osdAspectRatio" direction="in" />
+    	<arg type="u" name="dfc" direction="in" />
+    	<arg type="u" name="pigAspectRatio" direction="in" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+    
+    <!-- FUNC_PROPERTY -->
+    <method name="SetTSREnable">
+    	<arg type="b" name="enable" direction="in" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                      
+    
+     <method name="SetSubtitleEnable">
+    	<arg type="u" name="viewId" direction="in" />
+        <arg type="b" name="enable" direction="in" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+     <method name="SetVideoHide">
+    	<arg type="u" name="viewId" direction="in" />
+        <arg type="b" name="hide" direction="in" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+    
+    <method name="GetTSREnable">
+        <arg type="b" name="enable" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+    <method name="GetSubtitleEnable">
+   	<arg type="u" name="viewId" direction="in" />
+        <arg type="b" name="enable" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+    <!-- ETC -->    
+    <method name="GetEventInfo">
+   	<arg type="u" name="viewId" direction="in" />
+        <arg type="ay" name="enable" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+
+    <method name="SaveThumbnail">
+   	<arg type="u" name="viewId" direction="in" />
+        <arg type="s" name="filename" direction="in" />
+   	<arg type="u" name="width" direction="in" />
+   	<arg type="u" name="height" direction="in" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+    
+    <!-- LIVE_ONLY -->             
+    <method name="GetMajorChannel">
+   	<arg type="u" name="viewId" direction="in" />
+        <arg type="u" name="majorCHNum" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+    
+    <method name="CheckPlayChangable">
+   	<arg type="u" name="viewId" direction="in" />
+        <arg type="u" name="playType" direction="in" />
+        <arg type="ay" name="startInfo" direction="in" />
+        <arg type="b" name="changable" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+
+    <method name="GetViewState">
+   	<arg type="u" name="viewId" direction="in" />
+        <arg type="u" name="viewState" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+
+    <method name="GetLockState">
+   	<arg type="u" name="viewId" direction="in" />
+        <arg type="u" name="lockState" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+
+    <method name="MemorizeMediaState">
+   	<arg type="u" name="viewId" direction="in" />
+        <arg type="b" name="stopMedia" direction="in" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+ 
+    <method name="RestoreMediaState">
+   	<arg type="u" name="viewId" direction="in" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+
+    <method name="GetThumbnail">
+	   	<arg type="u" name="viewId" direction="in" />
+	   	<arg type="u" name="pos" direction="in" />
+	   	<arg type="u" name="captureTime" direction="out" />
+	      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>          
+    
+    <!-- 
+HERROR APK_MEDIA_PLAY_CountAitSection (HUINT32 ulViewId, HUINT32 *pulAitNum);
+HERROR APK_MEDIA_PLAY_GetAitSection (HUINT32 ulViewId, HUINT32 ulIndex, HUINT8 **ppucAitSec, HUINT32 *ulSecLen);
+HERROR APK_MEDIA_PLAY_FreeAitSection (HUINT8 *pucAitSec);
+HERROR APK_MEDIA_PLAY_GetRctInfoCount (HUINT32 ulViewId, HUINT32 *pulTotalLinkCount , HUINT32 *pulImgDataByteSize);
+HERROR APK_MEDIA_PLAY_GetRctInfo(HUINT32 ulViewId, DxService_RctInfo_t *pstRetInfo);
+HERROR APK_MEDIA_PLAY_FreeRctInfo (DxService_RctInfo_t *pstRetInfo);     
+    -->
+    
+    <!-- MEDIAPB_ONLY -->    
+    <method name="GetURI">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="s" name="uri" direction="out" />
+	      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="Probe">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="s" name="uri" direction="in" />
+	      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetSubtitleSyncTime">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="u" name="subtitleSyncTime" direction="in" />
+	      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetSubtitleFontSize">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="u" name="subtitleFontSize" direction="in" />
+	      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetSubtitleTextPosition">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="u" name="subtitleTextPosition" direction="in" />
+	      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetSubtitleSyncTime">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="u" name="subtitleSyncTime" direction="out" />
+	      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetSubtitleFontSize">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="u" name="subtitleFontSize" direction="out" />
+	      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetSubtitleTextPosition">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="u" name="subtitleTextPosition" direction="out" />
+	      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetSubtitleStatus">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="(uuuuu)" name="statusInfo" direction="out" />
+	      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetBufferingScenario">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="b" name="isAuto" direction="in" />
+   	<arg type="i" name="threshold" direction="in" />
+   	    <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetBufferingChunkInfo">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="(uauau)" name="info" direction="out" />
+   	    <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetBufferingRemainedTime">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="u" name="bufferRemaindTime" direction="out" />
+   	    <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetBufferingPercent">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="u" name="bufferPercent" direction="out" />
+   	    <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetBufferState">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="u" name="bufferState" direction="out" />
+   	    <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetDrmLicenseData">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="ay" name="aData" direction="in" />
+   	    <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetBrowserUserAgentData">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="av" name="aUAData" direction="in" />
+   	    <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetResourceMap">
+   	<arg type="(auauuu)" name="resourceMap" direction="out" />
+   	    <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetPumpIndex">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="u" name="pumpId" direction="out" />
+   	    <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetDuration">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="x" name="duration" direction="in" />
+   	    <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetPlayerType">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="u" name="playerType" direction="in" />
+   	    <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetPlayReadyInfo">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="s" name="laURL" direction="in" />
+   	<arg type="ay" name="customData" direction="in" />
+   	<arg type="b" name="controlFlag" direction="in" />
+   	    <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetVmxIdentifier">
+   	<arg type="ay" name="identifier" direction="out" />
+   	    <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetVmxStatus">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="i" name="status" direction="out" />
+   	    <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetVmxError">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="i" name="errorCode" direction="out" />
+   	    <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetVmxCas">
+   	<arg type="u" name="viewId" direction="in" />
+   	<arg type="s" name="VCASUrl" direction="in" />
+   	<arg type="s" name="vendorName" direction="in" />
+   	    <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="UnsetVmxCas">
+   	<arg type="u" name="viewId" direction="in" />
+   	    <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <signal name="event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+
+  </interface>
+</node>

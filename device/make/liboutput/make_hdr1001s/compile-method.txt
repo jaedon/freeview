@@ -1,0 +1,10 @@
+
+debug compile
+>> make world DEBUG=y
+
+release compile
+>> make world
+
+Clean
+>> make clean
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<product>
+	<information>
+		<product-name></product-name>
+		<model-name></model-name>
+		<widget>1</widget>
+	</information>
+	<memory>
+		<heap-limit-size>250</heap-limit-size>
+		<allocated-limit-size>230</allocated-limit-size>
+	</memory>
+	<directory>
+		<opera-widget-install-dir>/mnt/hd4/widgets/</opera-widget-install-dir>
+		<opera-home-target-dir>/var/lib/humaxtv/browser/</opera-home-target-dir>
+		<opera-home-source-dir>/usr/browser/opera_home/</opera-home-source-dir>
+		<opera-dir>/usr/browser/opera_dir/</opera-dir>
+		<opera-font-dir>/usr/fonts/</opera-font-dir>
+	</directory>
+	<font>
+		<default>Cumberland AMT</default>
+		<cursive>Albany AMT</cursive>
+		<fantasy>Albany AMT</fantasy>
+		<monospace>Cumberland AMT</monospace>
+		<sans-serif>Albany AMT</sans-serif>
+		<serif>Thorndale AMT</serif>
+	</font>
+	<enabled>
+		<dragonfly>1</dragonfly>
+		<url>1</url>
+		<mainapp>1</mainapp>
+	</enabled>
+</product>

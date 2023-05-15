@@ -1,0 +1,13 @@
+
+TARGETTYPE=PROGRAM
+TARGETNAME=XmrTest
+UMTYPE=console
+
+SOURCES = \
+    ../main.c \
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \
+    $(_DRM_TEST_XMR_LIB) \
+

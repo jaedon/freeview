@@ -1,0 +1,14 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=MeteringTestAPI
+TARGETTYPE=LIBRARY
+
+SOURCES =                               \
+    ..\V3MeteringTestHelpers.c          \
+    ..\MeteringTestAPI.c                \
+

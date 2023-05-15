@@ -1,0 +1,50 @@
+##########################################
+# DI DEMUX configuration menu
+##########################################
+
+config TSC_CHECK_USING_TS_FILTER
+	bool
+	prompt "TSC_CHECK_USING_TS_FILTER"
+	help
+		TS Filter를 이용하여 TSC를 체크
+	default n
+
+config REMUX_EXT_CLOCK
+	bool
+	prompt "REMUX_EXT_CLOCK"
+	default n
+	
+config USE_RMX_EXT_CLOCK_INSTANCE
+	bool
+	prompt "USE_RMX_EXT_CLOCK_INSTANCE"
+	default n
+
+config SI_PARSING_FOR_MEDIA_PLAYBACK
+	bool
+	prompt "SI_PARSING_FOR_MEDIA_PLAYBACK"
+	default n
+
+config MSG_FILTER_POOL
+	bool
+	prompt "MSG_FILTER_POOL"
+	default n
+	
+config DEMUX_IGNORE_INPUT_VALID_SIGNAL
+	bool
+	prompt "DEMUX_IGNORE_INPUT_VALID_SIGNAL"
+	default n
+
+config TS_MATRIX
+	bool
+	prompt "TS_MATRIX"
+	default n
+
+config COMPLETE_SECTION_IN_DI
+	bool
+	prompt "COMPLETE_SECTION_IN_DI"
+	default n	
+
+config DEMUX_SET_UNUSED_INPUTBAND
+	bool
+	prompt "DEMUX_SET_UNUSED_INPUTBAND"
+	default n

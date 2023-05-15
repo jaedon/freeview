@@ -1,0 +1,553 @@
+# Project configuration
+
+config HAVE_DOT_CONFIG
+	bool
+	default y
+
+config USES_NFSROOT
+	bool
+	prompt "Use nfsroot"
+	default n if TARGET_ROOTFS_SQUASHFS
+
+config TARGET_ROOTFS_SQUASHFS
+	bool
+	prompt "make squashfs for release build"
+	default n
+
+config PRODUCT_NFSROOT_DIR
+	string
+	prompt "nfsroot dir"
+	default "/nfsroot"
+
+config TOOLCHAIN_PATH
+	string
+	prompt "Toolchain path"
+	default "/opt/toolchains/stbgcc-4.5.3-1.3"
+
+#config HUMAXTV_VERSION
+#        string
+#        option env="MEDUSA_VERSION"
+
+mainmenu "Project Configuration"
+
+	comment  "*********** Project Global Configurations ***********"
+
+	menu	"<< OCTO Process Model Menu >>"
+		config OCTO_ONE
+			bool
+			prompt "Enable OCTO One Process Model"
+			default n
+	endmenu
+
+#------------------------------------------------------------------------------------------------------------
+#    Debug Options Configuration
+#------------------------------------------------------------------------------------------------------------
+	menu	"<< Debug Option Configuration Menu >>"
+		source "./Kconfigs/Config.debug"
+	endmenu
+
+	menu	"<< Test Option Configuration Menu >>"
+		source "./Kconfigs/Config.test"
+	endmenu
+
+	menu	"<< Enhanced Security >>"
+		config ENHANCED_SECURITY
+			bool
+			prompt "Enable CAS Enhanced Security"
+			default n
+
+		config DROP_ROOT_PRIVILEGES
+			bool
+			prompt "Enable to drop root privileges"
+			default n
+			depends on ENHANCED_SECURITY
+
+		config PROCESS_CAPABILITIES_CONTROL
+			bool
+			prompt "Enable to control the capabilities of each process"
+			default n
+			depends on ENHANCED_SECURITY
+
+		config PROCESS_RESOURCE_CONTROL
+			bool
+			prompt "Enable to control the resource of each process"
+			default n
+			depends on ENHANCED_SECURITY
+
+		config ENABLE_SANDBOXING
+			bool
+			prompt "Enable the function of Sandboxing"
+			default n
+			depends on ENHANCED_SECURITY
+
+			choice
+				prompt "Select the Sandboxing solution"
+				default CHROOT_ONLY
+				depends on ENABLE_SANDBOXING
+
+				config CHROOT_ONLY
+					bool "Chroot only"
+
+				config LXC_ONLY
+					bool "Linux Container only"
+
+				config CHROOT_AND_LXC
+					bool "Both Chroot and Linux Container"
+			endchoice
+	endmenu
+
+	menu	"<< Product Platform & Requirement Configuration Menu >>"
+		source "./Kconfigs/product/config.product"
+	endmenu
+
+	menu	"<< Operator Spec. Configuration Menu >>"
+		source "./Kconfigs/op/config.op"
+	endmenu
+
+	menu	"<< Open Source Package Configuration Menu >>"
+		source "./Kconfigs/package/config.package"
+	endmenu
+
+	menu	"<< HUMAX shared library Package  Configuration Menu >>"
+		source "./Kconfigs/package/config.hpackage"
+	endmenu
+
+	menu	"<< HUMAX Internal Feature Configuration Menu >>"
+		config SUPPORT_OBAMA_ASAN
+			bool
+			prompt "Enable OCTO Manager with ASAN (memory error detector)"
+			depends on PROD_GCC_GLIBC && PROD_GCC_GLIBC_ASAN
+			default n
+		config SUPPORT_DAMA_ASAN
+			bool
+			prompt "Enable DB Manager with ASAN (memory error detector)"
+			depends on PROD_GCC_GLIBC && PROD_GCC_GLIBC_ASAN
+			default n
+		config SUPPORT_COMMA_ASAN
+			bool
+			prompt "Enable CMD Manager with ASAN (memory error detector)"
+			depends on PROD_GCC_GLIBC && PROD_GCC_GLIBC_ASAN
+			default n
+		config SUPPORT_TIMA_ASAN
+			bool
+			prompt "Enable Time Manager with ASAN (memory error detector)"
+			depends on PROD_GCC_GLIBC && PROD_GCC_GLIBC_ASAN
+			default n
+		config SUPPORT_PAMA_ASAN
+			bool
+			prompt "Enable Power Manager with ASAN (memory error detector)"
+			depends on PROD_GCC_GLIBC && PROD_GCC_GLIBC_ASAN
+			default n
+		config 	TRAUMA_PROCESS
+			bool
+			prompt "Enable Technical Report And Unknown error Manager"
+			default n
+		config TRAUMA_STATISTICS
+			bool
+			prompt "Enable Statistics log Reporting fuctionality"
+			depends on TRAUMA_PROCESS
+		config TRAUMA_ERIN
+			bool
+			prompt "Enable Error incorrect Reporting fuctionality"
+			depends on TRAUMA_PROCESS
+		config TRAUMA_HCR
+			bool
+			prompt "Enable Humax Crash Report fuctionality"
+			depends on TRAUMA_PROCESS && HUMAX_CRASHREPORT
+		config SUPPORT_NIMA
+			bool
+			prompt "Enable Network Interface Manager"
+			default n
+		config SUPPORT_NIMA_ASAN
+			bool
+			prompt "Enable Network Interface Manager with ASAN (memory error detector)"
+			depends on PROD_GCC_GLIBC && PROD_GCC_GLIBC_ASAN && SUPPORT_NIMA
+			default n
+		config SUPPORT_SECMA
+			bool
+			prompt "Enable SECurity Manager"
+			default n
+		config SUPPORT_SECMA_ASAN
+			bool
+			prompt "Enable SECurity Manager with ASAN (memory error detector)"
+			depends on PROD_GCC_GLIBC && PROD_GCC_GLIBC_ASAN && SUPPORT_SECMA
+			default n
+		config SUPPORT_THMA
+			bool
+			prompt "Enable THumbnail Manager"
+			default y
+		config SUPPORT_THMA_ASAN
+			bool
+			prompt "Enable THumbnail Manager with ASAN (memory error detector)"
+			depends on PROD_GCC_GLIBC && PROD_GCC_GLIBC_ASAN && SUPPORT_THMA
+			default n
+		config SUPPORT_UMMA
+			bool
+			prompt "Enable Usb and Mass storage Manager"
+			default y
+		config SUPPORT_UMMA_ASAN
+			bool
+			prompt "Enable Usb and Mass storage Manager with ASAN (memory error detector)"
+			depends on PROD_GCC_GLIBC && PROD_GCC_GLIBC_ASAN && SUPPORT_UMMA
+			default n
+		config SUPPORT_UMMA_SAMBA_CLIENT
+			bool
+			prompt "Enable UMMA Samba Client"
+			default n
+			depends on SUPPORT_UMMA
+		config SUPPORT_UMMA_SAMBA_SERVER
+			bool
+			prompt "Enable UMMA Samba Server"
+			default n
+			depends on SUPPORT_UMMA
+		config SUPPORT_UMMA_SAMBA_SHARE_RECORDINGS
+			bool
+			prompt "Enable UMMA - Sharing Recordings by Samba"
+			default n
+			depends on SUPPORT_UMMA_SAMBA_SERVER
+		config SUPPORT_UMMA_FTP_SERVER
+			bool
+			prompt "Enable UMMA FTP Server"
+			default n
+			depends on SUPPORT_UMMA
+		config SUPPORT_UMMA_FTP_SHARE_RECORDINGS
+			bool
+			prompt "Enable UMMA - Sharing Recordings by FTP"
+			default n
+			depends on SUPPORT_UMMA_FTP_SERVER
+		config SUPPORT_UMMA_HRA
+			bool
+			prompt "Enable HRA audio"
+			default n
+			depends on SUPPORT_UMMA
+		config SUPPORT_UMMA_SECURE_STORAGE
+			bool
+			prompt "Enable secure stroge"
+			default n
+			depends on SUPPORT_UMMA	&& PACKAGE_KEYS
+		config SUPPORT_IMMA
+			bool
+			prompt "Enable IP Media Manager"
+			default n
+		config SUPPORT_IMMA_ASAN
+			bool
+			prompt "Enable IP Media Manager with ASAN (memory error detector)"
+			depends on PROD_GCC_GLIBC && PROD_GCC_GLIBC_ASAN && SUPPORT_IMMA
+			default n
+		config SUPPORT_HOMMA
+			bool
+			prompt "Enable Home Network(Media) Manager"
+			default y
+		config SUPPORT_HOMMA_ASAN
+			bool
+			prompt "Enable Home Network(Media) Manager with ASAN (memory error detector)"
+			depends on PROD_GCC_GLIBC && PROD_GCC_GLIBC_ASAN && SUPPORT_HOMMA
+			default n
+		config SUPPORT_REMA
+			bool
+			prompt "Enable WAN Remote Manager"
+			default n
+		config SUPPORT_SAMA
+			bool
+			prompt "Enable Schedule Assistance Manager"
+			default y
+		config SUPPORT_SAMA_ASAN
+			bool
+			prompt "Enable Schedule Assistance Manager with ASAN (memory error detector)"
+			depends on PROD_GCC_GLIBC && PROD_GCC_GLIBC_ASAN && SUPPORT_SAMA
+			default n
+		config SUPPORT_MHEG_IB
+			bool
+			prompt "Support MHEG Internal Browser"
+			default n
+		config SUPPORT_ANDROID_APP
+			bool
+			prompt "Support Android Application (JAPAN)"
+			default n
+		config SUPPORT_ARIBCC_APP
+			bool
+			prompt "Support ARIBCC Application (JAPAN)"
+			default n
+		config SUPPORT_BML_APP
+			bool
+			prompt "Support BML Application (JAPAN)"
+			default n
+		config SUPPORT_BSAUTOMSG_APP
+			bool
+			prompt "Support BSAUTOMSG Application (JAPAN)"
+			default n
+		config SUPPORT_CWMPMANAGER_APP
+			bool
+			prompt "Support CWMPManager Application"
+			default n
+		config SUPPORT_JAPANKEYBOARD_APP
+			bool
+			prompt "Support Japan Keyboard Application"
+			default n
+		config SUPPORT_MHEGIB_APP
+			bool
+			prompt "Support MHEGIB Display Application"
+			default n
+		config SUPPORT_MHEGPLAYER_APP
+			bool
+			prompt "Support MHEG Player Application"
+			default n
+		config SUPPORT_PRISM_APP
+			bool
+			prompt "Support PRISM Application"
+			default n
+		config SUPPORT_PRISM_APP_ASAN
+			bool
+			prompt "Support PRISM Application with ASAN (memory error detector)"
+			depends on PROD_GCC_GLIBC && PROD_GCC_GLIBC_ASAN && SUPPORT_PRISM_APP
+			default n
+		config SUPPORT_REMOTEAPP_APP
+			bool
+			prompt "Support RemoteAPP Application"
+			default n
+		config SUPPORT_REMOTEAPP_ON_USERDEVICE
+			bool
+			prompt "Support RemoteAPP On UserDevice"
+			default n
+		config SUPPORT_RFVOD_APP
+			bool
+			prompt "Support RFVOD Application"
+			default n
+		config SUPPORT_TR069_APP
+			bool
+			prompt "Support TR069 Application"
+			default n
+		config SUPPORT_IPEPG_APP
+			bool
+			prompt "Support IPEPG Application"
+			default y
+		config SUPPORT_IPEPG_CH_LOGO_STORE_HDD
+			bool
+			prompt "Support IPEPG channel logo store to HDD"
+			default n
+			depends on SUPPORT_IPEPG_APP
+		choice
+			depends on SUPPORT_IPEPG_APP
+			prompt "IPEPG data file repository"
+			default IPEPG_REPOSITORY_HDD
+			config IPEPG_REPOSITORY_HDD
+				depends on SUPPORT_IPEPG_APP
+				bool "IPEPG_REPOSITORY_HDD - Stores the IP EPG data files to HDD"
+			config IPEPG_REPOSITORY_EMMC
+				depends on SUPPORT_IPEPG_APP
+				bool "IPEPG_REPOSITORY_EMMC - Stores the IP EPG data files to eMMC"
+			config IPEPG_REPOSITORY_NONE
+				depends on SUPPORT_IPEPG_APP
+				bool "IPEPG_REPOSITORY_NONE - Don't stores the IP EPG data files"
+		endchoice
+
+		config IPEPG_REPOSITORY_EMMC_PATH
+			string
+			depends on IPEPG_REPOSITORY_EMMC
+			prompt "Path of the IP-EPG Repository (eMMC)"
+			default "/var/lib/humaxtv_user/ipepg"
+
+		config SUPPORT_CLOUDSYNC_APP
+			bool
+			prompt "Support Ziggo Cloud Sync Application"
+			default n
+		config SUPPORT_WIND3_APP
+			bool
+			prompt "Support WIND3 Application"
+			default n
+		config SUPPORT_SOTALUPGRADE_APP
+			bool
+			prompt "Upgrade SOTAL supplementary web apps via IP"
+			default n
+		config HUMAX_CRASHREPORT
+			bool
+			prompt "Enable Humax Crash Reporting fuctionality"
+			default n
+		config HUMAX_CRASHREPORT_TRANSFER_USB
+			bool
+			prompt "Copy HCR info. to USB device(/media/drive1) at crash/booting times"
+			default n
+			depends on HUMAX_CRASHREPORT
+			default n
+		config SUPPORT_FCC
+			bool
+			prompt "Enable fast channel change functionality"
+			default n
+		config PRISM_ZAPPING
+			bool
+			prompt "Enalbe zapping  PRISM process(Fast Boot)"
+			default n
+		config SUPPORT_S3MODE_FASTBOOT
+			bool
+			prompt "Enable S3 mode Fast boot (warm boot) functionality"
+			default n
+		config SUPPORT_S3MODE_FASTBOOT_WITHOUT_MICOM
+			bool
+			prompt "Enable S3 mode (for non-MICOM model)"
+			default n
+			depends on SUPPORT_S3MODE_FASTBOOT
+		config SUPPORT_ROVI
+			bool
+			prompt "Support ROVI certification, Only Cert"
+			default n
+		config SUPPORT_NODE_RESTAPI
+			bool
+			prompt "Support Node.Js REST-API Server"
+			default n
+		config DIET_MEMORY
+			bool
+			prompt "Enables the reduce of the memory usage"
+			default n
+
+		config DIET_DATATYPE
+			bool
+			prompt "Reduce the size of the data type"
+			default n
+			depends on DIET_MEMORY
+
+		config SUPPORT_NATIVE_APP
+			bool
+			prompt "Support NativeApp Application"
+			default n
+
+		config DAMA_BACKGROUND_SYNC
+			bool
+			prompt "DAMA [sync] function executes as the background job."
+			default n
+
+		config DAMA_BACKGROUND_LOAD
+			bool
+			prompt "DAMA [load] function executes as the background job."
+			default n
+
+		config DAMA_PAGE_SIZE
+			bool
+			prompt "DAMA SQLite page size"
+			default n
+
+		config DAMA_MULTITHREAD
+			bool
+			prompt "DAMA Multi-Thread for every Table"
+			default n
+
+		config SUPPORT_NOVA_APP
+			bool
+			prompt "Support Novaspread Application"
+			default n
+
+		config MHEG_APP
+			bool
+			prompt "Support MHEG Application"
+			default n
+
+		config TSR_IMMEDIATELY_PAUSE
+			bool
+			prompt "Support Immediately Pause on TSR"
+			default n
+
+		config NETFLIX_APP
+			bool
+			prompt "Support NETFLIX Application."
+			default n
+
+		config NETFLIX_BARKER_CHANNEL
+			bool
+			prompt "Support BARKER CHANNEL for NETFLIX Application"
+			default n
+			depends on NETFLIX_APP
+
+		config FILEINFO_IFACE_NO_RECORDINGS
+			bool
+			prompt "DB does not contain the recording Info as the IFACE data in the File Info"
+			default n
+
+		config TIMESTAMP_64
+			bool
+			prompt "Support BBC EPOCH TIME."
+			default n
+
+		config CRASH_AND_REEXECUTE
+			bool
+			prompt "Support re-execute process on crash"
+			default n
+
+		config ALEXA
+			bool
+			prompt "Support Alexa."
+			default n
+
+	endmenu
+
+	menu	"<< Global CAS Configuration >>"
+		source "./Kconfigs/cas/config.cas"
+	endmenu
+
+	menu	"<< Global AP UI Configuration Menu >>"
+		source "./Kconfigs/apui/config.apui"
+	endmenu
+
+	comment  "***********   Project OCTO Configuration  ************"
+#------------------------------------------------------------------------------------------------------------
+#    [Layer 1] OTA Spec. Configuration
+#------------------------------------------------------------------------------------------------------------
+	menu	"<< OTA Spec. Configuration Menu >>"
+		source "./Kconfigs/ota/config.ota"
+	endmenu
+
+#------------------------------------------------------------------------------------------------------------
+#    [Layer 1] 3rd Party SW Engine Configuration
+#------------------------------------------------------------------------------------------------------------
+	menu	"<< 3rd Party SW Engine Configuration Menu >>"
+		source "./Kconfigs/3rdparty/config.3rd"
+	endmenu
+
+#------------------------------------------------------------------------------------------------------------
+#    [Layer 2] DB Configuration
+#------------------------------------------------------------------------------------------------------------
+	menu	"<< DB(Service, Setup) Configuration Menu >>"
+		source "./Kconfigs/db/config.db"
+	endmenu
+
+#------------------------------------------------------------------------------------------------------------
+#    [Layer 2] MW Common Components Configuration
+#------------------------------------------------------------------------------------------------------------
+	menu	"<< MW Common Components Configuration Menu >>"
+		source "./Kconfigs/mwc/config.mwc"
+	endmenu
+
+#------------------------------------------------------------------------------------------------------------
+#    [Layer 2] MW Configuration
+#------------------------------------------------------------------------------------------------------------
+	menu	"<< MW Components Configuration Menu >>"
+		source "./Kconfigs/mw/config.mw"
+	endmenu
+
+#------------------------------------------------------------------------------------------------------------
+#    [Layer 3] AP Core Configuration
+#------------------------------------------------------------------------------------------------------------
+	menu	"<< AP Core Configuration Menu >>"
+		source "./Kconfigs/apcore/config.apcore"
+	endmenu
+
+#------------------------------------------------------------------------------------------------------------
+#    [Layer 4] AP UI Configuration
+#------------------------------------------------------------------------------------------------------------
+	#menu	"<< AP UI Configuration Menu >>"
+	#	source "./Kconfigs/apui/config.apui"
+	#endmenu
+
+#------------------------------------------------------------------------------------------------------------
+#    [Layer 5] Temporary Configuration
+#------------------------------------------------------------------------------------------------------------
+	menu	"<< Temporary Configuration Menu >>"
+		source "./Kconfigs/config.temp"
+	endmenu
+
+#------------------------------------------------------------------------------------------------------------
+#    [Layer 6] Service Configuration
+#------------------------------------------------------------------------------------------------------------
+	menu	"<< Service Configuration Menu >>"
+		source "./Kconfigs/service/config.service"
+	endmenu
+
+

@@ -1,0 +1,11 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=oem_keyfile
+TARGETTYPE=LIBRARY
+
+C_DEFINES= $(C_DEFINES)             \
+    -DDRM_BUILDING_OEM_KEYFILE_LIB  \
+
+SOURCES =        \
+    oemkeyfile.c
+

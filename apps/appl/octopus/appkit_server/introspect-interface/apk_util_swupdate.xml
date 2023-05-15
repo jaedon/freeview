@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Util/Swupdate">   
+    <interface name="Octopus.Appkit.Util.Swupdate">
+
+    <method name="Create">
+    	<arg type="u" name="swUpdateSpec" direction="in" />
+    	<arg type="u" name="handle" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="CreateManualConnect">
+    	<arg type="u" name="swUpdateSpec" direction="in" />
+    	<arg type="(isiiiiiu(u))" name="tunningInfo" direction="in" />    	
+    	<arg type="u" name="handle" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="StartDetect">
+    	<arg type="u" name="handle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="StopDetect">
+    	<arg type="u" name="handle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+                                                                        
+    <method name="StartDownload">
+    	<arg type="u" name="handle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="StopDownload">
+    	<arg type="u" name="handle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="StartInstall">
+    	<arg type="u" name="handle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="StopInstall">
+    	<arg type="u" name="handle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+    
+    <method name="Cancel">
+    	<arg type="u" name="handle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>        
+
+    <signal name="event">
+      <arg type="u" name="type" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+  </interface>
+</node>

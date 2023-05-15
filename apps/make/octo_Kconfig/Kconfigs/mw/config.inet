@@ -1,0 +1,58 @@
+################################################
+#					MW/INET Configuration					#
+################################################
+
+comment "MW/INET Configuration. (MW_INET_XXX)"
+
+	config MW_INET
+		bool "MW_INET - Support inet(lan card) device"
+		default n
+		config MW_INET_USE_DI
+			depends on MW_INET
+			bool "MW_INET_USE_DI - Support di network"
+			default n
+
+		config MW_INET_WLAN
+			depends on MW_INET
+			bool "WLAN MW_INET_WLAN - Support Wlan(wireless lan card) device"
+			default n
+
+		config MW_INET_CM
+			depends on MW_INET
+			bool "MW_INET_CM - Support Cable Modem device"
+			default n
+
+		config MW_INET_FTP
+			depends on MW_INET
+			bool "MW_INET_FTP - for take contents out"
+			default n
+
+		config MW_INET_DHCPSERVER
+			depends on MW_INET
+			bool "MW_INET_DHCPSERVER - Support DHCP Server"
+			default n
+
+		config MW_INET_IPV6
+			depends on MW_INET
+			bool "MW_INET_IPV6 - Support IPv6 Protocol Stack"
+			default n
+
+		config MW_INET_TUNNEL_IPV6_IN_IPV4
+			depends on MW_INET
+			bool "MW_INET_TUNNEL_IPV6_IN_IPV4 - Tunneling for encapsulating of IPV6 data within IPv4"
+			default n
+
+		config MW_INET_SNMP
+			depends on MW_INET
+			bool "MW_INET_SNMP - Support SNMP "
+			default n
+
+		config MW_INET_WOL
+			depends on MW_INET
+			bool "MW_INET_WOL - Support WakeOnLan "
+			default n
+		config MW_INET_PPPOE
+			depends on MW_INET
+			bool "MW_INET_PPPOE - Support ADSL (PPPoE)"
+			default n
+

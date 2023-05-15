@@ -1,0 +1,21 @@
+{
+	"cmdconsole":	{"ipc":"inet", "addr":"127.0.0.1", "port":60001},
+	"dama":			{"ipc":"uds", "name":"/tmp/.dama_signal.tmp"},
+	"datastream":	{"ipc":"uds", "name":"/tmp/.datastream.tmp"},
+	"hama":			{"ipc":"uds", "name":"/tmp/.hama_signal.tmp"},
+	"homma":		{"ipc":"uds", "name":"/tmp/.homma_signal.tmp"},
+	"cmddaemon":	{"ipc":"uds", "name":"/tmp/.cmddaemon_signal.tmp"},
+	"nico":			{"ipc":"uds", "name":"/tmp/.nico_signal.tmp"},
+	"nima":			{"ipc":"uds", "name":"/tmp/.nima_signal.tmp"},
+	"pama":			{"ipc":"uds", "name":"/tmp/.pama_signal.tmp"},
+	"sama":			{"ipc":"uds", "name":"/tmp/.sama_signal.tmp"},
+	"thma":			{"ipc":"uds", "name":"/tmp/.thma_signal.tmp"},
+	"umma":			{"ipc":"uds", "name":"/tmp/.umma_signal.tmp"},
+	"hommastreaming":	{"ipc":"uds", "name":"/tmp/.hommastreaming_signal.tmp"},
+	"obama_rpcprotocol":		{"ipc":"uds", "name":"/tmp/.obama_rpcprotocol_signal.tmp"},
+	"tima":			{"ipc":"uds", "name":"/tmp/.tima_signal.tmp"},
+	"nova":			{"ipc":"uds", "name":"/tmp/.nova_signal.tmp"},
+	"restsvr":		{"ipc":"uds", "name":"/tmp/.restsvr_signal.tmp"},
+	"trauma":		{"ipc":"uds", "name":"/tmp/.trauma_signal.tmp"}
+}
+

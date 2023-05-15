@@ -1,0 +1,150 @@
+#############################################################################
+#
+#       Copyright (c) 2007-2012, Broadcom Corporation.
+#       All rights reserved.
+#       Confidential Property of Broadcom Corporation.
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.power $
+# $brcm_Revision: 1 $
+# $brcm_Date: 9/13/12 6:31p $
+#
+# [File Description:]
+#
+# Written by Troy Trammel
+#
+# Revision History:
+#
+# $brcm_Log: /BSEAV/linux/driver/build/97205/Makefile.power $
+# 
+# 1   9/13/12 6:31p mphillip
+# SW7425-3739: Merge symlink removal to main
+# 
+# SW7425-3739/1   9/13/12 12:38p mphillip
+# SW7425-3739: Remove symlinks for linux/driver/build subdirectories and
+# dependencies
+# 
+# 8   4/19/10 5:08p erickson
+# SW7400-2739: pull magnum build logic into Makefile.power
+#
+# 7   10/21/09 11:44a erickson
+# SW7405-3154: fix non-2.6.31
+#
+# 6   10/20/09 11:36a erickson
+# SW7405-3154: reorg 2.6.31 support to support power driver with same
+# include
+#
+# 5   7/15/09 4:13p katrep
+# PR56518: Add support for non init version of bchp_open
+#
+# 4   7/10/09 4:41p erickson
+# PR56517: define BINT_OPEN_BYPASS_L2INIT so that BINT_Open doesn't
+# access registers which are powered down
+#
+# 3   4/13/09 11:41a jtna
+# PR54008: fixed invalid .PHONY target
+#
+# 2   6/17/08 7:46p katrep
+# PR43763: Fixed compiler warnings
+#
+# 1   5/7/08 7:31p cernekee
+# PR42326: add power makefiles for 7405
+#
+# 1   1/25/08 5:02p ttrammel
+# PR38988: Passive Power Driver checkin
+#
+#
+#############################################################################
+
+LINUX ?= /opt/brcm/linux
+LINUX_VER_GE_2_6 ?= $(shell (grep 'PATCHLEVEL = 6' ${LINUX}/Makefile >/dev/null && echo 'y'))
+ifeq ($(LINUX_VER_GE_2_6),y)
+LINUX_VER_EQ_2_6_31 := $(shell (grep 'SUBLEVEL = 31' ${LINUX}/Makefile >/dev/null && echo 'y'))
+endif
+
+BUILDDIR=$(shell pwd)
+TARGET = brcmpmdrv
+
+ifeq ($(STATICLIB),no)
+$(error You must unset STATICLIB)
+endif
+
+SYSTEM := linuxkernel
+
+all: checkdirs driver
+
+ifeq ($(LINUX_VER_EQ_2_6_31),y)
+include Common.2.6.31.make
+else
+include Common.make
+endif
+
+DRIVERS += $(BCM_OBJ_DIR)/$(TARGET).ko $(BCM_OBJ_DIR)/bcmkni.ko
+.PHONY: driver
+driver:  ${DRIVERS}
+
+# needed for PLATFORM->CHIP
+include ${BSEAV}/api/include/api.mak
+
+# magnum build
+BCHP_CHIP := $(CHIP)
+include $(MAGNUM)/basemodules/dbg/bdbg.inc
+include $(MAGNUM)/basemodules/std/bstd.inc
+include $(MAGNUM)/basemodules/err/berr.inc
+include $(MAGNUM)/basemodules/kni/bkni.inc
+include $(MAGNUM)/basemodules/tmr/btmr.inc
+include $(MAGNUM)/basemodules/chp/bchp.inc
+include $(MAGNUM)/basemodules/int/bint.inc
+include $(MAGNUM)/basemodules/reg/breg.inc
+include $(MAGNUM)/portinginterface/kir/bkir.inc
+include $(MAGNUM)/portinginterface/kpd/bkpd.inc
+include $(MAGNUM)/portinginterface/led/bled.inc
+include $(MAGNUM)/portinginterface/gio/bgio.inc
+include $(MAGNUM)/commonutils/lst/blst.inc
+MAGNUM_SOURCES = $(foreach module, $(MAGNUM_MODULES), $(${module}_SOURCES))
+MAGNUM_INCLUDES = $(foreach module, $(MAGNUM_MODULES), $(${module}_INCLUDES))
+MAGNUM_DEFINES = $(foreach module, $(MAGNUM_MODULES), $(${module}_DEFINES))
+MAGNUM_CFLAGS += $(addprefix -I, $(sort $(MAGNUM_INCLUDES))) $(addprefix -D, $(sort $(MAGNUM_DEFINES)))
+MAGNUM_OBJ = $(MAGNUM_SOURCES:%.c=%.o)
+
+# All magnum and framework directories to C file search path
+vpath %.c $(dir $(MAGNUM_SOURCES))
+
+
+CFLAGS += ${B_REFSW_LINUXKERNEL_CFLAGS}
+CFLAGS += ${BSETTOP_CFLAGS} ${MAGNUM_CFLAGS}
+#CFLAGS += -fno-inline
+CFLAGS += -DKBUILD_MODNAME=${TARGET}
+CFLAGS += -DBINT_OPEN_BYPASS_L2INIT -DBCHP_NO_INIT
+
+OBJS-m += pm-int-handler.o \
+	brcmpmdrv.mod.o  \
+	${MAGNUM_OBJ} brcmpmdrv.o
+
+OBJS-NODIR = $(foreach file, $(OBJS-m), $(notdir ${file}))
+
+vpath %.c $(BSEAV)/linux/driver/power
+vpath %.S $(BSEAV)/linux/driver/power
+
+${OBJS-m}: ${LINUX_INC} checkdirs
+
+$(BCM_OBJ_DIR)/%.o: %.c
+	@echo [Compile... $(notdir $<)]
+	${Q_}$(CC) -MMD -c $(CFLAGS) $< -o $(BCM_OBJ_DIR)/$(notdir $@)
+
+$(BCM_OBJ_DIR)/%.o: %.S
+	@echo [Compile... $(notdir $<)]
+	${Q_}$(CC) -MMD -c $(CFLAGS) -D__ASSEMBLY__ $< -o $(BCM_OBJ_DIR)/$(notdir $@)
+
+${BCM_OBJ_DIR}/$(TARGET).ko: $(addprefix ${BCM_OBJ_DIR}/, ${OBJS-NODIR})
+	@echo [Linking... $(notdir $@)]
+	${Q_}$(LD) -Map $(BCM_OBJ_DIR)/$(TARGET).map -r $^  -o $@ $(LDFLAGS)
+
+$(BCM_OBJ_DIR)/bcmkni.ko:
+	$(MAKE) -f Makefile.kni
+
+-include $(BCM_OBJ_DIR)/*.d
+

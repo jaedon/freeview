@@ -1,0 +1,34 @@
+#!/bin/sh
+#
+# (C)2007 Broadcom Corporation
+# This script prepares a settop/dtv for the DirectFB driver.
+
+
+#
+# Create device nodes if they are missing
+#
+if [ ! -e /dev/brcm0 ] 
+then
+  mknod -m a=rw /dev/brcm0 c 30 0
+fi
+if [ ! -e /dev/input ] 
+then
+  mkdir -p /dev/input
+fi
+if [ ! -e /dev/input/event0 ]
+then
+  mknod /dev/input/event0 c 13 64
+fi    
+if [ ! -e /dev/input/event1 ]
+then
+  mknod /dev/input/event1 c 13 65
+fi    
+if [ ! -e /dev/input/mice ]
+then
+  mknod /dev/input/mice c 13 63
+fi    
+if [ ! -e /dev/input/mouse0 ]
+then
+  mknod /dev/input/mouse0 c 13 32
+fi   
+ 

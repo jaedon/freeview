@@ -1,0 +1,1294 @@
+
+91729: GENKEYPAIR: valid data should work
+Test_PK_GenKeyPair_Encrypt_Decrypt( GENKEYPAIR, CRYPTO_CONTEXT, ValidPubKey, ValidPrivKey )
+
+91733: PKEncrypt: valid data should work
+Test_PK_GenKeyPair_Encrypt_Decrypt( ENCRYPT, CRYPTO_CONTEXT, pubKey, ValidRandBufIn, ValidCipher )
+
+91741:PKEncrypt_PKDecrypt and PKSign_PKVerify : valid data should work well together
+Test_PK_GenKeyPair_Encrypt_Decrypt( GENKEYPAIR, CRYPTO_CONTEXT, ValidPubKey, ValidPrivKey, ValidCipher )
+Test_PK_Sign_Verify( PKSIGN, CRYPTO_CONTEXT, ValidPrivKey, PlainKey, PlainKeyLength, ValidSign )
+
+91751:GENKEYPAIR, PKEncrypt, PKDecrypt, PKSign, PKVerify : valid data should work well together
+Test_PK_GenKeyPair_Encrypt_Decrypt( GENKEYPAIR, CRYPTO_CONTEXT, ValidPubKey, ValidPrivKey, ValidCipher )
+Test_PK_Sign_Verify( PKSIGN, CRYPTO_CONTEXT, ValidPrivKey, PlainKey, PlainKeyLength, ValidSign )
+Test_PK_Sign_Verify( PKVERIFY, CRYPTO_CONTEXT, ValidPubKey, PlainKey, PlainKeyLength, ValidSign )
+
+91909:BVT:P0: DRM_CPHR: valid data should work ( RC4 CipherType )
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_CPHR_Init( 7 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 54 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_InitDecrypt( 54 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 54 ByteCountToDecrypt, NORMAL CipherContext )
+
+90561:BVT:P0: DRM_CPHR: valid data should work ( RC4 CipherType with 6-byte content key )
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_CPHR_Init( 6 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 54 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_InitDecrypt( 54 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 54 ByteCountToDecrypt, NORMAL CipherContext )
+
+90594:BVT:P0: DRM_CPHR: known RC4 data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_CPHR_Init( 7 KeyLength, KNOWN_RC4 ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 60 ByteCountToEncrypt, KNOWN_RC4 Data )
+Test_DRM_CPHR_InitDecrypt( 60 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 60 ByteCountToDecrypt, NORMAL CipherContext )
+
+91912:BVT:P0: DRM_CPHR: valid data should work ( AES Counter 128 )
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_CPHR_Init( 16 KeyLength, CLEAR ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 96 ByteCountToEncrypt, RANDOM Data, 1 CounterID, 0 BlockOffset )
+Test_DRM_CPHR_InitDecrypt( 96 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 48 ByteCountToDecrypt, NORMAL CipherContext, 0 DecryptOffset, 1 CounterID, 0 BlockOffset )
+
+90590:BVT:P0: DRM_AES_Cipher: Encrypt/Decrypt with known key and data should work
+Test_DRM_AES_Cipher( ECB CipherMode, KNOWN DataType )
+Test_DRM_AES_Cipher( CTR CipherMode, KNOWN DataType )
+Test_DRM_AES_Cipher( CBC CipherMode, KNOWN DataType )
+
+90591:BVT:P0: DRM_OMAC: Sign/Verify with known data should work
+Test_DRM_OMAC( KNOWN DataType, GOOD VerifyType )
+
+91913: Test_DRM_SHA_Update: valid data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_Oem_Random_GetBytes( 1, 64 bytes )
+Test_DRM_SHA_Init( 0, SHA1 ShaAlgorithm )
+Test_DRM_SHA_Update( 0, 1, 64 BytesData )
+Test_DRM_SHA_Finalize( 0, 2, SHA_1_DIGEST )
+Test_DRM_SHA_Init( 0, SHA1 ShaAlgorithm )
+Test_DRM_SHA_Update( 0, 1, 64 BytesData )
+Test_DRM_SHA_Finalize( 0, 3, SHA_1_DIGEST )
+Test_MEMCMP( 2, 3, 20 SHA_DIGEST_LEN )
+
+90803:BVT:P0:DRM_SHA:valid data should work -- SHA256
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_Oem_Random_GetBytes( 1, 64 bytes )
+Test_DRM_SHA_Init( 0, SHA256 ShaAlgorithm )
+Test_DRM_SHA_Update( 0, 1, 64 BytesData )
+Test_DRM_SHA_Finalize( 0, 2, SHA_256_DIGEST )
+Test_DRM_SHA_Init( 0, SHA256 ShaAlgorithm )
+Test_DRM_SHA_Update( 0, 1, 64 BytesData )
+Test_DRM_SHA_Finalize( 0, 3, SHA_256_DIGEST )
+Test_MEMCMP( 2, 3, SHA_256_DIGEST )
+
+90583: Test_DRM_HMAC_Finalize: valid data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )
+Test_DRM_HMAC_Update( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesData )
+Test_DRM_HMAC_Finalize( 0 HMAC_CONTEXT, 20 BytesKey, 20 SHA_DIGEST_LEN )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 32 BytesKey, 32 BytesToAdd, SHA256 HashAlgorithm )
+Test_DRM_HMAC_Update( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesData )
+Test_DRM_HMAC_Finalize( 0 HMAC_CONTEXT, 32 BytesKey, 32 SHA256_DIGEST_LEN )
+
+91941:BVT:P0: Test_DRM_HMAC_Finalize: Known data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA256 HashAlgorithm, hmac_key1.dat )
+Test_DRM_HMAC_Update( 0 HMAC_CONTEXT, 8 BytesKey, 8 BytesData, hmac_data1.dat )
+Test_DRM_HMAC_Finalize( 0 HMAC_CONTEXT, 32 BytesKey, 32 SHA256_DIGEST_LEN, hmac_hash1_sha256.dat )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 4 BytesKey, 4 BytesToAdd, SHA256 HashAlgorithm, hmac_key2.dat )
+Test_DRM_HMAC_Update( 0 HMAC_CONTEXT, 28 BytesKey, 28 BytesData, hmac_data2.dat )
+Test_DRM_HMAC_Finalize( 0 HMAC_CONTEXT, 32 BytesKey, 32 SHA256_DIGEST_LEN, hmac_hash2_sha256.dat )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm, hmac_key1.dat )
+Test_DRM_HMAC_Update( 0 HMAC_CONTEXT, 8 BytesKey, 8 BytesData, hmac_data1.dat )
+Test_DRM_HMAC_Finalize( 0 HMAC_CONTEXT, 20 BytesKey, 20 SHA1_DIGEST_LEN, hmac_hash1_sha1.dat )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 4 BytesKey, 4 BytesToAdd, SHA1 HashAlgorithm, hmac_key2.dat )
+Test_DRM_HMAC_Update( 0 HMAC_CONTEXT, 28 BytesKey, 28 BytesData, hmac_data2.dat )
+Test_DRM_HMAC_Finalize( 0 HMAC_CONTEXT, 20 BytesKey, 20 SHA1_DIGEST_LEN, hmac_hash2_sha1.dat )
+
+90584: RC4_Cipher: valid data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_RC4_Cipher( NORMAL RC4_KEYSTRUCT, 8 BytesSizeOfRC4Key, 1000 BytesSizeOfDataEncrypt_Decrypt )
+
+90585: DES_Cipher: valid data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DES_Cipher( NORMAL DESTable, 8 BytespKey, 8 BytespbIn, 8 BytespbOut )
+
+90586: CBC64WS4_asm: valid data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_CBC64WS4_asm( 54 BytesData )
+Test_InvCBC64WS4_asm( 54 BytesData )
+
+10597:BVT:P0: DRM_RSA: 1024-bit Encrypt/Decrypt with random data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 1024 KeyLength )
+Test_DRM_RSA_Encrypt( 1024 KeyLength, 86 DataLength )
+Test_DRM_RSA_Decrypt( 1024 KeyLength, 86 DataLength )
+Test_OEM_RSA_ZeroKeys
+
+90598:BVT:P0: DRM_RSA: 1024-bit Sign/Verify with random data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 1024 KeyLength )
+Test_DRM_RSA_Sign( 1024 KeyLength, 86 DataLength )
+Test_DRM_RSA_Verify( 1024 KeyLength, 86 DataLength, GOOD VerifyType )
+Test_OEM_RSA_ZeroKeys
+
+90602:BVT:P0: OEM_RSA: 1024-bit Encrypt/Decrypt with random data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 1024 KeyLength )
+Test_OEM_RSA_Encrypt( 1024 KeyLength, RANDOM PlainText )
+Test_OEM_RSA_Decrypt( 1024 KeyLength )
+Test_OEM_RSA_ZeroKeys
+
+90604:BVT:P0: OEM_RSA: 1024-bit Encrypt/Decrypt with known data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 1024 KeyLength )
+Test_OEM_RSA_Encrypt( 1024 KeyLength, KNOWN1 PlainText )
+Test_OEM_RSA_Decrypt( 1024 KeyLength )
+Test_OEM_RSA_ZeroKeys
+Test_OEM_RSA_KeySetup( 1024 KeyLength )
+Test_OEM_RSA_Encrypt( 1024 KeyLength, KNOWN2 PlainText )
+Test_OEM_RSA_Decrypt( 1024 KeyLength )
+Test_OEM_RSA_ZeroKeys
+
+-------------------BVT ends here--------------------------
+
+91730: PKGenKeyPair: NULL pub key should fail
+Test_PK_GenKeyPair_Encrypt_Decrypt( GENKEYPAIR, CRYPTO_CONTEXT, NULL, ValidPrivKey )=-2147024809( DRM_E_INVALIDARG )
+
+
+91731: PKGenKeyPair: NULL priv key should fail
+Test_PK_GenKeyPair_Encrypt_Decrypt( GENKEYPAIR, CRYPTO_CONTEXT, ValidPubKey, NULL )=-2147024809( DRM_E_INVALIDARG )
+
+
+91732: PKGenKeyPair: NULL CRYPTO_CONTEXT should fail
+Test_PK_GenKeyPair_Encrypt_Decrypt( GENKEYPAIR, NULL, ValidPubKey, ValidPrivKey )=-2147024809( DRM_E_INVALIDARG )
+
+91734: PKEncrypt: NULL Crypto Context should fail
+Test_PK_GenKeyPair_Encrypt_Decrypt( ENCRYPT, NULL, pubKey, ValidRandBufIn, ValidCipher )=-2147024809( DRM_E_INVALIDARG )
+
+91735: PKEncrypt: NULL pub key should fail
+Test_PK_GenKeyPair_Encrypt_Decrypt( ENCRYPT, CRYPTO_CONTEXT, NULL, ValidRandBufIn, ValidCipher )=-2147024809( DRM_E_INVALIDARG )
+
+
+91736: PKEncrypt: NULL BufferIn for encryption should fail
+Test_PK_GenKeyPair_Encrypt_Decrypt( ENCRYPT, CRYPTO_CONTEXT, pubKey, NULL, ValidCipher )=-2147024809( DRM_E_INVALIDARG )
+
+
+91737: PKEncrypt: pubkey mismatch should not get the same content after encrypt and decrypt
+Test_PK_GenKeyPair_Encrypt_Decrypt( ENCRYPT, CRYPTO_CONTEXT, PubKey2, ValidRandBufIn, ValidCipher )=-2147171584( DRM_E_TEST_PKCRYPTO_FAILURE )
+
+91738: PKDecrypt: private key mismatch should not get the same content after encrypt and decrypt
+Test_PK_GenKeyPair_Encrypt_Decrypt( DECRYPT, CRYPTO_CONTEXT, PrivKey2, ValidCipher, ValidBufOut )=-2147171584( DRM_E_TEST_PKCRYPTO_FAILURE )
+
+91739: PKEncrypt: NULL out cipher for encryption should fail
+Test_PK_GenKeyPair_Encrypt_Decrypt( ENCRYPT, CRYPTO_CONTEXT, pubKey, ValidRandBufIn, NULL )=-2147024809( DRM_E_INVALIDARG )
+
+91740: PKSign: Valid data should work
+Test_PK_Sign_Verify( PKSIGN, CRYPTO_CONTEXT, ValidPrivKey, PlainKey, PlainKeyLength, ValidSign )
+
+91742: PKSign: NULL CRYPTO_CONTEXT should fail
+Test_PK_Sign_Verify( PKSIGN, NULL, ValidPrivKey, PlainKey, PlainKeyLength, ValidSign )=-2147024809( DRM_E_INVALIDARG )
+
+91743: PKSign: NULL PrivKey should fail
+Test_PK_Sign_Verify( PKSIGN, CRYPTO_CONTEXT, NULL, PlainKey, PlainKeyLength, ValidSign )=-2147024809( DRM_E_INVALIDARG )
+
+91744: PKSign: NULL PlainKey should fail
+Test_PK_Sign_Verify( PKSIGN, CRYPTO_CONTEXT, ValidPrivKey, NULL, PlainKeyLength, ValidSign )=-2147024809( DRM_E_INVALIDARG )
+
+91745: PKSign: Zero PlainKeyLength should fail
+Test_PK_Sign_Verify( PKSIGN, CRYPTO_CONTEXT, ValidPrivKey, PlainKey, 0,ValidSign )=-2147024809( DRM_E_INVALIDARG )
+
+91746: PKSign: NULL signature should fail
+Test_PK_Sign_Verify( PKSIGN, CRYPTO_CONTEXT, ValidPrivKey, PlainKey, PlainKeyLength, NULL )=-2147024809( DRM_E_INVALIDARG )
+
+91747: PKSign:  mismatch PrivKey should fail
+Test_PK_Sign_Verify( PKSIGN, CRYPTO_CONTEXT, PrivKey2, PlainKey, PlainKeyLength, ValidSign )=0x800480CF( DRM_E_INVALID_SIGNATURE )
+
+
+91748: PKVerify:  Valid data should work
+Test_PK_Sign_Verify( PKVERIFY, CRYPTO_CONTEXT, ValidPubKey, PlainKey, PlainKeyLength, ValidSign )
+
+
+91749: PKVerify:  NULL CRYPTO_CONTEXT should fail
+Test_PK_Sign_Verify( PKVERIFY, NULL, ValidPubKey, PlainKey, PlainKeyLength, ValidSign )=-2147024809( DRM_E_INVALIDARG )
+
+
+91750: PKVerify:  NULL PubKey should fail
+Test_PK_Sign_Verify( PKVERIFY, CRYPTO_CONTEXT, NULL, PlainKey, PlainKeyLength, ValidSign )=-2147024809( DRM_E_INVALIDARG )
+
+91752:PKVERIFY: mismatch pubKey should fail
+Test_PK_Sign_Verify( PKVERIFY, CRYPTO_CONTEXT, PubKey2, PlainKey, PlainKeyLength, ValidSign )=0x800480CF( DRM_E_INVALID_SIGNATURE )
+
+
+91753:PKVERIFY: zero PlainKeyLength should fail
+Test_PK_Sign_Verify( PKVERIFY, CRYPTO_CONTEXT, ValidPubKey, PlainKey, 0,ValidSign )=-2147024809( DRM_E_INVALIDARG )
+
+
+91754:PKVERIFY: NULL PlainKey should fail
+Test_PK_Sign_Verify( PKVERIFY, CRYPTO_CONTEXT, ValidPubKey, NULL, PlainKeyLength, ValidSign )=-2147024809( DRM_E_INVALIDARG )
+
+
+91755:PKVERIFY: NULL ValidSign should fail
+Test_PK_Sign_Verify( PKVERIFY, CRYPTO_CONTEXT, ValidPubKey, PlainKey, PlainKeyLength, NULL )=-2147024809( DRM_E_INVALIDARG )
+
+91756: Test_Oem_Random_GetBytes with zero length should fail
+Test_Oem_Random_GetBytes(0, 0 bytes)=-2147024809( DRM_E_INVALIDARG )
+
+91888:DRT:P0: DRM_CPHR_Init: valid data with clear content should work ( all ciphers )
+Test_DRM_CPHR_Init( 7 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Init( 16 KeyLength, CLEAR ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )
+
+91889:DRT:P0: DRM_CPHR_Init: valid data with random content key should work ( all ciphers )
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_CPHR_Init( 7 KeyLength, RANDOM ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Init( 16 KeyLength, RANDOM ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )
+
+91890:DRT:P0: DRM_CPHR_Init: valid data with shorter than expected clear content key should work ( RC4 CipherType )
+Test_DRM_CPHR_Init( 2 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )
+
+91891:DRT:P0: DRM_CPHR_Init: valid data with longer than expected clearcontent key but within than the max key range should work ( RC4 )
+Test_DRM_CPHR_Init( 32 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )
+
+90595:DRT:P0: DRM_CPHR_Init: valid data with longer than expected clearcontent key ( outside of the max key range ) should NOT work ( RC4 )
+Test_DRM_CPHR_Init( 128 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )=-2147024809( DRM_E_INVALIDARG )
+
+90596:DRT:P0: DRM_CPHR_Init: valid data with invalid content key size should NOT work ( AES )
+Test_DRM_CPHR_Init( 5 KeyLength, CLEAR ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )=-2147024809( DRM_E_INVALIDARG )
+
+91892:DRT:P0: DRM_CPHR_Init: NULL content key should fail
+Test_DRM_CPHR_Init( 7 KeyLength, NULL, NORMAL CipherContext, RC4 CipherType )=-2147024809( DRM_E_INVALIDARG )
+
+91895:DRT:P0: DRM_CPHR_Init: Zero length of cbContKey should fail
+Test_DRM_CPHR_Init( 0 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )=-2147024809( DRM_E_INVALIDARG )
+
+91896:DRT:P0: DRM_CPHR_Init: NULL pointer to a DRM_CIPHER_CONTEXT structure should fail
+Test_DRM_CPHR_Init( 7 KeyLength, CLEAR ContentKey, NULL, RC4 CipherType )=-2147024809( DRM_E_INVALIDARG )
+
+91897:DRT:P0: DRM_CPHR_Encrypt: valid data with clear content key should work ( all ciphers )
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_CPHR_Init( 7 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 54 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_Init( 16 KeyLength, CLEAR ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 48 ByteCountToEncrypt, RANDOM Data )
+
+91898:BVT:P0: DRM_CPHR_Encrypt: Encrypt without Init should fail 
+''Test_DRM_CPHR_Init( 7 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 54 ByteCountToEncrypt, RANDOM Data )=0x800480D2 ( DRM_E_CIPHER_NOT_INITIALIZED )
+
+91899:DRT:P0: DRM_CPHR_Encrypt: Encrypt with tiny byte count should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_CPHR_Init( 7 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 9 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_Init( 16 KeyLength, CLEAR ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 9 ByteCountToEncrypt, RANDOM Data )
+
+91900:DRT:P0: DRM_CPHR_Encrypt: Encrypt with big byte count should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_CPHR_Init( 7 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 102400 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_Init( 16 KeyLength, CLEAR ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 102400 ByteCountToEncrypt, RANDOM Data )
+
+91901:DRT:P0: DRM_CPHR_Init: Multiple calls should work
+Test_DRM_CPHR_Init( 7 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Init( 7 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Init( 7 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Init( 7 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Init( 7 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Init( 7 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Init( 16 KeyLength, CLEAR ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )
+Test_DRM_CPHR_Init( 16 KeyLength, CLEAR ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )
+Test_DRM_CPHR_Init( 16 KeyLength, CLEAR ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )
+Test_DRM_CPHR_Init( 16 KeyLength, CLEAR ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )
+Test_DRM_CPHR_Init( 16 KeyLength, CLEAR ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )
+Test_DRM_CPHR_Init( 16 KeyLength, CLEAR ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )
+
+91902:DRT:P0: DRM_CPHR_Encrypt: Multiple calls should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_CPHR_Init( 7 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 102400 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 102400 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 102400 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 102400 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 102400 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 102400 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 102400 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 102400 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 102400 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_Init( 16 KeyLength, CLEAR ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 102400 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 102400 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 102400 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 102400 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 102400 ByteCountToEncrypt, RANDOM Data )
+
+91910:DRT:P0: DRM_CPHR_InitDecrypt: InitDecrypt should fail if cbData is zero
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_CPHR_Init( 7 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 54 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_InitDecrypt( 0 DataLength, 39 Last15Offset, NORMAL CipherContext )=0x80070057( DRM_E_INVALIDARG )
+
+91911:DRT:P0: DRM_CPHR_Decrypt: Encrypt and Decrypt should work with small byte count
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_CPHR_Init( 7 KeyLength, RANDOM ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 5 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_InitDecrypt( 5 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 5 ByteCountToDecrypt, NORMAL CipherContext )
+Test_DRM_CPHR_Init( 16 KeyLength, RANDOM ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 5 ByteCountToEncrypt, RANDOM Data, 1 CounterID, 0 BlockOffset )
+Test_DRM_CPHR_InitDecrypt( 5 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 5 ByteCountToDecrypt, NORMAL CipherContext, 0 DecryptOffset, 1 CounterID, 0 BlockOffset )
+
+91917:DRT:P0: DRM_CPHR_Decrypt: valid data with blob content key should work ( all ciphers )
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_CPHR_Init( 7 KeyLength, RANDOM ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 54 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_InitDecrypt( 54 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 54 ByteCountToDecrypt, NORMAL CipherContext )
+Test_DRM_CPHR_Init( 16 KeyLength, RANDOM ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 96 ByteCountToEncrypt, RANDOM Data, 1 CounterID, 0 BlockOffset )
+Test_DRM_CPHR_InitDecrypt( 96 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 48 ByteCountToDecrypt, NORMAL CipherContext, 0 DecryptOffset, 1 CounterID, 0 BlockOffset )
+
+90593:DRT:P0: DRM_CPHR: AES encrypt/decrypt with different counter data set should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_CPHR_Init( 16 KeyLength, CLEAR ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 96 ByteCountToEncrypt, RANDOM Data, 5 CounterID, 3 BlockOffset )
+Test_DRM_CPHR_InitDecrypt( 96 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 48 ByteCountToDecrypt, NORMAL CipherContext, 0 DecryptOffset, 5 CounterID, 3 BlockOffset )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 96 ByteCountToEncrypt, RANDOM Data, 5555 CounterID, 8888 BlockOffset )
+Test_DRM_CPHR_InitDecrypt( 96 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 48 ByteCountToDecrypt, NORMAL CipherContext, 0 DecryptOffset, 5555 CounterID, 8888 BlockOffset )
+
+90703:BVT:P0: DRM_CPHR: AES_COUNTER encrypt/decrypt with multiple calls to decrypt 
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_CPHR_Init( 16 KeyLength, CLEAR ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 240 ByteCountToEncrypt, RANDOM Data, 1 CounterID, 0 BlockOffset)
+Test_DRM_CPHR_InitDecrypt( 240 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 48 ByteCountToDecrypt, NORMAL CipherContext, 0   DecryptOffset, 1  CounterID, 0   BlockOffset)
+Test_DRM_CPHR_Decrypt( 48 ByteCountToDecrypt, NORMAL CipherContext, 48  DecryptOffset, 1  CounterID, 48  BlockOffset)
+Test_DRM_CPHR_Decrypt( 48 ByteCountToDecrypt, NORMAL CipherContext, 96  DecryptOffset, 1  CounterID, 96  BlockOffset)
+Test_DRM_CPHR_Decrypt( 48 ByteCountToDecrypt, NORMAL CipherContext, 144 DecryptOffset, 1  CounterID, 144 BlockOffset)
+Test_DRM_CPHR_Decrypt( 48 ByteCountToDecrypt, NORMAL CipherContext, 192 DecryptOffset, 1  CounterID, 192 BlockOffset)
+
+90704:BVT:P0: DRM_CPHR: RC4 encrypt/decrypt with multiple calls to decrypt 
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_CPHR_Init( 7 KeyLength, CLEAR ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 240 ByteCountToEncrypt, RANDOM Data)
+Test_DRM_CPHR_InitDecrypt( 240 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 48 ByteCountToDecrypt, NORMAL CipherContext, 0   DecryptOffset)
+Test_DRM_CPHR_Decrypt( 48 ByteCountToDecrypt, NORMAL CipherContext, 48  DecryptOffset)
+Test_DRM_CPHR_Decrypt( 48 ByteCountToDecrypt, NORMAL CipherContext, 96  DecryptOffset)
+Test_DRM_CPHR_Decrypt( 48 ByteCountToDecrypt, NORMAL CipherContext, 144 DecryptOffset)
+Test_DRM_CPHR_Decrypt( 48 ByteCountToDecrypt, NORMAL CipherContext, 192 DecryptOffset)
+
+90700:BVT:P0: DRM_CPHR: DRM_CPHR_Decrypt with RC4 should fail if decrypt not inited.
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_CPHR_Init( 7 KeyLength, RANDOM ContentKey, NORMAL CipherContext, RC4 CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 54 ByteCountToEncrypt, RANDOM Data )
+Test_DRM_CPHR_Decrypt( 54 ByteCountToDecrypt, NORMAL CipherContext )=0x800480D3 (DRM_E_DECRYPT_NOT_INITIALIZED)
+
+90705:BVT:P0: DRM_CPHR: Decrypt random data encrypted with System.Security.Cryptography.Rijndael
+LoadSymmetricTestData( AES_COUNTER CipherType, bvt_aes_counter_k16_d1024_key.dat, bvt_aes_counter_k16_d1024_clear.dat, bvt_aes_counter_k16_d1024_cipher.dat, bvt_aes_counter_k16_d1024_dataid.dat )
+Test_DRM_CPHR_InitDecrypt( 1024 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 1024 ByteCountToDecypt, NORMAL CipherContext, 0   DecryptOffset, KNOWN_FILE DataID  )
+
+90706:BVT:P0: DRM_CPHR: encrypt random data, check against same data encrypted with System.Security.Cryptography.Rijndael
+LoadSymmetricTestData( AES_COUNTER CipherType, bvt_aes_counter_k16_d1024_key.dat, bvt_aes_counter_k16_d1024_clear.dat, bvt_aes_counter_k16_d1024_cipher.dat, bvt_aes_counter_k16_d1024_dataid.dat )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 1024 DataLength, KNOWN_FILE Data, KNOWN_FILE DataID )
+
+90701:BVT:P0: DRM_CPHR: DRM_CPHR_Decrypt with AES should succeed if decrypt not inited.
+Test_DRM_CPHR_Init( 16 KeyLength, RANDOM ContentKey, NORMAL CipherContext, AES_COUNTER CipherType )
+Test_DRM_CPHR_Encrypt( NORMAL CipherContext, 96 ByteCountToEncrypt, RANDOM Data, 1 CounterID, 0 BlockOffset )
+Test_DRM_CPHR_Decrypt( 48 ByteCountToDecrypt, NORMAL CipherContext, 0 DecryptOffset, 1 CounterID, 0 BlockOffset )
+
+90707:FUNC:P1: DRM_CPHR: Large Data (100K) Should Decrypt correctly with 32K Buffer Size
+LoadSymmetricTestData( AES_COUNTER CipherType, func_aes_counter_k128_d102400_key.dat, func_aes_counter_k128_d102400_clear.dat, func_aes_counter_k128_d102400_cipher.dat, func_aes_counter_k128_d102400_dataid.dat )
+Test_DRM_CPHR_InitDecrypt( 100000 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 32768 ByteCountToDecypt, NORMAL CipherContext, 0   DecryptOffset, KNOWN_FILE DataID, 0 BlockOffset )
+Test_DRM_CPHR_Decrypt( 32768 ByteCountToDecypt, NORMAL CipherContext, 32768   DecryptOffset, KNOWN_FILE DataID, 32768 BlockOffset )
+Test_DRM_CPHR_Decrypt( 32768 ByteCountToDecypt, NORMAL CipherContext, 65536   DecryptOffset, KNOWN_FILE DataID, 65536 BlockOffset )
+Test_DRM_CPHR_Decrypt( 4096  ByteCountToDecypt, NORMAL CipherContext, 98304   DecryptOffset, KNOWN_FILE DataID, 98304 BlockOffset )
+
+90708:FUNC:P1: DRM_CPHR: Large Data (100K) Should Decrypt correctly with 16K Buffer Size
+LoadSymmetricTestData( AES_COUNTER CipherType, func_aes_counter_k128_d102400_key.dat, func_aes_counter_k128_d102400_clear.dat, func_aes_counter_k128_d102400_cipher.dat, func_aes_counter_k128_d102400_dataid.dat )
+Test_DRM_CPHR_InitDecrypt( 100000 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 16384 ByteCountToDecypt, NORMAL CipherContext, 0       DecryptOffset, KNOWN_FILE DataID, 0     BlockOffset )
+Test_DRM_CPHR_Decrypt( 16384 ByteCountToDecypt, NORMAL CipherContext, 16384   DecryptOffset, KNOWN_FILE DataID, 16384 BlockOffset )
+Test_DRM_CPHR_Decrypt( 16384 ByteCountToDecypt, NORMAL CipherContext, 32768   DecryptOffset, KNOWN_FILE DataID, 32768 BlockOffset )
+Test_DRM_CPHR_Decrypt( 16384 ByteCountToDecypt, NORMAL CipherContext, 49152   DecryptOffset, KNOWN_FILE DataID, 49152 BlockOffset )
+Test_DRM_CPHR_Decrypt( 16384 ByteCountToDecypt, NORMAL CipherContext, 65536   DecryptOffset, KNOWN_FILE DataID, 65536 BlockOffset )
+Test_DRM_CPHR_Decrypt( 16384 ByteCountToDecypt, NORMAL CipherContext, 81920   DecryptOffset, KNOWN_FILE DataID, 81920 BlockOffset )
+Test_DRM_CPHR_Decrypt( 4096  ByteCountToDecypt, NORMAL CipherContext, 98304   DecryptOffset, KNOWN_FILE DataID, 98304 BlockOffset )
+
+90709:FUNC:P1: DRM_CPHR: Large Data (100K) Should Decrypt correctly with 32K Buffer Size B
+LoadSymmetricTestData( AES_COUNTER CipherType, funcB_aes_counter_k128_d102400_key.dat, funcB_aes_counter_k128_d102400_clear.dat, funcB_aes_counter_k128_d102400_cipher.dat, funcB_aes_counter_k128_d102400_dataid.dat )
+Test_DRM_CPHR_InitDecrypt( 100000 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 32768 ByteCountToDecypt, NORMAL CipherContext, 0   DecryptOffset, KNOWN_FILE DataID, 0 BlockOffset )
+Test_DRM_CPHR_Decrypt( 32768 ByteCountToDecypt, NORMAL CipherContext, 32768   DecryptOffset, KNOWN_FILE DataID, 32768 BlockOffset )
+Test_DRM_CPHR_Decrypt( 32768 ByteCountToDecypt, NORMAL CipherContext, 65536   DecryptOffset, KNOWN_FILE DataID, 65536 BlockOffset )
+Test_DRM_CPHR_Decrypt( 4096  ByteCountToDecypt, NORMAL CipherContext, 98304   DecryptOffset, KNOWN_FILE DataID, 98304 BlockOffset )
+
+90710:FUNC:P1: DRM_CPHR: Large Data (100K) Should Decrypt correctly with 16K Buffer Size B
+LoadSymmetricTestData( AES_COUNTER CipherType, funcB_aes_counter_k128_d102400_key.dat, funcB_aes_counter_k128_d102400_clear.dat, funcB_aes_counter_k128_d102400_cipher.dat, funcB_aes_counter_k128_d102400_dataid.dat )
+Test_DRM_CPHR_InitDecrypt( 100000 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 16384 ByteCountToDecypt, NORMAL CipherContext, 0       DecryptOffset, KNOWN_FILE DataID, 0     BlockOffset )
+Test_DRM_CPHR_Decrypt( 16384 ByteCountToDecypt, NORMAL CipherContext, 16384   DecryptOffset, KNOWN_FILE DataID, 16384 BlockOffset )
+Test_DRM_CPHR_Decrypt( 16384 ByteCountToDecypt, NORMAL CipherContext, 32768   DecryptOffset, KNOWN_FILE DataID, 32768 BlockOffset )
+Test_DRM_CPHR_Decrypt( 16384 ByteCountToDecypt, NORMAL CipherContext, 49152   DecryptOffset, KNOWN_FILE DataID, 49152 BlockOffset )
+Test_DRM_CPHR_Decrypt( 16384 ByteCountToDecypt, NORMAL CipherContext, 65536   DecryptOffset, KNOWN_FILE DataID, 65536 BlockOffset )
+Test_DRM_CPHR_Decrypt( 16384 ByteCountToDecypt, NORMAL CipherContext, 81920   DecryptOffset, KNOWN_FILE DataID, 81920 BlockOffset )
+Test_DRM_CPHR_Decrypt( 4096  ByteCountToDecypt, NORMAL CipherContext, 98304   DecryptOffset, KNOWN_FILE DataID, 98304 BlockOffset )
+
+90711:FUNC:P1: DRM_CPHR: Large Data (100K) Should Decrypt correctly with 32K Buffer Size C
+LoadSymmetricTestData( AES_COUNTER CipherType, funcC_aes_counter_k128_d102400_key.dat, funcC_aes_counter_k128_d102400_clear.dat, funcC_aes_counter_k128_d102400_cipher.dat, funcC_aes_counter_k128_d102400_dataid.dat )
+Test_DRM_CPHR_InitDecrypt( 100000 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 32768 ByteCountToDecypt, NORMAL CipherContext, 0   DecryptOffset, KNOWN_FILE DataID, 0 BlockOffset )
+Test_DRM_CPHR_Decrypt( 32768 ByteCountToDecypt, NORMAL CipherContext, 32768   DecryptOffset, KNOWN_FILE DataID, 32768 BlockOffset )
+Test_DRM_CPHR_Decrypt( 32768 ByteCountToDecypt, NORMAL CipherContext, 65536   DecryptOffset, KNOWN_FILE DataID, 65536 BlockOffset )
+Test_DRM_CPHR_Decrypt( 4096  ByteCountToDecypt, NORMAL CipherContext, 98304   DecryptOffset, KNOWN_FILE DataID, 98304 BlockOffset )
+
+90712:FUNC:P1: DRM_CPHR: Large Data (100K) Should Decrypt correctly with 16K Buffer Size C
+LoadSymmetricTestData( AES_COUNTER CipherType, funcC_aes_counter_k128_d102400_key.dat, funcC_aes_counter_k128_d102400_clear.dat, funcC_aes_counter_k128_d102400_cipher.dat, funcC_aes_counter_k128_d102400_dataid.dat )
+Test_DRM_CPHR_InitDecrypt( 100000 DataLength, NORMAL Last15Offset, NORMAL CipherContext )
+Test_DRM_CPHR_Decrypt( 16384 ByteCountToDecypt, NORMAL CipherContext, 0       DecryptOffset, KNOWN_FILE DataID, 0     BlockOffset )
+Test_DRM_CPHR_Decrypt( 16384 ByteCountToDecypt, NORMAL CipherContext, 16384   DecryptOffset, KNOWN_FILE DataID, 16384 BlockOffset )
+Test_DRM_CPHR_Decrypt( 16384 ByteCountToDecypt, NORMAL CipherContext, 32768   DecryptOffset, KNOWN_FILE DataID, 32768 BlockOffset )
+Test_DRM_CPHR_Decrypt( 16384 ByteCountToDecypt, NORMAL CipherContext, 49152   DecryptOffset, KNOWN_FILE DataID, 49152 BlockOffset )
+Test_DRM_CPHR_Decrypt( 16384 ByteCountToDecypt, NORMAL CipherContext, 65536   DecryptOffset, KNOWN_FILE DataID, 65536 BlockOffset )
+Test_DRM_CPHR_Decrypt( 16384 ByteCountToDecypt, NORMAL CipherContext, 81920   DecryptOffset, KNOWN_FILE DataID, 81920 BlockOffset )
+Test_DRM_CPHR_Decrypt( 4096  ByteCountToDecypt, NORMAL CipherContext, 98304   DecryptOffset, KNOWN_FILE DataID, 98304 BlockOffset )
+
+''''''SHA test''''''''
+
+91914: Test_DRM_SHA_Update: Add different size of data to hash multiple times should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_Oem_Random_GetBytes( 0, 50 bytes )
+Test_Oem_Random_GetBytes( 1, 12 bytes )
+Test_Oem_Random_GetBytes( 2, 26 bytes )
+Test_Oem_Random_GetBytes( 3, 20 bytes )
+Test_DRM_SHA_Init( 4, SHA1 ShaAlgorithm )
+Test_DRM_SHA_Update( 4, 0, 50 BytesData )
+Test_DRM_SHA_Update( 4, 1, 12 BytesData )
+Test_DRM_SHA_Update( 4, 2, 26 BytesData )
+Test_DRM_SHA_Update( 4, 3, 20 BytesData )
+Test_DRM_SHA_Finalize( 4, 5, SHA_1_DIGEST )
+Test_DRM_SHA_Init( 4, SHA1 ShaAlgorithm )
+Test_DRM_SHA_Update( 4, 0, 50 BytesData )
+Test_DRM_SHA_Update( 4, 1, 12 BytesData )
+Test_DRM_SHA_Update( 4, 2, 26 BytesData )
+Test_DRM_SHA_Update( 4, 3, 20 BytesData )
+Test_DRM_SHA_Finalize( 4, 6, SHA_1_DIGEST )
+Test_MEMCMP( 5, 6, 20 SHA_DIGEST_LEN )
+
+90317: Test_DRM_SHA_Update: Add a big chunk of data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_Oem_Random_GetBytes( 0, 102400 bytes )
+Test_Oem_Random_GetBytes( 1, 204800 bytes )
+Test_DRM_SHA_Init( 4, SHA1 ShaAlgorithm )
+Test_DRM_SHA_Update( 4, 0, 102400 BytesData )
+Test_DRM_SHA_Update( 4, 1, 204800 BytesData )
+Test_DRM_SHA_Finalize( 4, 2, SHA_1_DIGEST )
+Test_DRM_SHA_Init( 4, SHA1 ShaAlgorithm )
+Test_DRM_SHA_Update( 4, 0, 102400 BytesData )
+Test_DRM_SHA_Update( 4, 1, 204800 BytesData )
+Test_DRM_SHA_Finalize( 4, 3, SHA_1_DIGEST )
+Test_MEMCMP( 2, 3, 20 SHA_DIGEST_LEN )
+
+90800:FUNC:P1:DRM_SHA: NULL Context should fail
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_Oem_Random_GetBytes( 0, 102400 bytes )
+Test_DRM_SHA_Init( NULL, SHA1 ShaAlgorithm ) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_SHA_Init( NULL, SHA256 ShaAlgorithm ) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_SHA_Update( NULL, 0, 102400 BytesData ) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_SHA_Finalize( NULL, 2, SHA_1_DIGEST ) = 0x80070057L (DRM_E_INVALIDARG)
+
+90801:FUNC:P1:DRM_SHA: SHA1 and SHA256 on same data should be different
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_Oem_Random_GetBytes( 0, 102400 bytes )
+Test_Oem_Random_GetBytes( 1, 204800 bytes )
+Test_DRM_SHA_Init( 4, SHA1 ShaAlgorithm )
+Test_DRM_SHA_Update( 4, 0, 102400 BytesData )
+Test_DRM_SHA_Update( 4, 1, 204800 BytesData )
+Test_DRM_SHA_Finalize( 4, 2, SHA_1_DIGEST )
+Test_DRM_SHA_Init( 4, SHA256 ShaAlgorithm )
+Test_DRM_SHA_Update( 4, 0, 102400 BytesData )
+Test_DRM_SHA_Update( 4, 1, 204800 BytesData )
+Test_DRM_SHA_Finalize( 4, 3, SHA_256_DIGEST )
+Test_MEMCMP( 2, 3, 20 SHA_DIGEST_LEN ) = 1 (DRM_S_FALSE)
+
+90802:FUNC:P1:DRM_SHA: Mixing contexts should give different results
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_Oem_Random_GetBytes( 0, 102400 bytes )
+Test_Oem_Random_GetBytes( 1, 204800 bytes )
+Test_DRM_SHA_Init( 4, SHA256 ShaAlgorithm )
+Test_DRM_SHA_Init( 5, SHA256 ShaAlgorithm )
+Test_DRM_SHA_Update( 4, 0, 102400 BytesData )
+Test_DRM_SHA_Update( 5, 1, 204800 BytesData )
+Test_DRM_SHA_Update( 5, 0, 102400 BytesData )
+Test_DRM_SHA_Update( 5, 1, 204800 BytesData )
+Test_DRM_SHA_Finalize( 4, 3, SHA_256_DIGEST )
+Test_DRM_SHA_Finalize( 5, 2, SHA_256_DIGEST )
+Test_MEMCMP( 2, 3, SHA_256_DIGEST ) = 1 (DRM_S_FALSE)
+
+''''''''''HMAC'''''''''''
+91925: Test_DRM_HMAC_Init: valid data should initialize the HMAC context properly
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 32 BytesKey, 32 BytesToAdd, SHA256 HashAlgorithm )
+
+91926: Test_DRM_HMAC_Init: NULL HMAC_CONTEXT should fail
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_HMAC_Init( NULL, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )=-2147024809( DRM_E_INVALIDARG )
+Test_DRM_HMAC_Init( NULL, 20 BytesKey, 20 BytesToAdd, SHA256 HashAlgorithm )=-2147024809( DRM_E_INVALIDARG )
+
+91927: Test_DRM_HMAC_Init: NULL pbKey should fail
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, NULL, 20 BytesToAdd, SHA1 HashAlgorithm )=-2147024809( DRM_E_INVALIDARG )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, NULL, 32 BytesToAdd, SHA256 HashAlgorithm )=-2147024809( DRM_E_INVALIDARG )
+
+91929: Test_DRM_HMAC_Init: zero cbKey length should fail
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 0 BytesToAdd, SHA1 HashAlgorithm )=-2147024809( DRM_E_INVALIDARG )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 32 BytesKey, 0 BytesToAdd, SHA256 HashAlgorithm )=-2147024809( DRM_E_INVALIDARG )
+
+91930: Test_DRM_HMAC_Init: valid data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 32 BytesKey, 32 BytesToAdd, SHA256 HashAlgorithm )
+
+91931: Test_DRM_HMAC_Init: size of pbKey larger than the cbKey length should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 1000 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 1000 BytesKey, 32 BytesToAdd, SHA256 HashAlgorithm )
+
+91252: Test_DRM_HMAC_Init: Multiple Init should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 32 BytesKey, 32 BytesToAdd, SHA256 HashAlgorithm )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 32 BytesKey, 32 BytesToAdd, SHA256 HashAlgorithm )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 32 BytesKey, 32 BytesToAdd, SHA256 HashAlgorithm )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 32 BytesKey, 32 BytesToAdd, SHA256 HashAlgorithm )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 32 BytesKey, 32 BytesToAdd, SHA256 HashAlgorithm )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 32 BytesKey, 32 BytesToAdd, SHA256 HashAlgorithm )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 32 BytesKey, 32 BytesToAdd, SHA256 HashAlgorithm )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 32 BytesKey, 32 BytesToAdd, SHA256 HashAlgorithm )
+
+91934: Test_DRM_HMAC_Update: 100 bytes data and length of data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )
+Test_DRM_HMAC_Update( 0 HMAC_CONTEXT, 100 BytesData, 100 BytesToAdd )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 32 BytesKey, 32 BytesToAdd, SHA256 HashAlgorithm )
+Test_DRM_HMAC_Update( 0 HMAC_CONTEXT, 100 BytesData, 100 BytesToAdd )
+
+91935: Test_DRM_HMAC_Update: large data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )
+Test_DRM_HMAC_Update( 0 HMAC_CONTEXT, 500000 BytesData, 32 BytesToAdd )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 32 BytesKey, 32 BytesToAdd, SHA256 HashAlgorithm )
+Test_DRM_HMAC_Update( 0 HMAC_CONTEXT, 500000 BytesData, 32 BytesToAdd )
+
+91936: Test_DRM_HMAC_Update: valid data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )
+Test_DRM_HMAC_Update( 0 HMAC_CONTEXT, 128 BytesKey, 46 BytesToAdd )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 32 BytesKey, 32 BytesToAdd, SHA256 HashAlgorithm )
+Test_DRM_HMAC_Update( 0 HMAC_CONTEXT, 128 BytesKey, 46 BytesToAdd )
+
+91938: Test_DRM_HMAC_Finalize: multiple call should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )
+Test_DRM_HMAC_Update( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd )
+Test_DRM_HMAC_Finalize( 0 HMAC_CONTEXT, 20 BytesKey, 20 SHA_DIGEST_LEN )
+Test_DRM_HMAC_Finalize( 0 HMAC_CONTEXT, 20 BytesKey, 20 SHA_DIGEST_LEN )
+Test_DRM_HMAC_Finalize( 0 HMAC_CONTEXT, 20 BytesKey, 20 SHA_DIGEST_LEN )
+Test_DRM_HMAC_Finalize( 0 HMAC_CONTEXT, 20 BytesKey, 20 SHA_DIGEST_LEN )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 32 BytesKey, 32 BytesToAdd, SHA256 HashAlgorithm )
+Test_DRM_HMAC_Update( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd )
+Test_DRM_HMAC_Finalize( 0 HMAC_CONTEXT, 32 BytesKey, 32 SHA256_DIGEST_LEN )
+Test_DRM_HMAC_Finalize( 0 HMAC_CONTEXT, 32 BytesKey, 32 SHA256_DIGEST_LEN )
+Test_DRM_HMAC_Finalize( 0 HMAC_CONTEXT, 32 BytesKey, 32 SHA256_DIGEST_LEN )
+Test_DRM_HMAC_Finalize( 0 HMAC_CONTEXT, 32 BytesKey, 32 SHA256_DIGEST_LEN )
+
+91939: Test_DRM_HMAC_Finalize: large data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )
+Test_DRM_HMAC_Update( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd )
+Test_DRM_HMAC_Finalize( 0 HMAC_CONTEXT, 10000 BytesKey, 20 SHA_DIGEST_LEN )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 32 BytesKey, 32 BytesToAdd, SHA256 HashAlgorithm )
+Test_DRM_HMAC_Update( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd )
+Test_DRM_HMAC_Finalize( 0 HMAC_CONTEXT, 10000 BytesKey, 32 SHA256_DIGEST_LEN )
+
+91940: Test_DRM_HMAC_Finalize: cbKeyedHash larger than digest length should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd, SHA1 HashAlgorithm )
+Test_DRM_HMAC_Update( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd )
+Test_DRM_HMAC_Finalize( 0 HMAC_CONTEXT, 21 BytesKey, 21 SHA_DIGEST_LEN )
+Test_DRM_HMAC_Init( 0 HMAC_CONTEXT, 32 BytesKey, 32 BytesToAdd, SHA256 HashAlgorithm )
+Test_DRM_HMAC_Update( 0 HMAC_CONTEXT, 20 BytesKey, 20 BytesToAdd )
+Test_DRM_HMAC_Finalize( 0 HMAC_CONTEXT, 33 BytesKey, 33 SHA256_DIGEST_LEN )
+
+''''''''RC4'''''''''
+
+91942: DRM_rc4: key size over 65 bytes should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_RC4_Cipher( NORMAL RC4_KEYSTRUCT, 65 BytesSizeOfRC4Key, 1000 BytesSizeOfDataEncrypt_Decrypt )
+
+91943: DRM_rc4: large chunk of data to encrypt/decrypt should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_RC4_Cipher( NORMAL RC4_KEYSTRUCT, 8 BytesSizeOfRC4Key, 1000000 BytesSizeOfDataEncrypt_Decrypt )
+
+91944: DRM_rc4: multiple call to encrypt/decrypt should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_RC4_Cipher( NORMAL RC4_KEYSTRUCT, 8 BytesSizeOfRC4Key, 100 BytesSizeOfDataEncrypt_Decrypt )
+Test_RC4_Cipher( NORMAL RC4_KEYSTRUCT, 8 BytesSizeOfRC4Key, 100 BytesSizeOfDataEncrypt_Decrypt )
+Test_RC4_Cipher( NORMAL RC4_KEYSTRUCT, 8 BytesSizeOfRC4Key, 100 BytesSizeOfDataEncrypt_Decrypt )
+
+91946: Deskey_Deskey: Deskey size is 8 bytes should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DES_Cipher( NORMAL DESTable, 8 BytespKey, 10 BytespbIn, 10 BytespbOut )
+
+91947: Deskey_Deskey: Deskey size is less than 8 bytes should not work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DES_Cipher( NORMAL DESTable, 6 BytespKey, 1024 BytespbIn, 1024 BytespbOut )=0x8004C305(DRM_E_TEST_DESKEY_FAILED)
+
+91948: Deskey_Des: multiple call should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DES_Cipher( NORMAL DESTable, 1000 BytespKey, 1000000 BytespbIn, 1000000 BytespbOut )
+Test_DES_Cipher( NORMAL DESTable, 1000 BytespKey, 1000000 BytespbIn, 1000000 BytespbOut )
+Test_DES_Cipher( NORMAL DESTable, 1000 BytespKey, 1000000 BytespbIn, 1000000 BytespbOut )
+Test_DES_Cipher( NORMAL DESTable, 1000 BytespKey, 1000000 BytespbIn, 1000000 BytespbOut )
+
+''''''''''CBC''''''''''
+
+91950: CBC64WS4_asm: Large data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_CBC64WS4_asm( 100000 BytesData )
+Test_InvCBC64WS4_asm( 100000 BytesData )
+
+91951: CBC64WS4_asm: data less than 8 bytes should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_CBC64WS4_asm( 7 BytesData )
+
+''''''''AES'''''''''
+
+91952:DRT:P0: OEM_AES_Cipher: multiple calls to encrypt/decrypt should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_AES_Cipher
+Test_OEM_AES_Cipher
+Test_OEM_AES_Cipher
+Test_OEM_AES_Cipher
+Test_OEM_AES_Cipher
+
+91953:BVT:P0: OEM_AES_Cipher: encrypt and decrypt should handle misalignment errors.
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_AES_Cipher(1)
+Test_OEM_AES_Cipher(1)
+Test_OEM_AES_Cipher(1)
+Test_OEM_AES_Cipher(1)
+Test_OEM_AES_Cipher(1)
+
+90588:DRT:P0: DRM_AES_Cipher: Encrypt/Decrypt with random key and data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_AES_Cipher( ECB CipherMode, RANDOM DataType )
+Test_DRM_AES_Cipher( CTR CipherMode, RANDOM DataType )
+Test_DRM_AES_Cipher( CBC CipherMode, RANDOM DataType )
+
+
+''''''''OMAC'''''''''
+
+90589:DRT:P0: DRM_OMAC: Sign/Verify with random data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_OMAC( RANDOM DataType, GOOD VerifyType )
+ 
+90592:DRT:P0: DRM_OMAC: Sign/Verify with bad data should not work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_OMAC( KNOWN DataType, BAD VerifyType )=-2147188529( DRM_E_INVALID_SIGNATURE )
+Test_DRM_OMAC( RANDOM DataType, BAD VerifyType )=-2147188529( DRM_E_INVALID_SIGNATURE )
+
+
+''''''''RSA'''''''''
+
+90599:DRT:P0: DRM_RSA: 1024-bit Encrypt/Decrypt with short data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 1024 KeyLength )
+Test_DRM_RSA_Encrypt( 1024 KeyLength, 8 DataLength )
+Test_DRM_RSA_Decrypt( 1024 KeyLength, 8 DataLength )
+Test_OEM_RSA_ZeroKeys
+
+90600:DRT:P0: DRM_RSA: 1024-bit Sign/Verify with short data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 1024 KeyLength )
+Test_DRM_RSA_Sign( 1024 KeyLength, 8 DataLength )
+Test_DRM_RSA_Verify( 1024 KeyLength, 8 DataLength, GOOD VerifyType )
+Test_OEM_RSA_ZeroKeys
+
+90601:DRT:P0: DRM_RSA: 1024-bit Sign/Verify with bad data should not work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 1024 KeyLength )
+Test_DRM_RSA_Sign( 1024 KeyLength, 86 DataLength )
+Test_DRM_RSA_Verify( 1024 KeyLength, 86 DataLength, BAD VerifyType )=0x80040E82L(DRM_E_RSA_SIGNATURE_ERROR)
+Test_OEM_RSA_ZeroKeys
+
+90603:DRT:P0: DRM_RSA: 1024-bit Multiple calls to Encrypt/Decrypt should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 1024 KeyLength )
+Test_DRM_RSA_Encrypt( 1024 KeyLength, 86 DataLength )
+Test_DRM_RSA_Decrypt( 1024 KeyLength, 86 DataLength )
+Test_DRM_RSA_Encrypt( 1024 KeyLength, 86 DataLength )
+Test_DRM_RSA_Decrypt( 1024 KeyLength, 86 DataLength )
+Test_DRM_RSA_Encrypt( 1024 KeyLength, 86 DataLength )
+Test_DRM_RSA_Decrypt( 1024 KeyLength, 86 DataLength )
+Test_DRM_RSA_Encrypt( 1024 KeyLength, 86 DataLength )
+Test_DRM_RSA_Decrypt( 1024 KeyLength, 86 DataLength )
+Test_OEM_RSA_ZeroKeys
+
+90605:PERF:P2: OEM_RSA: 1024-bit Repeated Encrypt/Decrypt, run with CRT Optimization on and off to measure the benefit.
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 1024 KeyLength )
+Test_OEM_RSA_Encrypt( 1024 KeyLength, KNOWN1 PlainText )
+Test_OEM_RSA_Decrypt( 1024 KeyLength )
+Test_OEM_RSA_Decrypt( 1024 KeyLength )
+Test_OEM_RSA_Decrypt( 1024 KeyLength )
+Test_OEM_RSA_Decrypt( 1024 KeyLength )
+Test_OEM_RSA_Decrypt( 1024 KeyLength )
+Test_OEM_RSA_Encrypt( 1024 KeyLength, KNOWN2 PlainText )
+Test_OEM_RSA_Decrypt( 1024 KeyLength )
+Test_OEM_RSA_Decrypt( 1024 KeyLength )
+Test_OEM_RSA_Decrypt( 1024 KeyLength )
+Test_OEM_RSA_Decrypt( 1024 KeyLength )
+Test_OEM_RSA_Decrypt( 1024 KeyLength )
+Test_OEM_RSA_ZeroKeys
+
+90606:PERF:P2: OEM_RSA: 1024-bit Baseline without Decrypt to use with 10605 to measure Decrypt performance.
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 1024 KeyLength )
+Test_OEM_RSA_Encrypt( 1024 KeyLength, KNOWN1 PlainText )
+Test_OEM_RSA_Encrypt( 1024 KeyLength, KNOWN2 PlainText )
+Test_OEM_RSA_ZeroKeys
+
+''''''SHA_256 tests''''''''
+90607:DRT:P0:SHA 256:Test Sha256 with different size data (single block 1.5 block and 2 blocks)
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_SHA256_Init ( 0 )
+Test_Oem_Random_GetBytes( 1, 50 bytes )
+Test_Oem_Random_GetBytes( 2, 12 bytes )
+Test_Oem_Random_GetBytes( 3, 126 bytes )
+Test_DRM_SHA256_Update( 0, 1, 50 BytesData )
+Test_DRM_SHA256_Update( 0, 2, 12 BytesData )
+Test_DRM_SHA256_Update( 0, 3, 126 BytesData )
+Test_DRM_SHA256_Finalize( 0, 4 )
+Test_DRM_SHA256_Update( 0, 1, 50 BytesData )
+Test_DRM_SHA256_Update( 0, 2, 12 BytesData )
+Test_DRM_SHA256_Update( 0, 3, 126 BytesData )
+Test_DRM_SHA256_Finalize( 0, 5 )
+Test_MEMCMP( 4, 5, 32 DRM_SHA256_DIGEST_SIZE_IN_BYTES) 
+
+90608:DRT:P0:SHA 256:Test Sha256 with large (multiblock) data
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_Oem_Random_GetBytes( 1, 102400 bytes )
+Test_Oem_Random_GetBytes( 2, 204800 bytes )
+Test_DRM_SHA256_Init( 0 )
+Test_DRM_SHA256_Update( 0, 1, 102400 BytesData )
+Test_DRM_SHA256_Update( 0, 2, 204800 BytesData )
+Test_DRM_SHA256_Finalize( 0, 3 )
+Test_DRM_SHA256_Update( 0, 1, 102400 BytesData )
+Test_DRM_SHA256_Update( 0, 2, 204800 BytesData )
+Test_DRM_SHA256_Finalize( 0, 4 )
+Test_MEMCMP( 3, 4, 32 DRM_SHA256_DIGEST_SIZE_IN_BYTES ) 
+
+90609:DRT:P0:SHA 256:Test Sha256 with different size data (single block 1.5 block and 2 blocks) which should map to bad hash values
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_SHA256_Init ( 0 )
+Test_Oem_Random_GetBytes( 1, 50 bytes )
+Test_Oem_Random_GetBytes( 2, 12 bytes )
+Test_Oem_Random_GetBytes( 3, 126 bytes )
+Test_DRM_SHA256_Update( 0, 3, 126 BytesData )
+Test_DRM_SHA256_Update( 0, 2, 12 BytesData )
+Test_DRM_SHA256_Update( 0, 1, 50 BytesData )
+Test_DRM_SHA256_Finalize( 0, 4 )
+Test_DRM_SHA256_Update( 0, 1, 50 BytesData )
+Test_DRM_SHA256_Update( 0, 2, 12 BytesData )
+Test_DRM_SHA256_Update( 0, 3, 126 BytesData )
+Test_DRM_SHA256_Finalize( 0, 5 )
+Test_MEMCMP( 4, 5, 32 DRM_SHA256_DIGEST_SIZE_IN_BYTES) = 0x00000001 (DRM_S_FALSE)
+
+90610:DRT:P0:SHA 256:Test Sha256 with large (multiblock) data which should map to bad hash values
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_Oem_Random_GetBytes( 1, 102400 bytes )
+Test_Oem_Random_GetBytes( 2, 204800 bytes )
+Test_DRM_SHA256_Init( 0 )
+Test_DRM_SHA256_Update( 0, 1, 102400 BytesData )
+Test_DRM_SHA256_Update( 0, 2, 204800 BytesData )
+Test_DRM_SHA256_Finalize( 0, 3 )
+Test_DRM_SHA256_Update( 0, 2, 204800 BytesData )
+Test_DRM_SHA256_Update( 0, 1, 102400 BytesData )
+Test_DRM_SHA256_Finalize( 0, 4 )
+Test_MEMCMP( 3, 4, 32 DRM_SHA256_DIGEST_SIZE_IN_BYTES ) = 0x00000001 (DRM_S_FALSE)
+
+90611:DRT:P0:SHA 256:Run through a set of test vectors and make sure everything pops out swell
+Test_DRM_SHA256_E2E ( )
+
+90612:FUNC:P1:SHA 256:Call all SHA256 functions with bad params (every combo) and make sure we are checking for invalid args!
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_Oem_Random_GetBytes( 1, 102400 bytes )
+Test_DRM_SHA256_Init( 0 )
+Test_DRM_SHA256_Init( NULL ) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_SHA256_Update( NULL, 1, 102400 BytesData ) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_SHA256_Update( 0, NULL, 102400 BytesData ) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_SHA256_Update( 0, 1, 102400 BytesData )
+Test_DRM_SHA256_Finalize( NULL, 2 ) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_SHA256_Finalize( 0, 2 )
+
+''''''''''P256 Key Generation Tests''''''''''''''''
+90613:DRT:P0:DRM ECDSA P256:Test P256 Key generation and HMAC key generation
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_ECC_GenKeyPair_P256(0, 1)
+Test_Oem_Random_GetBytes( 2, 32 bytes )
+Test_DRM_ECC_GenerateHMACKey(2)
+
+90614:FUNC:P1:DRM ECDSA P256:Test P256 Key generation and HMAC key generation for bad args
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_ECC_GenKeyPair_P256(NULL, 1)  = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_ECC_GenKeyPair_P256(0, NULL)  = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_ECC_GenKeyPairRestrictedPriv_P256(NULL, 1)  = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_ECC_GenKeyPairRestrictedPriv_P256(0, NULL)  = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_ECC_GenerateHMACKey( NULL ) = 0x80070057L (DRM_E_INVALIDARG)
+
+''''''''''ECDSA Sign\Verify P256 Tests''''''''''''''''
+90615:DRT:P0:DRM ECDSA P256:Test ECDSA P256 signing and verfication for success with a single block message
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_ECC_GenKeyPair_P256(0, 1)
+Test_Oem_Random_GetBytes( 2, 32 bytes )
+Test_DRM_ECDSA_Sign_P256(2, 32, 1, 3)
+Test_DRM_ECDSA_Verify_P256(2, 32, 0, 3)
+
+90616:DRT:P0:DRM ECDSA P256:Test ECDSA P256 signing and verfication for verifcation failure with a single block message
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_ECC_GenKeyPair_P256(0, 1)
+Test_Oem_Random_GetBytes( 2, 32 bytes )
+Test_Oem_Random_GetBytes( 3, 30 bytes )
+Test_DRM_ECDSA_Sign_P256(2, 32, 1, 4)
+Test_DRM_ECDSA_Verify_P256(3, 30, 0, 4) = 0x800480CF (DRM_E_INVALID_SIGNATURE)
+
+90617:DRT:P0:DRM ECDSA P256:Test ECDSA P256 signing and verfication for verification success with multiblock block message
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_ECC_GenKeyPair_P256(0, 1)
+Test_Oem_Random_GetBytes( 2, 102400 bytes )
+Test_DRM_ECDSA_Sign_P256(2, 102400, 1, 3)
+Test_DRM_ECDSA_Verify_P256(2, 102400, 0, 3)
+
+90618:DRT:P0:DRM ECDSA P256:Test ECDSA P256 signing and verfication for verification failure with multiblock block message
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_ECC_GenKeyPair_P256(0, 1)
+Test_Oem_Random_GetBytes( 2, 102400 bytes )
+Test_Oem_Random_GetBytes( 3, 102402 bytes )
+Test_DRM_ECDSA_Sign_P256(2, 102400, 1, 4)
+Test_DRM_ECDSA_Verify_P256(3, 102402, 0, 4) = 0x800480CF (DRM_E_INVALID_SIGNATURE)
+
+90619:DRT:P0:DRM ECDSA P256:Test ECDSA P256 signing and verfication for verifcation success with a single block message with overflow padding pushing it to two blocks
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_ECC_GenKeyPair_P256(0, 1)
+Test_Oem_Random_GetBytes( 2, 50 bytes )
+Test_DRM_ECDSA_Sign_P256(2, 50, 1, 3)
+Test_DRM_ECDSA_Verify_P256(2, 50, 0, 3)
+
+90620:DRT:P0:DRM ECDSA P256:Test ECDSA P256 signing and verfication for verifcation failure with a single block message with overflow padding pushing it to two blocks
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_ECC_GenKeyPair_P256(0, 1)
+Test_Oem_Random_GetBytes( 2, 50 bytes )
+Test_Oem_Random_GetBytes( 3, 52 bytes )
+Test_DRM_ECDSA_Sign_P256(2, 50, 1, 4)
+Test_DRM_ECDSA_Verify_P256(3, 52, 0, 4) = 0x800480CF (DRM_E_INVALID_SIGNATURE)
+
+90621:DRT:P0:DRM ECDSA P256:Test ECDSA P256 signing and verfication with bad params and make sure it returns the correct error codes.
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_ECC_GenKeyPair_P256( PubKey, PrivKey)
+Test_Oem_Random_GetBytes( MessageBuffer, 50 bytes )
+Test_DRM_ECDSA_Sign_P256(MessageBuffer, 50, PrivKey, NULL) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_ECDSA_Sign_P256(MessageBuffer, 50, NULL, Signature) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_ECDSA_Sign_P256(NULL, 50, PrivKey, Signature) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_ECDSA_Sign_P256(MessageBuffer, 50, PrivKey, Signature)
+Test_DRM_ECDSA_Verify_P256(NULL, 50, PubKey, Signature) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_ECDSA_Verify_P256(MessageBuffer, 50, NULL, Signature) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_ECDSA_Verify_P256(MessageBuffer, 50, PubKey, NULL) = 0x80070057L (DRM_E_INVALIDARG)
+
+''''''''''ECC Decrypt\Encrypt P256 Tests''''''''''''''''
+90622:DRT:P0:DRM ECC P256:Test ECC P256 Encryption and decryption for success
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_ECC_GenKeyPair_P256(0, 1)
+Test_Oem_Random_GetBytes( 2, 32 bytes )
+Test_DRM_ECC_GenerateHMACKey(2)
+Test_DRM_ECC_Encrypt_P256(0,2,3)
+Test_DRM_ECC_Decrypt_P256(1,3,4)
+Test_MEMCMP(4,2,32 bytes)
+
+90623:DRT:P0:DRM ECC P256:Make sure that two different buffers encrypt and decrypt differently with the same key
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_ECC_GenKeyPair_P256(0, 1)
+Test_Oem_Random_GetBytes( 2, 32 bytes )
+Test_Oem_Random_GetBytes( 3, 32 bytes )
+Test_DRM_ECC_GenerateHMACKey(2)
+Test_DRM_ECC_GenerateHMACKey(3)
+Test_DRM_ECC_Encrypt_P256(0,2,4)
+Test_DRM_ECC_Encrypt_P256(0,3,5)
+Test_MEMCMP(4,5,32 bytes) = 1 (DRM_S_FALSE)
+Test_DRM_ECC_Decrypt_P256(1,4,6)
+Test_DRM_ECC_Decrypt_P256(1,5,7)
+Test_MEMCMP(6,7,32 bytes) = 1 (DRM_S_FALSE)
+
+
+90624:DRT:P0:DRM ECC P256:Test ECC P256 Encryption to make sure that multiple encryptions will map to different ciphertext values
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_ECC_GenKeyPair_P256(0, 1)
+Test_Oem_Random_GetBytes( 2, 32 bytes )
+Test_DRM_ECC_GenerateHMACKey(2)
+Test_DRM_ECC_Encrypt_P256(0,2,3)
+Test_DRM_ECC_Encrypt_P256(0,2,4)
+Test_MEMCMP(3, 4, 128 bytes) = 1 (DRM_S_FALSE)
+
+90625:FUNC:P1:DRM ECC P256:Test ECC P256 Encryption and decryption with bad params and make sure it returns the correct error code
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_ECC_GenKeyPair_P256(0, 1)
+Test_Oem_Random_GetBytes( 2, 32 bytes )
+Test_DRM_ECC_GenerateHMACKey(2)
+Test_DRM_ECC_Encrypt_P256(0,2,NULL) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_ECC_Encrypt_P256(0,NULL,3) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_ECC_Encrypt_P256(NULL,2,3) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_ECC_Encrypt_P256(0,2,3)
+Test_DRM_ECC_Decrypt_P256(1,2,NULL) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_ECC_Decrypt_P256(1,NULL,4) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_ECC_Decrypt_P256(NULL,2,4) = 0x80070057L (DRM_E_INVALIDARG)
+
+90626:DRT:P0:DRM ECC P256: Test generation of private keys that can be encrypted and decrypted (lets try this 4 times to make sure)
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_ECC_GenKeyPairRestrictedPriv_P256(0, 1)
+Test_DRM_ECC_GenKeyPair_P256(2, 3)
+Test_DRM_ECC_Encrypt_P256(2, 1 ,4)
+Test_DRM_ECC_Decrypt_P256(3, 4, 5)
+Test_MEMCMP(1, 5, 32 bytes) 
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_ECC_GenKeyPairRestrictedPriv_P256(0, 1)
+Test_DRM_ECC_GenKeyPair_P256(2, 3)
+Test_DRM_ECC_Encrypt_P256(2, 1 ,4)
+Test_DRM_ECC_Decrypt_P256(3, 4, 5)
+Test_MEMCMP(1, 5, 32 bytes) 
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_ECC_GenKeyPairRestrictedPriv_P256(0, 1)
+Test_DRM_ECC_GenKeyPair_P256(2, 3)
+Test_DRM_ECC_Encrypt_P256(2, 1 ,4)
+Test_DRM_ECC_Decrypt_P256(3, 4, 5)
+Test_MEMCMP(1, 5, 32 bytes) 
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_ECC_GenKeyPairRestrictedPriv_P256(0, 1)
+Test_DRM_ECC_GenKeyPair_P256(2, 3)
+Test_DRM_ECC_Encrypt_P256(2, 1 ,4)
+Test_DRM_ECC_Decrypt_P256(3, 4, 5)
+Test_MEMCMP(1, 5, 32 bytes) 
+
+90627:DRT:P0:DRM ECC P256: Test to make sure the special encryptable keypair gen function returns valid ecc key pair
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_ECC_GenKeyPairRestrictedPriv_P256(0, 1)
+Test_Oem_Random_GetBytes( 2, 32 bytes )
+Test_DRM_ECC_GenerateHMACKey(2)
+Test_DRM_ECC_Encrypt_P256(0, 2 ,3)
+Test_DRM_ECC_Decrypt_P256(1, 3, 4)
+Test_MEMCMP(2, 4, 32 bytes) 
+
+''''''SHA_256 OFFSET tests''''''''
+90628:DRT:P0:SHA 256:Test Sha256 w/ offsets with different size data (single block 1.5 block and 2 blocks)
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_SHA256_Init ( 0 )
+Test_Oem_Random_GetBytes( 1, 51 bytes )
+Test_Oem_Random_GetBytes( 2, 15 bytes )
+Test_Oem_Random_GetBytes( 3, 132 bytes )
+Test_DRM_SHA256_UpdateOffset( 0, 1, 50, 1 )
+Test_DRM_SHA256_UpdateOffset( 0, 2, 12, 3 )
+Test_DRM_SHA256_UpdateOffset( 0, 3, 126, 6 )
+Test_DRM_SHA256_Finalize( 0, 4 )
+Test_DRM_SHA256_UpdateOffset( 0, 1, 50, 1 )
+Test_DRM_SHA256_UpdateOffset( 0, 2, 12, 3 )
+Test_DRM_SHA256_UpdateOffset( 0, 3, 126, 6 )
+Test_DRM_SHA256_Finalize( 0, 5 )
+Test_MEMCMP( 4, 5, 32 DRM_SHA256_DIGEST_SIZE_IN_BYTES) 
+
+90629:DRT:P0:SHA 256:Test Sha256 w/ offsets with large (multiblock) data
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_Oem_Random_GetBytes( 1, 102402 bytes )
+Test_Oem_Random_GetBytes( 2, 204805 bytes )
+Test_DRM_SHA256_Init( 0 )
+Test_DRM_SHA256_UpdateOffset( 0, 1, 102400, 2 )
+Test_DRM_SHA256_UpdateOffset( 0, 2, 204800, 5 )
+Test_DRM_SHA256_Finalize( 0, 3 )
+Test_DRM_SHA256_UpdateOffset( 0, 1, 102400, 2 )
+Test_DRM_SHA256_UpdateOffset( 0, 2, 204800, 5 )
+Test_DRM_SHA256_Finalize( 0, 4 )
+Test_MEMCMP( 3, 4, 32 DRM_SHA256_DIGEST_SIZE_IN_BYTES ) 
+
+90630:DRT:P0:SHA 256:Test Sha256 w/ offsets with different size data (single block 1.5 block and 2 blocks) which should map to bad hash values
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_SHA256_Init ( 0 )
+Test_Oem_Random_GetBytes( 1, 51 bytes )
+Test_Oem_Random_GetBytes( 2, 15 bytes )
+Test_Oem_Random_GetBytes( 3, 128 bytes )
+Test_DRM_SHA256_UpdateOffset( 0, 3, 126, 2 )
+Test_DRM_SHA256_UpdateOffset( 0, 2, 12, 3 )
+Test_DRM_SHA256_UpdateOffset( 0, 1, 50, 1 )
+Test_DRM_SHA256_Finalize( 0, 4 )
+Test_DRM_SHA256_UpdateOffset( 0, 1, 50, 1 )
+Test_DRM_SHA256_UpdateOffset( 0, 2, 12, 3 )
+Test_DRM_SHA256_UpdateOffset( 0, 3, 126, 2 )
+Test_DRM_SHA256_Finalize( 0, 5 )
+Test_MEMCMP( 4, 5, 32 DRM_SHA256_DIGEST_SIZE_IN_BYTES) = 0x00000001 (DRM_S_FALSE)
+
+90631:DRT:P0:SHA 256:Test Sha256 w/ offset with large (multiblock) data which should map to bad hash values
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_Oem_Random_GetBytes( 1, 102401 bytes )
+Test_Oem_Random_GetBytes( 2, 204803 bytes )
+Test_DRM_SHA256_Init( 0 )
+Test_DRM_SHA256_UpdateOffset( 0, 1, 102400, 1 )
+Test_DRM_SHA256_UpdateOffset( 0, 2, 204800, 3 )
+Test_DRM_SHA256_Finalize( 0, 3 )
+Test_DRM_SHA256_UpdateOffset( 0, 2, 204800, 1 )
+Test_DRM_SHA256_UpdateOffset( 0, 1, 102400, 3 )
+Test_DRM_SHA256_Finalize( 0, 4 )
+Test_MEMCMP( 3, 4, 32 DRM_SHA256_DIGEST_SIZE_IN_BYTES ) = 0x00000001 (DRM_S_FALSE)
+
+90632:DRT:P0:SHA 256:Run through a set of test vectors put in random offsets (do it a few time to generate more possibilities) and make sure everything pops out swell
+Test_DRM_SHA256_E2EOffset ( )
+Test_DRM_SHA256_E2EOffset ( )
+Test_DRM_SHA256_E2EOffset ( )
+Test_DRM_SHA256_E2EOffset ( )
+
+90633:DRT:P0:SHA 256:Call all SHA256 offset function with bad params (every combo) and make sure we are checking for invalid args!
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_Oem_Random_GetBytes( 1, 102401 bytes )
+Test_DRM_SHA256_Init( 0 )
+Test_DRM_SHA256_UpdateOffset( NULL, 1, 102400, 1 ) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_SHA256_UpdateOffset( 0, NULL, 102400, 1 ) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_SHA256_UpdateOffset( 0, 1, 102400, 1 )
+
+90668:DRT:P0:SHA 256:Call all SHA256 offset functions 0 as the offset 
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_Oem_Random_GetBytes( 1, 102400 bytes )
+Test_Oem_Random_GetBytes( 2, 204800 bytes )
+Test_DRM_SHA256_Init( 0 )
+Test_DRM_SHA256_UpdateOffset( 0, 1, 102400, 0 )
+Test_DRM_SHA256_UpdateOffset( 0, 2, 204800, 0 )
+Test_DRM_SHA256_Finalize( 0, 3 )
+Test_DRM_SHA256_UpdateOffset( 0, 1, 102400, 0 )
+Test_DRM_SHA256_UpdateOffset( 0, 2, 204800, 0 )
+Test_DRM_SHA256_Finalize( 0, 4 )
+Test_MEMCMP( 3, 4, 32 ) 
+
+90640:FUNC:P1:PKCrypto:Test PK Encryption and decryption with null Parameters and ECCP256
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_PK_GenKeyPair( ECCP256, Good Context, 0, P256_PUBKEY, 1, P256_PRIVKEY)
+Test_Oem_Random_GetBytes( 2, P256_PLAINTEXT )
+Test_DRM_ECC_GenerateHMACKey(2)
+Test_DRM_PK_Encrypt( ECCP256, Good Context, 0, P256_PUBKEY, 2, P256_PLAINTEXT, NULL, P256_CIPHERTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Encrypt( ECCP256, Good Context, 0, P256_PUBKEY, NULL, P256_PLAINTEXT, 3, P256_CIPHERTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Encrypt( ECCP256, Good Context, NULL, P256_PUBKEY, 2, P256_PLAINTEXT, 3, P256_CIPHERTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Encrypt( ECCP256, Good Context, 0, P256_PUBKEY, 2, P256_PLAINTEXT, 3, P256_CIPHERTEXT)
+Test_DRM_PK_Decrypt( ECCP256, Good Context, 1, P256_PRIVKEY, 3, P256_CIPHERTEXT, NULL, P256_PLAINTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Decrypt( ECCP256, Good Context, 1, P256_PRIVKEY, NULL, P256_CIPHERTEXT, 4, P256_PLAINTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Decrypt( ECCP256, Good Context, NULL, P256_PRIVKEY, 3, P256_CIPHERTEXT, 4, P256_PLAINTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Decrypt( ECCP256, Good Context, 1, P256_PRIVKEY, 3, P256_CIPHERTEXT, 4, P256_PLAINTEXT)
+Test_MEMCMP( 2, 4, P256_PLAINTEXT )
+
+90641:FUNC:P1:PKCrypto:Test PK Encryption and decryption with null Parameters and ECCP160
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_PK_GenKeyPair( ECCP160, Good Context, 0, P160_PUBKEY, 1, P160_PRIVKEY)
+Test_Oem_Random_GetBytes( 2, P160_PLAINTEXT )
+Test_DRM_PK_Encrypt( ECCP160, Good Context, 0, P160_PUBKEY, 2, P160_PLAINTEXT, NULL, P160_CIPHERTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Encrypt( ECCP160, Good Context, 0, P160_PUBKEY, NULL, P160_PLAINTEXT, 3, P160_CIPHERTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Encrypt( ECCP160, Good Context, NULL, P160_PUBKEY, 2, P160_PLAINTEXT, 3, P160_CIPHERTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Encrypt( ECCP160, NULL, 0, P160_PUBKEY, 2, P160_PLAINTEXT, 3, P160_CIPHERTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Encrypt( ECCP160, Good Context, 0, P160_PUBKEY, 2, P160_PLAINTEXT, 3, P160_CIPHERTEXT)
+Test_DRM_PK_Decrypt( ECCP160, Good Context, 1, P160_PRIVKEY, 3, P160_CIPHERTEXT, NULL, P160_PLAINTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Decrypt( ECCP160, Good Context, 1, P160_PRIVKEY, NULL, P160_CIPHERTEXT, 4, P160_PLAINTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Decrypt( ECCP160, Good Context, NULL, P160_PRIVKEY, 3, P160_CIPHERTEXT, 4, P160_PLAINTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Decrypt( ECCP160, NULL, 1, P160_PRIVKEY, 3, P160_CIPHERTEXT, 4, P160_PLAINTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Decrypt( ECCP160, Good Context, 1, P160_PRIVKEY, 3, P160_CIPHERTEXT, 4, P160_PLAINTEXT)
+Test_MEMCMP( 2, 4, P160_PLAINTEXT)
+
+90644:FUNC:P1:PKCrypto:Test PK Encryption and decryption with one off Size Parameters and ECC160
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_PK_GenKeyPair( ECCP160, Good Context, 0, P160_PUBKEY, 1, P160_PRIVKEY)
+Test_Oem_Random_GetBytes( 2, P160_PLAINTEXT+1 )
+Test_DRM_PK_Encrypt( ECCP160, Good Context, 0, P160_PUBKEY, 2, P160_PLAINTEXT, 3, P160_CIPHERTEXT-1 )= 0x8007007AL (DRM_E_BUFFERTOOSMALL)
+Test_DRM_PK_Encrypt( ECCP160, Good Context, 0, P160_PUBKEY, 2, P160_PLAINTEXT, 3, P160_CIPHERTEXT+1 )
+Test_DRM_PK_Encrypt( ECCP160, Good Context, 0, P160_PUBKEY, 2, P160_PLAINTEXT+1, 3, P160_CIPHERTEXT)
+Test_DRM_PK_Encrypt( ECCP160, Good Context, 0, P160_PUBKEY, 2, P160_PLAINTEXT-1, 3, P160_CIPHERTEXT) = 0x8007007AL (DRM_E_BUFFERTOOSMALL)
+Test_DRM_PK_Encrypt( ECCP160, Good Context, 0, P160_PUBKEY-1, 2, P160_PLAINTEXT, 3, P160_CIPHERTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Encrypt( ECCP160, Good Context, 0, P160_PUBKEY+1, 2, P160_PLAINTEXT, 3, P160_CIPHERTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Encrypt( ECCP160, Good Context, 0, P160_PUBKEY, 2, P160_PLAINTEXT, 3, P160_CIPHERTEXT)
+Test_DRM_PK_Decrypt( ECCP160, Good Context, 1, P160_PRIVKEY, 3, P160_CIPHERTEXT, 4, P160_PLAINTEXT+1)
+Test_DRM_PK_Decrypt( ECCP160, Good Context, 1, P160_PRIVKEY, 3, P160_CIPHERTEXT, 4, P160_PLAINTEXT-1) = 0x8007007AL (DRM_E_BUFFERTOOSMALL)
+Test_DRM_PK_Decrypt( ECCP160, Good Context, 1, P160_PRIVKEY, 3, P160_CIPHERTEXT+1, 4, P160_PLAINTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Decrypt( ECCP160, Good Context, 1, P160_PRIVKEY, 3, P160_CIPHERTEXT-1, 4, P160_PLAINTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Decrypt( ECCP160, Good Context, 1, P160_PRIVKEY-1, 3, P160_CIPHERTEXT, 4, P160_PLAINTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Decrypt( ECCP160, Good Context, 1, P160_PRIVKEY+1, 3, P160_CIPHERTEXT, 4, P160_PLAINTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+
+90645:FUNC:P1:PKCrypto:Test PK Encryption and decryption with one off Size Parameters and ECC256
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_PK_GenKeyPair( ECCP256, Good Context, 0, P256_PUBKEY, 1, P256_PRIVKEY)
+Test_Oem_Random_GetBytes( 2, P256_PLAINTEXT+1 )
+Test_DRM_ECC_GenerateHMACKey(2)
+Test_DRM_PK_Encrypt( ECCP256, Good Context, 0, P256_PUBKEY, 2, P256_PLAINTEXT, 3, P256_CIPHERTEXT-1 )= 0x8007007AL (DRM_E_BUFFERTOOSMALL)
+Test_DRM_PK_Encrypt( ECCP256, Good Context, 0, P256_PUBKEY, 2, P256_PLAINTEXT, 3, P256_CIPHERTEXT+1 )
+Test_DRM_PK_Encrypt( ECCP256, Good Context, 0, P256_PUBKEY, 2, P256_PLAINTEXT+1, 3, P256_CIPHERTEXT)
+Test_DRM_PK_Encrypt( ECCP256, Good Context, 0, P256_PUBKEY, 2, P256_PLAINTEXT-1, 3, P256_CIPHERTEXT) = 0x8007007AL (DRM_E_BUFFERTOOSMALL)
+Test_DRM_PK_Encrypt( ECCP256, Good Context, 0, P256_PUBKEY-1, 2, P256_PLAINTEXT, 3, P256_CIPHERTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Encrypt( ECCP256, Good Context, 0, P256_PUBKEY+1, 2, P256_PLAINTEXT, 3, P256_CIPHERTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Encrypt( ECCP256, Good Context, 0, P256_PUBKEY, 2, P256_PLAINTEXT, 3, P256_CIPHERTEXT)
+Test_DRM_PK_Decrypt( ECCP256, Good Context, 1, P256_PRIVKEY, 3, P256_CIPHERTEXT, 4, P256_PLAINTEXT+1)
+Test_DRM_PK_Decrypt( ECCP256, Good Context, 1, P256_PRIVKEY, 3, P256_CIPHERTEXT, 4, P256_PLAINTEXT-1) = 0x8007007AL (DRM_E_BUFFERTOOSMALL)
+Test_DRM_PK_Decrypt( ECCP256, Good Context, 1, P256_PRIVKEY, 3, P256_CIPHERTEXT+1, 4, P256_PLAINTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Decrypt( ECCP256, Good Context, 1, P256_PRIVKEY, 3, P256_CIPHERTEXT-1, 4, P256_PLAINTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Decrypt( ECCP256, Good Context, 1, P256_PRIVKEY-1, 3, P256_CIPHERTEXT, 4, P256_PLAINTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Decrypt( ECCP256, Good Context, 1, P256_PRIVKEY+1, 3, P256_CIPHERTEXT, 4, P256_PLAINTEXT) = 0x80070057L (DRM_E_INVALIDARG)
+
+
+90646:FUNC:P1:PKCrypto:Test PK GenKeyPair Parameters
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_PK_GenKeyPair( ECCP256, Good Context, 0, P256_PUBKEY, 1, P256_PRIVKEY)
+Test_DRM_PK_GenKeyPair( ECCP256, Good Context, 0, P256_PUBKEY, 1, P256_PRIVKEY)
+Test_DRM_PK_GenKeyPair( ECCP256, Good Context, 0, P256_PUBKEY, 1, P256_PRIVKEY+1) 
+Test_DRM_PK_GenKeyPair( ECCP256, Good Context, 0, P256_PUBKEY, 1, P256_PRIVKEY-1) = 0x8007007AL (DRM_E_BUFFERTOOSMALL)
+Test_DRM_PK_GenKeyPair( ECCP256, Good Context, 0, P256_PUBKEY+1, 1, P256_PRIVKEY)
+Test_DRM_PK_GenKeyPair( ECCP256, Good Context, 0, P256_PUBKEY-1, 1, P256_PRIVKEY) = 0x8007007AL (DRM_E_BUFFERTOOSMALL)
+
+Test_DRM_PK_GenKeyPair( ECCP160, Good Context, 0, P160_PUBKEY, 1, P160_PRIVKEY)
+Test_DRM_PK_GenKeyPair( ECCP160, NULL, 0, P160_PUBKEY, 1, P160_PRIVKEY) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_GenKeyPair( ECCP160, Good Context, 0, P160_PUBKEY, 1, P160_PRIVKEY+1) 
+Test_DRM_PK_GenKeyPair( ECCP160, Good Context, 0, P160_PUBKEY, 1, P160_PRIVKEY-1) = 0x8007007AL (DRM_E_BUFFERTOOSMALL)
+Test_DRM_PK_GenKeyPair( ECCP160, Good Context, 0, P160_PUBKEY+1, 1, P160_PRIVKEY)
+Test_DRM_PK_GenKeyPair( ECCP160, Good Context, 0, P160_PUBKEY-1, 1, P160_PRIVKEY) = 0x8007007AL (DRM_E_BUFFERTOOSMALL)
+
+90647:FUNC:P1:PKCrypto:Test PK sign and verify NULL Parameters ECCP256
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_PK_GenKeyPair( ECCP256, Good Context, 0, P256_PUBKEY, 1, P256_PRIVKEY)
+Test_Oem_Random_GetBytes( 2, 50 bytes )
+Test_DRM_PK_Sign(ECCP256, Good Context,2, 50, 1, P256_PRIVKEY, NULL, P256_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Sign(ECCP256, Good Context,2, 50, NULL, P256_PRIVKEY, 3, P256_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Sign(ECCP256, Good Context,NULL, 50, 1, P256_PRIVKEY, 3, P256_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Sign(ECCP256, Good Context,2, 50, 1, P256_PRIVKEY, 3, P256_SIGNATURE)
+Test_DRM_PK_Verify(ECCP256, Good Context,NULL, 50, 0, P256_PUBKEY, 3, P256_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Verify(ECCP256, Good Context,2, 50, NULL, P256_PUBKEY, 3, P256_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Verify(ECCP256, Good Context,2, 50, 0, P256_PUBKEY, NULL, P256_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+
+90648:FUNC:P1:PKCrypto:Test PK sign and verify NULL Parameters ECCP160
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_PK_GenKeyPair( ECCP160,  Good Context, 0, P160_PUBKEY, 1, P160_PRIVKEY)
+Test_Oem_Random_GetBytes( 2, 50 bytes )
+Test_DRM_PK_Sign(ECCP160, Good Context,2, 50, 1, P160_PRIVKEY, NULL, P160_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Sign(ECCP160, Good Context,2, 50, NULL, P160_PRIVKEY, 3, P160_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Sign(ECCP160, Good Context,NULL, 50, 1, P160_PRIVKEY, 3, P160_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Sign(ECCP160, NULL,2, 50, 1, P160_PRIVKEY, 3, P160_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Sign(ECCP160, Good Context,2, 50, 1, P160_PRIVKEY, 3, P160_SIGNATURE)
+Test_DRM_PK_Verify(ECCP160, Good Context,NULL, 50, 0, P160_PUBKEY, 3, P160_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Verify(ECCP160, Good Context,2, 50, NULL, P160_PUBKEY, 3, P160_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Verify(ECCP160, Good Context,2, 50, 0, P160_PUBKEY, NULL, P160_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Verify(ECCP160, NULL,2, 50, 0, P160_PUBKEY, NULL, P160_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+
+90650:FUNC:P1:PKCrypto:Test PK sign and verify sizes ECCP256
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_PK_GenKeyPair( ECCP256, Good Context, 0, P256_PUBKEY, 1, P256_PRIVKEY)
+Test_Oem_Random_GetBytes( 2, 50 bytes )
+Test_DRM_PK_Sign(ECCP256, Good Context,2, 0, 1, P256_PRIVKEY, 3, P256_SIGNATURE)= 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Sign(ECCP256, Good Context,2, 50, 1, P256_PRIVKEY-1, 3, P256_SIGNATURE)= 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Sign(ECCP256, Good Context,2, 50, 1, P256_PRIVKEY+1, 3, P256_SIGNATURE)= 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Sign(ECCP256, Good Context,2, 50, 1, P256_PRIVKEY, 3, P256_SIGNATURE-1)= 0x8007007AL (DRM_E_BUFFERTOOSMALL)
+Test_DRM_PK_Sign(ECCP256, Good Context,2, 50, 1, P256_PRIVKEY, 3, P256_SIGNATURE+1)
+Test_DRM_PK_Sign(ECCP256, Good Context,2, 50, 1, P256_PRIVKEY, 3, P256_SIGNATURE)
+Test_DRM_PK_Verify(ECCP256, Good Context,2, 0, 0, P256_PUBKEY, 3, P256_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Verify(ECCP256, Good Context,2, 50, 0, P256_PUBKEY+1, 3, P256_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Verify(ECCP256, Good Context,2, 50, 0, P256_PUBKEY-1, 3, P256_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Verify(ECCP256, Good Context,2, 50, 0, P256_PUBKEY, 3, P256_SIGNATURE+1) = 0x800480CFL (DRM_E_INVALID_SIGNATURE)
+Test_DRM_PK_Verify(ECCP256, Good Context,2, 50, 0, P256_PUBKEY, 3, P256_SIGNATURE-1) = 0x800480CFL (DRM_E_INVALID_SIGNATURE)
+
+
+90651:FUNC:P1:PKCrypto:Test PK sign and verify sizes ECCP160
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_PK_GenKeyPair( ECCP160, Good Context, 0, P160_PUBKEY, 1, P160_PRIVKEY)
+Test_Oem_Random_GetBytes( 2, 50 bytes )
+Test_DRM_PK_Sign(ECCP160,Good Context,2, 0, 1, P160_PRIVKEY, 3, P160_SIGNATURE)= 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Sign(ECCP160,Good Context,2, 50, 1, P160_PRIVKEY-1, 3, P160_SIGNATURE)= 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Sign(ECCP160,Good Context,2, 50, 1, P160_PRIVKEY+1, 3, P160_SIGNATURE)= 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Sign(ECCP160,Good Context,2, 50, 1, P160_PRIVKEY, 3, P160_SIGNATURE-1)= 0x8007007AL (DRM_E_BUFFERTOOSMALL)
+Test_DRM_PK_Sign(ECCP160,Good Context,2, 50, 1, P160_PRIVKEY, 3, P160_SIGNATURE+1)
+Test_DRM_PK_Sign(ECCP160,Good Context,2, 50, 1, P160_PRIVKEY, 3, P160_SIGNATURE)
+Test_DRM_PK_Verify(ECCP160,Good Context,2, 0, 0, P160_PUBKEY, 3, P160_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG
+Test_DRM_PK_Verify(ECCP160,Good Context,2, 50, 0, P160_PUBKEY+1, 3, P160_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Verify(ECCP160,Good Context,2, 50, 0, P160_PUBKEY-1, 3, P160_SIGNATURE) = 0x80070057L (DRM_E_INVALIDARG)
+Test_DRM_PK_Verify(ECCP160,Good Context,2, 50, 0, P160_PUBKEY, 3, P160_SIGNATURE+1) = 0x800480CFL (DRM_E_INVALID_SIGNATURE)
+Test_DRM_PK_Verify(ECCP160,Good Context,2, 50, 0, P160_PUBKEY, 3, P160_SIGNATURE-1) = 0x800480CFL (DRM_E_INVALID_SIGNATURE)
+
+90653:BVT:P0:PKCrypto:Test PK Encryption and decryption ECCP256
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_PK_GenKeyPair( ECCP256, Good Context, 0, P256_PUBKEY, 1, P256_PRIVKEY)
+Test_Oem_Random_GetBytes( 2, P256_PLAINTEXT )
+Test_DRM_ECC_GenerateHMACKey(2)
+Test_DRM_PK_Encrypt( ECCP256, Good Context, 0, P256_PUBKEY, 2, P256_PLAINTEXT, 3, P256_CIPHERTEXT)
+Test_DRM_PK_Decrypt( ECCP256, Good Context, 1, P256_PRIVKEY, 3, P256_CIPHERTEXT, 4, P256_PLAINTEXT)
+Test_MEMCMP( 2, 4, P256_PLAINTEXT )
+
+90654:BVT:P0:PKCrypto:Test PK Encryption and decryption ECCP160
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_PK_GenKeyPair( ECCP160, Good Context, 0, P160_PUBKEY, 1, P160_PRIVKEY)
+Test_Oem_Random_GetBytes( 2, P160_PLAINTEXT )
+Test_DRM_PK_Encrypt( ECCP160, Good Context, 0, P160_PUBKEY, 2, P160_PLAINTEXT, 3, P160_CIPHERTEXT)
+Test_DRM_PK_Decrypt( ECCP160, Good Context, 1, P160_PRIVKEY, 3, P160_CIPHERTEXT, 4, P160_PLAINTEXT)
+Test_MEMCMP( 2, 4, P160_PLAINTEXT)
+
+90656:BVT:P0:PKCrypto:Test PK sign and verify ECCP256
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_PK_GenKeyPair( ECCP256, Good Context, 0, P256_PUBKEY, 1, P256_PRIVKEY)
+Test_Oem_Random_GetBytes( 2, 50 bytes )
+Test_DRM_PK_Sign(ECCP256, Good Context,2, 50, 1, P256_PRIVKEY, 3, P256_SIGNATURE)
+Test_DRM_PK_Verify(ECCP256, Good Context,2, 50, 0, P256_PUBKEY, 3, P256_SIGNATURE)
+
+90657:BVT:P0:PKCrypto:Test PK sign and verify ECCP160
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_PK_GenKeyPair( ECCP160, Good Context, 0, P160_PUBKEY, 1, P160_PRIVKEY)
+Test_Oem_Random_GetBytes( 2, 50 bytes )
+Test_DRM_PK_Sign(ECCP160,Good Context,2, 50, 1, P160_PRIVKEY, 3, P160_SIGNATURE)
+Test_DRM_PK_Verify(ECCP160,Good Context,2, 50, 0, P160_PUBKEY, 3, P160_SIGNATURE)
+
+
+''''''' These test make sure that verification fails in a predicatable way if the method of sign and verify is mixed up
+
+90662:FUNC:P1:PKCrypto:Test PK sign with ECCP256 and try to verify with ECCP160
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_PK_GenKeyPair( ECCP256, Good Context, 0, P256_PUBKEY, 1, P256_PRIVKEY)
+Test_DRM_PK_GenKeyPair( ECCP160, Good Context, 4, P160_PUBKEY, 5, P160_PRIVKEY)
+Test_Oem_Random_GetBytes( 2, 50 bytes )
+Test_DRM_PK_Sign(ECCP256, Good Context,2, 50, 1, P256_PRIVKEY, 3, P256_SIGNATURE)
+Test_DRM_PK_Verify(ECCP160,Good Context,2, 50, 4, P160_PUBKEY, 3, P256_SIGNATURE)= 0x800480CFL (DRM_E_INVALID_SIGNATURE)
+
+90664:FUNC:P1:PKCrypto:Test PK sign with ECCP160 and try to verify with ECCP256
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_PK_GenKeyPair( ECCP256, Good Context, 0, P256_PUBKEY, 1, P256_PRIVKEY)
+Test_DRM_PK_GenKeyPair( ECCP160, Good Context, 4, P160_PUBKEY, 5, P160_PRIVKEY)
+Test_Oem_Random_GetBytes( 2, 50 bytes )
+Test_DRM_PK_Sign(ECCP160,Good Context,2, 50, 5, P160_PRIVKEY, 3, P160_SIGNATURE)
+Test_ReallocBuffer( 3, P256_SIGNATURE )
+Test_DRM_PK_Verify(ECCP256,Good Context,2, 50, 0, P256_PUBKEY, 3, P256_SIGNATURE)= 0x800480CFL (DRM_E_INVALID_SIGNATURE)
+
+
+''''''' Verify that different messages have different signatures
+90665:BVT:P0:PKCrypto:Test PK sign and verify ECCP256 -- ensure different signatures for different messages
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_PK_GenKeyPair( ECCP256, Good Context, 0, P256_PUBKEY, 1, P256_PRIVKEY)
+Test_Oem_Random_GetBytes( 2, 50 bytes )
+Test_Oem_Random_GetBytes( 3, 50 bytes )
+Test_DRM_PK_Sign(ECCP256, Good Context,2, 50, 1, P256_PRIVKEY, 4, P256_SIGNATURE)
+Test_DRM_PK_Sign(ECCP256, Good Context,3, 50, 1, P256_PRIVKEY, 5, P256_SIGNATURE)
+Test_MEMCMP( 4, 5, 50 Bytes ) = 1    (DRM_S_FALSE)
+
+90666:BVT:P0:PKCrypto:Test PK sign and verify ECCP160 -- ensure different signatures for different messages
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_PK_GenKeyPair( ECCP160, Good Context, 0, P160_PUBKEY, 1, P160_PRIVKEY)
+Test_Oem_Random_GetBytes( 2, 50 bytes )
+Test_Oem_Random_GetBytes( 3, 50 bytes )
+Test_DRM_PK_Sign(ECCP160,Good Context,2, 50, 1, P160_PRIVKEY, 4, P160_SIGNATURE)
+Test_DRM_PK_Sign(ECCP160,Good Context,3, 50, 1, P160_PRIVKEY, 5, P160_SIGNATURE)
+Test_MEMCMP( 4, 5, 50 Bytes ) = 1    (DRM_S_FALSE)

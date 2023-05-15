@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config_root>
+	<config_data>
+		<system_info> Humax System </system_info>
+
+			<!-- Gibbon Specific Params -->
+			<key_repeat_style>PRESS+PRESS+RELEASE</key_repeat_style>
+
+			<!-- DISK CACHE 12MB /var/lib/humaxtv_user/var point to /var/lib/humaxtv_user/var -->
+			<disk_cache_capacity>12582912</disk_cache_capacity>
+			<disk_cache_pending_capacity>0</disk_cache_pending_capacity>
+			<disk_cache_path>/usr/bin/netflix/data/var/nrd/gibbon</disk_cache_path>
+			<!-- SURFACE CACHE -1 means 28MB -->
+			<surface_cache_capacity>42991616</surface_cache_capacity>
+			<!-- SURFACE CACHE PLAYBACK CAPACITY -1 means 28MB -->
+			<surface_cache_playback_capacity>42991616</surface_cache_playback_capacity>
+
+			
+			<!-- MEDIA CACHE ROOT PATH /usr/bin/netflix/data/cache point to /mnt/hd3 -->
+			<!-- MEDIA CACHE 238MB -->
+			<media_cache_capacity>249561088</media_cache_capacity>
+			<cache_path>/usr/bin/netflix/data/cache</cache_path>
+			<!-- FONT STORE 5MB  -->
+			<font_store_capacity>5242880</font_store_capacity>
+			<!-- UI CACHE 288KB -->
+			<ui_cache_capacity>294912</ui_cache_capacity>
+	</config_data>
+</config_root>
+

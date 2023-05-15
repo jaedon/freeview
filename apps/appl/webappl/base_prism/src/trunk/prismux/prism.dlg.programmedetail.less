@@ -1,0 +1,600 @@
+/*
+ * /prismux/prism.dlg.programmedetail.css
+ */
+#pde2{
+  .-list-item {
+    overflow: hidden;
+    display: inline-block;
+    padding: 0 20px;
+    line-height: 60px;
+    font-family: PrismFontB;
+    text-align: center;
+    text-overflow: ellipsis;
+    color: #d2d2d2;
+    &.dis {
+      color: rgba(80,80,80,.5);
+    }
+    &.his {
+      color: #fff;
+    }
+
+  }
+  .ep{
+    .-list-item{
+      &.-fd{
+        &.-afd-leaf {
+          background: #2eb2ff;
+          color: #000
+        }
+      }
+    }
+  }
+  position: absolute;
+  width: 1280px;
+  height: 720px;
+  background: rgba(0,0,0,.8);
+  .wrap_title {
+    position: absolute;
+    top: 56px;
+    height: 101px
+  }
+  .chArea {
+    position: absolute;
+    top: 0;
+    left: 58px;
+    width: 153px;
+    font-size: 36px;
+    font-family: PrismFontL;
+    color: #b4b4b4;
+    text-align: center
+  }
+  .logo {
+    width: 153px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 22px;
+    color: #fff;
+    img {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  .tit {
+    position: absolute;
+    left: 240px;
+    width: 974px;
+    font-size: 48px;
+    line-height: 48px;
+    height: 60px;
+    color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    &.one {
+      line-height: 66px
+    }
+    em {
+      display: block;
+      font-size: 26px;
+      font-family: PrismFontL;
+      font-weight: normal;
+      width: 219px;
+      color: #cacaca;
+    }
+  }
+  .season {
+    position: absolute;
+    font-size: 26px;
+    font-family: PrismFontL;
+    font-weight: normal;
+    line-height: 48px;
+    width: 219px;
+    left: 240px;
+    top: 43px;
+    color: #cacaca;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .secondary {
+    position: absolute;
+    font-size: 26px;
+    font-family: PrismFontL;
+    font-weight: normal;
+    line-height: 48px;
+    left: 225px;
+    width: 746px;
+    left: 465px;
+    top: 43px;
+    color: #cacaca;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .logo, .tit, .tit em, .ep .-list-item, .cont .genre, .wrap_menu .-list-item {
+    //overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+  }
+  .menu {
+    position: absolute;
+    top: 56px;
+    width: 220px;
+    height: 540px;
+    background: url(../images/105_BG_Depth_PD.png) no-repeat right 0;
+    &.-fd.-afd {
+      .-list-item.-fd.-afd-leaf {
+        background: #2eb2ff;
+        font-family: PrismFontB;
+        color: #000
+      }
+    }
+  }
+  .wrap_menu {
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    width: 208px;
+    height: 508px;
+    .-list-item {
+      display: block;
+      line-height: 60px;
+      height: 60px;
+      width: 142px;
+      padding: 0 8px 0 59px;
+      background: none;
+      font-family: PrismFontL;
+      text-align: left;
+      &.his {
+        font-family: PrismFontB;
+        color: #2eb2ff;
+      }
+      &.live {
+        color: #f8ff44
+      }
+    }
+    .-list-item+ .-list-item {
+      margin: 0
+    }
+  }
+  .icoRec{
+    .play, .rec, .rec2, .remi, .partially {
+      float: right;
+      margin: 15px 0 0 5px;
+      display: inline-block;
+      width: 28px;
+      height: 28px
+    }
+    .remi {
+      background: url(../images/205_REC_Reservation_Watch.png) no-repeat;
+    }
+    .play {
+      background: url(../images/205_REC_Play.png) no-repeat
+    }
+    .partially {
+      background: url(../images/614_REC_Play_partially.png) no-repeat;
+    }
+    .rec {
+      background: url(../images/205_REC_Recording.png) no-repeat
+    }
+    .rec2 {
+      background: url(../images/205_REC_Reservation_Recording.png) no-repeat
+    }
+    .seri {
+      float: right;
+      margin: 15px 0 0 -4px;
+      display: inline-block;
+      height: 28px;
+      width: 33px;
+      background: url(../images/205_REC_Reservation_Series.png) no-repeat
+    }
+  }
+  .ep {
+    position: absolute;
+    top: 0;
+    left: 242px;
+    height: 720px;
+    width: 400px;
+    margin: 56px 0 0;
+    &.new:before {
+      top: -4px;
+      left: -4px
+    }
+    &.noThumOndemand .vod {
+      background: url(../images/614_OD_Default01.png) no-repeat
+    }
+    &.noThum .vod {
+      background: url(../images/614_Thumb_TV.jpg) no-repeat
+    }
+    &.noThumRadio .vod {
+      background: url(../images/614_Thumb_Radio.jpg) no-repeat
+    }
+    &.noThumRecord .vod {
+      background: url(../images/614_Thumb_REC.jpg) no-repeat
+    }
+    .vod {
+      width: 400px;
+      height: 225px;
+      img {
+        width: 400px;
+        height: 225px
+      }
+    }
+    .-fd.-afd-leaf .vod:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 390px;
+      height: 215px;
+      border: 5px solid #2eb2ff
+    }
+    .-list {
+      position: absolute;
+    }
+    .-list-item {
+      width: 360px;
+    }
+  }
+  .cont {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 662px;
+    width: 558px;
+    height: 535px;
+    margin: 51px 0 0;
+    font-size: 26px;
+    color: #bebebe;
+    .genre {
+      vertical-align: middle;
+      display: inline-block;
+      color: #ffc444;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .desp {
+      overflow: hidden;
+      position: absolute;
+      /*top: 100px !important;*/
+      top: 55px;
+      width: 558px;
+      height: 385px;
+      line-height: 35px;
+      margin: 13px 0 0;
+      padding: 0;
+      font-family: PrismFontL;
+      p {
+        position: absolute;
+        width: 508px;
+      }
+    }
+    .ico+ .genre {
+      margin: 0 0 0 10px
+    }
+    .ico {
+      display: inline-block;
+      margin: 0 7px 0 0;
+      vertical-align: middle
+    }
+  }
+}
+#recordingsPage{
+  #pde2 {
+    background: rgba(0,0,0,0)
+  }
+}
+////////////////////////////////////
+
+/*
+#pde2 .ep.recPlay .vod:before {
+    content: "";
+    position: absolute;
+    left: 156px;
+    top: 69px;
+    width: 88px;
+    height: 88px;
+    background: url(../images/213_Play_PD_N.png) no-repeat
+}
+
+#pde2 .ep.recPlay .-fd.-afd-leaf .vod:before {
+    background: url(../images/213_Play_PD_C.png) no-repeat
+}
+*/
+
+
+.prism-scroll.-scroll {
+    background: transparent;
+    position: absolute;
+    right: 0px;
+    width: 40px;
+    height: 74px;
+}
+.cont.-f .-ctrl-view > .-scroll .prism-scroll.-scroll-track {
+    background: url("../images/111_Scroll_Arrow_N.png") no-repeat transparent !important;
+    border-radius: 0px;
+    height: 74px;
+    width: 40px;
+}
+.cont.-fd .-ctrl-view > .-scroll .prism-scroll.-scroll-track {
+    background: url("../images/111_Scroll_Arrow_C.png") no-repeat transparent !important;
+}
+/* icon */
+.pdsubDVB {
+	width: 44px;
+    height: 28px;
+    background: url(../images/614_Subtitle.png) no-repeat
+}
+
+.pdsubEBU {
+	width: 44px;
+    height: 28px;
+    background: url(../images/614_Subtitle.png) no-repeat
+}
+
+.ma {
+	width: 35px;
+    height: 28px;
+    background: url(../images/219_MultipleAudio.png) no-repeat
+}
+
+.lock {
+    width: 22px;
+    height: 28px;
+    background: url(../images/211_Lock.png) no-repeat
+}
+.new:before {
+    content: "";
+    position: absolute;
+    width: 92px;
+    height: 92px;
+    background: url(../images/215_NEW.png) no-repeat;
+    z-index: 1
+}
+.drm {
+    width: 57px;
+    height: 28px;
+    background: url(../images/211_Lock_DRM.png) no-repeat
+}
+.ttx {
+    width: 28px;
+    height: 28px;
+    background: url(../images/220_Teletext.png) no-repeat
+}
+.recwatch {
+    width: 36px;
+    height: 28px;
+    background: url(../images/205_REC_Recording_Watch.png) no-repeat
+}
+.hd {
+    width: 36px;
+    height: 28px;
+    background: url(../images/203_Resolition_HD.png) no-repeat
+}
+.AD {
+  width: 36px;
+  height: 28px;
+  background: url(../images/614_PD_AD.png) no-repeat
+}
+.PD_ENC {
+  width: 44px;
+  height: 28px;
+  background: url(../images/614_PD_ENC.png) no-repeat
+}
+.guidance {
+  width: 28px;
+  height: 28px;
+  background: url(../images/614_PD_Guidance.png) no-repeat
+}
+.split {
+  width: 36px;
+  height: 28px;
+  background: url(../images/614_PD_Split.png) no-repeat
+}
+.recommendation {
+  width: 37px;
+  height: 28px;
+  background: url(../images/614_PD_Recommendation.png) no-repeat
+}
+.PD_HD {
+  width: 45px;
+  height: 28px;
+  background: url(../images/614_PD_HD.png) no-repeat
+}
+.cas {
+    width: 36px;
+    height: 28px;
+   &.va {
+     background: url(../images/202_CAS_VA.png) no-repeat
+   }
+   &.nd {
+     background: url(../images/202_CAS_ND.png) no-repeat
+   }
+  &.na {
+    background: url(../images/202_CAS_NA.png) no-repeat
+  }
+  &.mg {
+    background: url(../images/202_CAS_MG.png) no-repeat
+  }
+  &.ir {
+    background: url(../images/202_CAS_IR.png) no-repeat
+  }
+  &.cx {
+    background: url(../images/202_CAS_CX.png) no-repeat
+  }
+  &.cr {
+    background: url(../images/202_CAS_CR.png) no-repeat
+  }
+  &.bt {
+    background: url(../images/202_CAS_BT.png) no-repeat
+  }
+  &.bd {
+    background: url(../images/202_CAS_BD.png) no-repeat
+  }
+  &.multi {
+    background: url(../images/202_CAS_Multi.png) no-repeat
+  }
+}
+.rat {
+    width: 35px;
+    height: 28px;
+
+  &.ag4 {
+    background: url(../images/204_Rating_04.png) no-repeat
+  }
+  &.ag5 {
+    background: url(../images/204_Rating_05.png) no-repeat
+  }
+  &.ag6 {
+    background: url(../images/204_Rating_06.png) no-repeat
+  }
+  &.ag7 {
+    background: url(../images/204_Rating_07.png) no-repeat
+  }
+  &.ag8 {
+    background: url(../images/204_Rating_08.png) no-repeat
+  }
+  &.ag9 {
+    background: url(../images/204_Rating_09.png) no-repeat
+  }
+  &.ag10 {
+    background: url(../images/204_Rating_10.png) no-repeat
+  }
+  &.ag11 {
+    background: url(../images/204_Rating_11.png) no-repeat
+  }
+  &.ag12 {
+    background: url(../images/204_Rating_12.png) no-repeat
+  }
+  &.ag13 {
+    background: url(../images/204_Rating_13.png) no-repeat
+  }
+  &.ag14 {
+    background: url(../images/204_Rating_14.png) no-repeat
+  }
+  &.ag15 {
+    background: url(../images/204_Rating_15.png) no-repeat
+  }
+  &.ag16 {
+    background: url(../images/204_Rating_16.png) no-repeat
+  }
+  &.ag17 {
+    background: url(../images/204_Rating_17.png) no-repeat
+  }
+  &.ag18 {
+    background: url(../images/204_Rating_18.png) no-repeat
+  }
+}
+
+.show .programmedetaildlg {
+  display: block;
+}
+.programmedetaildlg{
+  display:none;
+  .contextMenuBg {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: inherit;
+    width: 660px;
+    background: url(../images/105_BG_COM_Context_L02.png) no-repeat;
+  }
+  .contextMenu {
+    position: absolute;
+    left: 55px;
+    bottom: 100px;
+    height: 544px;
+    padding: 0px 5px 0px 0px;
+    width: 405px;
+    &:after {
+      position: absolute;
+      content: '';
+      width: inherit;
+      height: 1px;
+      bottom: -10px;
+      background: url(../images/107_Line_Context_L.png) no-repeat bottom;
+    }
+    &.checkItem  {
+      .contextMenuItem {
+        .l {
+          font-size: 42px;
+          font-family: PrismFontL;
+          color: #A0A0A0;
+        }
+        .b {
+          background: url(../images/112_Multi_Check_Off.png) no-repeat;
+          padding: 0px 0px 0px 40px;
+          &.checked {
+            background: url(../images/112_Multi_Check_On.png) no-repeat;
+            padding: 0px 0px 0px 40px;
+          }
+        }
+        &.-afd-leaf {
+          span {
+            font-size: 42px;
+            font-family: PrismFontB;
+            color: #2EBEFF;
+          }
+        }
+      }
+    }
+
+  }
+  .contextMenuItem {
+    height: 50px;
+    width: inherit;
+    text-align: left;
+    div {
+      position: absolute;
+      right: 0px;
+      bottom: 0px;
+      vertical-align: text-bottom;
+      font-size: 42px;
+      height: 42px;
+      color: white;
+    }
+    .l {
+      font-size: 42px;
+      font-family: PrismFontL;
+      color: #A0A0A0;
+    }
+    .b {
+      font-size: 42px;
+      font-family: PrismFontB;
+    }
+    &.-afd-leaf {
+      span {
+        font-size: 42px;
+        font-family: PrismFontB;
+        color: #2EBEFF;
+      }
+    }
+  }
+  .checkItem{
+    &.contextMenuItem {
+      height: 50px;
+      width: inherit;
+      text-align: left;
+    }
+  }
+  .optionMenuInd {
+    position: absolute;
+    left: 59px;
+    bottom: 46px;
+    height: 26px;
+    line-height: 25px;
+    font-size: 24px;
+    padding: 0px 5px 0px 35px;
+    color: #A0A0A0;
+    background: url(../images/201_Option.png) no-repeat;
+  }
+  .optionMenuIndBg {
+    position: absolute;
+    left: -20px;
+    bottom: 0px;
+    width: 540px;
+    height: 190px;
+    background: url(../images/105_BG_COM_Context_L01.png) no-repeat;
+  }
+}

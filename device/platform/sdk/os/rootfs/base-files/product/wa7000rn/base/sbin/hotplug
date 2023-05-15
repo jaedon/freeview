@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# set to '1' to enable USB thumbdrive automount
+
+HOTPLUG_FW_DIR=/lib/firmware
+
+# userspace firmware loader
+
+if [ "$1" = "firmware" ]; then
+	if [ "$ACTION" = "add" ]; then
+		echo 1 > /sys/$DEVPATH/loading
+		cat $HOTPLUG_FW_DIR/$FIRMWARE > /sys/$DEVPATH/data
+		echo 0 > /sys/$DEVPATH/loading
+	else
+		echo -1 > /sys/$DEVPATH/loading
+	fi
+fi
+  
+#exec /sbin/mdev "$@"

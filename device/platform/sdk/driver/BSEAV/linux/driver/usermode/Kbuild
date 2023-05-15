@@ -1,0 +1,58 @@
+############################################################################
+#     Copyright (c) 2011 Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Kbuild $
+# $brcm_Revision: 4 $
+# $brcm_Date: 5/9/12 10:56a $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /BSEAV/linux/driver/usermode/Kbuild $
+# 
+# 4   5/9/12 10:56a erickson
+# SW7435-27: rework NEXUS_WEBCPU env variable to support core0
+# client/server, core1_server, and eventually core1_client
+# 
+# 3   5/8/12 3:46p erickson
+# SW7435-27: add webcpu support
+# 
+# 2   9/16/11 5:43p jessem
+# SW7425-1248: Added BCHP_VER support to usermode driver builds.
+# 
+# 1   3/7/11 4:39p erickson
+# SW7420-1576: build bcmdriver with kbuild for linux 2.6.31 and following
+#
+############################################################################
+
+obj-m += bcmdriver.o
+bcmdriver-objs += bcm_driver.o $(PLATFORM)/interrupt_table.o
+
+ICM_CLI_SUPPORT ?= y
+ifeq ($(ICM_CLI_SUPPORT),y)
+EXTRA_CFLAGS += -DBICM_ICAM2
+endif
+
+ifeq (${B_HAS_PLAYPUMP_IP},y)
+EXTRA_CFLAGS += -DB_NETIF_DMA=1 -I$(BSEAV)/api/include/
+bcmdriver-objs += netif_dma_stub.o
+else
+EXTRA_CFLAGS += -DB_NETIF_DMA=0
+endif
+
+EXTRA_CFLAGS += -I$(BSEAV)/../magnum/commonutils/lst/
+EXTRA_CFLAGS += -I$(KBUILD_EXTMOD)
+EXTRA_CFLAGS += -DHAVE_RSRVD=1
+EXTRA_CFLAGS += -DBCHP_VER=BCHP_VER_$(BCHP_VER)
+
+# compile bcmdriver the same for webcpu servers. client gets just m2mc1.
+ifeq ($(NEXUS_WEBCPU),core1_server)
+EXTRA_CFLAGS += -DNEXUS_WEBCPU
+endif

@@ -1,0 +1,89 @@
+91667:BVT:P0: DRM_RSA: 2048-bit Encrypt/Decrypt with random data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 2048 KeyLength )
+Test_DRM_RSA_Encrypt( 2048 KeyLength, 86 DataLength )
+Test_DRM_RSA_Decrypt( 2048 KeyLength, 86 DataLength )
+Test_OEM_RSA_ZeroKeys
+
+91668:BVT:P0: DRM_RSA: 2048-bit Sign/Verify with random data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 2048 KeyLength )
+Test_DRM_RSA_Sign( 2048 KeyLength, 86 DataLength )
+Test_DRM_RSA_Verify( 2048 KeyLength, 86 DataLength, GOOD VerifyType )
+Test_OEM_RSA_ZeroKeys
+
+91669:BVT:P0: OEM_RSA: 2048-bit Encrypt/Decrypt with random data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 2048 KeyLength )
+Test_OEM_RSA_Encrypt( 2048 KeyLength, RANDOM PlainText )
+Test_OEM_RSA_Decrypt( 2048 KeyLength )
+Test_OEM_RSA_ZeroKeys
+
+91670:BVT:P0: OEM_RSA: 2048-bit Encrypt/Decrypt with known data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 2048 KeyLength )
+Test_OEM_RSA_Encrypt( 2048 KeyLength, KNOWN1 PlainText )
+Test_OEM_RSA_Decrypt( 2048 KeyLength )
+Test_OEM_RSA_ZeroKeys
+Test_OEM_RSA_KeySetup( 2048 KeyLength )
+Test_OEM_RSA_Encrypt( 2048 KeyLength, KNOWN2 PlainText )
+Test_OEM_RSA_Decrypt( 2048 KeyLength )
+Test_OEM_RSA_ZeroKeys
+
+91671:DRT:P0: DRM_RSA: 2048-bit Encrypt/Decrypt with short data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 2048 KeyLength )
+Test_DRM_RSA_Encrypt( 2048 KeyLength, 8 DataLength )
+Test_DRM_RSA_Decrypt( 2048 KeyLength, 8 DataLength )
+Test_OEM_RSA_ZeroKeys
+
+91672:DRT:P0: DRM_RSA: 2048-bit Sign/Verify with short data should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 2048 KeyLength )
+Test_DRM_RSA_Sign( 2048 KeyLength, 8 DataLength )
+Test_DRM_RSA_Verify( 2048 KeyLength, 8 DataLength, GOOD VerifyType )
+Test_OEM_RSA_ZeroKeys
+
+91673:DRT:P0: DRM_RSA: 2048-bit Sign/Verify with bad data should not work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 2048 KeyLength )
+Test_DRM_RSA_Sign( 2048 KeyLength, 86 DataLength )
+Test_DRM_RSA_Verify( 2048 KeyLength, 86 DataLength, BAD VerifyType )=0x80040E82L(DRM_E_RSA_SIGNATURE_ERROR)
+Test_OEM_RSA_ZeroKeys
+
+91674:DRT:P0: DRM_RSA: 2048-bit Multiple calls to Encrypt/Decrypt should work
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 2048 KeyLength )
+Test_DRM_RSA_Encrypt( 2048 KeyLength, 86 DataLength )
+Test_DRM_RSA_Decrypt( 2048 KeyLength, 86 DataLength )
+Test_DRM_RSA_Encrypt( 2048 KeyLength, 86 DataLength )
+Test_DRM_RSA_Decrypt( 2048 KeyLength, 86 DataLength )
+Test_DRM_RSA_Encrypt( 2048 KeyLength, 86 DataLength )
+Test_DRM_RSA_Decrypt( 2048 KeyLength, 86 DataLength )
+Test_DRM_RSA_Encrypt( 2048 KeyLength, 86 DataLength )
+Test_DRM_RSA_Decrypt( 2048 KeyLength, 86 DataLength )
+Test_OEM_RSA_ZeroKeys
+
+91675:PERF:P2: OEM_RSA: 2048-bit Repeated Encrypt/Decrypt, run with CRT Optimization on and off to measure the benefit.
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 2048 KeyLength )
+Test_OEM_RSA_Encrypt( 2048 KeyLength, KNOWN1 PlainText )
+Test_OEM_RSA_Decrypt( 2048 KeyLength )
+Test_OEM_RSA_Decrypt( 2048 KeyLength )
+Test_OEM_RSA_Decrypt( 2048 KeyLength )
+Test_OEM_RSA_Decrypt( 2048 KeyLength )
+Test_OEM_RSA_Decrypt( 2048 KeyLength )
+Test_OEM_RSA_Encrypt( 2048 KeyLength, KNOWN2 PlainText )
+Test_OEM_RSA_Decrypt( 2048 KeyLength )
+Test_OEM_RSA_Decrypt( 2048 KeyLength )
+Test_OEM_RSA_Decrypt( 2048 KeyLength )
+Test_OEM_RSA_Decrypt( 2048 KeyLength )
+Test_OEM_RSA_Decrypt( 2048 KeyLength )
+Test_OEM_RSA_ZeroKeys
+
+91676:PERF:P2: OEM_RSA: 2048-bit Baseline without Decrypt to use with 10605 to measure Decrypt performance.
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_OEM_RSA_KeySetup( 2048 KeyLength )
+Test_OEM_RSA_Encrypt( 2048 KeyLength, KNOWN1 PlainText )
+Test_OEM_RSA_Encrypt( 2048 KeyLength, KNOWN2 PlainText )
+Test_OEM_RSA_ZeroKeys

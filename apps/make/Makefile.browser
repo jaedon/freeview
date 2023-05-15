@@ -1,0 +1,24 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+#
+
+## this is temporary configuration. i have to delete below line... -_-!!!!
+-include $(HUMAX_MAKE_DIR)/.config
+
+BROWSER_BASE_DIR := $(HUMAX_TOP_DIR)/apps/appl/browser/
+
+ifeq ($(CONFIG_ENHANCED_SECURITY),y)
+HUMAX_SUDO := sudo
+else
+HUMAX_SUDO :=
+endif
+
+ifeq ($(shell test -d $(BROWSER_BASE_DIR)/archon && echo 1),1)
+include $(HUMAX_MAKE_DIR)/Makefile.browser_archon
+else
+include $(HUMAX_MAKE_DIR)/Makefile.browser_corsair
+endif
+
+

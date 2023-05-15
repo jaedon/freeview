@@ -1,0 +1,1781 @@
+############################################################
+#	  Copyright (c) 2003-2012, Broadcom Corporation
+#	  All Rights Reserved
+#	  Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.brutus $
+# $brcm_Revision: 42 $
+# $brcm_Date: 11/15/12 5:04p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /BSEAV/app/brutus2/build/Makefile.brutus $
+# 
+# 42   11/15/12 5:04p randyjew
+# SW7231-749: Add 7230 support
+# 
+# 41   10/8/12 9:55a jrubio
+# SW7346-1004: add grid widget
+# 
+# 40   10/7/12 3:42p tokushig
+# SW7231-749: add display panel files
+# 
+# 40   10/7/12 3:40p tokushig
+# SW7231-749: add display panel files
+# 
+# 39   10/3/12 5:13p jrubio
+# SW7346-1004: add pvr timeline files
+# 
+# 38   9/25/12 12:43p jrubio
+# SW7346-1004: add VLC module
+# 
+# 37   9/21/12 8:44p tokushig
+# SW7231-749: add audio panel
+# 
+# 36   9/17/12 11:25a jrubio
+# SW7346-1004: add panel_record
+# 
+# 35   9/15/12 1:02a tokushig
+# SW7231-749: add graphics class
+# 
+# 34   8/29/12 11:03a jrubio
+# SW7346-1002: add record
+# 
+# 33   7/23/12 4:14p tokushig
+# SW7231-749: add ofdm tuning/scanning and gui support (no lua support)
+# 
+# 32   7/13/12 5:22p tokushig
+# SW7231-749: makefile minor re-org
+# 
+# 31   7/12/12 12:26p tokushig
+# SW7231-749: refactor buffer screen to be panel based.
+# 
+# 30   7/11/12 11:35a tokushig
+# SW7231-749: refactor decode screen to panel based class
+# 
+# 29   7/9/12 4:30p tokushig
+# SW7231-749: refactor the main screen so that it can coexist with other
+# screens and properly segment code into cpanels.  partially complete -
+# info menu and buffers menu still need refactoring.
+# 
+# 28   6/26/12 4:00p tokushig
+# SW7231-749: add modal message box capability
+# 
+# 27   6/1/12 10:44a jrubio
+# SW7346-644: add copy of generic channels.xml
+# 
+# 26   5/25/12 3:12p tokushig
+# SW7231-749: remove platform specific file and move to common
+# platform.h.  also change appropriate brutus defines to nexus defines
+# when available.
+# 
+# 25   5/25/12 12:21a tokushig
+# SW7231-749: added popup list widget to build
+# 
+# 25   5/25/12 12:20a tokushig
+# SW7231-749: added popup list widget to build
+# 
+# 24   5/21/12 5:42p jrubio
+# SW7346-644: break off video class into its own file
+# 
+# 23   5/10/12 3:45p tokushig
+# SW7231-749: add buffers/tsm popup including new meter widget
+# 
+# 22   5/4/12 2:04p tokushig
+# SW7231-749: add buffers screen, checkbox widget, and new fonts
+# 
+# 21   4/20/12 2:45p tokushig
+# SW7231-749: add support for scan menu
+# 
+# 20   4/16/12 5:53p tokushig
+# SW7231-749: add progess label widget
+# 
+# 19   4/14/12 5:28p tokushig
+# SW7231-749: added new menu widget to makefile
+# 
+# 18   4/13/12 7:41p tokushig
+# SW7231-749: add scrolling list view
+# 
+# 18   4/13/12 7:29p tokushig
+# SW7231-749: add scrolling list view
+# 
+# 17   4/11/12 1:13p jrubio
+# SW7346-644: add playback file, remove CModelSource Class and Replace
+# with CPidMgr
+# 
+# 16   4/11/12 12:16p tokushig
+# SW7231-749: updated screens to use new label/button widget classes
+# 
+# 15   4/6/12 12:43p tokushig
+# SW7231-749: fixed callback handling issue in register/notification
+# mechanism which prevented control from manually notifying views.  view
+# and controller classes now hide the callback mechanism from the mvc
+# based classes for notifications and there is a consistent
+# processNotification() method for both views and controllers (models do
+# not receive notifications.
+# 
+# 14   3/27/12 10:30a tokushig
+# SW7405-5581: add vsb tuning and channel scan
+# 
+# 13   3/14/12 12:39p jrubio
+# SW7346-644: add tuner sat
+# 
+# 12   3/13/12 4:00p tokushig
+# SW7405-5581: more CModelChannel base class out of channelmgr file and
+# into channel file
+# 
+# 11   2/29/12 11:49a jrubio
+# SW7346-644: add avtypes.cpp
+# 
+# 10   2/27/12 4:17p tokushig
+# SW7405-5581: break out qam tuner from tuner files
+# 
+# 9   2/23/12 5:54p tokushig
+# SW7405-5581: rename/move platform specific file to
+# platform/(PLATFORM)/brutus_platform.h
+# 
+# 8   2/22/12 5:38p tokushig
+# SW7405-5581: add tspsimgr2 and timer class to build
+# 
+# 8   2/22/12 5:35p tokushig
+# SW7405-5581: add tspsimgr2 and timer class to build
+# 
+# 7   2/21/12 4:10p jrubio
+# SW7346-644: add B_REFSW_ARCH
+# 
+# 6   2/17/12 4:18p tokushig
+# SW7405-5581: update makefile - this requires a config spec addition to
+# the 0.1 brutus2 release on the 97405
+# 
+# 5   2/15/12 12:51a jrubio
+# SW7346-644: add channel.xml and fix bioatom include
+# 
+# 4   2/14/12 3:47p tokushig
+# SW7405-5581: conditional make for batom.inc for 97346
+# 
+# 3   2/2/12 4:47p jrubio
+# SW7346-644: add Sat Tuning
+# 
+# 2   1/17/12 3:11p jrubio
+# SW7346-644: fix debug/release
+# 
+# 1   1/12/12 7:01p tokushig
+# SW7405-5581: Brutus2 initial check in
+# 
+# 224   2/15/11 10:51p xhuang
+# SW7358-34: Add 7358/7552 support
+# 
+# 223   2/11/11 2:16p randyjew
+# SW7418-1:Adding 7418 support
+# 
+# 222   12/27/10 3:37p erickson
+# SW7400-2511: fix STATIC_BRUTUS=y builds
+#
+# 221   12/15/10 10:38a katrep
+# SW7231-4:add support for 7231
+#
+# 220   12/7/10 7:25p piyushg
+# SW7405-4386: Initial checkin for playready intigration with mainline
+# brutus.
+#
+# 220   12/7/10 7:22p piyushg
+# SW7405-4386: Initial intigration of playready with mainline brutus
+#
+# 219   11/24/10 4:14p hongtaoz
+# SW7425-49: add 7425 support;
+#
+# 219   11/24/10 4:13p hongtaoz
+# SW7425-49: add 7425 support;
+#
+# 219   11/24/10 3:36p hongtaoz
+# SW7425-49: add 7425 support;
+#
+# 218   10/21/10 4:47p nickh
+# SW7422-80: Add 7422 support
+#
+# 217   10/19/10 8:24a ahulse
+# SW7405-4951: Add console dump of crash stack trace for kernels 2.6.31
+# and above
+#
+# 216   10/1/10 5:49p spothana
+# SW7420-1078 : Add support for BCM97409 platform.
+#
+# 215   8/4/10 7:43p spothana
+# SW7420-886: Correcting the 7410 UMA env variable name.
+#
+# 214   8/4/10 4:33p spothana
+# SW7420-886: Add support for 97410 UMA mode using MEMC0 only.
+#
+# 213   7/30/10 9:07a erickson
+# SW7420-918: support static build for B_REFSW_SHAREABLE=n. also removed
+# old magnum-based settop api code.
+#
+# 212   6/11/10 4:02p mward
+# SW7420-160:  Add 7125 and 734x platforms to HDMI list.
+#
+# 211   5/27/10 6:24p mward
+# SW7400-2786:  Support DivX DRM under Nexus on 7400/7403.
+#
+# 210   5/6/10 12:04p jtna
+# SW7420-527: always install sqlite
+#
+# 209   5/5/10 5:00p jtna
+# SW7420-527: makefile update for libtune
+#
+# 208   4/23/10 2:06p nickh
+# SW7420-709: Add 7420 cable frontend support to Brutus
+#
+# 207   4/19/10 3:41p nickh
+# SW7420-709: Add environment variable to enable frontend tuners for 7420
+# DBS support
+#
+# 206   4/9/10 1:07p jgarrett
+# SW7405-4034: Moving MSDRM PD/ND binaries into nexus as required
+#
+# DrmMakefileUpdates/1   4/8/10 4:49p jgarrett
+# SW7405-4034: Including binaries for MSDRM (PD/ND) in the nexus builds
+# to avoid link issues
+#
+# 205   4/2/10 2:24p erickson
+# SW7405-4162: some tspsi code is now built into nexus
+#
+# 204   3/31/10 2:46p rjain
+# SW7550-309: merging back to main branch
+#
+# SW7550-193/3   3/1/10 1:34p rjain
+# SW7550-277: adding 7550 to the list for PVR support
+#
+# SW7550-193/2   2/22/10 2:07p nitinb
+# SW7550-257: Added ASF support for 7550
+#
+# SW7550-193/1   1/19/10 3:43p chengli
+# SW7550-193 : add CFLAGS += -DNEXUS_BOARD_7530_CRB=1 for 97530 CRB
+#
+# 203   3/30/10 7:48p jtna
+# SW7420-527: update libtune make
+#
+# 202   3/30/10 3:15p jtna
+# SW7420-527: moved libtune code from control.cpp to control_libtune.cpp
+#
+# 201   3/1/10 6:51p jtna
+# SW7420-527: initial Brutus libtune integration
+#
+# 200   2/24/10 2:43p gskerl
+# SW7405-3625: Add NEXUS_APP_DEFINES to Brutus' CFLAGS because they are
+# needed by some of the bsettop headers files (like bsettop_impl.h)
+#
+# 199   1/21/10 5:43p mward
+# SW7400-2517: merge to main support for BUILD_SYSTEM=magnum.
+#
+# 198   1/20/10 5:27p garetht
+# SW7420-553: Add platform for 93380vms
+#
+# 197   1/19/10 2:59p nickh
+# SW7420-541: Rename 97420dvr2 to 97420
+#
+# 196   1/12/10 3:54p randyjew
+# SW7468-6:Add 97468/97208 ASF support
+#
+# 195   12/11/09 6:12p mphillip
+# SW7550-112: Merge 7550 changes to main branch
+#
+# Refsw_7550/2   11/18/09 3:53p chengli
+# SW7550-64 : include chanmapscreen even if PLAYBACK_IP_SUPPORT != y
+#
+# Refsw_7550/1   11/5/09 11:25a nitinb
+# sw7550-64: Initial brutus build for 7550
+#
+# 194   12/9/09 11:53a gmohile
+# SW7408-1 : Add 7408 support
+#
+# SW7400-2517/2   11/18/09 9:15a mward
+# SW7400-2517: merge latest from main.
+#
+# 193   11/17/09 2:13p erickson
+# SW7405-3408: use $(filter) instead of $(findstring)
+#
+# 192   10/30/09 5:47p nickh
+# SW7420-331: Rename 97410c to 97410
+#
+# 191   10/8/09 1:52p rjlewis
+# SW7340-46: Added VxWorks support for 7340.
+#
+# 190   10/8/09 10:12a jrubio
+# SW7342-46: add 7342/7340 ASF support
+#
+# 188   9/18/09 11:56a erickson
+# SW7400-2511: add B_REFSW_ or NEXUS_ prefix to build variables
+#
+# SW7400-2517/1   9/14/09 3:09p mward
+# SW7400-2517: Maintain Native Settop API (BUILD_SYSTEM=magnum) build for
+# 97400.
+#
+# 187   9/4/09 12:45p erickson
+# SW7405-2885: add inputengine_nexus
+#
+# 186   8/20/09 6:44p mward
+# PR55545: Adding 7125 platforms.
+#
+# 185   8/14/09 3:14p erickson
+# PR55994: allow Brutus to access nexus directly. this is needed for new
+# non-Settop API shim features. it should be used sparingly at first.
+#
+# 184   8/5/09 6:17p lwhite
+# PR53773: DTCP/IP - removed bcrypt dependency
+#
+# 183   7/28/09 10:54a lwhite
+# PR55693: Added DTCP/IP intialization
+#
+# 182   7/24/09 12:51p rjlewis
+# PR38745: need extra library for new functions.
+#
+# 181   7/1/09 12:52p erickson
+# PR56373: move POWERSTANDBY_SUPPORT to Makefile so that power driver
+# builds could be supported with the same switch
+#
+# 180   6/30/09 5:10p katrep
+# PR56373: Diabled POWERSTANDBY in kernelmode as default option
+#
+# 179   6/26/09 2:08p erickson
+# PR56373: rework brutus passive standby to not exit the app
+#
+# 178   6/26/09 11:37a erickson
+# PR56373: remove unused features and old comments
+#
+# 177   6/25/09 1:57a ssood
+# PR53773: More changes for DTCP/IP + SSL Support
+#
+# 176   6/24/09 4:28p ssood
+# PR53773: Adding support for compiling DTCP/IP + SSL libraries
+#
+# 175   5/11/09 7:41p vle
+# PR53373: Add HDMI 1.3a support, deep color, to Brutus/nexus
+#
+# PR53373_DeepColor/1   4/16/09 3:56p vle
+# PR53373: Add HDMI 1.3a support, deep color, to Brutus/nexus
+#
+# 174   3/31/09 7:31p katrep
+# PR53733: MSDRM_PD_HWDECRYPT support,moved msdrm pd compile to settop
+# api from nexus
+#
+# 173   3/26/09 3:44p gmohile
+# PR 53611 : Use -MMD compile option
+#
+# 172   3/16/09 4:48p randyjew
+# PR45723: added building libbte for bluetooth
+#
+# 171   3/13/09 2:53p vsilyaev
+# PR 53225: Adeed NEXUS_BIN_DIR_SUFFIX and NEXUS_BIN_DIR
+#
+# 170   3/2/09 10:24a katrep
+# PR52599:Add suppport for 7205
+#
+# 169   2/23/09 6:21p vle
+# PR 48785: Add HDMI CEC screen to Brutus
+#
+# 168   2/4/09 10:40a jrubio
+# PR51629: add 7336 support
+#
+# 167   12/19/08 7:39p katrep
+# PR50567: Add Support for 97466 platform
+#
+# 166   12/14/08 7:16p nickh
+# PR50205: Add 97420dvr2 support
+#
+# 165   11/5/08 5:35p katrep
+# PR48700: Link error when compiled with STATIC_BRUTUS=y
+#
+# HDMI_TX_Plugfest11_200811/1   11/7/08 4:55p vle
+# PR48785: Add HDMI CEC screen to BRUTUS demo app
+#
+# 164   10/20/08 4:23p mward
+# PR41335:  DivX DRM build tabs should be spaces.
+#
+# 163   10/7/08 11:24a gmohile
+# PR 25109 : Fix DIVX DRM build
+#
+# 162   9/15/08 12:40p tokushig
+# PR43426: merge to main
+#
+# BRUTUS_97405_97043/2   9/12/08 5:37p tokushig
+# PR43426: partial merge to branch from main
+#
+# BRUTUS_97405_97043/1   9/3/08 2:45p tokushig
+# PR43426: added button list box to build
+#
+# 161   8/20/08 5:43p lwhite
+# PR42739: replace NETACCEL_SUPPORT with PLAYBACK_IP_SUPPORT
+#
+# 160   8/13/08 5:53a erickson
+# PR42789: move BT build to Makefile.bluetooth
+#
+# 159   8/11/08 11:47a rjlewis
+# PR36068: vxworks has no install files in this directory.
+#
+# 158   8/5/08 10:25a erickson
+# PR45422: add DIVX_DRM_SUPPORT for nexus
+#
+# 157   7/23/08 2:51p erickson
+# PR36068: cp nexus script for usermode builds too
+#
+# 156   7/21/08 4:00p ssood
+# PR42739: moving LiveMedia library link definitions to api.mak for Nexus
+# builds
+#
+# 155   7/2/08 12:14p erickson
+# PR36068: cp nexus script too
+#
+# 154   6/26/08 3:41p shyam
+# PR43426 : Fix build problem
+#
+# 153   6/25/08 12:54p shyam
+# PR43426 : Add 7043 Transcode support
+#
+# 152   6/12/08 9:07p katrep
+# PR43636: Add support for MSDRM
+#
+# 151   6/4/08 11:31a rjlewis
+# PR40352: need a default and must be set before processing api.mak.
+#
+# 150   6/3/08 3:11p katrep
+# PR43275: Add suppoort for MEDIA_ASF_SUPPORT and MEDIA_AVI_SUPPORT
+# required for Nexus Brutus builds
+#
+# 149   5/22/08 4:07p erickson
+# PR39453: switch to 93549
+#
+# 148   5/14/08 7:20p jrubio
+# PR42694: add TUNER_ENABLE_7335 flag as a workaround for streamer/tuner
+# not working together
+#
+# 147   5/8/08 3:18p ssood
+# PR42242: IP Playpump support is being deprecated by accelerated sockets
+# i/f
+#
+# 146   4/28/08 5:03p ssood
+# PR42242: merged to mainline
+#
+# PR42242/1   4/28/08 4:57p ssood
+# PR42242: build flag changes to allow NetAccel build even when Playpump
+# IP is disabled
+#
+# 145   4/24/08 9:09a erickson
+# PR39453: add 93548 and 93556
+#
+# 144   4/10/08 3:01p erickson
+# PR36068: add --warn-common
+#
+# 143   4/10/08 1:13p gmohile
+# PR 25109 : fix netaccel driver install
+#
+# 142   4/2/08 3:54p mward
+# PR40307: Don't include any thumbnail support with PVR_SUPPORT=n.
+#
+# 141   4/2/08 2:11p rjlewis
+# PR38655: Need to remove SATA support without removing PVR support.
+#
+# 140   4/2/08 12:13p mward
+# PR40307: Don't build lib/thumbnail with PVR_SUPPORT=n.
+#
+# 139   3/31/08 6:04p jgarrett
+# PR 40606: Including oslib for nexus support
+#
+# 138   3/20/08 1:49a erickson
+# PR40307: update
+#
+# 137   3/19/08 9:35p erickson
+# PR40307: thumbnail update
+#
+# 136   3/18/08 4:05p erickson
+# PR40307: added thumbnail feature
+#
+# 135	3/8/08 4:50a erickson
+# PR36068: don't allow EXPOSE_SETTOPAPI_INTERNALS for nexus
+#
+# 134	3/3/08 3:46p erickson
+# PR40168: added VIDEO_TOOL brutus.cfg optoin
+#
+# 133	3/3/08 11:28a erickson
+# PR40168: add BBS VideoTool
+#
+# 132	2/13/08 4:52p tokushig
+# PR39534: added bluetooth remote capabilities to brutus
+#
+# 131	2/8/08 9:56a vsilyaev
+# PR 38682: Added support for Nexus proxy mode
+#
+# 130	1/25/08 10:44a rjlewis
+# PR38745: PR38577: Don't include the library to get the one missing
+# function (pulls in other stuff too). Instead, add the missing function
+# to the BSP.
+#
+############################################################
+
+# require a rule at the top
+.PHONY: build_all
+all: build_all
+
+#
+# Set B_REFSW_SHAREABLE based on a variety of flags
+#
+ifeq ($(filter y,$(STATIC_SETTOPAPI) $(STATIC_BRUTUS)),y)
+B_REFSW_SHAREABLE=n
+endif
+ifeq ($(filter n,$(B_REFSW_SHAREABLE) $(SHAREABLE)),n)
+B_REFSW_SHAREABLE=n
+endif
+
+include tools.mak
+BSEAV = $(shell cd "../../.." && ${PWD})
+include $(BSEAV)/api/include/api.mak
+
+#
+# BRUTUS_ODIR keeps binary files separate
+# BCHP_REV is not included, so there should be no #ifdef BCHP_REV in brutus
+#
+BRUTUS_ODIR = $(PLATFORM).$(B_REFSW_ARCH).$(DEBUG_SUFFIX)
+
+ifeq ($(SYSTEM),vxworks)
+APP_NAME=brutus.out
+#APP = $(BRUTUS_ODIR)/brutus.out
+BRUTUS_LIB = $(BRUTUS_ODIR)/brutus.a
+else
+APP_NAME=brutus
+#APP = $(BRUTUS_ODIR)/brutus
+CFLAGS += -DLINUX
+endif
+APP = $(BRUTUS_ODIR)/$(APP_NAME)
+
+####################################################
+#
+# Build options
+#
+
+# Default these for VxWorks.
+ifeq ($(SYSTEM),vxworks)
+# Audio support requires codecs not available in VxWorks.
+AUDIO_SUPPORT = n
+endif
+
+ifeq ($(filter $(PLATFORM),97111), $(PLATFORM))
+DSG_SUPPORT = y
+NETACCEL_SUPPORT = n
+endif
+
+ifeq ($(DSG_SUPPORT),y)
+PVR_SUPPORT = n
+ENCODER_SUPPORT = n
+endif
+
+# Note: (old) vxworks doesn't support the "?=" operations (thus the 'ifeq ($xxx),)' tests below).  Don't fix this!
+
+ifeq ($(filter $(PLATFORM),97111 97112 97312 97313 97319 97328 97550), $(PLATFORM))
+ifeq ($(PVR_SUPPORT),)
+PVR_SUPPORT = n
+endif
+else
+ifeq ($(PVR_SUPPORT),)
+PVR_SUPPORT = y
+endif
+endif
+
+ifeq ($(filter $(PLATFORM),97112 97312 97313 97319 97328), $(PLATFORM))
+ifeq ($(AUDIO_SUPPORT),)
+AUDIO_SUPPORT = n
+endif
+else
+ifeq ($(AUDIO_SUPPORT),)
+AUDIO_SUPPORT = y
+endif
+endif
+
+ifeq ($(BENC_CHIP),7043)
+	CFLAGS += -DB_HAS_TRANSCODE=1
+	ENCODER_SUPPORT = y
+endif
+ifeq ($(ENCODER_SUPPORT),)
+ENCODER_SUPPORT = y
+endif
+
+ifeq ($(ADMIN_SUPPORT),)
+ADMIN_SUPPORT = y
+endif
+ifeq ($(PICTURES_SUPPORT),)
+PICTURES_SUPPORT = y
+endif
+ifeq ($(SCRIPT_SUPPORT),)
+SCRIPT_SUPPORT = y
+endif
+
+# SATA and USB Disk support needs setup in VxWorks
+ifeq ($(SYSTEM),vxworks)
+ifeq ($(SATA_DISK_SUPPORT),)
+ifeq ($(filter $(CHIP),7325 7340), $(CHIP))
+SATA_DISK_SUPPORT = n
+else
+SATA_DISK_SUPPORT = y
+endif
+endif
+ifeq ($(USB_DISK_SUPPORT),)
+USB_DISK_SUPPORT = n
+endif
+endif
+
+INFOPANEL_SUPPORT = y
+PSISCAN_SUPPORT = y
+
+.PHONY: build_date brutus clean-brutus lib clean-lib print_options
+
+LUA_SUPPORT=y
+
+ifeq ($(LUA_SUPPORT),y)
+.PHONY: lua clean-lua
+OTHER_MAKES += lua
+OTHER_CLEANS += clean-lua
+endif
+
+ifeq ($(POD_SUPPORT),y)
+.PHONY: pod clean-pod
+OTHER_MAKES += pod
+OTHER_CLEANS += clean-pod
+endif
+
+ifeq ($(BRUTUS_LIBTUNE_SUPPORT),y)
+.PHONY: libtune clean-libtune clean-sqlite
+OTHER_MAKES += libtune
+OTHER_CLEANS += clean-libtune
+endif
+
+# Nexus uses MEDIA_ASF_SUPPORT MEDIA_AVI_SUPPORT,brutus needs ASF_SUPPORT and AVI_SUPPORT flags
+ifeq ($(MEDIA_ASF_SUPPORT),y)
+ASF_SUPPORT=y
+endif
+
+ifeq ($(MEDIA_AVI_SUPPORT),y)
+AVI_SUPPORT=y
+endif
+
+
+ifeq ($(MSDRM_ND_SUPPORT),y)
+DRMND_SUPPORT=y
+endif
+
+# ASF IP support
+ifeq ($(ASF_SUPPORT),y)
+ifeq ($(PLAYBACK_IP_SUPPORT),y)
+ifeq ($(WMS_SUPPORT), y)
+.PHONY: asfip clean-asfip install-asfip
+OTHER_MAKES += asfip
+OTHER_CLEANS += clean-asfip
+ASFIPDIR = $(BSEAV)/lib/rtp/asf/build
+endif
+endif
+endif
+
+ifeq ($(filter $(PLATFORM),97400 97455 97456 97458 97435 93560 97401 97403 97325 97335 97336 97405 97398 97018 97018RNG 97118 97118RNG), $(PLATFORM))
+ENCODER_SUPPORT = n
+endif
+
+ifeq ($(SOFT_GFX_SUPPORT),y)
+CFLAGS += -DB_HAS_SOFT_GFX=1
+CFLAGS += -I$(NEXUS_TOP)/lib/softgfx/include
+endif #SOFT_GFX_SUPPORT
+
+ifeq ($(JPEGTRANSFER_SUPPORT),y)
+	PICTURES_SUPPORT=y
+	WEBSERVER_SUPPORT=y
+endif
+
+ifeq ($(MACROVISION_SUPPORT),y)
+CFLAGS += -DMACROVISION_SUPPORT
+endif
+
+#HDMI and HDMI CEC support
+#TODO: Complete list of reference platforms with HDMI output(s)?
+ifeq ($(filter $(PLATFORM),97420 97410 97409 93380vms 97125 97025 97119 97019 97116 97342 97340 97401 97403 97400 97455 97456 97458 97325 97335 97336 97405 97422 97425 97231 97344 97346 97418 97358 97552), $(PLATFORM))
+HDMI_SUPPORT = y
+endif
+
+ifeq ($(filter $(PLATFORM),97420 97410 97409 93380vms 97125 97025 97119 97019 97116 97342 97340 97422 97425 97231 97344 97346 97418 97358 97552), $(PLATFORM))
+HDMI_1_3_SUPPORT = y
+endif
+
+ifeq ($(BHDM_CEC_SUPPORT),y)
+HDMI_CEC_SUPPORT = y
+endif
+
+ifeq ($(filter $(PLATFORM),97550), $(PLATFORM))
+ifeq ($(NEXUS_BOARD_7530_CRB),)
+else
+CFLAGS += -DNEXUS_BOARD_7530_CRB=1
+$(warning Compiling for 7530 CRB Board)
+endif
+endif
+
+
+ifeq ($(BUILD_SYSTEM),nexus)
+# Brutus is allows to call around the Settop API shim directly to Nexus.
+include $(NEXUS_TOP)/platforms/$(PLATFORM)/build/platform_app.inc
+CFLAGS += $(addprefix -I,$(NEXUS_APP_INCLUDE_PATHS)) $(addprefix -D,$(NEXUS_APP_DEFINES))
+# inputengine_nexus.o will be included later. it can be built like regular source.
+CFLAGS += -DNEXUS_BUILD
+endif
+
+####################################################
+#
+# App rules
+#
+
+build_all: check_environment $(BRUTUS_ODIR) lib $(OTHER_MAKES) $(APP)
+
+as_lib: check_environment $(BRUTUS_ODIR) lib $(OTHER_MAKES) $(BRUTUS_LIB)
+
+$(BRUTUS_ODIR):
+	$(Q_)$(MKDIR) $(BRUTUS_ODIR)
+
+# This can be helpful because on some platforms, trailing spaces
+# are included in the variable definitions, and this causes the ifeq
+# to fail. Feel free to extend this list. Do this to execute:
+#
+# make -f Makefile.brutus print_options
+#
+print_options:
+	@echo CHIP="$(CHIP)"
+	@echo PLATFORM="$(PLATFORM)"
+	@echo PVR_SUPPORT="$(PVR_SUPPORT)"
+	@echo NETACCEL_SUPPORT="$(NETACCEL_SUPPORT)"
+	@echo PSISCAN_SUPPORT="$(PSISCAN_SUPPORT)"
+	@echo ENCODER_SUPPORT="$(ENCODER_SUPPORT)"
+	@echo AUDIO_SUPPORT="$(AUDIO_SUPPORT)"
+	@echo DSG_SUPPORT="$(DSG_SUPPORT)"
+	@echo SCRIPT_SUPPORT="$(SCRIPT_SUPPORT)"
+	@echo ADMIN_SUPPORT="$(ADMIN_SUPPORT)"
+	@echo HDMI_SUPPORT="$(HDMI_SUPPORT)"
+	@echo HDMI_1_3_SUPPORT="$(HDMI_1_3_SUPPORT)"
+	@echo HDMI_CEC_SUPPORT="$(HDMI_CEC_SUPPORT)"
+	@echo LUA_SUPPORT="$(LUA_SUPPORT)"
+
+ifeq ($(TUNER_ENABLE_7335),y)
+CFLAGS += -DTUNER_ENABLE_7335=1
+endif
+
+ifeq ($(TUNER_ENABLE_7420_DBS),y)
+CFLAGS += -DTUNER_ENABLE_7420_DBS=1
+endif
+
+ifeq ($(TUNER_ENABLE_7420_CABLE),y)
+CFLAGS += -DTUNER_ENABLE_7420_CABLE=1
+endif
+
+ifeq ($(TUNER_ENABLE_7422_DBS),y)
+CFLAGS += -DTUNER_ENABLE_7422_DBS=1
+endif
+
+ifeq ($(TUNER_ENABLE_7422_CABLE),y)
+CFLAGS += -DTUNER_ENABLE_7422_CABLE=1
+endif
+
+ifeq ($(TUNER_ENABLE_7425_DBS),y)
+CFLAGS += -DTUNER_ENABLE_7425_DBS=1
+endif
+
+ifeq ($(TUNER_ENABLE_7425_CABLE),y)
+CFLAGS += -DTUNER_ENABLE_7425_CABLE=1
+endif
+
+ifeq ($(NEXUS_PLATFORM_7410_UMA_32b),y)
+CFLAGS += -DNEXUS_PLATFORM_7410_UMA_32b=1
+endif
+
+include config.mk
+CFLAGS += -DBWIN_SUPPORT
+include bwin.mak
+
+VPATH += $(BWIDGETS_DIR)/src
+include $(BSEAV)/lib/bwidgets/include/bwidgets.mak
+CFLAGS += $(BWIDGETS_CFLAGS)
+LDFLAGS += $(BWIDGETS_LDFLAGS)
+
+BRUTUS_DIRS += ../src ../src/common ../src/channelmgr ../src/avmanager
+
+ifeq ($(STATIC_BRUTUS),y)
+LDFLAGS += -static
+endif
+
+####################################################
+#
+# Standard brutus source
+#
+
+# Main brutus files
+#APP_OBJECTS = \
+	genericscreen.o \
+	homescreen.o \
+	bsettop_save_settings.o \
+	tvscreen.o \
+	brutus_app.o \
+	brutus_display.o \
+	brutus_config.o \
+	brutus_frontend.o \
+	brutus_avmanager.o \
+	brutus_video_tool.o \
+	control.o \
+	control_hdmi.o \
+	control_pvr.o \
+	control_libtune.o \
+	wow.o \
+	cfgsettings.o \
+	ledengine.o \
+	marrowbar.o \
+	mprogressbar.o \
+	buttonlistbox.o \
+	main.o \
+	skin.o
+
+# brutus2 files
+	VPATH += $(BSEAV)/app/brutus2/src
+	CFLAGS += -I$(BSEAV)/app/brutus2/src 
+	VPATH += $(BSEAV)/app/brutus2/src/widgets
+    CFLAGS += -I$(BSEAV)/app/brutus2/src/widgets
+	VPATH += $(BSEAV)/app/brutus2/src/platform
+    CFLAGS += -I$(BSEAV)/app/brutus2/src/platform
+
+ifeq ($(LUA_SUPPORT),y)
+    APP_OBJECTS += brutus_lua.o 
+	LUA_DIR = $(BSEAV)/lib/lua/lua-5.1.4
+	CFLAGS += -DLUA_SUPPORT -I$(LUA_DIR)/include 
+	LIBS += $(LUA_DIR)/lib/liblua.a
+lua:
+	${Q_}$(MAKE) -C $(LUA_DIR) -f Makefile posix
+	${Q_}$(MAKE) -C $(LUA_DIR) -f Makefile local
+clean-lua:
+	${Q_}$(MAKE) -C $(LUA_DIR) -f Makefile clean
+
+    LINENOISE_DIR = $(BSEAV)/app/brutus2/src/linenoise/antirez-linenoise
+    CFLAGS += -DLINENOISE_SUPPORT -I$(LINENOISE_DIR)
+    VPATH += $(LINENOISE_DIR)
+    APP_OBJECTS += linenoise.o
+endif
+
+APP_OBJECTS += \
+    brutus_board.o \
+    brutus_os.o \
+    brutus_cfg.o \
+    notification.o \
+    resource.o \
+    avtypes.o \
+    display.o \
+    graphics.o \
+    video_window.o \
+    output.o \
+    video_decode.o \
+    pid.o \
+    stc.o \
+    tuner.o \
+    tuner_qam.o \
+    tuner_vsb.o \
+    tuner_sat.o \
+    tuner_ofdm.o \
+    band.o \
+    mvc.o \
+    pidmgr.o \
+    config.o \
+    channelmgr.o \
+    channel.o \
+    channel_streamer.o \
+    channel_qam.o \
+    channel_vsb.o \
+    channel_sat.o \
+    channel_ofdm.o \
+    videolist.o \
+    playback.o \
+    record.o \
+    still_decode.o \
+    mixer.o \
+    audio_decode.o \
+    remote.o \
+    control.o \
+    timer.o \
+    view.o \
+    model.o \
+    controller.o \
+    widget_base.o \
+    widget_label.o \
+    widget_button.o \
+    widget_listview.o \
+    widget_progress.o \
+    widget_meter.o \
+    widget_grid.o \
+    widget_edit.o \
+    widget_menu.o \
+    widget_check_button.o \
+    widget_popup_list.o \
+    widget_modalmsgbox.o \
+    screen.o \
+    screen_main.o \
+    panel.o \
+    panel_display.o \
+    panel_decode.o \
+    panel_audio.o \
+    panel_playback.o \
+    panel_record.o \
+    panel_scan_qam.o \
+    panel_scan_vsb.o \
+    panel_scan_sat.o \
+    panel_scan_ofdm.o \
+    panel_tuner.o \
+    panel_buffers.o \
+    panel_timeline.o \
+    main.o
+
+
+# Channel Manager
+#APP_OBJECTS += \
+	channelmgr.o \
+	channelmap.o \
+	channelscan.o \
+	programguide.o \
+	psichannelscan.o
+
+#ifeq ($(PLAYBACK_IP_SUPPORT),y)
+#APP_OBJECTS += chanmapscreen.o
+#endif
+
+# AV Manager
+#APP_OBJECTS += \
+	avmanager.o \
+	avstream.o \
+	decodeengine.o \
+	bsettop_namevalue_pairs.o \
+	b_namevalue_pairs.o \
+	mediatypes.o
+
+# Input
+#APP_OBJECTS += \
+	inputengine.o \
+	inputdevice.o \
+	input_devicecodes.o \
+	input_sejinkbd.o \
+	input_irremote.o \
+	input_uhfremote.o \
+	input_tty.o \
+	input_keypad.o \
+	input_btremote.o \
+	brutus_${SYSTEM}.o
+
+#ifeq ($(BUILD_SYSTEM),nexus)
+#APP_OBJECTS += inputengine_nexus.o
+#else
+#APP_OBJECTS += inputengine_ext.o
+#endif
+
+####################################################
+#
+# Options
+#
+
+ifeq ($(AUDIO_SUPPORT),y)
+	#APP_OBJECTS += audioscreen.o audiocontrol.o
+	CFLAGS += -DAUDIO_SUPPORT
+endif
+
+ifeq ($(ADMIN_SUPPORT),y)
+	#APP_OBJECTS += \
+		adminscreen.o \
+		editchannelsscreen.o
+	CFLAGS += -DADMIN_SUPPORT
+endif
+
+# integrated passive standby support
+ifeq ($(POWERSTANDBY_SUPPORT),y)
+	#include powerstandby.mak
+	CFLAGS += $(POWERSTANDBY_CFLAGS)
+endif
+
+#######################################
+####	HDMI options
+#######################################
+ifeq ($(HDMI_SUPPORT),y)
+	#APP_OBJECTS += hdmiscreen.o
+	CFLAGS += -DHDMI_SUPPORT
+endif
+
+ifeq ($(HDMI_1_3_SUPPORT),y)
+	CFLAGS += -DHDMI_1_3_SUPPORT
+endif
+
+ifeq ($(HDMI_CEC_SUPPORT),y)
+	#APP_OBJECTS += hdmicecscreen.o
+	CFLAGS += -DHDMI_CEC_SUPPORT
+endif
+
+
+ifeq ($(filter $(CHIP),7038 7118 7320 7328 7401 7403 7405 7325 7335 7336 7400 7420 7422 7425 97231 97344 97346 7418), $(CHIP))
+	# dual compositor allows for HDSD_SINGLE and HDSD_SIMUL
+	# with dual decode, you can also do DUAL_OUTPUT
+	CFLAGS += -DDUAL_CMP_SUPPORT
+endif
+
+ifeq ($(SCRIPT_SUPPORT),y)
+	#APP_OBJECTS += \
+		scriptengine.o \
+		runscriptscreen.o
+	CFLAGS += -DSCRIPT_SUPPORT
+
+	# readline is GPL and is not distributed with the reference software
+	ifeq ($(READLINE_SUPPORT),y)
+	CFLAGS += -DREADLINE_SUPPORT
+	LDFLAGS += -lreadline -ltermcap
+	endif
+endif
+
+ifeq ($(PVR_SUPPORT),y)
+	# PVR support requires about 200K
+	#APP_OBJECTS += \
+		recordscreen.o \
+		playbackscreen.o \
+		thumbnail_panel.o \
+		control_still_decode.o \
+		videoscreen.o \
+		videolist.o \
+		playengine.o \
+		instmanager.o \
+		recordengine.o \
+		pvrtimeline.o \
+		brutus_pvr_bar.o \
+		pvrstateicon.o \
+		recstateicon.o
+
+
+	# bmedia probe with license requirements
+ifeq ($(ASF_SUPPORT),y)
+	include ${BSEAV}/lib/asf/basf.inc
+endif
+ifeq ($(AVI_SUPPORT),y)
+	include ${BSEAV}/lib/avi/bavi.inc
+endif
+	include ${BSEAV}/../magnum/commonutils/vlc/bvlc.inc
+	include ${BSEAV}/lib/media/bmedia.inc
+        include ${BSEAV}/lib/utils/batom.inc
+        include ${BSEAV}/lib/bfile/bfile.inc
+ifneq ($(MEDIA_RMFF_SUPPORT),n)
+        -include ${BSEAV}/lib/media/rmff/brmff.inc
+endif
+ifneq ($(MEDIA_FLV_SUPPORT),n)
+        -include ${BSEAV}/lib/media/flv/bflv.inc
+endif
+        include ${BSEAV}/lib/bfile/bfile.inc
+        BRUTUS_MODULES := BMEDIA_PROBE BATOM BFILE_STDIO BVLC 
+	CFLAGS += -DPVR_SUPPORT
+
+	# Direct bcmplayer access is needed for Video::indexToTime.
+	CFLAGS += -I$(BSEAV)/lib/bcmplayer/include
+
+	B_BRUTUS_INC := $(addprefix -I,$(sort $(foreach module, $(BRUTUS_MODULES), $($(module)_INCLUDES))))
+	B_BRUTUS_CFLAGS := $(addprefix -D,$(sort $(foreach module, $(BRUTUS_MODULES), $($(module)_DEFINES))))
+	B_BRUTUS_SOURCES = $(sort $(foreach module, $(BRUTUS_MODULES), $($(module)_SOURCES)))
+	B_BRUTUS_OBJS := $(patsubst %.c,%.o,$(notdir ${B_BRUTUS_SOURCES}))
+	vpath %c $(dir ${B_BRUTUS_SOURCES})
+
+	APP_OBJECTS += ${B_BRUTUS_OBJS}
+	CFLAGS += ${B_BRUTUS_CFLAGS} ${B_BRUTUS_INC}
+
+endif
+
+# SATA and USB Disk support needs setup in VxWorks
+ifeq ($(SYSTEM),vxworks)
+	ifeq ($(SATA_DISK_SUPPORT),y)
+		CFLAGS += -DSATA_DISK_SUPPORT
+	endif
+	ifeq ($(USB_DISK_SUPPORT),y)
+		CFLAGS += -DUSB_DISK_SUPPORT
+	endif
+endif
+
+#
+# Bluetooth integration
+#
+# This takes the Bluetooth team's text UI app and integrates with Brutus to provide these features:
+# 1) remote control (see input_btremote.cpp)
+# 2) picture push (see picturesscreen.cpp)
+#
+ifeq ($(BLUETOOTH_SUPPORT),y)
+include Makefile.bluetooth
+CFLAGS += $(BLUETOOTH_CFLAGS)
+LIBS += $(BLUETOOTH_LIBS)
+endif
+
+ifeq ($(NETACCEL_SUPPORT),y)
+	# just define NETACCEL_SUPPORT
+	CFLAGS += -DNETACCEL_SUPPORT
+endif
+
+#
+# POD
+#
+ifeq ($(POD_SUPPORT),y)
+	POD_DIR = $(SETTOP)/pod
+	CFLAGS += -DPOD_SUPPORT -I$(POD_DIR)/api -I$(POD_DIR)/si/api
+	APP_OBJECTS += \
+		podchannelscan.o
+	LIBS += \
+		$(POD_DIR)/build/linux/podlib.a \
+		$(POD_DIR)/build/linux/cplib.lib \
+		$(POD_DIR)/build/linux/silib.lib \
+		$(POD_DIR)/cp/crypto/linux/libcrypto.0.9.7b_uclibc.a
+	CFLAGS += -I$(POD_DIR)/api
+pod:
+	# driver
+	$(Q_)LINUX_SOURCE_DIR=$(LINUX) $(MAKE) -C $(POD_DIR)/build/bcm$(PLATFORM)/linux
+	# libraries
+	${Q_}$(MAKE) -C $(POD_DIR)/build/linux -f makefile.cplib
+	${Q_}$(MAKE) -C $(POD_DIR)/build/linux -f makefile.silib
+	${Q_}$(MAKE) -C $(POD_DIR)/build/linux -f makefile.apps libs
+clean-pod:
+	# driver
+	$(Q_)LINUX_SOURCE_DIR=$(LINUX) $(MAKE) -C $(POD_DIR)/build/bcm$(PLATFORM)/linux clean
+	# libraries
+	${Q_}$(MAKE) -C $(POD_DIR)/build/linux -f makefile.cplib clean
+	${Q_}$(MAKE) -C $(POD_DIR)/build/linux -f makefile.silib clean
+	${Q_}$(MAKE) -C $(POD_DIR)/build/linux -f makefile.apps clean
+endif
+
+#
+# WINDOWS MEDIA (WMA, WMV, ASF) SUPPORT
+#
+ifeq ($(ASF_SUPPORT), y)
+	# fail for non-ASF platforms
+	ifeq ($(filter $(PLATFORM),97398 97400 97401 97403 97405 97205 97466 97325 97342 97340 97335 97336 97018 97018RNG 97118 97118RNG 97458 97455 97456 93549 93556 97420 97410 97409 93380vms 97125 97025 97119 97019 97116 97408 97468 97208 97550 97422 97425 97231 97230 97344 97346 97418),)
+		$(error ASF_SUPPORT not supported on this platform)
+		ifeq ($(PLATFORM), 97398)
+			ifeq ($(filter $(BCHP_7411_VER),D0 E0),)
+				$(error ASF_SUPPORT not supported on this revision of 7411)
+			endif
+		endif
+	endif
+
+# DME: expanded DRM_SUPPORT. this is broken.
+ifeq ($(DRM_SUPPORT),y)
+ifeq ($(BUILD_SYSTEM),nexus)
+$(error DRM_SUPPORT has been deprecated for nexus builds.  Please use MSDRM_PD_SUPPORT instead.)
+endif
+#
+# WM DRM
+#
+	vpath %.c $(BSEAV)/lib/asf
+	vpath %.c $(BSEAV)/lib/utils
+
+	CFLAGS += $(B_REFSW_MAGNUM_INCLUDE_DIRS)
+	CFLAGS += -I$(BSEAV)/lib/utils
+	CFLAGS += -I$(BSEAV)/lib/asf
+	CFLAGS += -I$(BSEAV)/lib/drm
+	CFLAGS += -DB_HAS_ASF=1
+	APP_OBJECTS += asfpars.o
+	# These files are required, but are compiled into libsettop.so
+	#APP_OBJECTS += basf_parser.o basf_stream.o basf_util.o biovec.o
+
+	vpath %.c $(BSEAV)/lib/drm
+	CFLAGS += -I$(BSEAV)/lib/drm
+	CFLAGS += -DB_HAS_DRM=1
+
+	DRM_BASE_DIR= $(BSEAV)/lib/drm/wmdrmpd10
+	DRM_BIN_DIR = $(DRM_BASE_DIR)/bin
+	DRM_REFCODE_INC = $(DRM_BASE_DIR)/inc
+	CFLAGS += -I$(DRM_REFCODE_INC) -UDRM_NO_NATIVE_64_TYPES
+	CFLAGS += -DDRM_SUPPORT_DLA=1 -D_DEBUG -DDEBUG -fshort-wchar
+
+	LIBS += \
+		$(DRM_BIN_DIR)/oem_ansi.a	 \
+		$(DRM_BIN_DIR)/drmmanager.a  \
+		$(DRM_BIN_DIR)/drmcore.a	 \
+		$(DRM_BIN_DIR)/drmpkcrypto.a \
+		$(DRM_BIN_DIR)/drmbignum.a	 \
+		$(DRM_BIN_DIR)/drmdevcert.a  \
+		$(DRM_BIN_DIR)/drmblackbox.a \
+		$(DRM_BIN_DIR)/drmcrypto.a	 \
+		$(DRM_BIN_DIR)/drmdevicedevcert.a
+	APP_OBJECTS +=		\
+		drmcore.o		\
+		drmplay.o		\
+		drmchallenge.o	\
+		drmresponse.o	\
+		drmenv.o		\
+		drmhttp.o		\
+		drmdecryptor.o
+else
+#Nexus uses MSDRM_PD_SUPPORT and MSDRM_ND_SUPPORT
+#for systems with nexus support MSDRM_PD code is compiled with Settop API.
+ifeq ($(MSDRM_PD_SUPPORT),y)
+ifeq ($(MSDRM_PRDY_SUPPORT),y)
+$(error MSDRM_PD_SUPPORT and MSDRM_PRDY_SUPPORT cannot be enabled at the same time. Use either one.)
+endif
+CFLAGS += -DB_HAS_DRM=1 -I$(BSEAV)/lib/drm
+endif
+
+ifeq ($(MSDRM_PRDY_SUPPORT),y)
+ifeq ($(MSDRM_PD_SUPPORT),y)
+$(error MSDRM_PD_SUPPORT and MSDRM_PRDY_SUPPORT cannot be enabled at the same time. Use either one.)
+endif
+CFLAGS += -DB_HAS_DRM=1 -DB_HAS_DRM_PRDY=1 -I$(BSEAV)/lib/playready
+endif
+endif
+
+ifeq ($(DRMND_SUPPORT), y)
+ifeq ($(BUILD_SYSTEM),nexus)
+# nexus build
+	DRMND_BUILD_DIR = $(BSEAV)/lib/drmnd/build
+	DRMND_BASE_DIR = $(BSEAV)/lib/drmnd/wmdrmnd10
+
+	CFLAGS += -I$(BSEAV)/lib/drmnd
+	UPNPLIB_DIR=$(BSEAV)/lib/upnp/libupnp-1.2.1
+	CFLAGS += -I$(UPNPLIB_DIR)/upnp/inc
+	LDFLAGS += -L$(UPNPLIB_DIR)/upnp/bin/mipsel-linux -lupnp -lixml -lthreadutil
+
+	CFLAGS += -DB_HAS_DRM_ND=1 -I$(DRMND_BASE_DIR)/oem/
+	CFLAGS += -I$(DRMND_BASE_DIR)/port/ -I$(DRMND_BASE_DIR)/inc/
+	LDFLAGS += $(BSEAV)/lib/drmnd/bin/avbrowse.a
+	APP_OBJECTS += \
+		extServerScreen.o
+else
+# legacy
+	vpath %.c $(BSEAV)/lib/drmnd
+	DRMND_BUILD_DIR = $(BSEAV)/lib/drmnd/build
+	DRMND_BASE_DIR = $(BSEAV)/lib/drmnd/wmdrmnd10
+
+	CFLAGS += -I$(BSEAV)/lib/drmnd
+	UPNPLIB_DIR=$(BSEAV)/lib/upnp/libupnp-1.2.1
+	CFLAGS += -I$(UPNPLIB_DIR)/upnp/inc
+	LDFLAGS += -L$(UPNPLIB_DIR)/upnp/bin/mipsel-linux -lupnp -lixml -lthreadutil
+
+	CFLAGS += -DB_HAS_DRM_ND=1 -I$(DRMND_BASE_DIR)/oem/
+	CFLAGS += -I$(DRMND_BASE_DIR)/port/ -I$(DRMND_BASE_DIR)/inc/
+	LDFLAGS += $(DRMND_BASE_DIR)/bin/drmndport.a
+	LDFLAGS += $(DRMND_BASE_DIR)/oem/ansi/oem_ansi.a
+	LDFLAGS += $(BSEAV)/lib/drmnd/bin/avbrowse.a
+	APP_OBJECTS += \
+		extServerScreen.o \
+		bdrmnd_decryptor.o
+endif
+
+endif
+
+#
+# WM ASF IP
+#
+ifeq ($(PLAYBACK_IP_SUPPORT),y)
+asfip:
+	${Q_}$(MAKE) CHIP=$(CHIP) PLATFORM=$(PLATFORM) INSTALL_DIR=$(INSTALL_DIR) BCHP_VER=$(BCHP_VER) -C $(ASFIPDIR)
+clean-asfip:
+	${Q_}$(MAKE) -C $(ASFIPDIR) clean
+install-asfip:
+	${Q_}$(CP) $(ASFIPDIR)/bin/* $(INSTALL_DIR)
+endif
+
+endif #ASF_SUPPORT
+
+ifeq ($(AVI_SUPPORT),y)
+		ifeq ($(DIVX_DRM_SUPPORT),y)
+				ifeq ($(BUILD_SYSTEM),nexus)
+						ifeq ($(findstring $(PLATFORM), 97400 97456 97403),)
+								vpath %.c $(BSEAV)/lib/divxdrm5
+								CFLAGS += -I$(BSEAV)/lib/divxdrm5
+						else
+								vpath %.c $(BSEAV)/lib/divxdrm
+								CFLAGS += -I$(BSEAV)/lib/divxdrm
+						endif
+				else
+						vpath %.c $(BSEAV)/lib/divxdrm
+						CFLAGS += -I$(BSEAV)/lib/divxdrm
+				endif
+
+		APP_OBJECTS +=	bdrm_init.o
+				CFLAGS += -DB_HAS_DIVX_DRM=1
+		endif
+endif
+
+#
+# DSG
+#
+# TODO:: There some cleanups need to be done to sync up
+#		 Linux DSG demo and VxWorks DSG demo (01/13/05 Biyong)
+#
+ifeq ($(DSG_SUPPORT),y)
+	PVR_SUPPORT ?= n
+	DSG_DIR = $(BSEAV)/docsis/StbDocsisApi
+	APP_OBJECTS += \
+		dsgscreen.o \
+		brutus_dsg.o
+
+	ifneq ($(SYSTEM),vxworks)
+	APP_OBJECTS += \
+		LnxInterface.o EstbRemoteInterfaceStub.o
+
+	CFLAGS += -DSTB_LINUX -DDSG_SUPPORT -I$(DSG_DIR) -I$(DSG_DIR)/eStb -I$(DSG_DIR)/Linux -DBRUTUS_DEMO
+	VPATH += $(DSG_DIR)/eStb
+	else
+	CFLAGS += -DTARGETOS_vxWorks -DDSG_SUPPORT -I$(DSG_DIR) -I$(DSG_DIR)/eStb -I$(DSG_DIR)/vxWorks -DBRUTUS_DEMO
+	endif
+endif
+
+#
+# Docsis support 7110 and 7111
+#
+ifeq ($(filter $(PLATFORM),97110 97111), $(PLATFORM))
+	ifeq ($(DS2_SUPPORT),n)
+		CFLAGS += -DBCM97110DOCSIS_FLAVOR
+	endif
+endif
+
+#
+# Include smartcard test extensions
+#
+include smartcard.mak
+
+#
+# Include ICAM test extensions
+#
+ifeq ($(APP_NAME),brutus_fakeicam)
+	include icam.mak
+endif
+ifeq ($(APP_NAME),brutus_realicam)
+	include icam.mak
+endif
+
+#
+# Include SVP test extensions
+#
+ifeq ($(APP_NAME),brutus_svp)
+	include svp.mak
+endif
+
+#
+# These used to be PVR-only, but
+# I need them for decode. This might
+# need to be re-organized.
+#
+#APP_OBJECTS += \
+	video.o \
+	media.o \
+	ip.o
+
+ifeq ($(INFOPANEL_SUPPORT),y)
+	# Infopanel support doesn't require much size
+	#APP_OBJECTS += \
+		infobar.o \
+		infopanel.o \
+		info_outputs.o \
+		info_status.o \
+		info_video.o \
+		info_audio.o \
+		info_misc.o \
+		info_constellation.o \
+		info_playbackbuffer.o \
+		info_decodepage.o \
+		miconroundedlabel.o \
+		mbarcontrol.o
+	CFLAGS += -DINFOPANEL_SUPPORT
+	BRUTUS_DIRS += ../src/info
+endif
+
+ifeq ($(PSISCAN_SUPPORT),y)
+	CFLAGS += -DPSISCAN_SUPPORT
+	TRANSPORTDECODE_DIR=$(BSEAV)/lib/mpeg2_ts_parse
+	TSPSI_DIR=$(BSEAV)/lib/tspsi2
+	BRUTUS_DIRS += \
+		$(TRANSPORTDECODE_DIR) \
+		$(TSPSI_DIR)
+	# all other tspsi and mpeg2_ts_parse are compiled in with nexus
+	APP_OBJECTS += tspsimgr2.o
+endif
+
+ifeq ($(LIVEMEDIA_SUPPORT),y)
+	LIVEMEDIA_DIR = $(BSEAV)/lib/livemedia/live
+	CFLAGS += -DLIVEMEDIA_SUPPORT
+	CFLAGS += -I$(LIVEMEDIA_DIR)/liveMedia/include
+	CFLAGS += -I$(LIVEMEDIA_DIR)/groupsock/include
+	CFLAGS += -I$(LIVEMEDIA_DIR)/UsageEnvironment/include
+	CFLAGS += -I$(LIVEMEDIA_DIR)/BasicUsageEnvironment/include
+	CFLAGS += $(BLIVE_EXT_CFLAGS)
+
+ifeq ($(BUILD_SYSTEM),nexus)
+# For NEXUS, all LiveMedia library linkages are specified in the api.mak
+else
+	LDFLAGS += -L$(LIVEMEDIA_DIR)/liveMedia -lliveMedia
+	LDFLAGS += -L$(LIVEMEDIA_DIR)/groupsock -lgroupsock
+	LDFLAGS += -L$(LIVEMEDIA_DIR)/UsageEnvironment -lUsageEnvironment
+	LDFLAGS += -L$(LIVEMEDIA_DIR)/BasicUsageEnvironment -lBasicUsageEnvironment
+endif
+endif
+
+	#APP_OBJECTS += \
+		ipstbconfigscreen.o
+
+ifeq ($(PLAYBACK_IP_SUPPORT),y)
+	CFLAGS += -DB_HAS_IP=1
+ifeq ($(DTCP_IP_SUPPORT),y)
+	CFLAGS += -DB_HAS_DTCP_IP=1
+	BRUTUS_DIRS += $(BSEAV)/../nexus/lib/dtcp_ip/include
+endif
+ifeq ($(B_HAS_PLAYPUMP_IP),y)
+	CFLAGS += -DB_HAS_PLAYPUMP_IP=1
+endif
+ifeq ($(NETACCEL_SUPPORT),y)
+	CFLAGS += -DB_HAS_NETACCEL=1
+endif
+ifeq ($(LIVEMEDIA_SUPPORT),y)
+	#APP_OBJECTS += \
+	lm_helper.o \
+	mpeg2transportstreamrtpsource.o \
+	ipstbchannellineupacquisition.o
+
+include $(BSEAV)/lib/livemedia/blive_ext/include/blive_ext.mak
+	CFLAGS += $(BLIVE_EXT_CFLAGS)
+
+ifeq ($(BUILD_SYSTEM),nexus)
+# For NEXUS, blive extension library linkage is specified in the api.mak
+else
+	LDFLAGS += $(BLIVE_EXT_LDFLAGS)
+endif
+endif
+endif
+
+#
+# thumbnail support
+#
+ifneq ($(PVR_SUPPORT),n)
+include $(BSEAV)/lib/thumbnail/bthumbnail.inc
+vpath %c $(dir $(BTHUMBNAIL_SOURCES))
+CFLAGS += $(BTHUMBNAIL_CFLAGS) $(addprefix -I,$(BTHUMBNAIL_INCLUDES))
+APP_OBJECTS += $(subst .c,.o,$(notdir $(BTHUMBNAIL_SOURCES)))
+endif
+
+#
+# Brutus Libtune integration
+#
+ifeq ($(BRUTUS_LIBTUNE_SUPPORT),y)
+#TODO: libtune.so and libsqlite3.so are installed directly to BSEAV/bin.
+#perhaps the proper way to do it is to build them into a temp directory and install them as part of $(BSETTOP_LIBS).
+#however, libtune is a brutus-only feature for now.
+LIBTUNE_DIR = $(NEXUS_TOP)/../AppLibs/broadcom/libtune
+SQLITE_DIR = $(NEXUS_TOP)/../AppLibs/opensource/sqlite
+CFLAGS += -DBRUTUS_LIBTUNE_SUPPORT -I$(LIBTUNE_DIR)/include -I$(LIBTUNE_DIR)/examples
+LDFLAGS += -ltune
+
+ifneq ($(MAKECMDGOALS),clean)
+-include $(SQLITE_DIR)/sqlite_ver.inc
+LDFLAGS += $(SQLITE_LDFLAGS)
+endif
+
+# $(APP) is brutus
+$(APP): libtune
+
+libtune: sqlite
+	${Q_}$(MAKE) -C $(LIBTUNE_DIR)/build INSTALL_DIR=$(BSEAV)/bin install
+	${Q_}$(CP) $(BSEAV)/bin/libtune.so $(NEXUS_TOP)/bin
+# the above cp is needed because BSEAV/bin is not part of linker search path
+
+clean-libtune: clean-sqlite
+	${Q_}$(MAKE) -C $(LIBTUNE_DIR)/build clean
+
+sqlite: $(SQLITE_DIR)/sqlite_ver.inc
+# libsqlite3.so doesn't need to be copied to nexus/bin as SQLITE_LDFLAGS includes a linker path
+
+$(SQLITE_DIR)/sqlite_ver.inc:: # double-colon to force this target to always execute
+# sqlite doesn't support parallel builds. '-j 1' has to come at the end
+	$(MAKE) -C $(SQLITE_DIR) APPLIBS_TARGET_LIB_DIR=$(BSEAV)/bin -j 1 &> /dev/null
+
+clean-sqlite:
+	${Q_}$(MAKE) -C $(SQLITE_DIR) clean &> /dev/null
+endif
+
+
+testthis:
+	echo ${APP_OBJECTS}
+	echo ${VPATH}
+
+# Brutus Stack Trace dumping to console
+# Determine kernel vesion (default to 2.4)
+LINUX_VER_GE_2_6 ?= $(shell (grep 'PATCHLEVEL = 6' ${LINUX}/Makefile >/dev/null && echo 'y'))
+ifeq ($(LINUX_VER_GE_2_6),y)
+LINUX_VER_EQ_2_6_31 = $(shell (grep 'SUBLEVEL = 31' ${LINUX}/Makefile >/dev/null && echo 'y'))
+ifeq ($(LINUX_VER_EQ_2_6_31),y)
+CFLAGS += -DSTACK_TRACE
+APP_OBJECTS +=	brcm_sig_hdl.o
+endif
+endif
+
+####################################################
+#
+# Standard setup
+#
+
+BRUTUS_INCLUDE_DIRS = $(addprefix -I,$(BRUTUS_DIRS))
+VPATH += $(BRUTUS_DIRS)
+
+# Include the Settop API's OS abstraction layer
+ifeq ($(BUILD_SYSTEM),nexus)
+BRUTUS_INCLUDE_DIRS += -I$(BSETTOP)/src/nexus -I$(BSETTOP)/src/nexus/board -I$(BSEAV)/../nexus/lib/os/include
+ifeq ($(SYSTEM),vxworks)
+BRUTUS_INCLUDE_DIRS += -I$(BSEAV)/../nexus/lib/os/include/vxworks
+else
+BRUTUS_INCLUDE_DIRS += -I$(BSEAV)/../nexus/lib/os/include/linuxuser
+endif
+else
+BRUTUS_INCLUDE_DIRS += -I$(BSETTOP)/src -I$(BSETTOP)/src/$(CHIP)/board
+endif
+
+
+ifeq ($(SYSTEM),vxworks)
+CFLAGS += -W -MMD
+else
+CFLAGS += -W -MMD -pedantic
+endif
+
+CFLAGS += \
+	$(BRUTUS_INCLUDE_DIRS) \
+	$(BSETTOP_CFLAGS) \
+	$(B_REFSW_MAGNUM_INCLUDE_DIRS)
+
+ifneq ($(DEBUG),y)
+LDFLAGS += -s
+endif
+
+LDFLAGS += $(BSETTOP_LDFLAGS)
+
+# unix linkers allow common symbols, which lead to enigmatic bugs. just forbid them.
+LDFLAGS += --warn-common
+
+# this is used for video tool, POD, etc. in linux
+ifneq ($(SYSTEM),vxworks)
+LDFLAGS += -ldl -lpthread
+endif
+
+ifeq ($(ENCODER_SUPPORT),y)
+	CFLAGS += -DENCODER_SUPPORT
+endif
+
+# The "Download" UI displays remote Videos
+# and allows them to be downloaded into the Playback list.
+# There are a variety of transports for this.
+ifeq ($(DOWNLOAD_SUPPORT),y)
+	CFLAGS += -DDOWNLOAD_SUPPORT
+	#APP_OBJECTS += \
+		downloadscreen.o \
+		udp_client.o
+	BRUTUS_DIRS += $(BSEAV)/app/udpbroadcast
+endif
+
+ifeq ($(WEBSERVER_SUPPORT),y)
+CFLAGS += -DWEBSERVER_SUPPORT
+endif
+
+ifeq ($(JPEGTRANSFER_SUPPORT),y)
+# this requires PICTURES_SUPPORT and WEBSERVER_SUPPORT
+CFLAGS += -DJPEGTRANSFER_SUPPORT
+endif
+
+CXXFLAGS += $(CFLAGS)
+
+# Add C++ only options
+CXXFLAGS += -fno-rtti -fno-exceptions
+
+ifeq ($(PICTURES_SUPPORT),y)
+CFLAGS += -DPICTURES_SUPPORT
+#APP_OBJECTS += picturesscreen.o
+endif
+
+ifeq (${RTSP_SUPPORT},y)
+ifneq ($(LIVEMEDIA_SUPPORT),y)
+$(error Error, RTSP support requires LIVEMEDIA_SUPPORT support too, ie 'make RTSP_SUPPORT=y LIVEMEDIA_SUPPORT=y ...')
+endif
+include ${BSEAV}/lib/rtp/build/rtp.mak
+CFLAGS += -DB_HAS_RTSP=1
+B_RTP_LIB = ${BSEAV}/lib/rtp
+CFLAGS += ${B_RTP_CFLAGS}
+VPATH += ${B_RTP_VPATH}
+APP_OBJECTS += ${B_RTP_OBJ}
+endif
+
+ifeq (${DCS_SUPPORT},y)
+CFLAGS += -DDCS_SUPPORT
+endif
+
+vpath %.cpp $(VPATH)
+vpath %.c $(VPATH)
+
+ifeq ($(SYSTEM),vxworks)
+ifneq ($(filter $(CHIP),7401 7400 7403 7405 7325 7335 7336 7340 7038 7118), $(CHIP))
+# link in the psuedo-driver for legacy vxworks
+LIBS += $(BSEAV)/vxworks/driver/build/$(PLATFORM)/mips.debug/libbcm$(PLATFORM).a
+LDFLAGS += -lsettop
+endif
+endif
+
+ifeq ($(SYSTEM),vxworks)
+ifeq ($(STATIC_SETTOPAPI),y)
+# If we built a static settop library we can build a single combined app.
+LDFLAGS += -lsettop
+endif
+endif
+
+ifeq ($(SYSTEM),vxworks)
+# We're starting to use some functions (like strlcpy) WindRiver doesn't feel are ansi.
+# These functions are added to a separate library (libc_wr.a) -- include that library when building.
+LDFLAGS += -lc_wr
+endif
+
+# Suppress LiveMedia Output for non VERBOSE builds
+ifeq ($(VERBOSE),)
+REDIR_LIVEMEDIA := &> /dev/null
+else
+REDIR_LIVEMEDIA :=
+endif
+
+copy_ucontext:
+ifeq ($(LINUX_VER_EQ_2_6_31),y)
+	$(CP)  ${LINUX}/include/asm-generic/ucontext.h $(BSEAV)/app/brutus/src/
+else
+	@echo Stack trace dump not supported for this kernel version
+endif
+
+$(APP): check_environment lib $(BRUTUS_ODIR) build_date copy_ucontext $(addprefix $(BRUTUS_ODIR)/,$(APP_OBJECTS)) $(LIBS)
+	@echo [Linking... $(notdir $@)]
+	$(Q_)$(CXX) -o $@ $(addprefix $(BRUTUS_ODIR)/,$(APP_OBJECTS)) $(LDFLAGS) $(LIBS)
+
+$(BRUTUS_LIB): $(addprefix $(BRUTUS_ODIR)/,$(APP_OBJECTS))
+	@echo [Linking... $(notdir $@)]
+	${Q_}$(RM) $@
+	${Q_}$(AR) cr $@ $^
+	${Q_}$(RANLIB) $@
+
+%.o: %.cpp
+	@echo [Compile... $(notdir $<)]
+	${Q_}$(CXX) $(CXXFLAGS) -c $< -o $(BRUTUS_ODIR)/$@
+ifeq ($(SYSTEM),vxworks)
+ifneq ($(vxWorksVersion),6)
+	-@$(MV) $(patsubst %.cpp,%.d,$(notdir $< )) ${BRUTUS_ODIR}
+endif
+endif
+
+%.o: %.c
+	@echo [Compile... $(notdir $<)]
+	${Q_}$(CC) $(CFLAGS) -c $< -o $(BRUTUS_ODIR)/$@
+ifeq ($(SYSTEM),vxworks)
+ifneq ($(vxWorksVersion),6)
+	-@$(MV) $(patsubst %.c,%.d,$(notdir $< )) ${BRUTUS_ODIR}
+endif
+endif
+
+$(BRUTUS_ODIR)/%.o: %.cpp
+	@echo [Compile... $(notdir $<)]
+	${Q_}$(CXX) $(CXXFLAGS) -c $< -o $@
+ifeq ($(SYSTEM),vxworks)
+ifneq ($(vxWorksVersion),6)
+	-@$(MV) $(patsubst %.cpp,%.d,$(notdir $< )) ${BRUTUS_ODIR}
+endif
+endif
+
+$(BRUTUS_ODIR)/%.o: %.c
+	@echo [Compile... $(notdir $<)]
+	${Q_}$(CC) $(CFLAGS) ${B_REFSW_C_ONLY_FLAGS} -c $< -o $@
+ifeq ($(SYSTEM),vxworks)
+ifneq ($(vxWorksVersion),6)
+	-@$(MV) $(patsubst %.c,%.d,$(notdir $< )) ${BRUTUS_ODIR}
+endif
+endif
+
+#
+# always build main.o because it contains __DATE__
+#
+build_date:
+	$(Q_)$(RM) -f $(BRUTUS_ODIR)/main.o
+
+clean: clean-brutus clean-lib $(OTHER_CLEANS)
+
+# NEXUS_BIN_DIR can't be used in the api.mak since it doesn't include platform_app.inc
+install:
+	@echo [Install... $(notdir $(APP))]
+	$(Q_)$(CP) $(APP) $(INSTALL_DIR)
+ifneq ($(SYSTEM),vxworks)
+ifeq ($(BUILD_SYSTEM),nexus)
+	$(Q_)$(CP) ${NEXUS_BIN_DIR}/nexus $(INSTALL_DIR)
+ifeq ($(NEXUS_MODE),proxy)
+	$(Q_)$(CP) ${NEXUS_BIN_DIR}/nexus.ko $(INSTALL_DIR)
+endif
+endif
+endif
+
+ifeq ($(NETACCEL_SUPPORT),y)
+	${Q_}${MAKE} -C $(BSEAV)/lib/netaccel install
+endif
+
+clean-brutus:
+	-@$(RM) -rf $(BRUTUS_ODIR)
+
+lib:
+ifeq ($(BLUETOOTH_SUPPORT),y)
+	${Q_}${MAKE} -f Makefile.bluetooth libbte
+endif
+	${Q_}$(MAKE) -C $(BSEAV)/lib/bwin/build
+	${Q_}$(MAKE) -C $(BSEAV)/lib/mlibs
+	${Q_}$(MAKE) -C $(BWIDGETS_DIR)/build
+
+ifeq ($(PLAYBACK_IP_SUPPORT),y)
+ifeq ($(LIVEMEDIA_SUPPORT),y)
+	${Q_}$(MAKE) -C $(LIVEMEDIA_DIR) $(REDIR_LIVEMEDIA)
+	${Q_}${MAKE} -C $(BLIVE_EXT_DIR)/build
+endif
+endif # PLAYBACK_IP_SUPPORT
+
+ifeq ($(DRMND_SUPPORT), y)
+	${Q_}${MAKE} -C $(BSEAV)/lib/drmnd/build
+endif
+
+ifeq ($(NETACCEL_SUPPORT),y)
+ifneq ($(wildcard $(BSEAV)/lib/netaccel/module/Makefile),)
+		${Q_}${MAKE} -C $(BSEAV)/lib/netaccel
+endif
+endif
+
+clean-lib:
+	${Q_}$(MAKE) -C $(BSEAV)/lib/bwin/build clean
+	${Q_}$(MAKE) -C $(BSEAV)/lib/mlibs clean
+	${Q_}$(MAKE) -C $(BWIDGETS_DIR)/build clean
+
+ifeq ($(PLAYBACK_IP_SUPPORT),y)
+ifeq ($(LIVEMEDIA_SUPPORT),y)
+	${Q_}$(MAKE) -C $(LIVEMEDIA_DIR) clean $(REDIR_LIVEMEDIA)
+	${Q_}${MAKE} -C $(BLIVE_EXT_DIR)/build clean
+endif
+endif #PLAYBACK_IP_SUPPORT
+
+ifeq ($(NETACCEL_SUPPORT),y)
+ifneq ($(wildcard $(BSEAV)/lib/netaccel/module/Makefile),)
+		${Q_}${MAKE} -C $(BSEAV)/lib/netaccel clean
+endif
+endif
+
+install-config-files:
+	$(Q_)cd ../samples; \
+		$(CP) -r bcmlogo.png programguide.txt images skins sample.info create_brutus_nodes \
+		$(INSTALL_DIR)
+	$(Q_)cd ../samples; $(CP) -r brutus.$(SYSTEM).cfg $(INSTALL_DIR)/brutus.cfg
+	$(Q_)if [ -f ../samples/$(PLATFORM).channels.xml ] ; then  \
+		$(CP) ../samples/$(PLATFORM).channels.xml $(INSTALL_DIR)/channels.xml; \
+	else  \
+		$(CP) ../samples/channels.xml $(INSTALL_DIR)/channels.xml; \
+	fi;
+ifeq ($(PLATFORM),97111)
+	@chmod +w $(INSTALL_DIR)/brutus.cfg; \
+	 echo "HOME_TITLE=BCM97111 DSG" >> $(INSTALL_DIR)/brutus.cfg; \
+	 chmod -w $(INSTALL_DIR)/brutus.cfg
+endif
+	@cd $(INSTALL_DIR); chmod 664 *.cfg *.txt sample.info
+
+-include $(BRUTUS_ODIR)/*.d

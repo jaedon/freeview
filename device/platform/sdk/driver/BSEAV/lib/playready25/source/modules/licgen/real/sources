@@ -1,0 +1,9 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmlicgenreal
+TARGETTYPE=LIBRARY
+
+SOURCES =                            \
+    drmlicgenxmrhelper.c             \
+    drmlicgen.c                      \
+

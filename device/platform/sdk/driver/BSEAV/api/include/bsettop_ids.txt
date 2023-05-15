@@ -1,0 +1,77 @@
+Settop API
+Special bobject_t numbers
+
+For most sections of the Settop API, the bobject_t value is simply an index.
+For instance bdecode_open(B_ID(0)) opens the first decoder, etc.
+
+However, in other sections, the bobject_t numbers have special meanings
+which may be platform dependent. The following documents these numbers:
+
+------------------------------------
+buser_input
+
+These id's apply to all platforms:
+
+	0 - remote a
+	1 - remote b
+	2 - 56 MHz Sejin IR Keyboard
+	3 - keypad
+
+
+------------------------------------
+btuner
+
+On systems with only one type of demod, the id is
+simply an index.
+
+For instance, on a 97320 (SDS only), 0 is the 1st tuner, 1 is the 2nd tuner.
+
+On the 97038, there are special numbers:
+
+	0 - 3250 DS1 (QAM and analog)
+	1 - 3250 DS2 (QAM and analog)
+	2 - 4500 daughter card DS1 (SDS)
+	3 - 4500 daughter card DS2 (SDS)
+	4 - 3510 daughter card DS1 (VSB and QAM)
+	5 - 3510 daughter card DS2 (VSB and QAM)
+	6 - 3250 OOB
+
+On the 97398, the tuner number corresponds to the slot number. The presence
+and identity of cards in the slots is detected at bsettop_init time.
+
+	0 - slot 0
+	1 - slot 1
+	etc.
+
+On the 97401:
+
+	0 - on board 4500
+	1 - on board 3517
+	2 - daughter card slot 0
+	3 - daughter card slot 1
+	4 - daughter card slot 2
+
+On the 97110:
+
+	0 - 3250 DS1 (QAM and analog)
+	1 - 3250 DS2 (QAM and analog)
+	2 - 3250 OOB
+------------------------------------
+btuner_linein
+
+971xx
+	0 - Composite (CVBS) input
+
+97038
+	0 - Composite (CVBS) input
+	1 - SVideo (Y/C) input
+    2 - Component (RGB or YPrPb) input
+
+93560
+	0 - Composite (CVBS) input 0
+	1 - Composite (CVBS) input 1
+	2 - Composite (CVBS) input 2
+	3 - Composite (CVBS) input 3
+	4 - SVideo (Y/C) input 0
+	5 - SVideo (Y/C) input 1
+    6 - Component (RGB or YPrPb) input

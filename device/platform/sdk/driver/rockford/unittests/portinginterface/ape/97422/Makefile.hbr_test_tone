@@ -1,0 +1,53 @@
+#############################################################################
+#
+#       Copyright (c) 2005-2012, Broadcom Corporation.
+#       All rights reserved.
+#       Confidential Property of Broadcom Corporation.
+# 
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.hbr_test_tone $
+# $brcm_Revision: Hydra_Software_Devel/1 $
+# $brcm_Date: 4/11/12 7:25p $
+#
+# File Description:
+# 	Makefile for compiling ape_test unit test application for testing APE PI
+#
+# $brcm_Log: /rockford/unittests/portinginterface/ape/97422/Makefile.hbr_test_tone $
+# 
+# Hydra_Software_Devel/1   4/11/12 7:25p jgarrett
+# SW7425-2075: Adding HDMITX support and HBR test tone app
+# 
+# Hydra_Software_Devel/2   8/12/11 4:12p jgarrett
+# SWDTV-8208: Resolving issues with ape_test and EC
+# 
+# Hydra_Software_Devel/1   4/13/11 7:22p gskerl
+# SW7552-28: Adding ape_playback
+# 
+# Hydra_Software_Devel/1   12/16/10 4:07p jgarrett
+# SW7422-146: Initial compilable ape_test app
+# 
+# Hydra_Software_Devel/1   12/15/10 6:51p jgarrett
+# SW7422-146: Adding basic dsp unit test
+# 
+#############################################################################
+
+# Name of application
+ifeq (${SYSTEM},vxworks)
+APP = hbr_test_tone.out
+else
+APP = hbr_test_tone
+endif
+
+VPATH += hbr_test_tone
+
+# Application object file list, include path, and C flags
+APP_SOURCES = \
+  hbr_test_tone.c
+
+APP_INCLUDES = ./ ./hbr_test_tone/
+APP_CFLAGS =
+
+include Makefile.common

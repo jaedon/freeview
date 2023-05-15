@@ -1,0 +1,16 @@
+##########################################
+# DI CRYPT configuration menu
+##########################################
+
+config CRYPT_LEGACY
+	bool
+	prompt "CRYPT_LEGACY: do not set this if you don't know what it means."
+	help
+		This is option for product already in market before 2012.11.14 to work correctly with 
+                already encrypted data.
+	default n
+
+config KEY_PROVISIONING
+	bool
+	prompt "KEY PROVISIONING"
+	default n

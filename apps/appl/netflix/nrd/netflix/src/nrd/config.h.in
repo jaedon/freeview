@@ -1,0 +1,34 @@
+/*
+ * (c) 1997-2015 Netflix, Inc.  All content herein is protected by
+ * U.S. copyright and other applicable intellectual property laws and
+ * may not be copied without the express permission of Netflix, Inc.,
+ * which reserves all rights.  Reuse of any of this content for any
+ * purpose without the permission of Netflix, Inc. is strictly
+ * prohibited.
+ */
+
+ // This file was automatically generated. Do not modify!
+
+#ifndef NRDP_CONFIG_H
+#define NRDP_CONFIG_H
+
+#include <nrdbase/config.h>
+
+// defined mongoose-webserver is enabled
+#cmakedefine NRDP_WEBSERVER_ENABLED
+
+// defined if the DPI has configuration options, so getDeviceLibOptions() is defined
+#cmakedefine NRDP_DPI_CONFIGURATION_OPTIONS
+
+// defined if the VALGRIND API is available
+#cmakedefine NRDP_HAS_VALGRIND
+
+#cmakedefine NRDP_HAS_PARTNER_INTEGRATION
+
+// defined if NRDP is built with mdx enabled
+#cmakedefine NRDP_MDX_ENABLED
+
+// defined if NRDLib was built with the elementary stream player enabled
+#cmakedefine NRDP_HAS_ESPLAYER
+
+#endif //NRDP_CONFIG_H

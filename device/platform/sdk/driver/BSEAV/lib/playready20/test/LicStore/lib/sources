@@ -1,0 +1,10 @@
+
+TARGETNAME=LicStoreTestAPI
+TARGETTYPE=LIBRARY
+
+SOURCES = \
+    ../testlicstore.c \
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \

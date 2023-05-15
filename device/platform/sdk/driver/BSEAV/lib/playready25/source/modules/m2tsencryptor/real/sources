@@ -1,0 +1,19 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmm2tsencryptorreal
+TARGETTYPE=LIBRARY
+
+INCLUDES =                                    \
+    $(INCLUDES)                               \
+    $(_DRM_SOURCE_PATH)\oem\common\inc;       \
+    $(_DRM_SOURCE_PATH)\mpeg2tsencryptor;     \
+
+SOURCES =                           \
+    drmm2tsbitstream.c              \
+    drmm2tsbuffermgr.c              \
+    drmm2tsecmbuilder.c             \
+    drmm2tsencryptor.c              \
+    drmm2tsheaderparsers.c          \
+    drmm2tsmediaformatparsers.c     \
+    drmm2tspmtrebuilder.c           \
+    drmm2tslogs.c                   \

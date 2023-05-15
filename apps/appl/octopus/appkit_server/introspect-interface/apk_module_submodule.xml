@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Module/Submodule">   
+    <interface name="Octopus.Appkit.Module.Submodule">
+
+    <method name="Foo">
+    	<arg type="u" name="in_param" direction="in" />
+    	<arg type="i" name="out_param" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+                                                                        
+
+    <signal name="module_event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+
+  </interface>
+</node>

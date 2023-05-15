@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{47441E69-93FA-42B6-A990-6D7D7184605F}</ProjectGuid>
+    <RootNamespace>HOMMA</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\api\hom_api.c" />
+    <ClCompile Include="..\cmd\cmd_airplay.c" />
+    <ClCompile Include="..\cmd\cmd_dial.c" />
+    <ClCompile Include="..\cmd\cmd_dmp.c" />
+    <ClCompile Include="..\cmd\cmd_dmr.c" />
+    <ClCompile Include="..\cmd\cmd_dms.c" />
+    <ClCompile Include="..\cmd\cmd_satip.c" />
+    <ClCompile Include="..\cmd\cmd_woonserver.c" />
+    <ClCompile Include="..\homma.c" />
+    <ClCompile Include="..\int_bus\homma_bus.c" />
+    <ClCompile Include="..\int_bus\hom_airplay.c" />
+    <ClCompile Include="..\int_bus\hom_dial.c" />
+    <ClCompile Include="..\int_bus\hom_dmp.c" />
+    <ClCompile Include="..\int_bus\hom_dmr.c" />
+    <ClCompile Include="..\int_bus\hom_dms.c" />
+    <ClCompile Include="..\int_bus\hom_satip.c" />
+    <ClCompile Include="..\int_bus\hom_woons.c" />
+    <ClCompile Include="..\ipc_server\homma_ipc_session.c" />
+    <ClCompile Include="..\ipc_server\homma_server.c" />
+    <ClCompile Include="..\ipc_system\homma_system.c" />
+    <ClCompile Include="..\module\airplay\pl_airplay.c" />
+    <ClCompile Include="..\module\common\pl_ch_list.c" />
+    <ClCompile Include="..\module\common\pl_common.c" />
+    <ClCompile Include="..\module\common\pl_crypt.c" />
+    <ClCompile Include="..\module\common\pl_fs.c" />
+    <ClCompile Include="..\module\common\pl_op.c" />
+    <ClCompile Include="..\module\common\pl_pvr.c" />
+    <ClCompile Include="..\module\common\pl_res_table.c" />
+    <ClCompile Include="..\module\common\pl_userdata.c" />
+    <ClCompile Include="..\module\common\streaming\mode\bypass\pl_streaming_modebypass.c" />
+    <ClCompile Include="..\module\common\streaming\mode\hls\pl_streaming_modehls.c" />
+    <ClCompile Include="..\module\common\streaming\mode\satip\pl_streaming_modesatip.c" />
+    <ClCompile Include="..\module\common\streaming\pl_streaming.c" />
+    <ClCompile Include="..\module\common\streaming\pl_streaming_callback.c" />
+    <ClCompile Include="..\module\common\streaming\pl_streaming_context.c" />
+    <ClCompile Include="..\module\common\streaming\pl_streaming_debug.c" />
+    <ClCompile Include="..\module\common\streaming\pl_streaming_init.c" />
+    <ClCompile Include="..\module\common\streaming\pl_streaming_receive.c" />
+    <ClCompile Include="..\module\common\streaming\pl_streaming_resource.c" />
+    <ClCompile Include="..\module\common\streaming\util\pl_m3u8.c" />
+    <ClCompile Include="..\module\common\streaming\util\pl_mediaprofile.c" />
+    <ClCompile Include="..\module\common\streaming\util\pl_ringbuf_context.c" />
+    <ClCompile Include="..\module\common\streaming\util\pl_streamingkey.c" />
+    <ClCompile Include="..\module\common\streaming\util\pl_streaming_spec.c" />
+    <ClCompile Include="..\module\dial\pl_dial.c" />
+    <ClCompile Include="..\module\dial\pl_rest_svc.c" />
+    <ClCompile Include="..\module\dmp\pl_dmp.c" />
+    <ClCompile Include="..\module\dmp\pl_dmp_jp.c" />
+    <ClCompile Include="..\module\dmp\pl_dmp_upload.c" />
+    <ClCompile Include="..\module\dmr\pl_dmr.c" />
+    <ClCompile Include="..\module\dms\pl_dms.c" />
+    <ClCompile Include="..\module\dms\pl_dms_fsop.c" />
+    <ClCompile Include="..\module\dms\pl_dms_scan.c" />
+    <ClCompile Include="..\module\dms\pl_dms_scan_epg.c" />
+    <ClCompile Include="..\module\satip\pl_satip.c" />
+    <ClCompile Include="..\module\woon\pl_woons.c" />
+    <ClCompile Include="..\service\airplay\airplay.c" />
+    <ClCompile Include="..\service\common\svc_common.c" />
+    <ClCompile Include="..\service\dial\dial.c" />
+    <ClCompile Include="..\service\dmp\dmp.c" />
+    <ClCompile Include="..\service\dmr\dmr.c" />
+    <ClCompile Include="..\service\dms\dms.c" />
+    <ClCompile Include="..\service\satip\satip.c" />
+    <ClCompile Include="..\service\woon\woons.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\api\Makefile" />
+    <None Include="..\cmd\Makefile" />
+    <None Include="..\int_bus\Makefile" />
+    <None Include="..\ipc_server\Makefile" />
+    <None Include="..\ipc_system\Makefile" />
+    <None Include="..\Makefile" />
+    <None Include="..\module\airplay\Makefile" />
+    <None Include="..\module\common\Makefile" />
+    <None Include="..\module\common\streaming\Makefile" />
+    <None Include="..\module\common\streaming\Makefile.include.streaming" />
+    <None Include="..\module\common\streaming\mode\bypass\Makefile" />
+    <None Include="..\module\common\streaming\mode\hls\Makefile" />
+    <None Include="..\module\common\streaming\mode\Makefile" />
+    <None Include="..\module\common\streaming\mode\satip\Makefile" />
+    <None Include="..\module\common\streaming\util\Makefile" />
+    <None Include="..\module\dial\Makefile" />
+    <None Include="..\module\dmp\Makefile" />
+    <None Include="..\module\dmr\Makefile" />
+    <None Include="..\module\dms\Makefile" />
+    <None Include="..\module\include\Makefile.include.mxlib" />
+    <None Include="..\module\satip\Makefile" />
+    <None Include="..\module\woon\Makefile" />
+    <None Include="..\service\airplay\Makefile" />
+    <None Include="..\service\common\Makefile" />
+    <None Include="..\service\dial\Makefile" />
+    <None Include="..\service\dmp\Makefile" />
+    <None Include="..\service\dmr\Makefile" />
+    <None Include="..\service\dms\Makefile" />
+    <None Include="..\service\Makefile" />
+    <None Include="..\service\satip\Makefile" />
+    <None Include="..\service\woon\Makefile" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\hom_api.h" />
+    <ClInclude Include="..\..\include\hom_api_airplay.h" />
+    <ClInclude Include="..\..\include\hom_api_dial.h" />
+    <ClInclude Include="..\..\include\hom_api_dmp.h" />
+    <ClInclude Include="..\..\include\hom_api_dmr.h" />
+    <ClInclude Include="..\..\include\hom_api_dms.h" />
+    <ClInclude Include="..\..\include\hom_api_satip.h" />
+    <ClInclude Include="..\..\include\hom_api_woonserver.h" />
+    <ClInclude Include="..\include\common.h" />
+    <ClInclude Include="..\include\define.h" />
+    <ClInclude Include="..\include\homma_bus.h" />
+    <ClInclude Include="..\include\homma_int.h" />
+    <ClInclude Include="..\include\homma_ipc_decode.h" />
+    <ClInclude Include="..\include\homma_server.h" />
+    <ClInclude Include="..\include\homma_system.h" />
+    <ClInclude Include="..\include\hom_int.h" />
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_m3u8.h" />
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_mediaprofile.h" />
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_mode_bypass.h" />
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_mode_hls.h" />
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_mode_satip.h" />
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_ringbuf_context.h" />
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_streamingkey.h" />
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_streaming_callback.h" />
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_streaming_context.h" />
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_streaming_receive.h" />
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_streaming_resource.h" />
+    <ClInclude Include="..\module\common\streaming\int_include\int_pl_streaming_spec.h" />
+    <ClInclude Include="..\module\common\streaming\int_streaming.h" />
+    <ClInclude Include="..\module\dial\pl_rest_svc.h" />
+    <ClInclude Include="..\module\include\pl_airplay.h" />
+    <ClInclude Include="..\module\include\pl_ch_list.h" />
+    <ClInclude Include="..\module\include\pl_common.h" />
+    <ClInclude Include="..\module\include\pl_crypt.h" />
+    <ClInclude Include="..\module\include\pl_dial.h" />
+    <ClInclude Include="..\module\include\pl_dmp.h" />
+    <ClInclude Include="..\module\include\pl_dmr.h" />
+    <ClInclude Include="..\module\include\pl_dms.h" />
+    <ClInclude Include="..\module\include\pl_fs.h" />
+    <ClInclude Include="..\module\include\pl_op.h" />
+    <ClInclude Include="..\module\include\pl_pvr.h" />
+    <ClInclude Include="..\module\include\pl_satip.h" />
+    <ClInclude Include="..\module\include\pl_streaming.h" />
+    <ClInclude Include="..\module\include\pl_woons.h" />
+    <ClInclude Include="..\service\include\airplay.h" />
+    <ClInclude Include="..\service\include\dial.h" />
+    <ClInclude Include="..\service\include\dmp.h" />
+    <ClInclude Include="..\service\include\dmr.h" />
+    <ClInclude Include="..\service\include\dms.h" />
+    <ClInclude Include="..\service\include\satip.h" />
+    <ClInclude Include="..\service\include\svc_common.h" />
+    <ClInclude Include="..\service\include\woons.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

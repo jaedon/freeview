@@ -1,0 +1,587 @@
+'the following is from BVT test set
+
+331000:Test multiple contexts updating a count
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,5 token value)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,2 long token type,10 token value)
+
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,5 token value)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,2 long token type,10 token value)
+
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_CloseKey(1 Context Index,Dump)
+
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,2 long token type,15 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+'
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,10 token value)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,2 long token type,5 token value)
+
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,10 token value)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,2 long token type,5 token value)
+
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_CloseKey(1 Context Index,Dump)
+
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,2 long token type,0 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+'
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,1 token value)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,2 long token type,2 token value)
+
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,1 token value)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,2 long token type,2 token value)
+
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_CloseKey(1 Context Index,Dump)
+
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,2 long token type,3 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+
+'Two contexts decrement past what's allowed, count would go negative
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,1 token value)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,2 long token type,0 token value)
+
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,1 token value)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,2 long token type,0 token value)
+
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=0x80041411
+
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,2 long token type,1 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+
+331001:When two contexts create the same date attribute, the first one to store should win
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,3 date token type,100 token value)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,3 date token type,150 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,3 date token type,100 token value)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,3 date token type,150 token value)
+
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=0
+
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,3 long token type,100 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+
+331002:When two contexts update the same date attribute, the first one to store should win
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,3 date token type,350 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)
+
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,3 date token type,100 token value)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,3 date token type,150 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,3 date token type,100 token value)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,3 date token type,150 token value)
+
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=0
+
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,3 long token type,100 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+
+331003:When two contexts update the same date attribute with the callback option, the callback should be triggered
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,3 date token type,350 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)
+
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,3 date token type,100 token value,0 DRM_TOKEN_RESOLVE_CALLBACK)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,3 date token type,150 token value,0 DRM_TOKEN_RESOLVE_CALLBACK)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,3 date token type,100 token value)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,3 date token type,150 token value)
+
+TestDRM_SST_CloseKey(0 Context Index,Dump,Use Callback)
+TestDRM_SST_CloseKey(1 Context Index,Dump,Use Callback)=0
+
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,3 long token type,100150 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+
+331004:When two contexts create the same date attribute with the callback option, the callback should be triggered
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,3 date token type,100 token value,0)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,3 date token type,150 token value,0)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,3 date token type,100 token value)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,3 date token type,150 token value)
+
+TestDRM_SST_CloseKey(0 Context Index,Dump,Use Callback)
+TestDRM_SST_CloseKey(1 Context Index,Dump,Use Callback)=0
+
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,3 long token type,100150 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+
+331005:If callback is specified but data isn't disturbed in between Open/Close, then callback should not be called
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,4 byteblob token type,tokenvalue111)
+TestDRM_SST_CloseKey(1 Context Index,Dump,Use Callback)
+
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,4 byteblob token type,tokenvalue222,0 DRM_TOKEN_RESOLVE_CALLBACK)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,4 byteblob token type,tokenvalue222)
+TestDRM_SST_CloseKey(0 Context Index,Dump,Use Callback)
+
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,4 byteblob token type,tokenvalue222)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,4 byteblob token type,tokenvalue333,0 DRM_TOKEN_RESOLVE_CALLBACK)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,4 byteblob token type,tokenvalue333)
+TestDRM_SST_CloseKey(1 Context Index,Dump,Use Callback)=0
+
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,4 byteblob token type,tokenvalue333)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+
+331006:If callback is specified but data is disturbed in between Open/Close, then callback should be called
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,4 byteblob token type,tokenvalue1111,0 DRM_TOKEN_RESOLVE_CALLBACK)
+TestDRM_SST_CloseKey(1 Context Index,Dump,Use Callback)
+
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,4 byteblob token type,tokenvalue2222,0 DRM_TOKEN_RESOLVE_CALLBACK)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,4 byteblob token type,tokenvalue3333,0 DRM_TOKEN_RESOLVE_CALLBACK)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,4 byteblob token type,tokenvalue2222)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,4 byteblob token type,tokenvalue3333)
+TestDRM_SST_CloseKey(0 Context Index,Dump,Use Callback)
+TestDRM_SST_CloseKey(1 Context Index,Dump,Use Callback)=0
+
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,4 byteblob token type,tokenvalue2323)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+
+331007:When two contexts update the same long attribute, the last one to store should win
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,350 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value,2 DRM_TOKEN_RESOLVE_LAST_WINS)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,2 long token type,150 token value,2 DRM_TOKEN_RESOLVE_LAST_WINS)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,2 long token type,150 token value)
+
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=0
+
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,2 long token type,150 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+
+331008:When two contexts create the same long attribute, the first one to store should win
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,350 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value,1 DRM_TOKEN_RESOLVE_FIRST_WINS)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,2 long token type,150 token value,1 DRM_TOKEN_RESOLVE_FIRST_WINS)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,2 long token type,150 token value)
+
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=0
+
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+
+331009:When two contexts update the same date attribute with the delta option, the delta should be used
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,3 date token type,350 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)
+
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,3 date token type,400 token value,3 DRM_TOKEN_RESOLVE_DELTA)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,3 date token type,375 token value,3 DRM_TOKEN_RESOLVE_DELTA)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,3 date token type,400 token value)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,3 date token type,375 token value)
+
+TestDRM_SST_CloseKey(0 Context Index,Dump,Use Callback)
+TestDRM_SST_CloseKey(1 Context Index,Dump,Use Callback)=0
+
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,3 date token type,425 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+
+331010:When two contexts create the same long attribute with the callback option, the callback should be triggered
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value,0)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName1,2 long token type,150 token value,0)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,2 long token type,150 token value)
+
+TestDRM_SST_CloseKey(0 Context Index,Dump,Use Callback)
+TestDRM_SST_CloseKey(1 Context Index,Dump,Use Callback)=0
+
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName1,2 long token type,100150 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+
+338917:write and read attributes to/from different keys
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName2,2 long token type,300 token value)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName2,2 long token type,300 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)
+
+33414:enumerate key while there is only one second key 
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123452key1,027890123452key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_OpenEnumerator(1 secure type,017890123452key1, Dump, Dump)
+TestDRM_SST_EnumNext(Dump,Dump,0 size, 027890123452key2)
+TestDRM_SST_EnumNext(Dump,Dump,0 size, 027890123452key2)=-2147024637(0x80070103 DRM_E_NOMORE)
+
+'by design the raw dat can not be retrieved by get token key method
+33426:BVT:P0:get data directly from the store. The data were saved by key tokens.
+TestDRM_SST_Initialize(0);
+TestDRM_SST_SetData(0 Context Index,017890123452key1,027890123451key2,123456789011Password,1 secure type,Dump,MyData)
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123452key1,027890123451key2,123456789011Password,0 secure flag,1 secure type,Dump)
+TestDRM_SST_GetTokenValue(0 Context Index,MyData,2 long token type,100 token value)=0X8004C02A DRM_E_SECURESTORE_CORRUPT
+TestDRM_SST_CloseKey(0 Context Index,Dump)=1
+
+338898:delete a key  
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123451key1,027890123451key2,123456789011Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123452key1,027890123452key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_DeleteKey(0 Context Index,1 secure type,017890123451key1,027890123451key2,Dump)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+
+332000:write and read a binary attribute
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,4 binary token type,100 token value,2)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,4 binary token type,100 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName2,4 binary token type,300 token value,2)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName2,4 binary token type,300 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,4 binary token type,100 token value)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName2,4 binary token type,300 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)=1 DRM_S_FALSE
+
+332001:write and read a binary attribute along with other non-binary attributes
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,4 binary token type,100 token value,2)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,4 binary token type,100 token value)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName3,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName3,2 long token type,100 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName2,4 binary token type,300 token value,2)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName2,4 binary token type,300 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,4 binary token type,100 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName2,4 binary token type,300 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName3,2 long token type,100 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)=1 DRM_S_FALSE
+
+-------------------BVT ends here--------------------------
+
+331603: generate global store password and use this password for open key token
+TestDRM_SST_Initialize(0);
+TestDRM_SST_CreateGlobalStorePassword
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,Password,1 secure flag,2 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+
+331604: generate license state password and use this password for open key token
+TestDRM_SST_Initialize(0);
+TestDRM_SST_CreateLicenseStatePassword(1234567890123LID)
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+ 
+331605: set and get data from locked data section 
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenAndLockSlot(Dump, 1 secure type, 017890123456key1,027890123456key2,Password,1 secure flag,0 Context Index,NULL) 
+TestDRM_SST_SetLockedData(0 Context Index,"This is my data 1234567890+=-_)(*&^%$#@!")
+TestDRM_SST_GetLockedData(0 Context Index,"This is my data 1234567890+=-_)(*&^%$#@!")
+TestDRM_SST_CloseLockedSlot(0 Context Index)
+ 
+
+338915:write and read an attribute value with long attribute name
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890,2 long token type,100 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+ 
+338916:write and read an attribute value with special attribute name
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,A,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,A,2 long token type,100 token value)
+TestDRM_SST_SetTokenValue(0 Context Index,1,2 long token type,200 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,1,2 long token type,200 token value)
+TestDRM_SST_SetTokenValue(0 Context Index,$,2 long token type,300 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,$,2 long token type,300 token value)
+TestDRM_SST_SetTokenValue(0 Context Index,OK,2 long token type,400 token value)
+TestDRM_SST_SetTokenValue(0 Context Index,&,2 long token type,500 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,&,2 long token type,500 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,OK,2 long token type,400 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+
+338912:write and read multiple attribute values 
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123456key1,027890123456key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName2,2 long token type,200 token value)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName3,2 long token type,300 token value)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName4,2 long token type,400 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName2,2 long token type,200 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName4,2 long token type,400 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName3,2 long token type,300 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+
+338909:write and read an attribute value at different contexts
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123451key1,027890123451key2,123456789011Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName5,2 long token type,500 token value)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123452key1,027890123452key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(1 Context Index,AttributeName2,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(1 Context Index,AttributeName2,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName5,2 long token type,500 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_CloseKey(1 Context Index,Dump)
+
+338897:Open multiple existed keys
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123451key1,027890123451key2,123456789011Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123452key1,027890123452key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_CloseKey(0 Context Index,Dump)=1
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123451key1,027890123451key2,123456789011Password,0 secure flag,1 secure type,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123452key1,027890123452key2,123456789012Password,0 secure flag,1 secure type,Dump)
+TestDRM_SST_CloseKey(0 Context Index,Dump)=1
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+ 
+338895:Add multiple keys with different secure type
+' Test all secure store types that TestDRM_SST_OpenKeyTokens supports
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123451key1,027890123451key2,123456789011Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123452key1,027890123452key2,123456789012Password,1 secure flag,2 secure type,Dump)
+TestDRM_SST_OpenKeyTokens(2 Context Index,017890123453key1,027890123453key2,123456789013Password,1 secure flag,4 secure type,Dump)
+TestDRM_SST_OpenKeyTokens(3 Context Index,017890123453key1,027890123454key2,123456789014Password,1 secure flag,8 secure type,Dump)
+TestDRM_SST_CloseKey(0 Context Index,Dump)=1
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+TestDRM_SST_CloseKey(2 Context Index,Dump)=1
+TestDRM_SST_CloseKey(3 Context Index,Dump)=1
+ 
+330410:get all data when there is one attribute of this key. 
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123452key1,027890123452key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123452key1,027890123452key2,123456789012Password,0 secure flag,1 secure type,Dump)
+TestDRM_SST_GetAllData(0 Context Index, NULL, 0 data size,Dump)
+TestDRM_SST_CloseKey(0 Context Index,Dump)=1
+ 
+330411:get all data when there is none attribute of this key. 
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123452key1,027890123452key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_CloseKey(0 Context Index,Dump)=1
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123452key1,027890123452key2,123456789012Password,0 secure flag,1 secure type,Dump)
+TestDRM_SST_GetAllData(0 Context Index, NULL, 0 data size,Dump)
+TestDRM_SST_CloseKey(0 Context Index,Dump)=1
+
+330412:get all data when there are two attributes of this key. 
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123452key1,027890123452key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName2,2 long token type,200 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName2,2 long token type,200 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123452key1,027890123452key2,123456789012Password,0 secure flag,1 secure type,Dump)
+TestDRM_SST_GetAllData(0 Context Index, NULL, 0 data size,Dump)
+TestDRM_SST_CloseKey(0 Context Index,Dump)=1
+
+330413:get all data when there are multiple keys 
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123452key1,027890123452key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName2,2 long token type,200 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName2,2 long token type,200 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_OpenKeyTokens(1 Context Index,017890123453key1,027890123453key2,123456789013Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName3,2 long token type,300 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName3,2 long token type,300 token value)
+TestDRM_SST_CloseKey(1 Context Index,Dump)=1
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123452key1,027890123452key2,123456789012Password,0 secure flag,1 secure type,Dump)
+TestDRM_SST_GetAllData(0 Context Index, NULL, 0 data size,Dump)
+TestDRM_SST_CloseKey(0 Context Index,Dump)=1
+
+330424:get all data when there is one attribute of this key and the second key is NULL. 
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123452key1,NULL,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123452key1,NULL,123456789012Password,0 secure flag,1 secure type,Dump)
+TestDRM_SST_GetAllData(0 Context Index, NULL, 0 data size,Dump)
+TestDRM_SST_CloseKey(0 Context Index,Dump)=1
+
+ 
+330415:enumerate key while there are multiple second keys 
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123452key1,027890123451key2,123456789011Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123452key1,027890123452key2,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName2,2 long token type,1000 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName2,2 long token type,1000 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_OpenEnumerator(1 secure type,017890123452key1, Dump, Dump)
+TestDRM_SST_EnumNext(Dump,Dump,0 size, NULL)
+TestDRM_SST_EnumNext(Dump,Dump,0 size, NULL)
+TestDRM_SST_EnumNext(Dump,Dump,0 size, 027890123452key2)=-2147024637(0x80070103 DRM_E_NOMORE)
+
+330416:enumerate key while the second key is NULL
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123452key1,027890123451key2,123456789011Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName1,2 long token type,100 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123452key1, NULL,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName2,2 long token type,200 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName2,2 long token type,200 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_OpenEnumerator(1 secure type,017890123452key1, Dump, Dump)
+TestDRM_SST_EnumNext(Dump,Dump,0 size, NULL)
+TestDRM_SST_EnumNext(Dump,Dump,0 size, NULL)
+TestDRM_SST_EnumNext(Dump,Dump,0 size, 027890123452key2)=-2147024637(0x80070103 DRM_E_NOMORE)
+
+'330419 is also covered
+330420:get data directly from the store
+TestDRM_SST_Initialize(0);
+TestDRM_SST_SetData(0 Context Index,017890123451key1,027890123451key2,123456789011Password,1 secure type,Dump,MyData1)
+TestDRM_SST_GetData(0 Context Index,017890123451key1,027890123451key2,123456789011Password,1 secure type,Dump,Dump,Dump,MyData1)
+TestDRM_SST_SetData(0 Context Index,017890123452key1,027890123452key2,123456789012Password,2 secure type,Dump,MyData2)
+TestDRM_SST_GetData(0 Context Index,017890123452key1,027890123452key2,123456789012Password,2 secure type,Dump,Dump,Dump,MyData2)
+TestDRM_SST_SetData(0 Context Index,017890123453key1,027890123453key2,123456789013Password,3 secure type,Dump,MyData3)
+TestDRM_SST_GetData(0 Context Index,017890123453key1,027890123453key2,123456789013Password,3 secure type,Dump,Dump,Dump,MyData3)
+TestDRM_SST_SetData(0 Context Index,017890123454key1,027890123454key2,123456789014Password,4 secure type,Dump,MyData4)
+TestDRM_SST_GetData(0 Context Index,017890123454key1,027890123454key2,123456789014Password,4 secure type,Dump,Dump,Dump,MyData4)
+ 
+'by design the token key can not be retrieved by get raw data method
+330425:get data directly from the store. The data were saved by key tokens.
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123452key1,027890123451key2,123456789011Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName2,2 long token type,200 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName2,2 long token type,200 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+TestDRM_SST_GetData(0 Context Index,017890123452key1,027890123451key2,123456789011Password,1 secure type,Dump,Dump,Dump,200)=-2147172310(0X8004C02A)
+ 
+330421:get data directly from the store while the second key is NULL
+TestDRM_SST_Initialize(0);
+TestDRM_SST_SetData(0 Context Index,017890123451key1,NULL,123456789011Password,1 secure type,Dump,MyData1)
+TestDRM_SST_GetData(0 Context Index,017890123451key1,NULL,123456789011Password,1 secure type,Dump,Dump,Dump,MyData1)
+TestDRM_SST_SetData(0 Context Index,017890123452key1,NULL,123456789012Password,2 secure type,Dump,MyData2)
+TestDRM_SST_GetData(0 Context Index,017890123452key1,NULL,123456789012Password,2 secure type,Dump,Dump,Dump,MyData2)
+TestDRM_SST_SetData(0 Context Index,017890123453key1,NULL,123456789013Password,3 secure type,Dump,MyData3)
+TestDRM_SST_GetData(0 Context Index,017890123453key1,NULL,123456789013Password,3 secure type,Dump,Dump,Dump,MyData3)
+TestDRM_SST_SetData(0 Context Index,017890123454key1,NULL,123456789014Password,4 secure type,Dump,MyData4)
+TestDRM_SST_GetData(0 Context Index,017890123454key1,NULL,123456789014Password,4 secure type,Dump,Dump,Dump,MyData4)
+
+ 
+'***************************************************************
+'Negative test cases for Secure Store  
+
+330417:open enumerator while the eType is invalid 
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenEnumerator(1 secure type,017890123452key1, Dump, Dump)
+TestDRM_SST_OpenEnumerator(2 secure type,017890123452key1, Dump, Dump)
+TestDRM_SST_OpenEnumerator(3 secure type,017890123452key1, Dump, Dump)
+TestDRM_SST_OpenEnumerator(4 secure type,017890123452key1, Dump, Dump)
+TestDRM_SST_OpenEnumerator(5 secure type,017890123452key1, Dump, Dump)=0X80070057(DRM_E_INVALIDARG)
+TestDRM_SST_OpenEnumerator(6 secure type,017890123452key1, Dump, Dump)
+  
+330418:open the key token while the second key is NULL 
+TestDRM_SST_Initialize(0);
+TestDRM_SST_OpenKeyTokens(0 Context Index,017890123452key1, NULL,123456789012Password,1 secure flag,1 secure type,Dump)
+TestDRM_SST_SetTokenValue(0 Context Index,AttributeName2,2 long token type,200 token value)
+TestDRM_SST_GetTokenValue(0 Context Index,AttributeName2,2 long token type,200 token value)
+TestDRM_SST_CloseKey(0 Context Index,Dump)
+
+330422:get data directly from the store when the eType is invalid
+TestDRM_SST_Initialize(0);
+TestDRM_SST_SetData(0 Context Index,017890123452key1,027890123451key2,123456789011Password,1 secure type,Dump,MyData)
+TestDRM_SST_GetData(0 Context Index,017890123452key1,027890123451key2,123456789011Password,4 secure type,Dump,Dump,Dump,MyData)=0x8004c024(DRM_E_DSTSLOTNOTFOUND)
+TestDRM_SST_GetData(0 Context Index,017890123452key1,027890123451key2,123456789011Password,1 secure type,Dump,Dump,Dump,MyData)
+
+330423:set data directly from the store when eType is invalid
+TestDRM_SST_Initialize(0);
+TestDRM_SST_SetData(0 Context Index,017890123452key1,027890123451key2,123456789011Password,9 secure type,Dump,MyData)=-2147024809(0X80070057)
+TestDRM_SST_SetData(0 Context Index,017890123452key1,027890123451key2,123456789011Password,1 secure type,Dump,MyData)
+TestDRM_SST_GetData(0 Context Index,017890123452key1,027890123451key2,123456789011Password,1 secure type,Dump,Dump,Dump,MyData)
+ 
+
+
+
+
+  

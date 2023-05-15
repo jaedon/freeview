@@ -1,0 +1,7 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=LIBRARY
+TARGETNAME=HDSTestAPI
+
+SOURCES = \
+	..\testHDS.c \

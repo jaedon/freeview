@@ -1,0 +1,45 @@
+#############################################
+#					AP Core Configuration					#
+#############################################
+comment "APCORE Configuration. (APCORE_XXX)"
+
+
+comment "Radio Background Configuration"
+
+	config APCORE_SAVE_LAST_TVRADIO_SVC
+		bool "APCORE_SAVE_LAST_TVRADIO_SVC - save TV and Radio last Service Handle in each"
+		default n
+
+	config APCORE_MULTI_FEED
+		bool "APCORE_MULTI_FEED - Support MULTI FEED"
+		default n
+
+	config APCORE_EVENT_BASED_RATING
+		bool "APCORE_EVENT_BASED_RATING - Support Event Based Rating Check"
+		default n
+
+	config APCORE_BLOCK_EQUAL_RATING
+		bool "APCORE_BLOCK_EQUAL_RATING - Rating Setup Age Policy is Blocking( or Showing)"
+		default n
+
+	config APCORE_INFO_UPDATE_WAKEUP
+		bool "APCORE_INFO_UPDATE_WAKEUP - Wakeup for various system information update(EMM, time, EPG, ...)"
+		default n
+
+	config APCORE_EMM_UPDATE
+		bool "APCORE_EMM_UPDATE - System information update wakeup - EMM Update"
+		default n
+
+	config APCORE_ALWAYS_ACTIVE_STANDBY
+		bool "APCORE_ALWAYS_ACTIVE_STANDBY - STB is always alive in standby mode"
+		default n
+
+	config APCORE_PC_SVC_MARK
+		bool "APCORE_PC_SVC_MARK - Mark parental control service and skip pc for no-marked service."
+		default n
+
+	comment "File copy/delete/move in background"
+	config APCORE_IP_EPG
+		bool "APCORE_IP_EPG - IP EPG"
+		default n
+

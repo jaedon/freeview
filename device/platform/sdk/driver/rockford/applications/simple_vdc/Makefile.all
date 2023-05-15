@@ -1,0 +1,545 @@
+#############################################################################
+#
+#       Copyright (c) 2005-2006, Broadcom Corporatiy.
+#       All rights reserved.
+#       Cyfidential Property of Broadcom Corporatiy.
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM'.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.all $
+# $brcm_Revisiy: Hydra_Software_Devel/6 $
+# $brcm_Date: 10/4/12 3:27p $
+#
+# File Descriptiy:
+#
+# Revisiy History:
+#
+# $brcm_Log: /rockford/applications/simple_vdc/Makefile.all $
+# 
+# Hydra_Software_Devel/85   10/4/12 3:27p vanessah
+# SW7435-386: obsolete 7425B0/B1, add 7435 B0
+# 
+# Hydra_Software_Devel/84   8/27/12 5:30p tdo
+# SW7445-8: Add 7445 A0 support
+#
+# Hydra_Software_Devel/83   8/23/12 1:19p vanessah
+# SW7429-243: add 7429 B0 support
+#
+# Hydra_Software_Devel/82   8/10/12 2:30p pntruong
+# SW7468-24: Updated 7468 support to b0.
+#
+# Hydra_Software_Devel/81   8/7/12 10:37a vanessah
+# SW7563-9: add 7584/7563
+#
+# Hydra_Software_Devel/80   6/26/12 3:29p pntruong
+# SW7422-57: Obsoleted 7422a1.
+#
+# Hydra_Software_Devel/79   5/1/12 3:03p vanessah
+# SW7425-2643: disable 7425 a1
+#
+# Hydra_Software_Devel/78   4/5/12 1:55p darnstein
+# SW7405-3191: no more support for 7552-A0.
+#
+# Hydra_Software_Devel/77   2/13/12 7:34p darnstein
+# SW7358-227: Remove support for 7231-A0.
+#
+# Hydra_Software_Devel/76   2/8/12 10:06a pntruong
+# SW7360-3: Initial support.
+#
+# Hydra_Software_Devel/75   1/20/12 9:05a vanessah
+# SW7425-2202: add 7425 B2
+#
+# Hydra_Software_Devel/74   1/11/12 3:24p darnstein
+# SW7125-1124: 7344-A0 is no longer supported in reference software.
+#
+# Hydra_Software_Devel/73   12/9/11 4:28p pntruong
+# SW7346-577: Chiplead no longer support 7346A0.
+#
+# Hydra_Software_Devel/72   11/29/11 11:58a vanessah
+# SW7425-1620: removal support for 7425 a0
+#
+# Hydra_Software_Devel/71   11/23/11 4:48p vanessah
+# SW7425-1620: add support for 7425 b1
+#
+# Hydra_Software_Devel/70   11/23/11 11:33a tdo
+# SW7435-9: add support for 7435A0 in VDC
+#
+# Hydra_Software_Devel/69   11/17/11 2:42p pntruong
+# SW7550-645: Added to build test list.
+#
+# Hydra_Software_Devel/68   11/17/11 10:51a pntruong
+# SW7429-16: Initial support.
+#
+# Hydra_Software_Devel/67   9/28/11 5:33p pntruong
+# SW7358-151: Added initial support for A1.
+#
+# Hydra_Software_Devel/66   9/12/11 11:32a pntruong
+# SW7231-318: Added the b0.
+#
+# Hydra_Software_Devel/65   9/9/11 12:00p pntruong
+# SW7231-318: Initial vdc support with error free build.
+#
+# Hydra_Software_Devel/64   8/3/11 10:44p pntruong
+# SW3548-3090: Moving 3548/3556 to dedicated branch.
+#
+# Hydra_Software_Devel/63   5/19/11 2:33p darnstein
+# SW7422-57: 7422-A0 no longer supported. Compile 7422-A1 instead.
+#
+# Hydra_Software_Devel/62   3/15/11 3:57p darnstein
+# SW7425-164: Adapt to changes in the "plat" script.
+# - Change DEBUG to B_REFSW_DEBUG.
+# - Change ARCH to B_REFSW_ARCH.
+# - Change OS to B_REFSW_OS.
+# - Change mips-linux-uclibc to mips-linux.
+# - Change mipsel-linux-uclibc to mipsel-linux.
+#
+# Hydra_Software_Devel/61   1/10/11 2:15p pntruong
+# SW7422-174: Added new platforms 7231/7344/7346.
+#
+# Hydra_Software_Devel/60   10/26/10 4:39p pntruong
+# SW7420-723,SWCFE-294: Removed non-supported chips.
+#
+# Hydra_Software_Devel/59   9/29/10 1:50p pntruong
+# SW7358-4: Added 7358.
+#
+# Hydra_Software_Devel/58   9/2/10 12:41p pntruong
+# SW7422-57, SW7425-11: Added 7422 and 7425 to the build check.
+#
+# Hydra_Software_Devel/57   8/5/10 11:59a pntruong
+# SW7408-117: Added support for 7408B0 CMP changes.
+#
+# Hydra_Software_Devel/56   5/25/10 4:41p darnstein
+# SW7420-245: add support for 97420-C0.
+#
+# Hydra_Software_Devel/55   5/12/10 1:32p pntruong
+# SW7125-180: Added 7125b0/c0.
+#
+# Hydra_Software_Devel/54   5/10/10 11:57a pntruong
+# SW7125-364: Added new platforms to catch build errors.
+#
+# Hydra_Software_Devel/53   3/11/10 3:54p pntruong
+# SW7400-2418: No longer need to support 3548/3556 A0.
+#
+# Hydra_Software_Devel/52   1/20/10 1:38p darnstein
+# SW7468-24: Directories 7420dvr2 get renamed to 7420.
+#
+# Hydra_Software_Devel/51   11/20/09 4:35p pntruong
+# SW7408-13: Added 97408 to the list.
+#
+# Hydra_Software_Devel/50   9/29/09 10:29p pntruong
+# SW7420-248: basemodules no longer support ax.
+#
+# Hydra_Software_Devel/49   8/26/09 9:52a pntruong
+# SW7125-10: Added 7125 support.
+#
+# Hydra_Software_Devel/48   7/31/09 4:14p pntruong
+# PR51627: 7336 No longer needed support.
+#
+# Hydra_Software_Devel/47   7/6/09 4:55p darnstein
+# PR53827: Remove support for 7405-A0 and 7405-A1. Irvine software no
+# longer supports these platforms.
+#
+# Hydra_Software_Devel/46   6/30/09 4:20p darnstein
+# PR53827: fix stupid error in last check-in.
+#
+# Hydra_Software_Devel/45   6/30/09 4:13p darnstein
+# PR53827: Divide targets into old (3563, 3548, 3556) and new (everything
+# else.
+#
+# Hydra_Software_Devel/44   6/25/09 10:31p pntruong
+# PR55812: Added 97550 platform.
+#
+# Hydra_Software_Devel/43   6/25/09 5:24p darnstein
+#
+# PR56289: employ MAKE and MFLAGS macros. This allows use of flags such
+# as -k to be passed to make.
+#
+# Hydra_Software_Devel/42   6/16/09 8:56p tdo
+# PR55956: Add VDC support for 7420B0.
+#
+# Hydra_Software_Devel/41   3/17/09 2:09a tdo
+# PR45785, PR45789: Add 7420A1 to build
+#
+# Hydra_Software_Devel/40   2/2/09 5:55p tdo
+# PR51627: Add 7336A0 to build
+#
+# Hydra_Software_Devel/39   1/21/09 11:07p pntruong
+# PR51336, PR51337, PR51338: Added 3548b2/3556b2 to the build.
+#
+# Hydra_Software_Devel/38   1/5/09 1:25p pntruong
+# PR36898: No longer support 7335a0/a1.
+#
+# Hydra_Software_Devel/37   12/22/08 11:46p pntruong
+# PR50652: Added support for 7405c0.
+#
+# Hydra_Software_Devel/36   12/3/08 9:26a tdo
+# PR48867: Update 97420 platform naming
+#
+# Hydra_Software_Devel/35   12/2/08 5:57p pntruong
+# PR49863: Added B1 support.
+#
+# Hydra_Software_Devel/34   11/11/08 1:48p tdo
+# PR48867: Update 97420 Platform naming
+#
+# Hydra_Software_Devel/33   11/4/08 1:24p tdo
+# PR46484: Add 7420 build
+#
+# Hydra_Software_Devel/32   9/17/08 5:46p pntruong
+# PR47013: Added 3548/3556 into builds.
+#
+# Hydra_Software_Devel/31   9/17/08 11:56a pntruong
+# PR46502: 3563 also goes to a branch.
+#
+# Hydra_Software_Devel/30   9/4/08 8:28p pntruong
+# PR46502: Moving 7403 vdc dedicated branch.
+#
+# Hydra_Software_Devel/29   5/19/08 2:52p pntruong
+# PR 38930: Renamed to match board name.
+#
+# Hydra_Software_Devel/28   3/5/08 5:25p tdo
+# PR39417: Add 3556 build
+#
+# Hydra_Software_Devel/27   2/15/08 10:37a pntruong
+# PR38929: Added 93549.
+#
+# Hydra_Software_Devel/26   2/12/08 7:32p pntruong
+# PR39177: Moved 7440 to dedicated support.
+#
+# Hydra_Software_Devel/25   1/21/08 10:50p pntruong
+# PR23117:  Obsoleted 7440 A0 support.
+#
+# Hydra_Software_Devel/24   12/7/07 3:42p pntruong
+# PR37978: Add Intial support for 3563D0.
+#
+# Hydra_Software_Devel/23   11/29/07 3:37p tdo
+# PR36898: add 7335 build
+#
+# Hydra_Software_Devel/22   11/7/07 3:50p yuxiaz
+# PR34540: Added 7325 build
+#
+# Hydra_Software_Devel/21   9/27/07 4:59p tdo
+# PR35401: 7440C0: Bring-up of Application Framework.
+#
+# Hydra_Software_Devel/20   9/24/07 11:11a pntruong
+# PR34850: Updated mainline platforms support.
+#
+# Hydra_Software_Devel/19   9/11/07 4:43p pntruong
+# PR33653: Drop off support for 3563A0, added for 7405A0.
+#
+# Hydra_Software_Devel/18   8/1/07 4:36p pntruong
+# PR33653: Dropped off 7401A0 supports in buildall.
+#
+# Hydra_Software_Devel/17   6/27/07 8:28p pntruong
+# PR 24241: No longer support 7400A0.
+#
+# Hydra_Software_Devel/16   5/10/07 11:47p pntruong
+# PR 24241: 7118 does not build in the mainline.
+#
+# Hydra_Software_Devel/15   4/26/07 11:56p pntruong
+# PR28897: Now support 3563c0 to build for real.
+#
+# Hydra_Software_Devel/14   4/26/07 4:46p pntruong
+# PR28897: Now support 3563c0 to build.
+#
+# Hydra_Software_Devel/13   4/5/07 11:06a pntruong
+# PR 24241: 7118 does not build in the mainline yet.  So place it at the
+# end to prevent premature exit.
+#
+# Hydra_Software_Devel/12   4/4/07 4:34p syang
+# PR 24241: add 7118 (in case it follows 7401 to use main branch in
+# future)
+#
+# Hydra_Software_Devel/11   2/16/07 9:48a pntruong
+# PR 27117: Moved 7400 to last, because it needs chip specific
+# diplay_priv.c.
+#
+# Hydra_Software_Devel/10   2/9/07 2:48p pntruong
+# PR 27117: Included all chipsets support in mainline.
+#
+# Hydra_Software_Devel/9   12/20/06 7:17p pntruong
+# PR 25963: Added BVDC_P_SUPPORT_MODULAR_VEC. Cleanup inactive platforms.
+#
+# Hydra_Software_Devel/8   12/19/06 2:02p pntruong
+# PR22577: Added 7400B0 and 7403A0.
+#
+# Hydra_Software_Devel/7   12/19/06 12:04a pntruong
+# PR22577: Merged back to mainline.
+#
+# Hydra_Software_Devel/Refsw_Devel_3563/1   9/27/06 11:25p pntruong
+# PR23117: Dropped 7038 based chips.
+#
+# Hydra_Software_Devel/5   9/7/06 6:18p pntruong
+# PR23117:  Added 7401 C0.
+#
+# Hydra_Software_Devel/4   8/18/06 10:28p pntruong
+# PR23117:  Added 7440 support.
+#
+# Hydra_Software_Devel/3   8/15/06 11:08p pntruong
+# PR22572:  Make 3563 A0 first in the list to easy spot build errors.
+#
+# Hydra_Software_Devel/2   8/15/06 6:54p pntruong
+# PR22572:  Added 3563 A0.
+#
+# Hydra_Software_Devel/1   8/7/06 8:38a pntruong
+# PR22572: Need initial 93563 appframework bringup.
+#
+#############################################################################
+
+all: build_old build_new
+build_old: build_old_debug build_old_release
+build_new: build_new_debug build_new_release
+
+clean: clean_old clean_new
+clean_old: clean_old_debug clean_old_release
+clean_new: clean_new_debug clean_new_release
+
+#debug builds, old chipsets
+build_old_debug:
+
+#debug builds, new chipsets
+build_new_debug:
+	$(MAKE) $(MFLAGS) PLATFORM=97445 BCHP_VER=A0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97360 BCHP_VER=A0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97584 BCHP_VER=A0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97563 BCHP_VER=A0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97429 BCHP_VER=A0 B_REFSW_DEBUG=y
+	$(MAKE) $(MFLAGS) PLATFORM=97429 BCHP_VER=B0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97425 BCHP_VER=B2 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97435 BCHP_VER=A0 B_REFSW_DEBUG=y
+	$(MAKE) $(MFLAGS) PLATFORM=97435 BCHP_VER=B0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97231 BCHP_VER=B0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97344 BCHP_VER=B0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97346 BCHP_VER=B0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97358 BCHP_VER=A0 B_REFSW_DEBUG=y
+	$(MAKE) $(MFLAGS) PLATFORM=97358 BCHP_VER=A1 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97552 BCHP_VER=B0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97468 BCHP_VER=B0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97408 BCHP_VER=B0 B_REFSW_DEBUG=y
+	$(MAKE) $(MFLAGS) PLATFORM=97408 BCHP_VER=A0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97125 BCHP_VER=A0 B_REFSW_DEBUG=y
+	$(MAKE) $(MFLAGS) PLATFORM=97125 BCHP_VER=B0 B_REFSW_DEBUG=y
+	$(MAKE) $(MFLAGS) PLATFORM=97125 BCHP_VER=C0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97342 BCHP_VER=A0 B_REFSW_DEBUG=y
+	$(MAKE) $(MFLAGS) PLATFORM=97340 BCHP_VER=A0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97550 BCHP_VER=A0 B_REFSW_DEBUG=y
+	$(MAKE) $(MFLAGS) PLATFORM=97550 BCHP_VER=A1 B_REFSW_DEBUG=y
+	$(MAKE) $(MFLAGS) PLATFORM=97550 BCHP_VER=B0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97405 BCHP_VER=C0 B_REFSW_DEBUG=y
+	$(MAKE) $(MFLAGS) PLATFORM=97405 BCHP_VER=B0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97325 BCHP_VER=B0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97335 BCHP_VER=B0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97400 BCHP_VER=E0 B_REFSW_DEBUG=y
+	$(MAKE) $(MFLAGS) PLATFORM=97400 BCHP_VER=D0 B_REFSW_DEBUG=y
+
+	$(MAKE) $(MFLAGS) PLATFORM=97420 BCHP_VER=B0 B_REFSW_DEBUG=y
+	$(MAKE) $(MFLAGS) PLATFORM=97420 BCHP_VER=C0 B_REFSW_DEBUG=y
+
+# release builds, old chipsets
+build_old_release:
+
+# release builds, new chipsets
+build_new_release:
+	$(MAKE) $(MFLAGS) PLATFORM=97445 BCHP_VER=A0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97360 BCHP_VER=A0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97584 BCHP_VER=A0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97563 BCHP_VER=A0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97429 BCHP_VER=A0 B_REFSW_DEBUG=n
+	$(MAKE) $(MFLAGS) PLATFORM=97429 BCHP_VER=B0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97425 BCHP_VER=B2 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97435 BCHP_VER=A0 B_REFSW_DEBUG=n
+	$(MAKE) $(MFLAGS) PLATFORM=97435 BCHP_VER=B0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97231 BCHP_VER=B0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97344 BCHP_VER=B0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97346 BCHP_VER=B0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97358 BCHP_VER=A0 B_REFSW_DEBUG=n
+	$(MAKE) $(MFLAGS) PLATFORM=97358 BCHP_VER=A1 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97552 BCHP_VER=B0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97468 BCHP_VER=B0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97408 BCHP_VER=B0 B_REFSW_DEBUG=n
+	$(MAKE) $(MFLAGS) PLATFORM=97408 BCHP_VER=A0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97125 BCHP_VER=A0 B_REFSW_DEBUG=n
+	$(MAKE) $(MFLAGS) PLATFORM=97125 BCHP_VER=B0 B_REFSW_DEBUG=n
+	$(MAKE) $(MFLAGS) PLATFORM=97125 BCHP_VER=C0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97342 BCHP_VER=A0 B_REFSW_DEBUG=n
+	$(MAKE) $(MFLAGS) PLATFORM=97340 BCHP_VER=A0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97550 BCHP_VER=A0 B_REFSW_DEBUG=n
+	$(MAKE) $(MFLAGS) PLATFORM=97550 BCHP_VER=A1 B_REFSW_DEBUG=n
+	$(MAKE) $(MFLAGS) PLATFORM=97550 BCHP_VER=B0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97405 BCHP_VER=C0 B_REFSW_DEBUG=n
+	$(MAKE) $(MFLAGS) PLATFORM=97405 BCHP_VER=B0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97325 BCHP_VER=B0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97335 BCHP_VER=B0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97400 BCHP_VER=E0 B_REFSW_DEBUG=n
+	$(MAKE) $(MFLAGS) PLATFORM=97400 BCHP_VER=D0 B_REFSW_DEBUG=n
+
+	$(MAKE) $(MFLAGS) PLATFORM=97420 BCHP_VER=B0 B_REFSW_DEBUG=n
+	$(MAKE) $(MFLAGS) PLATFORM=97420 BCHP_VER=C0 B_REFSW_DEBUG=n
+
+#debug builds, old chipsets
+clean_old_debug:
+
+#debug builds, new chipsets:
+clean_new_debug:
+	$(MAKE) $(MFLAGS) PLATFORM=97445 BCHP_VER=A0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97360 BCHP_VER=A0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97584 BCHP_VER=A0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97563 BCHP_VER=A0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97429 BCHP_VER=A0 B_REFSW_DEBUG=y clean
+	$(MAKE) $(MFLAGS) PLATFORM=97429 BCHP_VER=B0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97425 BCHP_VER=B2 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97435 BCHP_VER=A0 B_REFSW_DEBUG=y clean
+	$(MAKE) $(MFLAGS) PLATFORM=97435 BCHP_VER=B0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97231 BCHP_VER=B0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97344 BCHP_VER=B0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97346 BCHP_VER=B0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97358 BCHP_VER=A0 B_REFSW_DEBUG=y clean
+	$(MAKE) $(MFLAGS) PLATFORM=97358 BCHP_VER=A1 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97552 BCHP_VER=B0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97468 BCHP_VER=B0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97408 BCHP_VER=B0 B_REFSW_DEBUG=y clean
+	$(MAKE) $(MFLAGS) PLATFORM=97408 BCHP_VER=A0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97125 BCHP_VER=A0 B_REFSW_DEBUG=y clean
+	$(MAKE) $(MFLAGS) PLATFORM=97125 BCHP_VER=B0 B_REFSW_DEBUG=y clean
+	$(MAKE) $(MFLAGS) PLATFORM=97125 BCHP_VER=C0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97342 BCHP_VER=A0 B_REFSW_DEBUG=y clean
+	$(MAKE) $(MFLAGS) PLATFORM=97340 BCHP_VER=A0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97550 BCHP_VER=A0 B_REFSW_DEBUG=y clean
+	$(MAKE) $(MFLAGS) PLATFORM=97550 BCHP_VER=A1 B_REFSW_DEBUG=y clean
+	$(MAKE) $(MFLAGS) PLATFORM=97550 BCHP_VER=B0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97405 BCHP_VER=C0 B_REFSW_DEBUG=y clean
+	$(MAKE) $(MFLAGS) PLATFORM=97405 BCHP_VER=B0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97325 BCHP_VER=B0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97335 BCHP_VER=B0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97400 BCHP_VER=E0 B_REFSW_DEBUG=y clean
+	$(MAKE) $(MFLAGS) PLATFORM=97400 BCHP_VER=D0 B_REFSW_DEBUG=y clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97420 BCHP_VER=B0 B_REFSW_DEBUG=y clean
+	$(MAKE) $(MFLAGS) PLATFORM=97420 BCHP_VER=C0 B_REFSW_DEBUG=y clean
+
+# release builds, old chipsets:
+clean_old_release:
+
+# release builds, new chipsets:
+clean_new_release:
+	$(MAKE) $(MFLAGS) PLATFORM=97445 BCHP_VER=A0 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97360 BCHP_VER=A0 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97584 BCHP_VER=A0 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97563 BCHP_VER=A0 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97429 BCHP_VER=A0 B_REFSW_DEBUG=n clean
+	$(MAKE) $(MFLAGS) PLATFORM=97429 BCHP_VER=B0 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97425 BCHP_VER=B2 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97435 BCHP_VER=A0 B_REFSW_DEBUG=n clean
+	$(MAKE) $(MFLAGS) PLATFORM=97435 BCHP_VER=B0 B_REFSW_DEBUG=n clean	
+
+	$(MAKE) $(MFLAGS) PLATFORM=97231 BCHP_VER=B0 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97344 BCHP_VER=B0 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97346 BCHP_VER=B0 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97358 BCHP_VER=A0 B_REFSW_DEBUG=n clean
+	$(MAKE) $(MFLAGS) PLATFORM=97358 BCHP_VER=A1 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97552 BCHP_VER=B0 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97468 BCHP_VER=B0 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97408 BCHP_VER=B0 B_REFSW_DEBUG=n clean
+	$(MAKE) $(MFLAGS) PLATFORM=97408 BCHP_VER=A0 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97125 BCHP_VER=A0 B_REFSW_DEBUG=n clean
+	$(MAKE) $(MFLAGS) PLATFORM=97125 BCHP_VER=B0 B_REFSW_DEBUG=n clean
+	$(MAKE) $(MFLAGS) PLATFORM=97125 BCHP_VER=C0 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97342 BCHP_VER=A0 B_REFSW_DEBUG=n clean
+	$(MAKE) $(MFLAGS) PLATFORM=97340 BCHP_VER=A0 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97550 BCHP_VER=A0 B_REFSW_DEBUG=n clean
+	$(MAKE) $(MFLAGS) PLATFORM=97550 BCHP_VER=A1 B_REFSW_DEBUG=n clean
+	$(MAKE) $(MFLAGS) PLATFORM=97550 BCHP_VER=B0 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97405 BCHP_VER=C0 B_REFSW_DEBUG=n clean
+	$(MAKE) $(MFLAGS) PLATFORM=97405 BCHP_VER=B0 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97325 BCHP_VER=B0 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97335 BCHP_VER=B0 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97400 BCHP_VER=E0 B_REFSW_DEBUG=n clean
+	$(MAKE) $(MFLAGS) PLATFORM=97400 BCHP_VER=D0 B_REFSW_DEBUG=n clean
+
+	$(MAKE) $(MFLAGS) PLATFORM=97420 BCHP_VER=B0 B_REFSW_DEBUG=n clean
+	$(MAKE) $(MFLAGS) PLATFORM=97420 BCHP_VER=C0 B_REFSW_DEBUG=n clean
+
+.PHONY: \
+	all clean build_old build_new clean_old clean_new \
+	build_old_debug build_old_release build_new_debug build_new_release \
+	clean_old_debug clean_old_release clean_new_debug clean_new_release

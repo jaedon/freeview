@@ -1,0 +1,7 @@
+#!/bin/sh
+
+export OLD_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=.:PREFIX/lib:$LD_LIBRARY_PATH
+exec env ${config} BIN_DIR/nexus $*
+export LD_LIBRARY_PATH=$OLD_LD_LIBRARY_PATH
+export OLD_LD_LIBRARY_PATH=

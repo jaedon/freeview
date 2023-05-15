@@ -1,0 +1,297 @@
+1943:BVT:Binary Cert Builder creates single-cert chain (Issuer) which can be read by the binary cert parser
+Test_SetDefaultBuilderData(IssuerPCDevDom, 4 Issuer, pubkey1.dat, 4 Key usages, 240 Indiv Device Link and Domain, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 1)
+Test_VerifyCertFromChain(0 first cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 240 Indiv Device Link and Domain )
+
+2077:BVT:Binary Cert Builder creates 2-cert chain (IssuerIndivDeviceLinkDomain/IssuerIndiv) which can be read by the binary cert parser
+Test_SetDefaultBuilderData(IssuerIndivDeviceLinkDomain, 4 Issuer, pubkey1.dat, 4 Key usages, 240 Indiv Device Link and Domain, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerPC, 4 Issuer, pubkey2.dat, 1 Key usages, 16 IssuerIndiv, privkey1.dat, pubkey1.dat)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_VerifyCertFromChain(1 first cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 240 Indiv Device Link and Domain )
+Test_VerifyCertFromChain(0 second cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 16 IssuerIndiv )
+
+102:BVT:Binary Cert Builder creates 2-cert chain (IssuerIndivDeviceLinkDomain/IssuerDomain) which can be read by the binary cert parser
+Test_SetDefaultBuilderData(IssuerIndivDeviceLinkDomain, 4 Issuer, pubkey1.dat, 4 Key usages, 240 Indiv Device Link and Domain, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerDomain, 4 Issuer, pubkey2.dat, 1 Key usages, 128 IssuerDomain, privkey1.dat, pubkey1.dat)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_VerifyCertFromChain(1 first cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 240 Indiv Device Link and Domain )
+Test_VerifyCertFromChain(0 second cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 128 IssuerDomain )
+
+
+103:BVT:Binary Cert Builder creates 2-cert chain (IssuerIndivDeviceLinkDomain/IssuerDevice) which can be read by the binary cert parser
+Test_SetDefaultBuilderData(IssuerIndivDeviceLinkDomain, 4 Issuer, pubkey1.dat, 4 Key usages, 240 Indiv Device Link and Domain, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerDevice, 4 Issuer, pubkey2.dat, 1 Key usages, 32 IssuerDevice, privkey1.dat, pubkey1.dat)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_VerifyCertFromChain(1 first cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 240 Indiv Device Link and Domain )
+Test_VerifyCertFromChain(0 second cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 32 IssuerDevice )
+
+
+104:BVT:Binary Cert Builder creates 2-cert chain (IssuerIndivDeviceLinkDomain/IssuerLink) which can be read by the binary cert parser
+Test_SetDefaultBuilderData(IssuerIndivDeviceLinkDomain, 4 Issuer, pubkey1.dat, 4 Key usages, 240 Indiv Device Link and Domain, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerLink, 4 Issuer, pubkey2.dat, 1 Key usages, 64 IssuerLink, privkey1.dat, pubkey1.dat)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_VerifyCertFromChain(1 first cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 240 Indiv Device Link and Domain )
+Test_VerifyCertFromChain(0 second cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 64 IssuerLink )
+
+105:BVT:Binary Cert Builder creates single cert chain (CRLSigner) which can be read by the binary cert parser
+Test_SetDefaultBuilderData(IssuerCRLSigner, 5 CRLSigner, pubkey1.dat, 1 Key usages, 4 SignCRL, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 1)
+Test_VerifyCertFromChain(0 first cert, 5 CRLSigner, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 4 SignCRL )
+
+106:BVT:Binary Cert Builder creates single cert chain (Service) which can be read by the binary cert parser
+Test_SetDefaultBuilderData(IssuerService, 6 Service, pubkey1.dat, 1 Key usages, 1 sign, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 1)
+Test_VerifyCertFromChain(0 first cert, 6 service type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 1 sign )
+
+
+107:BVT:Binary Cert Builder creates 3-cert chain (IssuerIndivDeviceLinkDomain/IssuerIndivLink/PC) which can be read by the binary cert parser
+Test_SetDefaultBuilderData(IssuerIndivDeviceLinkDomain, 4 Issuer, pubkey1.dat, 4 Key usages, 240 Indiv Device Link and Domain, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerPC, 4 Issuer, pubkey2.dat, 2 Key usages, 80 IssuerPC IssuerLink, privkey1.dat, pubkey1.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey3.dat, 2 Key usages, 3 Sign and Encrypt, privkey2.dat, pubkey2.dat)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_SetManufacturerInfo(PCManufacturer, PCModel, PC1234567890)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 3)
+Test_VerifyCertFromChain(2 first cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 240 Indiv Device Link and Domain )
+Test_VerifyCertFromChain(1 second cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 80 IssuerPC IssuerLink )
+Test_VerifyCertFromChain(0 third cert, 1 indiv type, 3 transmiter reciever, 0xFFFFFFFF, PCManufacturer, PCModel, PC1234567890, 1 key, 3 Sign and Encrypt )
+
+
+108:BVT:Binary Cert Builder creates 3-cert chain (IssuerIndivDeviceLinkDomain/IssuerDevice/Device) which can be read by the binary cert parser
+Test_SetDefaultBuilderData(IssuerIndivDeviceLinkDomain, 4 Issuer, pubkey1.dat, 4 Key usages, 240 Indiv Device Link and Domain, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerDevice, 4 Issuer, pubkey2.dat, 1 Key usages, 32 IssuerDevice, privkey1.dat, pubkey1.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey3.dat, 2 Key usages, 3 Sign and Encrypt, privkey2.dat, pubkey2.dat)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 3)
+Test_VerifyCertFromChain(2 first cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 240 Indiv Device Link and Domain )
+Test_VerifyCertFromChain(1 second cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 32 IssuerDevice )
+Test_VerifyCertFromChain(0 third cert, 2 device type, 8 secclock, 0xFFFFFFFF, DevManufacturer, DevModel, Dev1234567890, 1 key, 3 Sign and Encrypt )
+
+109:BVT:Binary Cert Builder creates 6-cert chain (IssuerIndivDeviceLinkDomain/IssuerDomainx4/Domain) which can be read by the binary cert parser
+Test_SetDefaultBuilderData(IssuerIndivDeviceLinkDomain, 4 Issuer, pubkey1.dat, 4 Key usages, 240 Indiv Device Link and Domain, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerDomain1, 4 Issuer, pubkey2.dat, 1 Key usages, 128 IssuerDomain, privkey1.dat, pubkey1.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerDomain2, 4 Issuer, pubkey3.dat, 1 Key usages, 128 IssuerDomain, privkey2.dat, pubkey2.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerDomain3, 4 Issuer, pubkey4.dat, 1 Key usages, 128 IssuerDomain, privkey3.dat, pubkey3.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerDomain4, 4 Issuer, pubkey5.dat, 1 Key usages, 128 IssuerDomain, privkey4.dat, pubkey4.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(DomCert1, 3 Domain Type, pubkey6.dat, 1 Key usage, 2 EncryptKey, privkey5.dat, pubkey5.dat)
+Test_SetDomainBuilderData(ServiceID123, DomainID, 12345 Revision, ClientID, http://www.contoso.com, 27 bytes counting null terminator)
+Test_SetManufacturerInfo(DomManufacturer, DomModel, DomModelNum)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 6)
+Test_VerifyCertFromChain(5 sixth cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 240 Indiv Device Link and Domain )
+Test_VerifyCertFromChain(4 fifth cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 128 IssuerDomain )
+Test_VerifyCertFromChain(0 first cert, 3 Domain Type, 0 no features, 0xFFFFFFFF, DomManufacturer, DomModel, DomModelNum, 1 key, 2 EncryptKey )
+
+110:BVT:Binary Cert Builder creates 3-cert chain (IssuerIndivSilverlight/IssuerSilverlight/Silverlight) which can be read by the binary cert parser
+Test_SetDefaultBuilderData(IssuerIndivSilverlight, 4 Issuer, pubkey1.dat, 2 Key usages, 272 Indiv and Silverlight, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerSilverlight, 4 Issuer, pubkey2.dat, 1 Key usages, 256 IssuerSilverlight, privkey1.dat, pubkey1.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(Silverlight23456, 7 Silverlight Type, pubkey3.dat, 1 Key usages, 2 Encrypt key, privkey2.dat, pubkey2.dat)
+Test_SetSilverLightBuilderData(SilverlightHardwareID, 0x1A2B3C4D security version, 1 Platform x86)
+Test_SetManufacturerInfo(SilverlightManufacturer, SilverlightModel, SL1234567890)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 3)
+Test_VerifyCertFromChain(2 first cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 272 Indiv and Silverlight )
+Test_VerifyCertFromChain(1 second cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 256 IssuerSilverlight )
+Test_VerifyCertFromChain(0 third cert, 7 Silverlight Type, 0 no features, 0xFFFFFFFF, SilverlightManufacturer, SilverlightModel, SL1234567890, 1 key, 2 Encrypt key )
+
+111:BVT:Binary Cert Builder creates 2-cert chain (IssuerMetering/Metering) which can be read by the binary cert parser
+Test_SetDefaultBuilderData(IssuerMetering, 4 Issuer, pubkey1.dat, 1 Key usages, 2048 IssuerMetering, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(Metering, 9 Metering Type, pubkey2.dat, 1 Key usages, 2 Encrypt key, privkey1.dat, pubkey1.dat)
+Test_SetMeteringBuilderData(MeteringID, http://www.contoso.com, 29 bytes counting null terminator )
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_VerifyCertFromChain(1 first cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 2048 IssuerMetering )
+Test_VerifyCertFromChain(0 second cert, 9 Metering Type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 2 Encrypt key )
+
+
+112:FUNC:Do not allow device certs to issue other certs (using valid device cert)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, testrootprivkey.dat, testrootpubkey.dat)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey3.dat, 2 Key usages, 3 Sign and Encrypt, privkey2.dat, pubkey2.dat)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey2.dat, privkey2.dat, 20, 14, extdata.txt)
+Test_SetManufacturerInfo(PCManufacturer, PCModel, PC1234567890)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004C802 DRM_E_BCERT_INVALID_CERT_TYPE
+
+113:FUNC:Do not allow device certs to issue other certs (using invalid device cert)
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 4 Key usages, 240 Indiv Device Link and Domain, testrootprivkey.dat, testrootpubkey.dat)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey3.dat, 2 Key usages, 3 Sign and Encrypt, privkey2.dat, pubkey2.dat)
+Test_SetPCBuilderData(PC1HardwareID, 0x1A2B3C4D Indiv version, pubkey2.dat, privkey2.dat, 20, 14, extdata.txt)
+Test_SetManufacturerInfo(PCManufacturer, PCModel, PC1234567890)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = DRM_E_BCERT_INVALID_CERT_TYPE
+
+114:FUNC:Do not allow CRL Signing certs to issue other certs  (using valid CRL Signer cert)
+Test_SetDefaultBuilderData(IssuerCRLSigner, 5 CRLSigner, pubkey1.dat, 1 Key usages, 4 SignCRL, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_SetDefaultBuilderData(IssuerPC, 4 Issuer, pubkey2.dat, 2 Key usages, 80 IssuerPC IssuerLink, privkey1.dat, pubkey1.dat)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = 0X8004C802 DRM_E_BCERT_INVALID_CERT_TYPE
+
+115:FUNC:Do not allow CRL Signing certs to issue other certs (using invalid CRL Signer cert) 
+Test_SetDefaultBuilderData(IssuerCRLSigner, 5 CRLSigner, pubkey1.dat, 2 Key usages, 2052 SignCRL IssuerMetering, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_SetDefaultBuilderData(Metering, 9 Metering Type, pubkey2.dat, 1 Key usages, 2 Encrypt key, privkey1.dat, pubkey1.dat)
+Test_SetMeteringBuilderData(MeteringID, http://www.contoso.com, 29 bytes counting null terminator )
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2) = DRM_E_BCERT_INVALID_CERT_TYPE
+
+
+116:FUNC:Binary Cert Builder creates 2-cert chain (IssuerAppCert/AppCert) which can be read by the binary cert parser
+Test_SetDefaultBuilderData(IssuerAppCert, 4 Issuer, pubkey1.dat, 1 Key usages, 512 IssuerApp, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_SetDefaultBuilderData(Application, 8 App Type, pubkey2.dat, 1 Key usages, 2 Encrypt key, privkey1.dat, pubkey1.dat)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+117:FUNC:Binary Cert Builder creates 2-cert chain (IssuerKeyFileSign/KeyFileSign) which can be read by the binary cert parser
+Test_SetDefaultBuilderData(IssuerKeyFileSign, 4 Issuer, pubkey1.dat,  1 Key usages, 4096 IssuerKeyFileSign, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_SetDefaultBuilderData(KeyFileSigner, 10 Key File Signer, pubkey2.dat,  1 Key usages, 8192 sign key file, privkey1.dat, pubkey1.dat)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+
+118:FUNC:Binary Cert Builder creates 1-cert chain (Service) which can be read by the binary cert parser
+Test_SetDefaultBuilderData(Service, 6 Service Type, pubkey1.dat, 1 Key usages, 1 Sign key, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 1)
+
+119:BVT:Binary Cert Builder creates 2-cert chain (IssuerServer/Server) which can be read by the binary cert parser
+Test_SetDefaultBuilderData(IssuerServer, 4 Issuer, pubkey1.dat, 1 Key usages, 16384 IssuerServer, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(Server, 11 Server Type, pubkey2.dat, 1 Key usages, 1 Sign key, privkey1.dat, pubkey1.dat)
+Test_SetServerBuilderData( 1313 )
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 2)
+Test_VerifyCertFromChain(1 first cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 16384 IssuerServer )
+Test_VerifyCertFromChain(0 second cert, 11 Server Type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 1 sign key )
+
+121:FUNC:Use Security Version in Device Cert.
+Test_SetDefaultBuilderData(Devcert190123456, 2 Device Type, pubkey2.dat, 2 Key usages, 3 Sign and Encrypt, testrootprivkey.dat, testrootpubkey.dat, 20, 5)
+Test_SetDeviceBuilderData(SNum012345678912)
+Test_SetManufacturerInfo(DevManufacturer, DevModel, Dev1234567890)
+Test_SetFeatureInfo(8 secclock, 1 features supported)
+Test_AddCert
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 1)
+Test_VerifyCertFromChain(0 only cert, 2 Device type, 8 secureclock expected, 0xFFFFFFFF, DevManufacturer, DevModel, Dev1234567890, 1 keys, 3 Sign and Encrypt )
+Test_VerifySecurityVersionForCert(0 second cert, 20 secure version, 5 platform, TRUE, TRUE )
+
+122:FUNC:Use Security version 2 only for windows on ARM platform in PC Cert
+Test_SetDefaultBuilderData(IssuerIndivDeviceLinkDomain, 4 Issuer, pubkey1.dat, 4 Key usages, 240 Indiv Device Link and Domain, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerPC, 4 Issuer, pubkey2.dat, 2 Key usages, 80 IssuerPC IssuerLink, privkey1.dat, pubkey1.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey3.dat, 2 Key usages, 3 Sign and Encrypt, privkey2.dat, pubkey2.dat, 74 secuirty version, 2 platform)
+Test_SetPCBuilderData(PC1HardwareID, 0x0000004A Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_SetManufacturerInfo(PCManufacturer, PCModel, PC1234567890)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 3)
+Test_VerifyCertFromChain(2 first cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 240 Indiv Device Link and Domain )
+Test_VerifyCertFromChain(1 second cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 80 IssuerPC IssuerLink )
+Test_VerifyCertFromChain(0 third cert, 1 indiv type, 3 transmiter reciever, 0xFFFFFFFF, PCManufacturer, PCModel, PC1234567890, 1 key, 3 Sign and Encrypt )
+Test_VerifySecurityVersionForCert(0 third cert, 74 secure version, 2 platform, FALSE,  TRUE )
+
+123:FUNC:Use Security version and Security version 2 for windows platform in PC Cert
+Test_SetDefaultBuilderData(IssuerIndivDeviceLinkDomain, 4 Issuer, pubkey1.dat, 4 Key usages, 240 Indiv Device Link and Domain, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerPC, 4 Issuer, pubkey2.dat, 2 Key usages, 80 IssuerPC IssuerLink, privkey1.dat, pubkey1.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey3.dat, 2 Key usages, 3 Sign and Encrypt, privkey2.dat, pubkey2.dat, 74 security version, 0 platform)
+Test_SetPCBuilderData(PC1HardwareID, 0x0000004A Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_SetManufacturerInfo(PCManufacturer, PCModel, PC1234567890)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 3)
+Test_VerifyCertFromChain(2 first cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 240 Indiv Device Link and Domain )
+Test_VerifyCertFromChain(1 second cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 80 IssuerPC IssuerLink )
+Test_VerifyCertFromChain(0 third cert, 1 indiv type, 3 transmiter reciever, 0xFFFFFFFF, PCManufacturer, PCModel, PC1234567890, 1 key, 3 Sign and Encrypt )
+Test_VerifySecurityVersionForCert(0 third cert, 74 secure version, 0 platform, TRUE,  TRUE )
+
+
+124:FUNC:Use Security version 2 for unknown flatform in PC Cert
+Test_SetDefaultBuilderData(IssuerIndivDeviceLinkDomain, 4 Issuer, pubkey1.dat, 4 Key usages, 240 Indiv Device Link and Domain, testrootprivkey.dat, testrootpubkey.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(IssuerPC, 4 Issuer, pubkey2.dat, 2 Key usages, 80 IssuerPC IssuerLink, privkey1.dat, pubkey1.dat)
+Test_AddCert
+Test_ClearBuilderData
+Test_SetDefaultBuilderData(PCCert1, 1 PC Type, pubkey3.dat, 2 Key usages, 3 Sign and Encrypt, privkey2.dat, pubkey2.dat, 74 security version, 8 platform)
+Test_SetPCBuilderData(PC1HardwareID, 0x0000004A Indiv version, pubkey1.dat, privkey1.dat, 20, 14, extdata.txt)
+Test_SetManufacturerInfo(PCManufacturer, PCModel, PC1234567890)
+Test_SetFeatureInfo(3 transmiter reciever, 2 features supported)
+Test_AddCert
+Test_ClearBuilderData
+Test_ParseCertificateChain(NULL, testrootpubkey.dat, 3)
+Test_VerifyCertFromChain(2 first cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 240 Indiv Device Link and Domain )
+Test_VerifyCertFromChain(1 second cert, 4 issuer type, 0 no features, 0xFFFFFFFF, NULL, NULL, NULL, 1 key, 80 IssuerPC IssuerLink )
+Test_VerifyCertFromChain(0 third cert, 1 indiv type, 3 transmiter reciever, 0xFFFFFFFF, PCManufacturer, PCModel, PC1234567890, 1 key, 3 Sign and Encrypt )
+Test_VerifySecurityVersionForCert(0 third cert, 74 secure version, 8 platform, FALSE,  TRUE )
+
+

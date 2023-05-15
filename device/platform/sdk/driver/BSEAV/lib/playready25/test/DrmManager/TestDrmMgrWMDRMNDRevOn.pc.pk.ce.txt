@@ -1,0 +1,116 @@
+-------------------BVT ends here--------------------------
+'REVOCATION TESTS
+
+30020: Add WMDRMND revocation list to secure store, and retrieve it using Drm_Revocation_GetList and then call DRM_MGR_GetRevInfo
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><RESTRICTIONS><COMPRESSEDDIGITALVIDEO level='300'/></RESTRICTIONS><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_1_WMDRMND_8.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerPrepareOPLCallback(300,100,100,100,100,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump,Dump, Use Callback function)
+TestManagerCommit 
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, files\rlvi_1_WMDRMND_8.b64.signed_wchar,TRUE)
+TestManagerGetRevocationList({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+
+30060: Process a different license response containing the same WMDRMND revocation list
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><RESTRICTIONS><COMPRESSEDDIGITALVIDEO level='300'/></RESTRICTIONS><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_1_WMDRMND_8.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, files\rlvi_1_WMDRMND_8.b64.signed_wchar,TRUE)
+TestManagerGetRevocationList({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Ygiiuk82iokl11==,{00000504-0000-0010-8000-00AA006D2EA4},0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_1_WMDRMND_8.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, files\rlvi_1_WMDRMND_8.b64.signed_wchar,TRUE)
+TestManagerGetRevocationList({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+
+30120: Process a license response containing WMDRMND revocation list with higher index
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><RESTRICTIONS><COMPRESSEDDIGITALVIDEO level='300'/></RESTRICTIONS><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_6_WMDRMND_5.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_5.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, files\rlvi_6_WMDRMND_5.b64.signed_wchar,TRUE)
+TestManagerGetRevocationList({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_5.b64_wchar)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Ygiiuk82iokl11==,{00000504-0000-0010-8000-00AA006D2EA4},0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_7_WMDRMND_8.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerGetRevocationList({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, files\rlvi_7_WMDRMND_8.b64.signed_wchar,TRUE)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+
+30130: Process a license response containing WMDRMND revocation list with lower index
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><RESTRICTIONS><COMPRESSEDDIGITALVIDEO level='300'/></RESTRICTIONS><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_1_WMDRMND_8.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerGetRevocationList({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, files\rlvi_1_WMDRMND_8.b64.signed_wchar,TRUE)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Ygiiuk82iokl11==,{00000504-0000-0010-8000-00AA006D2EA4},0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_6_WMDRMND_5.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_5.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerGetRevocationList({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, files\rlvi_6_WMDRMND_5.b64.signed_wchar,TRUE)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+
+30190: Process a license response containing invalid WMDRMND revocation list, it should fail 
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><RESTRICTIONS><COMPRESSEDDIGITALVIDEO level='300'/></RESTRICTIONS><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_1_WMDRMND_8.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\invalid_crl_WMDRMND_8.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)=-2147024809
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+
+' DRM_MGR_StoreRevocationLists test cases
+
+30420: Set WMDRMND CRL and an invalid CRL GUID with valid RLVI using DRM_MGR_StoreRevocationLists
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><RESTRICTIONS><COMPRESSEDDIGITALVIDEO level='300'/></RESTRICTIONS><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerStoreRevocationLists(FALSE, 2, {00000000-0000-0000-0000-000000000000}, files\crl_WMDRMND_8, {CCDE5A55-A688-4405-A88B-D13F90D5BA3E}, files\rlvi_1_WMDRMND_8.b64.signed_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerGetRevocationList({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\crl_WMDRMND_8.b64_wchar)=-2147467259(0X80004005)
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, files\rlvi_1_WMDRMND_8.b64.signed_wchar,TRUE)=-2147467259(0X80004005)
+

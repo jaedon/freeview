@@ -1,0 +1,131 @@
+.photoPlayback{
+  .carousel-item{
+    img {
+      -o-transition: opacity 1s cubic-bezier(0.675, 0.290, 0.000, 0.910);
+    }
+  }
+  .pause, .play{
+    content: "";
+    margin: auto;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 286px;
+    width: 144px;
+    height: 144px;
+  }
+  .pause {
+    opacity : 0;
+    background: url(../images/426_ME_P_Pause.png) no-repeat transparent;
+  }
+  .play {
+    opacity : 0;
+    background: url(../images/426_ME_P_Play.png) no-repeat transparent;
+  }
+  .item {
+    position:relative;
+    height: 720px;
+    width: 1280px;
+    img {
+      position:absolute;
+      top:0;
+      bottom:0;
+      left:0;
+      right:0;
+      margin:auto;
+    }
+  }
+}
+
+
+.thumbnailSlider {
+    bottom: 0;
+    height: 224px !important;
+    left: -152px;
+  &:before {
+    content: "";
+    background: url(../images/105_BG_MED_PB.png) no-repeat;
+    position: absolute;
+    left: 152px;
+    bottom: 0px;
+    width: 1280px;
+    height: 400px;
+  }
+  img {
+    width: 164px;
+    height: 164px;
+  }
+  .-carousel-item{
+    &:not(.-carousel-dist0){
+      &:after{
+        content: "";
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 154px;
+        height: 154px;
+      }
+    }
+    &.border{
+      &:not(.-carousel-dist0){
+        &:after{
+          border: 5px solid rgba(255, 255, 255, 0.600);
+        }
+      }
+    }
+    &.-carousel-dist0 {
+      img {
+        position: absolute;
+        top: -10px;
+        width: 185px;
+        height: 185px;
+      }
+    }
+  }
+  .muAnchorItem{
+    &:after {
+      border: 6px solid #2EB2FF;
+      content: "";
+      position: absolute;
+      left: 0px;
+      top: -10px;
+      width: 175px;
+      height: 175px;
+    }
+  }
+  .title {
+    color: #2EBEFF;
+    font-family: "PrismFontB";
+    font-size: 26px;
+    top: -50px;
+    left: 0;
+    width: 185px;
+    overflow: hidden;
+    position: absolute;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .optionMenuInd{
+     &:before {
+       position: absolute;
+       content: "";
+       right: -60px;
+       bottom: -15px;
+       width: 480px;
+       height: 115px;
+       background: url(../images/105_BG_COM_Context_R01.png) no-repeat;
+     }
+    position: absolute;
+    right: -93px;
+    bottom: 60px;
+    height: 26px;
+    line-height: 30px;
+    font-size: 24px;
+    padding: 0px 5px 0px 35px;
+    color: #A0A0A0;
+    background: url(../images/201_Option.png) no-repeat;
+  }
+}
+
+

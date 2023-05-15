@@ -1,0 +1,22 @@
+/* OTF */
+@font-face {
+  font-family: PrismFontB;
+  src: url(../../../font/HelveticaNeueLTW1G-BdCn.otf);
+  font-style: normal;
+}
+@font-face {
+  font-family: PrismFontL;
+  src: url(../../../font/HelveticaNeueLTW1G-LtCn.otf);
+  font-style: normal;
+}
+body,
+select,
+input,
+button,
+textarea,
+button {
+  font-size: 28px;
+  line-height: 1.231;
+  font-family: PrismFontB;
+  color: #fff;
+}

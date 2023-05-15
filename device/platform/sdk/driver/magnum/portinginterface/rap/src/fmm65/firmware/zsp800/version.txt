@@ -1,0 +1,9 @@
+#	SW7420-1446: BCM7420 - MS11- DV258 Certification - Support multichannel PCMWAV decode ,Merging PCM Wave multichannel decoder to main line
+#
+###########################################################
+
+element * CHECKEDOUT
+element * RAP_SW7420_1446_PCMWAVE_20110519
+element * RAP_7405_73XX_7420_734X_7125_7468_NEWARCH_MS11_20110328
+element * /main/LATEST
+load \NextGenAudio

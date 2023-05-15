@@ -1,0 +1,3 @@
+vpath %.c $(SOURCE_DIR)/
+
+objs-y = $(ODIR)/main.o

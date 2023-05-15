@@ -1,0 +1,78 @@
+1400:DRT:P0:calculate length of a simple KeyInfo XML tag with ECC-256 public key parameters and compare value
+TestDRM_XMLSIG_GetSimpleECC256KeyInfoNodeCharCount(1,221)
+
+1401:DRT:P0:calculate length of a simple KeyInfo XML tag with a name of pre-shared ECC-256 key pair and compare value
+TestDRM_XMLSIG_GetSimpleECC256KeyInfoNodeCharCount(2,91)
+
+1402:DRT:P0:pass invalid ECC-256 key format and expect invalid argument error
+TestDRM_XMLSIG_GetSimpleECC256KeyInfoNodeCharCount(5,200)=-2147024809(0x80070057 E_INVALIDARG)
+
+1404:DRT:P0:calculate length of an encrypted KeyInfo XML tag with ECC-256 public key parameters and compare value
+TestDRM_XMLSIG_GetEncryptedKeyInfoNodeCharCount(2,1,685)
+
+1405:DRT:P0:calculate length of an encrypted KeyInfo XML tag with a name of pre-shared ECC-256 key pair and compare value
+TestDRM_XMLSIG_GetEncryptedKeyInfoNodeCharCount(2,2,555)
+
+1406:DRT:P0:pass KeyInfo foRmat == DRM_XML_KEYINFO_SIMPLE and expect invalid argument error
+TestDRM_XMLSIG_GetEncryptedKeyInfoNodeCharCount(1,1,1000)=-2147024809(0x80070057 E_INVALIDARG)
+
+1407:DRT:P0:pass invalid KeyInfo format and expect invalid argument error
+TestDRM_XMLSIG_GetEncryptedKeyInfoNodeCharCount(5,1,1000)=-2147024809(0x80070057 E_INVALIDARG)
+
+1408:DRT:P0:calculate length of Signature tag in XML signature and compare value
+TestDRM_XMLSIG_GetSignatureNodeCharCount(977)
+
+1409:DRT:P0:calculate length of an EncryptedData XML tag with a given string and ECC-256 public key parameters and compare value
+TestDRM_XMLSIG_GetEncryptedDataNodeCharCount("pretend this is encrypted data",2,1,1036)
+
+1410:DRT:P0:calculate length of an EncryptedData XML tag with a given string with a name of pre-shared ECC-256 key pair and compare value
+TestDRM_XMLSIG_GetEncryptedDataNodeCharCount("pretend this is encrypted data",2,2,906)
+
+1411:DRT:P0:pass KeyInfo format == DRM_XML_KEYINFO_SIMPLE and expect invalid argument error
+TestDRM_XMLSIG_GetEncryptedDataNodeCharCount("pretend this is eNcrypted data",1,1,1000)=-2147024809(0x80070057 E_INVALIDARG)
+
+1412:DRT:P0:pass invalid KeyInfo format and expect invalid argument error
+TestDRM_XMLSIG_GetEncryptedDataNodeCharCount("pretend this is encrypted data",5,1,1000)=-2147024809(0x80070057 E_INVALIDARG)
+
+1413:DRT:P0:calculate length of an EncryptedData XML tag with a given string and ECC-256 public key parameters and zero-length encrypted data: expect it to pass and compare value
+TestDRM_XMLSIG_GetEncryptedDataNodeCharCount("",2,1,956)
+
+1414:DRT:P0:build a simple KeyInfo with a pre-shared key name, compare to a hardcoded string - ANSI
+TestDRM_XMLSIG_BuildSimpleECC256KeyInfoKeyName()
+
+1415:DRT:P0:build a simple KeyInfo with a public key params, make sure that XML nodes and data for ECC-256 keys are present
+TestDRM_XMLSIG_BuildSimpleECC256KeyInfoKeyValue()
+
+1417:DRT:P0:Build a signature node, use input string to calculate digest - ANSI
+TestDRM_XMLSIG_BuildSignatureNode("<blah></blah>")
+
+1418:DRT:P0:Build a signature node, use input string to calculate digest - ANSI
+TestDRM_XMLSIG_BuildSignatureNode("z")
+
+1419:DRT:P0:Build a signature node, try using an empty string to calculate digest, expect invalid argument error - ANSI
+TestDRM_XMLSIG_BuildSignatureNode("")=-2147024809(0x80070057 E_INVALIDARG)
+
+1420:DRT:P0:build EncryptedData tag and put a string under CipherData node, verify it's there
+TestDRM_XMLSIG_BuildEncryptedDataNode("some data")
+
+1421:DRT:P0:build EncryptedData tag and try to put an empty string into CipherData, expect invalid argument error
+TestDRM_XMLSIG_BuildEncryptedDataNode("")=-2147024809(0x80070057 E_INVALIDARG)
+
+1422:DRT:P0:Parse a KeyInfo node and extract ECC-256 public key value - ANSI
+TestDRM_XMLSIG_ExtractSimpleECC256Key(<KeyInfo><KeyName>WMRMServer</KeyName></KeyInfo>)
+
+1423:DRT:P0:Parse a KeyInfo node with invalid key name, expect DRM_E_XMLSIG_PUBLIC_KEY_ID error - ANSI
+TestDRM_XMLSIG_ExtractSimpleECC256Key(<KeyInfo><KeyName>Some_unknown_key</KeyName></KeyInfo>)=-2147170045(0X8004C903 DRM_E_XMLSIG_PUBLIC_KEY_ID)
+
+1424:DRT:P0:Parse a KeyInfo node with a correct ECC-256 data - ANSI
+TestDRM_XMLSIG_ExtractSimpleECC256Key(<KeyInfo><KeyValue><ECCKeyValue><PublicKey>MTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMQ==</PublicKey></ECCKeyValue></KeyValue></KeyInfo>)
+
+1425:DRT:P0:Parse a KeyInfo node with invalid ECC-256 data in it, expect DRM_E_XMLNOTFOUND error - ANSI
+TestDRM_XMLSIG_ExtractSimpleECC256Key(<KeyInfo><KeyValue><ECCKeyValue><PublicKey>loooooong line</PublicKey></ECCKeyValue></KeyValue></KeyInfo>)=-2147024809(0x80070057 E_INVALIDARG)
+
+1427:DRT:P0:Verify XML signature of a string - ANSI
+TestDRM_XMLSIG_VerifySignature(<AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID>,<Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></CanonicalizationMethod><SignatureMethod Algorithm="http://schemas.microsoft.com/DRM/2004/02/CERT/Rsa-sha1"></SignatureMethod><Reference><Transforms><Transform Algorithm="http://schemas.microsoft.com/DRM/2004/02/CERT/Data"></Transform><Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></Transform></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></DigestMethod><DigestValue>h+Vt4QsA3I5jjBcSqkMczbZYvj1g4RSjKLHUc1UKrj4=</DigestValue></Reference></SignedInfo><SignatureValue>weaDQAFEBcTTOGxlzpSk3EnRdvraA9yEZxCZs3TGmnk/makF6puFzGJnPF8/+QTnDDnvdXGONocEgF3I4cBVDg==</SignatureValue><KeyInfo><KeyValue><ECCKeyValue><PublicKey>DI+5sHTvXtpooXaOpmXLB+IG6XocieaF5lcoi+ErhddW1h2OLNFYl18hPks7RFmvx1rXHLDzQDB4E93Vir19Jw==</PublicKey></ECCKeyValue></KeyValue></KeyInfo></Signature>)
+
+1428:DRT:P0:Verify XML signature of a string that does not match, expect SHA-256 error - ANSI
+TestDRM_XMLSIG_VerifySignature(<blah1></blah1>,<Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></CanonicalizationMethod><SignatureMethod Algorithm="http://schemas.microsoft.com/DRM/2004/02/CERT/Rsa-sha1"></SignatureMethod><Reference><Transforms><Transform Algorithm="http://schemas.microsoft.com/DRM/2004/02/CERT/Data"></Transform><Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></Transform></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></DigestMethod><DigestValue>TjT/zjKEC8XRlqVjw13kMUsgCW1gHmqNGvx7bmBuvI0=</DigestValue></Reference></SignedInfo><SignatureValue>Rsz8R4zjg6zeXOxgQxgmlAe9eMaRBeOg+pbIy7/Qk9DbPkprv0X5XiRnP4z+2eOGFgxKHiBsJySWMi5G2F5yDQ==</SignatureValue><KeyInfo><KeyValue><ECCKeyValue><PublicKey>DI+5sHTvXtpooXaOpmXLB+IG6XocieaF5lcoi+ErhddW1h2OLNFYl18hPks7RFmvx1rXHLDzQDB4E93Vir19Jw==</PublicKey></ECCKeyValue></KeyValue></KeyInfo></Signature>)=-2147170047(0X8004C901 DRM_E_XMLSIG_SHA_VERIFY_FAILURE)
+

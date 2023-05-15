@@ -1,0 +1,5 @@
+DIRS =       \
+    real     \
+    stub     \
+    external \
+

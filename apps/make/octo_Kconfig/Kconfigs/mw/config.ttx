@@ -1,0 +1,11 @@
+#############################################
+#					MW/TTX Configuration					#
+#############################################
+
+comment "MW/TTX Configuration. (MW_TTX_XXX)"
+
+	config MW_TTX_TOP
+	depends on MW_TELETEXT
+		bool "MW_TTX_TOP - Support Teletext TOP(Table of Page)"
+		default n
+

@@ -1,0 +1,48 @@
+{
+	"RUN_ALL": false,
+
+	"RUN_CATEGORY":[
+		"filemgr"
+		],
+
+	"RUN_TC":[
+
+		],
+
+	"TC_LIST": 
+		[
+		{
+			"tc_name": "TC_FILEMANAGER_ManipulateDirectory",
+			"category": ["filemgr", "dir"],
+			"argument": {
+				"path" : "/home/test_directory",
+				"makedir" : true,
+				"removedir" : true	
+			},
+			"expect_result": {
+				"result": 0 
+			}
+		},
+		{
+			"tc_name": "TC_FILEMANAGER_GetStorageInfo",
+			"category": ["filemgr", "info"],
+			"argument": {
+				
+			},
+			"expect_result": {
+				"result": 0 
+			}
+		},
+		{
+			"tc_name": "TC_FILEMANAGER_PairHdd",
+			"category": ["filemgr", "pairing"],
+			"argument": {
+				 
+			},
+			"expect_result": {
+				"result": 0 
+			}
+		}
+		]
+}
+

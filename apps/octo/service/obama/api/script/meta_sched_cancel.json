@@ -1,0 +1,10 @@
+"meta" : {
+	"operation" : "get",
+	"target" : "schedule",
+	"property" : {
+		"method"	: "cancel",
+		"param"		: {
+			"uid"		: 1
+		}
+	}
+}

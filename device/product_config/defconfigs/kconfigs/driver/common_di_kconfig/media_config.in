@@ -1,0 +1,202 @@
+##########################################
+# DI MEDIA configuration menu
+##########################################
+
+config NETFLIX_SUPPORT
+	bool
+	prompt "NETFLIX_SUPPORT"
+	default n
+
+config CALYPSO
+	bool
+	prompt "CALYPSO"
+	default n
+
+config MEDIA
+	bool
+	prompt "MEDIA"
+	default n
+
+	choice
+		prompt "Select Media Engine Version"
+		default MEDIA20
+		depends on MEDIA
+		config MEDIA20
+			bool 
+			prompt "media2.0 engine"
+			depends on MEDIA
+		config MEDIA10
+			bool 
+			prompt "media1.0 engine"
+			depends on MEDIA
+	endchoice
+
+		config VFIO
+			bool
+			prompt "VFIO"
+			default y
+			depends on MEDIA
+	
+		config MEDIA_SSTR
+			bool
+			prompt "MEDIA_SSTR"
+			default n
+			depends on MEDIA
+	
+		config LIBXML2
+			bool
+			prompt "LIBXML2"
+			default y
+			depends on MEDIA_SSTR || CALYPSO
+
+		config VIEWRIGHTWEB
+			bool
+			prompt "VIEWRIGHTWEB"
+			default n
+			depends on MEDIA && MEDIA10
+	
+		config IPTUNER
+			bool
+			prompt "Use IPTUNER 1.0"
+			default n
+			depends on MEDIA && MEDIA10
+
+		config USE_RAMBUFFERING
+			bool
+			prompt "Use stream buffering (Memory)"
+			default n
+			depends on IPTUNER && !HDD_SMART
+
+		config USE_IPTUNER_STREAM_BUFFERING
+			int
+			prompt "Use IPTUNER RAM Buffering Size(MBytes)"
+			default 0 
+			depends on USE_RAMBUFFERING
+		
+		config USE_PREBUFFERING_ONOFF_THRESHOLD
+			int
+			prompt "Use IPTUNER Pre-Buffering Threshold (MBytes)"
+			default 0
+			depends on USE_RAMBUFFERING
+			
+		config IPTUNER_OPENSSL
+			bool
+			prompt "Use TLS Stremaing in IPTUNER"
+			default n
+			depends on IPTUNER && MEDIA10
+
+		config IPTUNER_OPENSSL_CERT_MANAGER
+			bool
+			prompt "Use Certification Manager in IPTUNER"
+			default n
+			depends on IPTUNER_OPENSSL
+
+		config IPTUNER_OPENSSL_CERT_MANAGER_DATA_PATH
+			string
+			prompt "Data file path for Certification Manager"
+			default "/usr/browser/client.conf"
+			depends on IPTUNER_OPENSSL_CERT_MANAGER
+
+		config DI_MAX_URL_LENGTH
+			int
+			prompt "Use Max URL Length"
+			default 2048
+			depends on MEDIA
+
+		config IPTUNER_XTREMEHSS_LIVE
+			bool
+			prompt "Support HTTP-based live streaming from Vision247 XtreamHSS server (UK Freeview MHEG-ICS)"
+			default n
+			depends on IPTUNER && MEDIA10
+
+		config HLS_LIVE_RESTART
+			bool
+			prompt "HLS_LIVE_RESTART"
+			default n
+			depends on IPTUNER
+
+		config HLS_UNDERFLOW_MONITORING_FOR_BBC_CATAL
+			bool
+			prompt "HLS_UNDERFLOW_MONITORING_FOR_BBC_CATAL"
+			default n
+			depends on IPTUNER			
+
+		config SEND_CHANGEPLAYTIME_PERIOD_250MS
+			bool
+			prompt "Use Playtime update per every 250ms"
+			default n
+			depends on MEDIA10
+
+		config MEDIA_PROBE_PMT
+			bool
+			prompt "MEDIA_PROBE_PMT"
+			default n
+			depends on MEDIA
+
+		config MEDIA_PROBE_CA_DESC
+			bool
+			prompt "MEDIA_PROBE_CA_DESC"
+			default n
+			depends on MEDIA
+
+		config DLNA_CERTIFICATION
+			bool
+			prompt "Use for DLNA Certification"
+			default n
+			depends on MEDIA
+
+
+config DRM
+	bool
+	prompt "DRM"
+	default n
+
+	config PLAYREADY
+		bool
+		prompt "MS PlayReady DRM"
+		default n
+		depends on DRM
+	
+	config PLAYREADY_20
+		bool
+		prompt "MS PlayReady DRM 2.0"
+		default n
+		depends on DRM
+	
+	config PLAYREADY_25
+		bool
+		prompt "MS PlayReady DRM 2.5"
+		default n
+		depends on DRM
+
+	config PLAYREADY_25_BRCM
+		bool
+		prompt "MS PlayReady DRM 2.5 BRCM (On NEXUS)"
+		default n
+		depends on DRM
+
+    config PLAYREADY_SSL
+        bool
+        prompt "PLAYREADY + SSL"
+        default n
+        depends on DRM
+
+	config MSDRM_PD
+		bool
+		prompt "MS DRM Portable Device 10"
+		default n
+		depends on DRM
+	
+	config MARLIN_DRM
+		bool
+		prompt "MARLIN DRM"
+		default n
+		depends on DRM
+
+config OPENSSL
+	bool
+	prompt "OpenSSL"
+	default y
+	depends on MEDIA || CALYPSO || CRCTEST
+
+

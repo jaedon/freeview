@@ -1,0 +1,18 @@
+
+TARGETNAME=Test_Suite_NDT
+TARGETTYPE=LIBRARY
+
+#
+# If main.c and/or functionaltest.c has MEMORY_LEAK_DEBUG defined, use DEBUG_CRTS=1
+#
+# DEBUG_CRTS=1
+
+SOURCES = \
+        ../functionaltest.c \
+        ../drmdecrypt.c \
+        ../testdevstore.c
+
+TARGETLIBS = \
+	$(_DRM_REFCODE_LIBS) \
+	$(_DRM_TC_LIBS)
+        

@@ -1,0 +1,11 @@
+<UNSIGNEDTEMPLATE>
+	<c:ManufacturerData>
+		<c:ManufacturerName>BarRetailersInc</c:ManufacturerName>
+		<c:ModelName>CoolNewDevice</c:ModelName>
+		<c:ModelNumber>XR-700</c:ModelNumber>
+	</c:ManufacturerData>
+	<c:SecurityLevel>150</c:SecurityLevel>
+	<c:KeyUsage>
+		<c:SignCertificate>1</c:SignCertificate> 
+	</c:KeyUsage>
+</UNSIGNEDTEMPLATE>

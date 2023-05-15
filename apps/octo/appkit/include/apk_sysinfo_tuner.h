@@ -1,0 +1,24 @@
+#ifndef __APK_SYSINFO_TUNER_H__
+#define __APK_SYSINFO_TUNER_H__
+
+typedef void (*APK_SYSINFO_TUNER_Notifier_t) (void);
+
+HERROR	APK_SYSINFO_TUNER_Init(void);
+HERROR	APK_SYSINFO_TUNER_DeInit(void);
+HERROR	APK_SYSINFO_TUNER_RegisterListener(APK_SYSINFO_TUNER_Notifier_t fnNotifier);
+HERROR	APK_SYSINFO_TUNER_UnregisterListener(APK_SYSINFO_TUNER_Notifier_t fnNotifier);
+HERROR	APK_SYSINFO_TUNER_GetDeviceNum(HUINT32 *pulDevNum);
+HERROR	APK_SYSINFO_TUNER_GetDevType(HINT32 nIndex, DxDeliveryType_e *peDeliType);
+HERROR	APK_SYSINFO_TUNER_IsLocked(HINT32 nIndex, HBOOL *pbLocked);
+HERROR	APK_SYSINFO_TUNER_GetSignalLevel(HINT32 nIndex, HINT32 *pnSignalLevel);
+HERROR	APK_SYSINFO_TUNER_GetSignalQuality(HINT32 nIndex, HINT32 *pnSignalQuality);
+HERROR	APK_SYSINFO_TUNER_GetAgc(HINT32 nIndex, HINT32 *pnAgc);
+HERROR	APK_SYSINFO_TUNER_GetBer(HINT32 nIndex, HFLOAT32 *pfBer);
+HERROR	APK_SYSINFO_TUNER_GetSnr(HINT32 nIndex, HFLOAT32 *pfSnr);
+HERROR	APK_SYSINFO_TUNER_GetInputPower(HINT32 nIndex, HFLOAT32 *pfInputPower);
+HERROR	APK_SYSINFO_TUNER_GetTuneParam(HINT32 nIndex, DxTuneParam_t *pstTuneParam);
+HERROR	APK_SYSINFO_TUNER_GetTunerIdByTripleId(HINT32 nOnId, HINT32 nTsId, HINT32 nSvcId, HINT32 *pnTunerId);
+
+#endif // __APK_SYSINFO_TUNER_H__
+
+

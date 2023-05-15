@@ -1,0 +1,149 @@
+# file <name> <location> <mode> <uid> <gid>
+# dir <name> <mode> <uid> <gid>
+# nod <name> <mode> <uid> <gid> <dev_type> <maj> <min>
+# slink <name> <target> <mode> <uid> <gid>
+# pipe <name> <mode> <uid> <gid>
+# sock <name> <mode> <uid> <gid>
+#
+# <name>      name of the file/dir/nod/etc in the archive
+# <location>  location of the file in the current filesystem
+# <target>    link target
+# <mode>      mode/permissions of the file
+# <uid>       user id (0=root)
+# <gid>       group id (0=root)
+# <dev_type>  device type (b=block, c=character)
+# <maj>       major number of nod
+# <min>       minor number of nod
+
+
+dir /dev 755 0 0
+
+nod /dev/mem 640 0 0 c 1 1
+
+nod /dev/tty 666 0 0 c 5 0
+nod /dev/console 666 0 0 c 5 1
+
+nod /dev/null 666 0 0 c 1 3
+nod /dev/ram0 600 0 0 b 1 0
+
+nod /dev/loop0 640 0 0 b 7 0
+
+nod /dev/ttyS0 666 0 0 c 4 64
+
+nod /dev/mtd1 600 0 0 c 90 2
+nod /dev/mtd3 640 0 0 c 90 6
+nod /dev/mtd4 640 0 0 c 90 8
+nod /dev/mtd5 640 0 0 c 90 10
+
+nod /dev/mtdblock1 600 0 0 b 31 1
+nod /dev/mtdblock3 640 0 0 b 31 3
+nod /dev/mtdblock4 640 0 0 b 31 4
+nod /dev/mtdblock5 640 0 0 b 31 5
+
+nod /dev/brcm0 666 0 0 c 30 0
+
+# ubi
+nod /dev/ubi_ctrl 666 0 0 c 10 59 
+nod /dev/ubi0 666 0 0 c 242 0
+nod /dev/ubi0_0 666 0 0 c 242 1
+nod /dev/ubi0_1 666 0 0 c 242 2
+nod /dev/ubi0_2 666 0 0 c 242 3
+nod /dev/ubi0_3 666 0 0 c 242 4
+nod /dev/ubi1 666 0 0 c 243 0
+nod /dev/ubi1_0 666 0 0 c 243 1
+nod /dev/ubi1_1 666 0 0 c 243 2
+nod /dev/ubi1_2 666 0 0 c 243 3
+nod /dev/ubi1_3 666 0 0 c 243 4
+nod /dev/ubi1_4 666 0 0 c 243 5
+nod /dev/ubi2 666 0 0 c 244 0
+nod /dev/ubi2_0 666 0 0 c 244 1
+nod /dev/ubi2_1 666 0 0 c 244 2
+nod /dev/ubi2_2 666 0 0 c 244 3
+nod /dev/ubi2_3 666 0 0 c 244 4
+nod /dev/ubi2_4 666 0 0 c 244 5
+
+# usb
+nod /dev/sda 640 0 0 b 8 0
+nod /dev/sda1 640 0 0 b 8 1
+nod /dev/sda2 640 0 0 b 8 2
+nod /dev/sda3 640 0 0 b 8 3
+nod /dev/sda4 640 0 0 b 8 4
+nod /dev/sda5 640 0 0 b 8 5
+nod /dev/sda6 640 0 0 b 8 6
+nod /dev/sda7 640 0 0 b 8 7
+nod /dev/sda8 640 0 0 b 8 8
+nod /dev/sdb 640 0 0 b 8 16
+nod /dev/sdb1 640 0 0 b 8 17
+nod /dev/sdb2 640 0 0 b 8 18
+nod /dev/sdb3 640 0 0 b 8 19
+nod /dev/sdb4 640 0 0 b 8 20
+nod /dev/sdb5 640 0 0 b 8 21
+nod /dev/sdb6 640 0 0 b 8 22
+nod /dev/sdb7 640 0 0 b 8 23
+nod /dev/sdb8 640 0 0 b 8 24
+nod /dev/sdc 640 0 0 b 8 32
+nod /dev/sdc1 640 0 0 b 8 33
+nod /dev/sdc2 640 0 0 b 8 34
+nod /dev/sdc3 640 0 0 b 8 35
+nod /dev/sdc4 640 0 0 b 8 36
+nod /dev/sdc5 640 0 0 b 8 37
+nod /dev/sdc6 640 0 0 b 8 38
+nod /dev/sdc7 640 0 0 b 8 39
+nod /dev/sdc8 640 0 0 b 8 40
+nod /dev/sdd 640 0 0 b 8 48
+nod /dev/sdd1 640 0 0 b 8 49
+nod /dev/sdd2 640 0 0 b 8 50
+nod /dev/sdd3 640 0 0 b 8 51
+nod /dev/sdd4 640 0 0 b 8 52
+nod /dev/sdd5 640 0 0 b 8 53
+nod /dev/sdd6 640 0 0 b 8 54
+nod /dev/sdd7 640 0 0 b 8 55
+nod /dev/sdd8 640 0 0 b 8 56
+nod /dev/sde 640 0 0 b 8 64
+nod /dev/sde1 640 0 0 b 8 65
+nod /dev/sde2 640 0 0 b 8 66
+nod /dev/sde3 640 0 0 b 8 67
+nod /dev/sde4 640 0 0 b 8 68
+nod /dev/sde5 640 0 0 b 8 69
+nod /dev/sde6 640 0 0 b 8 70
+nod /dev/sde7 640 0 0 b 8 71
+nod /dev/sde8 640 0 0 b 8 72
+nod /dev/sdf 640 0 0 b 8 80
+nod /dev/sdf1 640 0 0 b 8 81
+nod /dev/sdf2 640 0 0 b 8 82
+nod /dev/sdf3 640 0 0 b 8 83
+nod /dev/sdf4 640 0 0 b 8 84
+nod /dev/sdf5 640 0 0 b 8 85
+nod /dev/sdf6 640 0 0 b 8 86
+nod /dev/sdf7 640 0 0 b 8 87
+nod /dev/sdf8 640 0 0 b 8 88
+nod /dev/sdg 640 0 0 b 8 96
+nod /dev/sdg1 640 0 0 b 8 97
+nod /dev/sdg2 640 0 0 b 8 98
+nod /dev/sdg3 640 0 0 b 8 99
+nod /dev/sdg4 640 0 0 b 8 100
+nod /dev/sdg5 640 0 0 b 8 101
+nod /dev/sdg6 640 0 0 b 8 102
+nod /dev/sdg7 640 0 0 b 8 103
+nod /dev/sdg8 640 0 0 b 8 104
+nod /dev/sdh 640 0 0 b 8 112
+nod /dev/sdh1 640 0 0 b 8 113
+nod /dev/sdh2 640 0 0 b 8 114
+nod /dev/sdh3 640 0 0 b 8 115
+nod /dev/sdh4 640 0 0 b 8 116
+nod /dev/sdh5 640 0 0 b 8 117
+nod /dev/sdh6 640 0 0 b 8 118
+nod /dev/sdh7 640 0 0 b 8 119
+nod /dev/sdh8 640 0 0 b 8 120
+nod /dev/sdi 640 0 0 b 8 128
+nod /dev/sdi1 640 0 0 b 8 129
+nod /dev/sdi2 640 0 0 b 8 130
+nod /dev/sdi3 640 0 0 b 8 131
+nod /dev/sdi4 640 0 0 b 8 132
+nod /dev/sdi5 640 0 0 b 8 133
+nod /dev/sdi6 640 0 0 b 8 134
+nod /dev/sdi7 640 0 0 b 8 135
+nod /dev/sdi8 640 0 0 b 8 136
+
+nod /dev/hmxsdcon 640 0 0 c 241 0
+

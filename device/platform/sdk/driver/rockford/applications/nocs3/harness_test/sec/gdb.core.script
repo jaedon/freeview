@@ -1,0 +1,5 @@
+set auto-solib-add on
+set solib-search-path /home/user/Works/CERT_SRC/nexus/bin
+set sysroot /home/user/nfsroot/romfs
+file cert
+core-file ~/nexus_bin/core 

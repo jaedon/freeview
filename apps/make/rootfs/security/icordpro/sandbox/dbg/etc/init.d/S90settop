@@ -1,0 +1,49 @@
+#!/bin/sh
+
+case "$1" in
+    start)
+		# Create core dump with executable name and process id
+		# Ref.: http://www.linuxhowtos.org/Tips%20and%20Tricks/coredump.htm
+		echo "core.%e.%p" > /proc/sys/kernel/core_pattern
+		# Remove previouse core dump and log files
+		rm -f /core*  /*.comm /rpclog.* /*.dump
+		rm -f /home/core*  /home/*.comm /home/rpclog.* /home/*.dump
+  		rm -f /home1/sechdlr/root/core*  /home1/sechdlr/root/*.comm /home1/sechdlr/root/rpclog.* /home1/sechdlr/root/*.dump
+		rm -f /home1/settop/root/core*  /home1/settop/root/*.comm /home1/settop/root/rpclog.* /home1/settop/root/*.dump
+		rm -f /home/imma/root/core*  /home/imma/root/*.comm /home/imma/root/rpclog.* /home/imma/root/*.dump
+		rm -f /home/ipepg/root/core*  /home/ipepg/root/*.comm /home/ipepg/root/rpclog.* /home/ipepg/root/*.dump
+		rm -f /home/mheg/root/core*  /home/mheg/root/*.comm /home/mheg/root/rpclog.* /home/mheg/root/*.dump
+		rm -f /home/homma/root/core*  /home/homma/root/*.comm /home/homma/root/rpclog.* /home/homma/root/*.dump
+		rm -f /home/corsair/root/core*  /home/corsair/root/*.comm /home/corsair/root/rpclog.* /home/corsair/root/*.dump
+		# Enable core dump
+		ulimit -c unlimited
+		export ipc_cso=10.255.128.211
+		export ipc_mediapb=10.255.128.200
+		export UVA_DRM_LIB_DIR="/usr/browser/drm/"
+		# Run PCD
+		#sleep 5
+		exec /home1/dfbmaster &
+		exec /home1/sechdlr/root/home/hamalauncher &
+		exec /home1/settop/root/home/hamalauncher &
+		/usr/local/bin/lxc-start -n imma -c /dev/null /start.sh &
+		/usr/local/bin/lxc-start -n ipepg -c /dev/null /start.sh &
+		/usr/local/bin/lxc-start -n mheg -c /dev/null /start.sh &
+		/usr/local/bin/lxc-start -n homma -c /dev/null /start.sh &
+		/usr/local/bin/lxc-start -n corsair -c /dev/null /start.sh &
+		exec /home1/hama &
+		;;
+    stop)
+		if [ "$VERBOSE" != no ]; then
+			log_begin_msg "Stopping Application processes"
+		fi
+		killall obama
+		killall corsair
+		;;
+    *)
+		if [ "$VERBOSE" != no ]; then
+			log_success_msg "Usage: /etc/init.d/S90settop {start|stop}"
+		fi
+		exit 1
+		;;
+esac
+

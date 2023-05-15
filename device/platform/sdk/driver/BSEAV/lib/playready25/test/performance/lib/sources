@@ -1,0 +1,17 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=LIBRARY
+TARGETNAME=PerformanceTestAPI
+
+SOURCES =                       \
+    ..\PerformanceTestAPI.c     \
+
+TARGETLIBS = $(TARGETLIBS)      \
+    $(_DRM_REFCODE_LIBS)        \
+    $(_DRM_TEST_CRYPTO_LIB)     \
+    $(_DRM_TC_LIBS)             \
+
+!if "$(DRM_BUILD_PLATARCH)" == "WIN32_X64"
+TARGETLIBS = $(TARGETLIBS)      \
+    ..\..\crypto\setacx64.obj    \
+!endif

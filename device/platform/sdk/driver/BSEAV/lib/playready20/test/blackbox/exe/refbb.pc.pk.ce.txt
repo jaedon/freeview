@@ -1,0 +1,176 @@
+9670:GetClientID should return the proper client info
+If(WMDRMSupported)
+Test_API_GetClientID(GLOBAL, NORMAL)
+Test_VerifyClientID
+EndIf
+
+9677:CanBind should return DRM_SUCCESS for valid binding info
+If(WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, VALID)
+Test_API_CanBind(0 GLOBAL, NORMAL)
+EndIf
+
+9690:CipherKeySetup should return DRM_SUCCESS for valid binding info
+If(WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, VALID)
+Test_API_CipherKeySetup(0 GLOBAL, 0 GLOBAL, NORMAL)
+EndIf
+
+9685:DecryptLicense should decrypt license encrypted with the blackbox public key
+If(WMDRMSupported)
+Test_GenRandomBlob(0 GLOBAL, 5000 bytes)
+Test_PKEncryptLarge(0 GLOBAL, 5000 bytes, 1 GLOBAL, 7)
+Test_API_DecryptLicense(1 GLOBAL, 5000 bytes, 2 GLOBAL, NORMAL)
+Test_BlobOps(memcmp, 0, 2, 5000 bytes)
+EndIf
+
+90000:BVT:P0:Test DRM_BBX_SymmetricCipher Encrypt and Decrypt with Legacy crypto
+Test_SetRandomSeed( FIXED )
+TestBBXSymmetricCipher( TRUE, 7, 16 )
+TestBBXSymmetricCipher( TRUE, 7, 128 )
+
+90010:BVT:P0:Test DRM_BBX_SymmetricCipher Encrypt and Decrypt with new crypto
+Test_SetRandomSeed( FIXED )
+TestBBXSymmetricCipher( FALSE, AES128KEY, 256 )
+TestBBXSymmetricCipher( FALSE, AES128KEY, 512 )
+TestBBXSymmetricCipher( FALSE, AES128KEY, 1024 )
+
+90020:BVT:P0:Test DRM_BBX_SymmetricCipher Encrypt and Decrypt In Place with Legacy crypto
+Test_SetRandomSeed( FIXED )
+TestBBXSymmetricCipher( TRUE, 7, 16, NULL )
+TestBBXSymmetricCipher( TRUE, 7, 128, NULL )
+
+90030:BVT:P0:Test DRM_BBX_SymmetricCipher Encrypt and Decrypt In Place with new crypto
+Test_SetRandomSeed( FIXED )
+TestBBXSymmetricCipher( FALSE, AES128KEY, 256, NULL )
+TestBBXSymmetricCipher( FALSE, AES128KEY, 512, NULL )
+TestBBXSymmetricCipher( FALSE, AES128KEY, 1024, NULL )
+
+90040:FUNC:P1:Test DRM_BBX_SymmetricCipher Encrypt and Decrypt with invalid args
+Test_SetRandomSeed( FIXED )
+TestBBXSymmetricCipher( FALSE, AES128KEY, 256, VALID outbuffer, NULL , VALID inbuffer )=0x80070057 DRM_E_INVALIDARG
+TestBBXSymmetricCipher( FALSE, AES128KEY, 256, VALID outbuffer, VALID key buffer, NULL )=0x80070057 DRM_E_INVALIDARG
+TestBBXSymmetricCipher( TRUE, 7, 256, VALID outbuffer, NULL , VALID inbuffer )=0x80070057 DRM_E_INVALIDARG
+TestBBXSymmetricCipher( TRUE, 7, 256, VALID outbuffer, VALID key buffer, NULL )=0x80070057 DRM_E_INVALIDARG
+
+90100:BVT:P0:Test DRM_BBX_ECC256_Decrypt for success with a passed in PUBKEY
+Test_SetRandomSeed( FIXED )
+Test_ECCP256_Decrypt( 0 NO OPTs)
+
+90110:BVT:P0:Test DRM_BBX_ECC256_Decrypt for success with zeroed PUBKEY
+Test_SetRandomSeed( FIXED )
+Test_ECCP256_Decrypt( 128 OPT_ZERO_PUBKEY )
+
+90120:BVT:P0:Test DRM_BBX_ECC256_Decrypt for success with mismatched PUBKEY
+Test_SetRandomSeed( FIXED )
+Test_ECCP256_Decrypt( 256 OPT_MISMATCH_PUBKEY )=0x8004D502 DRM_E_KEYFILE_PRIVATE_KEY_NOT_FOUND
+
+90130:FUNC:P1:Test DRM_BBX_ECC256_Decrypt with invalid args
+Test_SetRandomSeed( FIXED )
+Test_ECCP256_Decrypt( 1 OPT_NULL_PUBKEY )=0x80070057 DRM_E_INVALIDARG
+Test_ECCP256_Decrypt( 2 OPT_NULL_BBCONTEXT )=0x80070057 DRM_E_INVALIDARG
+Test_ECCP256_Decrypt( 4 OPT_NULL_DATAPOINTER )=0x80070057 DRM_E_INVALIDARG
+Test_ECCP256_Decrypt( 8 OPT_NULL_SIZEPOINTER )=0x80070057 DRM_E_INVALIDARG
+
+90200:BVT:P0:Test DRM_BBX_ECC256_Sign for success 
+Test_SetRandomSeed( FIXED )
+Test_ECCP256_Sign_Verify( 24 )
+Test_ECCP256_Sign_Verify( 100 )
+Test_ECCP256_Sign_Verify( 512 )
+
+90220:FUNC:P1:Test DRM_BBX_ECC256_Sign for invalid arg 
+Test_SetRandomSeed( FIXED )
+Test_ECCP256_Sign_Verify( 100, 32 OPT_TEST_SIGN, 1  OPT_NULL_PUBKEY )=0x80070057 DRM_E_INVALIDARG
+Test_ECCP256_Sign_Verify( 100, 32 OPT_TEST_SIGN, 2  OPT_NULL_BBCONTEXT )=0x80070057 DRM_E_INVALIDARG
+Test_ECCP256_Sign_Verify( 100, 32 OPT_TEST_SIGN, 4  OPT_NULL_DATAPOINTER )=0x80070057 DRM_E_INVALIDARG
+Test_ECCP256_Sign_Verify( 100, 32 OPT_TEST_SIGN, 16 OPT_NULL_SIGNATURE )=0x80070057 DRM_E_INVALIDARG
+
+90230:BVT:P0:Test Symmetric Sign with valid inputs
+If(WMDRMSupported)
+'Sign 100 bytes with device key
+Test_SymmetricSign( NULL, 100 )
+'Sign 1 byte with device key
+Test_SymmetricSign( NULL, 1 )
+EndIf
+
+90231:FUNC:P0:Test Symmetric Sign with invalid inputs
+If(WMDRMSupported)
+'Sign NULL (size 0) Data
+Test_SymmetricSign( NULL, 0 )=0x80070057 (DRM_E_INVALIDARG)
+'Use random key to verify signature
+Test_SymmetricSign( RANDOM, 100 )=0X8004D502 (DRM_E_KEYFILE_PRIVATE_KEY_NOT_FOUND)
+'Zero out key before verifying
+Test_SymmetricSign( ZEROS, 100 )=0X8004D502 (DRM_E_KEYFILE_PRIVATE_KEY_NOT_FOUND)
+EndIf
+
+
+-------------------BVT ends here--------------------------
+
+9671:GetClientID should reject NULL parameters
+Test_API_GetClientID(NULL, NORMAL)=0X80070057(DRM_E_INVALIDARG)
+
+9678:CipherKeySetup should fail if the binding info has wrong checksum
+If(WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, BAD_CHECKSUM)
+Test_API_CipherKeySetup(0 GLOBAL, 0 GLOBAL, NORMAL CIPHERCONTEXT)=0x8004110E(DRM_E_CH_BAD_KEY)
+EndIf
+
+9679:CipherKeySetup should fail if the binding info has wrong signature
+If(WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, BAD_SIGNATURE)
+Test_API_CipherKeySetup(0 GLOBAL, 0 GLOBAL, NORMAL)=0X800480CF(DRM_E_INVALID_SIGNATURE)
+EndIf
+
+9680:CipherKeySetup should fail if the encrypted content key is modified
+If(WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, BAD_CONTENTKEY)
+Test_API_CipherKeySetup(0 GLOBAL, 0 GLOBAL, NORMAL)=0X800480D5(DRM_E_PKCRYPTO_FAILURE)
+EndIf
+
+9681:CipherKeySetup should fail if the license server pubkey is bad
+If(WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, BAD_LSPUBKEY)
+Test_API_CipherKeySetup(0 GLOBAL, 0 GLOBAL, NORMAL)=0X800480CF(DRM_E_INVALID_SIGNATURE)
+EndIf
+
+11619:CipherKeySetup should fail if the license server pubkey is wrong
+If(WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, WRONG_LSPUBKEY)
+Test_API_CipherKeySetup(0 GLOBAL, 0 GLOBAL, NORMAL)=0X800480CF(DRM_E_INVALID_SIGNATURE)
+EndIf
+
+9705:CipherKeySetup should fail if the blackbox pubkey is modified
+If(WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, BAD_BBPUBKEY)
+Test_API_CipherKeySetup(0 GLOBAL, 0 GLOBAL, NORMAL)=0X8004C056(DRM_E_UNKNOWN_BINDING_KEY)
+EndIf
+
+9706:CipherKeySetup should fail if the content key length is 0
+If(WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, KEY_LENGTH 0)
+Test_API_CipherKeySetup(0 GLOBAL, 0 GLOBAL, NORMAL)=0x8004110E(DRM_E_CH_BAD_KEY)
+EndIf
+
+9707:CipherKeySetup should fail if the content key length is larger than 15 bytes
+If(WMDRMSupported)
+Test_CreateBindingInfo(0 GLOBAL, KEY_LENGTH 16)
+Test_API_CipherKeySetup(0 GLOBAL, 0 GLOBAL, NORMAL)=0x8004110E(DRM_E_CH_BAD_KEY)
+EndIf
+
+9682:HashValue should hash the given data with blackbox's private key
+Test_GenRandomBlob(0 GLOBAL, 100 bytes)
+Test_API_HashValue(0 GLOBAL, 100 bytes, 2 Hash Value Index, NORMAL BB Context)
+Test_GenRandomBlob(1 GLOBAL, 100 bytes)
+Test_API_HashValue(1 GLOBAL, 100 bytes, 3 Hash Value Index, NORMAL BB Context)
+Test_API_HashValue(0 GLOBAL, 100 bytes, 4 Hash Value Index, NORMAL BB Context)
+Test_BlobOps(memcmp, 2 Hash Value Index, 3 Hash Value Index, 20)=1(DRM_S_FALSE)
+Test_BlobOps(memcmp, 2 Hash Value Index, 4 Hash Value Index, 20)
+
+9686:DecryptLicense should be able to decrypt license in place
+If(WMDRMSupported)
+Test_GenRandomBlob(0 GLOBAL, 5000 bytes)
+Test_PKEncryptLarge(0 GLOBAL, 5000 bytes, 1 GLOBAL, 7)
+Test_API_DecryptLicense(1 GLOBAL, 5000 bytes, NULL, NORMAL)
+Test_BlobOps(memcmp, 0, 1, 5000 bytes)
+EndIf
+

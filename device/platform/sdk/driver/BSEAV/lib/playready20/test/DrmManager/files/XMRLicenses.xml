@@ -1,0 +1,147 @@
+<RightsPool>
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="11579 Leaf"
+    AllowPlay="TRUE"
+    KID="AVhTknNlJOjo7F6b7HeNxg=="
+    LID="{55227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    UplinkKIDs="Acl2BY3ITE0qe11DalmK0D=="
+    IssueDate="-10s"
+    EmbedLicense="Copy"
+  />
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="11579 Simple"
+    AllowPlay="TRUE"
+    KID="AVhTknNlJOjo7F6b7HeNxg=="
+    LID="{65227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    EmbedLicense="Copy"
+  />
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="115790 Leaf"
+    AllowPlay="TRUE"
+    KID="OWjhtr3u9k+rdo1ILY0rag=="
+    LID="{55227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    UplinkKIDs="Acl2BY3ITE0qe11DalmK0D=="
+    IssueDate="-10s"
+    EmbedLicense="Copy"
+  />
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="115790 Simple"
+    AllowPlay="TRUE"
+    KID="OWjhtr3u9k+rdo1ILY0rag=="
+    LID="{65227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    EmbedLicense="Copy"
+  />
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Base Root"
+    AllowPlay="TRUE"
+    KID="Acl2BY3ITE0qe11DalmK0D=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  />
+  <LicenseRights
+    Type="Simple"
+	TestCaseID="LicenseWithRemovalDate10SecsInPast"
+	AllowPlay="TRUE"
+	KID="lFmb2gxg0Cr5bfEnJXgJeA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+	RemovalDate="-10s"
+  />
+  <LicenseRights
+    Type="Simple"
+	TestCaseID="LicenseWithRemovalDate1000SecsInFuture"
+	AllowPlay="TRUE"
+	KID="lFmb2gxg0Cr5bfEnJXgJeA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+	RemovalDate="1000s"
+  />
+  <LicenseRights
+    Type="Simple"
+	TestCaseID="KID02LicenseWithRemovalDate10SecsInPast"
+	AllowPlay="TRUE"
+	KID="RemovalDateTestKID02aa=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+	RemovalDate="-10s"
+  />
+  <LicenseRights
+    Type="Simple"
+	TestCaseID="KID02LicenseWithRemovalDate1000SecsInFuture"
+	AllowPlay="TRUE"
+	KID="RemovalDateTestKID02aa=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+	RemovalDate="1000s"
+  />
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with random LID with -500s IssueDate"
+    AllowPlay="TRUE"
+    KID="AVhTknNlJOjo7F6b7HeNxg=="
+    LID="*"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    UplinkKIDs="Acl2BY3ITE0qe11DalmK0D=="
+    IssueDate="-500s"
+    EmbedLicense="Copy"
+  />
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with fixed LID with -10s IssueDate"
+    AllowPlay="TRUE"
+    KID="AVhTknNlJOjo7F6b7HeNxg=="
+    LID="{55227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    UplinkKIDs="Acl2BY3ITE0qe11DalmK0D=="
+    IssueDate="-10s"
+    EmbedLicense="Copy"
+  />
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with fixed LID with -5s IssueDate"
+    AllowPlay="TRUE"
+    KID="AVhTknNlJOjo7F6b7HeNxg=="
+    LID="{65227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    UplinkKIDs="Acl2BY3ITE0qe11DalmK0D=="
+    IssueDate="-5s"
+    EmbedLicense="Copy"
+  />
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with fixed LID with -10s IssueDate n2"
+    AllowPlay="TRUE"
+    KID="OWjhtr3u9k+rdo1ILY0rag=="
+    LID="{55227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    UplinkKIDs="Acl2BY3ITE0qe11DalmK0D=="
+    IssueDate="-10s"
+    EmbedLicense="Copy"
+  />
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with fixed LID with -5s IssueDate n2"
+    AllowPlay="TRUE"
+    KID="OWjhtr3u9k+rdo1ILY0rag=="
+    LID="{65227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    UplinkKIDs="Acl2BY3ITE0qe11DalmK0D=="
+    IssueDate="-5s"
+    EmbedLicense="Copy"
+  />
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="Leaf with fixed LID with -1000s IssueDate"
+    AllowPlay="TRUE"
+    KID="AVhTknNlJOjo7F6b7HeNxg=="
+    LID="{75227A28-3FEE-4EB5-AF13-F77A5258A919}"
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    UplinkKIDs="Acl2BY3ITE0qe11DalmK0D=="
+    IssueDate="-1000s"
+    EmbedLicense="Copy"
+  />
+</RightsPool>

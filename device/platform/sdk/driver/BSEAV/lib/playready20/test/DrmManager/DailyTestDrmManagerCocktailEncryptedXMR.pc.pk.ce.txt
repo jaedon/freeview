@@ -1,0 +1,607 @@
+990001:BVT: decrypt a regular length of encrypted data (XMR)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerEncrypt(RC4 CipherType, 100 DataLengthToEncrypt, NULL )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL)
+TestManagerReinitialize(Reset)
+
+990002:BVT: Bind succeeds when the right exists in both leaf and root license (XMR)
+TestManagerSetRights( Play )
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL , Acl2BY3ITE0qe11DalmK0D== , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerEncrypt(RC4 CipherType, 100 DataLengthToEncrypt, NULL  )
+TestManagerAddXMRLicense( Acl2BY3ITE0qe11DalmK0D== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL, ROOT)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function)
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+
+
+990003:BVT: Bind to a domain-bound license and decrypt a regular length of encrypted data (XMR) 
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, NULL, COCKTAIL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerEncrypt(RC4 CipherType, 100 DataLengthToEncrypt, NULL )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL )
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL)
+TestManagerReinitialize(Reset)
+
+
+990004:BVT: Bind to a domain-bound license succeeds when the right exists in both leaf and root license (XMR)
+TestManagerSetRights( Play )
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL , Acl2BY3ITE0qe11DalmK0D== , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerEncrypt(RC4 CipherType, 100 DataLengthToEncrypt, NULL  )
+TestManagerAddXMRLicense( Acl2BY3ITE0qe11DalmK0D== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL, ROOT, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, NULL, NULL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function)
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+
+
+990005:BVT: Bind to a simple domain-bound expiring license in the embedded store
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerSetRights( Play )
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, 180, NULL, NULL, NULL, OMIT, NULL, COCKTAIL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerUpdateEmbeddedStore
+TestManagerGetContentProperty( 3, NULL )
+TestManagerReinitialize( Reset, TRUE, FALSE )
+' Clear HDS and verify that Bind succeeds 
+TestManagerInitialize( Dump )
+TestManagerSetHeader( NORMAL )
+TestManagerSetRights( Play )
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )  
+Test_ChangeTimeSeconds (181) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )= 0X8004C009 (DRM_E_LICENSEEXPIRED) ' As license has expired
+TestManagerReinitialize( Reset )
+
+
+990006:BVT: Bind to a simple domain-bound expiring license
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerSetRights( Play )
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, 180, NULL, NULL, NULL, OMIT, NULL, COCKTAIL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )  
+Test_ChangeTimeSeconds (181) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )= 0X8004C009 (DRM_E_LICENSEEXPIRED) ' As license has expired
+TestManagerReinitialize( Reset )
+	
+
+990007:BVT: Bind to a simple device-bound expiring license
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerSetRights( Play )
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, 180, NULL, NULL, NULL, OMIT, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )  
+Test_ChangeTimeSeconds (181) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )= 0X8004C009 (DRM_E_LICENSEEXPIRED) ' As license has expired
+TestManagerReinitialize( Reset )
+
+
+990008:BVT: Bind to a leaf license with a root in the embedded store with a begin date in the future 
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerSetRights( Play )
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1500 )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerUpdateEmbeddedStore
+TestManagerGetContentProperty( 3, NULL )
+TestManagerReinitialize( Reset, TRUE, FALSE )
+' Clear HDS and then add the root license to HDS and verify that Bind succeeds for Leaf in Embedded Store
+TestManagerInitialize( Dump )
+TestManagerSetHeader( NORMAL )
+TestManagerSetRights( Play )
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1500 )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL ) = DRM_E_UPLINKLICENSENOTFOUND ' As begin date of the root is in future
+Test_ChangeTimeSeconds (1501) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+
+
+990009:BVT: Bind to a leaf license with a device-bound root license in HDS with a begin date in the future 
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerSetRights( Play )
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1500 )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL ) = DRM_E_UPLINKLICENSENOTFOUND ' As begin date of the root is in future
+Test_ChangeTimeSeconds (1501) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+
+
+990010:BVT: Bind to a leaf license with a domain-bound root license in HDS with a begin date in the future 
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerSetRights( Play )
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, 1500, NULL, NULL, NjU0MzIxMDk4NzY1NDMyMQ==  )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL ) = DRM_E_UPLINKLICENSENOTFOUND ' As begin date of the root is in future
+Test_ChangeTimeSeconds (1501) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+
+
+990011:BVT: Bind to content with a leaf license in the embedded store. This assumes no Root, so Bind should fail 
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerSetRights( Play )
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+' Embedded store will not be updated if license can not evaluate, i.e. a root in the HDS is required at embedding time
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerUpdateEmbeddedStore
+TestManagerGetContentProperty( 3, NULL )
+TestManagerReinitialize( Reset, TRUE, FALSE )
+' Clear HDS to remove both leaf and root so only the embedded leaf exists
+TestManagerInitialize( Dump )
+TestManagerSetHeader( NORMAL )
+TestManagerSetRights( Play )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL ) = DRM_E_UPLINKLICENSENOTFOUND ' No Root license
+
+
+990012:BVT: Bind to content with a leaf license. This assumes no Root, so Bind should fail 
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerSetRights( Play )
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL ) = DRM_E_UPLINKLICENSENOTFOUND ' No Root license
+
+
+990013:BVT: Embedded store contains leaf license whoes root license is expired. Bind should fail. Root should be updated and client should now use leaf
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerSetRights( Play )
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerUpdateEmbeddedStore
+TestManagerGetContentProperty( 3, NULL )
+TestManagerReinitialize( Reset, TRUE, FALSE )
+' Clear HDS and then add the root license to HDS and verify that Bind succeeds for Leaf in Embedded Store
+TestManagerInitialize( Dump )
+TestManagerSetHeader( NORMAL )
+TestManagerSetRights( Play )
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT, NULL, NULL, NULL, NULL, 180 ) 'expire in 180 sec
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_ChangeTimeSeconds (181) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL ) = DRM_E_UPLINKLICENSENOTFOUND ' As root has expired
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT ) 'no expiry
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+TestManagerReinitialize( Reset )
+
+
+990014:BVT: HDS contains leaf license whose root license is expired. Bind should fail. Root should be updated and client should now use leaf
+TestManagerSetRights( Play )
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT , NULL, NULL, NULL, NULL, 180  )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_ChangeTimeSeconds (181) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL ) = DRM_E_UPLINKLICENSENOTFOUND ' As root has expired
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA== , RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT ) 'no expiry
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+TestManagerReinitialize( Reset )
+
+
+990015:BVT: HDS contains leaf license whose domain-bound root is expired. Bind should fail. Root should be updated and client should now use leaf
+TestManagerSetRights( Play )
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT , NULL, NULL, NULL, NULL, 180, NULL, NULL, NULL, OMIT, NULL, NULL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_ChangeTimeSeconds (181) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL ) = DRM_E_UPLINKLICENSENOTFOUND ' As root has expired
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA== , RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT ) 'no expiry
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+TestManagerReinitialize( Reset )
+
+
+990016:BVT: Check that the combination of begin and end dates operate properly (XMR)
+TestManagerSetRights(Play)
+TestManagerSetKID(u796ftxBWEmB7zetNdOetg==)
+TestManagerAddXMRLicense ( u796ftxBWEmB7zetNdOetg== , RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, 400, NULL, NULL, NULL, NULL, 100, COCKTAIL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTSNOTAVAILABLE
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+Test_ChangeTimeSeconds(101)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+Test_ChangeTimeSeconds(100)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+Test_ChangeTimeSeconds(200)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C009 DRM_E_LICENSEEXPIRED
+TestManagerGetLicenseData(Dump,3,Dump,1,0)
+Test_ChangeTimeSeconds(200)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C009 DRM_E_LICENSEEXPIRED
+
+
+990025:BVT: decrypt a regular length of encrypted data (XMR) with 8byte KID
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader( NORMAL, 8bkid_v4_header.txt, UTF-16)
+TestManagerAddXMRLicense( V0UxU0FBQTQ= , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerEncrypt(RC4 CipherType, 100 DataLengthToEncrypt, NULL )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL)
+TestManagerReinitialize(Reset)
+
+
+990026:BVT: Bind succeeds when the right exists in both leaf and root license (XMR) with 8byte KID
+TestManagerSetRights( Play )
+TestManagerSetHeader( NORMAL, 8bkid_v4_header.txt, UTF-16)
+TestManagerAddXMRLicense( V0UxU0FBQTQ= , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL , Acl2BY3ITE0qe11DalmK0D== , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerEncrypt(RC4 CipherType, 100 DataLengthToEncrypt, NULL  )
+TestManagerAddXMRLicense( Acl2BY3ITE0qe11DalmK0D== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL, ROOT)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function)
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+
+
+990027:BVT: Bind to a domain-bound license and decrypt a regular length of encrypted data (XMR) with 8byte KID
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader( NORMAL, 8bkid_v4_header.txt, UTF-16)
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( V0UxU0FBQTQ= , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, NULL, COCKTAIL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerEncrypt(RC4 CipherType, 100 DataLengthToEncrypt, NULL )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL )
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL)
+TestManagerReinitialize(Reset)
+
+
+990028:BVT: Bind to a domain-bound license succeeds when the right exists in both leaf and root license (XMR) with 8byte KID
+TestManagerSetRights( Play )
+TestManagerSetHeader( NORMAL, 8bkid_v4_header.txt, UTF-16)
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( V0UxU0FBQTQ= , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL , Acl2BY3ITE0qe11DalmK0D== , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerEncrypt(RC4 CipherType, 100 DataLengthToEncrypt, NULL  )
+TestManagerAddXMRLicense( Acl2BY3ITE0qe11DalmK0D== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL, ROOT, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, NULL, NULL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function)
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+
+
+990029:BVT: Bind to a simple domain-bound expiring license with 8byte KID
+TestManagerSetHeader( NORMAL, 8bkid_v4_header.txt, UTF-16)
+TestManagerSetRights( Play )
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( V0UxU0FBQTQ= , RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, 180, NULL, NULL, NULL, OMIT, NULL, COCKTAIL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )  
+Test_ChangeTimeSeconds (181) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )= 0X8004C009 (DRM_E_LICENSEEXPIRED) ' As license has expired
+TestManagerReinitialize( Reset )
+	
+
+990030:BVT: Bind to a simple device-bound expiring license with 8byte KID
+TestManagerSetHeader( NORMAL, 8bkid_v4_header.txt, UTF-16)
+TestManagerSetRights( Play )
+TestManagerAddXMRLicense( V0UxU0FBQTQ= , RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, 180, NULL, NULL, NULL, OMIT, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )  
+Test_ChangeTimeSeconds (181) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )= 0X8004C009 (DRM_E_LICENSEEXPIRED) ' As license has expired
+TestManagerReinitialize( Reset )
+
+
+990031:BVT: Bind to a leaf license with a device-bound root license in HDS with a begin date in the future with 8byte KID 
+TestManagerSetHeader( NORMAL, 8bkid_v4_header.txt, UTF-16)
+TestManagerSetRights( Play )
+TestManagerAddXMRLicense( V0UxU0FBQTQ= , RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1500 )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL ) = DRM_E_UPLINKLICENSENOTFOUND ' As begin date of the root is in future
+Test_ChangeTimeSeconds (1501) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+
+
+990032:BVT: Bind to a leaf license with a domain-bound root license in HDS with a begin date in the future with 8byte KID 
+TestManagerSetHeader( NORMAL, 8bkid_v4_header.txt, UTF-16)
+TestManagerSetRights( Play )
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( V0UxU0FBQTQ= , RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, 1500, NULL, NULL, NjU0MzIxMDk4NzY1NDMyMQ==  )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL ) = DRM_E_UPLINKLICENSENOTFOUND ' As begin date of the root is in future
+Test_ChangeTimeSeconds (1501) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+
+
+990033:BVT: decrypt a regular length of encrypted data (XMR) with 24byte KID
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader( NORMAL, 24bkid_v4_header.txt, UTF-16)
+TestManagerAddXMRLicense( V0UxU0FBQTQ0U0VkVkVFZFZFYjRFI0RB , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerEncrypt(RC4 CipherType, 100 DataLengthToEncrypt, NULL )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL)
+TestManagerReinitialize(Reset)
+
+
+990034:BVT: Bind succeeds when the right exists in both leaf and root license (XMR) with 24byte KID
+TestManagerSetRights( Play )
+TestManagerSetHeader( NORMAL, 24bkid_v4_header.txt, UTF-16)
+TestManagerAddXMRLicense( V0UxU0FBQTQ0U0VkVkVFZFZFYjRFI0RB , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL , Acl2BY3ITE0qe11DalmK0D== , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerEncrypt(RC4 CipherType, 100 DataLengthToEncrypt, NULL  )
+TestManagerAddXMRLicense( Acl2BY3ITE0qe11DalmK0D== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL, ROOT)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function)
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+
+
+990035:BVT: Bind to a domain-bound license and decrypt a regular length of encrypted data (XMR) with 24byte KID 
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader( NORMAL, 24bkid_v4_header.txt, UTF-16)
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( V0UxU0FBQTQ0U0VkVkVFZFZFYjRFI0RB , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, NULL, COCKTAIL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerEncrypt(RC4 CipherType, 100 DataLengthToEncrypt, NULL )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL )
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL)
+TestManagerReinitialize(Reset)
+
+
+990036:BVT: Bind to a domain-bound license succeeds when the right exists in both leaf and root license (XMR) with 24byte KID
+TestManagerSetRights( Play )
+TestManagerSetHeader( NORMAL, 24bkid_v4_header.txt, UTF-16)
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( V0UxU0FBQTQ0U0VkVkVFZFZFYjRFI0RB , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL , Acl2BY3ITE0qe11DalmK0D== , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerEncrypt(RC4 CipherType, 100 DataLengthToEncrypt, NULL  )
+TestManagerAddXMRLicense( Acl2BY3ITE0qe11DalmK0D== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL, ROOT, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, NULL, NULL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function)
+TestManagerCommit
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+
+
+990037:BVT: Bind to a simple domain-bound expiring license with 24byte KID
+TestManagerSetHeader( NORMAL, 24bkid_v4_header.txt, UTF-16)
+TestManagerSetRights( Play )
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( V0UxU0FBQTQ0U0VkVkVFZFZFYjRFI0RB , RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, 180, NULL, NULL, NULL, OMIT, NULL, COCKTAIL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )  
+Test_ChangeTimeSeconds (181) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )= 0X8004C009 (DRM_E_LICENSEEXPIRED) ' As license has expired
+TestManagerReinitialize( Reset )
+	
+
+990038:BVT: Bind to a simple device-bound expiring license with 24byte KID
+TestManagerSetHeader( NORMAL, 24bkid_v4_header.txt, UTF-16)
+TestManagerSetRights( Play )
+TestManagerAddXMRLicense( V0UxU0FBQTQ0U0VkVkVFZFZFYjRFI0RB , RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, 180, NULL, NULL, NULL, OMIT, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )  
+Test_ChangeTimeSeconds (181) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )= 0X8004C009 (DRM_E_LICENSEEXPIRED) ' As license has expired
+TestManagerReinitialize( Reset )
+
+
+990039:BVT: Bind to a leaf license with a device-bound root license in HDS with a begin date in the future with 24byte KID 
+TestManagerSetHeader( NORMAL, 24bkid_v4_header.txt, UTF-16)
+TestManagerSetRights( Play )
+TestManagerAddXMRLicense( V0UxU0FBQTQ0U0VkVkVFZFZFYjRFI0RB , RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1500 )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL ) = DRM_E_UPLINKLICENSENOTFOUND ' As begin date of the root is in future
+Test_ChangeTimeSeconds (1501) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+
+
+990040:BVT: Bind to a leaf license with a domain-bound root license in HDS with a begin date in the future with 24byte KID 
+TestManagerSetHeader( NORMAL, 24bkid_v4_header.txt, UTF-16)
+TestManagerSetRights( Play )
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( V0UxU0FBQTQ0U0VkVkVFZFZFYjRFI0RB , RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, 1500, NULL, NULL, NjU0MzIxMDk4NzY1NDMyMQ==  )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL ) = DRM_E_UPLINKLICENSENOTFOUND ' As begin date of the root is in future
+Test_ChangeTimeSeconds (1501) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+
+
+-------------------BVTs end here--------------------------
+
+
+990017:FUNC: decrypt while the drm context has been shutdown. It is OK since the decrypt context is still untouched. (XMR)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerEncrypt(RC4 CipherType, 100 DataLengthToEncrypt, NULL  )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize( AppContext, FALSE, FALSE )
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+
+
+990018:FUNC: Bind to a domain-bound license and decrypt while the drm context has been shutdown. It is OK since the decrypt context is still untouched. (XMR)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerSetRights(Play)
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, NULL, COCKTAIL, NULL, NjU0MzIxMDk4NzY1NDMyMQ==  )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerEncrypt(RC4 CipherType, 100 DataLengthToEncrypt, NULL  )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize( AppContext, FALSE, FALSE )
+TestManagerInitDecrypt( NORMAL DecryptContext, 0 OffsetFromLast15 )
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+
+
+990019:FUNC: Bind to a leaf license with a root with a begin date in the future in the HDS and a usable license in the embedded store			
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerSetRights( Play )
+'Add usable license
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , {C58BFCC3-08F1-4090-A8E5-F56809A732AA}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL, MOVE )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerUpdateEmbeddedStore
+TestManagerGetContentProperty( 3, NULL )
+TestManagerReinitialize( Reset, TRUE, FALSE )
+' Clear HDS and then add the leaf and root license to HDS and verify that Bind succeeds for usable license in the embedded store
+TestManagerInitialize( Dump )
+TestManagerSetHeader( NORMAL )
+TestManagerSetRights( Play )
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , {6E45CBCC-BF55-4144-AA5D-588221F46A1C}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1500 )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL, NULL, {C58BFCC3-08F1-4090-A8E5-F56809A732AA} )
+TestManagerReinitialize( Reset )
+
+
+990020:FUNC: Bind to a leaf license with a domain-bound root with a begin date in the future in the HDS and a usable license in the embedded store	
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerSetRights( Play )
+'Add usable license
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , {C58BFCC3-08F1-4090-A8E5-F56809A732AA}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL, MOVE )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerUpdateEmbeddedStore
+TestManagerGetContentProperty( 3, NULL )
+TestManagerReinitialize( Reset, TRUE, FALSE )
+' Clear HDS and then add the leaf and root license to HDS and verify that Bind succeeds for usable license in the embedded store
+TestManagerInitialize( Dump )
+TestManagerSetHeader( NORMAL )
+TestManagerSetRights( Play )
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , {6E45CBCC-BF55-4144-AA5D-588221F46A1C}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, 1500, NULL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL, NULL, {C58BFCC3-08F1-4090-A8E5-F56809A732AA} )
+TestManagerReinitialize( Reset )
+
+
+990021:FUNC: Bind to content with a simple domain-bound expiring license with a begin date in the future in the embedded store and a usable license in the HDS	
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerSetRights( Play )
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , {6E45CBCC-BF55-4144-AA5D-588221F46A1C}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, 1800, NULL, NULL, NULL, OMIT, 1500, COCKTAIL, NULL, NjU0MzIxMDk4NzY1NDMyMQ== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerUpdateEmbeddedStore
+TestManagerGetContentProperty( 3, NULL )
+TestManagerReinitialize( Reset, TRUE, FALSE )
+' Clear HDS and add usable license in the HDSverify that Bind succeeds 
+TestManagerInitialize( Dump )
+TestManagerSetHeader( NORMAL )
+TestManagerSetRights( Play )
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg== , {45227A28-3FEE-4EB5-AF13-F77A5258A919}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, 500, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+ProcessDomainJoinResponse( 0, DomainResponseForEmbeddingTest.dat ) = 0x02 ( DRM_S_MORE_DATA )
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL, NULL, {45227A28-3FEE-4EB5-AF13-F77A5258A919} )
+Test_ChangeTimeSeconds ( 1501 ) 
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL, NULL, {6E45CBCC-BF55-4144-AA5D-588221F46A1C} )
+TestManagerReinitialize( Reset )
+
+
+990022:FUNC: Bind to Chained license with Root OnFirstUse Expiration (XMR)
+TestManagerSetRights( Play )
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg==, RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL , pgUadCv6D0KmSrTgf1HV0w==, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( pgUadCv6D0KmSrTgf1HV0w== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I , NULL , ROOT , NULL , NULL , 1000 )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function)
+TestManagerCommit
+
+990023:Func: Process V4 license response with "expire after first use" restriction of 5 seconds
+TestManagerInitResponse
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, COCKTAIL )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize( Dump )
+TestManagerSetRights( Play )
+TestManagerSetKID(u796ftxBWEmB7zetNdOetg==)
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function )
+TestManagerCommit
+Test_ChangeTimeSeconds(6)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function )=0x8004C009 DRM_E_LICENSEEXPIRED
+
+990024:DRT: Bind to XMR license multiple times to reduce copy count
+TestManagerSetRights( Copy )
+TestManagerAddXMRLicense( u796ftxBWEmB7zetNdOetg==, RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL , 2, NULL, COCKTAIL  )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+TestManagerCommit
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize( Dump )
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )
+TestManagerCommit
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize( Dump )
+TestManagerSetHeader( NORMAL, PRCocktailJazz.dat, BINARY)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL )=0X8004C009 DRM_E_LICENSEEXPIRED
+TestManagerCommit
+

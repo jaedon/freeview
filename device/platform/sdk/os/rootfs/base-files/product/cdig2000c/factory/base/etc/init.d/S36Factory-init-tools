@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo 0 > /sys/block/mmcblk0/mmcblk0boot0/force_ro
+echo 0 > /sys/block/mmcblk0/mmcblk0boot1/force_ro

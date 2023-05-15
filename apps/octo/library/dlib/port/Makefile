@@ -1,0 +1,23 @@
+obj-y += dlib_port.o
+obj-y += epg_rf/
+obj-y += epg_humax/
+obj-y += antinfo/
+obj-y += bouquet/
+obj-y += provider/
+obj-y += network/
+obj-y += tuneparam/
+obj-y += group/
+obj-y += transponder/
+obj-y += service/
+obj-y += dbsetup/
+obj-y += schedule/
+obj-y += recording/
+obj-y += channel_logo/
+obj-y += fileinfo/
+#obj-y += drm/
+obj-y += grouplist/
+obj-y += epg_tvtv/
+obj-y += udbmodule/
+obj-$(CONFIG_OP_UK_DTT) += fvc_expiry/
+
+ccflags-y += -I../

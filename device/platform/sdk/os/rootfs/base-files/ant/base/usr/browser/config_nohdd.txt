@@ -1,0 +1,30 @@
+window.overflow.ignore.negative: 1
+window.caret.block: 0
+# No splash screen on starting
+splash.display: FALSE
+
+# Transparent bcakground colour by default
+browser.colour.back: 000000FF
+
+# Override some keys in the keymap so we can emulate remote control keys
+keymaps.mapfile: keymap.txt
+
+# The webtv portal
+mom.hbbtv.portal: http://www.humaxtvportal.com:8094/PortalService
+
+browser.highlight.opacity: 0
+
+# Storing some info to the cookie file
+transports.cookie.enable: 1
+transports.cookie.uptodate: 1
+transports.files.cookie: /var/lib/humaxtv/cookie.txt
+
+# Disable ram-cache. (to resolve Flickr issue)
+object.cache.ram.enabled: 1
+
+# SSL settings
+transports.ssl.certs.client: /usr/browser/res/certs/
+transports.ssl.allow_unsafe_renegotiation: 1
+transports.ssl.certs.verify: 0
+
+

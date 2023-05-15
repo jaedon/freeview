@@ -1,0 +1,69 @@
+##########################################
+# DI DEMUX configuration menu
+##########################################
+
+menu "DEMUX number of demux"
+config DI_DEMUX_NUMBER_OF_DEMUX
+int "DI_DEMUX_NUMBER_OF_DEMUX"
+default 1
+endmenu
+
+menu "DEMUX number of live demux"
+config DI_DEMUX_NUMBER_OF_LIVE_DEMUX
+int "DI_DEMUX_NUMBER_OF_LIVE_DEMUX"
+default 1
+endmenu
+
+menu "DEMUX number of record demux"
+config DI_DEMUX_NUMBER_OF_RECORD_DEMUX
+int "DI_DEMUX_NUMBER_OF_RECORD_DEMUX"
+default 0
+endmenu
+
+menu "DEMUX number of playback demux"
+config DI_DEMUX_NUMBER_OF_PLAYBACK_DEMUX
+int "DI_DEMUX_NUMBER_OF_PLAYBACK_DEMUX"
+default 0
+endmenu
+
+menu "DEMUX number of channel"
+config DI_DEMUX_NUMBER_OF_CHANNEL
+int "DI_DEMUX_NUMBER_OF_CHANNEL"
+default 32
+endmenu
+
+menu "DEMUX number of section channel"
+config DI_DEMUX_NUMBER_OF_SECTION_CHANNEL
+int "DI_DEMUX_NUMBER_OF_SECTION_CHANNEL"
+default 24
+endmenu
+
+menu "DEMUX number of pes channel"
+config DI_DEMUX_NUMBER_OF_PES_CHANNEL
+int "DI_DEMUX_NUMBER_OF_PES_CHANNEL"
+default 2
+endmenu
+
+menu "DEMUX number of section filter"
+config DI_DEMUX_NUMBER_OF_SECTION_FILTER
+int "DI_DEMUX_NUMBER_OF_SECTION_FILTER"
+default 32
+endmenu
+
+menu "DEMUX section filter length"
+config DI_DEMUX_SECTION_FILTER_LENGTH
+int "DI_DEMUX_SECTION_FILTER_LENGTH"
+default 8
+endmenu
+
+menu "DEMUX section buffer size"
+config DI_DEMUX_SECTION_BUFFER_SIZE
+hex "DI_DEMUX_SECTION_BUFFER_SIZE"
+default 0x2400
+endmenu
+
+menu "DEMUX pes buffer size"
+config DI_DEMUX_PES_BUFFER_SIZE
+hex "DI_DEMUX_PES_BUFFER_SIZE"
+default 0x10006
+endmenu

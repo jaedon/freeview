@@ -1,0 +1,229 @@
+' Revocation Tests
+
+88881:BVT: Get RIV first then RIV2, WMDRM-NET version is higher in RIV2
+If(WMDRMSupported)
+' Process license response with RIV
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><RESTRICTIONS><COMPRESSEDDIGITALVIDEO level='300'/></RESTRICTIONS><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_1_WMDRMND_5.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\Contoso_SL150_revokedv5CRL.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+' Process license response with RIV2
+TestManagerStoreRevocationPackage(FALSE, files\REVINFO2v8.ND_testing.ID232.xml)
+
+' Use NDT to process registration request for cert on highest WMDRM-NET CRL
+Test_DRM_NDT_Initialize(SHARED_APP_CONTEXT)
+Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+Test_SetCertificate(files\Contoso.SL150.revokedv8.crt)
+Test_SetPrivateKeyDirectly(files\Contoso.SL150.revokedv8.prv)
+Test_NDTMGR_CreateSession(REGISTRATION)
+Test_NDTMGR_ProcessRegistrationRequest() = 0X8004C053 (DRM_E_CERTIFICATE_REVOKED)
+
+' Use NDT to process registration request for cert only in older WMDRM-NET CRL
+Test_DRM_NDT_Initialize(SHARED_APP_CONTEXT)
+Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+Test_SetCertificate(files\Contoso.SL150.revokedv5.crt)
+Test_SetPrivateKeyDirectly(files\Contoso.SL150.revokedv5.prv)
+Test_NDTMGR_CreateSession(REGISTRATION)
+' Temporary Hack to see if the remaining Tests run/pass. Remove once valid certs are present
+Test_NDTMGR_ProcessRegistrationRequest() = 0X8004C035 (DRM_E_INVALIDDEVICECERTIFICATE)
+EndIf
+
+
+88882:BVT: Get RIV first then RIV2, WMDRM-NET version is higher in RIV
+If(WMDRMSupported)
+' Process license response with RIV
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(vqvqngd40kuu9FnnqNrt7Q==,{E28E8B13-3E37-4DC6-8563-CC72CBCDDE91}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", 7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==,zWVMVj8hZun5DyUU38zET5B1E4sl6QsmPIrqzkDP)
+TestManagerSetRevocationInfo(files\rlvi_1_WMDRMND_8.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\Contoso_SL150_revokedv8CRL.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+' Process license response with RIV2
+TestManagerStoreRevocationPackage(FALSE, files\REVINFO2v5.ND_testing.ID231.xml)
+
+' Use NDT to process registration request for cert on highest WMDRM-NET CRL
+Test_DRM_NDT_Initialize(SHARED_APP_CONTEXT)
+
+Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+Test_SetCertificate(files\Contoso.SL150.revokedv8.crt)
+Test_SetPrivateKeyDirectly(files\Contoso.SL150.revokedv8.prv)
+Test_NDTMGR_CreateSession(REGISTRATION)
+Test_NDTMGR_ProcessRegistrationRequest() = 0X8004C053 (DRM_E_CERTIFICATE_REVOKED)
+
+' Use NDT to process registration request for cert only in older WMDRM-NET CRL
+Test_DRM_NDT_Initialize(SHARED_APP_CONTEXT)
+Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+Test_SetCertificate(files\Contoso.SL150.revokedv5.crt)
+Test_SetPrivateKeyDirectly(files\Contoso.SL150.revokedv5.prv)
+Test_NDTMGR_CreateSession(REGISTRATION)
+' Temporary Hack to see if the remaining Tests run/pass. Remove once valid certs are present
+Test_NDTMGR_ProcessRegistrationRequest() = 0X8004C035 (DRM_E_INVALIDDEVICECERTIFICATE)
+EndIf
+
+
+88883:BVT: Get RIV2 first then RIV, WMDRM-NET version is higher in RIV2
+If(WMDRMSupported)
+' Process license response with RIV2
+TestManagerStoreRevocationPackage(FALSE, files\REVINFO2v8.ND_testing.ID232.xml)
+
+' Process license response with RIV
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(vqvqngd40kuu9FnnqNrt7Q==,{E28E8B13-3E37-4DC6-8563-CC72CBCDDE91}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", 7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==,zWVMVj8hZun5DyUU38zET5B1E4sl6QsmPIrqzkDP)
+TestManagerSetRevocationInfo(files\rlvi_1_WMDRMND_5.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\Contoso_SL150_revokedv5CRL.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+' Use NDT to process registration request for cert on highest WMDRM-NET CRL
+Test_DRM_NDT_Initialize(SHARED_APP_CONTEXT)
+Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+Test_SetCertificate(files\Contoso.SL150.revokedv8.crt)
+Test_SetPrivateKeyDirectly(files\Contoso.SL150.revokedv8.prv)
+Test_NDTMGR_CreateSession(REGISTRATION)
+Test_NDTMGR_ProcessRegistrationRequest() = 0X8004C053 (DRM_E_CERTIFICATE_REVOKED)
+
+' Use NDT to process registration request for cert only in older WMDRM-NET CRL
+Test_DRM_NDT_Initialize(SHARED_APP_CONTEXT)
+Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+Test_SetCertificate(files\Contoso.SL150.revokedv5.crt)
+Test_SetPrivateKeyDirectly(files\Contoso.SL150.revokedv5.prv)
+Test_NDTMGR_CreateSession(REGISTRATION)
+' Temporary Hack to see if the remaining Tests run/pass. Remove once valid certs are present
+Test_NDTMGR_ProcessRegistrationRequest() = 0X8004C035 (DRM_E_INVALIDDEVICECERTIFICATE)
+EndIf
+
+
+88884:BVT: Get RIV2 first then RIV, WMDRM-NET version is higher in RIV
+If(WMDRMSupported)
+' Process license response with RIV2
+TestManagerStoreRevocationPackage(FALSE, files\REVINFO2v5.ND_testing.ID231.xml)
+
+' Process license response with RIV
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(vqvqngd40kuu9FnnqNrt7Q==,{E28E8B13-3E37-4DC6-8563-CC72CBCDDE91}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", 7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==,zWVMVj8hZun5DyUU38zET5B1E4sl6QsmPIrqzkDP)
+TestManagerSetRevocationInfo(files\rlvi_1_WMDRMND_8.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\Contoso_SL150_revokedv8CRL.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+' Use NDT to process registration request for cert on highest WMDRM-NET CRL
+Test_DRM_NDT_Initialize(SHARED_APP_CONTEXT)
+Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+Test_SetCertificate(files\Contoso.SL150.revokedv8.crt)
+Test_SetPrivateKeyDirectly(files\Contoso.SL150.revokedv8.prv)
+Test_NDTMGR_CreateSession(REGISTRATION)
+Test_NDTMGR_ProcessRegistrationRequest() = 0X8004C053 (DRM_E_CERTIFICATE_REVOKED)
+
+' Use NDT to process registration request for cert only in older WMDRM-NET CRL
+Test_DRM_NDT_Initialize(SHARED_APP_CONTEXT)
+Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+Test_SetCertificate(files\Contoso.SL150.revokedv5.crt)
+Test_SetPrivateKeyDirectly(files\Contoso.SL150.revokedv5.prv)
+Test_NDTMGR_CreateSession(REGISTRATION)
+' Temporary Hack to see if the remaining Tests run/pass. Remove once valid certs are present
+Test_NDTMGR_ProcessRegistrationRequest() = 0X8004C035 (DRM_E_INVALIDDEVICECERTIFICATE)
+EndIf
+
+
+88885:BVT: Get RIV, then RIV2, then WMDRM-NET CRL only.  WMDRM-NET version is highest in single CRL
+If(WMDRMSupported)
+' Process license response with RIV
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(vqvqngd40kuu9FnnqNrt7Q==,{E28E8B13-3E37-4DC6-8563-CC72CBCDDE91}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", 7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==,zWVMVj8hZun5DyUU38zET5B1E4sl6QsmPIrqzkDP)
+TestManagerSetRevocationInfo(files\rlvi_1_WMDRMND_5.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\Contoso_SL150_revokedv5CRL.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+' Process license response with RIV2
+TestManagerStoreRevocationPackage(FALSE, files\REVINFO2v5.ND_testing.ID231.xml)
+
+' Process WMDRM-NET CRL license response
+TestManagerStoreRevocationLists(FALSE, 1, {CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\Contoso_SL150_revokedv8_CRL)
+EndIf
+
+
+88886:BVT: Update RIV2 (say 5), then a higher RIV (say8), then try to bind to a XMR v3 license with a min RIV2 equal to version of the RIV (8). This should fail.
+If(WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,headerXMR.xml)
+
+' Process license response with RIV2
+TestManagerStoreRevocationPackage(FALSE, files\REVINFO2v5.ND_testing.ID231.xml)
+
+' Process license response with RIV
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(vqvqngd40kuu9FnnqNrt7Q==,{E28E8B13-3E37-4DC6-8563-CC72CBCDDE91}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", 7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==,zWVMVj8hZun5DyUU38zET5B1E4sl6QsmPIrqzkDP)
+TestManagerSetRevocationInfo(files\rlvi_1_WMDRMND_8.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\Contoso_SL150_revokedv8CRL.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+' Add XMR License
+TestManagerAddXMRLicense(lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 8)
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+' Bind to XMR License
+TestManagerBind(0 don't overwrite drmmanager context, Dump,Dump,NULL) = 0x8004C063 (DRM_E_RIV_TOO_SMALL)
+EndIf
+
+
+88887:BVT: Update RIV2, then RIV w/ higher WMDRM-NET version, then a higher RIV2, try to bind to a license with a min RIV2 of the higher version
+If(WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,headerXMR.xml)
+
+' Process license response with RIV2
+TestManagerStoreRevocationPackage(FALSE, files\REVINFO2v3.ND_testing.ID230.xml)
+
+' Process license response with RIV
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(vqvqngd40kuu9FnnqNrt7Q==,{E28E8B13-3E37-4DC6-8563-CC72CBCDDE91}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", 7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==,zWVMVj8hZun5DyUU38zET5B1E4sl6QsmPIrqzkDP)
+TestManagerSetRevocationInfo(files\rlvi_1_WMDRMND_5.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\Contoso_SL150_revokedv5CRL.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+' Process license response with RIV2
+TestManagerStoreRevocationPackage(FALSE, files\REVINFO2v8.ND_testing.ID232.xml)
+
+' Add XMR License
+TestManagerAddXMRLicense(lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 8)
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+' Bind to XMR License
+TestManagerBind(0 don't overwrite drmmanager context, Dump,Dump,NULL)
+EndIf
+
+
+88888:BVT: Update RIV2, then RIV, then a lower RIV2, try to bind to a license with a min RIV2 of the higher version
+If(WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,headerXMR.xml)
+
+' Process license response with RIV2
+TestManagerStoreRevocationPackage(FALSE, files\REVINFO2v8.ND_testing.ID232.xml)
+
+' Process license response with RIV
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(vqvqngd40kuu9FnnqNrt7Q==,{E28E8B13-3E37-4DC6-8563-CC72CBCDDE91}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", 7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==,zWVMVj8hZun5DyUU38zET5B1E4sl6QsmPIrqzkDP)
+TestManagerSetRevocationInfo(files\rlvi_1_WMDRMND_8.b64.signed_wchar)
+TestManagerSetRevocation({CD75E604-543D-4A9C-9F09-FE6D24E8BF90}, files\Contoso_SL150_revokedv8CRL.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+' Process license response with RIV2
+TestManagerStoreRevocationPackage(FALSE, files\REVINFO2v5.ND_testing.ID231.xml)
+
+' Add XMR License
+TestManagerAddXMRLicense(lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 8)
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+' Bind to XMR License
+TestManagerBind(0 don't overwrite drmmanager context, Dump,Dump,NULL)
+EndIf
+

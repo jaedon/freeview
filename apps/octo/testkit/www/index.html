@@ -1,0 +1,64 @@
+<html>
+<body>
+<script language="javascript">
+function createRequestObject() {
+   var req;
+   if(window.XMLHttpRequest){
+      // Firefox, Safari, Opera...
+      req = new XMLHttpRequest();
+   } else if(window.ActiveXObject) {
+      // Internet Explorer 5+
+      req = new ActiveXObject("Microsoft.XMLHTTP");
+   } else {
+
+     alert("Your Browser Does Not Support This Script - Please Upgrade Your Browser ASAP");
+   }
+   return req;
+}
+
+var http = createRequestObject();
+
+function sendRequest(page) {
+ 
+
+   http.open('get', page);
+   http.setRequestHeader("If-Modified-Since", "Sat, 1 Jan 2000 00:00:00 GMT");
+   http.onreadystatechange = handleResponse;
+   http.send(null);
+}
+ 
+ 
+function handleResponse() {
+   if(http.readyState == 4 && http.status == 200){
+      // Text returned FROM the PHP script
+      var response = http.responseText;
+      if(response) {
+         // UPDATE ajaxTest content
+         document.getElementById("dbstatus").innerHTML =  response;
+      }
+   }
+}
+ 
+ 
+function repeatloop()
+{ 
+sendRequest('/cgi-bin/memory.cgi');
+setTimeout("repeatloop()", 1000); //refresh
+}
+/*
+window.onload=function() {
+repeatloop();
+}
+*/
+</script>
+</head>
+ 
+<body>
+<span id="dbstatus"></span>
+
+<form action="/cgi-bin/obama_live_stop.cgi">
+<input type="submit">
+</form>
+
+</body>
+</html>

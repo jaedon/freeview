@@ -1,0 +1,137 @@
+/***************************************************************************
+ *     Copyright (c) 2005-2011, Broadcom Corporation
+ *     All Rights Reserved
+ *     Confidential Property of Broadcom Corporation
+ *
+ *  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+ *  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+ *  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+ *
+ ***************************************************************************/
+Network Application API (NetApp)
+
+Author:     Steven Hartley (steven@broadcom.com)
+
+-------------------------------------------------------------------------------
+1) BUILDING NETAPP:
+--------------------------------------------------------------------------------
+Building NetApp is very simple and can be done in the one step below:
+    make -C build
+
+The above command will build all of NetApp including the NetAppTester console test
+application that can be used to test the API.
+
+All environment variables will be discussed in more details later on in this document
+however the only mandatory variable is LINUX (and your toolchain needs to be in the path).
+
+
+-------------------
+1.1) TARGETS:
+-------------------
+OPTION              DESCRIPTION
+------              -----------
+examples            Build the example code in example folder
+                    (This is the default recommended target option and is the default option)
+
+help                Printout all the configuration options and build variables for NetApp
+						
+tarball             Builds a tarball containing full source and prebuilt WLAN and BT code. NOTE: 
+                    WLAN and BT source	MUST be stripped out before releasing to a customer.
+						
+install             Builds NetApp and all sub netapp components and dependent libraries
+
+clean               clean all of the code (remove build objects)
+
+distclean           Same as clean and in addition delete installed components
+                    and remove untared directories
+
+---------------------
+1.2) VARIABLES:
+---------------------
+
+1.2.1) MODULES
+By default all features are enabled in NetApp, to disable them you set the 
+variable below to n when compiling NetApp
+
+VARIABLE            VALUE        DESCRIPTION
+--------            -----        -----------
+VOICE_RECOGNISION    n              Disable FLAC and google voice recognision search
+
+HOTPLUG              n              Disable udev and hotplug support
+
+ZEROCONF             n              Disable avahi and zeroconfiguration (bonjour)
+
+DATABASE             n              Disable json-c, sqlite, and the database backend
+
+WIFI                 n              Disable WiFi
+
+WIFI_INVITE          n              Disable WiFi Invite
+
+WIFI_P2P             n              Disable WiFi Direct
+
+WIFI_DRIVER  [kirin|falcon|aardvark]Set the driver to kirin or falcon (default aardvark)
+                                    This option is not configurable for releases with
+                                    prebuilt binaries.
+                                    
+WIFI_CHIP    [43236b|43238b|4360a0] Which chip to use 43236 family (236, 234, 235), 
+                                    43238, or 4360/43526 (default 43236b).
+                                    This option is not configurable for releases with
+                                    prebuilt binaries.
+DISABLE_WIRED_SUPPORT [y]           By default not set. The wired interface can still be 
+                                    controlled through NetApp API's but this build option 
+                                    (when set) will tell NetApp to not automatically bring
+                                    up the interface when the API is opened.
+
+
+1.2.3) BUILD ENVIRONMENT:
+VARIABLE            VALUE           DESCRIPTION
+--------            -----           -----------
+LINUX               [kernel path]   REQUIRED to build Kernel drivers and must point
+                                    to the path of a pre-built Kernel and the same Kernel
+                                    version that you will be running NetApp on. 
+
+NETAPP_OUTPUT_DIR   [path to output] Where NetApp build system should output the built
+                                    headers, libraries, modules, and binaries. 
+                                    DEFAULT: stage/usr/local
+
+NETAPP_TARGET_DIR   [path/not set]   The directory ON THE TARGET where build binaries will reside 
+                                    (i.e. /usr/local/bin). 
+                                    DEFAULT: /usr/local
+
+VERBOSE             [y/not set]     Enable/disable verbose build. Default= non-verbose
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+1.3) NETAPP.INC:
+-------------------
+When you build and install NetApp, a file called netapp.inc is generated and 
+contains all the LDFLAGS and CFLAGS information that your application will need
+to link and use NetApp. Example on how to use netapp.inc can be found in
+the examples folder. 
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+2.0) RUNNING NETAPP:
+-------------------
+Below shows you how to use the basic test app NetAppTester in interactive mode
+(the recommended mode). 
+NOTE: Change the contents of <> with the actual values
+
+    mkdir -p /usr/local 
+    mount -t nfs <NFS SERVER>:<PATH TO NETAPP>/stage/usr/local /usr/local 
+    cd /usr/local/bin
+    source netapp_target_prep.sh
+    ./NetAppTester -i
+    
+--------------------------------------------------------------------------------
+3.0) WAKE-ON-WLAN TESTING
+-------------------
+to Test WoWL you need a WiFi dongle that has the special wired up GPIO pins (please consult NetApp
+docs for more information). You can test using NetAppTester on the platform (new menu option).
+To generate the magic packet, please run on another linux machine the wakeonlan script found in the 
+etc folder, example useage of this script is:
+    ./etc/wakeonlan -i 192.168.1.255  00:90:4C:03:21:23
+
+

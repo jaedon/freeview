@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Create core dump with executable name and process id
+# Ref.: http://www.linuxhowtos.org/Tips%20and%20Tricks/coredump.htm
+echo "/mnt/hd2/Media/Video/core.%e.%p.%t.avi" > /proc/sys/kernel/core_pattern
+# Remove previouse core dump and log files
+# rm -f /core*  /*.comm /rpclog.* /*.dump
+
+# Enable core dump
+ulimit -c unlimited
+		
+

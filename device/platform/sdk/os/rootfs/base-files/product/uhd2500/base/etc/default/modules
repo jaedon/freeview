@@ -1,0 +1,3 @@
+fusion fusion_shm_base=0x10000000 fusion_shm_size=0x10000000
+nexus
+r8101

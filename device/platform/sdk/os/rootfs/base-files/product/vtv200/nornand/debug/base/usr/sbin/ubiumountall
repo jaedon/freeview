@@ -1,0 +1,13 @@
+#!/bin/sh
+RESULT=0
+
+if [[ $RESULT != 0 ]] ; then
+	echo "-----------------------------------------------"
+	echo "There are open files in /var/lib/xxx directorys"
+	echo "-----------------------------------------------"
+	lsof | grep /var/lib
+	exit $RESULT
+else
+	exit 0
+fi
+

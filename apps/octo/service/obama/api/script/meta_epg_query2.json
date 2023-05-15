@@ -1,0 +1,22 @@
+"meta" : {
+	"operation" : "get",
+	"target" : "epg",
+	"property" : {
+		"pool":"pfsc",
+		"findtype":"default",
+		"ignore_time":-1,
+		"event_limit":-1,
+		"svcinfo":
+		{
+			"delivery":"sat",
+			"svcid":17500,
+			"tsid":1107,
+			"onid":1
+		},
+		"time":
+		{
+			"starttime":1319060000,
+			"endtime":1319960000
+		}
+	}
+}

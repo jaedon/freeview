@@ -1,0 +1,76 @@
+
+# ================================================================================
+# Common include path */
+# ================================================================================
+ccflags-y += -I$(HLIB_DIR)/include
+ccflags-y += -I$(SILIB_DIR)/include
+ccflags-y += -I$(OCTO_DIR)/main/include
+ccflags-y += -I$(OCTO_UTILS_DIR)/utils/include
+
+# ================================================================================
+# TV Manager */
+# ================================================================================
+ccflags-y += -I$(OCTO_TVMANAGER_DIR)/include
+ccflags-y += -I$(OCTO_TVMANAGER_DIR)/mgr/include
+ccflags-y += -I$(OCTO_TVMANAGER_DIR)/mgr/cas/include
+ccflags-y += -I$(OCTO_TVMANAGER_DIR)/bus/include
+ccflags-y += -I$(OCTO_TVMANAGER_DIR)/oapi_manager
+
+# ================================================================================
+# TV Service */
+# ================================================================================
+
+# DB
+ccflags-y += -I$(OCTO_DB_DIR)/include
+ccflags-y += -I$(OCTO_PLUGIN_DIR)/xdb/include
+
+# MW include path
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/include
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/include_plugin
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/svc/include
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/svc/common/include
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/svc/cas/local_include
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/svc/si/local_include
+ccflags-$(CONFIG_MW_CI) += -I$(OCTO_TVSERVICE_DIR)/svc/cas/port/include
+ccflags-$(CONFIG_MW_CAS) += -I$(OCTO_TVSERVICE_DIR)/svc/cas/port/include
+
+# PAL include path
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/pal/include
+
+# XSVC include path
+ccflags-y += -I$(OCTO_TVMANAGER_PLUGIN_DIR)/include
+ccflags-y += -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/include
+# Search
+ccflags-y += -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/search/include
+# PVR
+ccflags-y += -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/pvr/include
+# CAS
+ccflags-y += -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/base/cas/include
+# EPG
+ccflags-y += -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/epg/include
+# MGR
+ccflags-y += -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/mgr/include
+# SW_UPDATE
+ccflags-y += -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/swup/include
+# ONETOUCH_BRANCHNUM
+ccflags-y += -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/onetouch_branchnum/include
+# RSVM
+ccflags-y += -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/rsv/include
+
+# XSVC include path
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/include
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/main/include
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/include
+# SI
+#ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/si/local_include
+# PVR
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/pvr/include
+# CAS
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/include
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/ci/include
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/ci/control
+# EPG
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/epg/include
+# DOWNLOAD
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/download/include
+

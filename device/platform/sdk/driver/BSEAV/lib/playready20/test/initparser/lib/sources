@@ -1,0 +1,10 @@
+
+TARGETTYPE=LIBRARY
+TARGETNAME=InitParserTestAPI
+
+SOURCES = \
+	../initparsertest.c \
+
+INCLUDES = \
+    $(INCLUDES);                 \
+    $(_DRM_SOURCE_PATH)\initiators;  \

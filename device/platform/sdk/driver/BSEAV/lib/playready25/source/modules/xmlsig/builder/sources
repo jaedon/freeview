@@ -1,0 +1,11 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmxmlsigbuilder
+TARGETTYPE=LIBRARY
+
+C_DEFINES=$(C_DEFINES)    \
+    -DDRM_BUILDING_DRMXMLSIGREAL_LIB
+
+SOURCES =              \
+    drmxmlsigbuilder.c
+

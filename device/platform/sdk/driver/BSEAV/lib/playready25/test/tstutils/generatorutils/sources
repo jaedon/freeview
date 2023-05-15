@@ -1,0 +1,7 @@
+!include ..\..\reftest.cmn
+
+TARGETNAME=generatorutils
+TARGETTYPE=LIBRARY
+
+SOURCES =         \
+    tgeneratorutils.c \

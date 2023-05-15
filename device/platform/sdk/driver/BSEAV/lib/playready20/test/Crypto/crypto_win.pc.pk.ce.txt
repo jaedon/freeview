@@ -1,0 +1,10 @@
+91001:FUNC:P1: PKSign_Verify: Signature pointer should be DWORD-aligned for both sign and verify
+Test_PK_Sign_Verify_Alignment( PKSIGN, CRYPTO_CONTEXT, ValidPrivKey, PlainKey, PlainKeyLength, ValidSign )
+
+91002:FUNC:P1: Encrypt_P160 :  Plain text and cipher text data should be DWORD-aligned
+Test_SetRandomSeed( FIXED RandomSeedType )
+Test_DRM_PK_GenKeyPair( ECCP160, Good Context, 0, P160_PUBKEY, 1, P160_PRIVKEY)
+Test_Oem_Random_GetBytes( 2, P160_PLAINTEXT, Misalign_Data )
+Test_DRM_PK_Encrypt_P160_Alignment( ECCP160, Good Context, 0, P160_PUBKEY, 2, P160_PLAINTEXT, 3, P160_CIPHERTEXT)
+Test_DRM_PK_Decrypt_P160_Alignment( ECCP160, Good Context, 1, P160_PRIVKEY, 3, P160_CIPHERTEXT, 4, P160_PLAINTEXT)
+Test_MEMCMP( 2, 4, P160_PLAINTEXT)

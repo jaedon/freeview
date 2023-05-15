@@ -1,0 +1,236 @@
+
+10601:BVT: Use valid arguments with licenses stored in the HDS to embed
+SkipTestIf( !DeviceAssetsSupported, !EnvelopeSupported )
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeWithEmbeddedLeaf02.eny )
+TestManagerAddXMRLicense(MKQu3mhKRcy10AHia/h7/A==, {45227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(MKQu3mhKRcy10AHia/h7/A==, {55227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(MKQu3mhKRcy10AHia/h7/A==, {65227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(Acl2BY3ITE0qe11DalmK0D==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL, ROOT)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_EMB_UpdateEmbeddedStore
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {45227A28-3FEE-4EB5-AF13-F77A5258A919}) ' new license in PRO
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {55227A28-3FEE-4EB5-AF13-F77A5258A919}) ' new license in PRO
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {65227A28-3FEE-4EB5-AF13-F77A5258A919}) ' new license in PRO
+TestManagerReinitialize(Reset)
+
+10602:BVT: Use valid arguments with licenses stored in the HDS to embed. Use multiple domain.
+SkipTestIf( !DomainSupported, !DeviceAssetsSupported, !EnvelopeSupported )
+TestManagerInitResponse
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeForEmbeddingTest01.eny )
+TestManagerUpdateEmbeddedStore = 0x00 ( DRM_SUCCESS ) ' Creates the embedded store
+TestManagerUpdateEmbeddedStore = 0x01 ( DRM_S_FALSE ) ' No license to embed yet
+' Process and embed the first license
+GenerateDomainJoinResponse( TEST_DOMAIN_JOIN_RESPONSE_VAR, HelloWorld, 2, NjU0MzIxMDk4NzY1NDMyMQ==, AH+03juKbUGbHl1V/QIwRA==, DomainCertChainForEmbeddingTest.dat, 5, 0x45a2db00, "qsvqMkfM/LdfprO42rOBT1hAMLQjbkZy+oMgGdD3LZg=", 0x45a03800, "ercDEr7JUw3IU+hRQwC9M4cQ+8ACYM36c90Qe9hupEk=", 0x459d9500, "DOB4Eclbzex72jutbaCnGd5MrXK8L/fXZX2UT6faWMM=", 0x459af200, "8tA7hrpMroHJibgBoedBPjTjvtabuM6H9OqK+WLogbU=", 0x45984f00, "mpYLdZ8Y2XIV0NxvwXeJDzGiisJgorsmsrxtj+KAr1M=" )
+ProcessDomainJoinResponse( TEST_DOMAIN_JOIN_RESPONSE_VAR )=DRM_S_MORE_DATA
+TestManagerAddXMRLicense( AVhTknNlJOjo7F6b7HeNxg==, {C58BFCC3-08F1-4090-A8E5-F56809A732AA}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, NULL, AES_128_CTR, NULL, NjU0MzIxMDk4NzY1NDMyMQ==  )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_EMB_UpdateEmbeddedStore
+VerifyEmbeddedLicenseAPI( AVhTknNlJOjo7F6b7HeNxg==, {C58BFCC3-08F1-4090-A8E5-F56809A732AA}) 
+TestManagerGetContentProperty( 3, NULL )
+TestManagerReinitialize( Reset, TRUE, FALSE )
+' Process and embed the second license
+TestManagerInitialize( Dump )
+TestManagerSetHeader( NORMAL )
+GenerateDomainJoinResponse( TEST_DOMAIN_JOIN_RESPONSE_VAR, HelloWorld, 2, NeY1NDMyMTA5ODc2NTQzMg==, AH+03juKbUGbHl1V/QIwRA==, DomainCertChainForEmbeddingTest2.dat, 1, 0x48040e67, "qk+B8zwBG11LRq4qNwjJS5iCpbdXYIuIvACcdttfHNg=" )
+ProcessDomainJoinResponse( TEST_DOMAIN_JOIN_RESPONSE_VAR )=DRM_S_MORE_DATA
+TestManagerAddXMRLicense( AVhTknNlJOjo7F6b7HeNxg==, {6E45CBCC-BF55-4144-AA5D-588221F46A1C}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, NULL, AES_128_CTR, NULL, NeY1NDMyMTA5ODc2NTQzMg==  )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_EMB_UpdateEmbeddedStore
+VerifyEmbeddedLicenseAPI( AVhTknNlJOjo7F6b7HeNxg==, {6E45CBCC-BF55-4144-AA5D-588221F46A1C})
+'TestManagerGetContentProperty( 3, NULL )
+TestManagerReinitialize( Reset, TRUE )
+TestManagerReinitialize(Reset)
+
+10603:BVT: Use valid arguments with licenses stored in the HDS to embed. Use multiple roots.
+SkipTestIf( !DeviceAssetsSupported, !EnvelopeSupported )
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeWithEmbeddedLeaf02.eny )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {45227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {65227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Bcl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {55227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Ccl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(Acl2BY3ITE0qe11DalmK0D==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL, ROOT)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(Bcl2BY3ITE0qe11DalmK0D==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL, ROOT)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(Ccl2BY3ITE0qe11DalmK0D==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL, ROOT)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL, ROOT)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_EMB_UpdateEmbeddedStore
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {45227A28-3FEE-4EB5-AF13-F77A5258A919}) 
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {65227A28-3FEE-4EB5-AF13-F77A5258A919}) 
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {55227A28-3FEE-4EB5-AF13-F77A5258A919}) 
+TestManagerReinitialize(Reset)
+
+10604:BVT: Use valid arguments with licenses stored in the HDS to embed. Use multiple roots and domains.
+SkipTestIf( !DomainSupported, !DeviceAssetsSupported, !EnvelopeSupported )
+TestManagerInitResponse
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeForEmbeddingTest01.eny )
+TestManagerUpdateEmbeddedStore = 0x00 ( DRM_SUCCESS ) ' Creates the embedded store
+TestManagerUpdateEmbeddedStore = 0x01 ( DRM_S_FALSE ) ' No license to embed yet
+' Process and embed the first license and licenses with multiple roots
+GenerateDomainJoinResponse( TEST_DOMAIN_JOIN_RESPONSE_VAR, HelloWorld, 2, NjU0MzIxMDk4NzY1NDMyMQ==, AH+03juKbUGbHl1V/QIwRA==, DomainCertChainForEmbeddingTest.dat, 5, 0x45a2db00, "qsvqMkfM/LdfprO42rOBT1hAMLQjbkZy+oMgGdD3LZg=", 0x45a03800, "ercDEr7JUw3IU+hRQwC9M4cQ+8ACYM36c90Qe9hupEk=", 0x459d9500, "DOB4Eclbzex72jutbaCnGd5MrXK8L/fXZX2UT6faWMM=", 0x459af200, "8tA7hrpMroHJibgBoedBPjTjvtabuM6H9OqK+WLogbU=", 0x45984f00, "mpYLdZ8Y2XIV0NxvwXeJDzGiisJgorsmsrxtj+KAr1M=" )
+ProcessDomainJoinResponse( TEST_DOMAIN_JOIN_RESPONSE_VAR )=DRM_S_MORE_DATA
+TestManagerAddXMRLicense( AVhTknNlJOjo7F6b7HeNxg==, {C58BFCC3-08F1-4090-A8E5-F56809A732AA}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, NULL, AES_128_CTR, NULL, NjU0MzIxMDk4NzY1NDMyMQ==  )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( AVhTknNlJOjo7F6b7HeNxg==, {45227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( AVhTknNlJOjo7F6b7HeNxg==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, lFmb2gxg0Cr5bfEnJXgJeA== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL, ROOT)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(Acl2BY3ITE0qe11DalmK0D==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL, ROOT)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_EMB_UpdateEmbeddedStore
+VerifyEmbeddedLicenseAPI( AVhTknNlJOjo7F6b7HeNxg==, {C58BFCC3-08F1-4090-A8E5-F56809A732AA}) 
+VerifyEmbeddedLicenseAPI( AVhTknNlJOjo7F6b7HeNxg==, {45227A28-3FEE-4EB5-AF13-F77A5258A919}) 
+TestManagerGetContentProperty( 3, NULL )
+TestManagerReinitialize( Reset, TRUE, FALSE )
+' Process and embed the second license and licenses with multiple roots
+TestManagerInitialize( Dump )
+TestManagerSetHeader( NORMAL )
+GenerateDomainJoinResponse( TEST_DOMAIN_JOIN_RESPONSE_VAR, HelloWorld, 2, NeY1NDMyMTA5ODc2NTQzMg==, AH+03juKbUGbHl1V/QIwRA==, DomainCertChainForEmbeddingTest2.dat, 1, 0x48040e67, "qk+B8zwBG11LRq4qNwjJS5iCpbdXYIuIvACcdttfHNg=" )
+ProcessDomainJoinResponse( TEST_DOMAIN_JOIN_RESPONSE_VAR )=DRM_S_MORE_DATA
+TestManagerAddXMRLicense( AVhTknNlJOjo7F6b7HeNxg==, {6E45CBCC-BF55-4144-AA5D-588221F46A1C}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, OMIT, NULL, AES_128_CTR, NULL, NeY1NDMyMTA5ODc2NTQzMg==  )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( AVhTknNlJOjo7F6b7HeNxg==, {65227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Bcl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( AVhTknNlJOjo7F6b7HeNxg==, {55227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Ccl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(Bcl2BY3ITE0qe11DalmK0D==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL, ROOT)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(Ccl2BY3ITE0qe11DalmK0D==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL, ROOT)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_EMB_UpdateEmbeddedStore
+VerifyEmbeddedLicenseAPI( AVhTknNlJOjo7F6b7HeNxg==, {6E45CBCC-BF55-4144-AA5D-588221F46A1C} )
+VerifyEmbeddedLicenseAPI( AVhTknNlJOjo7F6b7HeNxg==, {65227A28-3FEE-4EB5-AF13-F77A5258A919} ) 
+VerifyEmbeddedLicenseAPI( AVhTknNlJOjo7F6b7HeNxg==, {55227A28-3FEE-4EB5-AF13-F77A5258A919} ) 
+TestManagerReinitialize( Reset, TRUE )
+TestManagerReinitialize(Reset)
+
+10605:BVT: Use valid arguments with licenses stored in the HDS to embed. Have device bound licenses in HDS. Ensure device bound licenses are not embeded.
+SkipTestIf( !DeviceAssetsSupported, !EnvelopeSupported )
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeWithEmbeddedLeaf02.eny )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {45227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,NULL,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, AES_128_CTR )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {65227A28-3FEE-4EB5-AF13-F77A5258A919},YVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, 500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {55227A28-3FEE-4EB5-AF13-F77A5258A919},ZVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, 500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_EMB_UpdateEmbeddedStore = 0x01 ( DRM_S_FALSE ) ' No updates are made 
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {45227A28-3FEE-4EB5-AF13-F77A5258A919}) = DRM_E_LICENSE_NOT_FOUND ' Lisence will not be added
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {65227A28-3FEE-4EB5-AF13-F77A5258A919}) = DRM_E_LICENSE_NOT_FOUND ' Lisence will not be added
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {55227A28-3FEE-4EB5-AF13-F77A5258A919}) = DRM_E_LICENSE_NOT_FOUND ' Lisence will not be added
+TestManagerReinitialize(Reset)
+
+10606:BVT: Test with the Global Secure Store Context in F_pLicEvalBackup uninitialized
+SkipTestIf( !DeviceAssetsSupported, !EnvelopeSupported )
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeWithEmbeddedLeaf02.eny )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {45227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {55227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {65227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(Acl2BY3ITE0qe11DalmK0D==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL, ROOT)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_EMB_UpdateEmbeddedStore( SECSTORAGEUNINITIALIZED_LIC_EVAL )
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {45227A28-3FEE-4EB5-AF13-F77A5258A919} ) ' new license in PRO
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {55227A28-3FEE-4EB5-AF13-F77A5258A919} ) ' new license in PRO
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {65227A28-3FEE-4EB5-AF13-F77A5258A919} ) ' new license in PRO
+TestManagerReinitialize(Reset)
+
+10607:BVT: Test with LicStore Unopened
+SkipTestIf( !DeviceAssetsSupported, !EnvelopeSupported )
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeWithEmbeddedLeaf02.eny )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {45227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {55227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {65227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_EMB_UpdateEmbeddedStore( LIC_STORE_UNOPENED ) = -2147024809 ( 0X80070057, E_INVALIDARG )
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {45227A28-3FEE-4EB5-AF13-F77A5258A919} ) = DRM_E_LICENSE_NOT_FOUND
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {55227A28-3FEE-4EB5-AF13-F77A5258A919} ) = DRM_E_LICENSE_NOT_FOUND
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {65227A28-3FEE-4EB5-AF13-F77A5258A919} ) = DRM_E_LICENSE_NOT_FOUND
+TestManagerReinitialize(Reset)
+
+10608:BVT: Test with the EmbeddedStore uninitialized
+SkipTestIf( !DeviceAssetsSupported, !EnvelopeSupported )
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeWithEmbeddedLeaf02.eny )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {45227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {55227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {65227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_EMB_UpdateEmbeddedStore( EMB_STORE_UNINITIALIZED ) = -2147024809 ( 0X80070057, E_INVALIDARG )
+TestManagerReinitialize( Reset) 
+
+10609:BVT: Test with the LicStores having invalid datastore pointers
+SkipTestIf( !DeviceAssetsSupported, !EnvelopeSupported )
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeWithEmbeddedLeaf02.eny )
+TestManagerAddXMRLicense(MKQu3mhKRcy10AHia/h7/A==, {45227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(MKQu3mhKRcy10AHia/h7/A==, {55227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense(MKQu3mhKRcy10AHia/h7/A==, {65227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_EMB_UpdateEmbeddedStore( LIC_STORE_WITH_INVALID_DATASTORE ) = -2147024809 ( 0X80070057, E_INVALIDARG )
+TestManagerReinitialize( Reset )
+
+10610:BVT: Have f_cbScratchBuffer too small
+SkipTestIf( !DeviceAssetsSupported, !EnvelopeSupported )
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeWithEmbeddedLeaf02.eny )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {45227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {55227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {65227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_EMB_UpdateEmbeddedStore( SCRATCH_BUFFER_TOOSMALL ) = 0x8004C31E ( DRM_E_TEST_UNEXPECTED_OUTPUT ) 'buffer too small condition triggered
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {45227A28-3FEE-4EB5-AF13-F77A5258A919} ) = DRM_E_LICENSE_NOT_FOUND
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {55227A28-3FEE-4EB5-AF13-F77A5258A919} ) = DRM_E_LICENSE_NOT_FOUND
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {65227A28-3FEE-4EB5-AF13-F77A5258A919} ) = DRM_E_LICENSE_NOT_FOUND
+TestManagerReinitialize( Reset )
+
+-------------------BVT ends here--------------------------
+10611:FUNC: Use NULL pointers for arguments
+SkipTestIf( !DeviceAssetsSupported, !EnvelopeSupported )
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeWithEmbeddedLeaf02.eny )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {45227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {55227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {65227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,Acl2BY3ITE0qe11DalmK0D==,NULL,NULL,NULL,NULL,500)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_EMB_UpdateEmbeddedStore( ALL_NULL ) = -2147024809 ( 0X80070057, E_INVALIDARG )
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {45227A28-3FEE-4EB5-AF13-F77A5258A919} ) = DRM_E_LICENSE_NOT_FOUND
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {55227A28-3FEE-4EB5-AF13-F77A5258A919} ) = DRM_E_LICENSE_NOT_FOUND
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {65227A28-3FEE-4EB5-AF13-F77A5258A919} ) = DRM_E_LICENSE_NOT_FOUND
+TestManagerReinitialize( Reset )
+
+10612:FUNC:Try non domain bound simple with MOVE and COPY
+SkipTestIf( !DeviceAssetsSupported, !EnvelopeSupported )
+TestManagerOpenEnvelope( EnvelopeContextBuffer, files\EnvelopeWithEmbeddedLeaf02.eny )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {45227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, AES_128_CTR, MOVE)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {55227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, AES_128_CTR, COPY)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( MKQu3mhKRcy10AHia/h7/A==, {65227A28-3FEE-4EB5-AF13-F77A5258A919},XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, AES_128_CTR, IGNORE)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+Test_EMB_UpdateEmbeddedStore
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {45227A28-3FEE-4EB5-AF13-F77A5258A919} ) 
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {55227A28-3FEE-4EB5-AF13-F77A5258A919} ) 
+VerifyEmbeddedLicenseAPI( MKQu3mhKRcy10AHia/h7/A==, {65227A28-3FEE-4EB5-AF13-F77A5258A919} ) = DRM_E_LICENSE_NOT_FOUND
+TestManagerReinitialize( Reset )
+

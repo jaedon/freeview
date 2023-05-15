@@ -1,0 +1,25 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=meteringcreateresponse
+TARGETTYPE=PROGRAM
+UMTYPE=console
+UMENTRY=wmain
+
+SOURCES = \
+    meterrespond.c
+
+!if "$(_DRM_BUILD_TOOL)" != "NMAKE"
+SOURCES = $(SOURCES) \
+      meterrespond.rc
+!endif
+
+INCLUDES =      \
+    $(INCLUDES) \
+    $(_DRM_SOURCE_PATH)\tools\common
+
+TARGETLIBS = $(TARGETLIBS)                          \
+    $(_DRM_COMMON_LIBS)                             \
+    $(_DRM_OEM_MAIN_LIB)                            \
+    $(_DRM_BLACKBOX_LIBS)                           \
+    $(_DRM_TOOLS_COMMON_LIBS)                       \
+

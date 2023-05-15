@@ -1,0 +1,382 @@
+/*
+ * /prismux/prism.page.recordings.css
+ */
+#recordingsPage .storageStatusArea {
+  width: 230px;
+  height: 118px;
+  padding-left: 10px;
+}
+#recordingsPage .storageStatusArea .txtTitle {
+  font-family: "PrismFontB";
+  color: #d2d2d2;
+  /* T_REC_Menu */
+  font-size: 24px;
+  width: inherit;
+}
+#recordingsPage .storageStatusArea .graph {
+  position: absolute;
+  height: 30px;
+  width: 230px;
+}
+#recordingsPage .storageStatusArea .info {
+  position: absolute;
+  top: 62px;
+  width: 230px;
+  font-family: "PrismFontL";
+  color: #bebebe;
+  text-align: left;
+  font-size: 22px;
+  line-height: 22px;
+}
+#recordingsPage .storageStatusArea .txtType {
+  font-family: "PrismFontB";
+  color: #D2D2D2;
+  text-align: left;
+  font-size: 24px;
+  line-height: 28px;
+  height: 26px;
+}
+#recordingsPage .storageStatusArea .txtSize {
+  font-family: "PrismFontB";
+  color: #D2D2D2;
+  text-align: left;
+  font-size: 20px;
+  line-height: 20px;
+  width: 100px;
+}
+#recordingsPage .storageStatusArea .hd {
+  position: absolute;
+  top: 0px;
+  background: none;
+  height: 46px;
+  width: 61px;
+}
+#recordingsPage .storageStatusArea .sd {
+  position: absolute;
+  top: 51px;
+  margin: 0px 0px 0px;
+}
+#recordingsPage .circleBg {
+  width: 86px;
+  height: 86px;
+  border-radius: 43px;
+  background: white;
+}
+#recordingsPage .circleHole {
+  width: 86px;
+  height: 86px;
+  border-radius: 43px;
+  background: white;
+}
+#recordingsPage .noContent.img {
+  background: url(../images/390_REC_NoREC.png) no-repeat 50% 90px;
+}
+#recordingsPage .viewDlg {
+  width: 892px;
+}
+#recordingsPage.inactive .gridItem.-afd-leaf {
+  border: solid 6px #135C86;
+  /* F_Cursor_H // history*/
+}
+#recordingsPage .nonblockLoading {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 140px;
+  /*change from 93px to 140px for Persian*/
+  height: 53px;
+  padding: 42px 60px 0 87px;
+  background: url(../images/206_Loading_DW.gif) no-repeat 20px 25px, rgba(0, 0, 0, 0.85);
+  text-align: center;
+  color: #fff;
+  font-size: 24px;
+  font-family: PrismFontL;
+}
+#recordingsPage .scheduledItem {
+  width: 848px;
+  height: 58px;
+}
+#recordingsPage .scheduledItem.-afd-leaf {
+  background-color: #2EB2FF;
+}
+#recordingsPage .scheduledItem.-afd-leaf .title {
+  color: #000000;
+  font-family: 'PrismFontB';
+}
+#recordingsPage .scheduledItem.-afd-leaf .time {
+  color: #000000;
+  font-family: 'PrismFontB';
+}
+#recordingsPage .scheduledItem.-afd-leaf .remain {
+  color: #000000;
+  font-family: 'PrismFontB';
+}
+#recordingsPage .scheduledItem.checked > .thumbnail {
+  left: 42px;
+}
+#recordingsPage .scheduledItem.checked > .title {
+  left: 133px;
+  width: 410px;
+}
+#recordingsPage .scheduledItem.checked:after {
+  content: "";
+  position: absolute;
+  top: 13px;
+  left: 5px;
+  width: 32px;
+  height: 32px;
+  background: url(../images/112_DIA_Check_On.png) no-repeat;
+}
+#recordingsPage .scheduledItem.unchecked > .thumbnail {
+  left: 42px;
+}
+#recordingsPage .scheduledItem.unchecked > .title {
+  left: 133px;
+  width: 505px;
+}
+#recordingsPage .scheduledItem.unchecked:after {
+  content: "";
+  position: absolute;
+  top: 13px;
+  left: 5px;
+  width: 32px;
+  height: 32px;
+  background: url(../images/112_DIA_Check_Off.png) no-repeat;
+}
+#recordingsPage .scheduledItem .thumbnail {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  width: 85px;
+  height: 48px;
+  background-color: rgba(255, 255, 255, 0.102);
+}
+#recordingsPage .scheduledItem .thumbnail .name {
+  position: absolute;
+  font-size: 18px;
+  font-family: PrismFontL;
+  vertical-align: middle;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 48px;
+  width: 75px;
+  left: 5px;
+}
+#recordingsPage .scheduledItem .title {
+  position: absolute;
+  left: 96px;
+  top: 17px;
+  width: 377px;
+  height: 41px;
+  line-height: 24px;
+  font-family: 'PrismFontL';
+  font-size: 24px;
+  color: #FFFFFF;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#recordingsPage .scheduledItem .time {
+  position: absolute;
+  left: 479px;
+  top: 17px;
+  width: 206px;
+  height: 41px;
+  line-height: 24px;
+  font-family: 'PrismFontL';
+  font-size: 24px;
+  color: #FFFFFF;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#recordingsPage .scheduledItem .remain {
+  position: absolute;
+  left: 691px;
+  top: 17px;
+  width: 110px;
+  height: 41px;
+  line-height: 24px;
+  font-family: 'PrismFontL';
+  font-size: 24px;
+  color: #FFFFFF;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#recordingsPage .scheduledItem .icon {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+}
+#recordingsPage .scheduledItem .icon.reminder {
+  background: url("../images/205_REC_Reservation_Watch.png") no-repeat transparent;
+  width: 28px;
+  height: 28px;
+}
+#recordingsPage .scheduledItem .icon.series {
+  background: url("../images/205_REC_Reservation_Series.png") no-repeat transparent;
+  width: 33px;
+  height: 28px;
+}
+#recordingsPage .scheduledItem .icon.onceRec {
+  background: url("../images/205_REC_Reservation_Recording.png") no-repeat transparent;
+  width: 33px;
+  height: 28px;
+}
+#recordingsPage .scheduledItem .icon.weeklyRec {
+  background: url("../images/205_REC_Reservation_Weekly.png") no-repeat transparent;
+  width: 33px;
+  height: 28px;
+}
+#recordingsPage .scheduledItem .icon.dailyRec {
+  background: url("../images/205_REC_Reservation_Daily.png") no-repeat transparent;
+  width: 33px;
+  height: 28px;
+}
+#recordingsPage .tobedeletedItem {
+  width: 848px;
+  height: 58px;
+}
+#recordingsPage .tobedeletedItem.-afd-leaf {
+  background-color: #2EB2FF;
+}
+#recordingsPage .tobedeletedItem.-afd-leaf .title {
+  color: #000000;
+  font-family: 'PrismFontB';
+}
+#recordingsPage .tobedeletedItem.checked > .thumbnail {
+  left: 42px;
+}
+#recordingsPage .tobedeletedItem.checked > .title {
+  left: 133px;
+  width: 410px;
+}
+#recordingsPage .tobedeletedItem.checked:after {
+  content: "";
+  position: absolute;
+  top: 13px;
+  left: 5px;
+  width: 32px;
+  height: 32px;
+  background: url(../images/112_DIA_Check_On.png) no-repeat;
+}
+#recordingsPage .tobedeletedItem.unchecked > .thumbnail {
+  left: 42px;
+}
+#recordingsPage .tobedeletedItem.unchecked > .title {
+  left: 133px;
+  width: 505px;
+}
+#recordingsPage .tobedeletedItem.unchecked:after {
+  content: "";
+  position: absolute;
+  top: 13px;
+  left: 5px;
+  width: 32px;
+  height: 32px;
+  background: url(../images/112_DIA_Check_Off.png);
+}
+#recordingsPage .tobedeletedItem .thumbnail {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  width: 85px;
+  height: 48px;
+  background-color: rgba(255, 255, 255, 0.102);
+}
+#recordingsPage .tobedeletedItem .thumbnail .name {
+  position: absolute;
+  font-size: 18px;
+  font-family: PrismFontL;
+  vertical-align: middle;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 48px;
+  width: 75px;
+  left: 5px;
+}
+#recordingsPage .tobedeletedItem .title {
+  position: absolute;
+  left: 96px;
+  top: 17px;
+  width: 377px;
+  height: 41px;
+  line-height: 24px;
+  font-family: 'PrismFontL';
+  font-size: 24px;
+  color: #FFFFFF;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#recordingsPage .tobedeletedItem .icons {
+  position: absolute;
+  left: 699px;
+  top: 0px;
+  width: 149px;
+  height: inherit;
+  padding-right: 10px;
+}
+#recordingsPage .tobedeletedItem .icons > img {
+  position: relative;
+  margin-left: 6px;
+  top: 13px;
+  float: right;
+}
+#recordingsPage .tobedeletedItem .icons > img.play {
+  width: 28px;
+  height: 28px;
+  background: url(../images/205_REC_Play.png) no-repeat;
+}
+#recordingsPage .tobedeletedItem .icons > img.partially {
+  width: 28px;
+  height: 28px;
+  background: url(../images/614_REC_Play_partially.png) no-repeat;
+}
+#recordingsPage .tobedeletedItem .icons > img.new {
+  width: 45px;
+  height: 26px;
+  background: url(../images/614_REC_New.png) no-repeat;
+}
+#recordingsPage .tobedeletedItem .icons > img.series {
+  width: 33px;
+  height: 26px;
+  background: url(../images/614_REC_Series.png) no-repeat;
+}
+#recordingsPage .tobedeletedItem .icons > img.lock {
+  width: 22px;
+  height: 28px;
+  background: url(../images/211_Lock.png) no-repeat;
+}
+#recordingsPage .tobedeletedItem .icons > img.broken {
+  width: 35px;
+  height: 28px;
+  background: url(../images/614_REC_Broken.png) no-repeat;
+}
+#badge {
+  width: 40px;
+  height: 22px;
+  line-height: 22px;
+  border-radius: 30px;
+  color: black;
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  text-align: center;
+  vertical-align: middle;
+  left: 213px;
+  top: 19px;
+  position: absolute;
+  opacity: 0;
+}
+.selected #badge {
+  opacity: 1;
+}

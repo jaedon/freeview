@@ -1,0 +1,112 @@
+@CHARSET "UTF-8";
+html {
+	width:auto;
+	height:auto;
+}
+#text_url{
+	width:500px;
+}
+#title{
+	font-size:20px;
+}
+#box{
+	/* Firefox */
+	display:-moz-box;
+	-moz-box-orient:horizontal;
+	/* Safari and Chrome */
+	display:-webkit-box;
+	-webkit-box-orient:horizontal;
+	/* W3C */
+	display:box;
+	box-orient:horizontal;
+}
+#grid1{
+	width:400px;
+}
+#grid2{
+	width:900px;
+}
+#grid3{
+	width:500px;
+}
+#items{
+	width:350px;
+}
+#selected{
+	width:850px;
+}
+#text_input{
+	width:850px;
+	height:200px;
+	padding:0;
+	font-family:"Courier New";
+	resize:none;
+}
+#text_output{
+	width:95%;
+	height:400px;
+	padding:0;
+	font-family:"Courier New";
+	resize:none;
+}
+#text_accesscode{
+	width:300px;
+	display:inline;
+	font-family:"Courier New";
+}
+.accesscode_register{
+	margin-bottom:10px;
+	font-family:"Courier New";
+	resize:none;
+}
+#loading{
+	position:relative;
+	top:50%;
+}
+.ball {
+	position:relative;
+	background-color: rgba(0,0,0,0);
+	border:5px solid rgba(0,183,229,0.9);
+	opacity:.9;
+	border-top:5px solid rgba(0,0,0,0);
+	border-left:5px solid rgba(0,0,0,0);
+	border-radius:50px;
+	box-shadow: 0 0 35px #2187e7;
+	width:30px;
+	height:30px;
+	margin:0 auto;
+	-moz-animation:spin .5s infinite linear;
+	-webkit-animation:spin .5s infinite linear;
+}
+.ball1 {
+	position:relative;
+	top:-50px;
+	background-color: rgba(0,0,0,0);
+	border:5px solid rgba(0,183,229,0.9);
+	opacity:.9;
+	border-top:5px solid rgba(0,0,0,0);
+	border-left:5px solid rgba(0,0,0,0);
+	border-radius:50px;
+	box-shadow: 0 0 15px #2187e7; 
+	width:50px;
+	height:50px;
+	margin:0 auto;
+	-moz-animation:spinoff .5s infinite linear;
+	-webkit-animation:spinoff .5s infinite linear;
+}
+@-moz-keyframes spin {
+	0% { -moz-transform:rotate(0deg); }
+	100% { -moz-transform:rotate(360deg); }
+}
+@-moz-keyframes spinoff {
+	0% { -moz-transform:rotate(0deg); }
+	100% { -moz-transform:rotate(-360deg); }
+}
+@-webkit-keyframes spin {
+	0% { -webkit-transform:rotate(0deg); }
+	100% { -webkit-transform:rotate(360deg); }
+}
+@-webkit-keyframes spinoff {
+	0% { -webkit-transform:rotate(0deg); }
+	100% { -webkit-transform:rotate(-360deg); }
+}

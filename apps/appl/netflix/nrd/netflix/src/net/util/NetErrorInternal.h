@@ -1,0 +1,51 @@
+/*
+ * (c) 1997-2015 Netflix, Inc.  All content herein is protected by
+ * U.S. copyright and other applicable intellectual property laws and
+ * may not be copied without the express permission of Netflix, Inc.,
+ * which reserves all rights.  Reuse of any of this content for any
+ * purpose without the permission of Netflix, Inc. is strictly
+ * prohibited.
+ */
+
+/*
+ * * NOTE: Server teams run reports based on the error codes and error groups.
+ * * Please do not change the meaning of the values. If new error codes, groups
+ * * needs to be added/integrated from a different stack, make sure the values
+ * * do not overlap with any of the current ones.
+ */
+#ifdef DEFINE_ERROR_GROUP
+DEFINE_ERROR_GROUP(SUCCESS) // 0
+DEFINE_ERROR_GROUP(NO_IP_ADDRESS) // 1
+DEFINE_ERROR_GROUP(CONNECTIVITY_ERROR) // 2
+DEFINE_ERROR_GROUP(NAMERESOLVEERROR) // 3
+DEFINE_ERROR_GROUP(SSLERROR) // 4
+DEFINE_ERROR_GROUP(CRLOCSPERROR) // 5
+DEFINE_ERROR_GROUP(HTTP_ERROR) // 6
+DEFINE_ERROR_GROUP(DNS_CHECK) // 7
+DEFINE_ERROR_GROUP(UNKNOWN_ERROR) // 8
+#endif
+
+#ifdef DEFINE_ERROR_CODE
+DEFINE_ERROR_CODE(SUCCESS) // 0
+DEFINE_ERROR_CODE(NOTSECUREERROR) // 1
+DEFINE_ERROR_CODE(FILEACCESSERROR) // 2
+DEFINE_ERROR_CODE(DATAURIERROR) // 3
+DEFINE_ERROR_CODE(CONNECT_ERROR) // 4
+DEFINE_ERROR_CODE(TIMEOUTERROR) // 5
+DEFINE_ERROR_CODE(DNS_ERROR) // 6
+DEFINE_ERROR_CODE(SSLHANDSHAKEERROR) // 7
+DEFINE_ERROR_CODE(SSLCACERTERROR) // 8
+DEFINE_ERROR_CODE(SSLCACERTFILEERROR) // 9
+DEFINE_ERROR_CODE(CERTSTATUSSSLERROR) // 10
+DEFINE_ERROR_CODE(CERTSTATUSREVOKED) // 11
+DEFINE_ERROR_CODE(CERTSTATUSPEWREVOKED) // 12
+DEFINE_ERROR_CODE(SENDERROR) // 13
+DEFINE_ERROR_CODE(RECVERROR) // 14
+DEFINE_ERROR_CODE(COMPRESSIONERROR) // 15
+DEFINE_ERROR_CODE(NO_DNS_SERVER) // 16
+DEFINE_ERROR_CODE(NETWORKERROR) // 17
+DEFINE_ERROR_CODE(SECURITYERROR) // 18
+DEFINE_ERROR_CODE(UNKNOWN_ERROR) // 19
+DEFINE_ERROR_CODE(INVALIDHASH_ERROR) // 20
+DEFINE_ERROR_CODE(ABORTED) // 21
+#endif

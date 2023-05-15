@@ -1,0 +1,280 @@
+<skin name=blue pixelformat=argb8888 bordercolor=black> <!-- pixelformat=argb8888, argb1555, rgb565, palette8 -->
+    <!--Skin common images-->
+    <img name=imgNoFocus>button-nofocus.png</img>
+    <img name=imgFocus>button-focus.png</img>
+    <img name=imgListFocus>list-focus.png</img>
+    <img name=imgListNoFocus>list-nofocus.png</img>
+    <img name=imgScrollbar>scrollbar.png</img>
+    <img name=imgScrollInd>scrollind.png</img>
+    <img name=imgNoThumb>nothumb.png</img>
+    <img name=imgProgressInd>progressind.png</img>
+    <img name=imgListBkgnd>list_bkgnd.png</img>
+
+    <!--Background pixmaps -->
+    <pixmap name=pixmapBackground>background.jpg</pixmap>
+
+    <!-- MENU SCREEN -->
+    <screen name=menu tvx=265 tvy=160 tvw=375 tvh=250 dropshadow=1 
+                 bevelwidth=5 bevelcolor=#2d58ad pixmap=pixmapBackground>
+
+        <!-- Menu screen specific images -->
+        <img name=imgBRCMChip>brcm_chip_small.png</img>
+
+        <!-- Platform Name -->
+        <label name=lblBRCMChip image=imgBRCMChip x=20 y=20 w=121 h=106></label>
+        <label name=platform x=160 y=50 w=400 h=60 halign=left font=arial_italic_35_aa.bwin_font;-1 
+                textcolor=#eeeeee dropshadow=1 action=platformNameLong>Invalid Text</label>
+        <label name=platformDesc x=160 y=90 w=500 h=60 halign=left font=arial_18_aa.bwin_font;-1 
+            textcolor=#eeeeee dropshadow=1 action=platformDesc>Invalid Text</label>
+
+        <label name=lblMenuBkgnd image=imgListBkgnd x=0 y=150 w=720 h=270 scale=stretch></label>
+
+        <!-- Photos Icon and Button -->
+        <img name=imgIconPhotos>menu-photos.png</img>
+        <button type=image name=menu_photos x=30 y=165 w=210 h=40 
+                    imageOn=imgFocus imageIcon=imgIconPhotos 
+                    textcolor=#eeeeee textcolorfocus=black xfont=arial_black_24_aa.bwin_font;-1  
+                    dropshadow=1 halign=left action=showPhotoWin>Photo Viewer</button>
+       
+        <!-- Audio Icon and Button -->
+        <img name=imgIconAudio>menu-audio.png</img>
+        <button type=image name=menu_audio x=30 y=215 w=210 h=40 
+                    imageOn=imgFocus imageIcon=imgIconAudio 
+                    textcolor=#eeeeee textcolorfocus=black xfont=arial_black_24_aa.bwin_font;-1  
+                    dropshadow=1 halign=left action=showAudioWin>MP3 Player</button>
+
+        <!-- Info Icon and Button -->
+        <img name=imgIconInfo>menu-info.png</img>
+        <button type=image name=menu_info x=30 y=265 w=210 h=40 
+                    imageOn=imgFocus imageIcon=imgIconInfo
+                    textcolor=#eeeeee textcolorfocus=black xfont=arial_black_24_aa.bwin_font;-1  
+                    dropshadow=1 halign=left action=showInfoWin>Information</button>
+
+        <!-- Admin Button -->
+        <img name=imgIconAdmin>menu-admin.png</img>
+        <button type=image name=menu_admin x=30 y=315 w=210 h=40 
+                    imageOn=imgFocus imageIcon=imgIconAdmin
+                    textcolor=#eeeeee textcolorfocus=black xfont=arial_black_24_aa.bwin_font;-1  
+                    dropshadow=1 halign=left action=showAdminWin>Administration</button>
+    </screen>
+
+    <!-- PLAYBACK SCREEN -->
+    <screen name=playback tvx=410 tvy=30 tvw=225 tvh=150 
+                 bevelwidth=5 bevelcolor=#2d58ad pixmap=pixmapBackground
+                 listx=40 listy=210 listw=600 listh=210 
+                 listbevelwidth=0 listbevelstyle=updown listdropshadow=1 
+                 listrows=7 listtextcolor=#cccccc listtextcolorfocus=black listitems=21534 
+                 listfocusimage=imgListFocus xlistscrollbarimage=imgScrollbar listscrollindimage=imgScrollInd>
+
+        <!-- Screen Title -->
+        <label name=lblPlaybackScreenTitle x=30 y=30 w=720 h=100 
+                textcolor=#eeeeee font=arial_italic_35_aa.bwin_font;-1 dropshadow=1>Video Playlist</label> 
+
+        <!-- Playback list background -->
+        <label name=lblListBkgnd image=imgListBkgnd x=0 y=210 w=720 h=210 scale=stretch></label>
+
+        <!-- list header -->
+        <label name=lblColName x=52 y=185 w=100 h=20 textcolor=#cccccc dropshadow=1>Name</label>
+        <label name=lblColFormat x=362 y=185 w=100 h=20 textcolor=#cccccc dropshadow=1>Format</label>
+        <label name=lblColMbps x=472 y=185 w=100 h=20 textcolor=#cccccc dropshadow=1>Mbps</label>
+        <label name=lblColLength x=533 y=185 w=100 h=20 textcolor=#cccccc dropshadow=1>Length</label>
+    </screen>
+
+    <!-- VIDEO SCREEN -->
+    <screen name=video tvx=410 tvy=30 tvw=225 tvh=150 
+        bevelwidth=5 bevelcolor=#2d58ad pixmap=pixmapBackground focus=video_play>
+
+        <!-- Info Background -->
+        <label name=lblVideoBkgnd image=imgListBkgnd x=0 y=210 w=720 h=210 scale=stretch></label>
+
+        <!-- Screen Title -->
+        <label name=lblVideoScreenTitle x=30 y=30 w=720 h=100 
+                textcolor=#eeeeee font=arial_italic_35_aa.bwin_font;-1 dropshadow=1>Video Information</label> 
+
+        <!-- Video Title -->
+        <label name=lblVideoTitle x=62 y=72 w=325 h=50 font=arial_black_24_aa.bwin_font;-1
+                textcolor=#ffdd00 action=videoTitle dropshadow=1>Invalid Title</label>
+
+        <!-- Video Details -->
+        <label name=lblVideoDate x=45 y= 235 w=105 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#b2982e halign=right dropshadow=1>Date:</label>
+        <label name=lblVideoDateValue x=155 y=235 w=220 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#cccccc action=videoDate dropshadow=1>Invalid Date</label>
+
+        <label name=lblVideoFilename x=45 y= 255 w=105 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#b2982e halign=right dropshadow=1>Filename:</label>
+        <label name=lblVideoFilenameValue x=155 y=255 w=220 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#cccccc action=videoFilename dropshadow=1>Invalid Filename</label>
+
+        <label name=lblVideoSize x=45 y= 275 w=105 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#b2982e halign=right dropshadow=1>Size:</label>
+        <label name=lblVideoSizeValue x=155 y=275 w=220 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#cccccc action=videoSize dropshadow=1>Invalid Size</label>
+
+        <label name=lblVideoLength x=45 y= 295 w=105 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#b2982e halign=right dropshadow=1>Length:</label>
+        <label name=lblVideoLengthValue x=155 y=295 w=220 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#cccccc action=videoLength dropshadow=1>Invalid Length</label>
+        
+        <label name=lblVideoIndex x=45 y= 315 w=105 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#b2982e halign=right dropshadow=1>Index:</label>
+        <label name=lblVideoIndexValue x=155 y=315 w=220 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#cccccc action=videoIndex dropshadow=1>Invalid Index</label>
+
+        <label name=lblVideoVFormat x=45 y= 335 w=105 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#b2982e halign=right dropshadow=1>Video:</label>
+        <label name=lblVideoVFormatValue x=155 y=335 w=220 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#cccccc action=videoVFormat dropshadow=1>Invalid Format</label>
+        <label name=lblVideoVPid x=260 y=335 w=100 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#b2982e dropshadow=1>pid:</label>
+        <label name=lblVideoVPidValue x=300 y=335 w=100 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#cccccc action=videoVPid dropshadow=1>Invalid Format</label>
+        
+        <label name=lblVideoAFormat x=45 y= 355 w=105 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#b2982e halign=right dropshadow=1>Audio:</label>
+        <label name=lblVideoAFormatValue x=155 y=355 w=220 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#cccccc action=videoAFormat dropshadow=1>Invalid Format</label>
+        <label name=lblVideoAPid x=260 y=355 w=100 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#b2982e dropshadow=1>pid:</label>
+        <label name=lblVideoAPidValue x=300 y=355 w=100 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#cccccc action=videoAPid dropshadow=1>Invalid Format</label>
+
+        <label name=lblVideoEncryption x=45 y= 375 w=105 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#b2982e halign=right dropshadow=1>Encryption:</label>
+        <label name=lblVideoEncryptionValue x=155 y=375 w=220 h=25 font=arial_18_aa.bwin_font;-1
+                textcolor=#cccccc action=videoEncryption dropshadow=1>Invalid Format</label>
+
+        <!-- Play Icon and Button -->
+        <img name=imgIconPlay>video-play.png</img>
+        <button type=image name=video_play x=410 y=220 w=250 h=40 
+                    imageOn=imgFocus imageIcon=imgIconPlay
+                    textcolor=#eeeeee textcolorfocus=black xfont=arial_black_24_aa.bwin_font;-1  
+                    dropshadow=1 halign=left action=playVideo>Play</button>
+
+        <!-- Delete Icon and Button -->
+        <img name=imgIconDelete>video-del.png</img>
+        <button type=image name=video_del x=410 y=270 w=250 h=40 
+                    imageOn=imgFocus imageIcon=imgIconDelete
+                    textcolor=#eeeeee textcolorfocus=black xfont=arial_black_24_aa.bwin_font;-1  
+                    dropshadow=1 halign=left action=deleteVideo>Delete</button>
+
+        <!-- Rename Icon and Button -->
+        <img name=imgIconRename>video-rename.png</img>
+        <button type=image name=video_rename x=410 y=320 w=250 h=40 
+                    imageOn=imgFocus imageIcon=imgIconRename
+                    textcolor=#eeeeee textcolorfocus=black xfont=arial_black_24_aa.bwin_font;-1  
+                    dropshadow=1 halign=left action=renameVideo>Rename</button>
+
+        <!-- Back Icon and Button -->
+        <img name=imgIconBack2Play>video-back2play.png</img>
+        <button type=image name=video_back2play x=410 y=370 w=250 h=40 
+                    imageOn=imgFocus imageIcon=imgIconBack2Play
+                    textcolor=#eeeeee textcolorfocus=black xfont=arial_black_24_aa.bwin_font;-1  
+                    dropshadow=1 halign=left action=showPlaybackWin>Back to Playlist</button>
+    </screen>
+
+    <!-- RECORD SCREEN -->
+    <screen name=record tvx=410 tvy=30 tvw=225 tvh=150 
+                 bevelwidth=5 bevelcolor=#2d58ad pixmap=pixmapBackground>
+                 
+        <!-- Screen Title -->
+        <label name=lblRecordScreenTitle x=30 y=30 w=720 h=100 
+                textcolor=#eeeeee font=arial_italic_35_aa.bwin_font;-1 dropshadow=1>Record</label> 
+
+        <!-- Record list background -->
+        <label name=lblRecBkgnd image=imgListBkgnd x=0 y=210 w=720 h=210 scale=stretch></label> 
+
+        <!-- Record Icon and Button -->
+        <img name=imgIconRec>record-record.png</img>
+        <button type=image name=record_rec x=410 y=220 w=250 h=40 
+                    imageOn=imgFocus imgFocus imageIcon=imgIconRec
+                    textcolor=#eeeeee textcolorfocus=black xfont=arial_black_24_aa.bwin_font;-1  
+                    dropshadow=1 halign=left action=record>Record</button>
+
+        <!-- SaveGuide Icon and Button -->
+        <img name=imgIconSave>record-saveguide.png</img>
+        <button type=image name=record_save_name x=410 y=270 w=250 h=40 
+                    imageOn=imgFocus imageIcon=imgIconSave
+                    textcolor=#eeeeee textcolorfocus=black xfont=arial_black_24_aa.bwin_font;-1  
+                    dropshadow=1 halign=left action=save>Save</button>
+
+        <!-- Show Menu Icon and Button -->
+        <img name=imgIconMenu>record-menu.png</img>
+        <button type=image name=record_menu x=410 y=320 w=250 h=40 
+                    imageOn=imgFocus imageIcon=imgIconMenu
+                    textcolor=#eeeeee textcolorfocus=black xfont=arial_black_24_aa.bwin_font;-1  
+                    dropshadow=1 halign=left action=showMenuWin>Back to Menu</button>
+
+    </screen>
+
+    <!-- PICTURES SCREEN -->
+    <screen name=pictures pixmap=pixmapBackground textcolor=#cccccc
+                 listbevelwidth=0 listbevelstyle=updown listdropshadow=1 
+                 listtextcolor=#cccccc xlisttextcolorfocus=black 
+                 xlistscrollbarimage=imgScrollbar listscrollindimage=imgScrollInd 
+                 listnothumbimage=imgNoThumb progressindimage=imgProgressInd
+                 iconwidth=80 iconborder=15>
+
+        <!-- Screen Title -->
+        <label name=lblPicturesScreenTitle x=30 y=30 w=720 h=100 
+                textcolor=#eeeeee font=arial_italic_35_aa.bwin_font;-1 dropshadow=1>Photo Viewer</label> 
+
+        <!-- Pictures list background -->
+        <label name=lblPicturesBkgnd image=imgListBkgnd x=0 y=80 w=720 h=340 scale=stretch></label> 
+    </screen>
+
+    <!-- TV SCREEN -->
+    <screen name=tv infobevelwidth=1 infobevelstyle=raised infocolor=#aa183d8d infobannercolor=#aa000000 
+                 infobannerbevelstyle=sunken infobannerbevelwidth=1 halign=left 
+                 infotextcolor=#cccccc infotextcolorfocus=black infoimagefocus=imgListFocus 
+                 infobuttonimageOn=imgListFocus infobuttonimageOff=imgListNoFocus 
+                 infobuttonimageDown=imgListNoFocus pvrbarcolor=#aa183d8d 
+                 pipx=340 pipy=30 pipw=300 piph=200>
+	 </screen>
+
+    <!-- AUDIO SCREEN -->
+	<screen name=audio pixmap=pixmapBackground 
+                 listbevelwidth=0 listbevelstyle=updown listdropshadow=1 
+		         listx=40 listy=150 listw=600 listh=250 
+                 listtextcolor=#cccccc xlisttextcolorfocus=black 
+                 xlistscrollbarimage=imgScrollbar listscrollindimage=imgScrollInd>
+
+        <!-- Screen Title -->
+        <label name=lblAudioScreenTitle x=30 y=30 w=270 h=50 
+                textcolor=#eeeeee font=arial_italic_35_aa.bwin_font;-1 dropshadow=1>MP3 Player</label> 
+
+        <!-- File Location -->
+        <label name=lblAudioLocation x=45 y=115 w=80 h=25 
+			textcolor=#b2982e font=arial_18_aa.bwin_font;-1 dropshadow=1>Location:</label> 
+
+        <!-- Playback list background -->
+		<label name=lblAudioListBkgnd image=imgListBkgnd x=0 y=150 w=720 h=270 scale=stretch></label>
+		
+        <!-- Play Icon and Button -->
+        <img name=imgNoFocusAudioPlay>playaudio_nofocus.png</img>
+        <img name=imgFocusAudioPlay>playaudio_focus.png</img>
+        <img name=imgPressedAudioPlay>playaudio_focus.png</img>
+        <button type=image name=audio_play x=300 y=115 w=100 h=25 
+                    imageOn=imgFocusAudioPlay imageOff=imgNoFocusAudioPlay imageDown=imgPressedAudioPlay 
+                    dropshadow=1 textcolor=#eeeeee action=playAudio></button>
+
+        <!-- Playall Icon and Button -->
+        <img name=imgNoFocusAudioPlayAll>playallaudio_nofocus.png</img>
+        <img name=imgFocusAudioPlayAll>playallaudio_focus.png</img>
+        <img name=imgPressedAudioPlayAll>playallaudio_focus.png</img>
+        <button type=image name=audio_playall x=405 y=115 w=100 h=25 
+                    imageOn=imgFocusAudioPlayAll imageOff=imgNoFocusAudioPlayAll imageDown=imgPressedAudioPlayAll 
+                    dropshadow=1 textcolor=#eeeeee action=playAllAudio></button>
+
+        <!-- Stop Audio Icon and Button -->
+		<img name=imgNoFocusStopAudio>stopaudio_nofocus.png</img>
+        <img name=imgFocusStopAudio>stopaudio_focus.png</img>
+        <img name=imgPressedStopAudio>stopaudio_focus.png</img>
+        <button type=image name=audio_stop x=510 y=115 w=100 h=25 
+                    imageOn=imgFocusStopAudio imageOff=imgNoFocusStopAudio imageDown=imgPressedStopAudio 
+                    dropshadow=1 textcolor=#eeeeee action=stopAudio></button>
+
+	</screen>
+
+</skin>
+

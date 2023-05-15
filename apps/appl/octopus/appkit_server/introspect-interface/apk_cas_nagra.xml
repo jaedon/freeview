@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Cas/Nagra">   
+    <interface name="Octopus.Appkit.Cas.Nagra">
+
+    <method name="IsCWE">
+    	<arg type="b" name="cwe" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="IsJTAG">
+    	<arg type="b" name="jtag" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="IsSBOOT">
+    	<arg type="b" name="sboot" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="IsOTP">
+    	<arg type="b" name="otp" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+        
+    <method name="GetNUID">
+    	<arg type="s" name="nuid" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="GetCASN">
+    	<arg type="s" name="casn" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                        
+
+    <method name="GetFusingInfo">
+    	<arg type="(bbbb)" name="info" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                        
+
+    <method name="IsSCInserted">
+    	<arg type="b" name="scinserted" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+  
+    <method name="VerifyPincode">
+        <arg type="s" name="pinStr" direction="in" />
+    	<arg type="b" name="isOk" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+    
+    <method name="GetAccessibleState">
+        <arg type="(uuub)" name="info" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+    
+    <method name="VerifyPincodeGetAccessibleState">
+        <arg type="s" name="pinStr" direction="in" /> 
+        <arg type="(uuub)" name="info" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                              
+
+    <method name="SetPincode">
+        <arg type="s" name="oldPinStr" direction="in" /> 
+        <arg type="s" name="newPinStr" direction="in" /> 
+        <arg type="b" name="isOk" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+              
+    <signal name="event">
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+
+  </interface>
+</node>

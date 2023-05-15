@@ -1,0 +1,25 @@
+HUMAX_VERBOSE := @
+#HUMAX_VERBOSE :=		
+HUMAX_CROSS := $(CONFIG_TOOLCHAIN_PATH)/bin/mipsel-linux-uclibc-
+HUMAX_ECHO := @echo
+LAST_PATH := $(PWD)
+
+export HUMAX_CROSS
+export HUMAX_ECHO
+
+restnode:
+	$(HUMAX_VERBOSE)$(RESTNODE_TOP_DIR)/env/humax_configure.sh $(HUMAX_CROSS) $(RESTNODE_SRC_DIR)
+	$(HUMAX_VERBOSE)cp -f $(RESTNODE_TOP_DIR)/env/node.target.mk $(RESTNODE_SRC_DIR)/out
+	$(HUMAX_VERBOSE)$(RESTNODE_TOP_DIR)/env/humax_make.sh $(HUMAX_CROSS) $(RESTNODE_SRC_DIR) $(HUMAX_APP_STAG_DIR) $(AP_STATIC_LIB_DIR)
+	$(HUMAX_VERBOSE)cp -f $(RESTNODE_SRC_DIR)/out/Release/node $(RESTNODE_TOP_DIR)/node
+	$(HUMAX_VERBOSE)$(HUMAX_CROSS)strip $(RESTNODE_TOP_DIR)/node
+	$(HUMAX_VERBOSE)cp -f $(RESTNODE_TOP_DIR)/node $(HUMAX_APP_STAG_DIR)/root/usr/bin
+	$(HUMAX_VERBOSE)cp -f $(RESTNODE_TOP_DIR)/node $(HUMAX_NFS_INSTALL_DIR)/usr/bin
+
+clean:
+	$(HUMAX_VERBOSE)$(RESTNODE_TOP_DIR)/env/humax_clean.sh $(HUMAX_CROSS) $(RESTNODE_SRC_DIR) clean
+
+
+distclean:
+	$(HUMAX_VERBOSE)$(RESTNODE_TOP_DIR)/env/humax_clean.sh $(HUMAX_CROSS) $(RESTNODE_SRC_DIR) distclean
+	

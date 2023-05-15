@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Media/Record">   
+    <interface name="Octopus.Appkit.Media.Record">
+
+    <method name="IsRecording">
+    	<arg type="u" name="svcUid" direction="in" />
+        <arg type="b" name="isRecording" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="GetCID">
+    	<arg type="u" name="svcUid" direction="in" />
+        <arg type="u" name="cid" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+                                                                        
+    <method name="Start">
+    	<arg type="(uuuiuuuayis)" name="startInfo" direction="in" />
+        <arg type="u" name="sessionid" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="Stop">
+    	<arg type="u" name="sessionId" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="StopByUID">
+    	<arg type="u" name="svcUid" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetRecTime">
+    	<arg type="u" name="sessionId" direction="in" />
+    	<arg type="u" name="recTime" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetStartTime">
+    	<arg type="u" name="sessionId" direction="in" />
+    	<arg type="u" name="startTime" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetURL">
+    	<arg type="u" name="sessionId" direction="in" />
+    	<arg type="s" name="url" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetRsvSlotByUID">
+    	<arg type="u" name="svcUid" direction="in" />
+    	<arg type="u" name="rsvSlot" direction="out" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <signal name="event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+    
+  </interface>
+</node>

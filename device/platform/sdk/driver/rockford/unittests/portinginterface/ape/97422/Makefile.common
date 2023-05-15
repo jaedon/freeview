@@ -1,0 +1,121 @@
+#############################################################################
+#
+#       Copyright (c) 2005-2012, Broadcom Corporation.
+#       All rights reserved.
+#       Confidential Property of Broadcom Corporation.
+# 
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.common $
+# $brcm_Revision: Hydra_Software_Devel/3 $
+# $brcm_Date: 7/10/12 9:25a $
+#
+# File Description:
+# 	Makefile for compiling ape_test unit test application for testing APE PI
+#
+# $brcm_Log: /rockford/unittests/portinginterface/ape/97422/Makefile.common $
+# 
+# Hydra_Software_Devel/3   7/10/12 9:25a jgarrett
+# SW7425-3457: Adding ape_decode application
+# 
+# Hydra_Software_Devel/2   4/11/12 7:25p jgarrett
+# SW7425-2075: Adding HDMITX support and HBR test tone app
+# 
+# Hydra_Software_Devel/1   8/12/11 4:12p jgarrett
+# SWDTV-8208: Resolving issues with ape_test and EC
+# 
+# Hydra_Software_Devel/1   4/13/11 7:22p gskerl
+# SW7552-28: Adding ape_playback
+# 
+# Hydra_Software_Devel/1   12/16/10 4:07p jgarrett
+# SW7422-146: Initial compilable ape_test app
+# 
+# Hydra_Software_Devel/1   12/15/10 6:51p jgarrett
+# SW7422-146: Adding basic dsp unit test
+# 
+#############################################################################
+
+# Requires the use of the 'plat' script which defines the following:
+#   PLATFORM (97038, 97395, ...)
+#   BCHP_REV (B0, B1, C0, ...)
+#   DEBUG
+#   LINUX
+#   ARCH
+#   TOOLCHAIN
+
+# Target O/S (can be one of the following: linuxuser vxworks)
+ifeq (${SYSTEM},vxworks)
+	TARGET_OS = vxworks
+else
+	ifeq (${SYSTEM},linuxemu)
+		TARGET_OS = linuxemu
+	else
+		TARGET_OS = linuxuser
+	endif
+endif
+
+ifdef COMSPEC
+# Any DOS environment
+MAGNUM_DIR := $(shell cd ..\..\..\..\..\magnum && cd)
+else
+MAGNUM_DIR := $(shell cd ../../../../../magnum; pwd)
+endif
+
+# Directories relative to location of makefile
+ROCKFORD_DIR = $(MAGNUM_DIR)/../rockford
+FRAMEWORK_DIR = $(ROCKFORD_DIR)/appframework
+
+ifeq ($(EMU),IKOS)
+CFLAGS += -DIKOS_EMULATION
+CFLAGS += -DIKOS
+else
+ifeq ($(EMU),PALLADIUM)
+CFLAGS += -DPALLADIUM_EMULATION
+endif
+endif
+
+ifeq (${SYSTEM},vxworks)
+	CFLAGS += -DVXWORKS
+else
+	CFLAGS += -DLINUX
+endif
+
+# Show build commands (y/n)?
+VERBOSE?=n
+
+# Debug (y/n)?
+DEBUG?=y
+
+# Must define ENDIAN to be either big or little
+ifeq ($(SYSTEM),vxworks)
+ENDIAN = big
+else
+ENDIAN = little
+endif
+
+# Include common library code
+VPATH += common
+APP_INCLUDES += ./common
+
+# Include object file list, include path, and C flags for common utilities and base modules 
+# (sets MAGNUM_SOURCES, MAGNUM_INCLUDES, MAGNUM_CFLAGS, and MAGNUM_MODULE_DIR)
+include $(FRAMEWORK_DIR)/build/magnum.inc
+
+# Include object file list, include path, and C flags for other magnum modules required
+# by this application (adds to MAGNUM_SOURCES, MAGNUM_INCLUDES, and MAGNUM_CFLAGS).
+# Here is where you also define module specific makefile defines
+include $(MAGNUM_DIR)/basemodules/dsp/bdsp.inc
+include $(MAGNUM_DIR)/portinginterface/xpt/bxpt.inc
+include $(MAGNUM_DIR)/portinginterface/ape/bape.inc
+include common/common.inc
+
+# At this point, user can add additional files, include paths, and C flags to 
+# MAGNUM_OBJ, MAGNUM_INC, and MAGNUM_CFLAGS (optional).
+
+# Include other common modules (adds to COMMON_SOURCES, COMMON_INCLUDES, and
+# COMMON_CFLAGS)
+
+# Specifies how magnum files and application files are built.
+include $(FRAMEWORK_DIR)/build/$(TARGET_OS)/build.inc

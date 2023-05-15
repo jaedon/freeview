@@ -1,0 +1,2 @@
+[1.0]
+version관리가 되지 않아 UI없앤 version부터 version을 부여 한다.

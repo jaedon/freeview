@@ -1,0 +1,2 @@
+config PACKAGE_LIBEXIF
+	bool "libexif"

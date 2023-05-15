@@ -1,0 +1,33 @@
+##########################################
+# DI SMARTCARD configuration menu
+##########################################
+
+config SMARTCARD
+	bool
+	prompt "SMARTCARD"
+	default n
+
+config MULTI_SMARTCARD
+	bool
+	prompt "MULTI_SMARTCARD"
+	default n
+	depends on SMARTCARD
+
+config SMARTCARD_SLOT1
+	bool
+	prompt "SMARTCARD_SLOT1"
+	default n
+	depends on SMARTCARD
+
+config CAS_T14
+	bool
+	prompt "CAS_T14"
+	default n
+	depends on SMARTCARD
+
+config SMARTCARD_VCC_CONTROL_GPIO
+	bool
+	prompt "VCC_CONTROL_GPIO"
+	default n
+	depends on SMARTCARD
+	

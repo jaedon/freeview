@@ -1,0 +1,8 @@
+##########################################
+# DI PIP configuration menu
+##########################################
+
+config PIP
+	bool
+	prompt "PIP"
+	default n

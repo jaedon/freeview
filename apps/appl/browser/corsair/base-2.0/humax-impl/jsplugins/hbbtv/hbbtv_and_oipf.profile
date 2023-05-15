@@ -1,0 +1,4 @@
+# Builds OOIF for HBBTV, all features turned on.
+name = hbbtv_and_oipf
+features = HBBTV HBBTV_PVR HBBTV_DOWNLOAD OPT_HBBTV_EXT_CONFIG OPT_HBBTV_SCHED_REC_SERIES HBBTV_SECURITY OOIF_ASYNC OIPF
+#features += OBJ_INSTANCE_COUNTER

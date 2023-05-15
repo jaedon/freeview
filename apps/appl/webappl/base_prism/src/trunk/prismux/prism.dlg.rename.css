@@ -1,0 +1,47 @@
+/*
+ * Rename Dialog
+ */
+.renameDlg {
+  width: 800px;
+  background: url(../images/107_Line_DW_White.png) no-repeat, url(../images/107_Line_DW_White.png) no-repeat 0 bottom, rgba(0, 0, 0, 0.8);
+}
+.renameDlg .text {
+  line-height: 34px;
+  width: 800px;
+  font-size: 28px;
+  font-family: PrismFontB;
+  text-align: center;
+  color: #ffffff;
+}
+.renameDlg .btn {
+  width: 220px;
+  height: 50px;
+  line-height: 50px;
+  background: #414141;
+  font-family: PrismFontB;
+  font-size: 26px;
+  color: #D2D2D2;
+  text-align: center;
+}
+.renameDlg .btn.-afd-leaf {
+  background: #2EB2FF;
+  color: black;
+}
+.renameDlg .label {
+  width: 250px;
+  text-align: right;
+  color: #ffffff;
+  line-height: 65px;
+  padding-right: 20px;
+}
+.renameDlg input {
+  width: 375px;
+  height: 40px;
+  padding: 6px 4px;
+  border: 6px solid rgba(255, 255, 255, 0.5) !important;
+  background: none;
+  color: gray;
+}
+.renameDlg .-afd-leaf input {
+  border: 6px solid #2eb2ff !important;
+}

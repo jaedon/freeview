@@ -1,0 +1,32 @@
+
+dbg 6 3 99
+set 0 0 0 13 0 3 0 5 0 0 0
+pb
+ovc
+os 0 0
+ow
+lipsync 1 0 0
+c1
+oc
+ow
+lipsync 1 0 0
+c0
+cf 3
+dnr 30 2 80 2 90 2 70
+mad 1 1 0 0 0 0
+
+lipstress
+sbvn 11 11 0 1 31 31 0 1 0 100
+lipstress
+
+sleep
+pb
+c1
+cw
+cd
+c0
+cw
+cs
+cd
+quit
+

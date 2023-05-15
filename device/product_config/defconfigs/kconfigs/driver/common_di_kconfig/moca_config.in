@@ -1,0 +1,24 @@
+##########################################
+# DI MoCA configuration menu
+##########################################
+
+config MOCA
+	bool "Enable MoCA networking Interface"
+	default n
+	help
+		Say Y to use the Multimedial over Coax Alliance (MoCA) networking Interface
+
+	config BRCM_MOCA
+		bool "Enable Broadcom MoCA PHY Driver"
+		depends on MOCA
+		default n
+		help
+			Say Y to use Broadcom MoCA PHY Driver
+
+	config BRCM_MOCA_20
+		bool "Enable support for the MoCA 2.0 Specification"
+		depends on BRCM_MOCA
+		default n
+		help
+			Say Y to use Broadcom MoCA PHY Driver to support the MoCA 2.0 Specification
+

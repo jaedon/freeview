@@ -1,0 +1,252 @@
+##########################################
+# DI KEY configuration menu
+##########################################
+
+choice
+	prompt "Select Main RCU Protocol"
+	default RCU_INPUTMODE_NEC
+	config RCU_INPUTMODE_NEC
+		bool
+		prompt "NEC Protocol"
+
+	config RCU_INPUTMODE_RC5
+		bool
+		prompt "RC5 Protocol"
+	
+	config RCU_INPUTMODE_XMP
+		bool
+		prompt "XMP Protocol"
+
+	config RCU_INPUTMODE_RSTEP
+		bool
+		prompt "RSTEP Protocol"
+
+	config RCU_INPUTMODE_SEJIN_56KHZ
+		bool
+		prompt "SEJIN 56KHz Protocol"
+endchoice
+
+choice
+	prompt "Select RCU"
+	default RM_F04   
+	config RC_H101
+		bool
+		prompt "RC_H101"
+
+	config R_J03
+		bool
+		prompt "R_J03"
+
+	config RM_E06
+		bool
+		prompt "RM_E06"
+
+	config RM_F01
+		bool
+		prompt "RM_F01"
+
+	config RM_F02
+		bool
+		prompt "RM_F02"
+
+	config RM_F04
+		bool
+		prompt "RM_F04"
+
+	config RM_L01U
+		bool
+		prompt "RM_L01U"
+
+	config RM_G01
+		bool
+		prompt "RM_G01"
+
+	config RM_G02
+		bool
+		prompt "RM_G02"
+
+	config RM_G07
+		bool
+		prompt "RM_G07"
+
+	config RM_G08
+		bool
+		prompt "RM_G08"
+
+	config R_838
+		bool
+		prompt "R_838"
+		
+	config RM_H04S
+		bool
+		prompt "RM_H04S"
+		
+	config RM_H05S
+		bool
+		prompt "RM_H05S"
+		
+	config RM_I02S
+		bool
+		prompt "RM_I02S"
+		
+	config RM_H04S_E08
+		bool
+		prompt "RM-H04S_E08"
+		
+	config URC_178200
+		bool
+		prompt "URC_178200"
+
+	config URC_39741RJ2_001
+		bool
+		prompt "URC_39741RJ2_001"
+		
+	config RC_05
+		bool
+		prompt "RC_05"	
+	
+	config R_C01
+		bool
+		prompt "R_C01"
+
+	config RM_M02
+		bool 
+		prompt "RM_M02"
+
+	config RM_M03
+		bool 
+		prompt "RM_M03"
+
+	config RM_M04
+		bool 
+		prompt "RM_M04"
+
+	config RM_M08
+		bool
+		prompt "RM_M08"	
+		
+	config RM_H09U
+		bool 
+		prompt "RM_H09U"
+
+	config RUWIDO_R97
+		bool 
+		prompt "RUWIDO_R97"
+
+	config R_843 
+		bool 
+		prompt "R_843"
+		
+	config R_849 
+		bool 
+		prompt "R_849"
+		
+	config R_861 
+		bool 
+		prompt "R_861"
+		
+	config NOVA_CE 
+		bool 
+		prompt "NOVA_CE"
+
+	config RM_N01
+		bool 
+		prompt "RM_N01"
+
+	config RM_M14
+		bool 
+		prompt "RM_M14"
+endchoice
+
+choice
+	prompt "Select RCU_INTERNAL"
+	default RCU_INTERNAL   
+	config RCU_INTERNAL
+		bool
+		prompt "RCU_INTERNAL"
+
+	config RCU_MICOM
+		bool
+		prompt "RCU_MICOM"
+endchoice
+
+config RF4CE
+	bool
+	prompt "RF4CE"
+	default n
+choice
+	prompt "Select RF4CE Type"
+	default RF4CE_INTERNAL
+	depends on RF4CE
+
+	config RF4CE_INTERNAL
+		bool
+		prompt "RF4CE_INTERNAL"
+
+	config RF4CE_EXTERNAL
+		bool
+		prompt "RF4CE_EXTERNAL(HMS-1000S)"
+
+	config RF4CE_MICOM
+		bool
+		prompt "RF4CE_MICOM"
+endchoice
+
+choice
+	prompt "Select Motion and Touch"
+	default RF4CE_MOTION_TOUCH_NONE
+	depends on RF4CE
+
+	config RF4CE_MOTION_TOUCH_NONE
+		bool
+		prompt "RF4CE_MOTION_TOUCH_NONE"
+
+	config RF4CE_MOTION_TOUCH_UEI_HILCREST
+		bool
+		prompt "RF4CE_MOTION_TOUCH_UEI_HILCREST"
+endchoice
+
+config IR_MULTI_CUSTOM_CODE
+	bool
+	prompt "IR_MULTI_CUSTOM_CODE"
+	default n
+
+config FRONTKEY_GPIO
+	bool
+	prompt "FRONTKEY_GPIO"
+	default n
+
+config FRONTKEY_GPIO_RELEASE
+	bool
+	prompt "FRONTKEY_GPIO_RELEASE"
+	default n
+	depends on FRONTKEY_GPIO
+
+config RCU_MULTI_DECODER
+	bool
+	prompt "RCU_MULTI_DECODER"
+	default n
+	
+choice
+	prompt "Select MULTI RCU"
+	depends on RCU_MULTI_DECODER 
+	config RCU_INPUTMODE_MULTI_XMP
+		bool
+		prompt "RCU_INPUTMODE_MULTI_XMP"		
+		depends on RCU_INPUTMODE_RC5
+endchoice
+
+choice
+	prompt "Select XMP RCU"
+	default XMP_01
+	depends on RCU_INPUTMODE_MULTI_XMP		
+	config XMP_01
+		bool
+		prompt "XMP_01"		
+endchoice
+
+config RCU_RELEASE_TIME
+	int
+	prompt "RCU_RELEASE_TIME"
+	default 200
+

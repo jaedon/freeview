@@ -1,0 +1,131 @@
+body {
+    overflow-x: hidden;
+}
+#eventConsole {
+    border: 1px solid #333333;
+    border-radius: 10px;
+    color: black;
+    font-size: 20px;
+    left: 1290px;
+    margin: 10px;
+    position: absolute;
+    top: 730px;
+    width: 450px;
+    padding: 10px;
+    background-color: #EAF7F7;
+}
+#eventConsole h3 {
+    margin: 0 0 10px;
+}
+#eventConsole select {
+    margin: 0 0 5px;
+    padding: 5px;
+    border: 1px solid #333;
+    background: #f1f1f1;
+    font-size: 20px;
+    color: #333;
+}
+#eventConsole .emulRadio {
+    opacity: 1;
+}
+#eventConsole *, .emulLogLayer * {
+    font-family:"Arial";
+    vertical-align: middle;
+}
+#eventConsole input, .emulLogLayer input {
+    margin: 0 7px 0 0;
+}
+#eventConsole input.text {
+    border: 1px solid #333;
+    color: black;
+    font-size: 20px;
+    padding: 2px;
+    margin: 5px;
+}
+#divRemoteController {
+    position: absolute;
+    left: 1300px;
+    top: 0;
+    height: 720px;
+}
+#divTabs button, #divTabs select {
+    color: black;
+}
+#logButton {
+    position:absolute;
+    top:730px;
+    left:5px;
+}
+.emulButton {
+    border-top: 1px solid #96d1f8;
+    background: #65a9d7;
+    background: -webkit-linear-gradient(top, #3e779d, #65a9d7);
+    background: -o-linear-gradient(top, #3e779d, #65a9d7);
+    margin: -5px 0 0 4px;
+    padding: 5px 10px 4px;
+    border-radius: 8px;
+    box-shadow: rgba(0,0,0,1) 1px 3px 0;
+    text-shadow: rgba(0,0,0,.4) 0 1px 0;
+    color: white;
+    font-size: 18px;
+    font-family: Georgia,serif;
+    text-decoration: none;
+    vertical-align: middle;
+}
+.emulButton:hover {
+    border-top-color: #28597a;
+    background: #28597a;
+    color: #ccc;
+}
+.emulButton:active {
+    border-top-color: #1b435e;
+    background: #1b435e;
+}
+.emulLogLayer {
+    position:absolute;
+    top:755px;
+    left:5px;
+    border-radius: 10px;
+    border: 1px solid black;
+    width: 395px;
+    padding: 10px;
+    float: left;
+    margin: 5px;
+}
+.emulLogLayer+.emulLogLayer{
+    left:430px;
+}
+.emulLogLayer+.emulLogLayer+.emulLogLayer{
+    left:855px;
+}
+.emulLogLayer li {
+    color: black;
+    font-size: 20px;
+    background: no-repeat;
+}
+.logBoard {
+    margin: 5px 0 0 0;
+    background-color: black;
+    color: white;
+    width: 380px;
+    height: 200px;
+    font-size: 18px;
+    padding: 5px;
+    overflow: scroll;
+}
+.logBoard p {
+    margin: 0 0 5px 0;
+}
+.emulInput {
+    opacity: 1;
+    background-color: white;
+}
+.emulInput:focus {
+    opacity: 1;
+    background-color: white;
+}
+label{vertical-align:middle}
+#repeatArea div{margin-top:10px}
+input,input:focus{position:relative;}
+input[type="checkbox"]{width:20px;height:20px;border:1px solid #000}
+input[type="radio"]{width:15px;height:15px;}

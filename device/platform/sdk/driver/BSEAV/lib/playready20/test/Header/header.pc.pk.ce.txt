@@ -1,0 +1,590 @@
+' valid pubkey:		"7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg=="
+' invalid pubkey:	"7CZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg=="
+' wrong pubkey:		"kmezbipcqrNz0F8UQmhsGS7iHiiiYFCt40VxuOTDBqvT1nw75e6FUQ=="
+
+83178:ContentHeaderVerify should verify a validHeader.xml with the proper public key
+If(WMDRMSupported)
+TestLoadHeader(validHeader.xml)
+TestGetHeaderVersion(1 DRM_HEADER_VERSION_2)
+TestContentHeaderVerify(7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==, ValidCrypto, NORMAL, 1)
+EndIf
+
+83179:ContentHeaderVerify should not verify a header with a wrong public key
+If(WMDRMSupported)
+TestLoadHeader(validHeader.xml)
+TestContentHeaderVerify(kmezbipcqrNz0F8UQmhsGS7iHiiiYFCt40VxuOTDBqvT1nw75e6FUQ==, ValidCrypto, NORMAL, 0)=-2147188529(0X800480CF, DRM_E_INVALID_SIGNATURE)
+EndIf
+
+83186:ContentHeaderGetAttribute should return all supported indexed attributes
+TestLoadHeader(validHeader.xml)
+TestContentHeaderGetAttribute(NULL, 1 DRM_HEADER_ATTRIB_VERSION, NORMAL, 2.0.0.0)
+TestContentHeaderGetAttribute(NULL, 2 DRM_HEADER_ATTRIB_KID, NORMAL, ftRronf2pk+10NT1uvEerQ==)
+TestContentHeaderGetAttribute(NULL, 3 DRM_HEADER_ATTRIB_LAINFO, NORMAL, http://v2srv/WM/getv2lic.asp)
+TestContentHeaderGetAttribute(NULL, 4 DRM_HEADER_ATTRIB_CHECKSUM, NORMAL, LxqJxxO9QA==)
+TestContentHeaderGetAttribute(NULL, 5 DRM_HEADER_ATTRIB_SECURITYVERSION, NORMAL, 2.2)
+
+83189:ContentHeaderGetAttribute should use the attribute name if the attribute index is 'Other'
+TestLoadHeader(validHeader.xml)
+TestContentHeaderGetAttribute(CID, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL, 188)
+
+83190:ContentHeaderGetAttribute should be able to get the entire attribute data if it has sub nodes
+TestLoadHeader(ModDataHeader.xml)
+TestContentHeaderGetAttribute(OWNER, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL, <NAME>bad.contoso.com</NAME>)
+
+83191:ContentHeaderGetAttribute should be able to get the first sub attribute using 'attr1/attr2'
+TestLoadHeader(ModDataHeader.xml)
+TestContentHeaderGetAttribute(OWNER/NAME, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL, bad.contoso.com)
+
+80318:ContentHeaderGetUplink should retrieve the uplink KID when the header has one uplink KID
+TestLoadHeader(uplinkHeader.xml)
+TestContentHeaderGetUplink(0, "4wEEq1ixJEC1na7nmgJT5g==")
+
+80900: Test to Get an Embedded Store containing a license from PRO ( API - DRM_PRO_GetRecord )
+Test_DRM_PRO_IsValidObject( "HeaderPRwithEST.dat" )
+Test_DRM_PRO_GetRecord( "HeaderPRwithEST.dat" )
+
+80901: Test to Get an empty Embedded Store from a PRO ( API - DRM_PRO_GetRecord )
+Test_DRM_PRO_GetRecord( "HeaderPRwithEmptyEST.dat" )
+
+80902: Test to Get an Embedded Store from a PRO which does not have one ( API - DRM_PRO_GetRecord )
+Test_DRM_PRO_GetRecord( "HeaderPR.dat" ) = 0x8004C072 ( DRM_E_RECORD_NOT_FOUND )
+
+80903: Test for the PRO contain an Embedded Store that is too large ( API - DRM_PRO_GetRecord )
+'Test_DRM_PRO_GetRecord( "HeaderPRwithESTlarge.dat" ) = 0x8007007A ( DRM_E_BUFFERTOOSMALL )
+Test_DRM_PRO_GetRecord( "HeaderPRwithESTlarge.dat" ) = 0X8004C06F ( DRM_E_INVALID_PLAYREADY_OBJECT )
+
+80904: Test for the PRO contain an Embedded Store that is too small ( API - DRM_PRO_GetRecord )
+Test_DRM_PRO_GetRecord( "HeaderPRwithESTsmall.dat" ) 
+
+80905: Test for use of NULL pointers for Arguments to API DRM_PRO_GetRecord
+Test_DRM_PRO_GetRecord( "HeaderPRwithEST.dat", NULL_ARGUMENTS ) = 0x80070057 ( DRM_E_INVALIDARG )
+
+80906: Test for the PRO contain an Embedded Store that is size 0 ( API - DRM_PRO_GetRecord )
+Test_DRM_PRO_IsValidObject( "HeaderPRwithESTlen0.dat" ) = 0x00000001 ( DRM_S_FALSE )
+Test_DRM_PRO_GetRecord( "HeaderPRwithESTlen0.dat" ) = 0x80070057 ( DRM_E_INVALIDARG )
+
+-------------------BVT ends here--------------------------
+
+83180:ContentHeaderVerify should fail if the data section in the header is modified
+If(WMDRMSupported)
+TestLoadHeader(ModDataHeader.xml)
+TestContentHeaderVerify(7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==, ValidCrypto, NORMAL, 0)=-2147188529(0X800480CF, DRM_E_INVALID_SIGNATURE)
+EndIf
+
+83181:ContentHeaderVerify should fail if the signature section in the header is modified
+If(WMDRMSupported)
+TestLoadHeader(ModSigHeader.xml)
+TestContentHeaderVerify(7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==, ValidCrypto, NORMAL, 0)=-2147188529(0X800480CF, DRM_E_INVALID_SIGNATURE)
+EndIf
+
+83182:ContentHeaderVerify should fail if the header is not a well formed XML string
+TestLoadHeader(NonXMLHeader.xml)
+TestContentHeaderVerify(7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==, ValidCrypto, NORMAL, 0)=-2147217144(0X80041108, CH_INVALID_HEADER)
+
+83183:ContentHeaderVerify should fail if the public key is not a valid base64 string
+If(WMDRMSupported)
+TestLoadHeader(validHeader.xml)
+TestContentHeaderVerify(7CZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==, ValidCrypto, NORMAL, 0)=-2147188529(0X800480CF, DRM_E_INVALID_SIGNATURE)
+EndIf
+
+83184:ContentHeaderVerify should return INVALIDARG if any required parameter is NULL
+If(WMDRMSupported)
+TestContentHeaderVerify(7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==, ValidCrypto, NORMAL)=-2147024809(0X80070057, E_INVALIDARG)
+TestLoadHeader(validHeader.xml)
+TestContentHeaderVerify(7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==, NULL, NORMAL)=-2147024809(0X80070057, E_INVALIDARG)
+TestContentHeaderVerify(7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==, ValidCrypto, NULL)=-2147024809(0X80070057, E_INVALIDARG)
+EndIf
+
+83185:ContentHeaderVerify should return INVALIDARG if content header is an empty string
+TestLoadHeader(EMPTY)
+TestContentHeaderVerify(7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==, ValidCrypto, NORMAL)=-2147024809(0X80070057, E_INVALIDARG)
+
+83213:ContentHeaderVerify should not verify a header if pubkey is an empty string
+If(WMDRMSupported)
+TestLoadHeader(validHeader.xml)
+TestContentHeaderVerify(EMPTY, ValidCrypto, NORMAL, 0)=-2147024809(0X80070057, E_INVALIDARG)
+EndIf
+
+83187:ContentHeaderGetAttribute should return an error if an indexed attribute does not exist in the header
+TestLoadHeader(NoKIDHeader.xml)
+TestContentHeaderGetAttribute(NULL, 2 DRM_HEADER_ATTRIB_KID, NORMAL)= -2147217148(0X80041104,CH_KID_MISSING)
+TestLoadHeader(NoVersionHeader.xml)
+TestContentHeaderGetAttribute(NULL, 1 DRM_HEADER_ATTRIB_VERSION, NORMAL)= -2147217149(0X80041103, CH_VERSION_MISSING)
+
+83188:ContentHeaderGetAttribute should fail if attribute name is not null and  index is not 'other'
+TestLoadHeader(validHeader.xml)
+TestContentHeaderGetAttribute(Custom, 1 DRM_HEADER_ATTRIB_VERSION, NORMAL, VERSION)=-2147024809(0X80070057, E_INVALIDARG)
+TestContentHeaderGetAttribute(Custom, 2 DRM_HEADER_ATTRIB_KID, NORMAL, KID)=-2147024809(0X80070057, E_INVALIDARG)
+
+83195:ContentHeaderGetAttribute should return E_INVALIDARG if any required parameter is NULL
+TestContentHeaderGetAttribute(NULL, 1 DRM_HEADER_ATTRIB_VERSION, NORMAL)=-2147024809(0X80070057, E_INVALIDARG)
+TestLoadHeader(validHeader.xml)
+TestContentHeaderGetAttribute(NULL, 1 DRM_HEADER_ATTRIB_VERSION, NULL)=-2147024809(0X80070057, E_INVALIDARG)
+TestContentHeaderGetAttribute(NULL, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL)=-2147024809(0X80070057, E_INVALIDARG)
+
+83196:ContentHeaderGetAttribute should return E_INVALIDARG if content header is empty
+TestLoadHeader(EMPTY)
+TestContentHeaderGetAttribute(NULL, 1 DRM_HEADER_ATTRIB_VERSION, NORMAL)=-2147024809(0X80070057, E_INVALIDARG)
+
+83197:ContentHeaderGetAttribute should fail if attribute name is empty
+TestLoadHeader(validHeader.xml)
+TestContentHeaderGetAttribute(EMPTY, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL)=-2147024809(0X80070057, E_INVALIDARG)
+
+83198:ContentHeaderGetAttribute should return E_INVALIDARG for invalid attribute index
+TestLoadHeader(validHeader.xml)
+TestContentHeaderGetAttribute(EMPTY, 0 Invalid Attribute, NORMAL)=-2147024809(0X80070057, E_INVALIDARG)
+TestContentHeaderGetAttribute(EMPTY, 10 Invalid Attribute, NORMAL)=-2147024809(0X80070057, E_INVALIDARG)
+
+83199:ContentHeaderGetAttribute should return an error code if header is not a well formed XML string
+TestLoadHeader(NonXMLHeader.xml)
+TestContentHeaderGetAttribute(NULL, 2 DRM_HEADER_ATTRIB_KID, NORMAL)=-2147217144(0X80041108,CH_INVALID_HEADER)
+
+81422:ContentHeaderGetUplink should fail if asking for the second uplink KID but only one exists
+TestLoadHeader(uplinkHeader.xml)
+TestContentHeaderGetUplink(1, EMPTY)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+
+81423:ContentHeaderGetUplink should fail if no uplink KID exists
+TestLoadHeader(validHeader.xml)
+TestContentHeaderGetUplink(0, EMPTY)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+
+81424:ContentHeaderGetUplink can get the second uplink kid when the header has two KID's
+TestLoadHeader(twouplinks.xml)
+TestContentHeaderGetUplink(1, "5KEEq2jxJEc1na7nmgJT5g==")
+
+' V4 header testing
+
+83301:BVT:DRM_HDR_GetHeaderVersion should properly identify header version
+TestLoadHeader(validHeaderV4.xml)
+TestGetHeaderVersion(2 DRM_HEADER_VERSION_4)
+
+83302:BVT:DRM_HDR_Verify should sucessfully verify a valid V4 header with unknown, well-formed attributes in protectinfo, data, and wrmheader
+TestLoadHeader(validHeaderV4.xml)
+TestContentHeaderVerify(NULL, NULL, NORMAL, 1)  
+
+83303:BVT:DRM_HDR_Verify should sucessfully verify a valid V4 header with no URLs and service ID
+TestLoadHeader(validHeaderV4_Min.xml)
+TestContentHeaderVerify(NULL, NULL, NORMAL, 1)  
+
+83304:BVT:ContentHeaderGetAttribute should return all supported indexed attributes
+TestLoadHeader(validHeaderV4.xml)
+TestContentHeaderGetAttribute(NULL, 1 DRM_HEADER_ATTRIB_VERSION, NORMAL, 4.0.0.0)
+TestContentHeaderGetAttribute(NULL, 2 DRM_HEADER_ATTRIB_KID, NORMAL, ftRronf2pk+10NT1uvEerQ==)
+TestContentHeaderGetAttribute(NULL, 7 DRM_HEADER_ATTRIB_LAURL, NORMAL, http://www.contoso.com/licenseacq.asp)
+TestContentHeaderGetAttribute(NULL, 4 DRM_HEADER_ATTRIB_CHECKSUM, NORMAL, LxqJxxO9QA==)
+TestContentHeaderGetAttribute(NULL, 5 DRM_HEADER_ATTRIB_SECURITYVERSION, NORMAL, 2.2)
+TestContentHeaderGetAttribute(NULL, 8 DRM_HEADER_ATTRIB_LUIINFO, NORMAL, http://www.contoso.com/licenseuiacq.asp)
+TestContentHeaderGetAttribute(NULL, 9 DRM_HEADER_ATTRIB_SERVICEID, NORMAL, AH+03juKbUGbHl1V/QIwRA==)
+
+83305:BVT:ContentHeaderGetAttribute should use the attribute name if the attribute index is 'Other'
+TestLoadHeader(validHeaderV4.xml)
+TestContentHeaderGetAttribute(CID, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL, 188)
+
+83306:FUNC:P0:ContentHeaderGetAttribute should be able to get the entire attribute data if it has sub nodes
+TestLoadHeader(validHeaderV4.xml)
+TestContentHeaderGetAttribute(OWNER, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL, <NAME>V4SRV</NAME>)
+
+83307:FUNC:P0:ContentHeaderGetAttribute should be able to get the first sub attribute using 'attr1/attr2'
+TestLoadHeader(validHeaderV4.xml)
+TestContentHeaderGetAttribute(OWNER/NAME, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL, V4SRV)
+TestContentHeaderGetAttribute(PROTECTINFO/KEYLEN, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL, 16)
+TestContentHeaderGetAttribute(PROTECTINFO/ALGID, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL, ASFV4)
+TestContentHeaderGetAttribute(PROTECTINFO/CUSTOM, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL, data)
+
+83308:FUNC:P0:ContentHeaderGetUplink should retrieve the uplink KID when the header has one uplink KID
+TestLoadHeader(uplinkHeaderV4.xml)
+TestContentHeaderGetUplink(0, "4wEEq1ixJEC1na7nmgJT5g==")
+
+83309:DRT:ContentHeaderVerify should fail if the header is not a well formed XML string or due to KID with data or empty DSID or LAURL or LUIURL or has multiple DATA or PROTECTINFO
+TestLoadHeader(NonXMLHeaderV4.xml)
+TestContentHeaderVerify(NULL, NULL, NORMAL)=0X80041108 DRM_E_CH_INVALID_HEADER
+
+TestLoadHeader(V4_1HeaderKIDWithData.xml)
+TestContentHeaderVerify(NULL, NULL, NORMAL)=0X80041108 DRM_E_CH_INVALID_HEADER
+
+TestLoadHeader(V4_1HeaderEmptyDSID.xml)
+TestContentHeaderVerify(NULL, NULL, NORMAL)=0X80041108 DRM_E_CH_INVALID_HEADER
+
+TestLoadHeader(V4_1HeaderEmptyLAURL.xml)
+TestContentHeaderVerify(NULL, NULL, NORMAL)=0X80041108 DRM_E_CH_INVALID_HEADER
+
+TestLoadHeader(V4_1HeaderEmptyLUIURL.xml)
+TestContentHeaderVerify(NULL, NULL, NORMAL)=0X80041108 DRM_E_CH_INVALID_HEADER
+
+TestLoadHeader(V4_1HeaderMultipleData.xml)
+TestContentHeaderVerify(NULL, NULL, NORMAL)=0X80041108 DRM_E_CH_INVALID_HEADER
+
+TestLoadHeader(V4_1HeaderMultipleProtectInfo.xml)
+TestContentHeaderVerify(NULL, NULL, NORMAL)=0X80041108 DRM_E_CH_INVALID_HEADER
+
+83311:DRT:ContentHeaderGetAttribute should return an error if an required attribute does not exist in the header
+TestLoadHeader(NoKIDHeaderV4.xml)
+TestContentHeaderVerify(NULL, NULL, NORMAL)=0X80041104 DRM_E_CH_KID_MISSING
+TestLoadHeader(NoChecksumHeaderV4.xml)
+'due to changelist 41355, checksum is optional, so this is not a valid negative test case 
+'PK TFS 254500 to track checking the PK code coverage to 
+'make sure checksum code is still fully covered by the V2 header tests.
+TestContentHeaderVerify(NULL, NULL, NORMAL)
+
+83312:DRT:ContentHeaderGetAttribute should fail if attribute name is not null and  index is not 'other'
+TestLoadHeader(validHeaderV4.xml)
+TestContentHeaderGetAttribute(Custom, 1 DRM_HEADER_ATTRIB_VERSION, NORMAL, VERSION)=-2147024809(0X80070057, E_INVALIDARG)
+TestContentHeaderGetAttribute(Custom, 2 DRM_HEADER_ATTRIB_KID, NORMAL, KID)=-2147024809(0X80070057, E_INVALIDARG)
+
+83313:FUNC:P1:ContentHeaderGetAttribute should return E_INVALIDARG if any required parameter is NULL
+TestContentHeaderGetAttribute(NULL, 1 DRM_HEADER_ATTRIB_VERSION, NORMAL)=-2147024809(0X80070057, E_INVALIDARG)
+TestLoadHeader(validHeaderV4.xml)
+TestContentHeaderGetAttribute(NULL, 1 DRM_HEADER_ATTRIB_VERSION, NULL)=-2147024809(0X80070057, E_INVALIDARG)
+TestContentHeaderGetAttribute(NULL, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL)=-2147024809(0X80070057, E_INVALIDARG)
+
+83314:FUNC:P1:ContentHeaderGetAttribute should fail if attribute name is empty
+TestLoadHeader(validHeaderV4.xml)
+TestContentHeaderGetAttribute(EMPTY, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL)=-2147024809(0X80070057, E_INVALIDARG)
+
+83315:FUNC:P1:ContentHeaderGetAttribute should return E_INVALIDARG for invalid attribute index
+TestLoadHeader(validHeaderV4.xml)
+TestContentHeaderGetAttribute(EMPTY, 0 Invalid Attribute, NORMAL)=-2147024809(0X80070057, E_INVALIDARG)
+TestContentHeaderGetAttribute(EMPTY, 11 Invalid Attribute, NORMAL)=-2147024809(0X80070057, E_INVALIDARG)
+
+83316:DRT:ContentHeaderGetAttribute should return an error code if header is not a well formed XML string
+TestLoadHeader(NonXMLHeaderV4.xml)
+TestContentHeaderGetAttribute(NULL, 2 DRM_HEADER_ATTRIB_KID, NORMAL)=-2147217144(0X80041108,CH_INVALID_HEADER)
+
+83317:FUNC:P1:ContentHeaderGetUplink should fail if asking for the second uplink KID but only one exists
+TestLoadHeader(uplinkHeaderV4.xml)
+TestContentHeaderGetUplink(1, EMPTY)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+
+83318:DRT:ContentHeaderGetUplink should fail if no uplink KID exists
+TestLoadHeader(validHeaderV4.xml)
+TestContentHeaderGetUplink(0, EMPTY)=-2147172273(0X8004C04F, DRM_E_XMLNOTFOUND)
+
+83319:FUNC:P1:ContentHeaderGetUplink can get the second uplink kid when the header has two KID's
+TestLoadHeader(twouplinksV4.xml)
+TestContentHeaderGetUplink(1, "5KEEq2jxJEc1na7nmgJT5g==")
+
+83320:DRM_HDR_Verify should fail if checksum has invalid length
+TestLoadHeader(InvalidChecksumHeaderV4.xml)
+TestContentHeaderVerify(NULL, NULL, NORMAL, 0)=0x80041109 DRM_E_CH_INVALID_CHECKSUM
+
+81001:BVT:P0:DRM_HDR_GetAttribute should successfully find Key Length from a valid V4 header which contains a key length within the ProtectInfo section
+TestLoadHeader(validHeaderV4.xml)
+TestContentHeaderGetAttribute(PROTECTINFO/KEYLEN, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL, 16)
+
+81002:BVT:P0:DRM_HDR_GetAttribute should successfully find AlgID from a valid V4 header which contains an ALGID within the ProtectInfo section
+TestLoadHeader(validHeaderV4.xml)
+TestContentHeaderGetAttribute(PROTECTINFO/ALGID, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL, ASFV4)
+
+81100:FUNC:P1:DRM_HDR_Verify should successfully verify a valid V4 header with unknown, properly formatted tags in the protect info
+TestLoadHeader(validHeaderV4.xml)
+'validHeaderV4.xml contains extra, unknown nodes inside the protectinfo, the data, and the wrmheader
+TestContentHeaderVerify(7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==, ValidCrypto, NORMAL)
+
+81103:FUNC:P1:DRM_HDR_Verify should fail to verify a V4 header with no KID
+TestLoadHeader(NoKIDHeaderV4.xml)
+TestContentHeaderVerify(NULL, NULL, NORMAL)=0X80041104 DRM_E_CH_KID_MISSING
+
+81104:FUNC:P1:DRM_HDR_Verify should verify a V4 header with only a KID and Checksum (no URLs, keylength, algid, dsid, etc)
+TestLoadHeader(validHeaderV4_Min.xml)
+TestContentHeaderVerify(NULL, ValidCrypto, NORMAL)
+
+81110:FUNC:P1:DRM_HDR_Verify should return an appropriate error code when a V4 header to too long (> DRM_HEADER_MAX_SIZE_IN_BYTES(5120))
+TestLoadHeader(LongHeaderV4.xml)
+TestContentHeaderVerify(NULL, ValidCrypto, NORMAL)=-2147217144(0X80041108, CH_INVALID_HEADER)
+
+81200:FUNC:P2:DRM_HDR_GetAttribute should return an appropriate error code when an attribute is not found in a V4 header
+TestLoadHeader(validHeaderV4_Min.xml)
+TestContentHeaderGetAttribute(NULL, 9 DRM_HEADER_ATTRIB_SERVICEID, NORMAL) = 0X8004C04F(DRM_E_XMLNOTFOUND)
+
+' V2.4 header testing
+
+83351:DRM_HDR_GetHeaderVersion should properly identify header version
+TestLoadWideCharHeader(validHeaderV24.xml)
+TestGetHeaderVersion(3 DRM_HEADER_VERSION_2_4)
+
+83352:DRM_HDR_Verify should sucessfully verify a valid V2.4 header
+If(WMDRMSupported)
+TestLoadWideCharHeader(validHeaderV24.xml)
+TestContentHeaderVerify(cxiOy9aGn2InV1dyQ5y8Ca4FdH8KmUVddgbI47Bcye5sYxdxlZX1QA==, ValidCrypto, NORMAL, 1)  
+EndIf
+
+83353:DRM_HDR_Verify should sucessfully verify a valid V2.4 header with no URLs and service ID
+If(WMDRMSupported)
+TestLoadWideCharHeader(validHeaderV24_Min.xml)
+TestContentHeaderVerify(3NL6y57Wq442ecZXSbE2LAV8in8XafECwz9cMg07/EbYzZAbRPVEKw==, ValidCrypto, NORMAL, 1)  
+EndIf
+
+83354:ContentHeaderGetAttribute should return all supported indexed attributes
+TestLoadWideCharHeader(validHeaderV24.xml)
+TestContentHeaderGetAttribute(NULL, 1 DRM_HEADER_ATTRIB_VERSION, NORMAL, 2.0.0.0)
+TestContentHeaderGetAttribute(NULL, 2 DRM_HEADER_ATTRIB_KID, NORMAL, lFmb2gxg0Cr5bfEnJXgJeA==)
+TestContentHeaderGetAttribute(NULL, 3 DRM_HEADER_ATTRIB_LAINFO, NORMAL, http://www.contoso.com/v2srv/WM/getv2lic.asp)
+TestContentHeaderGetAttribute(NULL, 4 DRM_HEADER_ATTRIB_CHECKSUM, NORMAL, odAivwHwSQ==)
+TestContentHeaderGetAttribute(NULL, 7 DRM_HEADER_ATTRIB_LICENSE_ACQ_V4_URL, NORMAL, http://www.contoso.com/licenseacq.asp)
+TestContentHeaderGetAttribute(NULL, 8 DRM_HEADER_ATTRIB_LICENSE_UI_URL, NORMAL, http://www.contoso.com/licenseuiacq.asp)
+TestContentHeaderGetAttribute(NULL, 9 DRM_HEADER_ATTRIB_DOMAIN_SERVICE_ID, NORMAL, AH+03juKbUGbHl1V/QIwRA==)
+
+83355:ContentHeaderGetAttribute should use the attribute name if the attribute index is 'Other'
+TestLoadWideCharHeader(validHeaderV24.xml)
+TestContentHeaderGetAttribute(CID, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL, 188)
+
+83356:ContentHeaderGetAttribute should be able to get the entire attribute data if it has sub nodes
+TestLoadWideCharHeader(validHeaderV24.xml)
+TestContentHeaderGetAttribute(OWNER, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL, <NAME>V4SRV</NAME>)
+
+83357:ContentHeaderGetAttribute should be able to get the first sub attribute using 'attr1/attr2'
+TestLoadWideCharHeader(validHeaderV24.xml)
+TestContentHeaderGetAttribute(OWNER/NAME, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL, V4SRV)
+TestContentHeaderGetAttribute(PROTECTINFO/KEYLEN, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL, 16)
+TestContentHeaderGetAttribute(PROTECTINFO/ALGID, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL, ASFV4)
+TestContentHeaderGetAttribute(PROTECTINFO/CUSTOM, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL, data)
+TestContentHeaderGetAttribute(V4DATA/LA_URL,  6 DRM_HEADER_ATTRIB_OTHER, NORMAL, http://www.contoso.com/licenseacq.asp)
+TestContentHeaderGetAttribute(V4DATA/LUI_URL, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL, http://www.contoso.com/licenseuiacq.asp)
+TestContentHeaderGetAttribute(V4DATA/DS_ID,   6 DRM_HEADER_ATTRIB_OTHER, NORMAL, AH+03juKbUGbHl1V/QIwRA==)
+
+83361:ContentHeaderGetAttribute should return an error if an required attribute does not exist in the header
+TestLoadWideCharHeader(NoKIDHeaderV24.xml)
+TestContentHeaderVerify(3NL6y57Wq442ecZXSbE2LAV8in8XafECwz9cMg07/EbYzZAbRPVEKw==, ValidCrypto, NORMAL)=0X80041104 DRM_E_CH_KID_MISSING
+TestLoadWideCharHeader(NoChecksumHeaderV24.xml)
+TestContentHeaderVerify(3NL6y57Wq442ecZXSbE2LAV8in8XafECwz9cMg07/EbYzZAbRPVEKw==, ValidCrypto, NORMAL)=0X80041106 DRM_E_CH_CHECKSUM_MISSING
+
+83362:ContentHeaderVerify should fail if the data section in the header is modified
+If(WMDRMSupported)
+TestLoadWideCharHeader(ModDataHeaderV24.xml)
+TestContentHeaderVerify(3NL6y57Wq442ecZXSbE2LAV8in8XafECwz9cMg07/EbYzZAbRPVEKw==, ValidCrypto, NORMAL, 0)=-2147188529(0X800480CF, DRM_E_INVALID_SIGNATURE)
+EndIf
+
+1340:BVT:P0:DRM_HDR_GetHeaderVersion should identify a valid V2 header
+TestLoadHeader(validHeader.xml)
+TestGetHeaderVersion(1 DRM_HEADER_VERSION_2_4)
+
+80100:FUNC:P1:DRM_HDR_Verify should fail to verify a V2 header with no KID
+TestLoadHeader(NoKIDHeader.xml)
+TestContentHeaderVerify(NULL, validCrypto, NORMAL)= -2147217148(0X80041104,CH_KID_MISSING)
+
+80101:FUNC:P1:DRM_HDR_Verify should fail to verify a V2 header with no LAURL (PR requires this field for V2 headers)
+TestLoadHeader(NoLAINFOHeader.xml)
+TestContentHeaderVerify(NULL, validCrypto, NORMAL)= 0x80041105L(DRM_E_CH_LAINFO_MISSING)
+
+80102:FUNC:P1:DRM_HDR_Verify should fail to verify a V2 header with no checksum
+TestLoadHeader(NoChecksumHeader.xml)
+TestContentHeaderVerify(NULL, ValidCrypto, NORMAL)=0X80041106(DRM_E_CH_CHECKSUM_MISSING)
+
+80103:FUNC:P1:DRM_HDR_Verify should successfully verify a valid V2 header with unknown, properly formatted tags in the Data
+If(WMDRMSupported)
+TestLoadHeader(validHeader.xml)
+'validHeader.xml contains CID node not used by the PK
+TestContentHeaderVerify(7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==, ValidCrypto, NORMAL)
+EndIf
+
+80104:FUNC:P1:DRM_HDR_Verify should return an appropriate error code when a V2 header is too long (> DRM_HEADER_MAX_SIZE_IN_BYTES(5120))
+TestLoadWideCharHeader(LongHeader.xml)
+TestContentHeaderVerify(7BZ*gTLq*LKyT3GcIWH8d5JkWiklMf7Aod!lhBgJpcTRu!chtojzMg==, ValidCrypto, NORMAL)=-2147217144(0X80041108, CH_INVALID_HEADER)
+
+80200:FUNC:P2:DRM_HDR_GetAttribute should return an appropriate error code when an attribute is not found in a V2 header
+TestLoadHeader(validHeader.xml)
+TestContentHeaderGetAttribute(AttributeName, 6 DRM_HEADER_ATTRIB_OTHER, NORMAL) = 0X8004C04F(DRM_E_XMLNOTFOUND)
+
+82109:FUNC:P1:DRM_HDR_Verify should return an appropriate error code when a V2.4 header to too long (> DRM_HEADER_MAX_SIZE_IN_BYTES(5120))
+Test_HB_CreateHeader(V2.4, NULL, 0)
+Test_HB_SetKeyID(ftRronf2pk+10NT1uvEerQ==)
+Test_HB_SetLicAcqUrl(http://www.contoso.com/mylaurl)
+Test_HB_SetChecksum(4wEEq1ixJEC1na7nmgJT5g==)
+' START V4 DATA
+Test_HB_OpenNode(V4DATA)
+Test_HB_OpenNode(LA_URL)
+Test_HB_AddData(http://www.contoso.com/v4url)
+Test_HB_CloseCurrNode
+Test_HB_SetAttribute(UnknownAttr, SomeValue)
+Test_HB_OpenNode(DSID)
+Test_HB_AddData(123456789)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes1)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_CloseCurrNode
+' END V4 DATA
+Test_HB_OpenNode(Extra200Bytes2)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes3)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes4)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes5)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes6)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes7)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes8)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes9)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes10)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_SetAttribute(UnknownAttr2, SomeValue)
+Test_HB_OpenNode(Extra200Bytes11)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes12)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes13)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes14)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes15)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes16)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes17)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes18)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes19)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes20)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_SetAttribute(UnknownAttr3, SomeValue)
+Test_HB_OpenNode(Extra200Bytes21)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes22)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes23)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes24)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes25)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_OpenNode(Extra200Bytes26)
+Test_HB_AddData(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)
+Test_HB_CloseCurrNode
+Test_HB_CloseHeader(SdDP/uYSQ18x1vPuQM+ErIwDlkU=)
+TestContentHeaderVerify(Vj5enKNNXO0qJkQCftBZJgQ6q3405nq6+VyE649cEoV9JZXeqH3Fbw==, ValidCrypto, NORMAL)=-2147217144(0X80041108, CH_INVALID_HEADER)
+
+'
+' Header Builder Tests
+'
+'<SIGNINGKEY>SdDP/uYSQ18x1vPuQM+ErIwDlkU=</SIGNINGKEY>
+'<VERIFYKEY>Vj5enKNNXO0qJkQCftBZJgQ6q3405nq6+VyE649cEoV9JZXeqH3Fbw==</VERIFYKEY>
+'
+
+83000:BVT:P2:Build a V2 header with KID, Checksum, and LAINFO
+If(WMDRMSupported)
+Test_HB_CreateHeader(V2, NULL, 0)
+Test_HB_GetContextSize(8192)
+Test_HB_SetKeyID(!3x8NSroVg4eXCzWqPU!BA==)
+Test_HB_SetLicAcqUrl(http://www.contoso.com/mylaurl)
+Test_HB_SetChecksum(P7ORpD2IpA==)
+Test_HB_CloseHeader(SdDP/uYSQ18x1vPuQM+ErIwDlkU=)
+TestContentHeaderVerify(Vj5enKNNXO0qJkQCftBZJgQ6q3405nq6+VyE649cEoV9JZXeqH3Fbw==, ValidCrypto, NORMAL)
+EndIf
+
+83001:BVT:P2:Build a V2.4 header and then reallocate the HB size
+If(WMDRMSupported)
+Test_HB_CreateHeader(V2, NULL, 2000)
+Test_HB_SetKeyID(!3x8NSroVg4eXCzWqPU!BA==)
+Test_HB_SetLicAcqUrl(http://www.contoso.com/mylaurl)
+Test_HB_SetChecksum(P7ORpD2IpA==)
+Test_HB_GetContextSize(2000)
+' START V4 DATA
+Test_HB_OpenNode(V4DATA)
+Test_HB_OpenNode(LA_URL)
+Test_HB_AddData(http://www.contoso.com/v4url)
+Test_HB_CloseCurrNode
+Test_HB_SetAttribute(UnknownAttr, SomeValue)
+Test_HB_OpenNode(DSID)
+Test_HB_AddData(123456789)
+Test_HB_CloseCurrNode
+Test_HB_CloseCurrNode
+' END V4 DATA
+'
+'  DRM_HB_ReallocHeader is not currently supported (4072)
+'
+'Test_HB_ReallocHeader(8000)
+'Test_HB_GetContextSize(8000)
+'
+
+Test_HB_CloseHeader(SdDP/uYSQ18x1vPuQM+ErIwDlkU=)
+TestContentHeaderVerify(Vj5enKNNXO0qJkQCftBZJgQ6q3405nq6+VyE649cEoV9JZXeqH3Fbw==, ValidCrypto, NORMAL)
+EndIf
+
+'520000:FUNC:P0:CATT:Testing creation of PlayReady Header.
+'Pass NULL for the V4 XML buffer. Should always fail with DRM_E_INVALIDARG
+'Test_DRM_PRO_CreatePlayReadyDRMHeader( NULL, NORMAL, NULL, NULL )=-2147024809(DRM_E_INVALIDARG)
+'Test_DRM_PRO_CreatePlayReadyDRMHeader( NULL, NORMAL, 0, NULL )=-2147024809(DRM_E_INVALIDARG)
+'Test_DRM_PRO_CreatePlayReadyDRMHeader( NULL, NORMAL, 20000, NULL )=-2147024809(DRM_E_INVALIDARG)
+'Test_DRM_PRO_CreatePlayReadyDRMHeader( NULL, NULL, 20000, NULL )=-2147024809(DRM_E_INVALIDARG)
+'Test_DRM_PRO_CreatePlayReadyDRMHeader( NULL, NULL, NULL, NULL )=-2147024809(DRM_E_INVALIDARG)
+
+
+520001:FUNC:P0:CATT:Testing creation of v4 PlayReady Header. Just straightfoward case
+Test_DRM_PRO_CreatePlayReadyDRMHeader( V4_UNICODE.xml, NORMAL, NULL, NULL )
+
+520002:FUNC:P0:CATT:Testing creation of v4 PlayReady Header. If buffer for header NULL should return DRM_E_BUFFERTOOSMALL.
+Test_DRM_PRO_CreatePlayReadyDRMHeader( V4_UNICODE.xml, NULL, 0, NULL )=2147942522(DRM_E_BUFFERTOOSMALL). 
+
+520003:FUNC:P0:CATT:Testing creation of v4 PlayReady Header. Passing 10 bytes buffer for header.
+Test_DRM_PRO_CreatePlayReadyDRMHeader( V4_UNICODE.xml, NORMAL, 10, NULL )=2147942522(DRM_E_BUFFERTOOSMALL). 
+
+520004:FUNC:P0:CATT:Testing creation of v4 PlayReady Header with a cocktail V4 header.
+Test_DRM_PRO_CreatePlayReadyDRMHeader( V4_CockTail_UNICODE.xml, NORMAL, NULL, 1 )
+
+520005:FUNC:P0:CATT:Test conversion from a V2 header to a v4 PlayReady object.
+Test_DRM_PRO_ConvertV2HeaderToPlayReady( V2_CockTail_UNICODE.xml, "http://someurl.com" )
+
+520006:FUNC:P0:CATT:Test conversion from a V2 header to a v4 PlayReady object, using null LAURL.
+Test_DRM_PRO_ConvertV2HeaderToPlayReady( V2_CockTail_UNICODE.xml, NULL )
+
+
+'
+' Header conversion test.
+'
+550000:FUNC:Test Drm_PlayReadyObject_ConvertFromWmdrmHeader
+Test_Drm_PlayReadyObject_ConvertFromWmdrmHeader(V2CocktailHeader.xml,V4CocktailHeader.xml,"http://juprmtest/test/rightsmanager.asmx")
+
+550001:FUNC:Test Drm_PlayReadyObject_ConvertFromWmdrmHeader
+Test_Drm_PlayReadyObject_ConvertFromWmdrmHeader(V2CocktailHeader.xml,V4CocktailHeader_LUIURL.xml, "http://juprmtest/test/rightsmanager.asmx", "http://juprmtest/test/rightsmanager.asmx")
+
+550002:FUNC:Test Drm_PlayReadyObject_ConvertFromWmdrmHeader
+Test_Drm_PlayReadyObject_ConvertFromWmdrmHeader(V2CocktailHeader.xml,V4CocktailHeader_LUIURL_DSID.xml, "http://juprmtest/test/rightsmanager.asmx", "http://juprmtest/test/rightsmanager.asmx", q4nloyNny0+cXV4jlSR38Q==)
+
+550003:FUNC:Test Drm_PlayReadyObject_ConvertFromWmdrmHeader (without ELS)
+Test_Drm_PlayReadyObject_ConvertFromWmdrmHeader(V2CocktailHeader.xml,V4CocktailHeader_LUIURL.xml, "http://juprmtest/test/rightsmanager.asmx", "http://juprmtest/test/rightsmanager.asmx", NULL, 0)
+
+'
+' PR Rights Management Header creation tests
+'
+570000:FUNC: Test creation of a v4 PR Rights Management Header with AESCTR cipher type.
+TestCreateHeader( DRM_PRO_CreateRMHeader, V4_RM_AES_UNICODE.xml, AESCTR, AAA, BBB, http://someurl-LA.com, http://someurl-UI.com, 13, <A>B</A>, NULL )
+570001:FUNC: Test creation of a v4 PR Rights Management Header with COCKTAIL cipher type.
+TestCreateHeader( DRM_PRO_CreateRMHeader, V4_RM_COCKTAIL_UNICODE.xml, COCKTAIL, AAA, BBB, http://someurl-LA.com, http://someurl-UI.com, 13, <A>B</A>, NULL )
+
+'
+' PR Rights Management Header checksum tests
+'
+580000:FUNC: Test checksum calculation for PR Rights Management Header with AESCTR cipher type.
+Test_DRM_PRO_CalculateRMHeaderChecksum( AESCTR, AAECAwQFBgcICQoLDA0ODw==, AAIEBggKDA4QEhQWGBocHg==, uowrtqF4gF0= )
+
+580001:FUNC: Test checksum calculation for PR Rights Management Header with COCKTAIL cipher type.
+Test_DRM_PRO_CalculateRMHeaderChecksum( COCKTAIL, AQMFBwkLDQ==, AAIEBggKDA4QEhQWGBocHg==, 2GygnagsNA== )

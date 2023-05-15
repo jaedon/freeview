@@ -1,0 +1,20 @@
+##########################################
+# DI TRANSCODER configuration menu
+##########################################
+
+config TRANSCODER
+	bool
+	prompt "TRANSCODER"
+	default n
+
+		config TRANSCODER_MEMIO
+			bool
+			prompt "TRANSCODER_MEMIO (use memcpy instead of file writing)"
+			default n
+			depends on TRANSCODER
+
+		config MAX_TRANSCODER_CHANNEL
+			int
+			default 2
+			prompt "MAX_TRANSCODER_CHANNEL"
+			depends on TRANSCODER

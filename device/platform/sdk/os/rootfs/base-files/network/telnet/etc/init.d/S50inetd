@@ -1,0 +1,24 @@
+#!/bin/sh
+
+MODULES_FILE=/etc/default/modules
+. /lib/lsb/init-functions
+. /etc/default/rcS
+if [ "$VERBOSE" != no ]; then
+	log_begin_msg 'Loading deamons...'
+fi
+
+
+case "$1" in
+    start|restart)
+        if [ "$VERBOSE" != no ]; then
+                log_begin_msg "Starting inetd..."
+        fi
+    	exec /usr/sbin/inetd
+	;;
+    stop)
+        ;;
+    force-reload)
+        ;;
+esac
+
+

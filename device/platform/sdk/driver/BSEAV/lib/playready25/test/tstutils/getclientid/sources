@@ -1,0 +1,7 @@
+!include ..\..\reftest.cmn
+
+TARGETNAME=tGetClientID
+TARGETTYPE=LIBRARY
+
+SOURCES = \
+	tGetClientID.c \

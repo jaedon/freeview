@@ -1,0 +1,17 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=tstutilsutils
+TARGETTYPE=LIBRARY
+
+SOURCES =           \
+    ./NdtDrmXmr.c   \
+    ./stubcert.c    \
+    ./tstHDSutils.c \
+    ./tstkeyfile.c  \
+    ./tstutils.c    \
+

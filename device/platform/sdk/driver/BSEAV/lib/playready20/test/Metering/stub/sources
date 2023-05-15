@@ -1,0 +1,10 @@
+
+TARGETTYPE=LIBRARY
+TARGETNAME=MeteringTestAPI_stub
+
+SOURCES = \
+	MeteringTestAPIStub.c \
+
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_TC_LIBS) \

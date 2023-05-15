@@ -1,0 +1,48 @@
+# UK Terrestrial DBOOK version
+
+menu "Select Operatirs's specific configs"
+	comment	 "This is temporary seperating of DBOOK version between 5.x and 6.x"
+	choice
+	prompt "Select DBOOK version"
+		depends on OP_UK_DTT
+		default OP_UK_DTT_DBOOK_VER_5
+
+		config OP_UK_DTT_DBOOK_VER_5
+			bool "OP_UK_DTT_DBOOK_VER_5"
+
+		config OP_UK_DTT_DBOOK_VER_6
+			bool "OP_UK_DTT_DBOOK_VER_6"
+	endchoice
+
+	comment "UK's specific Menu"
+	config OP_UK_MENU
+		depends on OP_UK_DTT
+		bool "OP_UK_MENU - UK Service Menu on / off"
+		default n
+
+	config OP_UK_PUT_TOGETHER_ONE_ITEM_FOR_LANGUAGES_MENU
+		bool "OP_UK_PUT_TOGETHER_ONE_ITEM_FOR_LANGUAGES_MENU - preferred language "
+		depends on OP_UK_MENU
+		default n
+
+	config OP_UK_ANALOG_SWITCH_OFF
+		depends on OP_UK_DTT
+		bool "OP_UK_ANALOG_SWITCH_OFF  on / off"
+		default n
+
+	config OP_UK_DTT_DBOOK_DYNAMIC_UPDATE
+		depends on OP_UK_DTT
+		bool "OP_UK_DTT_DBOOK_DYNAMIC_UPDATE - UKDTT Dynaimc Update Feature on / off "
+		default n
+
+	comment "Select Operator's specific configs"	
+	config OP_PVR_BASED_ON_TVANYTIME
+		depends on OP_UK_DTT
+		bool "OP_PVR_BASED_ON_TVANYTIME - PVR specification is based on TV-AnyTime on / off"
+		default n
+
+	config OP_PVR_BASED_ON_TVANYTIME_ACCURATE_RECORD
+		depends on OP_PVR_BASED_ON_TVANYTIME
+		bool "OP_PVR_BASED_ON_TVANYTIME_ACCURATE_RECORD - TV-AnyTime Accurate Record on / off"
+		default n		
+endmenu

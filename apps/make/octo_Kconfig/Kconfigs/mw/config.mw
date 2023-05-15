@@ -1,0 +1,119 @@
+#########################################################
+#					MW Components Configuration					#
+#########################################################
+
+comment "MW Components Configuration. (MW_XXX)"
+
+	config MW_TELETEXT
+		bool "MW_TELETEXT - Include MW module [Teletext]"
+		default y
+
+	config MW_SUBTITLE
+		bool "MW_SUBTITLE - Include MW module [Subtitle]"
+		default y
+
+	config MW_MULTIMEDIA
+		bool "MW_MULTIMEDIA - Include MW module [Multi-media(PVR, Media, DLNA...)]"
+		default n
+
+	config MW_CEC
+		bool "MW_CEC - Include MW module [Include CEC module]"
+		default n
+		
+	config MW_CEC_RECEIVE_POWER_OFF
+		depends on MW_CEC
+		bool "MW_CEC_RECEIVE_POWER_OFF - Goto standby when receive standby from conneted device"
+		default n
+
+	config MW_CEC_SEND_POWER_OFF
+		depends on MW_CEC
+		bool "MW_CEC_SEND_POWER_OFF - Send to standby conneted device"
+		default n
+
+	config MW_CEC_RECEIVE_USER_CTRL_PRESSED
+		depends on MW_CEC
+		bool "MW_CEC_RECEIVE_USER_CTRL_PRESSED - Receive to TV CEC User Control Pressed"
+		default n
+		
+	config MW_BATCH_NEW
+		bool "MW_BATCH - Include MW module [Include New Batch module] temp. Don't Use This Config"
+		default n
+		
+	config MW_DOWNLOAD
+		bool "MW_DOWNLOAD - Include MW module [Download]"
+		default y
+
+	config MW_LOGCAPTURE
+		bool "MW_LOGCAPTURE - Include MW module [Log Capture module for J:COM]"
+		default n
+
+	config MW_BLUETOOTH
+		bool "MW_BLUETOOTH - Include MW module [Bluetooth]"
+		default n
+
+	config MW_SECURITY_FILE_SYSTEM
+		bool "MW_SECURITY_FILE_SYSTEM - Include MW module [Security File System]"
+		default n
+
+	config MW_DATA_MINING
+		bool "MW_DATA_MINING - Include Data Mining module"
+		default n
+
+	config MW_VERIMATRIX
+		bool "MW_VERIMATRIX - Include Verimatrix DRM module"
+		default n
+
+	config MW_SATRECORD
+		bool "MW_SATRECORD - Include MW module [SatRecord]"
+		default n
+
+	config MW_DYNAMIC_UPDATE
+		bool "MW_DYNAMIC_UPDATE - support dynamic update"
+		default n
+
+	config MW_EPG_GATHERING
+		bool "MW_EPG_GATHERING - support epg gathering"
+		default n
+
+	config MW_EPG_GATHERING_BARKER
+		bool "MW_EPG_GATHERING_BARKER - home tp based barker epg"
+		default n
+
+	config MW_DISABLE_TSC_MONITOR
+		bool "MW_DISABLE_TSC_MONITOR - not to use Demux TSC Monitor"
+		default n
+
+	source "./Kconfigs/mw/config.ch"
+
+	source "./Kconfigs/mw/config.si"
+
+	if (MW_DOWNLOAD = y)
+		source "./Kconfigs/mw/config.dnld"
+	endif
+
+	source "./Kconfigs/mw/config.cas"
+
+	source "./Kconfigs/mw/config.av"
+
+	source "./Kconfigs/mw/config.output"
+
+	if (MW_TELETEXT = y)
+		source "./Kconfigs/mw/config.ttx"
+	endif
+
+	source "./Kconfigs/mw/config.epg"
+
+	if (MW_MULTIMEDIA = y)
+		source "./Kconfigs/mw/config.media"
+	endif
+
+	source "./Kconfigs/mw/config.inet"
+
+	source "./Kconfigs/mw/config.comm"
+
+	source "./Kconfigs/mw/config.sys"
+
+	source "./Kconfigs/mw/config.tv"
+
+	source "./Kconfigs/mw/config.rsv"
+

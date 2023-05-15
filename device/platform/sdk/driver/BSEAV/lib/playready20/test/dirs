@@ -1,0 +1,141 @@
+#-----------------------------------------------------------------------------
+# This file is read by both the NTBUILD tool and the Porting Kit's makefile
+# system. The latter requires the order of directories to be:
+#     1st - Directories that build headers
+#     2nd - Directories that build objects
+#     3rd - Directories that build libraries
+#     4th - Directories that build executables and DLLs
+# This is analagous to the PASS0, PASS1a/1b, and PASS2 phases of NTBUILD.
+#
+# If one lib packages up another, the final lib must appear later in the list.
+#
+# DIRS is read by NTBUILD and the Porting Kit if DRM_DIRS isn't present.
+#
+# DRM_DIRS is the optional override for use by the Porting Kit. Directory
+# selection can be restricted by platform, architecture, or a combo as follows:
+# DRM_DIRS=foo{ARM} bar{ANSI} baz{ANSI_X86}
+#
+# Supported tags (out of the box):
+# - Platform: ANSI
+# - Architecture: X86, AMD64/X64, ARM
+# - PlatArch: Platform and Arch separated by an underscore (e.g. ANSI_X86)
+#-----------------------------------------------------------------------------
+
+DIRS =                                                     \
+    common{!PPC}                                           \
+    netio                                                  \
+    testcore                                               \
+    tstutils                                               \
+    toemimp                                                \
+    meta                                                   \
+    metering                                               \
+    hds                                                    \
+    drmmanager                                             \
+    PlayReadyDll                                           \
+    licstore{!PPC}                                         \
+    secstore{!PPC}                                         \
+    header                                                 \
+    XMLParser{!PPC}                                        \
+    XMLBuilder{!PPC}                                       \
+    xmr{!PPC}                                              \
+    LicEval{!PPC}                                          \
+    utils                                                  \
+    ExprEval{!PPC}                                         \
+    Crypto                                                 \
+    blackbox                                               \
+    licparser{!PPC}                                        \
+    viewrights{!PPC}                                       \
+    SecureClock{!PPC}                                      \
+    synclist{!PPC}                                         \
+    devicedevcert{!PPC}                                    \
+    DevcertParser{!PPC}                                    \
+    bcrl{!_WINCEROOT,!PPC}                                 \
+    devicestore{!PPC}                                      \
+    metercertstore{!PPC}                                   \
+    domainstore{!PPC}                                      \
+    xmlsig{!PPC}                                           \
+    utf{!PPC}                                              \
+    XMLBuilderA{!PPC}                                      \
+    domainapi{!PPC}                                        \
+    licacqv3{!PPC}                                         \
+    ToolTests{!_WINCEROOT,!PPC}                            \
+    OEM                                                    \
+    certs{!PPC}                                            \
+    cmdlnpars{!_WINCEROOT,!PK_CODECOVERAGE_BUILD,!PPC}     \
+    ConsoleNDT{!_WINCEROOT,!PPC}                           \
+    Test_Suite_NDT{!PPC}                                   \
+    ConsoleNDR{!PPC}                                       \
+    datastore{!PPC}                                        \
+    initparser{!PPC}                                       \
+    CoreEmbedding{!PPC}                                    \
+    noncestore{!PPC}                                       \
+    Revocation{!_WINCEROOT,!PPC}                           \
+    RefLibrary{!PPC}                                       \
+    PolicyState{!PPC}                                      \
+    KeyFile                                                \
+    LiveTV                                                 \
+    Performance                                            \
+    Coverage{PK_CODECOVERAGE_BUILD,!DRM_CC_PRIVATE_BUILD}  \
+    Plugins{!_WINCEROOT,!PK_CODECOVERAGE_BUILD,!PPC}       \
+    Activation{!PPC}                                       \
+    MPR{PPC}                                               \
+
+WINCE_ONLY = \
+    drmmanagerce{_WINCEROOT} \
+    WM7SignOff{_WINCEROOT} \
+    WM7{_WINCEROOT} \
+    WM7SecureChamber{_WINCEROOT} \
+
+DRM_DIRS =               \
+    NetIO                \
+    testcore             \
+    tstutils             \
+    tOEMImp              \
+    meta                 \
+    Metering             \
+    HDS                  \
+    DrmManager           \
+    LicStore             \
+    SecStore             \
+    Header               \
+    XMLParser            \
+    XMLBuilder           \
+    xmr                  \
+    LicEval              \
+    Utils                \
+    ExprEval             \
+    Crypto               \
+    blackbox             \
+    licparser            \
+    ViewRights           \
+    SecureClock          \
+    SyncList             \
+    devicedevcert        \
+    DevcertParser        \
+    devicestore          \
+    metercertstore       \
+    domainstore          \
+    xmlsig               \
+    utf                  \
+    XMLBuilderA          \
+    domainapi            \
+    licacqv3             \
+    ToolTests			 \
+    OEM                  \
+    certs                \
+    cmdlnpars            \
+    ConsoleNDT           \
+    Test_Suite_NDT       \
+    ConsoleNDR           \
+    Datastore            \
+    initparser           \
+    CoreEmbedding        \
+    noncestore           \
+    Revocation           \
+    PolicyState          \
+    KeyFile              \
+    LiveTV               \
+    performance          \
+
+#    bcrl                 \
+#    RefLibrary           \

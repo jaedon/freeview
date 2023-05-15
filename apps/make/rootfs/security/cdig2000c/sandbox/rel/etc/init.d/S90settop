@@ -1,0 +1,40 @@
+#!/bin/sh
+
+. /lib/lsb/init-functions
+. /etc/default/rcS
+
+if grep -q "nosettop" /proc/cmdline ; then
+    exit 0;
+fi
+
+case "$1" in
+    start)
+		if [ "$VERBOSE" != no ]; then
+			log_begin_msg "Starting Application processes"
+		fi
+		ulimit -r unlimited
+                export UVA_DRM_LIB="/usr/lib/libuvadrmbackendloader.so"
+		export UVA_DRM_LIB_DIR="/usr/browser/drm/"
+		exec /home/dfbmaster &
+		exec /home/sechdlr/root/home/hamalauncher &
+		exec /home/settop/root/home/hamalauncher &
+		exec /home/imma/root/home/hamalauncher &
+		exec /home/homma/root/home/hamalauncher &
+		exec /home/corsair/root/home/hamalauncher &
+		exec /home/hama
+		;;
+    stop)
+		if [ "$VERBOSE" != no ]; then
+			log_begin_msg "Stopping Application processes"
+		fi
+		killall obama
+		killall corsair
+		;;
+    *)
+		if [ "$VERBOSE" != no ]; then
+			log_success_msg "Usage: /etc/init.d/S90settop {start|stop}"
+		fi
+		exit 1
+		;;
+esac
+

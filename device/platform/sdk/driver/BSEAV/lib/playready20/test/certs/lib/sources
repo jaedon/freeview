@@ -1,0 +1,21 @@
+
+TARGETNAME=BCertTestAPI
+TARGETTYPE=LIBRARY
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS)   \
+    $(_DRM_TC_LIBS)        \
+    $(_DRM_TOOLS_COMMON_DIR)\drmtoolscommon.lib \
+
+INCLUDES = \
+    $(INCLUDES);                           \
+    $(_DRM_SOURCE_PATH)\certs;             \
+    $(_DRM_SOURCE_PATH)\tools\common;      \
+
+
+SOURCES =                     \
+    ../TestBCert.c            \
+    ../TestBCertBuilder.c     \
+    ../TestBCertParser.c      \
+    ../TestNDCert.c           \
+    ../TestRSAKeys.c          \

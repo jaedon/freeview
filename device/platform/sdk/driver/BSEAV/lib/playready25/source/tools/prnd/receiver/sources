@@ -1,0 +1,78 @@
+UNICODE=1
+
+DRM_SUPPORT_CERTPARSERCACHE=0
+DRM_SUPPORT_DLA=0
+DRM_SUPPORT_WMDRM=0
+DRM_SUPPORT_CONTRACT=0
+DRM_SUPPORT_SECURE_CLOCK=2
+DRM_SUPPORT_BBXLEGACY=0
+DRM_SUPPORT_BBXSLK=0
+
+DRM_SUPPORT_PRNDRX=1
+
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=PRNDReceiver
+TARGETTYPE=PROGRAM
+
+UMTYPE=console
+UMENTRY=wmain
+
+USER_C_FLAGS = $(USER_C_FLAGS)
+
+USE_NATIVE_EH=1
+
+USE_ATL=1
+USE_STL=1
+USE_RTTI=1
+
+INCLUDES=                                           \
+    $(INCLUDES);                                    \
+    $(DRM_COMMON_INC);                              \
+    $(_DRM_SOURCE_PATH)\tools\common;               \
+    $(_DRM_SOURCE_PATH)\tools\prnd\common;          \
+    $(_DRM_SOURCE_PATH)\tools\prnd\upnp\lib;        \
+
+# This gets us to the IDL generated header. The MSI includes the generated header, so we only look
+# for it in the Object Dir on Microsoft Internal builds.
+!IF "$(_DRM_BUILD_TOOL)" == "NTBUILD"
+INCLUDES =                                          \
+    $(INCLUDES)                                     \
+    $(WMDRM_MD_OBJ_DIR)\tools\prnd\upnp\lib\$(O);   \
+
+!ENDIF
+
+SOURCES=                                \
+    Receiver.cpp                        \
+    PRNDReceiverSession.cpp             \
+    UPnPDeviceEnum.cpp                  \
+    Utilities.cpp                       \
+    Logger.cpp                          \
+
+TARGETLIBS=                                                    \
+    $(TARGETLIBS)                                              \
+    $(_DRM_COMMON_LIBS)                                        \
+    $(_DRM_OEM_MAIN_LIB)                                       \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmmanager.lib                   \
+    $(DRM_PK_SOURCE_LIB_PATH)\ndt.lib                          \
+    $(_DRM_BLACKBOX_LIBS)                                      \
+    $(DRM_PK_SOURCE_LIB_PATH)\wmdrmcert.lib                    \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemrsabase.lib                   \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmtoolscommon.lib               \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemaes.lib                       \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemeccbaseimpl.lib               \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemeccbase.lib                   \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemrsaoaeppssimpl.lib            \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemrsaoaeppss.lib                \
+    $(DRM_PK_SOURCE_LIB_PATH)\oem_devstore_dvs.lib             \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmm2tsencryptorreal.lib         \
+    $(DRM_PK_SOURCE_LIB_PATH)\prnd_tools_common.lib            \
+    $(DRM_PK_SOURCE_LIB_PATH)\UPnPUtils.lib                    \
+
+!if "$(_DRM_BUILD_TOOL)" == "NTBUILD"
+TARGETLIBS = $(TARGETLIBS)                             \
+    $(SDK_LIB_PATH)\Ws2_32.lib                         \
+!else
+TARGETLIBS = $(TARGETLIBS)                             \
+    Ws2_32.lib                                         \
+!endif

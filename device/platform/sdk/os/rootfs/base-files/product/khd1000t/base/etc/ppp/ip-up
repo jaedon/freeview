@@ -1,0 +1,3 @@
+#!/bin/sh
+printf $IFNAME/up > /var/tmp/pppd_fifo
+route add default gw $IPREMOTE $IFNAME

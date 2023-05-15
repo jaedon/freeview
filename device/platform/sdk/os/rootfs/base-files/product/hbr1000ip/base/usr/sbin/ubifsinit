@@ -1,0 +1,8 @@
+#!/bin/sh
+
+	umount /var/lib/humaxtv_backup
+	ubidetach -m 4
+	ubiformat -y /dev/mtd4
+	ubiattach -m 4
+	ubimkvol /dev/ubi1 -N dbbackup -s 36MiB
+	ubidetach -m 4

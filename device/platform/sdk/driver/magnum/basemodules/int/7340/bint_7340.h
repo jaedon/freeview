@@ -1,0 +1,41 @@
+/***************************************************************************
+ *     Copyright (c) 2003-2009, Broadcom Corporation
+ *     All Rights Reserved
+ *     Confidential Property of Broadcom Corporation
+ *
+ *  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+ *  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+ *  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+ *
+ * $brcm_Workfile: bint_7340.h $
+ * $brcm_Revision: Hydra_Software_Devel/1 $
+ * $brcm_Date: 6/4/09 5:58p $
+ *
+ * Module Description:
+ *
+ * Revision History:
+ *
+ * $brcm_Log: /magnum/basemodules/int/7340/bint_7340.h $
+ * 
+ * Hydra_Software_Devel/1   6/4/09 5:58p darnstein
+ * PR55219: mechanical copy from 7335 files.
+ ***************************************************************************/
+
+#ifndef BINT_7340_H
+#define BINT_7340_H
+
+#include "bint_plat.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+const BINT_Settings *BINT_7340_GetSettings( void );
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
+/* End of File */
+

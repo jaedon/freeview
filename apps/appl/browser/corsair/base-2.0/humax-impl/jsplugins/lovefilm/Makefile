@@ -1,0 +1,321 @@
+#
+# Copyright (C) 1995-2013 Opera Software ASA.  All rights reserved.
+#
+# It is prohibited for you to distribute this file to anybody without Operas
+# separate written consent.
+# 
+
+########################################
+# List the source files
+
+-include ../../../build/config.mk
+
+SOURCE_DIRS := src
+
+sources := $(shell find $(SRC_DIRS) -name "*.cpp")
+
+########################################
+# Tools
+
+ifneq ($(CROSS),)
+ CXX = $(CROSS)g++
+else
+ CXX ?= g++
+endif
+
+
+########################################
+# Standard flags
+#
+
+CXXFLAGS ?= -Wall
+
+CXXFLAGS += $(COMPILERFLAGS)
+
+ifeq ($(DEBUGSYMBOLS), YES)
+ CXXFLAGS += -ggdb
+endif
+ifeq ($(DEBUGCODE), YES)
+ CXXFLAGS += -DDEBUG
+endif
+
+################################################################################
+# Set the value for logging
+################################################################################
+ifeq ($(CONFIG_DEBUG),y)
+CXXFLAGS += -DCONFIG_CORSAIR_LOG
+endif
+
+ifeq ($(CONFIG_DEBUG_RELEASE_LOG),y)
+CXXFLAGS += -DCONFIG_CORSAIR_LOG
+endif
+
+LDFLAGS += -shared
+
+CPPFLAGS +=  -I./include -I./src -I. -I$(NATIVE_PORT_PATH)/include -I$(NATIVE_APP_PATH)/apps/make/include/ -I$(NATIVE_APP_PATH)/apps/octo/library/hlib/include -I$(NATIVE_APP_PATH)/apps/octo/service/hama/include -I$(NATIVE_APP_PATH)/apps/octo/appkit/include
+CPPFLAGS +=  -I$(NATIVE_APP_PATH)/apps/octo/library/dlib/include -I$(NATIVE_APP_PATH)/apps/octo/library/rlib/include -I$(NATIVE_APP_PATH)/apps/octo/library/silib/include
+CPPFLAGS += -I$(NATIVE_APP_PATH)/apps/octo/library/memory
+
+#ifeq ($(ARCHITECTURE),x86)
+# LDFLAGS += -Wl,--no-undefined
+#endif
+
+
+CPPFLAGS +=  -I./include -I./src -I.
+
+ifeq ($(ARCHITECTURE:mipsel=mips), mips)
+ CXXFLAGS += -fPIC
+else
+ CXXFLAGS += -fpic
+endif
+
+CXXFLAGS += $(HUMAX_EXTRA_CFLAG)
+
+########################################
+# Control variable
+
+SILENT?=@
+
+
+#######################################
+# Internal variables
+
+##
+# Lists all the optional build time features.
+#
+# When adding new features, be sure to list them here, or custom profiles won't
+# be able to turn them on.
+##
+all_features = DUMMY_OPL
+##
+# List the targets that we can build without having a profile
+##
+profile_independent_targets += clean clean-all doc help
+
+##
+# Evaluates to "yes" if some of the targets we are trying to build
+# require profiles to be loaded, and evaluates to "no" otherwise.
+#
+# The expression is probably more complicated than necessary, but I can't find
+# anything simpler.
+##
+profiles_required=$(if $(or $(filter-out $(profile_independent_targets),$(MAKECMDGOALS)),$(findstring 0,$(words $(MAKECMDGOALS))) ),yes,no)
+
+
+########################################
+# Templates and functions
+
+##
+# Returns the name of the Doxyfile for a specific profile, based on the
+# profile's name, relative to the base directory,
+##
+doxy_name = doc/$(1).Doxyfile
+
+##
+# Returns the name of the output directory for documentation for a specific
+# profile, relative to the base directory. If called without a profile name in
+# argument, returns the name of the output directory for the generic
+# documentation
+##
+doc_dir = $(if $(1),doc/ooif_native_api-$(1),doc/ooif_native_api)
+
+##
+# This template defines everything that is needed to build an ooif profile.
+#
+# The first parameter is the profile name
+#
+# The second parameter is a space separated list of c/c++ #defines to turn on
+# for this profile.
+#
+# The third parameter should contain the name of the file from which the
+# profile's parameter are read, so as to set dependencies properly.
+#
+# Besides all the targets matching individual files, three easy-to-type targets
+# are created.  If the profile name (first parameter) is X, the targets are:
+# X         : build ooif.so for this profile, and place it (along with all
+#             intermediate files) into X_out/
+# all       : build ooif.so for all the profiles
+# doc       : build the doxygen documentation for all the profiles
+#
+##
+define build_rules
+ $(1)out_dir=$(1)_out
+ $(1)out_bin=$$($(1)out_dir)/lovefilm.so
+ $(1)objects=$$(patsubst %.cpp,$$($(1)out_dir)/%.o, $(sources))
+ $(1)feature_flags=$(addprefix -D,$(2))
+
+ .PHONY: all
+ all: $(1)
+
+ .PHONY: $(1)
+ $(1): $$($(1)out_bin)
+
+ clean_list += $$($(1)out_dir)
+
+ $$($(1)out_bin): $$($(1)objects)
+	$(SILENT) $(LINK.cc) $$^ -o $$@
+
+.SECONDEXPANSION:
+ $$($(1)out_dir)/%.o $$($(1)out_dir)/%.d: %.cpp $$$$(@D)/.exists  jsplugin.h $(3)
+	$(SILENT) $(COMPILE.cc) $$($(1)feature_flags) -MMD -MP $$< -o $$($(1)out_dir)/$$*.o
+
+ # if we are doing something that doesn't need the profiles, then we are not
+ #building. Don't try to load the .d files.
+ ifeq ($(profiles_required),yes)
+  prior_objs := $$(wildcard $$($(1)objects))
+  include $$(prior_objs:%.o=%.d)
+ endif
+
+ .PHONY: doc
+ doc: $(call doc_dir,$(1))
+ $(call doc_dir,$(1)): $(call doxy_name,$(1)) doc/Doxyfile $(DOC_SOURCES)
+	$(SILENT) cd doc; doxygen $$(<F)
+	$(SILENT) echo $$@ >>.clean_all_list
+
+ $(call doxy_name,$(1)): $(3)
+	$(SILENT) echo @INCLUDE = Doxyfile >$$@
+	$(SILENT) echo OUTPUT_DIRECTORY = $(notdir $(call doc_dir,$(1))) >>$$@
+	$(SILENT) echo ENABLE_PREPROCESSING = YES >>$$@
+	$(SILENT) echo PREDEFINED = $(addsuffix =,$(2)) >>$$@
+	$(SILENT) echo $$@ >>.clean_all_list
+
+ clean_all_list += $(call doc_dir,$(1)) $(call doxy_name,$(1))
+endef
+
+##
+# This template generates an error message if the list of features passed as
+# the first argument is not a subset of the reference list passed as a second
+# argument.  Both lists are space separated.
+##
+define check_features
+ $$(foreach wrong,$$(filter-out $(2),$(1)),\
+  $$(error Trying to use non existing feature: $$(wrong)))
+endef
+
+##
+# This template checks that its parameter is a valid profile name that doesn't
+# conflict with reserved names, and generates an error if it does.
+##
+define validate_name
+ ifeq ($(1),)
+  $$(error The profile name is empty)
+ else ifneq ($$(words $(1)),1)
+  $$(error Profile names should be a single word. "$(1)" isn't )
+ else ifneq ($$(abspath $(1)),$$(abspath $(CURDIR))/$(1))
+  $$(error Profile names should not use caracters that have a special meaning for file paths in their names. "$(1)" doesn't satisfy this requirement )
+ else ifneq ($$(filter all clean,$(1)),)
+  $$(error "$(1)" is a reserved keyword, you cannot use it as a profile name)
+ endif
+endef
+
+##
+# When instantiated, this template loads a profile file from its first
+# argument.
+#
+# That file must be a valid makefile, and needs to declare two variables called
+# "name" and "features". "features" may be left out if the intent is to keep
+# all of them turned off, but "name" must be declared.
+#
+# After doing some input validation on the values of name and features, the
+# appropriate targets are generated from that profile.
+##
+all_names :=
+define load_profile
+ include $(1)
+ $$(eval $$(call validate_name,$$(name)))
+ ifeq ($$(filter $$(name),$$(all_names)),)
+  all_names += $$(name)
+ else
+  $$(error File "$(1)" is attempting to define a profile called "$$(name)", but it already exists)
+ endif
+ $$(eval $$(call check_features,$$(features),$(all_features)))
+ $$(eval $$(call build_rules,$$(strip $$(name)),$$(features),$(1)))
+endef
+
+
+########################################
+# Define the build targets
+##
+# Set up build targets for each of the profiles listed in the PROFILES
+# variable. If more than one profile is intended, PROFILES should be a space
+# separated list of the profiles' file name.
+#
+# Wildcards are allowed as part of the value of PROFILES, to make it possible
+# to do things like:
+# "make PROFILES=path/to/my/profiles/*.profile all"
+##
+ifneq ($(strip $(PROFILES)),)
+ $(foreach profile,$(PROFILES),$(if $(wildcard $(profile)),,$(error The profile "$(profile)" could not be found)))
+ $(foreach profile,$(wildcard $(PROFILES)),$(eval $(call load_profile,$(profile))))
+else
+ ifeq ($(profiles_required),yes)
+  $(error You must specify at least one profile)
+ endif
+endif
+
+
+########################################
+# Profile independent non-phony targets
+
+##
+# Used to create folders that should be deleted by "make clean"
+##
+.PRECIOUS: %/.exists
+%/.exists:
+	$(SILENT) mkdir -p $(@D)
+	$(SILENT) touch $@
+	$(SILENT) echo $(@D) >> .clean_list
+
+##
+# Used to create folders that should be deleted by "make clean-all"
+##
+.PRECIOUS: %/.exists-a
+%/.exists-a:
+	$(SILENT) mkdir -p $(@D)
+	$(SILENT) touch $@
+	$(SILENT) echo $(@D) >> .clean_all_list
+
+
+########################################
+# Other targets
+
+##
+# The first line of the clean command find the lists of what it should delete
+# in the $(clean_list) variable, which will be properly defined if profiles are
+# loaded.
+#
+# The second one finds the list of things to clean in the .clean_list file,
+# which is generated as things are built. This allows "make clean" to work even
+# if profiles are not loaded, or have changed.
+#
+# Even though the two command will do the same thing in the case where all
+# profiles are loaded, haven't changed, and the .clean_list file hasn't been
+# lost, it is useful to keep both so that "make clean" can still work if
+# either the profiles have been lost/changed/not loaded, or if the .clean_list
+# file has been lost or tempered with.
+##
+.PHONY: clean
+clean:
+	$(SILENT) $(RM) -r $(clean_list)
+	$(SILENT) if [ -f .clean_list ]; then $(RM) -r `sort -u .clean_list` .clean_list; fi
+
+##
+# Works the same way as the clean target, but for things that don't need to be
+# clean quite that often
+##
+.PHONY: clean-all
+clean-all: clean
+	$(SILENT) $(RM) -r $(clean_all_list)
+	$(SILENT) if [ -f .clean_all_list ]; then $(RM) -r `sort -u .clean_all_list` .clean_all_list; fi
+
+##
+# Build the doxygen documentation without applying the C preprocessor,
+# therefore documenting all features.
+##
+.PHONY: doc
+doc: $(call doc_dir)
+$(call doc_dir): doc/Doxyfile $(DOC_SOURCES)
+	$(SILENT) cd doc; doxygen $(<F)
+	$(SILENT) echo $@ >>.clean_all_list
+
+clean_all_list += doc/ooif_native_api

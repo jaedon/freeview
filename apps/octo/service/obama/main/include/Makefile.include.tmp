@@ -1,0 +1,9 @@
+
+ccflags-y 						+= -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/rsv/include
+ccflags-y 						+= -I$(OCTO_TVMANAGER_PLUGIN_DIR)/xmgr/cas/bc/include
+
+ccflags-y 						+= -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/si/local_include
+
+ccflags-$(CONFIG_MW_CI)			+= -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/ci/include
+ccflags-$(CONFIG_MW_CI)			+= -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/ci/control
+

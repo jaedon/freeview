@@ -1,0 +1,184 @@
+﻿# OCTO-SERVICE
+apps/octo/service					drr_octo2/trunk/service		HEAD
+
+# OCTO-LIBRARY
+apps/octo/library					drr_octo2/trunk/library		HEAD
+
+# OCTO-APPKIT
+apps/octo/appkit					drr_octo2/trunk/appkit		HEAD
+
+# OCTO-TESTKIT						
+apps/octo/testkit					drr_octo2/trunk/testkit		HEAD
+
+# OCTO-TOOLS
+apps/octo/tools						drr_octo2/trunk/tools		HEAD
+
+# NATIVE_APPS
+apps/appl						drr_octo2/trunk/appl		HEAD
+
+apps/appl/webappl/base_prism				drr_octo2/trunk/webappl/builder HEAD
+apps/appl/webappl/base_prism/src/trunk				drr_octo2/trunk/webappl/base_prism_ts/trunk	HEAD
+apps/appl/webappl/doc					drr_octo2/trunk/webappl/doc	HEAD
+
+# Browser
+apps/appl/browser/corsair/base-2.0                      	Opera/sdk-3.5/trunk/base-2.0            HEAD
+apps/appl/browser/corsair/opera-sdk                     	Opera/sdk-3.5/trunk/opera-sdk/mipsel/BCM_7356/gcc-4.5.4-uClibc-0.9.32/20151217 HEAD
+apps/appl/browser/corsair/base-2.0/humax-impl/product-env	Opera/sdk-3.5/trunk/product-env/hdr4000t  HEAD
+apps/appl/browser/corsair/base-2.0/port                 	Opera/port/trunk/1.0                    HEAD
+
+# MAKE
+apps/make						drr_octo2/trunk/make_all		HEAD
+
+# 3rd party (codebase)
+3rd_party							drr_3rdparty/trunk/3rd_party		HEAD
+
+# 3rd party (DLNA)
+3rd_party/dlna/mxlib					mxlib/trunk/lib/linux/brcm/mipsel/stbgcc-4.5.4-2.6		HEAD
+
+# 3rd_party_(MHEG)
+3rd_party/mheg/itk			drr_3rdparty/trunk/3rd_party_lib/mheg/bcm/stbgcc-4.5.4-2.6/lib_2.7.20_Freeview/lib	HEAD
+
+# IMMA process (CALYPSO)
+packages/ffmpeg                     calypso/Trunk/Base/Release/stbgcc-4.5.4-2.6/mipsel/ffmpeg          HEAD
+packages/calypso                    calypso/Trunk/Base/Release/stbgcc-4.5.4-2.6/mipsel/calypso         HEAD
+packages/playready                  calypso/Trunk/Base/Release/stbgcc-4.5.4-2.6/mipsel/playready       HEAD
+packages/viewrightweb               calypso/Trunk/Base/Release/stbgcc-4.5.4-2.6/mipsel/viewrightweb    HEAD
+
+# NETFLIX process (depend on calypso)
+apps/appl/netflix/netflixmanager                Netflix/Trunk/Src/NRD-4.2/netflixmanager                    HEAD
+# Netflix nrd-4.2.2 with NRD Porting Layer
+apps/appl/netflix/nrd                			Netflix/Trunk/Src/NRD-4.2/nrd-4.2.2-5f99e43_1452551655  	HEAD
+apps/appl/netflix/nrd/partner/dpi/humax_glue    Netflix/Trunk/Src/NRD-4.2/partner/dpi/humax_glue            HEAD
+apps/appl/netflix/nrd/partner/platform/humax    Netflix/Trunk/Src/NRD-4.2/partner/platform/humax            HEAD
+apps/appl/netflix/nxlink                        Netflix/Trunk/Src/NRD-4.2/nxlink                            HEAD
+apps/appl/netflix/nxtools             			Netflix/Trunk/Src/NRD-4.2/nxtools    						HEAD
+
+############## Package for Application
+# netflix related
+packages/harfbuzz                       drr_package/trunk/harfbuzz/library/bcm/stbgcc-4.5.4-2.6/1.0.6           HEAD
+packages/lcms                           drr_package/trunk/lcms/library/bcm/stbgcc-4.5.4-2.6/1.19                HEAD
+packages/c-ares                         drr_package/trunk/c-ares/library/bcm/stbgcc-4.5.4-2.6/1.8.0             HEAD
+packages/gperftools                     drr_package/trunk/gperftools/library/bcm/stbgcc-4.5.4-2.6/2.4           HEAD
+packages/graphite2                      drr_package/trunk/graphite2/library/bcm/stbgcc-4.5.4-2.6/1.3.3          HEAD
+packages/icu4c                          drr_package/trunk/icu4c/library/bcm/stbgcc-4.5.4-2.6/54-1               HEAD
+packages/libmng                         drr_package/trunk/libmng/library/bcm/stbgcc-4.5.4-2.6/1.0.10            HEAD
+packages/libogg                         drr_package/trunk/libogg/library/bcm/stbgcc-4.5.4-2.6/1.3.2             HEAD
+packages/libwebp                        drr_package/trunk/libwebp/library/bcm/stbgcc-4.5.4-2.6/0.4.2            HEAD
+packages/Tremor                         drr_package/trunk/Tremor/library/bcm/stbgcc-4.5.4-2.6/1.0.2             HEAD
+packages/libcurl                        drr_package/trunk/curl/library/bcm/stbgcc-4.5.4-2.6/7.32.0              HEAD
+packages/freetype                       drr_package/trunk/freetype/library/bcm/stbgcc-4.5.4-2.6/2.4.12          HEAD
+
+packages/openssl						drr_package/trunk/openssl/library/bcm/stbgcc-4.5.4-2.6/1.0.1m           HEAD
+packages/jpeg								drr_package/trunk/jpeg/library/bcm/stbgcc-4.5.4-2.6/8c				HEAD
+packages/libpng							drr_package/trunk/libpng/library/bcm/stbgcc-4.5.4-2.6/1.5.10			HEAD
+packages/zlib								drr_package/trunk/zlib/library/bcm/stbgcc-4.5.4-2.6/1.2.5			HEAD
+packages/id3lib							drr_package/trunk/id3lib/library/bcm/stbgcc-4.5.4-2.6/3.8.3			HEAD
+packages/libexif						drr_package/trunk/libexif/library/bcm/stbgcc-4.5.4-2.6/0.6.20			HEAD
+packages/libext2fs					drr_package/trunk/e2fsprogs/library/bcm/stbgcc-4.5.4-2.6/1.42.7		HEAD
+packages/libxml2						drr_package/trunk/libxml2/library/bcm/stbgcc-4.5.4-2.6/2.6.32			HEAD
+packages/ncurses						drr_package/trunk/ncurses/library/bcm/stbgcc-4.5.4-2.6/5.9			HEAD
+packages/busybox						drr_package/trunk/busybox/busybox/bcm/stbgcc-4.5.4-2.6/1.18.5/00.00.01	HEAD
+packages/jansson						drr_package/trunk/json/jansson/library/bcm/stbgcc-4.5.4-2.6/2.0.1		HEAD
+packages/sqlite							drr_package/trunk/sqlite/library/bcm/stbgcc-4.5.4-2.6/3.7.10.00		HEAD
+packages/pixman							drr_package/trunk/pixman/library/bcm/stbgcc-4.5.4-2.6/0.22.2			HEAD
+packages/libwebsocket				drr_package/trunk/libwebsocket/library/bcm/stbgcc-4.5.4-2.6/0.5_v8	HEAD
+packages/log4c							drr_package/trunk/log4c/library/bcm/stbgcc-4.5.4-2.6/1.2.1	HEAD
+packages/pcd/bin						drr_package/trunk/pcd/binary/bcm/stbgcc-4.5.4-2.6/1.1.4		HEAD
+packages/pcd/lib						drr_package/trunk/pcd/library/bcm/stbgcc-4.5.4-2.6/1.1.4	HEAD
+packages/dnsmasq						drr_package/trunk/dnsmasq/binary/bcm/stbgcc-4.5.4-2.6/2.57			HEAD
+packages/libexpat						drr_package/trunk/expat/library/bcm/stbgcc-4.5.4-2.6/2.0.1			HEAD
+packages/mtd-utils					drr_package/trunk/mtd-utils/binary/bcm/stbgcc-4.5.4-2.6/1.4.5			HEAD
+packages/parted							drr_package/trunk/parted/library/bcm/stbgcc-4.5.4-2.6/1.8.7				HEAD
+packages/xfsprogs						drr_package/trunk/xfsprogs/library/bcm/stbgcc-4.5.3-1.3/3.1.7  				HEAD
+packages/ntpclient						drr_package/trunk/ntpclient/binary/bcm/stbgcc-4.5.4-2.6/2010_365     HEAD
+packages/wpa_supplicant				drr_package/trunk/wpa_supplicant/library/bcm/stbgcc-4.5.4-2.6/0.7.3			HEAD
+packages/iperf						drr_package/trunk/iperf/bin/stbgcc-4.5.4-2.6/bcm/2.0.5		HEAD
+packages/libattr				drr_package/trunk/libattr/library/bcm/stbgcc-4.5.4-2.6/2.4.46		HEAD
+packages/lxc				drr_package/trunk/lxc/library/bcm/stbgcc-4.5.4-2.6/0.9.0			HEAD
+packages/libpam/lib				drr_package/trunk/libpam/library/bcm/stbgcc-4.5.4-2.6/0.80/lib		HEAD
+packages/libcap				drr_package/trunk/libcap/library/bcm/stbgcc-4.5.4-2.6/2.22			HEAD
+packages/crypto				drr_package/trunk/crypto/bin/stbgcc-4.5.4-2.6/bcm					HEAD
+packages/dosfstools			drr_package/trunk/dosfstools/bin/stbgcc-4.5.4-2.6/bcm/2.11		HEAD
+packages/samba/bin			drr_package/trunk/samba/bin/bcm/stbgcc-4.5.4-2.6/3.0.23c		HEAD
+packages/samba/lib 			drr_package/trunk/samba/lib/bcm/stbgcc-4.5.4-2.6/3.0.23c		HEAD
+packages/samba/etc 			drr_package/trunk/samba/etc			HEAD
+packages/iptables			drr_package/trunk/iptables/library/bcm/stbgcc-4.5.4-2.6/1.4.21		HEAD
+packages/smcroute			drr_package/trunk/smcroute/library/bcm/stbgcc-4.5.4-2.6/1.99.2		HEAD
+packages/proftpd/bin		drr_package/trunk/proftpd/bin/bcm/stbgcc-4.5.4-2.6/1.3.5rc3		HEAD
+packages/proftpd/etc 		drr_package/trunk/proftpd/etc		HEAD
+packages/axis2              drr_package/trunk/axis2/library/bcm/stbgcc-4.5.4-2.6/1.6.0		HEAD
+packages/gdb				drr_package/trunk/gdb/bin/stbgcc-4.5.4-2.6/bcm/7.2		HEAD
+packages/lvm				drr_package/trunk/LVM/library/bcm/stbgcc-4.5.4-2.6/2.2.02.62				HEAD
+packages/libgpg-error/lib				drr_package/trunk/libgpg-error/library/bcm/stbgcc-4.5.4-2.6/1.9				HEAD
+packages/libgcrypt/lib				drr_package/trunk/libgcrypt/library/bcm/stbgcc-4.5.4-2.6/1.5.0				HEAD
+packages/keyutils/bin				drr_package/trunk/keyutils/bin/bcm/stbgcc-4.5.4-2.6/1.5.9				HEAD
+packages/keyutils/lib				drr_package/trunk/keyutils/library/bcm/stbgcc-4.5.4-2.6/1.5.9/lib				HEAD
+packages/ecryptfs_utils/bin				drr_package/trunk/ecryptfs_utils/binary/bcm/stbgcc-4.5.4-2.6/70			HEAD
+packages/ecryptfs_utils/lib				drr_package/trunk/ecryptfs_utils/library/bcm/stbgcc-4.5.4-2.6/70			HEAD
+packages/binutils							drr_package/trunk/binutils/library/bcm/stbgcc-4.5.4-2.6/2.24 HEAD
+
+# INC
+device/include							drr_inc2/trunk									HEAD
+
+# AP
+device/apps/hwtest					drr_bcm2/trunk/apps/hwtest							HEAD
+device/apps/hwtest_multi		drr_bcm2/trunk/apps/hwtest_multi					HEAD
+device/apps/factory					factorysw20/base/factory										HEAD
+device/apps/dfbmaster					drr_bcm2/trunk/apps/dfbmaster						HEAD
+device/apps/make						drr_bcm2/trunk/apps/make							HEAD
+
+# BCM
+device/platform/sdk/driver					drr_bcm2/trunk/platform/BRCM_UNIFIED/nexus_v1204							HEAD
+device/platform/sdk/AppLibs/opensource/directfb			drr_bcm2/trunk/platform/packages/AppLibs/PH3.2/opensource/directfb				HEAD
+device/platform/sdk/AppLibs/opensource/jpeg			drr_bcm2/trunk/platform/packages/AppLibs/PH3.2/opensource/jpeg				HEAD
+device/platform/sdk/AppLibs/opensource/zlib			drr_bcm2/trunk/platform/packages/AppLibs/PH3.2/opensource/zlib				HEAD
+device/platform/sdk/AppLibs/opensource/libpng			drr_bcm2/trunk/platform/packages/AppLibs/PH3.2/opensource/libpng				HEAD
+device/platform/sdk/AppLibs/opensource/freetype			drr_bcm2/trunk/platform/packages/AppLibs/PH3.2/opensource/freetype				HEAD
+device/platform/sdk/AppLibs/broadcom/diagnostic			drr_bcm2/trunk/platform/packages/AppLibs/PH3.2/broadcom/diagnostic				HEAD
+
+# OS
+device/platform/sdk/os/kernel                   drr_bcm2/trunk/platform/os/stblinux-2.6.37-3.4	            HEAD
+device/platform/sdk/os/rootfs					drr_bcm2/trunk/platform/os/rootfs						HEAD
+device/platform/sdk/os/drivers/fs/ntfs 			drr_bcm2/trunk/platform/os/drivers/fs/ntfs/tuxera/models/hdr3000t  	HEAD
+
+#WIFI
+device/platform/sdk/os/drivers/wlan/RT3070	 drr_package/trunk/wireless/ralink/RT3070/src/RT3070_v2.5.0.3		HEAD
+device/platform/sdk/os/drivers/wlan/RT5572	 drr_package/trunk/wireless/ralink/RT5572/src/DPO_RT5572_LinuxSTA_2.6.1.3_20121022		HEAD
+device/platform/sdk/os/drivers/wlan/bcm43236/production         drr_package/trunk/wireless/broadcom/BCM43236/src/production/dhd_rel_1_201_58_bison05t_rel_7_35_143_6    HEAD
+device/platform/sdk/os/drivers/NETAPP drr_bcm2/trunk/platform/NETAPP/NETAPP_V7.1.5	HEAD
+device/platform/sdk/os/drivers/wlan/bcm_wifi_test		drr_package/trunk/wireless/broadcom/wifi_test HEAD
+device/platform/sdk/os/drivers/nexus_driver		drr_bcm2/trunk/platform/os/drivers/nexus_driver				HEAD
+
+# CONFIGURE
+device/platform/porting_make					drr_bcm2/trunk/platform/porting_make						HEAD
+
+# DD
+device/platform/driver						drr_bcm2/trunk/platform/driver							HEAD
+
+# Config
+device/product_config						drr_bcm2/trunk/platform/product_config						HEAD
+
+# Main
+device/apps/main						drr_bcm2/trunk/platform/main							HEAD
+
+# Make
+device/make							drr_bcm2/trunk/platform/make_bcm2						HEAD
+
+# Images
+device/images/fvp4000t 						drr_bcm2/trunk/platform/images/fvp4000t						HEAD
+
+# model for autobuild
+model								drr_model/octo2/2017/FVP-5000T/trunk/model								HEAD
+
+# Tools
+model/tool/kconfig						drr_tool/trunk/config/kconfig/src									HEAD
+model/tool/depmod						drr_tool/trunk/etc/depmod/src		HEAD
+model/tool/squashfs						drr_tool/trunk/filesystem/mksquashfs/src/squashfs-tools_4.0-patched				HEAD
+model/tool/yuicompressor					drr_tool/trunk/web_packer/yui_compressor/2.4.7/linux HEAD
+model/build_image/Util/linux/makehdf				drr_tool/trunk/makehdf/v5.10/linux						HEAD
+model/build_image/Util/linux/mg					drr_tool/trunk/merge/mg/linux							HEAD
+model/build_image/Util/linux/splitter				drr_tool/trunk/merge/splitter/linux						HEAD
+model/build_image/Util/linux/crc				drr_tool/trunk/crc/crc32/linux							HEAD
+model/build_image/Util/linux/mkfs_ubifs				drr_tool/trunk/etc/mkfs_ubifs/linux						HEAD
+model/build_image/Util/linux/makenvram				drr_tool/trunk/makenvram/linux							HEAD
+

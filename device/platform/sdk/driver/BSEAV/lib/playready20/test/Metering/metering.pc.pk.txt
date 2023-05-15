@@ -1,0 +1,13 @@
+'Valid MAS prikey: lVvvpn!q4bMJi!BosMpAPZ9IERg=
+
+211572:MGR_MTR_GenerateMeteringChallenge with 2000 KIDs
+If(WMDRMSupported)
+TestDRM_Manager_Initialize()
+Test_SetRandomSeed( RANDOM )
+TestDRM_Manager_AddManyMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", 2000)
+TestDRM_Manager_GenerateMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", "pIKx8Wsy5aYRQN8LLIIcTQ==")
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+EndIf
+
+-------------------BVT ends here--------------------------
+

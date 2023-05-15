@@ -1,0 +1,7 @@
+!include ..\..\reftest.cmn
+
+TARGETNAME=contentkey
+TARGETTYPE=LIBRARY
+
+SOURCES =         \
+    tcontentkey.c \

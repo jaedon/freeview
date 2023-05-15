@@ -1,0 +1,11 @@
+obj-y += nx_prism_installwizard_welcome.o
+obj-y += nx_prism_installwizard_language.o
+obj-y += nx_prism_installwizard_country.o
+obj-y += nx_prism_installwizard_search_01.o
+obj-y += nx_prism_installwizard_search_02.o
+obj-y += nx_prism_installwizard_search_auto.o
+obj-$(CONFIG_MW_INET) += nx_prism_installwizard_network_first.o
+obj-$(CONFIG_MW_INET_WLAN) += nx_prism_installwizard_network_wifi.o
+obj-$(CONFIG_MW_INET_WLAN) += nx_prism_installwizard_network_wifi_hidden.o
+obj-y += nx_prism_installwizard_result.o
+obj-y += nx_prism_installwizard_result_noui.o

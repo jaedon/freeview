@@ -1,0 +1,6 @@
+
+include $(OCTO_MAIN_INCLUDE_DIR)/Makefile.include.oapimgr
+
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/include
+ccflags-y += -I$(OCTO_TVMANAGER_PLUGIN_DIR)/include
+

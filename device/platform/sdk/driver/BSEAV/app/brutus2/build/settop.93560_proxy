@@ -1,0 +1,5 @@
+# This script installs drivers for non-encoder platforms.
+
+/sbin/rmmod bcm%%CHIP%%
+/sbin/insmod bcm%%CHIP%%.o
+

@@ -1,0 +1,7 @@
+
+TARGETTYPE=LIBRARY
+TARGETNAME=CryptoTestAPI
+
+SOURCES = \
+	../cryptotest.c \
+	../tstcryptodata.c \

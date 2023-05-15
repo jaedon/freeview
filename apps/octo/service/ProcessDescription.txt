@@ -1,0 +1,55 @@
+### Process Description ###
+
+# comma
+## Command Daemon
+## OCTO System Command를 관리 한다.
+## CmdUartConsole에서 Telnet으로 해당 Command에 접근할수 있다.
+## 외부에서는 IP : 60001번 포트로 접근 가능하다.
+## LogCapture의 기능도 해당 Process에서 지원한다.
+
+# dama
+## Data Manager
+## OCTO Service혹은 System전반에서 사용하는 Data를 관리한다.
+## sqlite3를 사용하고 있으며, Linear및 Media의 메타정보를 지니고 있다.
+
+# hama
+## Humax Application Manager
+## DFB/SaWMan을 활용한 Window Manager, System Process Monitoring기능이 포함되어 있다.
+## LXC대응으로 인해, Process Fork는 HaMaL에서 따로 진행한다.
+
+# hamalauncher
+## HaMa의 요청에 따라 Process Launch를 담당한다.
+## HaMaL이 수행한 Process의 abort되었을 경우 해당 정보를 hama에게 전달하고 재수행 여부를 알아온다.
+## hamalauncher 실행가능한process name list 의 형식으로 실행한다. /etc/init.d/S90Settop참고
+
+# homma
+## Home Media Manager
+## DLNA/DMS등의 기능을 담당한다.
+
+# IMMA
+## IP Media Manager
+## Media Play를 담당한다.
+
+# NIMA
+## NIMA/NICO로 이루어져 있으면 Network를 관리한다.
+## BT까지 포함되어 있다.
+
+# OBAMA
+## Linear Service를 담당한다.
+
+# PAMA
+## Power Management의 역활을 담당한다.
+
+# SAMA
+## 예약 스케줄 등의 정보를 관리하고 필요시 triggering한다.
+
+# THMA
+## Thumbnail 생성의 역활을 진행한다.
+
+# UMMA
+## USB/MASSSTORAGE Manager의 역활이다.
+## File Copy/Move등의 일반 Operation및 Mass Storage의 포맷/mount등을 관리한다.
+
+# TRAUMA
+## (T)echnical (R)eport (A)nd (U)nknown error (MA)nagement
+## Statistics & ERIN & Crash 의 정보를 수집 및 관리하며, 이를 서버에 리포트 하는 일을 담당한다.

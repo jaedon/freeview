@@ -1,0 +1,35 @@
+!include ..\..\..\..\drmbuild.cmn
+
+TARGETNAME=UPnPUtils
+TARGETTYPE=LIBRARY
+
+# The PlayReady Porting Kit nmake build system does not handle IDL and RC files.
+# These are both necessary to include the use of UPnP in the Sample Transmitter.
+# The binary version of PRNDTransmitter included in the "Tools" directory at the
+# root of the MSI installation does use UPnP. The code here is provided as a sample
+# of how it might be done. Additionally, it supplies support for running a UPnP
+# Control Point in the Recevier.
+
+INCLUDES=                               \
+    $(INCLUDES);                        \
+    $(DRM_COMMON_INC);                  \
+
+SOURCES=                                \
+    AutomationUtils.cpp                 \
+    UPnPUtils.cpp                       \
+    PRND_UPnP_TxServiceBaseImpl.cpp     \
+    PRND_UPnP_TxControl.cpp             \
+
+!if "$(_DRM_BUILD_TOOL)" == "NTBUILD"
+# Compile the IDL on internal builds
+SOURCES=                                \
+    $(SOURCES)                          \
+    PRND_UPnP_TxService.idl             \
+
+
+# Now binplace the header and lib. Manually binplacing the UPnPUtils lib is needed because we override the binplace phase to binplace the header.
+PASS1_BINPLACE=\
+  -:DEST pksrc\tools\prnd\upnp\lib $(WMDRM_MD_OBJ_DIR)\tools\prnd\upnp\lib\$(O)\PRND_UPnP_TxService.h \
+  -:DEST pksrc $(WMDRM_MD_OBJ_DIR)\tools\prnd\upnp\lib\$(O)\UPnPUtils.lib \
+
+!endif

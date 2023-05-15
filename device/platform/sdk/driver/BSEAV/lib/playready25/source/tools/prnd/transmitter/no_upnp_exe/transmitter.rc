@@ -1,0 +1,10 @@
+#define PLAYREADY_PRODUCT_DEVICE_PK
+
+#define RC_FILE_TYPE                    VFT_APP
+#define RC_VERSION_FILE_DESCRIPTION     "Microsoft PlayReady PRND Reference Transmitter - No UPnP"
+#define RC_VERSION_INTERNAL_NAME        "PRNDTransmitter_NoUPnP.exe"
+#define RC_VERSION_ORIGINAL_FILE_NAME   "PRNDTransmitter_NoUPnP.exe"
+
+#include <PlayReadyVersions.h>
+
+

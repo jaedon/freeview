@@ -1,0 +1,1409 @@
+/* [HMS-1000S] Dialog CSS */
+@import url("base.css");
+/* COMMON */
+.button + .button {
+  margin: 0 0 0 10px;
+}
+.box {
+  overflow: hidden;
+  padding: 12px 19px 16px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.15);
+}
+.box2 {
+  background: #1a1a1a;
+  border: rgba(255, 255, 255, 0.1);
+}
+.noti {
+  position: absolute;
+  bottom: 59px;
+  line-height: 34px;
+  padding: 0 0 0 20px;
+  color: #ff0;
+  font-size: 24px;
+}
+/* Icon */
+.lock {
+  width: 22px;
+  height: 28px;
+  background: url(../images/200_Lock.png) no-repeat;
+}
+.new:before {
+  content: "";
+  position: absolute;
+  width: 92px;
+  height: 92px;
+  background: url(../images/200_New.png) no-repeat;
+  z-index: 1;
+}
+.drm {
+  width: 57px;
+  height: 28px;
+  background: url(../images/200_DRM.png) no-repeat;
+}
+.hd {
+  width: 36px;
+  height: 28px;
+  background: url(../images/200_HD.png) no-repeat;
+}
+.cas {
+  width: 36px;
+  height: 28px;
+}
+.cas.va {
+  background: url(../images/202_CAS_VA.png) no-repeat;
+}
+.cas.nd {
+  background: url(../images/202_CAS_ND.png) no-repeat;
+}
+.cas.na {
+  background: url(../images/202_CAS_NA.png) no-repeat;
+}
+.cas.mg {
+  background: url(../images/202_CAS_MG.png) no-repeat;
+}
+.cas.ir {
+  background: url(../images/202_CAS_IR.png) no-repeat;
+}
+.cas.cx {
+  background: url(../images/202_CAS_CX.png) no-repeat;
+}
+.cas.cr {
+  background: url(../images/202_CAS_CR.png) no-repeat;
+}
+.cas.bt {
+  background: url(../images/202_CAS_BT.png) no-repeat;
+}
+.cas.bd {
+  background: url(../images/202_CAS_BD.png) no-repeat;
+}
+.rat {
+  width: 35px;
+  height: 28px;
+}
+.rat.ag4 {
+  background: url(../images/204_Rating_04.png) no-repeat;
+}
+.rat.ag5 {
+  background: url(../images/204_Rating_05.png) no-repeat;
+}
+.rat.ag6 {
+  background: url(../images/204_Rating_06.png) no-repeat;
+}
+.rat.ag7 {
+  background: url(../images/204_Rating_07.png) no-repeat;
+}
+.rat.ag8 {
+  background: url(../images/204_Rating_08.png) no-repeat;
+}
+.rat.ag9 {
+  background: url(../images/204_Rating_09.png) no-repeat;
+}
+.rat.ag10 {
+  background: url(../images/204_Rating_10.png) no-repeat;
+}
+.rat.ag11 {
+  background: url(../images/204_Rating_11.png) no-repeat;
+}
+.rat.ag12 {
+  background: url(../images/204_Rating_12.png) no-repeat;
+}
+.rat.ag13 {
+  background: url(../images/204_Rating_13.png) no-repeat;
+}
+.rat.ag14 {
+  background: url(../images/204_Rating_14.png) no-repeat;
+}
+.rat.ag15 {
+  background: url(../images/204_Rating_15.png) no-repeat;
+}
+.rat.ag16 {
+  background: url(../images/204_Rating_16.png) no-repeat;
+}
+.rat.ag17 {
+  background: url(../images/204_Rating_17.png) no-repeat;
+}
+.rat.ag18 {
+  background: url(../images/204_Rating_18.png) no-repeat;
+}
+/* Icon : Recording */
+.icoRec .play,
+.icoRec .rec,
+.icoRec .rec2,
+.icoRec .remi,
+.icoRec .seri,
+.icoRec .lis {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+}
+.icoRec .play {
+  background: url(../images/205_REC_Play.png) no-repeat;
+}
+.icoRec .rec {
+  background: url(../images/205_REC_Recording.png) no-repeat;
+}
+.icoRec .rec2 {
+  background: url(../images/205_REC_Reservation_Recording.png) no-repeat;
+}
+.icoRec .remi {
+  background: url(../images/205_REC_Reservation_Watch.png) no-repeat;
+}
+.icoRec .seri {
+  width: 33px;
+  background: url(../images/205_REC_Reservation_Series.png) no-repeat;
+}
+.icoRec .lis {
+  background: url(../images/205_REC_Live.png) no-repeat;
+}
+.ico.dtc {
+  display: inline-block;
+  width: 31px;
+  height: 29px;
+  background: url(../images/200_Hdd_icon.png) no-repeat;
+}
+.check:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -2px;
+  width: 57px;
+  height: 57px;
+  background: url(../images/370_Check.png) no-repeat;
+  z-index: 1;
+}
+/* Icon : storage */
+.icoStorage li:before,
+.icoStorage .button:before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 50px;
+  height: 50px;
+}
+.icoStorage .hdd:before {
+  background: rgba(0, 0, 0, 0.3) url(../images/421_ME_HDD_IN_N.png) no-repeat;
+}
+.icoStorage .dtc:before {
+  background: rgba(0, 0, 0, 0.3) url(../images/421_ME_HDD_DE_N.png) no-repeat;
+}
+.icoStorage .usb:before {
+  background: rgba(0, 0, 0, 0.3) url(../images/421_ME_USB_N.png) no-repeat;
+}
+.icoStorage .sdm:before {
+  background: rgba(0, 0, 0, 0.3) url(../images/421_ME_SD_N.png) no-repeat;
+}
+.icoStorage .wim:before {
+  background: rgba(0, 0, 0, 0.3) url(../images/421_ME_DLNA_N.png) no-repeat;
+}
+.icoStorage .won:before {
+  background: rgba(0, 0, 0, 0.3) url(../images/421_ME_Friend_N.png) no-repeat;
+}
+.icoStorage .add:before {
+  background: rgba(0, 0, 0, 0.3) url(../images/421_ME_Add_N.png) no-repeat;
+}
+.icoStorage .hdd.on:before,
+.icoStorage .hdd:focus:before {
+  background: url(../images/421_ME_HDD_IN_C.png) no-repeat;
+}
+.icoStorage .his.hdd:before {
+  background: rgba(0, 0, 0, 0.3) url(../images/421_ME_HDD_IN_H.png) no-repeat;
+}
+.icoStorage .dtc.on:before,
+.icoStorage .dtc:focus:before {
+  background: url(../images/421_ME_HDD_DE_C.png) no-repeat;
+}
+.icoStorage .his.dtc:before {
+  background: rgba(0, 0, 0, 0.3) url(../images/421_ME_HDD_DE_H.png) no-repeat;
+}
+.icoStorage .usb.on:before,
+.icoStorage .usb:focus:before {
+  background: url(../images/421_ME_USB_C.png) no-repeat;
+}
+.icoStorage .his.usb:before {
+  background: rgba(0, 0, 0, 0.3) url(../images/421_ME_USB_H.png) no-repeat;
+}
+.icoStorage .sdm.on:before,
+.icoStorage .sdm:focus:before {
+  background: url(../images/421_ME_SD_C.png) no-repeat;
+}
+.icoStorage .his.sdm:before {
+  background: rgba(0, 0, 0, 0.3) url(../images/421_ME_SD_H.png) no-repeat;
+}
+.icoStorage .wim.on:before,
+.icoStorage .wim:focus:before {
+  background: rgba(0, 0, 0, 0.3) url(../images/421_ME_DLNA_C.png) no-repeat;
+}
+.icoStorage .his.wim:before {
+  background: rgba(0, 0, 0, 0.3) url(../images/421_ME_DLNA_H.png) no-repeat;
+}
+.icoStorage .won.on:before,
+.icoStorage .won:focus:before {
+  background: url(../images/421_ME_Friend_C.png) no-repeat;
+}
+.icoStorage .his.won:before {
+  background: rgba(0, 0, 0, 0.3) url(../images/421_ME_Friend_H.png) no-repeat;
+}
+.icoStorage .add.on:before,
+.icoStorage .add:focus:before {
+  background: url(../images/421_ME_Add_C.png) no-repeat;
+}
+.icoStorage .add.his:before {
+  background: rgba(0, 0, 0, 0.3) url(../images/421_ME_Add_H.png) no-repeat;
+}
+.icoStorage .won figure {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  opacity: .5;
+}
+.icoStorage .won.on figure,
+.icoStorage .won:focus figure {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  opacity: 1;
+}
+.icoStorage .won.noImg:before {
+  background-image: none;
+}
+/* Wi-Fi Signal */
+.signal {
+  width: 38px;
+  height: 40px;
+}
+.signal.int0 {
+  background: url(../images/217_Wifi00_N.png) no-repeat;
+}
+li.on .signal.int0,
+li:focus .signal.int0 {
+  background: url(../images/217_Wifi00_C.png) no-repeat;
+}
+.signal.int1 {
+  background: url(../images/217_Wifi01_N.png) no-repeat;
+}
+li.on .signal.int1,
+li:focus .signal.int1 {
+  background: url(../images/217_Wifi01_C.png) no-repeat;
+}
+.signal.int2 {
+  background: url(../images/217_Wifi02_N.png) no-repeat;
+}
+li.on .signal.int2,
+li:focus .signal.int2 {
+  background: url(../images/217_Wifi02_C.png) no-repeat;
+}
+.signal.int3 {
+  background: url(../images/217_Wifi03_N.png) no-repeat;
+}
+li.on .signal.int3,
+li:focus .signal.int3 {
+  background: url(../images/217_Wifi03_C.png) no-repeat;
+}
+.signal.int4 {
+  background: url(../images/217_Wifi04_N.png) no-repeat;
+}
+li.on .signal.int4,
+li:focus .signal.int4 {
+  background: url(../images/217_Wifi04_C.png) no-repeat;
+}
+/* Cursor : Arror Indicator */
+.arrL:before,
+.arrR:after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: -37px;
+  width: 22px;
+  height: 30px;
+}
+.arrL:after {
+  left: 705px;
+  background: url(../images/106_Arrow_Left.png) no-repeat;
+}
+.arrR:after {
+  left: 705px;
+  background: url(../images/106_Arrow_Right.png) no-repeat;
+}
+/* PROGRESS BAR */
+.progress {
+  position: relative;
+}
+.progress:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.progress.type1 {
+  color: #ffa200;
+}
+.progress.type1 .graph span {
+  background: #ffa200;
+}
+.progress.type2 {
+  color: #baff00;
+}
+.progress.type2 .graph span {
+  background: #baff00;
+}
+.progress.type3 {
+  color: #9c67ff;
+}
+.progress.type3 .graph span {
+  background: #9c67ff;
+}
+.progress.type4 {
+  color: #ff0;
+}
+.progress.type4 .graph span {
+  background: #ff0;
+}
+.progress.type5 {
+  color: #2ebeff;
+}
+.progress.type5 .graph span {
+  background: #2ebeff;
+}
+.progress .graph {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.2);
+}
+.progress .graph span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+}
+/* Scroll Bar */
+.scr {
+  position: absolute;
+  width: 40px;
+  height: 74px;
+}
+.scr:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 40px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.3) url(../images/106_Arrow_scroll.png) no-repeat 0 0;
+}
+.scr:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 40px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.3) url(../images/106_Arrow_scroll.png) no-repeat 0 100%;
+}
+.scr:focus:before,
+.scr:focus:after,
+.scr.on:before,
+.scr.on:after {
+  background-color: #2eb2ff;
+}
+.scr2 {
+  position: absolute;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+.scr2 div {
+  position: absolute;
+  left: -1px;
+  width: 3px;
+  min-height: 30px;
+  border-radius: 3px;
+  background: #2eb2ff;
+}
+/* Dialog */
+#DIA {
+  position: absolute;
+  width: 1280px;
+  height: 720px;
+  /* Dialogue : Settings */
+  /* Lip-Sync */
+  /* Live TV */
+  /* Live TV > TV Option */
+}
+#DIA.osd {
+  position: absolute;
+  width: 1280px;
+  height: 720px;
+  background: rgba(0, 0, 0, 0.7);
+}
+#DIA .dimOsd {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1280px;
+  height: 720px;
+  margin: 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+#DIA h1 {
+  font-size: 34px;
+  color: #fff;
+}
+#DIA div {
+  position: absolute;
+  left: 50%;
+  margin: 0 0 0 -400px;
+  padding: 33px 50px;
+  width: 700px;
+  text-align: center;
+  background: url(../images/107_H4.png) no-repeat, url(../images/107_H4.png) no-repeat 0 bottom, rgba(0, 0, 0, 0.8);
+}
+#DIA .vaTop {
+  top: 0;
+}
+#DIA .vaBot {
+  bottom: 0;
+}
+#DIA strong {
+  display: block;
+  color: #ff0;
+}
+#DIA .sta {
+  width: 585px;
+  padding: 33px 50px 33px 165px;
+  background: url(../images/200_Dialog_status.png) no-repeat 70px 50%, url(../images/107_H3.png) no-repeat, url(../images/107_H3.png) no-repeat 0 bottom, rgba(0, 0, 0, 0.8);
+  color: #ff0;
+  text-align: left;
+}
+#DIA .res {
+  background: url(../images/107_H3.png) no-repeat 0 bottom, rgba(0, 0, 0, 0.8);
+  color: #ff0;
+}
+#DIA .con {
+  padding: 33px 50px 60px;
+}
+#DIA .con h1 {
+  margin: 0 0 18px;
+  padding: 0 0 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+#DIA .taLft.con {
+  padding: 25px 50px 60px;
+  /*padding: 25px 50px 55px;*/
+}
+#DIA .taLft p {
+  overflow: hidden;
+  padding: 0 19px;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#DIA .taLft .box {
+  text-align: left;
+}
+#DIA .taLft .button {
+  line-height: 50px;
+  /*padding: 15px 20px;*/
+}
+#DIA .taLft .wrap_pw {
+  margin: 85px 0 0;
+  text-align: center;
+}
+#DIA .noti {
+  position: relative;
+  bottom: 0;
+  margin: 24px 0 0;
+}
+#DIA .box {
+  position: relative;
+}
+#DIA .box ol {
+  line-height: 52px;
+  list-style: decimal;
+  padding: 0 0 0 29px;
+}
+#DIA .box ul {
+  line-height: 48px;
+}
+#DIA .box .scr {
+  top: 10px;
+  right: 10px;
+  padding: 0;
+}
+#DIA p + .box {
+  margin: 33px 0 0;
+}
+#DIA .pas {
+  /* #DIA .multi .wrap_pw *, */
+}
+#DIA .pas h1 {
+  margin: 0 0 -3px;
+}
+#DIA .pas .button {
+  /*width: 50px;*/
+  min-width: 50px;
+  height: 50px;
+  line-height: 50px;
+  /*margin: 37px 0 0;*/
+  padding: 0;
+  font-size: 34px;
+}
+#DIA .pas .button.def {
+  background: url(../images/109_pw1.png) no-repeat;
+}
+#DIA .pas .button.def:focus,
+#DIA .pas .button.def.on {
+  background: #2eb2ff url(../images/311_DW_PIN_BTN03_C.png) no-repeat;
+}
+#DIA .pas.ip .button + .button {
+  margin: 37px 0 0;
+}
+#DIA .pas .blind .button {
+  background: #414141 url(../images/109_pw1.png) no-repeat;
+}
+#DIA .pas .blind .button.on,
+#DIA .pas .blind .button:focus {
+  background: #2eb2ff url(../images/109_pw1.png) no-repeat 0 bottom;
+}
+#DIA .pas .blind .button.pw {
+  background: #414141 url(../images/109_pw2.png) no-repeat;
+}
+#DIA .pas .blind .button.num:focus,
+#DIA .pas .blind .button.pw:focus,
+#DIA .pas .blind .button.num.on,
+#DIA .pas .blind .button.pw.on {
+  background: #2eb2ff url(../images/109_pw2.png) no-repeat 0 bottom;
+}
+#DIA .pas.multi .button.def {
+  background: url(../images/311_DW_PIN_BTN03_N.png) no-repeat;
+}
+#DIA .pas .incrt em:last-child:after {
+  content: "";
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  margin: 14px 0 0 67px;
+  background: url(../images/200_Incorrect.png) no-repeat;
+}
+#DIA .pas .wrap_pw {
+  margin-top: 33px;
+}
+#DIA .pas .wrap_pw b,
+#DIA .pas .wrap_pw .button {
+  vertical-align: middle;
+}
+#DIA .pas .wrap_pw b {
+  display: inline-block;
+  width: 125px;
+  line-height: 50px;
+  margin-right: 20px;
+  text-align: right;
+}
+#DIA .pas .wrap_pw .button {
+  margin-top: 0;
+}
+#DIA .pas .wrap_pw + .wrap_pw {
+  margin-top: 25px;
+}
+#DIA .multi .wrap_num {
+  position: relative;
+  display: inline-block;
+  height: 50px;
+  margin: 35px 0 0;
+  background: #414141;
+}
+#DIA .multi .wrap_num.dot {
+  margin: 35px 30px 0 0;
+}
+#DIA .multi .wrap_num.dot:after {
+  content: ".";
+  position: absolute;
+  bottom: -11px;
+  right: -33px;
+  padding: 0 12px;
+  font-size: 40px;
+}
+#DIA .multi .wrap_num.colon {
+  margin: 35px 30px 0 0;
+}
+#DIA .multi .wrap_num.colon:after {
+  content: ":";
+  position: absolute;
+  top: -3px;
+  right: -33px;
+  padding: 0 12px;
+  font-size: 40px;
+}
+#DIA .multi .wrap_num.dash {
+  margin: 35px 65px 0 0;
+}
+#DIA .multi .wrap_num.dash:after {
+  content: "-";
+  position: absolute;
+  top: -3px;
+  right: -62px;
+  padding: 0 25px;
+  font-size: 40px;
+}
+#DIA .multi .wrap_num .button {
+  min-width: 40px;
+  margin: 0;
+  font-size: inherit;
+  color: #fff;
+  font-size: 40px;
+}
+#DIA .multi .wrap_num .button:focus,
+#DIA .multi .wrap_num .button.on {
+  border: none;
+  color: #000;
+}
+#DIA .multi .txt {
+  position: relative;
+  bottom: 5px;
+  margin: 0 0 0 10px;
+  vertical-align: bottom;
+}
+#DIA .pro {
+  width: 520px;
+  padding: 33px 100px 35px 180px;
+  background: url(../images/206_Loading_DW.gif) no-repeat 95px 37px, url(../images/107_H4.png) no-repeat 0 top, url(../images/107_H4.png) no-repeat 0 bottom, rgba(0, 0, 0, 0.8);
+  text-align: center;
+  color: #fff;
+}
+#DIA .pro.line1 {
+  background-position: 95px 35px,0 top,0 bottom;
+}
+#DIA .pro.vaTop {
+  padding: 63px 100px 35px 180px;
+  background-position: 95px 67px,0 top,0 bottom;
+}
+#DIA .pro.vaTop.line1 {
+  background-position: 95px 50px,0 top,0 bottom;
+}
+#DIA .pro.vaBot {
+  padding: 33px 100px 60px 180px;
+  background-position: 95px 35px,0 top,0 bottom;
+}
+#DIA .pro.vaBot.line1 {
+  background-position: 95px 20px,0 top,0 bottom;
+}
+#DIA .pro p {
+  text-align: left;
+}
+#DIA .pro .button {
+  margin: 33px 0 0 -80px;
+  text-align: center;
+}
+#DIA .progress {
+  margin: 18px 0 0;
+}
+#DIA .progress .graph {
+  width: 100%;
+}
+#DIA .swInfo {
+  margin: 22px 0 0;
+  padding: 13px 0;
+}
+#DIA .swInfo dt,
+#DIA .swInfo dd {
+  display: inline-block;
+  width: 410px;
+  text-align: left;
+}
+#DIA .swInfo dd {
+  width: 230px;
+  margin: 0 0 0 20px;
+  text-align: right;
+}
+#DIA .tmr .swInfo dt:nth-child(2),
+#DIA .tmr .swInfo dd:nth-child(3),
+#DIA * .swInfo dt:nth-child(3),
+#DIA .swInfo dd:nth-child(4),
+#DIA .con.vaBot .regiCode {
+  color: #ff0;
+}
+#DIA .button {
+  min-width: 180px;
+  line-height: 50px;
+  margin: 33px 0 0;
+  padding: 0 20px;
+  background: #414141;
+  font-size: 26px;
+  color: #d2d2d2;
+}
+#DIA .button:focus,
+#DIA .button.on {
+  background: #2eb2ff;
+  color: #000;
+}
+#DIA .button + .button {
+  margin: 33px 0 0 8px;
+}
+#DIA .btn2 .button {
+  display: block;
+  width: auto;
+  font-family: PrismFontL;
+  text-align: left;
+  text-transform: none;
+}
+#DIA .btn2 .button em {
+  float: right;
+}
+#DIA .btn2 .button.on,
+#DIA .btn2 .button:focus {
+  font-family: PrismFontB;
+}
+#DIA .btn2 .button + .button {
+  margin: 8px 0 0;
+}
+#DIA .wrap_btn .button {
+  display: inline-block;
+  text-align: center;
+  font-family: PrismFontB;
+}
+#DIA .wrap_btn .button + .button {
+  margin-left: 8px;
+}
+#DIA .inputPw {
+  margin: 27px 0 0 60px;
+  text-align: left;
+}
+#DIA #inputPw {
+  visibility: hidden;
+  width: 418px;
+  height: 41px;
+  margin: 0 0 0 20px;
+  padding: 6px 4px;
+  border: 6px solid rgba(255, 255, 255, 0.5);
+  background: none;
+  color: #2eb2ff;
+}
+#DIA .pas form .button {
+  width: 220px;
+  font-size: 26px;
+}
+#DIA .wrap_input {
+  overflow: hidden;
+  position: absolute;
+  top: 94px;
+  left: 267px;
+  width: 405px;
+  height: 41px;
+  padding: 6px 7px;
+  border: 6px solid rgba(255, 255, 255, 0.5);
+  font-size: 28px;
+  text-align: left;
+  color: #dcdcdc;
+}
+#DIA .wrap_input.blind {
+  line-height: 50px;
+}
+#DIA .wrap_input.on {
+  border: 6px solid #2eb2ff;
+  color: #2eb2ff;
+}
+#DIA .wrap_input.on:after {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 41px;
+  /*background:#2eb2ff;*/
+  margin: 0 0 0 5px;
+  background: url(../images/109_Input_cursor.gif) no-repeat;
+}
+#DIA .wrap_num {
+  margin: 21px 0 0;
+}
+#DIA .wrap_num em {
+  display: inline-block;
+  width: 40px;
+  margin: 10px 5px 0;
+  border-bottom: 5px solid #fff;
+  font-size: 36px;
+  opacity: .5;
+}
+#DIA .wrap_num .on,
+#DIA .wrap_num :focus {
+  border-bottom: 5px solid #4bbdff;
+  color: #4bbdff;
+  opacity: 1;
+}
+#DIA .setAntenna {
+  left: 50%;
+  top: 50%;
+  /*margin: -150px 0 0 -260px;*/
+  margin: 0 0 0 -400px;
+  padding: 24px 50px;
+}
+#DIA .setAntenna:after {
+  /*left: -379px;
+       top: -210px;*/
+  left: -420px;
+  top: -196px;
+}
+#DIA .setAntenna ul:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+#DIA .setAntenna li {
+  display: inline-block;
+  width: 134px;
+  height: 0;
+  line-height: 28px;
+  padding: 134px 0 0;
+  margin: 0 7px;
+  background: #414141;
+  text-align: center;
+}
+#DIA .setAntenna li:first-child {
+  margin-left: 0;
+}
+#DIA .setAntenna li:last-child {
+  margin-right: 0;
+}
+#DIA .setAntenna li.on,
+#DIA .setAntenna li:focus {
+  background-color: #2eb2ff;
+  color: #2eb2ff;
+}
+#DIA .setAntenna p {
+  display: block;
+  margin: 10px 0 0;
+  /*TODO : font-size, font-family will be deleted */
+  font-size: 28px;
+  font-family: "PrismFontB";
+}
+#DIA .setAntenna .fix {
+  background-image: url(../images/431_SET_Fixed_N.png);
+}
+#DIA .setAntenna .fix.on,
+#DIA .setAntenna .fix:focus {
+  background-image: url(../images/431_SET_Fixed_C.png);
+}
+#DIA .setAntenna .scd {
+  background-image: url(../images/431_SET_SCD_N.png);
+}
+#DIA .setAntenna .scd.on,
+#DIA .setAntenna .scd:focus {
+  background-image: url(../images/431_SET_SCD_C.png);
+}
+#DIA .setAntenna .mot {
+  background-image: url(../images/431_SET_Motor_N.png);
+}
+#DIA .setAntenna .mot.on,
+#DIA .setAntenna .mot:focus {
+  background-image: url(../images/431_SET_Motor_C.png);
+}
+#DIA .setAntenna h1 {
+  margin: 0 0 10px;
+  border: 0;
+}
+#DIA.lipSync {
+  bottom: 0;
+  width: 1090px;
+  height: 105px;
+  padding: 615px 95px 0;
+  background: url(../images/105_BG_COM_Bottom_350.png) no-repeat 0 100%;
+}
+#DIA.lipSync .progress {
+  margin: 0;
+}
+#DIA.lipSync .progress .graph {
+  top: 35px;
+  left: 239px;
+  width: 733px;
+}
+#DIA.lipSync .graph span {
+  top: -1px;
+  height: 4px;
+}
+#DIA .lipTitle {
+  /* delete overflow:hidden;*/
+  position: absolute;
+  width: 220px;
+  color: #fff;
+}
+#DIA .lipTitle.line1 {
+  top: 17px;
+  height: 27px;
+}
+#DIA .lipTitle.line2 {
+  top: 0;
+  height: 64px;
+}
+#DIA .lipDelay {
+  position: absolute;
+  right: 0;
+  top: 17px;
+  font-size: 26px;
+  text-align: right;
+}
+#DIA .tmr.line1 .swInfo {
+  margin: 56px 0 0;
+}
+#DIA .tmr .swInfo dt:first-child {
+  width: 100%;
+  padding: 0 20px;
+}
+#DIA div {
+  /* Setting */
+}
+#DIA div.tvop {
+  margin: 0 0 0 -350px;
+  /*padding: 33px 50px 60px;*/
+}
+#DIA div.tvop,
+#DIA div.setop,
+#DIA div.tvop > p,
+#DIA div.setop h1,
+#DIA div.tvop .wrap_btn,
+#DIA div.setop .wrap_btn {
+  width: 600px;
+}
+#DIA div.setop h1 {
+  border: 0;
+}
+#DIA div.setop #menu {
+  margin: 20px 0 0;
+}
+#DIA div.setop .button {
+  line-height: 50px;
+  margin-top: 28px;
+}
+#DIA div.wide {
+  width: 880px;
+  margin: 0 0 0 -475px;
+  padding-right: 20px;
+}
+#DIA .unlo .button {
+  position: relative;
+  min-width: 134px;
+  height: 134px;
+  padding: 0;
+  margin: 0 0 50px;
+}
+#DIA .vi:before {
+  display: block;
+  content: "";
+  width: 134px;
+  height: 134px;
+  position: absolute;
+  background: url(../images/427_ME_USB_Video_N.png) no-repeat;
+}
+#DIA .button:focus.vi:before,
+#DIA .button.on.vi:before {
+  background: url(../images/427_ME_USB_Video_C.png) no-repeat;
+}
+#DIA .ph:before {
+  display: block;
+  content: "";
+  width: 134px;
+  height: 134px;
+  position: absolute;
+  background: url(../images/427_ME_USB_Photo_N.png) no-repeat;
+}
+#DIA .button:focus.ph:before,
+#DIA .button.on.ph:before {
+  background: url(../images/427_ME_USB_Photo_C.png) no-repeat;
+}
+#DIA .mu:before {
+  display: block;
+  content: "";
+  width: 134px;
+  height: 134px;
+  position: absolute;
+  background: url(../images/427_ME_USB_Music_N.png) no-repeat;
+}
+#DIA .button:focus.mu:before,
+#DIA .button.on.mu:before {
+  background: url(../images/427_ME_USB_Music_C.png) no-repeat;
+}
+#DIA .unlo .button:focus em,
+#DIA .unlo .button.on {
+  color: #2eb2ff;
+}
+#DIA .unlo .button + .button {
+  /*margin: 33px 0 10px 43px;*/
+  margin: 0px 0 50px 43px;
+}
+#DIA .wrap_app {
+  overflow: hidden;
+  position: absolute;
+  top: 8px;
+  left: 32px;
+  width: 737px;
+  height: 215px;
+  text-align: center;
+}
+#DIA .wrap_app li {
+  display: inline-block;
+  position: relative;
+  height: 185px;
+  margin: 30px 19px 0;
+}
+#DIA .wrap_app figure img {
+  width: 132px;
+  height: 132px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.25);
+}
+#DIA .wrap_app li:focus figure img,
+#DIA .wrap_app li.on figure img,
+#DIA .wrap_app li.his figure img {
+  width: 144px;
+  height: 144px;
+  margin: -7px -7px;
+  border: 5px solid #2eb2ff;
+}
+#DIA .wrap_app li.his figure img {
+  border: 5px solid #135c86;
+  box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.5);
+}
+#DIA .wrap_app li.his em {
+  color: #135c86;
+}
+#DIA .wrap_app li em {
+  overflow: hidden;
+  position: absolute;
+  top: 146px;
+  left: 0;
+  width: 140px;
+  color: #a0a0a0;
+  font-size: 24px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#DIA .inPut {
+  position: absolute;
+  top: 32px;
+  width: 700px;
+  height: 115px;
+  z-index: 1;
+}
+#DIA .inPut:before {
+  content: "";
+  background: rgba(0, 0, 0, 0.8);
+}
+#DIA .inPut h1 {
+  font-size: 28px;
+}
+#DIA .inPut .wrap_pw {
+  height: 75px;
+}
+#DIA .inPut p em {
+  top: 0;
+  width: 50px;
+}
+#DIA .inPut .button {
+  min-width: 50px;
+  height: 50px;
+  margin: 33px 0 0;
+  font-size: 34px;
+}
+#DIA .inPut .button + .button {
+  margin: 33px 0 0;
+}
+#sta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 585px;
+  margin: auto;
+  padding: 33px 50px 33px 165px;
+  background: url(../images/200_Dialog_status.png) no-repeat 70px 50%, url(../images/107_H3.png) no-repeat, url(../images/107_H3.png) no-repeat 0 bottom, rgba(0, 0, 0, 0.8);
+  color: #ff0;
+  text-align: left;
+}
+/* Menu */
+#menu {
+  position: relative;
+}
+#menu li {
+  /*	overflow:hidden;*/
+  font-family: PrismFontL;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#menu .dep1 {
+  width: 600px;
+  color: #dedede;
+}
+#menu .dep1 li {
+  position: relative;
+  line-height: 50px;
+  padding: 0 20px;
+  margin: 0 0 8px;
+  background: #414141;
+}
+#menu .dep1 li em {
+  float: right;
+}
+#menu .dep1 li.on,
+#menu .dep1 li:focus {
+  background: #2eb2ff;
+  color: #000;
+  font-family: PrismFontB;
+}
+#menu .dep1 li.on:after,
+#menu .dep1 li:focus:after {
+  content: "";
+  position: absolute;
+  left: 607px;
+  top: 10px;
+  width: 30px;
+  height: 30px;
+  background: url(../images/106_Arrow_Right.png) no-repeat;
+}
+#menu .dep1 .dis {
+  background: #232323;
+  color: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+}
+#menu .dep2 {
+  display: none;
+  overflow: hidden;
+  position: absolute;
+  left: 630px;
+  width: 250px;
+  height: 357px;
+}
+#menu .dep2.rol {
+  top: -36px;
+}
+#menu .dep2.rol ul {
+  padding: 60px 0 0;
+}
+#menu .dep2 li.on,
+#menu .dep2 li:focus {
+  color: #2eb2ff;
+  font-family: PrismFontB;
+}
+#menu .dep2.scrol ul {
+  padding: 0;
+}
+#DIA #menu .dep1 li {
+  height: 50px;
+}
+#DIA #menu .dep1 .item {
+  width: 340px;
+}
+#DIA #menu .dep1 .value {
+  width: 210px;
+}
+.menu .dep1 li,
+#menu .dep1 li {
+  height: 60px;
+}
+.menu .dep1 .item,
+.menu .dep1 .value,
+.menu .dep1 .item2,
+.menu .dep1 .item3,
+#menu .dep1 .item,
+#menu .dep1 .value {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.menu .dep1 .item,
+#menu .dep1 .item {
+  width: 400px;
+  /*background:#ff0*/
+}
+.menu .dep1 .value,
+#menu .dep1 .value {
+  width: 310px;
+  text-align: right;
+  /*background:#0fe*/
+}
+.menu .dep1 .item2 {
+  width: 613px;
+  /*background:#0fe*/
+}
+.menu .dep1 .item3 {
+  width: 730px;
+  /*background:teal*/
+}
+.menu .dep1.icoStorage .item3 {
+  width: 680px;
+  /*background:pink*/
+}
+#DIA .wide .dep1 li {
+  opacity: .2;
+  color: rgba(210, 210, 210, 0.4);
+}
+#DIA .wide .dep2 + .dep1 .on {
+  background: #414141;
+  font-family: PrismFontB;
+  color: #919191;
+  opacity: 1;
+}
+#DIA .wide .dep2 + .dep1 .on:after {
+  display: none;
+}
+#DIA .wide .dep2 {
+  display: block;
+}
+#DIA #menu {
+  margin: 35px 0 0;
+}
+#DIA #menu div {
+  margin: 0;
+  padding: 0;
+  background: none;
+  text-align: left;
+}
+#DIA #menu .dep1 {
+  line-height: 50px;
+  font-size: 26px;
+}
+#DIA #menu .dep2 {
+  line-height: 58px;
+  font-size: 36px;
+}
+#DIA #menu .dep2 ul {
+  display: none;
+}
+#DIA .wide .dep2,
+#DIA #menu .dep2 ul.active {
+  display: block;
+}
+#DIA .wide p,
+#DIA .wide h1 {
+  color: #464646;
+}
+#DIA .wide .wrap_btn .button {
+  opacity: .2;
+  color: rgba(210, 210, 210, 0.4);
+}
+#DIA .wide .dep1 .on {
+  background: #414141;
+  font-family: PrismFontB;
+  color: #919191;
+  opacity: 1;
+}
+#DIA .canlist {
+  margin: 33px 0px 0px;
+}
+#DIA .canlist p {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  height: 20px;
+  font-family: PrismFontB;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#DIA .canlist p em {
+  font-family: PrismFontL;
+}
+#DIA .canlist p b {
+  /*font-family: PrismFontL;*/
+  font-weight: normal;
+}
+#DIA .canlist p.button {
+  display: block;
+  height: 50px;
+  margin: 0px 0px 8px 0px;
+  padding-right: 60px;
+  /*padding-left: 105px;*/
+  /*padding-bottom: 20px;*/
+}
+#DIA .canlist p.button + .button {
+  margin-left: 0;
+}
+.canlist .play,
+.canlist .rec,
+.canlist .rec2,
+.canlist .lis,
+.canlist .remi,
+.canlist .seri {
+  position: absolute;
+  top: 11px;
+  right: 14px;
+}
+.conli .play,
+.conli .rec,
+.conli .rec2,
+.conli .lis,
+.conli .remi,
+.conli .seri {
+  position: absolute;
+  top: 7px;
+  right: 14px;
+}
+#DIA .canlist.box {
+  /*padding-top: 7px;*/
+  padding: 7px 0 10px 19px;
+  margin: 21px 0 -10px;
+}
+#DIA .canlist.box li {
+  position: relative;
+  text-align: left;
+  font-family: PrismFontL;
+  font-size: 28px;
+  color: #969696;
+  margin: 6px 0 6px;
+}
+.canlist.box .rec,
+.canlist.box .lis,
+.canlist.box .remi,
+.canlist.box .seri {
+  position: absolute;
+  top: 1px;
+}
+#DIA .box .conli {
+  font: 26px/40px PrismFontL;
+  text-align: left;
+  color: #969696;
+}
+#DIA .conli li {
+  overflow: hidden;
+  position: relative;
+  padding-right: 60px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* Media */
+#DIA div.phot {
+  width: 600px;
+  margin-left: -350px;
+}
+#DIA div.phot h1 {
+  border: 0;
+  font-size: 28px;
+  margin-top: -6px;
+  margin-bottom: -10px;
+}
+#DIA div.wide {
+  width: 880px;
+  margin: 0 0 0 -475px;
+  padding-right: 20px;
+}
+#DIA .phot #menu .dep2 {
+  height: 204px;
+}
+#DIA .videOption #menu .dep2 {
+  height: 304px;
+}
+/* Z-Ordering */
+#DIA,
+.msg,
+#hep {
+  z-index: 100;
+}
+.msg .txt,
+.msg .wrap_btn {
+  z-index: 101;
+}
+/* Dialog > Status */
+#sta.zSta {
+  z-index: -1;
+}
+#dLive,
+.bgRadio {
+  z-index: -100;
+}

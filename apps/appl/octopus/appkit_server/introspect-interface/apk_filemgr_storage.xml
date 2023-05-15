@@ -1,0 +1,94 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Filemgr/Storage">   
+    <interface name="Octopus.Appkit.Filemgr.Storage">
+
+    <method name="Format">
+    	<arg type="u" name="deviceId" direction="in" />
+    	<arg type="s" name="volume" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="StartDST">
+    	<arg type="u" name="deviceId" direction="in" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <method name="SetDefaultHdd">
+    	<arg type="s" name="storageId" direction="in" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                          
+
+    <method name="DisablePVRHdd">
+    	<arg type="s" name="storageId" direction="in" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <method name="PairingHdd">
+    	<arg type="s" name="storageId" direction="in" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="UnPairingHdd">
+    	<arg type="s" name="storageId" direction="in" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="SetName">
+    	<arg type="s" name="storageId" direction="in" />    	
+    	<arg type="s" name="name" direction="in" />    	    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="SafeRemove">
+    	<arg type="u" name="deviceId" direction="in" />    	
+    	<arg type="b" name="forced" direction="in" />    	    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+
+    <method name="GetList">
+    	<arg type="u" name="filter" direction="in" />    	
+    	<arg type="a(u)" name="infoList" direction="out" />    	    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <method name="GetSize">
+    	<arg type="u" name="deviceId" direction="in" />    	
+    	<arg type="(ttttt)" name="info" direction="out" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="GetPvrReservedSize">
+    	<arg type="u" name="deviceId" direction="in" />    	
+    	<arg type="t" name="reservedKbSize" direction="out" />   
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="CheckUsbSpeed">
+    	<arg type="s" name="storageId" direction="in" />    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="GetDevTypeString">
+    	<arg type="u" name="deviceType" direction="in" />    	
+    	<arg type="s" name="typeString" direction="out" />    	    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="GetFsString">
+    	<arg type="u" name="fsType" direction="in" />    	
+    	<arg type="s" name="typeString" direction="out" />    	    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+                        
+    <signal name="event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+
+  </interface>
+</node>

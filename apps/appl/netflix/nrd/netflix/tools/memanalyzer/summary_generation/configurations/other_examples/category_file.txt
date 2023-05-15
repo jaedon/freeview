@@ -1,0 +1,7 @@
+netflix(file) maps netflix  
+JSC_or_Qt(file) maps WTF,JavaScriptCore,libQt
+Heap(sbrk) maps [heap]
+Other_3rd_lib(file) maps *
+JSC_or_Qt(anonymously_mapped) * WTF,JSC,libQt
+DFB(anonymously_mapped) * directfb
+Others(anonymously_mapped) * *

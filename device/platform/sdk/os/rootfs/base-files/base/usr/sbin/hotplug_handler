@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# call hotplug for directfb
+./usr/etc/hotplug.d/dfb_input_hotplug
+
+# call hotplug for wifi
+./sbin/hotplug $1

@@ -1,0 +1,73 @@
+<activities current_act_id="1" >
+    <device_idx_lut>
+        <dev idx="0" act_type="0" host="true"/>
+        <dev idx="1" act_type="1" />
+        <dev idx="2" act_type="4" />
+        <dev idx="3" act_type="8" />        
+        <dev idx="4" act_type="6" />
+        <dev idx="5" act_type="5" />
+        <dev idx="6" act_type="255" hdmi="2"/>
+        <dev idx="7" act_type="255" hdmi="3"/>
+        <dev idx="8" act_type="255" hdmi="4"/>
+    </device_idx_lut>
+
+    <act act_id="1" name="Watch TV" src="2" audio_mode="avr" valid="false" >
+        <devices>
+            <dev idx="0" />
+            <dev idx="2" />
+        </devices>
+        <macro_enter>
+            <cmd dev="2" func_id="4226" />
+            <cmd dev="0" func_id="2" />
+            <cmd dev="2" func_id="2" />
+            <cmd dev="2" func_id="4226" />
+        </macro_enter>
+    </act>
+    <act  act_id="2"  name="Gaming Activity"  src="3"  audio_mode="avr"  valid="false" >
+        <devices>
+            <dev idx="0"/>
+            <dev idx="1"/>
+            <dev idx="3"/>
+        </devices>
+        <macro_enter>
+            <cmd dev="3" func_id="4226" />
+            <cmd dev="0" func_id="2" />
+            <cmd dev="3" func_id="2" />
+            <cmd dev="1" func_id="2" />
+            <cmd dev="3" func_id="4226" />
+        </macro_enter>
+    </act>    
+    <act    act_id="3" name="Watch OTT" src="5" audio_mode="avr" valid="false" >
+       <devices>
+            <dev idx="0"/>
+            <dev idx="5"/>
+        </devices>
+        <macro_enter>
+            <cmd dev="4" func_id="4226" />
+            <cmd dev="0" func_id="2" />
+            <cmd dev="4" func_id="2" />
+            <cmd dev="4" func_id="4226" />
+        </macro_enter>
+    </act>
+    <act    act_id="4" name="Watch DVD-BL" src="4" audio_mode="avr" valid="false" >
+       <devices>
+            <dev idx="0"/>
+            <dev idx="4"/>
+        </devices>
+        <macro_enter>
+            <cmd dev="4" func_id="4226" />
+            <cmd dev="0" func_id="2" />
+            <cmd dev="4" func_id="2" />
+            <cmd dev="4" func_id="4226" />
+        </macro_enter>
+    </act>
+    <act act_id="5" name="Listen Music" src="1" audio_mode="tv" valid="false" >
+        <devices>
+            <dev idx="0" />
+        </devices>
+        <macro_enter>
+            <cmd dev="0" func_id="2" />
+            <cmd dev="0" func_id="134" />
+        </macro_enter>
+    </act>
+</activities>

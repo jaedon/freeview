@@ -1,0 +1,20 @@
+#
+# debug mode
+#
+cd $(TOP_DIR)/device/make
+make distclean
+make $(MODEL_NAME)_defconfig
+make world
+cd $(TOP_DIR)/device/make/liboutput/make_$(MODEL_NAME)
+make tar_debug
+
+#
+# release mode
+#
+cd $(TOP_DIR)/device/make
+make distclean
+make $(MODEL_NAME)_release_defconfig
+make world
+cd $(TOP_DIR)/device/make/liboutput/make_$(MODEL_NAME)
+make tar_release_debug
+

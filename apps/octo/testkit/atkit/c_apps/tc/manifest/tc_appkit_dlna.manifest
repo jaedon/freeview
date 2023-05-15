@@ -1,0 +1,36 @@
+{
+	"RUN_ALL": false,
+
+	"RUN_CATEGORY":[
+		"dms",
+		"dial"
+		],
+
+	"RUN_TC":[
+
+		],
+	"TC_LIST":[
+		{
+			"tc_name": "TC_APPKIT_DLNA_DMS",
+			"category": ["dms"],
+			"argument": {
+				"set_name": {
+					"FriendlyName": "dms_nmdung"
+				}
+			},
+			"expect_result": {
+				"result": 0
+			}
+		},
+		{
+			"tc_name": "TC_APPKIT_DLNA_Dial",
+			"category": ["dial"],
+			"argument": {
+			},
+			"expect_result": {
+				"result": 0
+			}
+		}
+	]
+}
+

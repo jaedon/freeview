@@ -1,0 +1,10 @@
+"downloader" : {
+	"target" : "dsmcc",
+	"operation" : "get",
+	"property" : {
+		"action" : "get_carousel_list",
+		"param" : {
+			"handle" : 19238000
+		}
+	}	
+}

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+	umount /var/lib/humaxtv
+	umount /var/lib/humaxtv_backup
+	umount /var/lib/humaxtv_user
+	ubidetach -m 4
+	ubidetach -m 3
+	flash_erase /dev/mtd3 0 0
+	flash_erase /dev/mtd4 0 0

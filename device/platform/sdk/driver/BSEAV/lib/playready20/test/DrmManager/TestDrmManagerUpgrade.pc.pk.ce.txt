@@ -1,0 +1,555 @@
+999001:BVT: Keyfile upgrade - Initial boot with newer security version
+If(WMDRMSupported)
+TestManagerUninitialize
+TestManagerSetRobustnessVersion(0.0.0.1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,NULL)
+TestManagerUninitialize
+
+'Simulate upgrade
+TestManagerAddNewKeyfileKey
+TestManagerSetRobustnessVersion(0.0.0.2,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest2bgroupcert.dat,files\upgradetest2zgpriv.dat,files\upgradetest2devcerttemplate.dat,files\upgradetest2priv.dat,TRUE)
+TestManagerValidateRobustnessVersion(0.0.0.2,1)
+TestManagerValidateRobustnessVersion(0.0.0.2,2)
+EndIf
+
+
+999002:BVT: Keyfile upgrade - Boot without upgrade required and verify keyfile doesn't change
+If(WMDRMSupported)
+TestManagerUninitialize
+TestManagerSetRobustnessVersion(0.0.0.1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,NULL)
+TestManagerUninitialize
+TestManagerHashKeyfile(CREATE_HASH)
+TestManagerInitialize( Dump )
+TestManagerUninitialize
+TestManagerHashKeyfile(VERIFY_HASH)
+EndIf
+
+
+999003:BVT: Keyfile upgrade - Acquire licenses then upgrade (XML)
+If(WMDRMSupported)
+TestManagerUninitialize
+TestManagerSetRobustnessVersion(0.0.0.1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,NULL)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(SIMPLE001g4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(ROOT001aVg4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(LEAF001aVg4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,ROOT001aVg4eXCzWqPUBBA==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerUninitialize
+
+'Simulate upgrade
+TestManagerAddNewKeyfileKey
+TestManagerSetRobustnessVersion(0.0.0.2,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest2bgroupcert.dat,files\upgradetest2zgpriv.dat,files\upgradetest2devcerttemplate.dat,files\upgradetest2priv.dat,TRUE)
+TestManagerValidateRobustnessVersion(0.0.0.2,1)
+TestManagerValidateRobustnessVersion(0.0.0.2,2)
+
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(SIMPLE002g4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(ROOT002aVg4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(LEAF002aVg4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,ROOT001aVg4eXCzWqPUBBA==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerSetRights(Play)
+TestManagerSetKID( LEAF001aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE001g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+'Clean up
+TestManagerUninitialize
+EndIf
+
+
+999004:BVT: Keyfile upgrade - Multiple upgrade (XML)
+If(WMDRMSupported)
+TestManagerUninitialize
+TestManagerSetRobustnessVersion(0.0.0.1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,NULL)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(SIMPLE001g4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(ROOT001aVg4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(LEAF001aVg4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,ROOT001aVg4eXCzWqPUBBA==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerUninitialize
+
+'Simulate upgrade
+TestManagerAddNewKeyfileKey
+TestManagerSetRobustnessVersion(0.0.0.2,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest2bgroupcert.dat,files\upgradetest2zgpriv.dat,files\upgradetest2devcerttemplate.dat,files\upgradetest2priv.dat,TRUE)
+TestManagerValidateRobustnessVersion(0.0.0.2,1)
+TestManagerValidateRobustnessVersion(0.0.0.2,2)
+
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(SIMPLE002g4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(ROOT002aVg4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(LEAF002aVg4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,ROOT001aVg4eXCzWqPUBBA==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerSetRights(Play)
+TestManagerSetKID( LEAF001aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE001g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerUninitialize
+
+'Simulate upgrade
+TestManagerAddNewKeyfileKey
+TestManagerSetRobustnessVersion(0.0.0.3,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest3bgroupcert.dat,files\upgradetest3zgpriv.dat,files\upgradetest3devcerttemplate.dat,files\upgradetest3priv.dat,TRUE)
+TestManagerValidateRobustnessVersion(0.0.0.3,1)
+TestManagerValidateRobustnessVersion(0.0.0.3,2)
+
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(SIMPLE003g4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(ROOT003aVg4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(LEAF003aVg4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,ROOT003aVg4eXCzWqPUBBA==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerSetRights(Play)
+TestManagerSetKID( LEAF001aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE001g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( LEAF002aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE002g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( LEAF003aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE003g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+'Clean up
+TestManagerUninitialize
+EndIf
+
+
+999005:BVT: LACQ failure from upgrade required
+If(WMDRMSupported)
+TestManagerUninitialize
+TestManagerSetRobustnessVersion(0.0.0.1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,NULL)
+LoadResponseFromFile(SoapFault_IndivRequired.xml)
+TestManagerProcessResponse( Dump, Dump, 0, 0, NULL, 0x8004c603 )
+
+'Simulate upgrade
+TestManagerUninitialize
+TestManagerAddNewKeyfileKey
+TestManagerSetRobustnessVersion(0.0.0.2,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest2bgroupcert.dat,files\upgradetest2zgpriv.dat,files\upgradetest2devcerttemplate.dat,files\upgradetest2priv.dat,TRUE)
+TestManagerValidateRobustnessVersion(0.0.0.2,1)
+TestManagerValidateRobustnessVersion(0.0.0.2,2)
+
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(SIMPLE001g4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+TestManagerSetRights(Play)
+TestManagerSetKID( SIMPLE001g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+
+TestManagerUninitialize
+EndIf
+
+
+999006:BVT: LACQ failure from device revoked
+If(WMDRMSupported)
+TestManagerUninitialize
+TestManagerSetRobustnessVersion(0.0.0.1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,NULL)
+LoadResponseFromFile(SoapFault_DeviceCertRevoked.xml)
+TestManagerProcessResponse( Dump, Dump, 0, 0, NULL, 0x8004c065 )
+
+'Simulate upgrade
+TestManagerUninitialize
+TestManagerAddNewKeyfileKey
+TestManagerSetRobustnessVersion(0.0.0.2,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest2bgroupcert.dat,files\upgradetest2zgpriv.dat,files\upgradetest2devcerttemplate.dat,files\upgradetest2priv.dat,TRUE)
+TestManagerValidateRobustnessVersion(0.0.0.2,1)
+TestManagerValidateRobustnessVersion(0.0.0.2,2)
+
+
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(SIMPLE001g4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+
+TestManagerSetRights(Play)
+TestManagerSetKID( SIMPLE001g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+
+TestManagerUninitialize
+EndIf
+
+
+999007:BVT: Keyfile upgrade - Cold boot
+If(WMDRMSupported)
+TestManagerUninitialize
+TestManagerSetRobustnessVersion(0.0.0.1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,NULL)
+TestManagerUninitialize
+TestManagerValidateRobustnessVersion(0.0.0.1,1)
+TestManagerValidateRobustnessVersion(0.0.0.1,2)
+EndIf
+
+
+999008:BVT: Keyfile downgrade - Acquire licenses and upgrade, then downgrade (XML)
+If(WMDRMSupported)
+TestManagerUninitialize
+TestManagerSetRobustnessVersion(0.0.0.1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,NULL)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(SIMPLE001g4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(ROOT001aVg4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(LEAF001aVg4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,ROOT001aVg4eXCzWqPUBBA==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerUninitialize
+
+'Simulate upgrade
+TestManagerAddNewKeyfileKey
+TestManagerSetRobustnessVersion(0.0.0.2,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest2bgroupcert.dat,files\upgradetest2zgpriv.dat,files\upgradetest2devcerttemplate.dat,files\upgradetest2priv.dat,TRUE)
+TestManagerValidateRobustnessVersion(0.0.0.2,1)
+TestManagerValidateRobustnessVersion(0.0.0.2,2)
+
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(SIMPLE002g4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(ROOT002aVg4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(LEAF002aVg4eXCzWqPUBBA==,RANDOM, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,ROOT001aVg4eXCzWqPUBBA==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerSetRights(Play)
+TestManagerSetKID( LEAF001aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE001g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( LEAF002aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE002g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerUninitialize
+
+'Downgrade by removing the AES keyfile key we had added and going back to the original group certs
+TestManagerFreeKeyfileKeys(1)
+TestManagerSetRobustnessVersion(0.0.0.1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,TRUE)=0X8004D504 DRM_E_KEYFILE_KEY_NOT_FOUND
+TestManagerUninitialize
+EndIf
+
+
+999010:BVT: Keyfile upgrade - Acquire licenses then upgrade (XMR)
+If(WMDRMSupported)
+TestManagerUninitialize
+TestManagerSetRobustnessVersion(0.0.0.1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,NULL)
+TestManagerAddXMRLicense( SIMPLE001g4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( ROOT001aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( LEAF001aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT001aVg4eXCzWqPUBBA== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerUninitialize
+
+'Simulate upgrade
+TestManagerAddNewKeyfileKey
+TestManagerSetRobustnessVersion(0.0.0.2,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest2bgroupcert.dat,files\upgradetest2zgpriv.dat,files\upgradetest2devcerttemplate.dat,files\upgradetest2priv.dat,TRUE)
+TestManagerValidateRobustnessVersion(0.0.0.2,1)
+TestManagerValidateRobustnessVersion(0.0.0.2,2)
+
+TestManagerAddXMRLicense( SIMPLE002g4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( ROOT002aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( LEAF002aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT001aVg4eXCzWqPUBBA== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetRights(Play)
+TestManagerSetKID( LEAF001aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE001g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+'Clean up
+TestManagerUninitialize
+EndIf
+
+
+999011:BVT: Keyfile upgrade - Multiple upgrade (XMR)
+If(WMDRMSupported)
+TestManagerUninitialize
+TestManagerSetRobustnessVersion(0.0.0.1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,NULL)
+TestManagerAddXMRLicense( SIMPLE001g4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( ROOT001aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( LEAF001aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT001aVg4eXCzWqPUBBA== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerUninitialize
+
+'Simulate upgrade
+TestManagerAddNewKeyfileKey
+TestManagerSetRobustnessVersion(0.0.0.2,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest2bgroupcert.dat,files\upgradetest2zgpriv.dat,files\upgradetest2devcerttemplate.dat,files\upgradetest2priv.dat,TRUE)
+TestManagerValidateRobustnessVersion(0.0.0.2,1)
+TestManagerValidateRobustnessVersion(0.0.0.2,2)
+
+TestManagerAddXMRLicense( SIMPLE002g4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( ROOT002aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( LEAF002aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT001aVg4eXCzWqPUBBA== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetRights(Play)
+TestManagerSetKID( LEAF001aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE001g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerUninitialize
+
+'Simulate upgrade
+TestManagerAddNewKeyfileKey
+TestManagerSetRobustnessVersion(0.0.0.3,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest3bgroupcert.dat,files\upgradetest3zgpriv.dat,files\upgradetest3devcerttemplate.dat,files\upgradetest3priv.dat,TRUE)
+TestManagerValidateRobustnessVersion(0.0.0.3,1)
+TestManagerValidateRobustnessVersion(0.0.0.3,2)
+
+TestManagerAddXMRLicense( SIMPLE003g4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( ROOT003aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( LEAF003aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT002aVg4eXCzWqPUBBA== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetRights(Play)
+TestManagerSetKID( LEAF001aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE001g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( LEAF002aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE002g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( LEAF003aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE003g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+'Clean up
+TestManagerUninitialize
+EndIf
+
+
+999016:FUNC: Keyfile upgrade - Initial boot with newer security version, first WMDRM, then PlayReady
+If(WMDRMSupported)
+TestManagerUninitialize
+TestManagerSetRobustnessVersion(0.0.0.1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,NULL)
+TestManagerUninitialize
+
+'Simulate upgrade
+TestManagerAddNewKeyfileKey
+TestManagerSetRobustnessVersion(0.0.0.2,1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest2devcerttemplate.dat,files\upgradetest2priv.dat,TRUE)
+TestManagerValidateRobustnessVersion(0.0.0.2,1)
+'Reset the state
+TestManagerUninitialize
+
+TestManagerAddNewKeyfileKey
+TestManagerSetRobustnessVersion(0.0.0.2,1,2)
+TestManagerInitialize(Dump,NULL,files\upgradetest2bgroupcert.dat,files\upgradetest2zgpriv.dat,files\upgradetest2devcerttemplate.dat,files\upgradetest2priv.dat,TRUE)
+TestManagerValidateRobustnessVersion(0.0.0.2,2)
+'Clean up
+TestManagerUninitialize
+EndIf
+
+
+999017:FUNC: Keyfile upgrade - Acquire XMR licenses then upgrade WMDRM and PlayReady
+If(WMDRMSupported)
+TestManagerUninitialize
+TestManagerSetRobustnessVersion(0.0.0.1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,NULL)
+TestManagerAddXMRLicense( SIMPLE001g4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( ROOT001aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( LEAF001aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT001aVg4eXCzWqPUBBA== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerUninitialize
+
+'Simulate upgrade of WMDRM
+TestManagerAddNewKeyfileKey
+TestManagerSetRobustnessVersion(0.0.0.2,1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest2devcerttemplate.dat,files\upgradetest2priv.dat,TRUE)
+TestManagerValidateRobustnessVersion(0.0.0.2,1)
+
+TestManagerAddXMRLicense( SIMPLE002g4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( ROOT002aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( LEAF002aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT001aVg4eXCzWqPUBBA== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetRights(Play)
+TestManagerSetKID( LEAF001aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE001g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+'Clean up
+TestManagerUninitialize
+
+'Simulate upgrade of PlayReady
+TestManagerAddNewKeyfileKey
+TestManagerSetRobustnessVersion(0.0.0.2,1,2)
+TestManagerInitialize(Dump,NULL,files\upgradetest2bgroupcert.dat,files\upgradetest2zgpriv.dat,files\upgradetest2devcerttemplate.dat,files\upgradetest2priv.dat,TRUE)
+TestManagerValidateRobustnessVersion(0.0.0.2,2)
+
+TestManagerAddXMRLicense( SIMPLE002g4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( ROOT002aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerAddXMRLicense( LEAF002aVg4eXCzWqPUBBA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, ROOT001aVg4eXCzWqPUBBA== )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetRights(Play)
+TestManagerSetKID( LEAF001aVg4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetKID( SIMPLE001g4eXCzWqPUBBA== )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+'Clean up
+TestManagerUninitialize
+EndIf
+
+
+999021:FUNC: Initial boot w. one upgrade using pregenerated keyfile
+If(WMDRMSupported)
+TestManagerUninitialize
+TestManagerSetRobustnessVersion(0.0.0.1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,NULL,files\keyfile1.dat)
+TestManagerUninitialize
+
+TestManagerAddNewKeyfileKey(files\aeskey2.dat)
+TestManagerSetRobustnessVersion(0.0.0.2,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest2bgroupcert.dat,files\upgradetest2zgpriv.dat,files\upgradetest2devcerttemplate.dat,files\upgradetest2priv.dat,NULL,files\keyfile2.dat)
+TestManagerValidateRobustnessVersion(0.0.0.2,1)
+TestManagerValidateRobustnessVersion(0.0.0.2,2)
+EndIf
+
+
+999022:FUNC: Initial boot w. 5 upgrades using pregenerated keyfile
+If(WMDRMSupported)
+TestManagerUninitialize
+TestManagerSetRobustnessVersion(0.0.0.1,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest1bgroupcert.dat,files\upgradetest1zgpriv.dat,files\upgradetest1devcerttemplate.dat,files\upgradetest1priv.dat,NULL,files\keyfile1.dat)
+TestManagerUninitialize
+
+TestManagerAddNewKeyfileKey(files\aeskey2.dat)
+TestManagerSetRobustnessVersion(0.0.0.2,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest2bgroupcert.dat,files\upgradetest2zgpriv.dat,files\upgradetest2devcerttemplate.dat,files\upgradetest2priv.dat,NULL,files\keyfile2.dat)
+TestManagerValidateRobustnessVersion(0.0.0.2,1)
+TestManagerValidateRobustnessVersion(0.0.0.2,2)
+
+TestManagerUninitialize
+
+TestManagerAddNewKeyfileKey(files\aeskey3.dat)
+TestManagerSetRobustnessVersion(0.0.0.3,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest3bgroupcert.dat,files\upgradetest3zgpriv.dat,files\upgradetest3devcerttemplate.dat,files\upgradetest3priv.dat,NULL,files\keyfile3.dat)
+TestManagerValidateRobustnessVersion(0.0.0.3,1)
+TestManagerValidateRobustnessVersion(0.0.0.3,2)
+
+TestManagerUninitialize
+
+TestManagerAddNewKeyfileKey(files\aeskey4.dat)
+TestManagerSetRobustnessVersion(0.0.0.4,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest4bgroupcert.dat,files\upgradetest4zgpriv.dat,files\upgradetest4devcerttemplate.dat,files\upgradetest4priv.dat,NULL,files\keyfile4.dat)
+TestManagerValidateRobustnessVersion(0.0.0.4,1)
+TestManagerValidateRobustnessVersion(0.0.0.4,2)
+
+TestManagerUninitialize
+
+TestManagerAddNewKeyfileKey(files\aeskey5.dat)
+TestManagerSetRobustnessVersion(0.0.0.5,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest5bgroupcert.dat,files\upgradetest5zgpriv.dat,files\upgradetest5devcerttemplate.dat,files\upgradetest5priv.dat,NULL,files\keyfile5.dat)
+TestManagerValidateRobustnessVersion(0.0.0.5,1)
+TestManagerValidateRobustnessVersion(0.0.0.5,2)
+TestManagerUninitialize
+EndIf
+
+
+999023:FUNC: Initial boot w. one upgrade using pregenerated keyfile, test for fuzzing
+If(WMDRMSupported)
+TestManagerUninitialize
+TestCopyFuzzFile(files\keyfile2.dat,keyfile.dat)
+TestManagerAddNewKeyfileKey(files\aeskey2.dat)
+TestManagerSetRobustnessVersion(0.0.0.2,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest2bgroupcert.dat,files\upgradetest2zgpriv.dat,files\upgradetest2devcerttemplate.dat,files\upgradetest2priv.dat,NULL,keyfile.dat)
+TestManagerValidateRobustnessVersion(0.0.0.2,1)
+TestManagerValidateRobustnessVersion(0.0.0.2,2)
+EndIf
+
+
+999024:FUNC: Initial boot using pregenerated keyfile w. 5 keys in the key history, test for fuzzing
+If(WMDRMSupported)
+TestManagerUninitialize
+TestCopyFuzzFile(files\keyfile5.dat,keyfile.dat)
+TestManagerAddNewKeyfileKey(files\aeskey2.dat)
+TestManagerAddNewKeyfileKey(files\aeskey3.dat)
+TestManagerAddNewKeyfileKey(files\aeskey4.dat)
+TestManagerAddNewKeyfileKey(files\aeskey5.dat)
+TestManagerSetRobustnessVersion(0.0.0.5,1)
+TestManagerInitialize(Dump,NULL,files\upgradetest5bgroupcert.dat,files\upgradetest5zgpriv.dat,files\upgradetest5devcerttemplate.dat,files\upgradetest5priv.dat,NULL,keyfile.dat)
+TestManagerValidateRobustnessVersion(0.0.0.5,1)
+TestManagerValidateRobustnessVersion(0.0.0.5,2)
+TestManagerUninitialize
+EndIf
+

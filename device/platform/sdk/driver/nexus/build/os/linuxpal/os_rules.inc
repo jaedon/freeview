@@ -1,0 +1,251 @@
+############################################################
+#     (c)2003-2010 Broadcom Corporation
+#
+#  This program is the proprietary software of Broadcom Corporation and/or its licensors,
+#  and may only be used, duplicated, modified or distributed pursuant to the terms and
+#  conditions of a separate, written license agreement executed between you and Broadcom
+#  (an "Authorized License").  Except as set forth in an Authorized License, Broadcom grants
+#  no license (express or implied), right to use, or waiver of any kind with respect to the
+#  Software, and Broadcom expressly reserves all rights in and to the Software and all
+#  intellectual property rights therein.  IF YOU HAVE NO AUTHORIZED LICENSE, THEN YOU
+#  HAVE NO RIGHT TO USE THIS SOFTWARE IN ANY WAY, AND SHOULD IMMEDIATELY
+#  NOTIFY BROADCOM AND DISCONTINUE ALL USE OF THE SOFTWARE.
+#
+#  Except as expressly set forth in the Authorized License,
+#
+#  1.     This program, including its structure, sequence and organization, constitutes the valuable trade
+#  secrets of Broadcom, and you shall use all reasonable efforts to protect the confidentiality thereof,
+#  and to use this information only in connection with your use of Broadcom integrated circuit products.
+#
+#  2.     TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE SOFTWARE IS PROVIDED "AS IS"
+#  AND WITH ALL FAULTS AND BROADCOM MAKES NO PROMISES, REPRESENTATIONS OR
+#  WARRANTIES, EITHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE, WITH RESPECT TO
+#  THE SOFTWARE.  BROADCOM SPECIFICALLY DISCLAIMS ANY AND ALL IMPLIED WARRANTIES
+#  OF TITLE, MERCHANTABILITY, NONINFRINGEMENT, FITNESS FOR A PARTICULAR PURPOSE,
+#  LACK OF VIRUSES, ACCURACY OR COMPLETENESS, QUIET ENJOYMENT, QUIET POSSESSION
+#  OR CORRESPONDENCE TO DESCRIPTION. YOU ASSUME THE ENTIRE RISK ARISING OUT OF
+#  USE OR PERFORMANCE OF THE SOFTWARE.
+#
+#  3.     TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL BROADCOM OR ITS
+#  LICENSORS BE LIABLE FOR (i) CONSEQUENTIAL, INCIDENTAL, SPECIAL, INDIRECT, OR
+#  EXEMPLARY DAMAGES WHATSOEVER ARISING OUT OF OR IN ANY WAY RELATING TO YOUR
+#  USE OF OR INABILITY TO USE THE SOFTWARE EVEN IF BROADCOM HAS BEEN ADVISED OF
+#  THE POSSIBILITY OF SUCH DAMAGES; OR (ii) ANY AMOUNT IN EXCESS OF THE AMOUNT
+#  ACTUALLY PAID FOR THE SOFTWARE ITSELF OR U.S. $1, WHICHEVER IS GREATER. THESE
+#  LIMITATIONS SHALL APPLY NOTWITHSTANDING ANY FAILURE OF ESSENTIAL PURPOSE OF
+#  ANY LIMITED REMEDY.
+#
+# $brcm_Workfile: os_rules.inc $
+# $brcm_Revision: 1 $
+# $brcm_Date: 3/25/10 2:35p $
+#
+# Module Description:
+#   This file defines the OS-specific rules for building in linuxuser mode.
+#
+# Revision History:
+#
+# Created: 08/28/2007 by Jon Garrett
+#
+# $brcm_Log: /nexus/build/os/linuxuser/os_rules.inc $
+# 
+# 1   3/25/10 2:35p adtran
+# SW35230-126: Add support for Palladium testing
+# 
+# 20   11/17/09 2:02p erickson
+# SW7405-3408: use $(filter) instead of $(findstring)
+# 
+# 19   9/16/09 1:38p erickson
+# SW7400-2511: add B_REFSW_ or NEXUS_ prefix to build variables
+#
+# 18   5/7/09 12:10p vsilyaev
+# PR 54016: Fixed combination of BPROFILE and precompiled header
+#
+# 17   4/30/09 10:56a erickson
+# PR53225: merge
+#
+# PR53225/1   4/29/09 4:58p shyam
+# PR53225 : Improved clean rule to remove perl outputs
+#
+# 16   4/8/09 4:31p vsilyaev
+# PR 54016: Added support for precompiled header
+#
+# 15   4/1/09 4:46p vsilyaev
+# PR 53225: Fixed nexus_clean rule to delete right files
+#
+# 14   3/30/09 3:50p vsilyaev
+# PR 53611: Create the object directory only when needed
+#
+# 13   3/26/09 11:07a vsilyaev
+# PR 53611: Don't link static libraries unless directed
+#
+# 12   3/13/09 2:44p vsilyaev
+# PR 53225: Adeed NEXUS_BIN_DIR_SUFFIX and NEXUS_BIN_DIR
+#
+# 11   10/6/08 4:58p vsilyaev
+# PR 47440: Build DIVX DRM as a separate library
+#
+# 10   10/6/08 4:04p vsilyaev
+# PR 47440: Added option to link other static libraries with nexus
+#
+# 9   6/10/08 3:28p vsilyaev
+# PR 43184: Fixed clean rule
+#
+# 8   5/28/08 5:43p jgarrett
+# PR 41575: Merging to main branch
+#
+# PR41575/1   5/22/08 12:05p zhiweny
+# PR41575: update makefile for hdcp keyloader support
+#
+# 7   4/21/08 7:29p jgarrett
+# PR 41575: Adding precompiled magnum objects
+#
+# 6   4/8/08 10:40a vsilyaev
+# PR 41083: Added bprofile support
+#
+# 5   2/29/08 1:15p erickson
+# PR38682: update kernel mode install
+#
+# 4   2/22/08 2:28p erickson
+# PR36808: cp "nexus" script to nexus/bin on make
+#
+# 3   1/23/08 9:21p vobadm
+# PR35457: update docs
+#
+# 2   1/23/08 3:14p vsilyaev
+# PR 38682: Added support for linux kernel/userspace proxy mode
+#
+# 1   1/18/08 2:15p jgarrett
+# PR 38808: Merging to main branch
+#
+# Nexus_Devel/8   1/18/08 1:10p vsilyaev
+# PR 38682: Repartition os_tools.inc and os_rules.inc, to os_tools,
+# os_flags, os_flags_nexus and os_rules.inc
+#
+# Nexus_Devel/7   10/2/07 11:54a jgarrett
+# PR 34416: Renaming rules to ease platform integration
+#
+# Nexus_Devel/6   9/21/07 6:26p jgarrett
+# PR 35002: Adding compiler debug
+#
+# Nexus_Devel/5   9/6/07 4:06p jgarrett
+# PR 34416: Creating bin subdirectory
+#
+# Nexus_Devel/4   9/6/07 12:44p jgarrett
+# PR 34416: moved platform to platforms
+#
+# Nexus_Devel/3   9/4/07 12:29p jgarrett
+# PR 34416: Adding magnum.a to nexus.a
+#
+# Nexus_Devel/2   8/31/07 6:28p jgarrett
+# PR 34416: Adding app_include to default rules
+#
+# Nexus_Devel/1   8/31/07 4:15p jgarrett
+# PR 34416: Splitting os.inc into rules and tools
+#
+############################################################
+
+############################################################
+# Overview:
+#
+# this file should only be included by nexus.inc
+# it is only used for internal nexus build
+#
+############################################################
+
+# This will be the default rule unless the app overrode it.
+nexus_install: nexus_all
+	@echo [Install... libraries]
+	$(Q_)$(MKDIR) ${NEXUS_BIN_DIR}
+ifdef NEXUS_SHARED_LIB
+	@$(CP) $(NEXUS_SHARED_LIB) ${NEXUS_BIN_DIR}
+endif
+ifdef NEXUS_STATIC_LIB
+	@$(CP) $(NEXUS_STATIC_LIB) ${NEXUS_BIN_DIR}
+	@$(CP) $(MAGNUM_LIB) ${NEXUS_BIN_DIR}
+endif
+ifneq ($(NEXUS_MODE),proxy)
+	@$(CP) $(NEXUS_TOP)/build/nexus ${NEXUS_BIN_DIR}
+endif
+
+nexus_all: ${EXTRA_ALL} $(NEXUS_STATIC_LIB) $(NEXUS_SHARED_LIB) $(MAGNUM_LIB)
+
+NEXUS_SYMBOLS_OBJ := $(NEXUS_SYMBOLS_SRC:%.c=$(NEXUS_OBJ_DIR)/MAGNUM/%.${NEXUS_OBJ_SUFFIX})
+NEXUS_SYMBOLS_INC := $(NEXUS_SYMBOLS_SRC:%.c=$(NEXUS_OBJ_DIR)/MAGNUM/%.inc)
+
+$(NEXUS_OBJ_DIR)/MAGNUM/exists:
+	-$(Q_)$(MKDIR) $@
+
+${NEXUS_MAGNUM_PRECOMPILED_HEADER_H}.gch: ${NEXUS_MAGNUM_PRECOMPILED_HEADER} ${NEXUS_OBJ_DIR}/MAGNUM/exists
+	@echo "[Compile... $(notdir $<)]"
+	$(Q_)$(CC) $(CDEP_FLAG) ${NEXUS_CFLAGS_BPROFILE} $(NEXUS_CFLAGS) -c $< -o $@
+
+${NEXUS_PRECOMPILED_HEADER_H}.gch: ${NEXUS_PRECOMPILED_HEADER} ${NEXUS_OBJ_DIR}/MAGNUM/exists
+	@echo "[Compile... $(notdir $<)]"
+	$(Q_)$(CC) $(CDEP_FLAG) ${NEXUS_CFLAGS_BPROFILE} $(NEXUS_CFLAGS) ${NEXUS_BASE_CFLAGS} -c $< -o $@
+
+# Rule for magnum sources
+$(filter-out ${NEXUS_SYMBOLS_OBJ}, ${MAGNUM_OBJECTS}): $(NEXUS_OBJ_DIR)/MAGNUM/%.$(NEXUS_OBJ_SUFFIX): %.c $(NEXUS_OBJ_DIR)/MAGNUM/exists ${NEXUS_MAGNUM_PRECOMPILED_HEADER_H}.gch
+	@echo "[Compile... $(notdir $<) (magnum)]"
+	$(Q_)$(CC) $(CDEP_FLAG) $(if $(filter $(notdir $<),$(MAGNUM_NOPROFILE_SRCS)),,${NEXUS_CFLAGS_BPROFILE} -include ${NEXUS_MAGNUM_PRECOMPILED_HEADER_H}) $(NEXUS_CFLAGS) -c $< -o $@
+
+
+# Ensure that exactly the same commands are used to built shared library in symbol table rules and real rules
+ifeq ($(BPROFILE_SUPPORT),y)
+# Don't use -Wl,-x linker options that causes exclusion of private (e.g. static functions) symbols from the symbol table
+NEXUS_BUILD_SO := ${Q_}$(CC) ${LDFLAGS} -shared -Wl,-soname,libnexus.so $(NEXUS_EXTRALDFLAGS) ${NEXUS_OBJECTS} ${MAGNUM_OBJECTS} ${NEXUS_EXTRALIBS} $(MAGNUM_PRECOMPILED_OBJECTS) ${MAGNUM_STATIC_LIBS}
+else
+NEXUS_BUILD_SO := ${Q_}$(CC) ${LDFLAGS} -shared  -Wl,-x -Wl,-soname,libnexus.so $(NEXUS_EXTRALDFLAGS) ${NEXUS_OBJECTS} ${MAGNUM_OBJECTS} ${NEXUS_EXTRALIBS} $(MAGNUM_PRECOMPILED_OBJECTS) ${MAGNUM_STATIC_LIBS}
+endif
+
+${NEXUS_SYMBOLS_OBJ} : ${NEXUS_SYMBOLS_SRC} $(filter-out ${NEXUS_SYMBOLS_OBJ},${MAGNUM_OBJECTS}) ${NEXUS_OBJECTS} ${NEXUS_EXTRALIBS} ${MAGNUM_STATIC_LIBS}
+	@echo "[Symbols... $(notdir $<)]"
+	${Q_}# compile  empty sym-table and link with it
+	${Q_}${RM} ${NEXUS_SYMBOLS_INC}
+	${Q_}echo '/* */' >${NEXUS_SYMBOLS_INC}
+	${Q_}$(CC) -I$(dir $@) $(NEXUS_CFLAGS) -c $< -o $@
+	${NEXUS_BUILD_SO} -o ${NEXUS_SHARED_LIB}.sym
+	${Q_}# compile with real sym-table but possibly wrong offsets
+	${Q_}${RM} ${NEXUS_SYMBOLS_INC}
+	${Q_}${NM} -f bsd -n --defined-only ${NEXUS_SHARED_LIB}.sym|${AWK} '/.* [Tt] .*/ {printf "B_SYM(0x%su,%s)\n",$$1,$$3}' >${NEXUS_SYMBOLS_INC}
+	${Q_}$(CC) -I$(dir $@) $(NEXUS_CFLAGS) -c $< -o $@
+	${NEXUS_BUILD_SO}
+	${Q_}# build real symtable and compile with it
+	${Q_}${RM} ${NEXUS_SYMBOLS_INC}
+	${Q_}${NM} -f bsd -n --defined-only ${NEXUS_SHARED_LIB}.sym|${AWK} '/.* [Tt] .*/ {printf "B_SYM(0x%su,%s)\n",$$1,$$3}' >${NEXUS_SYMBOLS_INC}
+	${Q_}$(CC) -I$(dir $@) $(NEXUS_CFLAGS) -c $< -o $@
+	${Q_}${MV} ${NEXUS_SYMBOLS_INC} $(NEXUS_SYMBOLS_INC:%.inc=%.sym)
+
+ifdef NEXUS_STATIC_LIB
+# Rule for magnum library
+$(MAGNUM_LIB): $(MAGNUM_OBJECTS) $(MAGNUM_PRECOMPILED_OBJECTS)
+	@echo "[Archive... $(notdir $@)]"
+	-$(Q_)$(AR) rcs $@ $^
+
+# Rule for magnum library
+$(NEXUS_STATIC_LIB): $(NEXUS_OBJECTS) $(MAGNUM_OBJECTS) $(MAGNUM_PRECOMPILED_OBJECTS) ${NEXUS_EXTRALIBS} ${MAGNUM_STATIC_LIBS}
+	@echo "[Archive... $(notdir $@)]"
+	-$(Q_)$(AR) rcs $@ $^
+endif
+
+# Rule for shared nexus library
+ifdef NEXUS_SHARED_LIB
+$(NEXUS_SHARED_LIB): $(NEXUS_OBJECTS) $(MAGNUM_OBJECTS) $(MAGNUM_PRECOMPILED_OBJECTS) $(NEXUS_EXTRALIBS) ${MAGNUM_STATIC_LIBS}
+	@echo [Link...... libnexus.so]
+	${NEXUS_BUILD_SO} -o $@
+endif
+
+nexus_clean:
+	-$(Q_)$(RM) -r ${NEXUS_SHARED_LIB} $(NEXUS_STATIC_LIB) $(MAGNUM_LIB)  $(NEXUS_OBJ_DIR) $(NEXUS_SYNCTHUNK_DIR) $(NEXUS_TOP)/build/os/$(OS)/module_rules.inc $(NEXUS_TOP)/build/module_vars.inc
+ifdef NEXUS_SHARED_LIB
+	-$(Q_)$(RM) ${NEXUS_BIN_DIR}/$(notdir ${NEXUS_SHARED_LIB})
+endif
+ifdef NEXUS_STATIC_LIB
+	-$(Q_)$(RM) ${NEXUS_BIN_DIR}/$(notdir ${NEXUS_STATIC_LIB}) ${NEXUS_BIN_DIR}/$(notdir ${MAGNUM_LIB})
+endif
+
+# Include dependencies
+NEXUS_DEP_FILES := $(wildcard $(NEXUS_OBJ_DIR)/*/*.d)
+ifneq ($(NEXUS_DEP_FILES),)
+-include $(wildcard $(NEXUS_OBJ_DIR)/*/*.d)
+endif
+

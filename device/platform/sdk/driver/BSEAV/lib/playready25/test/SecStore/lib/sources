@@ -1,0 +1,11 @@
+!include ..\..\reftest.cmn
+
+TARGETNAME=SecStoreTestAPI
+TARGETTYPE=LIBRARY
+
+SOURCES = \
+    ..\testsecstore.c \
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \

@@ -1,0 +1,18 @@
+# Dynamic Channel List for Brutus
+#
+# Tab or space separated fields, case insensitive
+# '#' marks the beginning of a line comment, all characters after
+# are ignored.
+
+# IP channels
+
+IP_UDP          0  225.0.0.10  1234
+PROGRAM PIDS 310 310 410 0x81 video_type=0x1b
+
+IP_UDP          0  225.0.0.11  1234
+PROGRAM PIDS 0x1022 0x1022 0x8b9 0x81 video_type=0x1b
+
+IP_UDP          0  225.0.0.12  1234
+PROGRAM PIDS 0x1023 0x1023 0x1022 0x3 video_type=0x2
+
+

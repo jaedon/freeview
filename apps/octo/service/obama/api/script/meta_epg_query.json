@@ -1,0 +1,15 @@
+"meta" : {
+	"operation" : "get",
+	"target" : "epg",
+	"property" : {
+		"starttime":1316099600,
+		"endtime":1318099600,
+		"epgex":false,
+		"service":
+		{
+			"tsid":1079,
+			"onid":1,
+			"svcid":28006
+		}
+	}
+}

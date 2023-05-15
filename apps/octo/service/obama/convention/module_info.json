@@ -1,0 +1,103 @@
+{
+	"svc" : {
+				"base" : { 
+                     "gen": 
+                                ["[obama]/main/tvservice/include/svc_[name].h",
+								"[obama]/main/tvservice/svc/[d_name]/",
+                                "[obama]/main/tvservice/svc/[d_name]/local_include/",
+                                "[obama]/main/tvservice/svc/[d_name]/local_include/_svc_[name].h",
+                                "[obama]/main/tvservice/svc/[d_name]/svc_[name].c",
+                                "[obama]/main/tvservice/svc/[d_name]/svc_xxx_Makefile"
+                                ]
+                               
+				},
+				
+				"plug-in" : {
+						"gen":
+                                ["[obama]/main/tvservice/include_plugin/",
+								"[obama]/main/tvservice/include_plugin/psvc_[name].h",
+								"[obama]/plugin/xtvservice/include/xsvc_[name].h",
+                                "[obama]/plugin/xtvservice/xsvc/[d_name]/",
+                                "[obama]/plugin/xtvservice/xsvc/[d_name]/[plugin]/",
+                                "[obama]/plugin/xtvservice/xsvc/[d_name]/[plugin]/xsvc_xxx_yyy_Makefile",
+                                "[obama]/plugin/xtvservice/xsvc/[d_name]/[plugin]/xsvc_[name]_[plugin].c",
+                                "[obama]/plugin/xtvservice/xsvc/[d_name]/local_include/",
+                                "[obama]/plugin/xtvservice/xsvc/[d_name]/local_include/_xsvc_[name].h",
+                                "[obama]/plugin/xtvservice/xsvc/[d_name]/xsvc_xxx_Makefile",
+                                "[obama]/plugin/xtvservice/xsvc/[d_name]/psvc_[name].c",
+                                "[obama]/plugin/xtvservice/xsvc/[d_name]/xsvc_[name].c"
+                                ]          
+				}
+			},
+	"mgr" : {
+				"base" : { 
+                     "gen": 
+                                ["[obama]/main/tvmanager/include/mgr_[name].h",
+								"[obama]/main/tvmanager/mgr/[d_name]/",
+                                "[obama]/main/tvmanager/mgr/[d_name]/local_include/",
+                                "[obama]/main/tvmanager/mgr/[d_name]/local_include/_mgr_[name].h",
+                                "[obama]/main/tvmanager/mgr/[d_name]/mgr_[name].c",
+                                "[obama]/main/tvmanager/mgr/[d_name]/mgr_xxx_Makefile"
+                                ]
+                               
+				},
+				
+				"plug-in" : {
+                     "gen":
+                                ["[obama]/main/xtvmanager/include_plugin/",
+								"[obama]/main/xtvmanager/include_plugin/psvc_[name].h",
+								"[obama]/plugin/xtvmanager/include/xmgr_[name].h",
+                                "[obama]/plugin/xtvmanager/xmgr/[d_name]/",
+                                "[obama]/plugin/xtvmanager/xmgr/[d_name]/[plugin]/",
+                                "[obama]/plugin/xtvmanager/xmgr/[d_name]/[plugin]/xmgr_xxx_yyy_Makefile",
+                                "[obama]/plugin/xtvmanager/xmgr/[d_name]/[plugin]/xmgr_[name]_[plugin].c",
+                                "[obama]/plugin/xtvmanager/xmgr/[d_name]/local_include/",
+                                "[obama]/plugin/xtvmanager/xmgr/[d_name]/local_include/_xmgr_[name].h",
+                                "[obama]/plugin/xtvmanager/xmgr/[d_name]/xmgr_xxx_Makefile",
+                                "[obama]/plugin/xtvmanager/xmgr/[d_name]/pmgr_[name].c",
+                                "[obama]/plugin/xtvmanager/xmgr/[d_name]/xmgr_[name].c"
+                                ]          
+				}
+			},
+	
+	"om" : {
+			"base" : { 
+				 "gen": 
+							["[obama]/main/tvmanager/om/include/om_[name].h",
+							"[obama]/main/tvmanager/om/[d_name]/",
+							"[obama]/main/tvmanager/om/[d_name]/local_include/",
+							"[obama]/main/tvmanager/om/[d_name]/local_include/_om_[name].h",
+							"[obama]/main/tvmanager/om/[d_name]/om_[name].c",
+							"[obama]/main/tvmanager/om/[d_name]/om_xxx_Makefile"
+							]
+						   
+			},
+			
+			"plug-in" : {
+				 "gen":
+							["[obama]/plugin/xtvmanager/include/xom_[name].h",
+							"[obama]/plugin/xtvmanager/xom/[d_name]/",
+							"[obama]/plugin/xtvmanager/xom/[d_name]/[plugin]/",
+							"[obama]/plugin/xtvmanager/xom/[d_name]/[plugin]/xom_xxx_yyy_Makefile",
+							"[obama]/plugin/xtvmanager/xom/[d_name]/[plugin]/xom_[name]_[plugin].c",
+							"[obama]/plugin/xtvmanager/xom/[d_name]/local_include/",
+							"[obama]/plugin/xtvmanager/xom/[d_name]/local_include/_xom_[name].h",
+							"[obama]/plugin/xtvmanager/xom/[d_name]/xom_xxx_Makefile",
+							"[obama]/plugin/xtvmanager/xom/[d_name]/pom_[name].c",
+							"[obama]/plugin/xtvmanager/xom/[d_name]/xom_[name].c"
+							]          
+				}
+			},
+	"oapi" : {
+			"base" : { 
+				 "gen": 
+							["[obama]/main/include/oapi_[name].h",
+							"[obama]/main/api/module/[d_name]/",
+							"[obama]/main/api/module/[d_name]/oapi_[name].c",
+							"[obama]/main/api/module/[d_name]/Makefile"
+							]
+
+				}
+			}
+}
+

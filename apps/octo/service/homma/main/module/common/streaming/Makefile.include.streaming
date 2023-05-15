@@ -1,0 +1,15 @@
+
+#3rd party
+ccflags-$(CONFIG_MW_MM_DLNA) += -I$(HOMMA_STREAMING_PATH)/../../include
+ccflags-$(CONFIG_MW_MM_DLNA) += -I$(HOMMA_STREAMING_PATH)/../../include
+include $(OCTOSVC_SRC_DIR)/homma/main/module/include/Makefile.include.mxlib
+
+#sapi
+ccflags-y 					 += -I$(OCTOSVC_SRC_DIR)/sama/include
+
+#dama
+ccflags-y 					 += -I$(OCTOSVC_SRC_DIR)/dama/include
+
+#rlib
+ccflags-y 					 += -I$(OCTOLIB_SRC_DIR)/rlib/include
+

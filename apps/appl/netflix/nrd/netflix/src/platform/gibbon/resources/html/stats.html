@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>NRDP Stats</title>
+  </head>
+  <body bgcolor="#FFFFFF">
+    <style>
+      div {
+          margin-top: 10px;
+      }
+      .nounderline { text-decoration: none; }
+      .snapshot_item_cost { display: inline; }
+      .snapshot_changed_item, .snapshot_changed_item a { color: blue; }
+      .snapshot_new_item, .snapshot_new_item a { color: green; }
+      .snapshot_old_item, .snapshot_old_item a { color: red; }
+      .prettyJSON_string { color: green; }
+      .prettyJSON_number { color: darkorange; }
+      .prettyJSON_boolean { color: blue; }
+      .prettyJSON_null { color: magenta; }
+      .prettyJSON_key { color: red; }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://code.highcharts.com/stock/highstock.js"></script>
+    <script src="http://code.highcharts.com/stock/highcharts-more.js"></script>
+    <script src="http://code.highcharts.com/stock/highcharts-more.js"></script>
+      <form>
+      <input type="checkbox" id="pollEvents"> Events
+      <input type="checkbox" id="pollMemory" checked="1"> Memory
+      <input type="checkbox" id="pollCPU"> CPU
+      <input type="checkbox" id="pollObjects"> Objects
+    </form>
+    <script src="/js/stats.js"></script>
+    <div id="memory" style="min-width: 310px; height: 250px; margin: 0 auto"></div>
+    <a href="javascript:takeSnapshot()">Take Snapshot</a>
+    <div id="snapshot_pane" style="height: 0px; overflow: hidden; background-color: #C0C0C0">
+      <form>
+        <select id="snapshot_1" style="min-width: 500px"></select> VS <select id="snapshot_2" style="min-width: 500px"></select>
+        <select id="snapshot_cost_type">
+          <option value="indirect">Indirect</option>
+          <option value="direct">Direct Bytes</option>
+          <option value="direct_percent" selected>Direct Percent</option>
+        </select>
+        <select id="snapshot_diff_type">
+          <option value="reachable">Reachable</option>
+          <option value="unreachable">Unreachable</option>
+        </select>
+      </form>
+      <div id="snapshot_summary" style="text-align: center"></div>
+      <ul id="snapshot_diff" style="overflow: scroll; max-height: 700px; overflow-y: auto; overflow-x: auto"></ul>
+    </div>
+    <select id="object_type" style="min-width: 500px"></select>
+    <div id="objects"></div>
+    <div id="threads"></div>
+    <div id="instrumentation_container" style="height: 0px; overflow: hidden">
+      <div id="instrumentation" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+      <form>
+        <input type="checkbox" id="instRender"> Render
+        <input type="checkbox" id="instAnimation"> Animation
+      </form>
+      <div id="instrumentation_drilldown_pane" style="width: 310px; margin: 0 auto"></div>
+    </div>
+  </body>
+</html>

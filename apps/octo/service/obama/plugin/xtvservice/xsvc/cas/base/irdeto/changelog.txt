@@ -1,0 +1,9 @@
+이건 OCTO 1.0 얘기.
+
+[2010-09-07]
+	UC와 SCELL의 분리 작업으로 만들었던, irdeto_both 폴더를 base의 기본 폴더로 변경
+	이에 따라 기존 코드에 대한 로그를 참조 하기 위해 http://svn.humaxdigital.com/drr_octo/tags/IRDETO_LOG/irdeto 에 기존 코드 남겨둠
+
+[2010-12-18]
+	IRDETO와 UC를 동시에 지원하는 경우도 고려하여 UC를 새로운 CAS로 분리함.
+	이전 코드는 http://svn.humaxdigital.com/drr_octo/tags/IRDETO_LOG/irdeto 101218 참조.

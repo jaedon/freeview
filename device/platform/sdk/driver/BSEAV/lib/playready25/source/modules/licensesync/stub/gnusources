@@ -1,0 +1,15 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmlicensesyncstub
+TARGETTYPE=LIBRARY
+
+SOURCES =                         \
+    licensesyncutilstub.c         \
+    drmgensyncchallengestub.c     \
+    drmsyncstorestub.c
+

@@ -1,0 +1,7 @@
+
+TARGETTYPE=LIBRARY
+TARGETNAME=HeaderTestAPI
+
+SOURCES = \
+    ../header.c \
+

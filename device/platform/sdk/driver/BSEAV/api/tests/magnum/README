@@ -1,0 +1,31 @@
+Accessing lower levels of the Settop API in magnum
+---------------------------------------------
+
+The Settop API for magnum is accessible in three distinct layers:
+
+1. Board-level: Brings up basemodules, each chip, buses, muxes.
+	
+	#include "bsettop_board.h"
+	bsettop_boot_board();
+	bsettop_shutdown_board();
+	
+	/* The following are also accessible */
+	#include "bsettop_os.h"
+	#include "bsettop_core_event.h"
+
+2. Base-level: Brings up board-level and most of porting interface.
+	
+	#include "bsettop_base.h"
+	bsettop_boot();
+	bsettop_shutdown();
+
+3. Top-level: Brings up everything.
+
+	#include "bsettop.h"
+	bsettop_init(BSETTOP_VERSION);
+	bsettop_uninit();
+	
+	This is the public Settop API.
+
+This directory provides examples of each, as well as a simple Makefile.
+

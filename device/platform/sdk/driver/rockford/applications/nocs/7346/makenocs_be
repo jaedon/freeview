@@ -1,0 +1,7 @@
+export BHSM_OTPMSP=ON
+export BHSM_KEYLADDER=ON
+export NEXUS_SECURITY_KEYLADDER_EXTENSION_INC=$PWD/../../../../nexus/extensions/security/keyladder/7346/keyladder_ext.inc
+export NEXUS_SECURITY_OTPMSP_EXTENSION_INC=$PWD/../../../../nexus/extensions/security/otpmsp/7346/otpmsp_ext.inc
+export NEXUS_SECURITY_USERCMD_EXTENSION_INC=$PWD/../../../../nexus/extensions/security/usercmd/7346/usercmd_ext.inc
+export HSM_SOURCE_AVAILABLE=y
+make BUILD_SYSTEM=nexus CUST=NAGRA CFG_BIG_ENDIAN=1 ARCH=mips-linux B_REFSW_ARCH=mips-linux

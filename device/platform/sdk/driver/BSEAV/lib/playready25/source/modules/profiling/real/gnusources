@@ -1,0 +1,13 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmprofilingreal
+TARGETTYPE=LIBRARY
+
+SOURCES =                         \
+    drmprofilingimplreal.c        \
+

@@ -1,0 +1,7 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=LIBRARY
+TARGETNAME=M2TSEncryptorTestAPI
+
+SOURCES = \
+    ..\m2tsencryptortestapi.c \

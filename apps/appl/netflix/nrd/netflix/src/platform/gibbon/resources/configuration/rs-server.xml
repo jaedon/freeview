@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config_root>
+  <config_data>
+    <include>etc/conf/gibbon.xml</include>
+    <splash_screen>none</splash_screen>
+    <screen_render_display_list>true</screen_render_display_list>
+    <remote_screen>true</remote_screen>
+    <mdx>false</mdx>
+  </config_data>
+</config_root>

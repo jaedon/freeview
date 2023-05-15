@@ -1,0 +1,10 @@
+
+TARGETNAME=SecClockTestAPI
+TARGETTYPE=LIBRARY
+
+SOURCES = \
+    ../secclock.c \
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \

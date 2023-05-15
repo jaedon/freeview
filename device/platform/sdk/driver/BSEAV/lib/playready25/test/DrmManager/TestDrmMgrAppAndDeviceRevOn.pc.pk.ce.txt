@@ -1,0 +1,149 @@
+-------------------BVT ends here--------------------------
+'REVOCATION TESTS
+
+30090: Process a different license response containing an App revocation list and the same Device revocation list
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><RESTRICTIONS><COMPRESSEDDIGITALVIDEO level='300'/></RESTRICTIONS><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_1_device_1.b64.signed_wchar)
+TestManagerSetRevocation({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, files\crl_device_1.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, files\rlvi_1_device_1.b64.signed_wchar,TRUE)
+TestManagerGetRevocationList({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, files\crl_device_1.b64_wchar)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Ygiiuk82iokl11==,{00000504-0000-0010-8000-00AA006D2EA4},0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_3_app_16_device_1.b64.signed_wchar)
+TestManagerSetRevocation({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, files\crl_device_1.b64_wchar)
+TestManagerSetRevocation({90A37313-0ECF-4CAA-A906-B188F6129300}, files\crl_app_16.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, files\rlvi_3_app_16_device_1.b64.signed_wchar,TRUE)
+TestManagerGetRevocationList({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, files\crl_device_1.b64_wchar)
+TestManagerGetRevocationList({90A37313-0ECF-4CAA-A906-B188F6129300}, files\crl_app_16.b64_wchar)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+
+30170: Process a license response containing revocation list with multiple App revocation entries and a device revocation
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Ygiiuk82iokl11==,{00000504-0000-0010-8000-00AA006D2EA4},0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_3_app_16_device_1.b64.signed_wchar)
+TestManagerSetRevocation({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, files\crl_device_1.b64_wchar)
+TestManagerSetRevocation({90A37313-0ECF-4CAA-A906-B188F6129300}, files\crl_app_16.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, files\rlvi_3_app_16_device_1.b64.signed_wchar,TRUE)
+TestManagerGetRevocationList({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, files\crl_device_1.b64_wchar)
+TestManagerGetRevocationList({90A37313-0ECF-4CAA-A906-B188F6129300}, files\crl_app_16.b64_wchar)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+
+30520: Set NULL Dev and valid App CRLs using DRM_MGR_StoreRevocationLists
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><RESTRICTIONS><COMPRESSEDDIGITALVIDEO level='300'/></RESTRICTIONS><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerStoreRevocationLists(FALSE, 2, {90A37313-0ECF-4CAA-A906-B188F6129300}, files\crl_app_16,  {3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, NULL)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerGetRevocationList({90A37313-0ECF-4CAA-A906-B188F6129300}, files\crl_app_16.b64_wchar)
+TestManagerGetRevocationList({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, files\crl_device_1.b64_wchar)=-2147467259(0X80004005)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+
+'Drm_License_GetProperty (revinfo) tests
+
+30700:DRT:Test GetLicenseRevInfoVersion for simple license where revinfo value is present in license
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA5},0,"<REVINFOVERSION>3</REVINFOVERSION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_3_app_16_device_1.b64.signed_wchar)
+TestManagerSetRevocation({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, files\crl_device_1.b64_wchar)
+TestManagerSetRevocation({90A37313-0ECF-4CAA-A906-B188F6129300}, files\crl_app_16.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerGetLicenseRevInfoVersion(3,1,1)
+TestManagerCommit 
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+
+30710:DRT:Test GetLicenseRevInfoVersion for chained license where leaf has revinfo 2
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5},0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4},0,"<REVINFOVERSION>2</REVINFOVERSION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerSetRevocationInfo(files\rlvi_3_app_16_device_1.b64.signed_wchar)
+TestManagerSetRevocation({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, files\crl_device_1.b64_wchar)
+TestManagerSetRevocation({90A37313-0ECF-4CAA-A906-B188F6129300}, files\crl_app_16.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerGetLicenseRevInfoVersion(2,1,1)
+TestManagerCommit 
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+
+30720:DRT:Test GetLicenseRevInfoVersion for chained license where leaf has revinfo 2 and root has revinfo 1
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5},0,"<REVINFOVERSION>1</REVINFOVERSION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4},0,"<REVINFOVERSION>2</REVINFOVERSION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerSetRevocationInfo(files\rlvi_3_app_16_device_1.b64.signed_wchar)
+TestManagerSetRevocation({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, files\crl_device_1.b64_wchar)
+TestManagerSetRevocation({90A37313-0ECF-4CAA-A906-B188F6129300}, files\crl_app_16.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerGetLicenseRevInfoVersion(2,1,1)
+TestManagerCommit 
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+
+30730:DRT:Test GetLicenseRevInfoVersion for chained license where leaf has revinfo 1 and root has revinfo 2
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5},0,"<REVINFOVERSION>2</REVINFOVERSION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4},0,"<REVINFOVERSION>1</REVINFOVERSION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerSetRevocationInfo(files\rlvi_3_app_16_device_1.b64.signed_wchar)
+TestManagerSetRevocation({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, files\crl_device_1.b64_wchar)
+TestManagerSetRevocation({90A37313-0ECF-4CAA-A906-B188F6129300}, files\crl_app_16.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerGetLicenseRevInfoVersion(2,1,1)
+TestManagerCommit 
+TestManagerReinitialize( Reset, FALSE, FALSE )
+
+
+30740:DRT:Test GetLicenseRevInfoVersion for simple license where revinfo value is NOT present in license
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5},0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4},0,NULL,ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerSetRevocationInfo(files\rlvi_3_app_16_device_1.b64.signed_wchar)
+TestManagerSetRevocation({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, files\crl_device_1.b64_wchar)
+TestManagerSetRevocation({90A37313-0ECF-4CAA-A906-B188F6129300}, files\crl_app_16.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerGetLicenseRevInfoVersion(0,1,1)
+TestManagerCommit 
+TestManagerReinitialize( Reset, FALSE, FALSE )
+

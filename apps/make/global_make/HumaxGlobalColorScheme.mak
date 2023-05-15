@@ -1,0 +1,5 @@
+COLOR_COMPILE = \x1b[33;01m
+COLOR_WARNING = \x1b[32;01m
+COLOR_ERROR   = \x1b[31;01m
+COLOR_NONE    = \x1b[0m
+

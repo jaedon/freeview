@@ -1,0 +1,97 @@
+UNICODE=1
+
+DRM_SUPPORT_CERTPARSERCACHE=0
+DRM_SUPPORT_DLA=0
+DRM_SUPPORT_WMDRM=0
+DRM_SUPPORT_CONTRACT=0
+DRM_SUPPORT_SECURE_CLOCK=2
+DRM_SUPPORT_BBXLEGACY=0
+DRM_SUPPORT_BBXSLK=0
+
+DRM_SUPPORT_PRNDTX=1
+DRM_SUPPORT_LICGEN=1
+DRM_SUPPORT_M2TSENCRYPTOR=1
+DRM_SUPPORT_DEVICESTORE=1
+
+# We use the offset clock to be able to simulate clock drift, 
+# so we need the version of oemtime.c that supports it.
+DRM_SUPPORT_TEST_SETTINGS=1
+
+DRM_TOOLS_PRND_TRANSMITTER_USES_UPNP=0
+
+!include ..\..\..\..\drmbuild.cmn
+
+TARGETNAME=PRNDTransmitter_NoUPnP
+TARGETTYPE=PROGRAM
+
+UMTYPE=console
+UMENTRY=main
+
+USER_C_FLAGS = $(USER_C_FLAGS)
+
+USE_ATL=1
+USE_STL=1
+USE_RTTI=1
+
+SOURCES =                                              \
+          ..\FileLogger.cpp                            \
+          ..\FuzzFunctions.cpp                         \
+          ..\HelperFunctions.cpp                       \
+          ..\HttpClient.cpp                            \
+          ..\HttpServer.cpp                            \
+          ..\LicenseGenerator.cpp                      \
+          ..\PRNDLicenseRequestProcessor.cpp           \
+          ..\PRNDMediaStreamer.cpp                     \
+          ..\PRNDMessageProcessor.cpp                  \
+          ..\PRNDProximityDetectionProcessor.cpp       \
+          ..\PRNDRegistrationRequestProcessor.cpp      \
+          ..\PRNDSession.cpp                           \
+          ..\PRNDSessionManager.cpp                    \
+          ..\ServerSocket.cpp                          \
+          ..\transmitter.cpp                           \
+          ..\TransmitterConfig.cpp                     \
+          ..\TSFile.cpp                                \
+
+
+!IF "$(_DRM_BUILD_TOOL)" == "NTBUILD"
+SOURCES =                                      \
+          $(SOURCES)                           \
+          transmitter.rc                       \
+
+!ENDIF
+
+PRECOMPILED_CXX = 1
+PRECOMPILED_INCLUDE = ..\stdafx.h
+PRECOMPILED_SOURCEFILE = ..\stdafx.cpp
+
+INCLUDES =                                          \
+    $(INCLUDES)                                     \
+    $(_DRM_SOURCE_PATH)\tools\common;               \
+    $(_DRM_SOURCE_PATH)\tools\prnd\common;          \
+
+
+TARGETLIBS = $(TARGETLIBS)                             \
+    $(_DRM_COMMON_LIBS)                                \
+    $(_DRM_OEM_MAIN_LIB)                               \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmmanager.lib           \
+    $(DRM_PK_SOURCE_LIB_PATH)\ndt.lib                  \
+    $(_DRM_BLACKBOX_LIBS)                              \
+    $(DRM_PK_SOURCE_LIB_PATH)\wmdrmcert.lib            \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemrsabase.lib           \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmtoolscommon.lib       \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemaes.lib               \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemeccbaseimpl.lib       \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemeccbase.lib           \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemrsaoaeppssimpl.lib    \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemrsaoaeppss.lib        \
+    $(DRM_PK_SOURCE_LIB_PATH)\oem_devstore_dvs.lib     \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmm2tsencryptorreal.lib \
+    $(DRM_PK_SOURCE_LIB_PATH)\prnd_tools_common.lib    \
+
+!if "$(_DRM_BUILD_TOOL)" == "NTBUILD"
+TARGETLIBS = $(TARGETLIBS)                             \
+    $(SDK_LIB_PATH)\Ws2_32.lib                         \
+!else
+TARGETLIBS = $(TARGETLIBS)                             \
+    Ws2_32.lib                                         \
+!endif

@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HOMMA", "HOMMA.vcxproj", "{47441E69-93FA-42B6-A990-6D7D7184605F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "appkit", "appkit_dlna.vcxproj", "{2D3A0C5D-AEB8-4983-B263-7DBC411E8AA2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "base-2.0", "base.vcxproj.vcxproj", "{CC6F5379-94F1-4892-BFD7-19441309F958}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{47441E69-93FA-42B6-A990-6D7D7184605F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{47441E69-93FA-42B6-A990-6D7D7184605F}.Debug|Win32.Build.0 = Debug|Win32
+		{47441E69-93FA-42B6-A990-6D7D7184605F}.Release|Win32.ActiveCfg = Release|Win32
+		{47441E69-93FA-42B6-A990-6D7D7184605F}.Release|Win32.Build.0 = Release|Win32
+		{2D3A0C5D-AEB8-4983-B263-7DBC411E8AA2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2D3A0C5D-AEB8-4983-B263-7DBC411E8AA2}.Debug|Win32.Build.0 = Debug|Win32
+		{2D3A0C5D-AEB8-4983-B263-7DBC411E8AA2}.Release|Win32.ActiveCfg = Release|Win32
+		{2D3A0C5D-AEB8-4983-B263-7DBC411E8AA2}.Release|Win32.Build.0 = Release|Win32
+		{CC6F5379-94F1-4892-BFD7-19441309F958}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CC6F5379-94F1-4892-BFD7-19441309F958}.Debug|Win32.Build.0 = Debug|Win32
+		{CC6F5379-94F1-4892-BFD7-19441309F958}.Release|Win32.ActiveCfg = Release|Win32
+		{CC6F5379-94F1-4892-BFD7-19441309F958}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

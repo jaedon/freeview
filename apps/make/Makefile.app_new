@@ -1,0 +1,185 @@
+#
+# Copyright (C) 2006 HUMAX Co., Ltd. All rights reserved.
+#
+
+PRODUCT_NAME=$(CONFIG_PRODUCT_NAME)
+MODULE_NAME=$(CONFIG_MODULE_NAME)
+
+#for product.config
+-include $(HUMAX_MAKE_DIR)/.config
+
+export CONFIG_TOOLCHAIN_PATH
+export CONFIG_PRODUCT_NAME
+export CONFIG_FLASH_BOOT
+export CONFIG_DEBUG
+
+##	DI_INC_DIR=$(HUMAX_PLATFORM_INC_DIR) \
+
+ifeq ($(CONFIG_PROD_CPU_BCM_ARM),y)
+export CONFIG_PROD_CPU_BCM_ARM
+CROSS_COMPILE_PREFIX=arm-linux-
+UCLIBC_NAME=arm-linux-uclibcgnueabi
+else
+CROSS_COMPILE_PREFIX=mipsel-linux-
+UCLIBC_NAME=mipsel-linux-uclibc
+endif
+
+APP_CONFIG =\
+	PRODUCT_NAME=$(PRODUCT_NAME) \
+	MODULE_NAME=$(MODULE_NAME) \
+	CROSS_COMPILE=$(CROSS_COMPILE_PREFIX) \
+	CONFIG_TOOLCHAIN_PATH=$(CONFIG_TOOLCHAIN_PATH) \
+	CROSS_PLATFORM_USR_LIB_DIR=$(CONFIG_TOOLCHAIN_PATH)/$(UCLIBC_NAME)/sys-root/lib	\
+	HUMAX_TOP_DIR=$(HUMAX_TOP_DIR) \
+	MODEL_DIR=$(HUMAX_TOP_DIR)/model \
+	NEXUS_LIB_DIR=$(MAKE_DIR)/lib \
+	HUMAX_PLATFORM_INCLUDE_FLAG="-I$(CONFIG_TOOLCHAIN_PATH)/$(UCLIBC_NAME)/include -I$(CONFIG_TOOLCHAIN_PATH)/$(UCLIBC_NAME)/sys-root/usr/include -I$(HUMAX_PLATFORM_INC_DIR)/hos -I$(HUMAX_PLATFORM_INC_DIR)/cmd -I$(HUMAX_PLATFORM_INC_DIR)/di -I$(HUMAX_PLATFORM_INC_DIR)/ai" \
+	SHARED_LIB_DIR=$(MAKE_DIR)/lib \
+	STATIC_LIB_DIR=$(STATIC_LIB_DIR) \
+	PACKAGES_DIR=$(HUMAX_TOP_DIR)/packages \
+	THIRDPARTY_DIR=$(HUMAX_TOP_DIR)/3rd_party \
+	AP_STATIC_LIB_DIR=$(HUMAX_TOP_DIR)/apps/make/libs/static_lib \
+	CONFIG_FLASH_BOOT=$(CONFIG_TARGET_ROOTFS_SQUASHFS) \
+	CONFIG_DEBUG=$(CONFIG_DEBUG) \
+	BUILD_USER_DIR=$(BUILD_USER_DIR) \
+	CONFIG_APWEB_UI_NAME=$(CONFIG_APWEB_UI_NAME) \
+	HUMAX_APP_STAG_DIR=$(HUMAX_MAKE_DIR)/_gen_rootfs
+
+##########################################################################################
+OCTOLIB_MAKE_DIR = $(HUMAX_MAKE_DIR)/octolib_make
+OCTOSVC_MAKE_DIR = $(HUMAX_MAKE_DIR)/octosvc_make
+APPL_MAKE_DIR    = $(HUMAX_MAKE_DIR)/appl_make
+
+#OCTOTOP_SRC_DIR  = $(HUMAX_TOP_DIR)/apps/octo
+#OCTOLIB_SRC_DIR  = $(OCTOTOP_SRC_DIR)/library
+#OCTOSVC_SRC_DIR  = $(OCTOTOP_SRC_DIR)/service
+#APPLTOP_SRC_DIR  = $(HUMAX_TOP_DIR)/apps/appl
+
+OCTOTOP_SRC_DIR  = $(abspath $(HUMAX_TOP_DIR))/apps/octo
+OCTOLIB_SRC_DIR  = $(OCTOTOP_SRC_DIR)/library
+OCTOSVC_SRC_DIR  = $(OCTOTOP_SRC_DIR)/service
+APPLTOP_SRC_DIR  = $(abspath $(HUMAX_TOP_DIR))/apps/appl
+
+###	for compiling octo (will be changed)
+OCTO_DIR = $(OCTOSVC_SRC_DIR)/obama
+HLIB_DIR = $(OCTOLIB_SRC_DIR)/hlib
+DLIB_DIR = $(OCTOLIB_SRC_DIR)/dlib
+SILIB_DIR = $(OCTOLIB_SRC_DIR)/silib
+SITEXTLIB_DIR = $(OCTOLIB_SRC_DIR)/sitextlib
+RLIB_DIR = $(OCTOLIB_SRC_DIR)/rlib
+HCRLIB_DIR = $(OCTOLIB_SRC_DIR)/hcrlib
+CUTEST_DIR = $(OCTOLIB_SRC_DIR)/cutest
+
+export OCTO_DIR HLIB_DIR DAMA_DIR DLIB_DIR SILIB_DIR SITEXTLIB_DIR RLIB_DIR HCRLIB_DIR CUTEST_DIR
+
+TARGETS += octo-defconfig
+
+export OCTOLIB_MAKE_DIR
+export OCTOSVC_MAKE_DIR
+export APPL_MAKE_DIR
+export OCTOTOP_SRC_DIR
+export OCTOLIB_SRC_DIR
+export OCTOSVC_SRC_DIR
+export APPLTOP_SRC_DIR
+
+## OCTO Library Module
+include $(OCTOLIB_MAKE_DIR)/HumaxMakeObject.mak
+## OCTO Service Module
+include $(OCTOSVC_MAKE_DIR)/HumaxMakeObject.mak
+## Application
+include $(APPL_MAKE_DIR)/HumaxMakeObject.mak
+
+## OCTO Config
+octo-defconfig:
+ifeq ($(CONFIG_DEBUG_MODE),y)
+	@test -f $(HUMAX_MAKE_DIR)/.config || $(call build_octo,$(CONFIG_PRODUCT_NAME)_$(CONFIG_DEF_TAIL)defconfig)
+else
+ifeq ($(CONFIG_FLASH_BOOT),y)
+	$(call build_octo,$(CONFIG_PRODUCT_NAME)_$(CONFIG_DEF_TAIL)release_defconfig)
+else
+	$(call build_octo,$(CONFIG_PRODUCT_NAME)_$(CONFIG_DEF_TAIL)defconfig)
+endif
+endif
+
+## OCTO APPKIT
+appkit:
+	@$(MAKE) -C $(OCTOLIB_MAKE_DIR)/appkit $(APP_CONFIG) 2>&1 || exit -1;
+appkit-clean:
+	@$(MAKE) -C $(OCTOLIB_MAKE_DIR)/appkit $(APP_CONFIG) clean 2>&1 || exit -1;
+	@$(RM) $(HUMAX_MAKE_DIR)/_gen_log/appkit-compile.log
+appkit-distclean:
+	@$(MAKE) -C $(OCTOLIB_MAKE_DIR)/appkit $(APP_CONFIG) distclean 2>&1 || exit -1;
+
+.PHONY: appkit appkit-clean appkit-distclean
+
+## OCTO_TESTKIT
+otestkit:
+	@$(MAKE) -C $(OCTOSVC_MAKE_DIR)/testkit $(APP_CONFIG) 2>&1 || exit -1;
+	@$(HUMAX_MKDIR) $(HUMAX_NFS_INSTALL_DIR)/var/thttpd/; \
+	cp	 -rf $(OCTOTOP_SRC_DIR)/testkit/thttpd/* $(HUMAX_NFS_INSTALL_DIR)/usr/bin/
+	sudo chmod 777 $(HUMAX_NFS_INSTALL_DIR)/usr/bin/run.sh
+	sudo chmod 777 $(HUMAX_NFS_INSTALL_DIR)/usr/bin/thttpd
+	sudo cp  -rf $(OCTOTOP_SRC_DIR)/testkit/www/ $(HUMAX_NFS_INSTALL_DIR)/var/thttpd
+	sudo chmod 644 $(HUMAX_NFS_INSTALL_DIR)/var/thttpd/www/* -R
+	sudo chmod 777 $(HUMAX_NFS_INSTALL_DIR)/var/thttpd/www/cgi-bin/*
+otestkit-clean:
+	@$(MAKE) -C $(OCTOSVC_MAKE_DIR)/testkit $(APP_CONFIG) clean 2>&1 || exit -1;
+	@$(RM) $(HUMAX_MAKE_DIR)/_gen_log/otestkit-compile.log
+otestkit-distclean:
+	@$(MAKE) -C $(OCTOSVC_MAKE_DIR)/testkit $(APP_CONFIG) distclean 2>&1 || exit -1;
+
+.PHONY: otestkit otestkit-clean otestkit-distclean
+
+## OCTO_TOOLS
+octo-tools:
+	@cat $(OCTOTOP_SRC_DIR)/tools/readme.txt
+	@$(MAKE) -C $(OCTOTOP_SRC_DIR)/tools $(APP_CONFIG) 2>&1 || exit -1;
+octo-tools-clean:
+	@$(MAKE) -C $(OCTOTOP_SRC_DIR)/tools clean
+
+## ATKIT
+HUMAX_ATKITAPP_STAG_TARGET_DIR = $(HUMAX_MAKE_DIR)/_gen_rootfs/root/home/atkit
+APP_ATKIT_JSBASE_DIR = $(OCTOTOP_SRC_DIR)/testkit//atkit/js_server
+APP_ATKIT_CBASE_DIR = $(OCTOTOP_SRC_DIR)/testkit/atkit/c_apps
+HUMAX_NFS_ATKITAPP_DIR := $(HUMAX_NFS_INSTALL_DIR)/home/atkit
+atkit-stag:
+	sudo cp -drpf $(HUMAX_PACKAGE_DIR)/node.js/bin/node $(HUMAX_NFS_INSTALL_DIR)/usr/bin/
+
+	if [ ! -d $(HUMAX_ATKITAPP_STAG_TARGET_DIR) ]; then \
+		mkdir -p $(HUMAX_ATKITAPP_STAG_TARGET_DIR);echo "mkdir";	\
+	fi;
+
+	sudo rm -rf #(HUMAX_ATKITAPP_STAG_TARGET_DIR)/*
+	
+	if [ -d $(APP_ATKIT_JSBASE_DIR) ]; then \
+	   cp -dprf $(APP_ATKIT_JSBASE_DIR)/*	$(HUMAX_ATKITAPP_STAG_TARGET_DIR)/;	\
+	   find $(APP_ATKITAPP_STAG_TARGERTFG_DIR) -name ".svn" | xargs rm -rf; \
+	fi;   
+
+atkit: atkit-stag FORCE
+	if [ ! -d $(HUMAX_NFS_ATKITAPP_DIR) ]; then \
+		mkdir -p $(HUMAX_NFS_ATKITAPP_DIR);	\
+	fi;
+
+	sudo cp -dprf $(HUMAX_ATKITAPP_STAG_TARGET_DIR)/*	$(HUMAX_NFS_ATKITAPP_DIR)/ 	
+
+## copy node & node_modules
+	sudo cp -drpf $(HUMAX_PACKAGE_DIR)/node.js/bin/node $(HUMAX_NFS_INSTALL_DIR)/usr/bin/
+	sudo cp -drpf $(HUMAX_PACKAGE_DIR)/node.js/node_modules $(HUMAX_NFS_ATKITAPP_DIR)/
+
+## TC make
+	$(MAKE) -C $(APP_ATKIT_CBASE_DIR)/tc $(APP_CONFIG) 2>&1 || exit -1;
+
+## User app make
+	$(MAKE) -C $(APP_ATKIT_CBASE_DIR)/userapp $(APP_CONFIG) 2>&1 || exit -1;
+
+atkit-clean:
+	$(MAKE) -C $(APP_ATKIT_CBASE_DIR)/tc $(APP_CONFIG) clean 2>&1 || exit -1;
+	$(MAKE) -C $(APP_ATKIT_CBASE_DIR)/userapp $(APP_CONFIG) clean 2>&1 || exit -1;
+	$(RM) $(HUMAX_MAKE_DIR)/_gen_log/atkit-compile.log
+	$(RM) -rf $(HUMAX_ATKITAPP_STAG_TARGET_DIR)
+	$(RM) -rf $(HUMAX_NFS_ATKITAPP_DIR)/
+
+.PHONY: atkit atkit-clean
+
+

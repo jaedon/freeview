@@ -1,0 +1,10 @@
+
+TARGETNAME=XMLParserTestAPI
+TARGETTYPE=LIBRARY
+
+SOURCES = \
+    ../testxmlparser.c \
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \

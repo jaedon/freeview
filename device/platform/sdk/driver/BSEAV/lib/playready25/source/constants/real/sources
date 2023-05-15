@@ -1,0 +1,6 @@
+!include ..\..\drmbuild.cmn
+
+TARGETNAME=drmconstants
+TARGETTYPE=LIBRARY
+
+!include ..\common.src

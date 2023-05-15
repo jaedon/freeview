@@ -1,0 +1,14 @@
+recordings process 설명
+
+1.Recordings 가 실행되면, nx_core_recorder 로부터 recording list 를 얻어옴.
+
+2.새로 생성되어 thumbnail 을 못만드는 item 을 고려하여, 최초 1회 timer 를 통해
+  Proc Create 로부터 5초후에 thumbnail 이 없는 item 들만 다시 thumbnail 을 다시요구.
+
+3.Channel 및, day of week , Storage 처리시, 처음 읽어온 recordings list 로부터 정보를 통해
+  그룹을 구성하거나 처리함.
+
+4.recording list 를 다시 읽어와야 하는 경우, nx_recordings_MakeRecItemList 를 호출하면 되고,
+  당연히 이 경우, channel 이나 day of week 항목들도 기존 저장된 정보가 있으면 날리고 다시 
+  구성 해야함.
+

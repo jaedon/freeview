@@ -1,0 +1,90 @@
+#############################################
+#					Service DB Configuration				#
+#############################################
+
+comment	"Service DB Configuration. (DB_SVC_XXX)"
+
+	comment	 "- (1) MAX Values regarding to db file size"
+
+	config DB_SVC_MAX_NUM
+		int "DB_SVC_MAX_NUM - Maximum number of serive to be saved."
+		default 2000				if MW_CH_TERRESTRIAL
+		default 2000				if MW_CH_CABLE
+		default 5000				if MW_CH_SATELLITE
+		help
+			Specify the maximum number of service which system supports
+
+	config DB_SVC_MAX_NAME_BYTES
+		int "DB_SVC_MAX_NAME_BYTES - Maximum number of service name bytes to be saved."
+		default 68					if OP_ZIGGO
+		default 34
+		help
+			Specify the maximum service name bytes
+
+	config DB_SVC_IMPORT_EXPORT
+		bool "DB_SVC_IMPORT_EXPORT - Import / Export Channels"
+		default n
+
+		config DB_SVC_IMPORT_EXPORT_CSV
+			depends on DB_SVC_IMPORT_EXPORT
+			bool "import / export preferred channels to csv file"
+			default n
+
+		config DB_SVC_IMPORT_EXPORT_DB
+			depends on DB_SVC_IMPORT_EXPORT
+			bool "import / export channel.db and setup.db to compressed and encrypted file"
+			default n
+
+		config DB_SVC_IMPORT_EXPORT_AES
+			depends on DB_SVC_IMPORT_EXPORT
+   			 bool "Support AES and SHA to encrypt and decrypt a file"
+   			default n
+
+	config DB_SVC_TYPE_HD
+		bool "DB_SVC_TYPE_HD - Support HD service channel"
+		default n
+
+	config DB_SVC_TYPE_DATA
+		bool "DB_SVC_TYPE_DATA - Support Data Services(MHEG, MHP, ...)"
+		default n
+
+	config DB_SVC_SVCGROUP
+		bool "DB_SVC_SVCGROUP - Support Service Grouping Functions"
+		default n
+
+	config DB_SVC_SVCBOUQUET
+		bool "DB_SVC_SVCBOUQUET - Support Service Bouquet"
+		default n
+
+		config DB_SVC_SVCBOUQUET_MULTILANG_NAME
+		depends on DB_SVC_SVCBOUQUET
+		bool "DB_SVC_SVCBOUQUET_MULTILANG_NAME - Support Multilingual Bouquet name"
+		default n
+	
+	config DB_SVC_TRASH
+		bool "DB_SVC_TRASH - Support Trash List"
+		default n
+
+	config DB_SVC_LCN_RENUMBER
+		bool "DB_SVC_LCN_RENUMBER - Support LCN number modification"
+		default n
+
+	config DB_SVC_INVISIBLE_SKIP
+		bool "DB_SVC_INVISIBLE_SKIP - Support Invisible search option & skip"
+		default n
+
+	config DB_SVC_MULTILINGUAL_NAME
+		bool "DB_SVC_MULTILINGUAL_NAME - Support Multilingual Service Name Descriptor"
+		default n
+
+	config DB_SVC_ALPHABET_GROUP
+		bool "DB_SVC_ALPHABET_GROUP - Support Alphabet Group(All, A, B, ..., Z, 0-9, Etc)"
+		default n
+
+	config DB_SVC_TARGET_REGION_DES
+		bool "DB_SVC_TARGET_REGION_DES - Target Region Descriptor Information Use"
+		default n
+
+	config DB_SVC_SAVE_ORG_LCN
+		bool "DB_SVC_SAVE_ORG_LCN - For saving original lcn number in DB"
+		default n

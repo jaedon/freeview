@@ -1,0 +1,12 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmutilitiesgeneral
+TARGETTYPE=LIBRARY
+
+C_DEFINES=$(C_DEFINES)    \
+    -DDRM_BUILDING_DRMUTILITIESCOMMON_LIB
+
+SOURCES =                 \
+    drmutilitiesgeneral.c \
+    drmutilitiestime.c
+

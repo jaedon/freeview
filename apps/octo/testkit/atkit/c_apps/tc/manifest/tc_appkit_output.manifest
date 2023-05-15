@@ -1,0 +1,117 @@
+{
+    "RUN_ALL": false,
+    "RUN_CATEGORY": [
+        "audio",
+        "video",
+        "hdmi"
+    ],
+    "RUN_TC": [],
+    "TC_LIST": [
+        {
+            "tc_name": "TC_APK_OUTPUT_AUDIO_MasterMute",
+            "category": [
+                "audio"
+            ],
+            "argument": {
+                "MasterMute": true,
+                "timeset": 0
+            },
+            "expect_result": {
+                
+            }
+        },
+        {
+            "tc_name": "TC_APK_OUTPUT_VIDEO_BackGroundColor",
+            "category": [
+                "video"
+            ],
+            "argument": {
+                "Red": 0,
+                "Green": 0,
+                "Blue": 0,
+                "timeset": 0
+            },
+            "expect_result": {
+                
+            }
+        },
+        {
+            "tc_name": "TC_APK_OUTPUT_VIDEO_AvEnable",
+            "category": [
+                "video"
+            ],
+            "argument": {
+                "AvEnable": false,
+                "timeset": 0
+            },
+            "expect_result": {
+                
+            }
+        },
+        {
+            "tc_name": "TC_APK_OUTPUT_VIDEO_GetPictureRate",
+            "category": [
+                "video"
+            ],
+            "argument": {
+
+            },
+            "expect_result": {
+                
+            }
+        },
+        {
+            "tc_name": "TC_APK_OUTPUT_VIDEO_GetResolutionStatus",
+            "category": [
+                "video"
+            ],
+            "argument": {
+
+            },
+            "expect_result": {
+                
+            }
+        },
+        {
+            "tc_name": "TC_APK_OUTPUT_HDMI_CecEnable",
+            "category": [
+                "hdmi"
+            ],
+            "argument": {
+                "CecEnable": false,
+                "timeset": 0
+            },
+            "expect_result": {
+                
+            }
+        },
+        {
+            "tc_name": "TC_APK_OUTPUT_HDMI_GetHdcpInfo",
+            "category": [
+                "hdmi"
+            ],
+            "argument": {
+
+            },
+            "expect_result": {
+                
+            }
+        },
+        {
+            "tc_name": "TC_APK_OUTPUT_HDMI_GetEdidInfo",
+            "category": [
+                "hdmi"
+            ],
+            "argument": {
+
+            },
+            "expect_result": {
+                
+            }
+        }
+
+    ]
+}
+
+
+

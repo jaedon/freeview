@@ -1,0 +1,6 @@
+/sbin/rmmod bcmdriver bcm7038
+
+# Install the user-mode driver.
+# This means that the porting interface runs in user mode.
+/sbin/insmod bcmdriver.o || exit
+

@@ -1,0 +1,12 @@
+
+TARGETTYPE=PROGRAM
+TARGETNAME=RefTestCmdLnParser_ansi
+UMTYPE=console
+
+SOURCES = \
+    TestCmdLnParser.c \
+
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \

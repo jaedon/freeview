@@ -1,0 +1,9 @@
+incdir-y += $(SOURCE_DIR)/../include/
+incdir-y += $(SOURCE_DIR)/../include/ext
+incdir-y += $(SOURCE_DIR)/../include/ext/channel
+incdir-y += $(SOURCE_DIR)/../include/ext/thermal
+incdir-y += $(SOURCE_DIR)/tester/include/
+incdir-y += $(DRIVER_TOP)/utils/include/
+incdir-y += $(DRIVER_TOP)/di/drv/include/
+incdir-y += $(SOURCE_DIR)/ci_stack/include
+incdir-y += $(SOURCE_DIR)/ci_stack/include/ext

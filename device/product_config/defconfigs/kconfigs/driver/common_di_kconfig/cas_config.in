@@ -1,0 +1,112 @@
+##########################################
+# DI CAS configuration menu
+##########################################
+
+config CAS
+	bool
+	prompt "CAS"
+	default n
+
+config CAS_NAME
+	string
+	prompt "CAS NAME (e.g NAGRA, IDRETO)"
+	default "GENERIC3A"
+	depends on CAS
+
+config CAS_ARIB
+	bool
+	prompt "CAS_ARIB"
+	default n
+	depends on CAS
+
+config CAS_BCSD
+	bool
+	prompt "Enable this feature if you want to use bcsd driver in rockford/applications/security/brcm/bcsd/ directory."
+	default n
+	depends on CAS
+
+config CAS_NA
+	bool
+	prompt "CAS_NA"
+	default n
+	depends on CAS
+choice
+	prompt "CAS NAGRA NOCS VERSION"
+	default CAS_NA_NOCS_1X
+	depends on CAS && CAS_NA
+	config CAS_NA_NOCS_1X
+		bool
+		prompt "CAS NAGRA NOCS 1.x"
+	config CAS_NA_NOCS_3X
+		bool
+		prompt "CAS NAGRA NOCS 3.x"
+endchoice
+
+config CAS_NA_NOCS_3X_VERSION
+	depends on CAS && CAS_NA && CAS_NA_NOCS_3X
+	string
+	prompt "NAGRA CAS Version"
+	default ""
+
+config CAS_NA_NOCS_CERT
+	depends on CAS && CAS_NA
+	depends on CAS_NA_NOCS_3X
+	bool
+	default n
+	prompt "CAS NAGRA NOCS Cert driver"
+
+config CAS_NA_NOCS_SEC
+	depends on CAS && CAS_NA
+	depends on CAS_NA_NOCS_3X
+	bool
+	default n
+	prompt "CAS NAGRA NOCS SEC driver"
+
+config CAS_NA_NOCS_DPT
+	depends on CAS && CAS_NA
+	depends on CAS_NA_NOCS_3X
+	bool
+	default n
+	prompt "CAS NAGRA NOCS DPT driver"
+
+config CAS_NA_ISO7816
+	bool
+	default n
+	depends on CAS_NA
+	prompt "Enable this feature if you want to test on MicroPross device"
+	
+config CAS_NA_CAK7
+	bool
+	default n
+	depends on CAS_NA
+	prompt "Support CAK7. Enable this feature when using CAK7 libary for Nagra CAS. You must be disable this feature when you test on MicroPross device"
+	
+config CAS_IR
+	bool
+	prompt "CAS_IR"
+	default n
+	depends on CAS
+
+config CAS_ASKM
+	bool
+	prompt "CAS_ASKM"
+	default n
+	depends on CAS
+
+config CAS_CX
+	bool
+	prompt "CAS_CX"
+	default n
+	depends on CAS
+
+config CAS_CX_ISO7816
+	bool
+	prompt "Enable this feature if you want to test on MicroPross device"
+	default n
+	depends on CAS_CX
+
+config CAS_VE
+	bool
+	prompt "CAS_VERIMAXTRIX"
+	default n
+	depends on CAS

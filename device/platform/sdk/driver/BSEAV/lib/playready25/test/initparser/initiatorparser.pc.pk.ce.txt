@@ -1,0 +1,240 @@
+'Daily test cases
+
+'*******************************************************************************************
+'** Scenario-like tests: initialize list and read it.
+'**
+'** argv[0]    -- XML Data string. May be set into a special values 
+'**               "nullstring" to imitate empty string (pwszString == NULL, cchString == 0)
+'**               "nullptr" to pass null ptr instead of DRM_STRING,
+'**               "zerolen" to pass string with cchString == 0.
+'**               If it starts with "file:" then the rest of it is a file name,
+'**               and need to read the data string from the file.
+'** argv[1]    -- index of initiator message in the list (optional, starts with 0)
+'** argv[2]    -- expected type of initiator message (optional)
+'** argv[3]    -- expected custom data (optional, only if argv[2] is present)
+'*******************************************************************************************
+3460:BVT:Parse a message with one JoinDomain initiator in it
+TestDrm_Initiator_ParseList( <?xml version="1.0" encoding="utf-8"?><PlayReadyInitiator xmlns="http://schemas.microsoft.com/DRM/2007/03/protocols/"><JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></JoinDomain></PlayReadyInitiator>,0,1,custom )
+
+3461:BVT:Parse a message with one LeaveDomain initiator in it
+TestDrm_Initiator_ParseList( <?xml version="1.0" encoding="utf-8"?><PlayReadyInitiator xmlns="http://schemas.microsoft.com/DRM/2007/03/protocols/"><LeaveDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></LeaveDomain></PlayReadyInitiator>,0,2,custom )
+
+3462:BVT:Parse a message with one LicAcq initiator in it
+TestDrm_Initiator_ParseList( <?xml version="1.0" encoding="utf-8"?><PlayReadyInitiator xmlns="http://schemas.microsoft.com/DRM/2007/03/protocols/"><LicenseAcquisition><Header><WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER></Header><Content>http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma</Content></LicenseAcquisition></PlayReadyInitiator>,0,3,nullstring )
+
+3463:BVT:Parse a message with one Metering initiator in it
+TestDrm_Initiator_ParseList( <?xml version="1.0" encoding="utf-8"?><PlayReadyInitiator xmlns="http://schemas.microsoft.com/DRM/2007/03/protocols/"><Metering><CertificateServer>http://cert.contoso.com/cert.asmx</CertificateServer><MeteringID>pIKx8Wsy5aYRQN8LLIIcTQ==</MeteringID><CustomData>1234</CustomData><MaxPackets>3</MaxPackets></Metering></PlayReadyInitiator>,0,4,1234)
+
+3466:BVT:Parse the message with two initiators (JoinDomain and LA) and read the first initiator
+TestDrm_Initiator_ParseList( <?xml version="1.0" encoding="utf-8"?><PlayReadyInitiator xmlns="http://schemas.microsoft.com/DRM/2007/03/protocols/"><JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></JoinDomain><LicenseAcquisition><Header><WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER></Header><Content>http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma</Content></LicenseAcquisition></PlayReadyInitiator>,0,1,custom )
+
+3467:BVT:Parse the message with two initiators (JoinDomain and LA) and read the second initiator
+TestDrm_Initiator_ParseList( <?xml version="1.0" encoding="utf-8"?><PlayReadyInitiator xmlns="http://schemas.microsoft.com/DRM/2007/03/protocols/"><JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></JoinDomain><LicenseAcquisition><Header><WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER></Header><Content>http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma</Content></LicenseAcquisition></PlayReadyInitiator>,1,3 )
+
+3468:BVT:Parse a message with one LicAcq initiator in it, and it has "WMConvert" node.
+TestDrm_Initiator_ParseList( <?xml version="1.0" encoding="utf-8"?><PlayReadyInitiator xmlns="http://schemas.microsoft.com/DRM/2007/03/protocols/"><LicenseAcquisition><Header><WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER></Header><Content>http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma</Content><WMConvert>True</WMConvert></LicenseAcquisition></PlayReadyInitiator>,0,3,nullstring )
+
+3495:BVT:Parse the message with two initiators (JoinDomain and LA) and read past the second, expect DRM_E_NOMORE
+TestDrm_Initiator_ParseList( <?xml version="1.0" encoding="utf-8"?><PlayReadyInitiator xmlns="http://schemas.microsoft.com/DRM/2007/03/protocols/"><JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></JoinDomain><LicenseAcquisition><Header><WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER></Header><Content>http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma</Content></LicenseAcquisition></PlayReadyInitiator>,3 )=0x80070103(DRM_E_NOMORE)
+
+3470:BVT:Read the 3rd initiator from the list of 3, expect specific error if initiator type is not recognized
+TestDrm_Initiator_ParseList( <?xml version="1.0" encoding="utf-8"?><PlayReadyInitiator xmlns="http://schemas.microsoft.com/DRM/2007/03/protocols/"><JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></JoinDomain><LicenseAcquisition><Header><WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER></Header><Content>http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma</Content></LicenseAcquisition><SomeTag>something</SomeTag></PlayReadyInitiator>, 2 )=2147796864(0x0X8004C780 DRM_E_INITIATORS_UNKNOWN_TYPE)
+
+3471:BVT:Message where no XML is present, expect DRM_E_XMLNOTFOUND
+TestDrm_Initiator_ParseList( <?xml version="1.0" encoding="utf-8"?><PlayReadyInitiator xmlns="http://schemas.microsoft.com/DRM/2007/03/protocols/">something</PlayReadyInitiator>,0)=0X8004C04F(DRM_E_XMLNOTFOUND)
+
+'Some negative testcases: empty XML strings, bad data, required fields missing
+3480:FUNC:pass nullstring
+TestDrm_Initiator_ParseList(nullstring)=2147942487(0x80070057 DRM_E_INVALIDARG)
+
+3481:FUNC:pass nullptr
+TestDrm_Initiator_ParseList(nullptr)=2147942487(0x80070057 DRM_E_INVALIDARG)
+
+3482:FUNC:pass zerolen
+TestDrm_Initiator_ParseList(zerolen)=2147942487(0x80070057 DRM_E_INVALIDARG)
+
+3490:FUNC:medium sized list of initiators, read the 10th message (zero-based count)
+TestDrm_Initiator_ParseList("file:data\\list_medium.txt", 10)
+
+3491:FUNC:medium sized list of initiators, read the 15th message (zero-based count)
+TestDrm_Initiator_ParseList("file:data\\list_medium.txt", 15)
+
+3492:FUNC: long list size - several JD and a lot of LA, 495 total, read the 400th message (zero-based count)
+TestDrm_Initiator_ParseList("file:data\\list_large.txt", 400)
+
+3493:FUNC: long list size - several JD and a lot of LA, 495 total, read the last message (zero-based count)
+TestDrm_Initiator_ParseList("file:data\\list_large.txt", 494)
+
+3494:FUNC: long list size - several JD and a lot of LA, 495 total, read past the last message, expect failure
+TestDrm_Initiator_ParseList("file:data\\list_large.txt", 495)=0x80070103(DRM_E_NOMORE)
+
+
+'****************************************************************************************
+' argv[0]    -- XML Data string. May be set into a special values 
+'               "nullstring" to imitate empty string (pwszString == NULL, cchString == 0)
+'               "nullptr" to pass null ptr instead of DRM_STRING,
+'               "zerolen" to pass string with cchString == 0.
+'
+' argv[1]    -- expected initiator messages body (optional)
+'****************************************************************************************
+
+1975:BVT: Pass nullstring, nullptr, zerolen instead of XML message
+TestDrm_Initiator_InitEnum(nullstring)=2147942487(0x80070057 DRM_E_INVALIDARG)
+TestDrm_Initiator_InitEnum(nullptr)=2147942487(0x80070057 DRM_E_INVALIDARG)
+TestDrm_Initiator_InitEnum(zerolen)=2147942487(0x80070057 DRM_E_INVALIDARG)
+
+1976:BVT: List with one initiator
+TestDrm_Initiator_InitEnum( <?xml version="1.0" encoding="utf-8"?><PlayReadyInitiator xmlns="http://schemas.microsoft.com/DRM/2007/03/protocols/"><JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></JoinDomain></PlayReadyInitiator>, <JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></JoinDomain> )
+
+1977:BVT: List with two initiators
+TestDrm_Initiator_InitEnum( <?xml version="1.0" encoding="utf-8"?><PlayReadyInitiator xmlns="http://schemas.microsoft.com/DRM/2007/03/protocols/"><JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></JoinDomain><LicenseAcquisition><Header><WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER></Header><Content>http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma</Content></LicenseAcquisition></PlayReadyInitiator>,<JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></JoinDomain><LicenseAcquisition><Header><WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER></Header><Content>http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma</Content></LicenseAcquisition> )
+
+3505:BVT: List without PlayReadyInitiator tag, expect 0X8004C04F(DRM_E_XMLNOTFOUND)
+TestDrm_Initiator_InitEnum( <JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></JoinDomain> )=0X8004C04F(DRM_E_XMLNOTFOUND)
+
+3510:FUNC: data string is missing a closing tag, expect 0x8004C01F(DRM_E_NO_XML_CLOSE_TAG)
+TestDrm_Initiator_InitEnum( <?xml version="1.0" encoding="utf-8"?><PlayReadyInitiator xmlns="http://schemas.microsoft.com/DRM/2007/03/protocols/"><JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></JoinDomain> )=0x8004C01F(DRM_E_NO_XML_CLOSE_TAG)
+
+3512:FUNC: data string with malformed XML tag: incorrect characters in XML tags, should pass because there is no verification of the list
+TestDrm_Initiator_InitEnum( <?xml version="1.0" encoding="utf-8"?><PlayReadyInitiator xmlns="http://schemas.microsoft.com/DRM/2007/03/protocols/"><JoinDomain><Domai#$#$//nController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></JoinD!@#$omain><L_~!@$icenseAcquisition><Header><WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER></Header><Content>http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma</Content></LicenseAcquisition></PlayReadyInitiator>)
+
+3513:FUNC:data string with two initiators and unrecognized XML tag, should pass because there is no verification of the list
+TestDrm_Initiator_InitEnum( <?xml version="1.0" encoding="utf-8"?><PlayReadyInitiator xmlns="http://schemas.microsoft.com/DRM/2007/03/protocols/"><JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></JoinDomain><SomeTag><Data></Data></SomeTag><LicenseAcquisition><Header><WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER></Header><Content>http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma</Content></LicenseAcquisition></PlayReadyInitiator>)
+
+'*******************************************************************************************
+'** argv[0]    -- XML Data string. May be set into special values 
+'**               "nullstring" to imitate empty string (pwszString == NULL, cchString == 0)
+'**               "nullptr" to pass null ptr instead of DRM_STRING,
+'**               "zerolen" to pass string with cchString == 0.
+'**
+'** argv[1]    -- index of initiator message to read (optional, default is 0)
+'** argv[2]    -- expected initiator type (optional). 
+'**               If it is not set into >= 1 && <= 4 then argv[4]...[6] must be present.
+'** argv[3]    -- expected custom data (optional)
+'** argv[4]    -- expected URL field (optional). Means DC URL, meter cert URL or content URL
+'**               depending on expected initiator type.
+'** argv[5]    -- Optional parameter 1 whose meaning depends on expected initiator type 
+'**				  (nullstring for empty data):
+'**               Join/LeaveDomain - expected service ID in base64 encoding
+'**               LicAcqusition    - expected content header
+'**               Metering         - expected MID in base64 encoding
+'** argv[6]    -- Optional parameter 2 whose meaning depends on expected initiator type:
+'**               Join/LeaveDomain - expected account ID in base64 encoding
+'**               LicAcqusition    - ignored
+'**               Metering         - expected number of packets
+'*******************************************************************************************
+
+3599:BVT:pass nullstring instead of XML data string
+TestDrm_Initiator_EnumNext(nullstring)=2147942487(0x80070057 DRM_E_INVALIDARG)
+
+1978:BVT:pass nullptr instead of XML data string
+TestDrm_Initiator_EnumNext(nullptr)=2147942487(0x80070057 DRM_E_INVALIDARG)
+
+1979:BVT:pass zerolen instead of XML data string
+TestDrm_Initiator_EnumNext(zerolen)=2147942487(0x80070057 DRM_E_INVALIDARG)
+
+1980:BVT:pass list with three messages, the 2nd is of unrecognizable type, read the first one successfully
+TestDrm_Initiator_EnumNext(<JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></JoinDomain><UnknownTag><CustomData>custom</CustomData></UnknownTag><LicenseAcquisition><Header><WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER></Header><Content>http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma</Content></LicenseAcquisition>,0)
+
+1981:BVT:pass list with three messages, the 2nd is of unrecognizable type, fail with DRM_E_INITIATORS_UNKNOWN_TYPE if asked to read the 2nd one
+TestDrm_Initiator_EnumNext(<JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController></JoinDomain><UnknownTag><CustomData>custom</CustomData></UnknownTag><LicenseAcquisition><Header><WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER></Header><Content>http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma</Content></LicenseAcquisition>,1)=2147796864(0x0X8004C780 DRM_E_INITIATORS_UNKNOWN_TYPE)
+
+3605:BVT:pass list with three messages, the 2nd is of unrecognizable type, fail with DRM_E_INITIATORS_UNKNOWN_TYPE if asked to read the 3rd one
+TestDrm_Initiator_EnumNext(<JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></JoinDomain><UnknownTag><CustomData>custom</CustomData></UnknownTag><LicenseAcquisition><Header><WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER></Header><Content>http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma</Content></LicenseAcquisition>, 2)=2147796864(0x0X8004C780 DRM_E_INITIATORS_UNKNOWN_TYPE)
+
+3606:FUNC:parse correct JoinDomain message with a few extra tags present, expect success, unknown tags should be ignored
+TestDrm_Initiator_EnumNext(<JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><UnknownTag><Data>123</Data></UnknownTag><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><SomeTag>something</SomeTag><CustomData>custom</CustomData></JoinDomain>,0)
+
+3607:FUNC: the first initiator msg is missing a closing tag, expect 0x8004C01F(DRM_E_NO_XML_CLOSE_TAG)
+TestDrm_Initiator_EnumNext( <JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData><LicenseAcquisition><Header><WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER></Header><Content>http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma</Content></LicenseAcquisition> )=0x8004C01F(DRM_E_NO_XML_CLOSE_TAG)
+
+3608:FUNC: the first initiator msg is missing a JoinDomain and CustomData closing tags, expect 0x8004C01F(DRM_E_NO_XML_CLOSE_TAG)
+TestDrm_Initiator_EnumNext( <JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData><LicenseAcquisition><Header><WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER></Header><Content>http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma</Content></LicenseAcquisition> )=0x8004C01F(DRM_E_NO_XML_CLOSE_TAG)
+
+3609:FUNC: malformed XML tags: incorrect characters, expect 0x8004C04F(DRM_E_XMLNOTFOUND)
+TestDrm_Initiator_EnumNext( "<JoinDomain><DomainController>!@#$http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID>ssomething<!?\AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>cu!@#$stom</CustomData></Join_(#)@Domain><LicenseAcquisition><Header><WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER></Header><Content>http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma</Content></LicenseAcquisition>")=2147795023(0X8004C04F DRM_E_XMLNOTFOUND)
+
+
+'JoinDomain messages
+
+3620:BVT:parse JoinDomain message with all fields present
+TestDrm_Initiator_EnumNext(<JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></JoinDomain>,0,1, custom, http://dc.contoso.com/dc.asmx, AH+03juKbUGbHl1V/QIwRA==, NjU0MzIxMDk4NzY1NDMyMQ==)
+
+3621:FUNC:parse JoinDomain message without service ID and account ID
+TestDrm_Initiator_EnumNext(<JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><CustomData>custom</CustomData></JoinDomain>,0, 1, custom, http://dc.contoso.com/dc.asmx)
+
+3622:FUNC:parse JoinDomain message without service ID
+TestDrm_Initiator_EnumNext(<JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID></JoinDomain>,0, 1,nullstring, http://dc.contoso.com/dc.asmx, nullstring, NjU0MzIxMDk4NzY1NDMyMQ==)
+
+3623:FUNC:parse JoinDomain message without account ID
+TestDrm_Initiator_EnumNext(<JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID></JoinDomain>, 0, 1, nullstring,http://dc.contoso.com/dc.asmx, AH+03juKbUGbHl1V/QIwRA==)
+
+3624:FUNC:reject JoinDomain message without DC URL, expect 0X8004C784(DRM_E_INITIATORS_MISSING_DC_URL)
+TestDrm_Initiator_EnumNext(<JoinDomain><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></JoinDomain>,0,1, custom, http://dc.contoso.com/dc.asmx, AH+03juKbUGbHl1V/QIwRA==, NjU0MzIxMDk4NzY1NDMyMQ==)=0X8004C784(DRM_E_INITIATORS_MISSING_DC_URL)
+
+3625:FUNC: reject JoinDomain message with bad data inside AccountID, expect 0X8004C782(DRM_E_INITIATORS_INVALID_ACCOUNTID)
+TestDrm_Initiator_EnumNext(<JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>abcd0987</AccountID><CustomData>custom</CustomData></JoinDomain>)=0X8004C782(DRM_E_INITIATORS_INVALID_ACCOUNTID)
+
+3626:FUNC: reject JoinDomain message with bad data inside ServiceID, expect 0X8004C781(DRM_E_INITIATORS_INVALID_SERVICEID)
+TestDrm_Initiator_EnumNext(<JoinDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>abcd0987</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></JoinDomain>)=0X8004C781(DRM_E_INITIATORS_INVALID_SERVICEID)
+
+
+'LeaveDomain
+
+3630:BVT:parse LeaveDomain message with all fields present
+TestDrm_Initiator_EnumNext(<LeaveDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></LeaveDomain>, 0,2, custom, http://dc.contoso.com/dc.asmx, AH+03juKbUGbHl1V/QIwRA==, NjU0MzIxMDk4NzY1NDMyMQ==)
+
+3631:FUNC:parse LeaveDomain message without service ID and account ID
+TestDrm_Initiator_EnumNext(<LeaveDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><CustomData>custom</CustomData></LeaveDomain>, 0,2, custom, http://dc.contoso.com/dc.asmx)
+
+3632:FUNC:parse LeaveDomain message without service ID
+TestDrm_Initiator_EnumNext(<LeaveDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID></LeaveDomain>, 0,2,nullstring, http://dc.contoso.com/dc.asmx, nullstring, NjU0MzIxMDk4NzY1NDMyMQ==)
+
+3633:FUNC:parse LeaveDomain message without account ID
+TestDrm_Initiator_EnumNext(<LeaveDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID></LeaveDomain>, 0, 2, nullstring,http://dc.contoso.com/dc.asmx, AH+03juKbUGbHl1V/QIwRA==)
+
+3634:FUNC:reject LeaveDomain message without DC URL, expect 0X8004C784(DRM_E_INITIATORS_MISSING_DC_URL)
+TestDrm_Initiator_EnumNext(<LeaveDomain><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></LeaveDomain>, 0,2,<LeaveDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></LeaveDomain>, custom, http://dc.contoso.com/dc.asmx, AH+03juKbUGbHl1V/QIwRA==, NjU0MzIxMDk4NzY1NDMyMQ==)=0X8004C784(DRM_E_INITIATORS_MISSING_DC_URL)
+
+3635:FUNC: reject LeaveDomain message with bad data inside AccountID, expect 0X8004C782(DRM_E_INITIATORS_INVALID_ACCOUNTID)
+TestDrm_Initiator_EnumNext(<LeaveDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><AccountID>ABCD1234</AccountID><CustomData>custom</CustomData></LeaveDomain>)=0X8004C782(DRM_E_INITIATORS_INVALID_ACCOUNTID)
+
+3636:FUNC: reject LeaveDomain message with bad data inside ServiceID, expect 0X8004C781(DRM_E_INITIATORS_INVALID_SERVICEID)
+TestDrm_Initiator_EnumNext(<LeaveDomain><DomainController>http://dc.contoso.com/dc.asmx</DomainController><DS_ID>ABCD1234</DS_ID><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>custom</CustomData></LeaveDomain>)=0X8004C781(DRM_E_INITIATORS_INVALID_SERVICEID)
+
+
+'Metering
+
+3640:BVT:parse Meter Reporting message with all fields present
+TestDrm_Initiator_EnumNext(<Metering><CertificateServer>http://cert.contoso.com/cert.asmx</CertificateServer><MeteringID>pIKx8Wsy5aYRQN8LLIIcTQ==</MeteringID><CustomData>This is custom data</CustomData><MaxPackets>3</MaxPackets></Metering>,0,4, "This is custom data", http://cert.contoso.com/cert.asmx, pIKx8Wsy5aYRQN8LLIIcTQ==,3)
+
+3641:FUNC:parse Meter Reporting message without max packets and MID
+TestDrm_Initiator_EnumNext(<Metering><CertificateServer>http://cert.contoso.com/cert.asmx</CertificateServer></Metering>,0,4,nullstring,http://cert.contoso.com/cert.asmx,nullstring,nullstring)
+
+3642:FUNC:parse Meter Reporting message without max packets
+TestDrm_Initiator_EnumNext(<Metering><CertificateServer>http://cert.contoso.com/cert.asmx</CertificateServer><MeteringID>pIKx8Wsy5aYRQN8LLIIcTQ==</MeteringID><CustomData>This is custom data</CustomData></Metering>,0,4, "This is custom data", http://cert.contoso.com/cert.asmx, pIKx8Wsy5aYRQN8LLIIcTQ==,nullstring)
+
+3643:FUNC:parse Meter Reporting message without MID
+TestDrm_Initiator_EnumNext(<Metering><CertificateServer>http://cert.contoso.com/cert.asmx</CertificateServer><MaxPackets>3</MaxPackets></Metering>,0,4,nullstring, http://cert.contoso.com/cert.asmx,nullstring,3)
+
+3644:FUNC:parse Meter Reporting message without certificate server URL, error out
+TestDrm_Initiator_EnumNext(<Metering><MaxPackets>3</MaxPackets></Metering>,0,4,nullstring, http://cert.contoso.com/cert.asmx)=0X8004C787(DRM_E_INITIATORS_MISSING_METERCERT_URL)
+
+3645:FUNC:parse Meter Reporting message without max packets and bad data inside MID
+TestDrm_Initiator_EnumNext(<Metering><CertificateServer>http://cert.contoso.com/cert.asmx</CertificateServer><MeteringID>baddata</MeteringID><CustomData>This is custom data</CustomData></Metering>,0,4, "This is custom data", http://cert.contoso.com/cert.asmx)=0X8004C783(DRM_E_INITIATORS_INVALID_MID)
+
+3646:FUNC:parse Meter Reporting message without MID and non-integer value in max packets, should be OK, and max packets set into 0
+TestDrm_Initiator_EnumNext(<Metering><CertificateServer>http://cert.contoso.com/cert.asmx</CertificateServer><MaxPackets>blah</MaxPackets></Metering>,0,4,nullstring, http://cert.contoso.com/cert.asmx,nullstring,0)
+
+
+'LicenseAcq
+
+3650:BVT:parse License Acquisition message with all fields present
+TestDrm_Initiator_EnumNext(<LicenseAcquisition><Header><WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER></Header><Content>http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma</Content></LicenseAcquisition>,0,3, nullstring, http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma, <WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER>)
+
+3651:FUNC:parse License Acquisition message without content download URL
+TestDrm_Initiator_EnumNext(<LicenseAcquisition><Header><WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER></Header></LicenseAcquisition>,0,3, nullstring, nullstring, <WRMHEADER version="4.0.0.0"><DATA><LA_URL>http://rm.contoso.com/rightsmanager.asmx</LA_URL><DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID><KID>lFmb2gxg0Cr5bfEnJXgJeA==</KID><CHECKSUM>P7ORpD2IpA==</CHECKSUM></DATA></WRMHEADER>)
+
+3652:FUNC: reject License Acquisition message without content header, expect 0X8004C785(DRM_E_INITIATORS_MISSING_CONTENT_HEADER)
+TestDrm_Initiator_EnumNext(<LicenseAcquisition><Content>http://content.contoso.com/lFmb2gxg0Cr5bfEnJdA.wma</Content></LicenseAcquisition>,0)=0X8004C785(DRM_E_INITIATORS_MISSING_CONTENT_HEADER)
+

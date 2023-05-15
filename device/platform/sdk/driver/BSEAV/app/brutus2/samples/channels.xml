@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<channellist name="default">
+ <channel type="streamer" >
+    <pid videopid="49" videotype="mpeg2"></pid>
+    <pid audiopid="52" audiotype="ac3"></pid>
+ </channel>
+</channellist>

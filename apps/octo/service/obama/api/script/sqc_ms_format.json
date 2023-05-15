@@ -1,0 +1,11 @@
+"sysctl":{
+	"target":"massstorage",
+	"operation":"set",
+	"property":{
+		"action":"do_format",
+		"param_format":{
+			"dev_id":0,
+			"dev_volume_label":"OCTO_PVR_DEV"
+		}
+	}
+}

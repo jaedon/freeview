@@ -1,0 +1,10 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=LIBRARY
+TARGETNAME=KeyFileTestAPI
+
+SOURCES = \
+	..\KeyFileTestAPI.c \
+
+
+

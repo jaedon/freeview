@@ -1,0 +1,10 @@
+
+TARGETTYPE=LIBRARY
+TARGETNAME=PerformanceTestAPI
+
+SOURCES =                   \
+    ../PerformanceTestAPI.c \
+
+TARGETLIBS = $(TARGETLIBS)  \
+    $(_DRM_REFCODE_LIBS)    \
+    $(_DRM_TC_LIBS)         \

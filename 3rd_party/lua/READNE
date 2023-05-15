@@ -1,0 +1,10 @@
+This is Lua extension package's README file.
+
+This directory's source from open sources sites.
+If you want to add lua extension package, becareful !! original file's license.
+
+struct.c
+	= author's home page : http://www.inf.puc-rio.br/~roberto/struct/
+	= original source file : http://www.inf.puc-rio.br/~roberto/struct/struct.c
+	= test script : http://www.inf.puc-rio.br/~roberto/struct/teststruct
+	= added by chang woo lee, at 2011-05-02

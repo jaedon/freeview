@@ -1,0 +1,165 @@
+<RightsPool>
+
+<!-- ============================================================== -->
+<!-- ======================= SIMPLE LICENSES ====================== -->
+<!-- ============================================================== -->
+
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="IssueDateInThePast"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    IssueDate="-10d"
+  />
+
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="HasMeteringID"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    MeteringID="kRDHw78AvASNm7r0Pp6Lpw=="
+  />
+
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="HasNoExpirationDates"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+  />
+
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="HasExpirationDate"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    ExpirationDate="48h"
+  />
+
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="HasExpireAfterFirstPlay"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    ExpirationAfterFirstPlay="24h"
+  />
+
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="HasExpirationDate GT HasExpireAfterFirstPlay"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    ExpirationDate="48h"
+    ExpirationAfterFirstPlay="24h"
+  />
+
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="HasExpirationDate LT HasExpireAfterFirstPlay"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    ExpirationDate="24h"
+    ExpirationAfterFirstPlay="48h"
+  />
+
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="HasTempStoreOnlyRight"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    TempStoreOnly="TRUE"
+  />
+
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="HasCopyPolicyContainer"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+  >
+    <CopyEnablerGUIDList>
+      <CopyEnablerGUID guid="{6848955D-516B-4EB0-90E8-8F6D5A77B85F}"  /> <!-- CopyToDevice -->
+    </CopyEnablerGUIDList>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="HasCopyPolicyContainerWithSubObjects"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    MoveEnabler="5"   <!-- the sub-object -->
+  >
+    <CopyEnablerGUIDList>
+      <CopyEnablerGUID guid="{6848955D-516B-4EB0-90E8-8F6D5A77B85F}"  /> <!-- CopyToDevice -->
+    </CopyEnablerGUIDList>
+  </LicenseRights>
+
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="HasExternalParseObjects App-ID-List only"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+  >
+    <XPolicyPlayExtended>
+      <XPolicyRestrictionsList>
+        <XPolicyRestriction XPolicyObjectType="84" XPolicyObjectFlags="4" XPolicyPolicyData="" XPolicySecureStateType="02" XPolicySecureStateDate="33" XPolicySecureStateCount="" XPolicySecureStateData="" XPolicySecureStateSize="" />
+      </XPolicyRestrictionsList>
+    </XPolicyPlayExtended>
+  </LicenseRights>
+  
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="HasExternalParseObjects Not App-ID-List"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+  >
+    <XPolicyPlayExtended>
+      <XPolicyRestrictionsList>
+        <XPolicyRestriction XPolicyObjectType="65" XPolicyObjectFlags="4" XPolicyPolicyData="" XPolicySecureStateType="02" XPolicySecureStateDate="33" XPolicySecureStateCount="" XPolicySecureStateData="" XPolicySecureStateSize="" />
+      </XPolicyRestrictionsList>
+    </XPolicyPlayExtended>
+  </LicenseRights>
+  
+  <LicenseRights
+    Type="Simple"
+    TestCaseID="HasExternalParseObjects App-ID-List and Not App-ID-List"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+  >
+    <XPolicyPlayExtended>
+      <XPolicyRestrictionsList>
+        <XPolicyRestriction XPolicyObjectType="84" XPolicyObjectFlags="4" XPolicyPolicyData="" XPolicySecureStateType="02" XPolicySecureStateDate="33" XPolicySecureStateCount="" XPolicySecureStateData="" XPolicySecureStateSize="" />
+        <XPolicyRestriction XPolicyObjectType="65" XPolicyObjectFlags="4" XPolicyPolicyData="" XPolicySecureStateType="02" XPolicySecureStateDate="33" XPolicySecureStateCount="" XPolicySecureStateData="" XPolicySecureStateSize="" />
+      </XPolicyRestrictionsList>
+    </XPolicyPlayExtended>
+  </LicenseRights>
+
+
+<!-- ============================================================== -->
+<!-- ====================== CHAINED LICENSES ====================== -->
+<!-- ============================================================== -->
+
+  <LicenseRights
+    Type="Root"
+    TestCaseID="Root1"
+    AllowPlay="TRUE"
+    KID="KQNXs2nvVdiUypvlgcROrA=="
+  />
+
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="LeafWithMeteringID"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    MeteringID="kRDHw78AvASNm7r0Pp6Lpw=="
+  />
+  
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="LeafWithExpireAfterFirstPlay"
+    AllowPlay="TRUE"
+    KID="!3x8NSroVg4eXCzWqPU!BA=="
+    UplinkKIDs="KQNXs2nvVdiUypvlgcROrA=="
+    ExpirationAfterFirstPlay="24h"
+  />
+
+</RightsPool>

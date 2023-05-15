@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<batschedule>
+<setup name="default_timeout" value="600" />
+<setup name="sync_root" value="" /> 
+
+<test name="VDC_TEST"
+    file="../../rockford/unittests/portinginterface/vdc/vdc_test.c"
+    runtime_envar=""
+    make_args=""
+    bin_name="vdc_test"
+    args=" &lt; cmds_sbvn.txt"
+    timeout="7200"
+    status="dev"
+    failure_criteria="return_code,timeout">
+    <commands>
+    <pre>
+        <build_server>DekTecCtrl -ipaddr @@STREAMER_ADDR@@ -board @@STREAMER_CARD_INSTANCE@@ -stop;DekTecCtrl -ipaddr @@STREAMER_ADDR@@ -board @@STREAMER_CARD_INSTANCE@@ -play italyriviera-spiderman2_cc_short.mpg -loop 0</build_server>
+        <!-- target></target-->
+    </pre>
+    <post>
+        <build_server>DekTecCtrl -ipaddr @@STREAMER_ADDR@@ -board @@STREAMER_CARD_INSTANCE@@ -stop</build_server>
+        <!--target></target-->
+    </post>
+    </commands>
+</test>
+<test name="AUTOTEST_VBI"
+    file="../../rockford/applications/autotest_vbi/autotest_vbi.c"
+    runtime_envar=""
+    make_args=""
+    bin_name="autotest_vbi"
+    args=""
+    timeout="7200"
+    status="dev"
+    failure_criteria="return_code,timeout">
+</test>
+</batschedule>

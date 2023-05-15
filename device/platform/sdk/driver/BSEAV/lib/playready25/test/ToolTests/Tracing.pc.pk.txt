@@ -1,0 +1,9 @@
+99101:BVT: Test Tracing
+CreateTraceFile()
+RunPregenTool(tracetool.exe -i:trace.dat -o:trace.txt)
+VerifyTraceFile()
+
+
+99102:BVT: Test Tracing help
+RunPregenTool(tracetool.exe -?)
+

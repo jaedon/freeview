@@ -1,0 +1,73 @@
+################################################
+#					MW/NIMA Configuration					#
+################################################
+comment "NIMA, Network Device Priority. (CONFIG_NIMA_PRIORITY_XXX)"
+
+	choice
+		prompt "Network Device First Priority"
+		default NIMA_PRIORITY_FIRST_LAN
+
+		config NIMA_PRIORITY_FIRST_LAN
+			bool "PRIORITY_FIRST_LAN"
+
+		config NIMA_PRIORITY_FIRST_WLAN
+			bool "PRIORITY_FIRST_WLAN"
+
+		config NIMA_PRIORITY_FIRST_PPPOE
+			bool "PRIORITY_FIRST_PPPOE"
+
+		config NIMA_PRIORITY_FIRST_CABLEMODEM
+			bool "PRIORITY_FIRST_CABLEMODEM"
+	endchoice
+
+	choice
+		prompt "Network Device Second Priority"
+		default NIMA_PRIORITY_SECOND_WLAN
+
+		config NIMA_PRIORITY_SECOND_LAN
+			bool "PRIORITY_SECOND_LAN"
+
+		config NIMA_PRIORITY_SECOND_WLAN
+			bool "PRIORITY_SECOND_WLAN"
+
+		config NIMA_PRIORITY_SECOND_PPPOE
+			bool "PRIORITY_SECOND_PPPOE"	
+
+		config NIMA_PRIORITY_SECOND_CABLEMODEM
+			bool "PRIORITY_SECOND_CABLEMODEM"
+	endchoice
+
+	choice
+		prompt "Network Device Third Priority"
+		default NIMA_PRIORITY_THIRD_PPPOE
+
+		config NIMA_PRIORITY_THIRD_LAN
+			bool "PRIORITY_THIRD_LAN"
+
+		config NIMA_PRIORITY_THIRD_WLAN
+			bool "PRIORITY_THIRD_WLAN"
+
+		config NIMA_PRIORITY_THIRD_PPPOE
+			bool "PRIORITY_THIRD_PPPOE"	
+
+		config NIMA_PRIORITY_THIRD_CABLEMODEM
+			bool "PRIORITY_THIRD_CABLEMODEM"
+	endchoice	
+	
+	choice
+		prompt "Network Device Forth Priority"
+		default NIMA_PRIORITY_FORTH_CABLEMODEM
+
+		config NIMA_PRIORITY_FORTH_LAN
+			bool "PRIORITY_FORTH_LAN"
+
+		config NIMA_PRIORITY_FORTH_WLAN
+			bool "PRIORITY_FORTH_WLAN"
+
+		config NIMA_PRIORITY_FORTH_PPPOE
+			bool "PRIORITY_FORTH_PPPOE"
+			
+		config NIMA_PRIORITY_FORTH_CABLEMODEM
+			bool "PRIORITY_FORTH_CABLEMODEM"
+	endchoice	
+

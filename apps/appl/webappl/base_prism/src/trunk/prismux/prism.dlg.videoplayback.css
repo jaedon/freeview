@@ -1,0 +1,45 @@
+.videoPlayback {
+  position: absolute;
+  bottom: 0px;
+  height: 350px;
+  width: 1280px;
+  background: url(../images/105_BG_COM_Bottom_350.png) no-repeat;
+}
+.videoPlayback .player {
+  bottom: -20px;
+}
+.videoPlayback .player .title {
+  top: -98px;
+  color: #FFFFFF;
+  font-size: 30px;
+  left: 351px;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 708px;
+}
+.videoPlayback .player .title.hidden {
+  opacity: 0;
+  -webkit-transform: translate(0, -10px);
+  -o-transform: translate(0, -10px);
+}
+.videoPlayback .player .playbar {
+  width: 783px;
+  max-width: 783px;
+  min-width: 783px;
+}
+.videoPlayback .player .playbar .track {
+  background: rgba(255, 255, 255, 0.196);
+  height: 2px;
+  width: 783px;
+  max-width: 783px;
+  min-width: 783px;
+}
+.videoPlayback .player #state {
+  width: 104px;
+}
+.player .playbar .buffer {
+  max-width: 783px;
+}

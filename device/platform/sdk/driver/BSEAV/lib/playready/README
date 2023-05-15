@@ -1,0 +1,65 @@
+Phase 1 of playready port includes the basic DRM PD functionality and demonstrates the decryption of Playready encrypted content.
+
+Use export MSDRM_PRDY_SUPPORT=y flag to include the Playready in the standard Brutus build.
+
+For testing with brutus download Bear_Video_OPLs0.pyv from this location :
+http://playready.directtaps.net/pr/public/rightstests.aspx
+
+Building Playready with Robustness:
+-----------------------------------
+export PRDY_ROBUSTNESS_ENABLE=y in addition to MSDRM_PRDY_SUPPORT=y for building playready with robustness.
+Also, if you need to support DRM10 in-house server with PRDY_ROBUSTNESS_ENABLE you will need to export BRCM_LEGACY_RIGHT_MGM_SERVER_ENABLED=y
+
+Make sure you have following security flags set for enabling robustness.
+export BHSM_OTPMSP=ON
+export BHSM_KEYLADDER=ON
+export HSM_SOURCE_AVAILABLE=y
+
+/*Set following for 65nm plats*/
+export KEYLADDER_SUPPORT=y  
+export USERCMD_SUPPORT=y
+export OTPMSP_SUPPORT=y
+OR
+/*Set following for 40nm plats*/
+export NEXUS_SECURITY_KEYLADDER_EXTENSION_INC=......../nexus/extensions/security/keyladder/7425/keyladder_ext.inc
+export NEXUS_SECURITY_OTPMSP_EXTENSION_INC=........./nexus/extensions/security/otpmsp/7425/otpmsp_ext.inc
+export NEXUS_SECURITY_USERCMD_EXTENSION_INC=......../nexus/extensions/security/usercmd/7425/usercmd_ext.inc
+
+** make sure you have put "playready.bin" in your executable directory. (contact FAE for getting this.)
+** make sure you receive the clear copies of .../magnum/portinginterface/hsm files (contact sqa or security team )
+
+
+Also, please note that when you run Playready with robustness enable, the following files will be created:
+
+bdevcert.dat
+devcert.dat
+zprivencr.dat
+zprivsig.dat
+datastore.hds
+datastore_pwd.hds
+pr_srm_data.bin
+
+If you decide to run Playready without robustness, you will need to erase them. Otherwise it will not work. That is because the certificate are created and encrypted when robustness are enabled. So they will look like garbage when robustness isnt set. Similarly if you run playready without robustness first. When you switch robustness on, you will need to erase the following files
+
+bdevcert.dat
+devcert.dat
+zprivencr.dat
+zprivsig.dat
+datastore.hds
+datastore_pwd.hds
+sample.hds
+
+
+When robustness rules are enabled, the Playready library relies on functions provided by the drmrootfs library to figure out where its internal files are stored on the file system. User can customize drmrootfs paths to meet their needs.
+
+To changes the paths, you must edit the following file.
+BSEAV/lib/drmrootfs/config_inc/drm_playready.inc
+
+It contains global configuration variables. Change them to meet your requirements. Once your are done, follow these steps to recompile the drmrootfs library.
+
+cd BSEAV/lib/drmrootfs/
+make clean
+make
+
+Now, you only need to rebuild nexus and you are all set.
+

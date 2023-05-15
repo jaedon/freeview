@@ -1,0 +1,5 @@
+"meta" : {
+	"operation" : "set",
+	"target" : "reclist",
+	"property" : {"cmd":"do_copy", "dest url":"/mnt/hd2/", "param list":[{"cid":4}, {"cid":5}, {"cid":6}]}
+}

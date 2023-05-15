@@ -1,0 +1,10 @@
+{
+  "name": "test-octopus",
+  "version": "0.0.1",
+  "main": "test",
+  "dependencies": {
+    "should": "~3.3.0",
+    "dbus": "git://github.com/DavidSeo/node-dbus",
+    "octopus-client": "~0.0.2"
+  }
+}

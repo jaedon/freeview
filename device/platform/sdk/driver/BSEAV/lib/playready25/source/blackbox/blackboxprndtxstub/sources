@@ -1,0 +1,7 @@
+!include ..\..\drmbuild.cmn
+
+TARGETNAME=drmblackboxprndtxstub
+TARGETTYPE=LIBRARY
+
+SOURCES =                      \
+    ..\blackboxprndtxstub.c    \

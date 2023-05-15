@@ -1,0 +1,28 @@
+### Soure code directories.
+SDIR  $ROOT_DIR/LoaderCore/Src/Shared
+
+
+### Header files directories.
+
+IDIR  $ROOT_DIR/LoaderCore/Src/Shared
+
+IDIR  $ROOT_DIR/LoaderCore/Include
+IDIR  $ROOT_DIR/LoaderCore/Include/ExportAPI
+IDIR  $ROOT_DIR/LoaderCore/Include/ImportSPI
+
+
+### Source code files.
+SRC  Bit.c
+SRC  Bbcb.c
+SRC  KeyUpdate.c
+SRC  ModuleManager.c
+SRC  LoaderPartition.c
+SRC  Pkcs.c
+SRC  Rsa.c
+SRC  Sha1.c
+SRC  Sha256.c
+SRC  UartInterface.c
+SRC  VbCipher.c
+SRC  ErrorReport.c
+SRC  LedDisplay.c
+SRC  Crc.c

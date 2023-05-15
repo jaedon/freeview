@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Output/Panel">   
+    <interface name="Octopus.Appkit.Output.Panel">
+
+    <method name="SetAppPriority">
+    	<arg type="i" name="priority" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="SetLed">
+    	<arg type="u" name="ledId" direction="in" />
+    	<arg type="u" name="ledStatus" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+     <method name="SetLedAuto">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                           
+
+    <method name="SetLedCategory">
+    	<arg type="u" name="category" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+     <method name="ClearLed">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="SetPanel">
+    	<arg type="i" name="priority" direction="in" />
+    	<arg type="s" name="text" direction="in" />
+    	<arg type="u" name="panelAlign" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+    
+    <method name="SetPanelAuto">
+    	<arg type="i" name="priority" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+      
+    <method name="SetPanelDimLevel">
+    	<arg type="i" name="priority" direction="in" />
+    	<arg type="i" name="dimLevel" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="SetPanelAnimation">
+    	<arg type="i" name="priority" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+
+  </interface>
+</node>

@@ -1,0 +1,370 @@
+110070:IsAllowed: Play action is allowed
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(0, NULL)
+TestIsAllowed(Play, VIEW_RIGHTS_CONTEXT)
+
+
+110082:GetLicenseAggregateData works with only one actions Play
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(0, NULL)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play)
+TestVerifyStateData(0, 1 WM_DRM_LICENSE_STATE_UNLIM)
+
+
+110091:GetLicenseAggregateData works for Play right with playcount
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=11:0]]></ACTION></ONSTORE>")
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play)
+TestVerifyStateData(0, 2 WM_DRM_LICENSE_STATE_COUNT, NULL, 1 count, 11 play counts left)
+
+
+-------------------BVT ends here--------------------------
+
+110071:IsAllowed: COPY_TO_CD action is allowed
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(0, "<ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>")
+TestIsAllowed(Print.redbook,VIEW_RIGHTS_CONTEXT)
+
+
+110072:IsAllowed: Backup action is allowed
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(0, NULL)
+TestIsAllowed(Backup,VIEW_RIGHTS_CONTEXT)
+
+
+110073:IsAllowed: Restore action is allowed
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(0, NULL)
+TestIsAllowed(Restore,VIEW_RIGHTS_CONTEXT)
+
+
+110074:IsAllowed: Invalid action is not allowed
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(0, NULL)
+TestIsAllowed(OtherAction,VIEW_RIGHTS_CONTEXT)=1(DRM_S_FALSE)
+
+
+110077:IsAllowed: Empty action should fail
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(0, NULL)
+TestIsAllowed(EMPTY,VIEW_RIGHTS_CONTEXT)=1
+
+
+110078:IsAllowed: NULL action should fail
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(0, NULL)
+TestIsAllowed(NULL,VIEW_RIGHTS_CONTEXT)=1
+
+
+110079:IsAllowed: NULL VIEW_RIGHTS_CONTEXT should fail gracefully
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(0, NULL)
+TestIsAllowed(Play,NULL)=1
+
+
+110080:IsAllowed: GetLicenseAggregateData works together well with IsAllowed
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(0, "<ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>")
+TestAddLicense(0, NULL, {00000522-0000-0010-8000-00AA006D2EA4})
+TestIsAllowed(Play,VIEW_RIGHTS_CONTEXT)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 3 actions, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play, Print.redbook, Backup)
+TestVerifyStateData(0, 1 WM_DRM_LICENSE_STATE_UNLIM)
+TestVerifyStateData(1, 1 WM_DRM_LICENSE_STATE_UNLIM)
+TestVerifyStateData(2, 1 WM_DRM_LICENSE_STATE_UNLIM)
+TestIsAllowed(Print.redbook,VIEW_RIGHTS_CONTEXT)
+
+
+110081:GetLicenseAggregateData works with only two actions Play and Print.redbook
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(0, "<ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>")
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 2 actions, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play, Print.redbook)
+TestVerifyStateData(0, 1 WM_DRM_LICENSE_STATE_UNLIM)
+TestVerifyStateData(1, 1 WM_DRM_LICENSE_STATE_UNLIM)
+
+
+110083:GetLicenseAggregateData works with only one actions Print.redbook
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>")
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Print.redbook)
+TestVerifyStateData(0, 1 WM_DRM_LICENSE_STATE_UNLIM)
+
+
+110084:IsAllowed: Play action is not allowed where license has no play right
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, NULL)
+TestIsAllowed(Play,VIEW_RIGHTS_CONTEXT)=1(DRM_S_FALSE)
+
+
+110085:IsAllowed: Copy to CD action is not allowed where license has no Print.redbook right
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(0, NULL)
+TestIsAllowed(Print.redbook,VIEW_RIGHTS_CONTEXT)=1(DRM_S_FALSE)
+
+
+110086:GetLicenseAggregateData: StateData category should get WM_DRM_LICENSE_STATE_NORIGHT for license without Play right 
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, NULL)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play)
+TestVerifyStateData(0, 0 WM_DRM_LICENSE_STATE_NORIGHT)
+
+
+110087:GetLicenseAggregateData: StateData category should get WM_DRM_LICENSE_STATE_NORIGHT for license without COPY_TO_CD right 
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(0, NULL)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Print.redbook)
+TestVerifyStateData(0, 0 WM_DRM_LICENSE_STATE_NORIGHT)
+
+
+110088:GetLicenseAggregateData: StateData category should get WM_DRM_LICENSE_STATE_UNTIL for license with expired date 
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime > secstate.ExpirationDate)?(deletelicense();secstate.drmreason=1;0):1]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",NULL,NULL,NULL,NULL,17520)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play)
+TestVerifyStateData(0, 4 WM_DRM_LICENSE_STATE_UNTIL)
+
+
+110092: GetLicenseAggregateData works multiple licenses for Play right with accumulated playcounts
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=11:0]]></ACTION></ONSTORE>")
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=22:0]]></ACTION></ONSTORE>",{00000522-0000-0010-8000-00AA006D2EA4})
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play)
+TestVerifyStateData(0, 2 WM_DRM_LICENSE_STATE_COUNT, NULL, 1 count, 33 play counts left)
+
+
+110093:GetLicenseAggregateData: state data should get WM_DRM_LICENSE_STATE_UNLIM for multiple licenses with both limited and unlimited playcounts
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(0, NULL, {00000522-0000-0010-8000-00AA006D2EA4})
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=11:0]]></ACTION></ONSTORE>")
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play)
+TestVerifyStateData(0, 1 WM_DRM_LICENSE_STATE_UNLIM)
+
+
+110094:GetLicenseAggregateData gets WM_DRM_LICENSE_STATE_COUNT with burn to CD action with BurnToCDCount
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[secstate.BurnToCDCount>0]]></CONDITION><ACTION><![CDATA[secstate.BurnToCDCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.BurnToCDCount)?secstate.BurnToCDCount=4:0]]></ACTION></ONSTORE>")
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Print.redbook)
+TestVerifyStateData(0, 2 WM_DRM_LICENSE_STATE_COUNT, NULL, 1 count, 4 counts left)
+
+
+110096:GetLicenseAggregateData: gets WM_DRM_LICENSE_STATE_UNLIM for two licenses with no BurnToCD right and unlimited BurnCDcount
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(0, NULL, {00000522-0000-0010-8000-00AA006D2EA4})
+TestAddLicense(0, "<ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>")
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Print.redbook)
+TestVerifyStateData(0, 1 WM_DRM_LICENSE_STATE_UNLIM)
+
+
+110097:GetLicenseAggregateData gets WM_DRM_LICENSE_STATE_FROM_UNTIL for Play right with BeginDate and ExpiredDate
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.BeginDate)?secstate.BeginDate=#20030101 10:00:00Z#:secstate.BeginDate;!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",NULL,NULL,NULL,NULL,17520)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play)
+TestVerifyStateData(0, 5 WM_DRM_LICENSE_STATE_FROM_UNTIL)
+
+
+110098:GetLicenseAggregateData gets WM_DRM_LICENSE_STATE_UNTIL for one license Play right with BeginDate and playcount and another license with only ExpiredDate
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[1]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=11:0;!exists(secstate.BeginPlayCount)?secstate.BeginPlayCount=11:0;!exists(secstate.BeginDate)?secstate.BeginDate=#20030101 10:00:00Z#:secstate.BeginDate]]></ACTION></ONSTORE>", {00000522-0000-0010-8000-00AA006D2EA4})
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[1]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",NULL,NULL,NULL,NULL,17520)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play)
+TestVerifyStateData(0, 4 WM_DRM_LICENSE_STATE_UNTIL)
+
+
+110099:GetLicenseAggregateData gets WM_DRM_LICENSE_STATE_UNLIM for one license allows BurnTOCD with ExpiredDate and another licenses with unlimited BurnToCDcount
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(0, "<ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>", {00000522-0000-0010-8000-00AA006D2EA4})
+TestAddLicense(0, "<ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",NULL,NULL,NULL,NULL,17520)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Print.redbook)
+TestVerifyStateData(0, 1 WM_DRM_LICENSE_STATE_UNLIM)
+
+
+110100:GetLicenseAggregateData gets WM_DRM_LICENSE_STATE_UNLIM for one license Play right with unlimited playcount and another licenses with BurnToCD right with unlimited BurnTOCDcount
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(0, "<ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION>", {00000522-0000-0010-8000-00AA006D2EA4})
+TestAddLicense(0, NULL)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 2 actions, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play, Print.redbook)
+TestVerifyStateData(0, 1 WM_DRM_LICENSE_STATE_UNLIM)
+TestVerifyStateData(1, 1 WM_DRM_LICENSE_STATE_UNLIM)
+
+
+110101:GetLicenseAggregateData gets WM_DRM_LICENSE_STATE_EXPIRATION_AFTER_FIRSTUSE for license with Play right setting HoursFromFirstUse
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[1]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=24:0]]></ACTION></ONSTORE>")
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play)
+TestVerifyStateData(0, 9 WM_DRM_LICENSE_STATE_EXPIRATION_AFTER_FIRSTUSE)
+
+
+110102:GetLicenseAggregateData gets WM_DRM_LICENSE_STATE_COUNT with vague for a license Play right with 10 playcount and another licenses with expired date and 10 playcount
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=10:0;!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",NULL,NULL,NULL,NULL,17520)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=10:0]]></ACTION></ONSTORE>", {00000553-0000-0010-8000-00AA006D2EA4})
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play)
+TestVerifyStateData(0, 2 WM_DRM_LICENSE_STATE_COUNT, 1, 1, 10)
+
+
+110103:GetLicenseAggregateData gets WM_DRM_LICENSE_STATE_COUNT with vague for a license Play right with 10 playcount and another licenses with expired date
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",NULL,NULL,NULL,NULL,17520)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=10:0]]></ACTION></ONSTORE>", {00000553-0000-0010-8000-00AA006D2EA4})
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play)
+TestVerifyStateData(0, 2 WM_DRM_LICENSE_STATE_COUNT, 1, 1, 10)
+
+
+110104:GetLicenseAggregateData gets WM_DRM_LICENSE_STATE_COUNT_UNTIL with vague for a license Play right with 10 playcount and expired date and another licenses with playcount and expired date
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=10:0;!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#", {00000553-0000-0010-8000-00AA006D2EA4},NULL,NULL,NULL,17520)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=10:0;!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",NULL,NULL,NULL,NULL,17520)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play)
+TestVerifyStateData(0, 7 WM_DRM_LICENSE_STATE_COUNT_UNTIL, 1)
+
+
+110105:GetLicenseAggregateData gets WM_DRM_LICENSE_STATE_COUNT with vague for a license Play right with 24 HoursFromFirstUse and another licenses with 10 playcount 
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[1]]></ACTION></ONACTION><ONSELECT><CONDITION><![CDATA[1]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=24:0]]></ACTION></ONSTORE>", {00000553-0000-0010-8000-00AA006D2EA4})
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=10:0]]></ACTION></ONSTORE>")
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play)
+TestVerifyStateData(0, 2 WM_DRM_LICENSE_STATE_COUNT, 1, 1, 10)
+
+
+110106:GetLicenseAggregateData gets WM_DRM_LICENSE_STATE_FROM_UNTIL with vague for a license Play right begin date and expired date and another licenses with begin date and and playcount 
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION><ACTION><![CDATA[1]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.BeginDate)?secstate.BeginDate=#20030101 10:00:00Z#:secstate.BeginDate;!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#", {00000553-0000-0010-8000-00AA006D2EA4},NULL,NULL,NULL,17520)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount > 0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=10:0;!exists(secstate.BeginDate)?secstate.BeginDate=#20030101 10:00:00Z#:secstate.BeginDate]]></ACTION></ONSTORE>")
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play)
+TestVerifyStateData(0, 5 WM_DRM_LICENSE_STATE_FROM_UNTIL, 1)
+
+
+110108:GetLicenseAggregateData gets WM_DRM_LICENSE_STATE_COUNT and accumulated BurnToCDCount for a license BurnToCD right with 5 BurnToCDCount and another licenses with 35 BurnToCDCount 
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[secstate.BurnToCDCount>0]]></CONDITION><ACTION><![CDATA[secstate.BurnToCDCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.BurnToCDCount)?secstate.BurnToCDCount=5:0]]></ACTION></ONSTORE>")
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[secstate.BurnToCDCount>0]]></CONDITION><ACTION><![CDATA[secstate.BurnToCDCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.BurnToCDCount)?secstate.BurnToCDCount=35:0]]></ACTION></ONSTORE>",{00000563-0000-0010-8000-00AA006D2EA4})
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Print.redbook)
+TestVerifyStateData(0, 2 WM_DRM_LICENSE_STATE_COUNT, 0, 1 count, 40 counts left)
+
+
+110109:GetLicenseAggregateData gets WM_DRM_LICENSE_STATE_UNTIL  for a license Play right with expired date and another licenses with different expired date 
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime > secstate.ExpirationDate)?(deletelicense();secstate.drmreason=1;0):1]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",{00000563-0000-0010-8000-00AA006D2EA4},NULL,NULL,NULL,175200)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(machine.datetime > secstate.ExpirationDate)?(deletelicense();secstate.drmreason=1;0):1]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",NULL,NULL,NULL,NULL,262800)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play)
+TestVerifyStateData(0, 4 WM_DRM_LICENSE_STATE_UNTIL, 0)
+
+
+110110:GetLicenseAggregateData gets WM_DRM_LICENSE_STATE_UNTIL for a license Play and BurnToCD right with expired date and another same right licenses with different expired date 
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#20080101 10:00:00Z#:0]]></ACTION></ONSTORE>",{00000563-0000-0010-8000-00AA006D2EA4})
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",NULL,NULL,NULL,NULL,17520)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 2 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play, Print.redbook)
+TestVerifyStateData(0, 4 WM_DRM_LICENSE_STATE_UNTIL, 0)
+TestVerifyStateData(1, 4 WM_DRM_LICENSE_STATE_UNTIL, 0)
+
+
+110111:GetLicenseAggregateData gets WM_DRM_LICENSE_STATE_EXPIRATION_AFTER_FIRSTUSE for a license Play and BurnToCD right with HoursFromFirstUse
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=49:0]]></ACTION></ONSTORE>")
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 2 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play, Print.redbook)
+TestVerifyStateData(0, 9 WM_DRM_LICENSE_STATE_EXPIRATION_AFTER_FIRSTUSE, 0)
+TestVerifyStateData(1, 9 WM_DRM_LICENSE_STATE_EXPIRATION_AFTER_FIRSTUSE, 0)
+
+
+110112:GetLicenseAggregateData gets WM_DRM_LICENSE_STATE_FROM_UNTIL for a license BurnToCD right with begin date and expired date
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.BeginDate)?secstate.BeginDate=#20030101 10:00:00Z#:secstate.BeginDate;!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",NULL,NULL,NULL,NULL,17520)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Print.redbook)
+TestVerifyStateData(0, 5 WM_DRM_LICENSE_STATE_FROM_UNTIL, 0)
+
+
+110119:GetLicenseAggregateData: a license with Play and BurnToCD right with BurnToCDcount while another license with expired date
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.BurnToCDCount)?secstate.BurnToCDCount=35:0]]></ACTION></ONSTORE>", {00000568-0000-0010-8000-00AA006D2EA4})
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",NULL,NULL,NULL,NULL,17520)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 2 actions, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play, Print.redbook)
+TestVerifyStateData(0, 1 WM_DRM_LICENSE_STATE_UNLIM, 0)
+TestVerifyStateData(1, 2 WM_DRM_LICENSE_STATE_COUNT, 1, 1 count, 35 counts left)
+
+
+110121:GetLicenseAggregateData: a license with Play and BurnToCD right with BurnToCDcount while another license with BurnToCDcount and expired date
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.BurnToCDCount)?secstate.BurnToCDCount=5:0;!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",{00000568-0000-0010-8000-00AA006D2EA4},NULL,NULL,NULL,17520)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.BurnToCDCount)?secstate.BurnToCDCount=35:0]]></ACTION></ONSTORE>")
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 actions, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Print.redbook)
+TestVerifyStateData(0, 2 WM_DRM_LICENSE_STATE_COUNT, 1, 1 count, 35 counts left)
+
+
+110122:GetLicenseAggregateData: a license with Play right with 15 HoursFromFirstUset while another license has Play right with playcount
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=15:0]]></ACTION></ONSTORE>", {00000568-0000-0010-8000-00AA006D2EA4})
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=11:0]]></ACTION></ONSTORE>")
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 actions, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play)
+TestVerifyStateData(0, 2 WM_DRM_LICENSE_STATE_COUNT, 1, 1 count, 11 counts left)
+
+
+110123:GetLicenseAggregateData: a license has Play and BurnToCD right with HoursFromFirstUse while another license has Play and BurnToCDRight right with BurnToCDcount
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=15:0]]></ACTION></ONSTORE>", {00000568-0000-0010-8000-00AA006D2EA4})
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.BurnToCDCount)?secstate.BurnToCDCount=35:0]]></ACTION></ONSTORE>")
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 actions, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Print.redbook)
+TestVerifyStateData(0, 2 WM_DRM_LICENSE_STATE_COUNT, 1, 1 count, 35 counts left)
+
+
+110127:GetLicenseAggregateData: a license has Play and BurnToCD right with BurnToCDcount and expired date
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.BurnToCDCount)?secstate.BurnToCDCount=35:0;!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",NULL,NULL,NULL,NULL,17520)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 actions, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Print.redbook)
+TestVerifyStateData(0, 7 WM_DRM_LICENSE_STATE_COUNT_UNTIL, 0, 1 count, 35 counts left)
+
+
+110128:GetLicenseAggregateData: a license has Play and BurnToCD right with BurnToCDcount and HoursFromFirstUse
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.BurnToCDCount)?secstate.BurnToCDCount=35:0;!exists(secstate.HoursFromFirstUse)?secstate.HoursFromFirstUse=15:0]]></ACTION></ONSTORE>")
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 actions, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Print.redbook )
+'License hasn't been used yet so counts are not yet in effect
+TestVerifyStateData(0, 9 WM_DRM_LICENSE_STATE_EXPIRATION_AFTER_FIRSTUSE, 0, 1 count, 15 hours left)
+
+
+110129:GetLicenseAggregateData: a license has BurnToCD right with BeginDate and ExpirationDate
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.BeginDate)?secstate.BeginDate=#20030101 10:00:00Z#:secstate.BeginDate;!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",NULL,NULL,NULL,NULL,17520)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 actions, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Print.redbook)
+TestVerifyStateData(0, 5 WM_DRM_LICENSE_STATE_FROM_UNTIL, 0)
+
+
+110130:GetLicenseAggregateData: a license has Play and BurnToCD right with BurnToCDCount while another same right license with ExpirationDate
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.BurnToCDCount)?secstate.BurnToCDCount=35:0]]></ACTION></ONSTORE>", {00000579-0000-0010-8000-00AA006D2EA4})
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",NULL,NULL,NULL,NULL,17520)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 actions, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Print.redbook)
+TestVerifyStateData(0, 2 WM_DRM_LICENSE_STATE_COUNT, 1, 1 count, 35 burn counts left)
+
+
+110131:GetLicenseAggregateData: a license has Play and BurnToCD right with Begindate and Expirationdate while another same right license with Burncount and Expirationdate
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.BeginDate)?secstate.BeginDate=#20030101 10:00:00Z#:secstate.BeginDate;!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#", {00000579-0000-0010-8000-00AA006D2EA4},NULL,NULL,NULL,17520)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.BurnToCDCount)?secstate.BurnToCDCount=29:0;!exists(secstate.ExpirationDate)?secstate.ExpirationDate=#",NULL,NULL,NULL,NULL,17520)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 actions, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Print.redbook)
+TestVerifyStateData(0, 7 WM_DRM_LICENSE_STATE_COUNT_UNTIL, 1, 1 count, 29 counts left)
+
+
+110133:GetLicenseAggregateData: a license has Play and BurnToCD rights with zero Playcount and BurnToCDcount gets WM_DRM_LICENSE_STATE_NORIGHT
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONACTION type=\"Print.redbook\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSTORE><ACTION><![CDATA[secstate.PlayCount=0;secstate.BurnToCDCount=0;1]]></ACTION></ONSTORE>")
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 2 actions, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play, Print.redbook)
+TestVerifyStateData(0, 0 WM_DRM_LICENSE_STATE_NORIGHT)
+TestVerifyStateData(1, 0 WM_DRM_LICENSE_STATE_NORIGHT)
+
+
+'Tests to verify that state data for chain licenses works properly
+
+110200:GetLicenseAggregateData works for license chain that has Play right with playcount on root
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=11:0]]></ACTION></ONSTORE>", {00000579-0000-0010-8000-00AA006D2EA4},Acl2BY3ITE0qe11DalmK0D==,2 MAKE_ROOT_LICENSE)
+TestAddLicense(0, NULL, {00000123-0000-0010-8000-00AA006D2EA4},xtPIE1Q8hk25v64NV3ExqQ==,1 MAKE_LEAF_LICENSE,Acl2BY3ITE0qe11DalmK0D==)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_ROOT_LICENSES Aggregation Type, Play)
+TestVerifyStateData(0, 2 WM_DRM_LICENSE_STATE_COUNT, NULL, 1 count, 11 play counts left)
+
+
+110201:GetLicenseAggregateData works for license chain that has Play right with playcount on root and leaf, aggregating leaves only
+SkipTestIf(!WMDRMSupported)
+TestAddLicense(64 OP_LICGEN_NO_DEFAULT_RIGHTS 0x40, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=11:0]]></ACTION></ONSTORE>", {00000579-0000-0010-8000-00AA006D2EA4},Acl2BY3ITE0qe11DalmK0D==,2 MAKE_ROOT_LICENSE)
+TestAddLicense(0, "<ONACTION type=\"Play\"><CONDITION><![CDATA[secstate.PlayCount>0]]></CONDITION><ACTION><![CDATA[secstate.PlayCount--]]></ACTION></ONACTION><ONSTORE><ACTION><![CDATA[!exists(secstate.PlayCount)?secstate.PlayCount=1:0]]></ACTION></ONSTORE>", {00000123-0000-0010-8000-00AA006D2EA4},xtPIE1Q8hk25v64NV3ExqQ==,1 MAKE_LEAF_LICENSE,Acl2BY3ITE0qe11DalmK0D==)
+TestGetLicenseAggregateData(Normal Actions, Normal StateData, 1 action, Normal viewrights context, DRM_ASD_AGGREGATE_SIMPLE_AND_LEAF_LICENSES Aggregation Type, Play)
+TestVerifyStateData(0, 2 WM_DRM_LICENSE_STATE_COUNT, NULL, 1 count, 1 play counts left)
+

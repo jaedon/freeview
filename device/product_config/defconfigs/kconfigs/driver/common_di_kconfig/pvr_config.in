@@ -1,0 +1,209 @@
+##########################################
+# DI PVR configuration menu
+##########################################
+
+config PVR
+	bool
+	prompt "PVR"
+	default n
+
+	config FS
+		bool
+		prompt "File-system"
+		default n
+
+	config RECORD
+		bool
+		prompt "RECORD"
+		default y
+		depends on PVR
+
+		config LOCAL_TIMESTAMP_ONOFF_SWITCH
+			bool
+			prompt "LOCAL_TIMESTAMP_ONOFF_SWITCH: enable it to decide packet size at recording time"
+			default n
+			depends on RECORD
+			
+		config LOCAL_TIMESTAMP_ENABLED_RECORD
+			bool
+			prompt "LOCAL_TIMESTAMP_ENABLED_RECORD"
+			default n
+			depends on RECORD
+		
+		 config LOCAL_TIMESTAMP_TYPE_32BIT_BINARY
+			 bool
+			 prompt "LOCAL_TIMESTAMP_TYPE_32BIT_BINARY"
+			 default n
+			 depends on LOCAL_TIMESTAMP_ENABLED_RECORD
+			 
+		config DOUBLE_SIZE_RECORD_BUFFER
+			bool
+			prompt "DOUBLE_SIZE_RECORD_BUFFER"
+			default n
+			depends on RECORD
+			
+		config USE_PRIVATE_FILE_EXTENTION_HTS
+			bool
+			prompt "Use file extension *.hts instead of *.ts"
+			default n
+			depends on RECORD
+			
+		config WORKAROUND_STREAM_WITH_OVER_9_CONSECUTIVE_STARTCODE
+			bool
+			prompt "WORKAROUND_STREAM_WITH_OVER_9_CONSECUTIVE_STARTCODE"
+			default n
+			depends on RECORD
+
+		config REC_MEMIO
+			bool
+			prompt "REC_MEMIO"
+			default n
+			depends on RECORD
+
+		config SCRAMBLE_RECORDING
+			bool
+			prompt "SCRAMBLE_RECORDING"
+			default n
+			depends on RECORD
+
+		config TSR
+			bool
+			prompt "TSR"
+			default y
+			depends on RECORD
+
+		choice
+			prompt "Select size of TSR buffer"
+			default 120MIN_TSR_BUFFER   
+			config 60MIN_TSR_BUFFER
+				bool
+				prompt "60MIN_TSR_BUFFER"
+				depends on TSR
+
+			config 90MIN_TSR_BUFFER
+				bool
+				prompt "90MIN_TSR_BUFFER"
+				depends on TSR
+
+			config 120MIN_TSR_BUFFER
+				bool
+				prompt "120MIN_TSR_BUFFER"
+				depends on TSR
+
+			config 150MIN_TSR_BUFFER
+				bool
+				prompt "150MIN_TSR_BUFFER"
+				depends on TSR
+
+			config 60MIN_TSR_BUFFER_FOR_HIGH_BITRATE_30MBPS
+				bool
+				prompt "60MIN_TSR_BUFFER_FOR_HIGH_BITRATE_30MBPS"
+				depends on TSR				
+
+			config 90MIN_TSR_BUFFER_FOR_HIGH_BITRATE_30MBPS
+				bool
+				prompt "90MIN_TSR_BUFFER_FOR_HIGH_BITRATE_30MBPS"
+				depends on TSR	
+
+			config 120MIN_TSR_BUFFER_FOR_HIGH_BITRATE_30MBPS
+				bool
+				prompt "120MIN_TSR_BUFFER_FOR_HIGH_BITRATE_30MBPS"
+				depends on TSR
+
+			config 150MIN_TSR_BUFFER_FOR_HIGH_BITRATE_30MBPS
+				bool
+				prompt "150MIN_TSR_BUFFER_FOR_HIGH_BITRATE_30MBPS"
+				depends on TSR				
+		endchoice
+
+		config DELAYED_RECORD
+			bool
+			prompt "DELAYED_RECORD"
+			depends on RECORD
+
+			config CHUNK_FILE_SIZE
+				int
+				default 92405760
+				prompt "CHUNK_FILE size. this value shall be multiple of LCM(188,192,4096)."
+				depends on DELAYED_RECORD
+
+		config MAX_RECORD_INSTANCE
+			int
+			default 3
+			prompt "Number of max simultaneous recording instances."
+			depends on RECORD
+
+		config PID_CHANGE_DURING_RECORD
+			bool
+			prompt "PID_CHANGE_DURING_RECORD. It can be change pid during record"
+			default y
+			depends on RECORD
+
+		config USB_FLASH_RECORD
+			bool
+			prompt "Support USB Memory Stick record"
+			default n
+			depends on RECORD
+
+	config PLAYBACK
+		bool
+		prompt "PLAYBACK"
+		default y
+		depends on PVR
+
+		config THUMBNAIL_DECODING
+			bool
+			prompt "THUMBNAIL_DECODING"
+			default n
+			depends on PLAYBACK
+
+		config TIME_BASED_SEEK
+			bool
+			prompt "TIME_BASED_SEEK"
+			default n
+			depends on PLAYBACK
+
+		config MAX_PLAYBACK_INSTANCE
+			int
+			default 1
+			prompt "MAX_PLAYBACK_INSTANCE"
+			depends on PLAYBACK
+		
+		config SMOOTH_TRICK
+			bool
+			prompt "support smooth trick mode"
+			default n
+			depends on PLAYBACK
+
+	config LARGE_SIZE_PLAYPUMP_BUFFER
+		bool
+		prompt "LARGE_SIZE_PLAYPUMP_BUFFER: enable it for smooth streaming"
+		default n
+		depends on MEDIA
+
+	config PVR_EDIT
+		bool
+		prompt "PVR_EDIT"
+		default n
+		depends on PVR
+
+	config PVR_SECURITY_ENGINE_INLINE_CRYPTO
+		bool
+		prompt "Security engine : XPT Inline Crypto(CPS/CPD)"
+		default n
+		depends on PVR
+
+config TEST_COPY_TASK
+	bool
+	prompt "TEST_COPY_TASK"
+	default n
+
+config PVR_PLAYMODE_TIMESKIP
+	bool
+	prompt "PVR_PLAYMODE_TIMESKIP"
+	default n
+
+config PVR_REC_BUFFER_2X
+	bool
+	prompt "PVR_REC_BUFFER_2X"
+	default n

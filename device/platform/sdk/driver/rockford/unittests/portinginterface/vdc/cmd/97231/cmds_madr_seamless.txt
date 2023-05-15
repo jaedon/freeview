@@ -1,0 +1,21 @@
+rul
+ovc
+pb
+os 0 0 msf 21 mdf 21 maf
+ow set_bw 1000000 1
+cf 2
+dnr 30 2 80 2 90 2 70
+mad 1 1 1 0 0 1 18
+de /data/videos/sarnoff.trp 31 31 0 1
+clear sleep bvncb
+mads 200
+bvncb
+sleep
+rul
+pb
+c0
+cw
+cs
+cd
+quit
+

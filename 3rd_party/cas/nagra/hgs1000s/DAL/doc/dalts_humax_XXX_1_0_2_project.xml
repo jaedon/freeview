@@ -1,0 +1,127 @@
+<?xml version="1.0" ?>
+<C2UBPXML>
+	<C2Information>
+		<date>
+			<year>2015</year>
+			<month>9</month>
+			<day>21</day>
+		</date>
+		<general>
+			<request_number>175183</request_number>
+			<partner_id>5444:Humax Co., Ltd.</partner_id>
+			<platform_id>16408:HGS-1000S</platform_id>
+			<operator_id>9161:Astra (APS-HD+)</operator_id>
+			<certificate>22922:DZS-003852</certificate>
+			<pibo_ref>D-3-B-APS-O178</pibo_ref>
+			<project_name_cvs>dalts_humax_XXX</project_name_cvs>
+			<release_version>1_0_2</release_version>
+			<product>DALTS</product>
+			<product_version>3_17_0</product_version>
+			<variant>cak7-merlin</variant>
+			<buildtype>project.xml</buildtype>
+			<motivation>change max filter number</motivation>
+			<toolchainid>3686</toolchainid>
+			<toolchainos>Linux64</toolchainos>
+			<redelivery presence="true">Wrong / Update Configuration of Product Library</redelivery>
+			<client_name>kade.guo@nagra.com</client_name>
+			<partner_mail>mslee@humaxdigital.com&gt;</partner_mail>
+		</general>
+		<modules>
+			<cakapi codeline="//CAK/COMPONENTS/CAKAPI/MAIN" version="1_24_0"/>
+			<dalapi codeline="//CAK/COMPONENTS/DALAPI/MAIN" version="7_3_1"/>
+			<prmapi codeline="//CAK/COMPONENTS/PRMAPI/MAIN" version="3_1_0"/>
+			<caoapi codeline="//CAK/COMPONENTS/CAOAPI/MAIN" version="-1"/>
+			<makefiles codeline="//CAK/TOOLS/MAKEFILES/MAIN" version="last"/>
+		</modules>
+		<makeby>
+			<acronym>SGM</acronym>
+		</makeby>
+	</C2Information>
+	<project name="dalts_humax_XXX" revision="1_0_2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../tools/makefiles/src/com/ubp/ubp.xsd">
+		<product name="dalts" revision="3_17_0">
+			<variant name="cak7-merlin">
+				<obfuscation activated="false"/>
+				<options>
+					<option name="adaptresources" presence="false"/>
+					<option name="cakstubscompiledin" presence="true"/>
+					<option name="cak76" presence="true"/>
+					<option name="certtests" presence="true"/>
+					<option name="dmxmop" presence="true" value="1"/>
+					<option name="glbmeta" presence="false"/>
+					<option name="icctestT1block" presence="true"/>
+					<option name="icctests" presence="true"/>
+					<option name="keyladder" presence="true"/>
+					<option name="mkll1" presence="true"/>
+					<option name="legacytest" presence="false"/>
+					<option name="manufacturermenu" presence="false"/>
+					<option name="maxtuners" presence="true" value="7"/>
+					<option name="nocslevel" presence="true" value="3.0"/>
+					<option name="nuid" presence="true" value="0xb3c0f8b4,0xb3c0f7b0,0xb3c0f7b1,0xb3c0f7dc,0xb3c0f8d4,0xb3c0f738"/>
+					<option name="opentv" presence="false"/>
+					<option name="pmmcsc" presence="true"/>
+					<option name="pmmird" presence="false"/>
+					<option name="pmmpd" presence="false"/>
+					<option name="pmmtests" presence="true"/>
+					<option name="prm30" presence="true"/>
+					<option name="psitests" presence="false"/>
+					<option name="secdecraw" presence="true"/>
+					<option name="secdects" presence="true"/>
+					<option name="secenc" presence="false"/>
+					<option name="secll" presence="false"/>
+					<option name="sectargetid" presence="true" value="0x0"/>
+					<option name="endianlittle" presence="true"/>
+					<option name="usetestvectorh" presence="true"/>
+					<option name="v_dvl" presence="true"/>
+					<option name="vfstests" presence="false"/>
+				</options>
+				<library_types>
+					<library_type name="release" presence="true"/>
+				</library_types>
+				<keysets>
+					<embed>
+						<file path="project/TVC_root_entry_175183.xml" type="testvector"/>
+					</embed>
+				</keysets>
+			</variant>
+		</product>
+		<toolchains>
+			<toolchain directory="humax" name="arm-linux-gnueabihf-gcc" version="4.8-1.0">
+				<compiler_flags>
+					<flag>-O2</flag>
+					<flag>-pipe</flag>
+					<flag>-marm</flag>
+					<flag>-march=armv7-a</flag>
+					<flag>-fdata-sections</flag>
+					<flag>-ffunction-sections</flag>
+					<flag>-fno-strict-aliasing</flag>
+					<flag>-fstack-protector-all</flag>
+					<flag>-Wall</flag>
+					<flag>-Wno-unused-value</flag>
+					<flag>-Wno-unused-function</flag>
+					<flag>-Wstrict-prototypes</flag>
+					<flag>-Wno-strict-aliasing</flag>
+					<flag>-Wdeclaration-after-statement</flag>
+					<flag>-Wno-pointer-sign</flag>
+				</compiler_flags>
+				<compiler_defines>
+					<define>_FILE_OFFSET_BITS=64</define>
+					<define>_LARGEFILE_SOURCE</define>
+					<define>_LARGEFILE64_SOURCE</define>
+					<define>BSTD_CPU_ENDIAN_LITTLE</define>
+					<define>LINUX</define>
+				</compiler_defines>
+				<toolarchive location="T:\humax/stbgcc-4.8-1.0" type="directory"/>
+				<tooldir>
+					<folder>stbgcc-4.8-1.0</folder>
+				</tooldir>
+				<binsubdir>
+					<folder>bin</folder>
+				</binsubdir>
+			</toolchain>
+		</toolchains>
+		<archiver archive_file="nagra_dalts_humax_XXX_1_0_2" name="winzip"/>
+		<targets>
+			<target name="dalts"/>
+		</targets>
+	</project>
+</C2UBPXML>

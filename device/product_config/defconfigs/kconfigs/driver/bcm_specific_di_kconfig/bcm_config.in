@@ -1,0 +1,246 @@
+#########################################################
+# Chip specific BCM configuration menu
+#########################################################
+
+config BCM_7358_SUPPORT_512M
+	bool "7358 Supprt 512M"
+	default n
+
+config BCM_TBD
+	bool
+	prompt "BCM_TBD"
+	default y
+config BCM_SMARTCARD # modify smartcard
+	bool
+	prompt "BCM_SMARTCARD"
+	default y
+config BCM_REMUX_CLOCK_BUG # remux clock h/w bug workaround
+	bool
+	prompt "BCM_REMUX_CLOCK_BUG"
+	default y
+config BCM_FRONTEND_ADD # frontend add code for humax platform
+	bool
+	prompt "BCM_FRONTEND_ADD"
+	default y
+config BCM_FRONTEND_DISEQC_BUG # frontend diseqc setting bug workaround
+	bool
+	prompt "BCM_FRONTEND_DISEQC_BUG"
+	default n
+config BCM_DEMUX_CONFIG # change demux configuration for humax platform
+	bool
+	prompt "BCM_DEMUX_CONFIG"
+	default n
+config BCM_DIRECT_RCU # Don't use scheduler callback
+	bool
+	prompt "BCM_DIRECT_RCU"
+	default y
+config BCM_UART # fixed nexus uart buffer control
+	bool
+	prompt "BCM_UART"
+	default n
+config BCM_DEMUX_TUNE # every demux modification(except FIXes listed above) for proper operations.
+	bool
+	prompt "BCM_DEMUX_TUNE"
+	default n
+config BCM_AV_LEVEL # fixed 7405 AV level issue
+	bool
+	prompt "BCM_AV_LEVEL"
+	default n
+config BCM_CAP_ASSERT # 7335 & 7405 Capture Bug fix
+	bool
+	prompt "BCM_CAP_ASSERT"
+	default y
+config BCM_WIN_CLIP # 7335 & 7405 Window Clipping Bug fix
+	bool
+	prompt "BCM_WIN_CLIP"
+	default y
+
+#BCM_FIX +=	FIX_WINDOW_60 # Use bvdc_window_60.c and bvdc_window_priv_60.c in nexus phase 6.0
+
+config BCM_SPI_WAITTIME # fixed spi wait timing (us->ms)
+	bool
+	prompt "BCM_SPI_WAITTIME"
+	default n
+
+#FIX_MAD_BOUNDARY_90
+#FIX_MAD_BOUNDARY
+
+config BCM_RAVE_OVERFLOW # Fix rave buffer overflow bug.(for 7405, cause of broken-GUI)
+	bool
+	prompt "BCM_RAVE_OVERFLOW"
+	default n
+config BCM_SUPPORT_DELAYED_RECORD # For Delayed Recording support
+	bool
+	prompt "BCM_SUPPORT_DELAYED_RECORD"
+	default y
+config BCM_CAP_INOUT_OFFSET # Modify Capture In / Out coordinations if these occur assert (Cause of remaing garbage screen when video decoder is stopped)
+	bool
+	prompt "BCM_CAP_INOUT_OFFSET"
+	default n
+config BCM_VIDEO_JERKY # Video Jerky Issue
+	bool
+	prompt "BCM_VIDEO_JERKY"
+	default n
+config BCM_VSYNC_AUTO # Use to generate HW Psync(Vsync), only being effected to 7405
+	bool
+	prompt "BCM_VSYNC_AUTO"
+	default n
+config BCM_DSC_IV_LIMITATION # Workaround descrambler's limitation that IV(Initial vector) can't be set separately for EVEN_key and ODD_key.
+	bool
+	prompt "BCM_DSC_IV_LIMITATION"
+	default n
+config BCM_USE_DEC_FW_70 # Using Decoder Firemware 7.0 ver in phase 6.5 (Only 7405)
+	bool
+	prompt "BCM_USE_DEC_FW_70"
+	default n
+config BCM_TIMESTAMP_ENABLED_RECORD # For 192 packet base record
+	bool
+	prompt "BCM_TIMESTAMP_ENABLED_RECORD"
+	default n
+
+#FIX_RESERVE_SDRAM_FOR_ROOTFS
+
+config BCM_TTX_START_LINE # Instead of the 6th start line, changed to 7th start line
+	bool
+	prompt "BCM_TTX_START_LINE"
+	default n
+config BCM_DVI_HDCP # fixed HDCP fail issue at some DVI model
+	bool
+	prompt "BCM_DVI_HDCP"
+	default n
+config BCM_MAD_ZOOM_BOUNDARY # 7405 Clip Mad On/Off Boundary (1/4 clipping and full scaling)
+	bool
+	prompt "BCM_MAD_ZOOM_BOUNDARY"
+	default n
+
+#FIX_TTX_START_LINE
+#FIX_DVI_HDCP
+#FIX_MAD_ZOOM_BOUNDARY
+
+config BCM_MICROPROSS_TEST # Only for Micropross test (ISO-7816 test)
+	bool
+	prompt "BCM_MICROPROSS_TEST"
+	default n
+
+config BCM_ATR_PARITY_CHECK # for CAK7 
+	bool
+	prompt "BCM_ATR_PARITY_CHECK" 
+	default n
+
+config BCM_CWT_ERROR # for CAK7
+	bool
+	prompt "BCM_CWT_ERROR" 
+	default n
+
+config BCM_VDC_WSS_FW # patch for 7335 & 7325 (VBI firmware at vdc because of distorting of output display)
+	bool
+	prompt "BCM_VDC_WSS_FW"
+	default n
+
+#FIX_PB_UNSET_CONT_COUNT_IGNORE
+
+#USE_RTS_32UMA
+
+config BCM_MIN_SRC_CNT # 7405 when one of the width and height about minimum source clip under 64, fix 64 value of one of them.
+	bool
+	prompt "BCM_MIN_SRC_CNT"
+	default n
+config BCM_DRM_CRASH # Fix crash issue in DRM HTTP
+	bool
+	prompt "BCM_DRM_CRASH"
+	default y
+
+config BCM_TUNER_CTL_LNA_PGA_MODE #Default Define
+	bool
+	prompt "BCM_TUNER_CTL_LNA_PGA_MODE"
+	default n
+
+config BCM_TUNER_LNA_BYPASS #Default Define
+	bool
+	prompt "BCM_TUNER_LNA_BYPASS"
+	default n
+
+config BCM_ONLY_1080I
+	bool
+	prompt "BCM_ONLY_1080I"
+	default n
+
+config BCM_ARIB_VIDEO # Use ARIB spec.
+	bool
+	prompt "BCM_ARIB_VIDEO"
+	default n
+
+config BCM_CAS_MULTI2 # Use MULTI2 spec.
+	bool
+	prompt "BCM_CAS_MULTI2"
+	default n
+	depends on DSC || HDCP || CRYPTO
+
+config BCM_GRAPHICS3D # Use Graphics 3D engine.
+	bool
+	prompt "BCM_GRAPHICS3D"
+	default n
+
+config BCM_MTSIF # Use MTSIF.
+	bool
+	prompt "BCM_MTSIF"
+	default n
+
+config BCM_HUMAX_CHANGE_MAP
+	bool
+	prompt "BCM_HUMAX_CHANGE_MAP"
+	default n
+
+config BCM_TWO_TRANSCODER
+	bool
+	prompt "BCM_TWO_TRANSCODER increase 44MB bcm memory"
+	default n
+
+config BRCM_PATCH_TRANSCODING_32BIT_TIMESTAMP
+	bool
+	prompt "BRCM_PATCH_TRANSCODING_32BIT_TIMESTAMP"
+	default n
+	
+config BCM_FILE_PERMISSION
+	bool
+	prompt "BCM_FILE_PERMISSION"
+	default n
+	
+	config BCM_FILE_UID
+		int
+		prompt "BCM_FILE_UID"
+		default 1001
+		depends on BCM_FILE_PERMISSION
+	
+	config BCM_FILE_GID
+		int
+		prompt "BCM_FILE_GID"
+		default 1600
+		depends on BCM_FILE_PERMISSION
+		
+config BCM_COMPONENT_COUNT
+	int
+	prompt "NUM COMPONENT OUTPUTS"
+	default 1
+
+config BCM_COMPOSITE_COUNT
+	int
+	prompt "NUM COMPOSITE OUTPUTS"
+	default 1
+
+config BCM_SAGE_AUTO_FW
+	bool
+	prompt "BCM_SAGE_AUTO_FW"
+	default n
+	depends on HDCP_22_PROVISIONING || KEY_PROVISIONING
+
+config BCM_SAGE_AUTO_FW_CHECK_FLAG_NULL
+  bool
+	prompt "BCM_SAGE_AUTO_FW_CHECK_FLAG_NULL"
+	default n
+	depends on BCM_SAGE_AUTO_FW
+	
+config BCM_AVS_MONITOR
+	bool
+	prompt "BCM_AVS_MONITOR"
+	default y

@@ -1,0 +1,11 @@
+!include ..\drmbuild.cmn
+
+TARGETNAME=drmkeyfileformat
+TARGETTYPE=LIBRARY
+
+C_DEFINES= $(C_DEFINES)                 \
+    -DDRM_BUILDING_DRMKEYFILEFORMAT_LIB \
+
+SOURCES =                 \
+    drmkeyfileformat.c    \
+

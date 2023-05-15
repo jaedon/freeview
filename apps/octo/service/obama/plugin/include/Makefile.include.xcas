@@ -1,0 +1,82 @@
+
+# MW CAS include path
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/svc/cas
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/svc/cas/local_include
+ccflags-y += -I$(OCTO_TVSERVICE_DIR)/svc/cas/port/include
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/include
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/include
+
+ifeq ($(CONFIG_MW_CI), y)
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/ci
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/ci/include
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/ci/control
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/ci/ci_res
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/ci/ci_res/ci_utils
+endif
+
+ifeq ($(CONFIG_MW_CAS_VIACCESS), y)
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/viaccess
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/viaccess/dmx
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/viaccess/dscr
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/viaccess/main
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/viaccess/nvm
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/viaccess/os
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/viaccess/pi
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/viaccess/sc
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/viaccess/schip
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/viaccess/ui
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/viaccess/control
+ccflags-$(CONFIG_MW_CAS_VIACCESS_PVR) += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/viaccess/pvr
+ccflags-$(CONFIG_MW_CAS_VIACCESS_NET) += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/viaccess/net
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/viaccess/Interface/$(CONFIG_PRODUCT_NAME)
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/viaccess/Interface/$(CONFIG_PRODUCT_NAME)/DriverInterface
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/viaccess/Interface/$(CONFIG_PRODUCT_NAME)/SecurityInterface
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/viaccess/Interface/$(CONFIG_PRODUCT_NAME)/UserInterface
+endif
+
+ifeq ($(CONFIG_MW_CAS_NAGRA),y)
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/nagra/include
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/nagra/local_include
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/nagra/include/$(CONFIG_PRODUCT_NAME)
+ccflags-$(CONFIG_MW_CAS_NAGRA_OP_SES) += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/nagra/op/ses
+endif
+
+ifeq ($(CONFIG_MW_CAS_IRDETO),y)
+ifeq ($(CONFIG_MW_CAS_IRDETO_SCELL),y)
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/irdeto/include
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/irdeto/sc_header
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/irdeto/control
+endif
+ifeq ($(CONFIG_MW_CAS_IRDETO_UCAS),y)
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/uc/include
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/uc/uc_header
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/uc/uc_header/$(CONFIG_PRODUCT_PLATFORM_NAME)
+endif
+ifeq ($(CONFIG_MW_CAS_IRDETO_LOADER_V5),y)
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/uc/ir_ldv5
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/uc/ir_ldv5/LoaderCore/include
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/uc/ir_ldv5/LoaderCore/include/ExportAPI
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/uc/ir_ldv5/LoaderCore/include/ImportSPI
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/uc/ir_ldv5/LoaderCore/Src/Shared
+endif
+endif
+
+ifeq ($(CONFIG_MW_CAS_CONAX),y)
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/conax/include
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/conax/
+endif
+
+ifeq ($(CONFIG_MW_CAS_VERIMATRIX),y)
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/verimatrix/include
+ifeq ($(CONFIG_MW_CAS_VERIMATRIX_IPTV),y)
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/verimatrix/include/iptvh
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/verimatrix/viewright/iptv_hybrid/include
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/verimatrix/viewright/iptv_hybrid/client/model/$(CONFIG_PRODUCT_NAME)/include
+endif
+ifeq ($(CONFIG_MW_CAS_VERIMATRIX_IPTV),y)
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/verimatrix/include/betacrypt
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/verimatrix/viewright/betacrypt/include
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/base/verimatrix/viewright/betacrypt/client/model/$(CONFIG_PRODUCT_NAME)/include
+endif
+endif
+

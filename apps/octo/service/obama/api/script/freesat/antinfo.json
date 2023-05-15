@@ -1,0 +1,50 @@
+{
+	"antinfo": [{
+		"valid": 0
+	}, {
+		"valid": 1,
+		"sat_type": "astra_1",
+		"sat_name": "MyAstra",
+		"antenna_type": "diseqc",
+		"antinfo": {
+			"lnbfreq": -1,
+			"lnbvoltage": "standard",
+			"22khztone": false,
+			"diseqcver": "1.0",
+			"diseqcinput": "c",
+			"toneburst": "none",
+			"motorpos": 0,
+			"longitude": 0
+		}
+	}, {
+		"valid": 1,
+		"sat_type": "astra_2",
+		"sat_name": "ASTRA_2",
+		"antenna_type": "diseqc",
+		"antinfo": {
+			"lnbfreq": -1,
+			"lnbvoltage": "standard",
+			"22khztone": false,
+			"diseqcver": "1.0",
+			"diseqcinput": "b",
+			"toneburst": "none",
+			"motorpos": 0,
+			"longitude": 0
+		}
+	}, {
+		"valid": 1,
+		"sat_type": "asiasat_3s",
+		"sat_name": "ASIASAT_3S",
+		"antenna_type": "diseqc",
+		"antinfo": {
+			"lnbfreq": 5150,
+			"lnbvoltage": "standard",
+			"22khztone": true,
+			"diseqcver": "1.0",
+			"diseqcinput": "b",
+			"toneburst": "none",
+			"motorpos": 0,
+			"longitude": 0
+		}
+	}]
+}

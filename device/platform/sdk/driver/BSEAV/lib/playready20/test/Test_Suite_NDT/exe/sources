@@ -1,0 +1,20 @@
+
+TARGETNAME=Test_Suite_NDT
+TARGETTYPE=PROGRAM
+UMTYPE=console
+
+#
+# If main.c and/or functionaltest.c has MEMORY_LEAK_DEBUG defined, use DEBUG_CRTS=1
+#
+# DEBUG_CRTS=1
+
+SOURCES = \
+        ../main.c
+
+TARGETLIBS = \
+	$(_DRM_REFCODE_LIBS) \
+	$(_DRM_TC_LIBS) \
+	$(_DRM_TEST_METERING_LIB) \
+        $(_DRM_TEST_DRMMANAGER_LIB) \
+        $(_DRM_TEST_TESTSUITENDT_LIB) \
+        $(_DRM_TEST_NETIO_LIB)    \

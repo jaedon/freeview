@@ -1,0 +1,317 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+# 
+
+TARGETS += packages
+IGNORE += packages
+
+######################################
+HUMAX_CONFIG_PACKAGE_DIR=$(HUMAX_PRODUCT_CONFIG_DIR)/package
+HUMAX_PACKAGE_DIR=$(HUMAX_WORK_DIR)/../packages
+HUMAX_OPENSSL_INCLUDE_DEST=$(HUMAX_WORK_DIR)/../include
+HUMAX_OPENSSL_INCLUDE_SRC=$(HUMAX_PACKAGE_DIR)/openssl/include/openssl
+HUMAX_NTFS_DRIVER_DIR = $(HUMAX_WORK_DIR)/platform/sdk/os/drivers/fs/ntfs
+
+PACKAGE_COMPILE_FLAGS=CONFIG_TOOLCHAIN_PATH=$(CONFIG_TOOLCHAIN_PATH) \
+	HUMAX_PORTING_MAKE_DIR=$(HUMAX_PORTING_MAKE_DIR) \
+	HUMAX_WORK_DIR=$(HUMAX_WORK_DIR) \
+	HUMAX_PACKAGE_DIR=$(HUMAX_PACKAGE_DIR) \
+	CONFIG_PRODUCT_NAME=$(CONFIG_PRODUCT_NAME) \
+	CONFIG_PRODUCT_IMAGE_TYPE=$(CONFIG_PRODUCT_IMAGE_TYPE) \
+	HUMAX_MAKE_DIR=$(HUMAX_MAKE_DIR) \
+	HUMAX_KCONFIG_TOOL_DIR=$(HUMAX_KCONFIG_TOOL_DIR) \
+	CONFIG_PRODUCT_DI_DEBUG_SYMBOL=$(CONFIG_PRODUCT_DI_DEBUG_SYMBOL) \
+	HUMAX_OUTPUT_DIR=$(HUMAX_OUTPUT_DIR) \
+	HUMAX_PREPARE_ROOT_DIR=$(HUMAX_PREPARE_ROOT_DIR)
+
+packages : 
+	@echo ======= Copy 3rd Party Libraries ========
+ifdef CONFIG_NAND_FLASH	
+	@echo == Copy default libraries and binaries	
+	@echo -- MTD-Utils
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/mtd-utils/usr/sbin/ubi* $(HUMAX_PREPARE_ROOT_DIR)/usr/sbin/
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/mtd-utils/usr/sbin/flash_erase $(HUMAX_PREPARE_ROOT_DIR)/usr/sbin/
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/mtd-utils/usr/sbin/mtdinfo $(HUMAX_PREPARE_ROOT_DIR)/usr/sbin/
+else
+ifdef CONFIG_NOR_FLASH
+	@echo == Copy default libraries and binaries	
+	@echo -- MTD-Utils
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/mtd-utils/usr/sbin/ubi* $(HUMAX_PREPARE_ROOT_DIR)/usr/sbin/
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/mtd-utils/usr/sbin/flash_erase $(HUMAX_PREPARE_ROOT_DIR)/usr/sbin/
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/mtd-utils/usr/sbin/mtdinfo $(HUMAX_PREPARE_ROOT_DIR)/usr/sbin/
+endif
+endif	
+	@echo == Copy selectable libraries and binaries
+
+ifdef CONFIG_EXT_LIB
+	@echo -- e2fsprogs
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/libext2fs/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/libext2fs/sbin/mkfs.ext3 $(HUMAX_PREPARE_ROOT_DIR)/sbin
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/libext2fs/sbin/fsck.ext3 $(HUMAX_PREPARE_ROOT_DIR)/sbin
+	
+	@echo -- parted
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/parted/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/parted/bin/parted $(HUMAX_PREPARE_ROOT_DIR)/usr/sbin/
+endif
+
+ifdef CONFIG_MEDIA20
+	@echo -- Openssl
+	@$(HUMAX_CP) -rfa $(HUMAX_PACKAGE_DIR)/openssl/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+endif
+
+ifdef CONFIG_XFS_LIB
+	@echo -- XFS
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/xfsprogs/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/xfsprogs/bin/mkfs.xfs $(HUMAX_PREPARE_ROOT_DIR)/sbin/
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/xfsprogs/bin/xfs_repair $(HUMAX_PREPARE_ROOT_DIR)/sbin/
+
+	@echo -- parted
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/parted/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/parted/bin/parted $(HUMAX_PREPARE_ROOT_DIR)/usr/sbin/
+
+	@echo -- uuid from e2fsprogs
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/libext2fs/lib/libuuid.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+endif
+
+ifdef CONFIG_EXT4_LIB
+	@echo -- EXT4
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/libext2fs/sbin/mkfs.ext4 $(HUMAX_PREPARE_ROOT_DIR)/sbin/
+endif
+
+ifdef CONFIG_CALYPSO
+	@echo -- ffmpeg library for calypso
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/ffmpeg/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@echo -- viewrightweb library for calypso
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/viewrightweb/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@echo -- playready library for calypso
+ifndef CONFIG_PLAYREADY_25
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/playready/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+else
+	@echo -- Used of Playready in BSEAV/lib/playready25
+endif
+	@echo -- calypso library for calypso
+ifeq    ($(CONFIG_PRODUCT_IMAGE_DEBUG),y)
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/calypso/debug/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+else
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/calypso/release/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+endif
+endif
+
+ifdef CONFIG_NTFS_RW_LIB
+	@echo -- NTFS
+	@$(HUMAX_CP) -rf ${HUMAX_NTFS_DRIVER_DIR}/debug/ntfs/tools/mkntfs ${HUMAX_PREPARE_ROOT_DIR}/sbin
+	@$(HUMAX_CP) -rf ${HUMAX_NTFS_DRIVER_DIR}/debug/ntfs/tools/ntfslabel ${HUMAX_PREPARE_ROOT_DIR}/sbin
+	@$(HUMAX_CP) -rf ${HUMAX_NTFS_DRIVER_DIR}/debug/ntfs/tools/ntfsck ${HUMAX_PREPARE_ROOT_DIR}/sbin
+	@echo -- parted
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/parted/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/parted/bin/parted $(HUMAX_PREPARE_ROOT_DIR)/usr/sbin/
+endif
+
+ifneq ($(CONFIG_PRODUCT_IMAGE_FACTORY),)
+else
+ifdef CONFIG_DIRECTFB
+	@echo -- freetype
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/freetype/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+endif
+endif
+
+ifdef CONFIG_OPENSSL
+	@echo -- openssl
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/openssl/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	(rm -rf $(HUMAX_OPENSSL_INCLUDE_DEST)/openssl)
+	mkdir -p $(HUMAX_OPENSSL_INCLUDE_DEST)
+	(cd $(HUMAX_OPENSSL_INCLUDE_DEST); ln -sf $(HUMAX_OPENSSL_INCLUDE_SRC) openssl;)
+endif
+
+ifdef CONFIG_LIBXML2
+	@echo -- libxml2
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/libxml2/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/zlib/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+endif
+
+ifdef CONFIG_VIEWRIGHTWEB
+	@echo -- ViewRightWebClient
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/viewrightweb/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+endif
+
+ifdef CONFIG_MARLIN_DRM
+	@echo -- MarlinDrm, Wasabi-SDK
+	$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/marlin/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+endif
+
+ifneq ($(CONFIG_PRODUCT_MULTI_PROCESS),)
+	@echo -- pcd
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/pcd/lib/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@echo =========================================
+endif
+
+ifeq ($(CONFIG_TOOLS_OPROFILE),y)
+	@echo -- oprofile packages
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/oprofile/lib/oprofile/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -f $(HUMAX_PACKAGE_DIR)/oprofile/bin/op* $(HUMAX_PREPARE_ROOT_DIR)/usr/bin
+	@echo -- popt
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/popt/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@echo -- gettext
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/gettext/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@echo -- binutils
+	@$(HUMAX_CP) -f $(HUMAX_PACKAGE_DIR)/binutils/bin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/bin
+endif
+
+ifeq ($(CONFIG_IPERF),y)
+ifeq ($(CONFIG_PRODUCT_IMAGE_HWTEST),y)
+	@echo -- Iperf
+	@$(HUMAX_CP) -f $(HUMAX_PACKAGE_DIR)/iperf/bin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/bin
+endif
+ifeq ($(CONFIG_PRODUCT_IMAGE_FACTORY),y)
+	@echo -- Iperf
+	@$(HUMAX_CP) -f $(HUMAX_PACKAGE_DIR)/iperf/bin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/bin
+endif
+endif
+
+ifeq ($(CONFIG_EBTABLES),y)
+	@echo -- Ebtables
+	@$(HUMAX_CP) -f $(HUMAX_PACKAGE_DIR)/ebtables/bin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/bin
+	@$(HUMAX_CP) -f $(HUMAX_PACKAGE_DIR)/ebtables/lib/* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -f $(HUMAX_PACKAGE_DIR)/ebtables/etc/* $(HUMAX_PREPARE_ROOT_DIR)/etc
+endif
+
+ifeq ($(CONFIG_CRYPTSETUP),y)
+	@echo -- Crypto
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/crypto/bin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/bin
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/crypto/lib/* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+endif
+
+ifeq ($(CONFIG_DOSFSTOOLS),y)
+	@echo -- DOSFSTOOLS
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/dosfstools/bin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/sbin
+endif
+
+
+ifeq ($(CONFIG_LXC),y)
+	@echo -- LXC
+# mkdir to mount cgroup
+	@mkdir -p $(HUMAX_PREPARE_ROOT_DIR)/cgroup
+# copy libs to rootfs
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/lxc/* $(HUMAX_PREPARE_ROOT_DIR)/
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/libcap/sbin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/sbin/
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/libpam/lib/libpam.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/
+	@$(HUMAX_CP) -drpf $(HUMAX_UCLIBC_OLD_DIR)/sys-root/lib/libutil* \
+						$(HUMAX_PREPARE_ROOT_DIR)/lib/
+# copy smcroute to rootfs
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/smcroute/* \
+						$(HUMAX_PREPARE_ROOT_DIR)/
+# copy mdns repeater to rootfs
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/mdns-repeater/* \
+						$(HUMAX_PREPARE_ROOT_DIR)/
+
+# copy libcap/libattr to rootfs
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/libcap/lib64/libcap.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/libattr/lib/libattr.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/
+endif
+
+ifeq ($(CONFIG_CAS_NA),y)
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/libcap/lib64/libcap.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/libattr/lib/libattr.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib/
+endif
+
+ifeq ($(CONFIG_IPTABLES),y)
+	@echo -- iptables
+ifeq ($(CONFIG_JAPAN_SPEC),y)
+# for wa-7500, wa-8500
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/iptables/usr/sbin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/sbin
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/iptables/usr/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib	
+else
+	@mkdir -p $(HUMAX_PREPARE_ROOT_DIR)/usr/local/bin
+	@mkdir -p $(HUMAX_PREPARE_ROOT_DIR)/usr/local/sbin
+	$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/iptables/usr/local/bin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/local/bin/
+	$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/iptables/usr/local/sbin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/local/sbin/
+	$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/iptables/usr/local/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+endif	# CONFIG_JAPAN_SPEC
+endif
+
+ifeq ($(CONFIG_IPV6),y)
+	@echo -- dhcp for ipv6
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/dhcp/bin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/sbin
+endif
+
+ifeq ($(CONFIG_DHCPCD),y)
+	@echo -- dhcpcd
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/dhcpcd/bin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/sbin
+endif
+
+ifeq ($(CONFIG_FTPSERVER),y)
+	@echo -- tinyftp
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/tinyftp/bin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/bin
+	@echo -- jansson
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/jansson/* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+endif
+
+ifeq ($(CONFIG_TFTPSERVER),y)
+	@echo -- tftpd
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/tftpd/bin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/sbin
+endif
+
+ifeq ($(CONFIG_PPPOE),y)
+	@echo -- pppd
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/pppd/usr/bin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/bin
+	@echo -- rp-pppoe
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/rp-pppoe/usr/bin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/bin
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/rp-pppoe/etc/* $(HUMAX_PREPARE_ROOT_DIR)/etc
+endif
+
+ifeq ($(CONFIG_ETHTOOL),y)
+	@echo -- ethtool
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/ethtool/bin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/sbin
+endif
+
+ifeq ($(CONFIG_CAS),y)
+ifeq ($(CONFIG_CAS_NA_NOCS_3X),y)
+	@echo -- Libraries For NAGRA NOCS 3.x driver
+	@echo -- libtomcrypt
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/libtomcrypt/usr/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@echo -- libtommath
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/libtommath/usr/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@echo -- openssl
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/openssl/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	(rm -rf $(HUMAX_OPENSSL_INCLUDE_DEST)/openssl)
+	mkdir -p $(HUMAX_OPENSSL_INCLUDE_DEST)
+	(cd $(HUMAX_OPENSSL_INCLUDE_DEST); ln -sf $(HUMAX_OPENSSL_INCLUDE_SRC) openssl;)
+endif
+ifeq ($(CONFIG_CAS_BCSD),y)
+	@echo -- Libraries For CONAX BCSD driver
+	@echo -- libtomcrypt
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/libtomcrypt/usr/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@echo -- libtommath
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/libtommath/usr/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@echo -- openssl
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/openssl/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	(rm -rf $(HUMAX_OPENSSL_INCLUDE_DEST)/openssl)
+	mkdir -p $(HUMAX_OPENSSL_INCLUDE_DEST)
+	(cd $(HUMAX_OPENSSL_INCLUDE_DEST); ln -sf $(HUMAX_OPENSSL_INCLUDE_SRC) openssl;)
+endif
+endif
+
+ifdef CONFIG_KEYS
+	@echo -- libgpg-error  -libgcrypt
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/libgpg-error/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/libgcrypt/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/keyutils/bin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/bin
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/keyutils/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/ecryptfs_utils/bin/* $(HUMAX_PREPARE_ROOT_DIR)/usr/bin
+	@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/ecryptfs_utils/lib/*.so* $(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+
+endif
+ifeq ($(CONFIG_PRODUCT_DEVICE_DEBUG_LOG),y)
+	@echo -- addr2line
+	-@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/binutils/bin/addr2line $(HUMAX_PREPARE_ROOT_DIR)/usr/sbin
+	@echo -- gdb
+	-@$(HUMAX_CP) -drpf $(HUMAX_PACKAGE_DIR)/gdb/bin/gdb* $(HUMAX_PREPARE_ROOT_DIR)/usr/sbin
+endif
+
+ifeq ($(CONFIG_BRCM_MOCA),y)
+	@echo -- tc in iproute2 package for traffic control of MoCA interface
+	@$(HUMAX_CP) -rf $(HUMAX_PACKAGE_DIR)/iproute2/sbin/tc $(HUMAX_PREPARE_ROOT_DIR)/sbin
+endif
+

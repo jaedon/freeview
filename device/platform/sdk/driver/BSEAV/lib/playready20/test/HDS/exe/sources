@@ -1,0 +1,15 @@
+
+TARGETTYPE=PROGRAM
+TARGETNAME=HDSTest
+UMTYPE=console
+
+SOURCES = \
+	../main.c \
+
+		 
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \
+    $(_DRM_TEST_HDS_LIB) \
+
+    

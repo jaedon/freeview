@@ -1,0 +1,32 @@
+#
+# Do not link to either real OR stub licgen!  We use our own implementation.
+#
+DRM_SUPPORT_LICGEN=2
+
+DRM_SUPPORT_M2TSENCRYPTOR=1
+
+!include ..\..\drmbuild.cmn
+
+TARGETNAME=m2tsencryptor
+TARGETTYPE=PROGRAM
+UMENTRY=wmain
+UMTYPE=console
+
+SOURCES = \
+    mpeg2tsencryptor.c
+
+!if "$(_DRM_BUILD_TOOL)" != "NMAKE"
+SOURCES = $(SOURCES) \
+      mpeg2tsencryptor.rc
+!endif
+
+INCLUDES =                                             \
+    $(INCLUDES)                                        \
+    $(_DRM_SOURCE_PATH)\tools\common;                  \
+
+TARGETLIBS = $(TARGETLIBS)                             \
+    $(_DRM_COMMON_LIBS)                                \
+    $(_DRM_OEM_MAIN_LIB)                               \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemaes.lib               \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmm2tsencryptorreal.lib \
+

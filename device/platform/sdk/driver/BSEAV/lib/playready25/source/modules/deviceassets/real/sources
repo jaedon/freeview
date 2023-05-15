@@ -1,0 +1,12 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmdeviceassetsreal
+TARGETTYPE=LIBRARY
+
+SOURCES =                            \
+    drmblobcachereal.c               \
+    drmdeviceassetsutilreal.c        \
+    drmdevicedevcertreal.c           \
+    drmrevocationstoresst.c          \
+    drmsecstorereal.c                \
+

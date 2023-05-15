@@ -1,0 +1,66 @@
+############################################################
+#     Copyright (c) 2003-2012, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: auto_unittests_client_server_example.txt $
+# $brcm_Revision: Hydra_Software_Devel/2 $
+# $brcm_Date: 1/20/12 2:13p $
+#
+# Module Description:
+#
+# -----------
+# - single test -
+# testPathFileName <arguments>
+# ex1: unittests/display/display_vbi_stress -disable_cgmsb
+# ex2: rockford/unittests/nexus/audio/codec_test
+# ex3: nexus/examples/audio/codec_test
+#
+# -----------
+# - client-server test -
+# pathFileName_background_server_app <arguments> | delay in sec to foreground test | pathFileName_foreground_test_binary <arguments>
+# ex1: rockford/unittests/nexus/multiprocess/simple_server -mode untrusted -timeout 60 | 15 | rockford/unittests/nexus/multiprocess/untrusted_client
+# ex2: nexus/examples/multiprocess/decode_server -timeout 120 | 15 |  nexus/examples/multiprocess/playpump_scatter_gather_client
+#
+# Revision History:
+#
+# $brcm_Log: /rockford/unittests/nexus/common/auto_unittests_client_server_example.txt $
+# 
+# Hydra_Software_Devel/2   1/20/12 2:13p slauzon
+# SWCHECKFRAME-80:commented out tests
+# 
+# Hydra_Software_Devel/1   1/11/12 3:53p slauzon
+# SWCHECKFRAME-116: code complete
+# 
+# Hydra_Software_Devel/SWCHECKFRAME-116/3   1/11/12 2:13p slauzon
+# SWCHECKFRAME-116: test test test
+# 
+# Hydra_Software_Devel/SWCHECKFRAME-116/2   1/11/12 1:35p slauzon
+# SWCHECKFRAME-116: install with tarball
+# 
+# Hydra_Software_Devel/SWCHECKFRAME-116/1   1/6/12 1:54p slauzon
+# SWCHECKFRAME-116: test ready
+# 
+############################################################
+
+#client - server
+nexus/examples/multiprocess/decode_server -timeout 120 | 15 |  nexus/examples/multiprocess/playpump_scatter_gather_client
+nexus/examples/multiprocess/decode_server -timeout 120 | 15 |  nexus/examples/multiprocess/playpump_encrypted_client
+#rockford/unittests/nexus/multiprocess/simple_server -mode protected -timeout 60 | 15 | rockford/unittests/nexus/multiprocess/ir_input_client
+#rockford/unittests/nexus/multiprocess/simple_server -mode untrusted -timeout 60 | 15 | rockford/unittests/nexus/multiprocess/simple_client
+#rockford/unittests/nexus/multiprocess/simple_server -mode untrusted -timeout 60 | 15 | rockford/unittests/nexus/multiprocess/untrusted_client
+
+#single test
+#rockford/unittests/nexus/multiprocess/stress_server join_stress_client
+#rockford/unittests/nexus/multiprocess/bad_join
+
+#old syntax
+#unittests/audio/codec_test
+#unittests/display/display_vbi
+#unittests/display/digital_cc_capture
+#unittests/display/display_vbi_stress  -disable_cgmsb
+#unittests/dma/dma_api_usage

@@ -1,0 +1,85 @@
+<html>
+	<head>
+		<meta http-equiv="cache-control" content="no-cache" />
+		<meta http-equiv="pragma" content="no-cache" />
+	</head>
+
+	<body style="background-color:#FFFFFF">
+		<object type="application/sotup" id="sotup"></object>
+		<div id="info" style="margin:10px;">
+			<b>Select WebApp Upgrade Action</b>
+			<br>
+			1: Regist the Upgrade Result Event Listener
+			<br>
+			2: Check New Application
+			<br>
+			3: Stop Check New Application
+			<br>
+			(available buttons: blue (clear log))
+			<br>
+		</div>
+		<div id="outputNode" style="clear:left;margin-left:10px;";></div>
+
+		<script language="javascript">
+			/*
+				Guide to use application/sotup object.
+				* object mime type : application/sotup
+				* methods
+					- checkNewWebApplication(void) : check whether there is a new Web App and if starts to download it
+					- stopCheckNewWebApplication(void) : request to stop the check and download new Web App
+					- addUpgradeResultListener(eventType, listener) : add upgrade result event listener
+						# eventType should be "UpdateResult"
+					
+			*/
+			
+			try {
+				var sotup = document.getElementById('sotup');
+				var outputNode = document.getElementById('outputNode');
+				var startTime = new Date().getTime();
+			} catch(e) {
+				alert(e);
+			}
+
+			function output(text) {
+				outputNode.innerHTML += "<br>[" + (new Date().getTime() - startTime) + "] " + text;
+			}
+
+			function clearLog() {
+				outputNode.innerHTML = "[0] Log:";
+			}
+
+			function onUpdateResult(event, value) {
+				output("event: " + event);
+				output("value: " + value);
+			};
+
+			document.onkeypress = function(event) {
+				var data = "";
+				switch (event.keyCode || event.which) {
+					case 49:
+						output("Regist the Upgrade Result Event Listener");
+						sotup.addUpgradeResultListener("UpdateResult", onUpdateResult);
+						break;
+					case 50:
+						output("Check New Application");
+						sotup.checkNewWebApplication();
+						break;
+					case 51:
+						output("Stop Check New Application");
+						sotup.stopCheckNewWebApplication();
+						break;
+					case 406:
+						clearLog();
+						break;
+				}
+			};
+
+			function init() {
+				/* nothing */
+			}
+
+		</script>
+		
+	</body onload="init()">
+</html>
+

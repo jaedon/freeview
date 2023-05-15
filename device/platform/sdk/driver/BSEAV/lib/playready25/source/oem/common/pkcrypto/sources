@@ -1,0 +1,11 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=oempkcrypto
+TARGETTYPE=LIBRARY
+
+C_DEFINES= $(C_DEFINES)             \
+    -DDRM_BUILDING_OEMPKCRYPTO_LIB  \
+
+SOURCES =         \
+    oempkcrypto.c
+

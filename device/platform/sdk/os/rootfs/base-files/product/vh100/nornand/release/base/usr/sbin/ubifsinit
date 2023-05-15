@@ -1,0 +1,12 @@
+#!/bin/sh
+
+	umount /mnt/flash
+	umount /var/lib/humaxtv
+	umount /var/lib/humaxtv_backup
+	ubidetach -m 11
+	ubiformat -y /dev/mtd11
+	ubiattach -m 11
+	ubimkvol /dev/ubi4 -N altidata -s 169MiB
+	ubimkvol /dev/ubi4 -N altidb -s 7MiB
+	ubimkvol /dev/ubi4 -N altidbbackup -s 7MiB
+	ubidetach -m 11

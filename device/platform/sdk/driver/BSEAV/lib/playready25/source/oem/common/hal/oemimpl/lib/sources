@@ -1,0 +1,7 @@
+!include ..\..\..\..\..\drmbuild.cmn
+
+TARGETNAME=oemhaloemimpl
+TARGETTYPE=LIBRARY
+
+SOURCES =                   \
+    ..\oemhaloemimpl.c      \

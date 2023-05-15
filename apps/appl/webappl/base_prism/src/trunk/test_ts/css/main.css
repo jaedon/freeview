@@ -1,0 +1,36 @@
+#test-main.-page-full {
+  width: 1280px;
+  height: 720px;
+  top: 0px;
+  left: 0px;
+}
+#test-main .-color-background {
+  background-color: #8a0868;
+}
+#test-main .-opacity-1 {
+  opacity: .1;
+}
+#test-main .-opacity-2 {
+  opacity: .2;
+}
+#test-main .-opacity-3 {
+  opacity: .3;
+}
+#test-main .-opacity-4 {
+  opacity: .4;
+}
+#test-main .-opacity-5 {
+  opacity: .5;
+}
+#test-main .-opacity-6 {
+  opacity: .6;
+}
+#test-main .-opacity-7 {
+  opacity: .7;
+}
+#test-main .-opacity-8 {
+  opacity: .8;
+}
+#test-main .-opacity-9 {
+  opacity: .9;
+}

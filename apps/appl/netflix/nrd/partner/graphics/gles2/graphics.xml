@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config_root>
+  <config_data>
+    <alpha_format>BGRA32_PM</alpha_format>
+    <opaque_format>BGRA32_PM</opaque_format>
+    <text_format>A8</text_format>
+    <surface_atlas_enabled>true</surface_atlas_enabled>
+    <capabilities>
+      <gibbon>
+        <effects>
+          <transform>
+            <accelerated>true</accelerated>
+          </transform>
+          <blur>
+            <accelerated>true</accelerated>
+          </blur>
+          <desaturate>
+            <accelerated>true</accelerated>
+          </desaturate>
+        </effects>
+      </gibbon>
+    </capabilities>
+  </config_data>
+</config_root>

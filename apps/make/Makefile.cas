@@ -1,0 +1,92 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+#
+
+## this is temporary configuration. i have to delete below line... -_-!!!!
+-include $(HUMAX_TOP_DIR)/apps/make/humaxtv_make/.config
+
+THIRDPARTY_DIR := $(HUMAX_TOP_DIR)/3rd_party
+#HUMAX_NFS_INSTALL_DIR := $(strip $(subst ",,/nfsroot/$(USER)/$(CONFIG_PRODUCT_NAME)/root))
+
+ap_cas :
+	@echo $@
+ifeq ($(CONFIG_MW_CAS_VIACCESS), y)
+ifeq ($(CONFIG_MW_CAS_VIACCESS_DRIVER_TEST), y)
+	@cp -rdf $(THIRDPARTY_DIR)/cas/viaccess/$(CONFIG_PRODUCT_NAME)/dta/acs_va.a			$(HUMAX_STATIC_LIB_DIR)/
+else
+# hjlee3, maybe, if you need,  you change
+#	@cp -rdf $(THIRDPARTY_DIR)/cas/viaccess/$(CONFIG_PRODUCT_NAME)/release/acs_va.a		$(HUMAX_STATIC_LIB_DIR)/libacs_va.a
+#	@cp -rdf $(APPL_MAKE_DIR)/testapp/libtestapp.a		$(HUMAX_STATIC_LIB_DIR)/
+endif
+endif
+
+ifeq ($(CONFIG_MW_CAS_NAGRA),y)
+	@cp -rdf $(HUMAX_PLATFORM_LIB_SRC)/libnocs.a								$(HUMAX_STATIC_LIB_DIR)/
+	@cp -rdf $(THIRDPARTY_DIR)/cas/nagra/$(CONFIG_PRODUCT_NAME)/CAK/*.a			$(HUMAX_STATIC_LIB_DIR)/
+ifeq ($(CONFIG_MW_CAS_NAGRA_PRM),y)
+	@cp -rdf $(THIRDPARTY_DIR)/cas/nagra/$(CONFIG_PRODUCT_NAME)/DVL/*.a			$(HUMAX_STATIC_LIB_DIR)/
+endif
+ifeq ($(CONFIG_MW_CAS_NAGRA_DALTEST),y)
+	@cp -rdf $(THIRDPARTY_DIR)/cas/nagra/$(CONFIG_PRODUCT_NAME)/DAL/*.a			$(HUMAX_STATIC_LIB_DIR)/
+endif
+endif
+
+ifeq ($(CONFIG_MW_CAS_IRDETO),y)
+ifeq ($(CONFIG_MW_CAS_IRDETO_SCELL), y)
+	@cp -rdf $(THIRDPARTY_DIR)/cas/irdeto/$(CONFIG_PRODUCT_NAME)/*.a			$(HUMAX_STATIC_LIB_DIR)/
+endif
+ifeq ($(CONFIG_MW_CAS_IRDETO_UCAS), y)
+	@cp -rdf $(THIRDPARTY_DIR)/cas/irdeto/$(CONFIG_PRODUCT_NAME)/UC/*.a			$(HUMAX_STATIC_LIB_DIR)/
+	#temporary copy from Makefile.3rdparty
+	#@cp -rdf $(THIRDPARTY_DIR)/cas/irdeto/$(CONFIG_PRODUCT_NAME)/ucas_2_8/IrUC_PSFile_* $(HUMAX_NFS_INSTALL_DIR)/opt/share/
+endif
+ifeq ($(CONFIG_MW_CAS_IRDETO_UCAS_VM_VAILDATOR), y)
+	@cp -rdf $(THIRDPARTY_DIR)/cas/irdeto/$(CONFIG_PRODUCT_NAME)/VM/*.a			$(HUMAX_STATIC_LIB_DIR)/
+endif
+endif
+
+ifeq ($(CONFIG_MW_CAS_VERIMATRIX),y)
+ifeq ($(CONFIG_MW_CAS_VERIMATRIX_IPTV), y)
+	@cp -drpf $(THIRDPARTY_DIR)/cas/verimatrix/iptv/*.a						$(HUMAX_STATIC_LIB_DIR)/
+	@cp -drpf $(THIRDPARTY_DIR)/cas/verimatrix/iptv/*.so						$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/
+ifeq ($(CONFIG_ENHANCED_SECURITY),y)
+	@sudo cp -drpf $(THIRDPARTY_DIR)/cas/verimatrix/iptv/*.so					$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+else
+	@cp -drpf $(THIRDPARTY_DIR)/cas/verimatrix/iptv/*.so						$(HUMAX_NFS_INSTALL_DIR)/usr/lib/
+endif
+endif
+endif
+
+# This block is temporarily here. It shall be moved into "ifeq ($(CONFIG_MW_CAS_VERIMATRIX),y) " block in the above.
+ifeq ($(CONFIG_MW_CAS_VERIMATRIX_SEPARATED_LIB_DIR),y)
+	mkdir -p $(HUMAX_APP_STAGGING_ROOT_DIR)/$(CONFIG_MW_CAS_VERIMATRIX_LIB_DIR_NAME)
+	find $(THIRDPARTY_DIR)/cas/verimatrix -name "*.a" -exec cp '{}' $(HUMAX_APP_STAGGING_ROOT_DIR)/$(CONFIG_MW_CAS_VERIMATRIX_LIB_DIR_NAME) \;
+	find $(THIRDPARTY_DIR)/cas/verimatrix -name "*.so" -exec cp '{}' $(HUMAX_APP_STAGGING_ROOT_DIR)/$(CONFIG_MW_CAS_VERIMATRIX_LIB_DIR_NAME) \;
+	find $(HUMAX_PACKAGE_DIR)/viewrightweb -name "*.so" -exec cp '{}' $(HUMAX_APP_STAGGING_ROOT_DIR)/$(CONFIG_MW_CAS_VERIMATRIX_LIB_DIR_NAME) \;
+	mkdir -p $(HUMAX_NFS_INSTALL_DIR)/$(CONFIG_MW_CAS_VERIMATRIX_LIB_DIR_NAME)
+	find $(THIRDPARTY_DIR)/cas/verimatrix -name "*.a" -exec cp '{}' $(HUMAX_NFS_INSTALL_DIR)/$(CONFIG_MW_CAS_VERIMATRIX_LIB_DIR_NAME) \;
+	find $(THIRDPARTY_DIR)/cas/verimatrix -name "*.so" -exec cp '{}' $(HUMAX_NFS_INSTALL_DIR)/$(CONFIG_MW_CAS_VERIMATRIX_LIB_DIR_NAME) \;
+	find $(HUMAX_PACKAGE_DIR)/viewrightweb -name "*.so" -exec cp '{}' $(HUMAX_NFS_INSTALL_DIR)/$(CONFIG_MW_CAS_VERIMATRIX_LIB_DIR_NAME) \;
+endif #CONFIG_MW_CAS_VERIMATRIX_SEPARATED_LIB_DIR
+
+ifeq ($(CONFIG_ENHANCED_SECURITY),y)
+	@sudo cp -Rf $(HUMAX_TOP_DIR)/apps/octo/service/obama/plugin/xtvmanager/xmgr/cas/base/resource/cas_string.bin $(HUMAX_NFS_INSTALL_DIR)/usr/data/
+else
+ifeq ($(CONFIG_MW_CAS),y)
+	@cp -Rf $(HUMAX_TOP_DIR)/apps/octo/service/obama/plugin/xtvmanager/xmgr/cas/base/resource/cas_string.bin $(HUMAX_NFS_INSTALL_DIR)/usr/data/
+endif
+endif
+
+ap_cas_clean :
+#	echo $@
+#	if [ -f $(HUMAX_STATIC_LIB_DIR)/*.a ]; then\
+#		rm -f $(HUMAX_STATIC_LIB_DIR)/*.a; \
+#	fi
+	@rm -rf $(HUMAX_STATIC_LIB_DIR)/*.a
+
+ap_cas_distclean :
+#	@echo @ !!
+	@rm -rf $(HUMAX_STATIC_LIB_DIR)/*.a
+

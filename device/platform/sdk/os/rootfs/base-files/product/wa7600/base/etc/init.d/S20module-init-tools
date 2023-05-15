@@ -1,0 +1,47 @@
+#!/bin/sh
+
+MODULES_FILE=/etc/default/modules
+. /lib/lsb/init-functions
+. /etc/default/rcS
+if [ "$VERBOSE" != no ]; then
+	log_begin_msg 'Loading modules...'
+fi
+
+convert_params() {
+    if [ "$1" = mac3addr ]; then
+	for cmd in $(cat /proc/cmdline)
+	do
+	    case "$cmd" in
+	    *$1*) 
+		args=$cmd
+		return 0 ;;
+            esac
+	done
+	args=
+    fi
+}
+
+grep '^[^#]' $MODULES_FILE | \
+while read module args; do
+    [ "$module" ] || continue
+    convert_params $args
+    if [ "$VERBOSE" != no ]; then
+		log_begin_msg "Trying module $module"
+		if modprobe $module $args >/dev/null 2>&1; then
+		    log_end_msg 0
+		else
+		    log_end_msg 1 || true
+		fi
+    else
+	modprobe $module $args >/dev/null 2>&1 || true
+    fi
+done
+
+convert_params mac3addr
+ip link set eth1 down
+ip link set eth1 name bcm0 up
+ip link set eth2 down
+ip link set eth2 name eth1 up
+ifconfig bcm0 down
+ifconfig bcm0 hw ether $mac3addr
+ifconfig eth1 hw ether 00:01:02:03:44:44

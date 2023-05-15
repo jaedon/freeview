@@ -1,0 +1,13 @@
+!include ..\..\..\..\..\drmbuild.cmn
+
+TARGETNAME=oemhaloemimpl_test
+TARGETTYPE=LIBRARY
+
+C_DEFINES = $(C_DEFINES)                          \
+            -DDRM_TEST_EXPOSE_TEST_FUNCTIONS=1    \
+
+_DRM_C_DEFINES=$(_DRM_C_DEFINES) DRM_TEST_EXPOSE_TEST_FUNCTIONS=1
+
+SOURCES =                   \
+    ..\oemhaloemimpl.c      \
+

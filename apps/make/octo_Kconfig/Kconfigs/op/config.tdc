@@ -1,0 +1,12 @@
+# Denmark TDC
+
+menu "Select Operator's specific configs"
+	comment "Select Operator's specific configs"
+
+        config OP_TDC_NETWORK_LED
+                depends on OP_TDC
+                bool "OP_TDC_NETWORK_LED - Use Network LED Indicator about association"
+                default n
+
+endmenu
+

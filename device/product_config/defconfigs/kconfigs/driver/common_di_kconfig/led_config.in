@@ -1,0 +1,73 @@
+##########################################
+# DI LED configuration menu
+##########################################
+
+choice
+	prompt "Select LED_MICOM"
+	default LED_MICOM   
+	config LED_MICOM
+		bool
+		prompt "LED_MICOM"
+
+	config LED_GPIO
+		bool
+		prompt "LED_GPIO"
+		
+	config LED_REFACTORING
+		bool
+		prompt "Refactoring Feature"
+		
+endchoice
+
+config LED_BOTH
+	bool
+	prompt "LED control using both MICOM and GPIO"
+	default n
+
+config LED_GPIO_STBY_ONLY
+	bool
+	prompt "select this config if target has only one gpio-led for stanby"
+	depends on LED_GPIO
+	default n
+
+config LED_GPIO_STBY_POWER_ONLY
+	bool
+	prompt "select this config if target has only two gpio-leds for stanby and power"
+	depends on LED_GPIO
+	default n
+
+config LED_GPIO_PWM_AND_THREE_STATE
+	bool
+	prompt "select this config if target has pwm for blue led and 2 sate for red led"
+	depends on LED_GPIO
+	default n
+	
+config LED_GPIO_PWM_CHANNEL
+	int
+	default 1
+	prompt "pwm channel number for LED"
+	depends on LED_GPIO
+
+config LED_GPIO_RGB_FULL_COLOR
+	bool
+	prompt "gpio leds supporting rgb full colors"
+	depends on LED_GPIO
+	default n
+
+config LED_GPIO_DIMMING_FIXED_LEVEL
+	bool
+	prompt "gpio leds supporting fixed dimming level(high/low)"
+	depends on LED_GPIO
+	default n
+
+config LED_GPIO_AND_FOURE_STATE
+	bool
+	prompt "gpio leds supporting four state (standby/standby2/power/power2)"
+	depends on LED_GPIO
+	default n
+
+config LED_CAPABILITY_MODEL
+	bool
+	prompt "LED_CAPABILITY_MODEL(in di_config.c)"
+	default n
+

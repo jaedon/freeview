@@ -1,0 +1,13 @@
+{
+	"network": [{
+		"net_uid": 1,
+		"onid": 1,
+		"net_name": "ASTRA 1",
+		"delitype": "sat"
+	}, {
+		"net_uid": 2,
+		"onid": 0,
+		"net_name": "Unknown",
+		"delitype": "sat"
+	}]
+}

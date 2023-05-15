@@ -1,0 +1,7 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=LIBRARY
+TARGETNAME=DatastoreTestAPI
+
+SOURCES = \
+    ..\testdatastore.c \

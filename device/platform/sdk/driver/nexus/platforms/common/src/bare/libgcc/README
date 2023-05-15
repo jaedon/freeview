@@ -1,0 +1,18 @@
+If a file is in this directory, it is here because the GCC compiler even in freestanding mode,
+required the subroutines found in these files to be linked with the output of the
+compiler (i.e. a compiled program).
+
+Although some of these files may have GPL license terms, they are granted an exception
+to the terms due to fact they are required for runtime support of GCC compiled files. This 
+comment is from one such file with regard to GPL.
+
+/* As a special exception, if you link this library with other files,
+   some of which are compiled with GCC, to produce an executable,
+   this library does not by itself cause the resulting executable
+   to be covered by the GNU General Public License.
+   This exception does not however invalidate any other reasons why
+   the executable file might be covered by the GNU General Public License.
+ */
+
+If this is not the case, we will make every effort to replace these files
+with non-GPL versions.

@@ -1,0 +1,85 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+#
+
+## this is temporary configuration. i have to delete below line... -_-!!!!
+-include $(HUMAX_MAKE_DIR)/.config
+
+BROWSER_WORK_DIR := $(HUMAX_TOP_DIR)/apps/appl/browser/corsair/base-2.0/build/
+#HUMAX_NFS_INSTALL_DIR := $(strip $(subst ",,/nfsroot/$(USER)/$(CONFIG_PRODUCT_NAME)/root))
+
+BROWSER_DIR=$(BROWSER_WORK_DIR)/out/
+
+
+HUMAX_APP_STAGGING_TOP_DIR=$(HUMAX_MAKE_DIR)/_gen_rootfs
+HUMAX_APP_STAGGING_ROOT_DIR=$(HUMAX_APP_STAGGING_TOP_DIR)/root
+HUMAX_APP_STAGGING_IMG_DIR=$(HUMAX_APP_STAGGING_TOP_DIR)/image
+
+ifeq ($(CONFIG_ENHANCED_SECURITY),y)
+HUMAX_SUDO := sudo
+else
+HUMAX_SUDO :=
+endif
+
+ap_browser-stag:
+	@if [ ! -d $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/browser ]; then \
+		mkdir -p $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/browser/;	\
+	fi;\
+
+	@if [ ! -d $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/fonts ]; then \
+		mkdir -p $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/fonts/;	\
+	fi;\
+
+	@if [ -d $(BROWSER_WORK_DIR) ]; then \
+		$(MAKE) -C $(BROWSER_WORK_DIR) $(PARALLEL_MAKE_OPTION_BROWSER) || exit -1;		\
+		cp -af $(BROWSER_WORK_DIR)/out/lib/*.so*	$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/;	\
+		mkdir -p $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/browser/drm;	\
+		mv -f $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/libuvadrmbackend-*.so $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/browser/drm/;	\
+		mv -f $(BROWSER_WORK_DIR)/out/runtime/opera_dir/fonts/*	$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/fonts/;	\
+		cp -af $(BROWSER_WORK_DIR)/out/runtime/opera_dir $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/browser/;	\
+		cp -af $(BROWSER_WORK_DIR)/out/runtime/opera_home $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/browser/;	\
+		mkdir -p $(HUMAX_APP_STAGGING_ROOT_DIR)/home/corsair;	\
+		cp -af $(BROWSER_WORK_DIR)/src/build/out/corsair $(HUMAX_APP_STAGGING_ROOT_DIR)/home/corsair/;		\
+	fi;
+
+ap_browser : ap_browser-stag FORCE
+	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser ]; then \
+		$(HUMAX_SUDO) mkdir -p $(HUMAX_NFS_INSTALL_DIR)/usr/browser/;	\
+	fi;\
+
+	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/usr/fonts ]; then \
+#		$(HUMAX_SUDO) rm -rf $(HUMAX_NFS_INSTALL_DIR)/usr/fonts;   \
+		$(HUMAX_SUDO) mkdir -p $(HUMAX_NFS_INSTALL_DIR)/usr/fonts/;	\
+	fi;\
+
+	@if [ -d $(BROWSER_WORK_DIR) ]; then \
+		$(HUMAX_SUDO) cp -af $(BROWSER_WORK_DIR)/out/lib/*.so*	$(HUMAX_NFS_INSTALL_DIR)/usr/lib/;	\
+		$(HUMAX_SUDO) mv -f $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libuvadrmbackend-*.so $(HUMAX_NFS_INSTALL_DIR)/usr/browser/drm/;	\
+		$(HUMAX_SUDO) cp -dprf $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/fonts/* $(HUMAX_NFS_INSTALL_DIR)/usr/fonts/;	\
+		$(HUMAX_SUDO) cp -dprf $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/browser/opera_dir $(HUMAX_NFS_INSTALL_DIR)/usr/browser/;	\
+		$(HUMAX_SUDO) cp -dprf $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/browser/opera_home $(HUMAX_NFS_INSTALL_DIR)/usr/browser/;	\
+		$(HUMAX_SUDO) cp -dprf $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/browser/drm $(HUMAX_NFS_INSTALL_DIR)/usr/browser/;	\
+		$(HUMAX_SUDO) mkdir -p $(HUMAX_NFS_INSTALL_DIR)/home/corsair;	\
+		$(HUMAX_SUDO) cp -dprf $(HUMAX_APP_STAGGING_ROOT_DIR)/home/corsair/corsair $(HUMAX_NFS_INSTALL_DIR)/home/corsair/;	\
+	fi;
+# for debugging, java script error log.
+# default is disabled, if you want this function, you have to change "DISABLE" to "y", in below line.
+ifeq ($(CONFIG_DEBUG),DISABLE)
+#ifeq ($(CONFIG_DEBUG),y)
+		@echo == enable window.console.log DOM object to serial ==
+		$(HUMAX_SUDO) cp $(HUMAX_MAKE_DIR)/rootfs/basefiles-dbg/usr/browser/opera_dir/jsplugins/jsplugins.ini \
+				$(HUMAX_NFS_INSTALL_DIR)/usr/browser/opera_dir/jsplugins/jsplugins.ini;
+endif
+
+ap_browser_clean :
+	@if [ -d $(BROWSER_WORK_DIR) ]; then \
+		make -C $(BROWSER_WORK_DIR) clean;	\
+	fi;
+	find $(APPLTOP_SRC_DIR)/browser/corsair/base-2.0 -name "*.d" -or -name "*.o" | xargs rm -f
+
+ap_browser_distclean : ap_browser_clean
+	@if [ -d $(BROWSER_WORK_DIR) ]; then \
+		make -C $(BROWSER_WORK_DIR) distclean;	\
+	fi;

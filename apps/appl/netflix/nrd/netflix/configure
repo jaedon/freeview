@@ -1,0 +1,494 @@
+#!/bin/bash
+
+addl=""
+
+echo ""
+basedir=`dirname ${0}`
+basedir=`cd $basedir && pwd`
+if [ `uname` = "Darwin" ] ; then
+    default_toolchain=amd64-netflix-macosx
+else
+    default_toolchain=i686-netflix-linux-gnu-4.2
+fi
+helpers=
+
+# See if bash supports associative arrays
+declare -i rewrite
+declare -A testArray &> /dev/null
+if [ $? -ne 0 ]; then
+    rewrite=0
+else
+    rewrite=1
+
+    declare -A cmdFlags
+    declare -A sysFlags
+    declare -A defaults
+    declare -A components
+fi
+
+if [ "$basedir" != "$PWD" -a -d "$basedir/CMakeFiles" ]; then
+   echo "You cannot make a shadow build from a source tree containing a previous build!" >&2
+   exit 1
+fi
+
+trim() {
+    local var=$@
+    var="${var#"${var%%[![:space:]]*}"}"   # remove leading whitespace characters
+    var="${var%"${var##*[![:space:]]}"}"   # remove trailing whitespace characters
+    echo -n "$var"
+}
+
+processConfigHelper()
+{
+    helper="$1"
+    if echo "$helpers" | grep ":$helper:" >/dev/null 2>&1; then
+        echo "Already processed: $helper"
+    else
+        helpers="$helpers:$helper:"
+        echo "Processing: $helper"
+        . "$helper"
+    fi
+}
+
+processComponentHelper()
+{
+    helper=`echo $1/.configure.helper | sed "s,~,${HOME},g"`
+    echo $helper | grep -q "^[/]" || helper="$basedir/$helper"
+    #echo "   Processing component: $helper"
+    [ -e "$helper" ] && processConfigHelper $helper
+}
+
+processCommandLineOption()
+{
+    PARSED=no
+    for p in $PROJECTS; do
+      if configHelper_${p}_parseOption $1; then
+          PARSED=yes
+          break
+      fi
+    done
+    if [ "$PARSED" = "no" ]; then
+       echo "$0: Invalid switch '$1'"
+       errors=1
+    fi
+}
+
+processPreset()
+{
+    local array_name=$1[@]
+    preset=("${!array_name}")
+
+    for option in "${preset[@]}"
+    do
+        processCommandLineOption "${option}"
+    done
+
+}
+
+# Configuration presets. The order is important!
+# -----------------------------------------------------------------------------
+debugPreset[0]="--qa"
+debugPreset[1]="--no-small"
+debugPreset[2]="--symbols"
+debugPreset[3]="--tracing"
+debugPreset[4]="--objectcount"
+debugPreset[5]="--debug-code"
+debugPreset[6]="--no-production-code"
+
+productionPreset[0]="--qa"
+productionPreset[1]="--no-small"
+productionPreset[2]="--symbols"
+productionPreset[3]="--tracing"
+productionPreset[4]="--objectcount"
+productionPreset[5]="--no-debug-code"
+productionPreset[6]="--production-code"
+
+releasePreset[0]="--no-qa"
+releasePreset[1]="--small"
+releasePreset[2]="--no-symbols"
+releasePreset[3]="--no-tracing"
+releasePreset[4]="--no-objectcount"
+releasePreset[5]="--no-debug-code"
+releasePreset[6]="--production-code"
+# -----------------------------------------------------------------------------
+
+
+helpGrid="  Switch:      |        --qa       |      --small      |     --symbols     |     --tracing     |   --objectcount   |   --debug-code    | --production-code |"$'\n'
+helpGrid+="---------------|-------------------|-------------------|-------------------|-------------------|-------------------|-------------------|-------------------|"
+
+createHelpGrid()
+{
+    local array_name=$1[@]
+    local array=("${!array_name}")
+    local result=$(printf '%-12s' "--${1/Preset}")
+    result="  ${result} |"
+
+    for option in "${array[@]}"
+    do
+        result+="         "
+        if [[ "${option}" =~ "--no" ]]; then
+            result+="-"
+        else
+            result+="Y"
+        fi
+        result+="         |"
+    done
+
+    local line=`eval printf "%.0s-------------------\|" '{1..'"${#array[@]}"\}`
+    helpGrid="${helpGrid}"$'\n'"${result}"$'\n'"---------------|${line}"
+}
+
+createHelpGrid "debugPreset"
+createHelpGrid "productionPreset"
+createHelpGrid "releasePreset"
+
+
+if [ ! -e "${basedir}/.configure.helper" ]; then
+    echo "Unable to find configure help script, needs to be regenerated!" >&2
+    exit 1
+fi
+processComponentHelper ${basedir}
+
+usage()
+{
+    cat << _USAGE_EOF
+
+Netflix Ready Device SDK configuration script
+---------------------------------------------
+
+This script provides a friendly interface around CMake's build system
+
+Usage:
+
+ $0 --toolchain=<toolchain> [options] [Additional CMake parameters]
+
+ The toolchain can be a tuple (i686-netflix-gnu-linux) or an absolute path to
+ where setupenv.sh is located
+
+
+Build presets:
+
+${helpGrid}
+
+
+Options:
+
+  --help|-help|-h|-?                 Prints this help message
+
+  --ignore-unknown|-i                Ignore unknown options
+
+  --toolchain=TOOLCHAIN              The toolchain used to build
+                                     [default=$toolchain]
+
+  --cc-prefix=PREFIX                 Prefix for CC command
+  --cxx-prefix=PREFIX                Prefix for CXX command
+
+  --release                          Build in release mode
+  --production                       Build in production mode
+  --dev|--development|--debug        Build in debug mode
+
+  --cmake-trace                      Pass --trace to cmake.
+  --cmake-debug-output               Pass --debug-output to cmake.
+  --cmake-debug-trycompile           Pass --debug-output-trycompile to cmake.
+  --cmake-generator                  Pass -G <value> to cmake to select the
+                                     makefile generator to use
+
+  --sanitize=address                 Build with address sanitizer
+  --sanitize=leak                    Build with memory leak sanitizer
+  --sanitize=undefined               Build with undefined behavior sanitizer
+
+
+_USAGE_EOF
+    for p in $PROJECTS; do
+        configHelper_${p}_helpOptions
+    done
+    echo -e "\nSome influential environment variables:\n"
+    for p in $PROJECTS; do
+        configHelper_${p}_helpEnv
+    done
+    [ -n "$1" ] && echo $@
+    exit
+}
+
+patch_ignore=0
+SHOW_HELP="no"
+cmdline="$basedir/configure $@"
+
+defaults[debug]="0"
+defaults[release]="0"
+defaults[production]="0"
+defaults[analyze]="0"
+defaults[tracing]="1"
+CMAKE_GENERATOR=
+CMAKE_FLAGS=
+sanitize=
+analyze=0
+noshift=0
+preset=""
+dumpcmake=0
+
+# Display help before doing any command line parsing so the proper defaults are displayed
+
+arg="$1"
+# If no build preset has been specified, use "--debug"
+[[ $@ != *--debug* ]] && [[ $@ != *--production* ]] && [[ $@ != *--release* ]] && noshift=1 && arg="--debug"
+
+while [ "$arg" != "" ]; do
+    #echo "ARG: ${arg}"
+    case $arg in
+    -h|-help|--help|-?) SHOW_HELP="yes";;
+    --toolchain=*) toolchain=`echo $1 | sed 's,[^=]*=\(.*\),\1,'`;;
+    --release) CMAKE_FLAGS="$CMAKE_FLAGS -DCMAKE_BUILD_TYPE=Release"; sysFlags[release]=""; sysFlags[production]=0; sysFlags[debug]=0; processPreset "releasePreset";;
+    --production) CMAKE_FLAGS="$CMAKE_FLAGS -DCMAKE_BUILD_TYPE=Test"; sysFlags[release]=0; sysFlags[production]=""; sysFlags[debug]=0; processPreset "productionPreset";;
+    --dev|--development|--debug) CMAKE_FLAGS="$CMAKE_FLAGS -DCMAKE_BUILD_TYPE=Debug"; sysFlags[release]=0; sysFlags[production]=0; sysFlags[debug]=""; processPreset "debugPreset";;
+    --cmake-trace) CMAKE_FLAGS="$CMAKE_FLAGS --trace";;
+    --cmake-debug-output) CMAKE_FLAGS="$CMAKE_FLAGS --debug-output";;
+    --cmake-debug-trycompile) CMAKE_FLAGS="$CMAKE_FLAGS --debug-trycompile";;
+    --cmake-generator=*) CMAKE_GENERATOR=`echo $1 | sed 's,[^=]*=\(.*\),\1,'`;;
+    --cmake-flags) dumpcmake=1;;
+    --cmake=*) CMAKE=`echo $1 | sed 's,[^=]*=\(.*\),\1,'`; sysFlags[cmake]="${CMAKE}";;
+    --ignore-unknown|-i) ignore_unknown=1;;
+    --patch=*) PATCH=`echo $1 | sed 's,[^=]*=\(.*\),\1,'`;;
+    --patch-flags=*) PATCH_FLAGS=`echo $1 | sed 's,[^=]*=\(.*\),\1,'`;;
+    --patch-ignore) patch_ignore=1;;
+    --prefix=*) prefix=`echo $1 | sed 's,[^=]*=\(.*\),\1,'`; CMAKE_FLAGS="$CMAKE_FLAGS -DCMAKE_INSTALL_PREFIX=${prefix}"; sysFlags[prefix]="${prefix}";;
+    --sanitize=*) sanitize=`echo $1 | sed 's,[^=]*=\(.*\),\1,'`; sysFlags[sanitize]="${sanitize}";;
+    --analyze|--enable-analyze) analyze=1; cmdFlags[analyze]=1;;
+    --no-analyze|--disable-analyze) analyze=0; cmdFlags[analyze]=0;;
+    --cc-prefix=*) CC_PREFIX=`echo $1 | sed 's,[^=]*=\(.*\),\1,'`;;
+    --cxx-prefix=*) CXX_PREFIX=`echo $1 | sed 's,[^=]*=\(.*\),\1,'`;;
+    -D*) CMAKE_FLAGS="$CMAKE_FLAGS $1";;
+    *) processCommandLineOption $1;;
+    esac
+    [ $noshift -eq 0 ] && shift
+    [ $noshift -eq 1 ] && noshift=0
+    arg="$1"
+done
+
+if [ "$errors" -a -z "$ignore_unknown" ]; then
+    echo -e "Run $0 --help for usage.\nIf you want to ignore unknown switches pass --ignore-unknown"
+    exit 1
+fi
+
+[ "$SHOW_HELP" = "yes" ] && usage
+
+[ -z "$toolchain" ] && toolchain=${default_toolchain}
+
+toolchain=`echo $toolchain | sed "s,~,${HOME},g"`
+if [ -z "$toolchain" ] || [ ! -d "$toolchain" -a ! -d "/usr/local/${toolchain}" ]; then
+
+    # Get a list of toolchains
+    TOOLCHAINS=(`/bin/ls -t1 /usr/local 2>/dev/null | grep -F "${toolchain}" | sort`)
+
+    # See if they are valid
+    for t in "${TOOLCHAINS[@]}"; do
+        [ -e "/usr/local/${t}/setupenv.sh" ] && VALID_TOOLCHAINS=("${VALID_TOOLCHAINS[@]}" "${t}")
+    done
+
+    if [ ${#VALID_TOOLCHAINS[@]} = 0 ]; then
+        echo ""
+        echo "Error! No toolchains that match '${toolchain}' were found"
+        exit
+    elif [ ! ${#VALID_TOOLCHAINS[@]} = 1 ]; then
+        echo ""
+        echo "Toolchains found that match '${toolchain}':"
+        VTC_COUNTER=0
+        for t in "${VALID_TOOLCHAINS[@]}"; do
+            let VTC_COUNTER++
+            echo "  [${VTC_COUNTER}] ${t}"
+        done
+
+        echo -n "[1..${VTC_COUNTER}]> "
+        read VTC
+        let VTC--
+        toolchain="${VALID_TOOLCHAINS[${VTC}]}"
+    else
+        toolchain="${VALID_TOOLCHAINS[@]}"
+    fi
+fi
+
+[ ! -z "$toolchain" ] && [ ! -d "$toolchain" ] && toolchain="/usr/local/${toolchain}"
+if [ -z "$toolchain" ]; then
+    echo ""
+    echo "Toolchain: not provided" >&2
+    echo ""
+    exit 1
+fi
+if [ ! -d "$toolchain" ]; then
+    echo ""
+    echo " Toolchain: $toolchain: doesn't exist" >&2
+    echo ""
+    exit 2
+fi
+if [ ! -e "$toolchain/setupenv.sh" ]; then
+    echo ""
+    echo " Toolchain: $toolchain: is invalid" >&2
+    echo ""
+    exit 3
+fi
+
+echo ""
+echo "Toolchain: $toolchain"
+
+cmdline=`echo ${cmdline} | sed -e 's,--toolchain=[^ ]* *,,g' | sed -e 's,--patch=[^ ]* *,,g' | sed -e 's,--patch-ignore,,g' | sed -e 's,--patch-flags=[^ ]* *,,g'`
+cmdline="${cmdline} --toolchain=${toolchain}"
+sysFlags[_toolchain]="${toolchain}"
+
+PREV_LDFLAGS="${LDFLAGS}"
+PREV_LIBS="${LIBS}"
+PREV_CFLAGS="${CFLAGS}"
+PREV_CPPFLAGS="${CPPFLAGS}"
+PREV_CXXFLAGS="${CXXFLAGS}"
+PREV_CMAKE="${CMAKE}"
+
+CMAKE=""
+
+. "$toolchain/setupenv.sh"
+[ -e "$toolchain/setupenv.cmake" ] && CMAKE_FLAGS="$CMAKE_FLAGS -DCMAKE_TOOLCHAIN_FILE=$toolchain/setupenv.cmake"
+if [ -n "$CMAKE_GENERATOR" ]; then
+    CMAKE_FLAGS="$CMAKE_FLAGS -G $CMAKE_GENERATOR"
+    sysFlags[cmake-generator]="$CMAKE_GENERATOR"
+fi
+
+[ ! -z "${PREV_CMAKE}" ] && CMAKE="${PREV_CMAKE}"
+[ -z "${CMAKE}" ] && CMAKE="cmake"
+
+LDFLAGS=$(trim "${LDFLAGS} ${LIBS} ${PREV_LDFLAGS} ${PREV_LIBS}")
+CFLAGS=$(trim "${CFLAGS} ${CPPFLAGS} ${PREV_CFLAGS} ${PREV_CPPFLAGS}")
+CXXFLAGS=$(trim "${CXXFLAGS} ${CPPFLAGS} ${PREV_CXXFLAGS} ${PREV_CPPFLAGS}")
+
+SANITIZER_FLAGS=""
+[ "${sanitize}" = "address" ] && SANITIZER_FLAGS=" -O1 -fsanitize=address -fno-omit-frame-pointer"
+[ "${sanitize}" = "leak" ] && SANITIZER_FLAGS=" -O1 -fsanitize=leak -fno-omit-frame-pointer"
+[ "${sanitize}" = "undefined" ] && SANITIZER_FLAGS=" -fsanitize=undefined -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow"
+
+if [ "${SANITIZER_FLAGS}" != "" ]; then
+    CFLAGS="${CFLAGS} ${SANITIZER_FLAGS}"
+    CXXFLAGS="${CXXFLAGS} ${SANITIZER_FLAGS}"
+fi
+
+[ `uname` != "Darwin" ] && [ -z "$SMALL_FLAGS" ] && SMALL_FLAGS="-s -O2"
+
+[ -n "$CC_PREFIX" ] && CC="$CC_PREFIX $CC"
+[ -n "$CXX_PREFIX" ] && CXX="$CXX_PREFIX $CXX"
+
+# We are configuring, so delete the cache file if present
+[ -e "CMakeCache.txt" ] && rm CMakeCache.txt
+
+# Patch management
+applyPatch()
+{
+    echo ""
+    echo "Applying patch $1"
+    echo "Applying patch $1" | tr "[:print:]" "-"
+
+    patch -t -N -r - -p1 ${PATCH_FLAGS} -d ${basedir} < $1
+    if [ $? -ne 0 -a $patch_ignore -eq 0 ]; then
+        echo ""
+        echo "Error applying patch"
+        exit 1
+    fi
+}
+
+if [ -e "${PATCH}" ]; then
+    if [ -d "${PATCH}" ]; then
+        echo "Patch directory specified"
+
+        PATCHES=(`/bin/ls -t1 ${PATCH}/*.patch 2>/dev/null | sort`)
+
+        for p in "${PATCHES[@]}"; do
+            applyPatch $p
+        done
+    else
+        applyPatch $PATCH
+    fi
+
+fi
+
+echo ""
+
+#run cmake
+if [ "${analyze}" = "1" ]; then
+    CMAKE_FLAGS="-DCMAKE_C_COMPILER=/usr/share/clang/scan-build/ccc-analyzer -DCMAKE_CXX_COMPILER=/usr/share/clang/scan-build/ccc-analyzer"
+fi
+
+[ "${CMAKE}" == "" ] && CMAKE="cmake"
+echo "CMake is ${CMAKE} (`${CMAKE} --version | head -n 1`)"
+[[ $dumpcmake = 1 ]] && echo && echo "CMake command line:" && echo "${CMAKE} $basedir -DTOOLCHAIN_DIRECTORY=\"${TOOLCHAIN_DIRECTORY}\" -DSMALL_FLAGS:STRING=\"${SMALL_FLAGS}\" -DSMALL_CFLAGS:STRING=\"${SMALL_CFLAGS}\" -DSMALL_CXXFLAGS:STRING=\"${SMALL_CXXFLAGS}\" ${CMAKE_FLAGS} -DDRM_INCLUDE_DIRECTORY:STRING=\"${DRM_INCLUDE_DIRECTORY}\" -DGLOBALCONFIG_PATH:STRING=\"${GLOBALCONFIG_PATH}\"" && exit 1
+
+eval ${CMAKE} $basedir -DTOOLCHAIN_DIRECTORY=\"${TOOLCHAIN_DIRECTORY}\" -DSMALL_FLAGS:STRING=\"${SMALL_FLAGS}\" -DSMALL_CFLAGS:STRING=\"${SMALL_CFLAGS}\" -DSMALL_CXXFLAGS:STRING=\"${SMALL_CXXFLAGS}\" ${CMAKE_FLAGS} -DDRM_INCLUDE_DIRECTORY:STRING=\"${DRM_INCLUDE_DIRECTORY}\" -DGLOBALCONFIG_PATH:STRING=\"${GLOBALCONFIG_PATH}\"
+
+if [ $? -eq 0 ]; then
+    if [ "${analyze}" = "1" ]; then
+        rm -rf analyze.sh
+        echo "-- Writing static analyzer script"
+        echo "#/bin/sh" > analyze.sh
+        echo "ICECC_DISABLED=1 CTNG_LD_IS=bfd scan-build -analyze-headers -maxloop 10 -o reports --html-title=\"Static Analyzer results\" --use-cc=${CC} --use-c++=${CXX} \"\$@\"" >> analyze.sh
+        chmod ugo+x analyze.sh
+    fi
+
+    rm -f config.status
+    echo "-- Writing config.status..."
+    echo "#!/bin/sh" > config.status
+    echo "# Flags at configure time:" >> config.status
+    echo "#  CFLAGS=${CFLAGS}" >> config.status
+    echo "#  CXXFLAGS=${CXXFLAGS}" >> config.status
+    echo "#  LDFLAGS=${LDFLAGS}" >> config.status
+    echo "" >> config.status
+
+    if [ $rewrite -eq 1 ]; then
+        # consolidate and rewrite flags
+        output="$basedir/configure"
+
+        for flag in "${!components[@]}"
+        do
+            value=${components[$flag]}
+            output+=" --${flag}=${value}"
+        done
+        echo ""
+
+        for flag in "${!sysFlags[@]}"
+        do
+            value=${sysFlags[$flag]}
+            if [[ "${defaults[$flag]}" != ""  && "${value}" = "${defaults[$flag]}" ]] || [[ "${defaults[$flag]}" = "1" && "${value}" = "" ]]; then
+                value="0"
+            fi
+            flag=${flag/_/}
+
+            if [[ "${value}" = "" ]]; then
+                output+=" --${flag}"
+            else
+                if [[ "${value}" != "0" ]]; then
+                    output+=" --${flag}=${value}"
+                fi
+            fi
+        done
+        echo ""
+
+        for flag in "${!cmdFlags[@]}"
+        do
+            value=${cmdFlags[$flag]}
+            if [[ "$value" =~ ^[0-9]$ ]]; then
+                # rebuild command line parameter
+                [[ $value = 0 ]] && cmdl="--no-${flag}"
+                [[ $value = 1 ]] && cmdl="--${flag}"
+                # see if the command line is part of the build preset
+                add=1
+                case "${preset[@]}" in *"${cmdl}"*) add=0;; esac
+
+                # numeric
+                [[ $value = 1 ]] && [[ ${defaults[$flag]} != "ON" ]] && [[ $add = 1 ]] && output+=" --${flag}"
+                [[ $value = 0 ]] && [[ ${defaults[$flag]} != "OFF" ]] && [[ $add = 1 ]] && output+=" --no-${flag}"
+            else
+                # output+=" --with-${flag}=${value}"
+                output+=" --${flag}=${value}"
+            fi
+        done
+
+        echo "${output} \"\$@\"" >> config.status
+    else
+        echo "$cmdline \"\$@\"" >> config.status
+    fi
+
+    chmod ugo+x config.status
+fi

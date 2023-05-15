@@ -1,0 +1,11 @@
+# SES
+
+	menu "Select Operator's specific configs"
+		comment "Select Operator's specific configs"
+
+		config OP_SES_ASTRA_PORTAL
+		depends on OP_SES
+			bool "OP_SES_ASTRA_PORTAL - Astra portal On/Off"
+			default n
+	endmenu
+

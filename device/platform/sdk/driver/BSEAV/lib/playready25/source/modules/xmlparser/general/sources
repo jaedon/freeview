@@ -1,0 +1,12 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmxmlparsergeneral
+TARGETTYPE=LIBRARY
+
+C_DEFINES=$(C_DEFINES)    \
+    -DDRM_BUILDING_DRMXMLPARSERCOMMON_LIB
+
+SOURCES =                   \
+    drmxmlparsergeneral.c   \
+    drmxmlutilities.c
+

@@ -1,0 +1,310 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Dlna/Util">   
+    <interface name="Octopus.Appkit.Dlna.Util">
+
+    <!-- DMP -->
+    <method name="DMP_Start">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+ 
+    <method name="DMP_Stop">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="DMP_GetListOfDMS">
+        <arg type="a(sssissbuuuuasasasas)" name="serverDevice" direction="out" />        
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+ 
+    <method name="DMP_BrowsingChildItem">
+        <arg type="s" name="udn" direction="in" />
+        <arg type="s" name="cid" direction="in" />
+        <arg type="s" name="sort" direction="in" />
+        <arg type="i" name="startIndex" direction="in" />
+        <arg type="i" name="request" direction="in" />        
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <method name="DMP_SearchingItem">
+        <arg type="s" name="udn" direction="in" />
+        <arg type="s" name="cid" direction="in" />
+        <arg type="s" name="category" direction="in" />
+        <arg type="s" name="keyword" direction="in" />
+        <arg type="s" name="sort" direction="in" />
+        <arg type="i" name="startIndex" direction="in" />
+        <arg type="i" name="request" direction="in" />        
+        <arg type="i" name="requestId" direction="in" />        
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+ 
+    <method name="DMP_SearchingAll">
+        <arg type="s" name="cid" direction="in" />
+        <arg type="s" name="category" direction="in" />
+        <arg type="s" name="keyword" direction="in" />
+        <arg type="s" name="sort" direction="in" />    
+        <arg type="i" name="requestId" direction="in" />        
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+                                           
+    <method name="DMP_GetRecordDestinations">
+    	<arg type="s" name="udn" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+	
+    <method name="DMP_GetRecordDiskInfo">
+        <arg type="s" name="udn" direction="in" />
+        <arg type="s" name="id" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="DMP_RemoveItem">
+        <arg type="s" name="udn" direction="in" />
+        <arg type="s" name="id" direction="in" />
+        <arg type="s" name="retval" direction="out" />        
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+ 
+    <method name="DMP_GetIsIPDubbing">
+        <arg type="b" name="val" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+
+    <method name="DMP_RefreshDms">
+        <arg type="s" name="udn" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>              
+
+    <!-- DMR -->
+    <method name="DMR_Start">
+        <arg type="s" name="friendlyName" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+ 
+    <method name="DMR_Stop">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                            
+
+    <method name="DMR_GetDefaultFriendlyName">
+        <arg type="s" name="friendlyName" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="DMR_SetFriendlyName">
+        <arg type="s" name="friendlyName" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="DMR_SetBringInUri">
+        <arg type="s" name="url" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+     <method name="DMR_SetOperationMode">
+        <arg type="i" name="mode" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <!-- DMS -->
+    <method name="DMS_Start">
+        <arg type="s" name="friendlyName" direction="in" />
+        <arg type="b" name="boottimeStart" direction="in" />        
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+ 
+    <method name="DMS_Stop">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <method name="DMS_GetDefaultFriendlyName">
+        <arg type="s" name="friendlyName" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="DMS_SetFriendlyName">
+        <arg type="s" name="friendlyName" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+
+    <!-- DIAL -->
+    <method name="DIAL_Start">
+        <arg type="s" name="friendlyName" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+ 
+    <method name="DIAL_Stop">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+ 
+    <method name="DIAL_SetFriendlyName">
+        <arg type="s" name="friendlyName" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+    
+     <method name="DIAL_AppRegist">
+        <arg type="s" name="app" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>	
+
+    <method name="DIAL_AppUnregist">
+        <arg type="s" name="app" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+     <method name="DIAL_SetAppState">
+        <arg type="s" name="app" direction="in" />
+        <arg type="i" name="state" direction="in" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>	
+
+    <!-- DIAL -->
+    <method name="WOONSERVER_Start">
+        <arg type="s" name="friendlyName" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+ 
+    <method name="WOONSERVER_Stop">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+     <method name="WOONSERVER_GetDefaultFriendlyName">
+        <arg type="s" name="friendlyName" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>	
+
+    <method name="WOONSERVER_SetFriendlyName">
+        <arg type="s" name="friendlyName" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+    
+     <method name="WOONSERVER_TestConnection">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+    
+     <!-- SATIP -->
+    <method name="SATIP_Start">
+        <arg type="s" name="friendlyName" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+ 
+    <method name="SATIP_Stop">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="SATIP_GetDefaultFriendlyName">
+        <arg type="s" name="friendlyName" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>	
+
+    <method name="SATIP_SetFriendlyName">
+        <arg type="s" name="friendlyName" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+    
+     <!-- DLNARUIS -->
+    <method name="DLNARUIS_SendMessage">
+        <arg type="i" name="deviceHandle" direction="in" />
+        <arg type="i" name="reqHandle" direction="in" />
+        <arg type="ay" name="header" direction="in" />        
+        <arg type="ay" name="message" direction="in" />                
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="DLNARUIS_SendMulticast">
+        <arg type="i" name="deviceHandle" direction="in" />
+        <arg type="i" name="eventLevel" direction="in" />
+        <arg type="ay" name="notifCEHTML" direction="in" />        
+        <arg type="s" name="friendlyName" direction="in" />                
+        <arg type="ay" name="profielList" direction="in" />                        
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="DLNARUIS_SendErrorCode">
+        <arg type="i" name="deviceHandle" direction="in" />
+        <arg type="i" name="reqHandle" direction="in" />
+        <arg type="u" name="error" direction="in" />        
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>	
+    
+     <!-- LiveStream -->
+    <method name="LiveStream_Start">
+        <arg type="(buibuu)" name="setupInfo" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+ 
+    <method name="LiveStream_Stop">
+        <arg type="i" name="handle" direction="in" />
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="LiveStream_ItemindexByProfile">
+        <arg type="s" name="profileName" direction="in" />
+        <arg type="i" name="index" direction="out" />        
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="LiveStream_Status">
+        <arg type="i" name="handle" direction="in" />
+        <arg type="i" name="type" direction="in" />
+        <arg type="(bu)" name="status" direction="out" />                
+        <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+                
+		<signal name="dmp_event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+    </signal>
+
+		<signal name="dmr_event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+    </signal>
+
+		<signal name="dms_event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+    </signal>
+
+		<signal name="dial_event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+    </signal>
+
+		<signal name="ws_event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+    </signal>
+
+		<signal name="satip_event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+    </signal>
+
+		<signal name="dlnaruis_event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+    </signal>
+
+		<signal name="obama_event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+    </signal>
+
+  </interface>
+</node>

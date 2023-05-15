@@ -1,0 +1,91 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+################     Compiler Setting
+ifeq ($(CONFIG_ARM), y)
+CROSS   ?= arm-linux-
+else
+CROSS   ?= mipsel-linux-uclibc-
+endif
+RANLIB=$(CROSS)ranlib
+ifeq ($(shell expr $(NEXUS_TREE) ">=" TREE_1303),1)
+DOCSIS_TOP_DIR=$(HUMAX_WORK_DIR)/platform/sdk/driver/BSEAV/cable/docsis/estb
+else
+DOCSIS_TOP_DIR=$(HUMAX_WORK_DIR)/platform/sdk/driver/BSEAV/docsis
+endif
+
+DSGCC_DIR=$(DOCSIS_TOP_DIR)/StbHostApps/DsgCC
+TARGET_CC=$(CROSS)gcc
+TARGET_CROSS=$(CROSS)
+STATIC_LIB_DIR=$(HUMAX_OUTPUT_DIR)/lib
+
+ifeq ($(CONFIG_PRODUCT_IMAGE_DEBUG),y)
+DSGCC_LIB:= $(DSGCC_DIR)/StbApp_DsgCC/linux/bcm/dsgcclib.a
+else
+#DSGCC_LIB:= $(DSGCC_DIR)/StbApp_DsgCC/linux/bcm_slim/dsgcclib.a
+#temporary modify for release compile. 2012.3.24
+DSGCC_LIB:= $(DSGCC_DIR)/StbApp_DsgCC/linux/bcm/dsgcclib.a
+endif
+
+TARGETS += dsgcc
+
+DSG_CONFIG = DEBUG=$(CONFIG_PRODUCT_IMAGE_DEBUG) \
+	HUMAX_MAKE_DIR=$(HUMAX_MAKE_DIR) \
+	HUMAX_PLATFORM_CONFIG_DIR=$(HUMAX_PLATFORM_CONFIG_DIR) \
+	HUMAX_OUTPUT_DIR=$(HUMAX_OUTPUT_DIR) \
+	HUMAX_LIB_LIST_FILE=$(HUMAX_LIB_LIST_FILE)
+
+ifeq ($(CONFIG_ARM),y)
+DSG_CONFIG += ARM_PLATFORM=yes
+else
+DSG_CONFIG += ARM_PLATFORM=no
+endif
+
+DSG_CONFIG += HUMAX_PLATFORM_BASE=y
+
+define build_dsgcc
+	$(MAKE) -C $(DSGCC_DIR)/build CC="$(TARGET_CC)" CROSS="$(TARGET_CROSS)" \
+	$(DSG_CONFIG) $(1) 2>&1 | tee $(DSGCC_DIR)/build/compile.log
+  $(call update_lib_list,-ldsgcc)
+endef
+
+dsgcc-prepare :
+	@if [ ! -d $(DOCSIS_TOP_DIR) ]; then \
+		echo "Untar trinity_phase$(BCM_RELEASE).tgz first !!"; \
+	else \
+		if [ ! -f $(DSGCC_DIR)/build/build ]; then \
+			echo "start untar stb_srg.tgz ..."; \
+			cd $(DOCSIS_TOP_DIR) && tar xf ./stb_src.tgz; \
+			echo "done untar stb_srg.tgz ..."; \
+		else \
+			echo "skipping untar stb_src.tgz ..."; \
+		fi; \
+	fi;
+
+dsgcc: dsgcc-prepare
+ifeq ($(CONFIG_PRODUCT_IMAGE_DEBUG),y)
+	$(call build_dsgcc,install_debug)
+else
+#	$(call build_dsgcc,install)
+#temporary modify for release compile. 2012.3.24
+	$(call build_dsgcc,install_debug)
+endif
+	@cp $(DSGCC_LIB) $(STATIC_LIB_DIR)/libdsgcc.a
+	$(RANLIB) $(STATIC_LIB_DIR)/libdsgcc.a
+
+
+clean_dsgcc: dsgcc-prepare
+ifeq ($(CONFIG_PRODUCT_IMAGE_DEBUG),y)
+	$(call build_dsgcc,clean_debug)
+else
+#	$(call build_dsgcc,clean)
+#temporary modify for release compile. 2012.3.24
+	$(call build_dsgcc,clean_debug)
+endif
+
+dsgcc-distclean:
+	$(call build_dsgcc,distclean)
+	@rm -rf $(HUMAX_PLATFORM_DIR)/sdk/driver/bcm$(BCHP_CHIP)_$(KERNEL_VER)/BSEAV/docsis/StbHostApps
+	
+.PHONY: dsgcc clean_dsgcc distclean_dsgcc

@@ -1,0 +1,154 @@
+'19200: NDT_RetrieveLicenseDataV2
+'Test_DRM_NDT_Initialize(sample.hds)
+'Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+'Test_SetCertificate(files\DeviceTestCert1.crt)
+'Test_SetPrivateKeyDirectly(files\DeviceRSAPrivKey1.bin)
+'Test_NDTMGR_CreateSession(REGISTRATION)
+'Test_NDTMGR_ProcessRegistrationRequest()
+'Test_Proximity(0)
+'Test_NDTMGR_CloseSession(REGISTRATION)
+'Test_NDTMGR_CreateSession(CONTENT)
+'Test_NDT_RetrieveLicenseDataV2(files\contentencobj.bin, ZZZZ)=-2147172349
+
+19201: NDT_RetrieveLicenseDataV2
+Test_DRM_NDT_Initialize
+Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+Test_SetCertificate(files\DeviceTestCert1.crt)
+Test_SetPrivateKeyDirectly(files\DeviceRSAPrivKey1.bin)
+Test_NDTMGR_CreateSession(REGISTRATION)
+Test_NDTMGR_ProcessRegistrationRequest()
+Test_Proximity(0)
+Test_NDTMGR_CloseSession(REGISTRATION)
+Test_NDTMGR_CreateSession(CONTENT)
+Test_NDT_RetrieveLicenseDataV2(files\appcrl_revoked1.txt, Play)=-2147217144
+
+'19202: NDT_RetrieveLicenseDataV2
+'Test_DRM_NDT_Initialize(sample.hds)
+'Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+'Test_SetCertificate(files\DeviceTestCert1.crt)
+'Test_SetPrivateKeyDirectly(files\DeviceRSAPrivKey1.bin)
+'Test_NDTMGR_CreateSession(REGISTRATION)
+'Test_NDTMGR_ProcessRegistrationRequest()
+'Test_Proximity(0)
+'Test_NDTMGR_CloseSession(REGISTRATION)
+'Test_NDTMGR_CreateSession(CONTENT)
+'Test_NDT_RetrieveLicenseDataV2(files\empty.b64_wchar, Play)=-2147024809
+
+'19203: NDT_RetrieveLicenseDataV2
+'Test_DRM_NDT_Initialize(sample.hds)
+'Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+'Test_SetCertificate(files\DeviceTestCert1.crt)
+'Test_SetPrivateKeyDirectly(files\DeviceRSAPrivKey1.bin)
+'Test_NDTMGR_CreateSession(REGISTRATION)
+'Test_NDTMGR_ProcessRegistrationRequest()
+'Test_Proximity(0)
+'Test_NDTMGR_CloseSession(REGISTRATION)
+'Test_NDTMGR_CreateSession(CONTENT)
+'Test_SetpNdtDrmContext(0)
+
+'19204: GetFirstDevice
+'Test_DRM_NDT_Initialize(sample.hds)
+'Test_DRM_DeviceStore_GetFirstDevice()=-2147024637
+
+'19205: GetNextDevice
+'Test_DRM_NDT_Initialize(sample.hds)
+'Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+'Test_SetCertificate(files\DeviceTestCert1.crt)
+'Test_SetPrivateKeyDirectly(files\DeviceRSAPrivKey1.bin)
+'Test_NDTMGR_CreateSession(REGISTRATION)
+'Test_NDTMGR_ProcessRegistrationRequest()
+'Test_SetSerialNumber(AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA)
+'Test_SetCertificate(files\DeviceTestCert2.crt)
+'Test_SetPrivateKey(files\DeviceRSAPrivKey2.bin)
+'Test_NDTMGR_CreateSession(REGISTRATION)
+'Test_NDTMGR_ProcessRegistrationRequest()
+'Test_DRM_DeviceStore_GetNextDevice()=-2147024809(DRM_E_INVALIDARG)
+'Test_DRM_DeviceStore_GetFirstDevice()
+'Test_DRM_DeviceStore_GetNextDevice()
+'Test_DRM_DeviceStore_FreeDevice()
+
+'19206: GetFirstDevice/GetDeviceInfo/FreeDevice
+'Test_DRM_NDT_Initialize(sample.hds)
+'Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+'Test_SetCertificate(files\DeviceTestCert1.crt)
+'Test_SetPrivateKeyDirectly(files\DeviceRSAPrivKey1.bin)
+'Test_NDTMGR_CreateSession(REGISTRATION)
+'Test_NDTMGR_ProcessRegistrationRequest()
+'Test_DRM_DeviceStore_GetFirstDevice()
+'Test_DRM_DeviceStore_GetDeviceInfo()
+'Test_DRM_DeviceStore_FreeDevice()
+
+'19207: UnRegisterDevice failed
+'Test_DRM_NDT_Initialize(sample.hds)
+'Test_DRM_DeviceStore_UnRegisterDevice(files\DeviceTestCert1.crt, ABCDEF0123456789ABCDEF0123456789)=-2147172317
+
+'19208: UnRegisterDevice
+'Test_DRM_NDT_Initialize(sample.hds)
+'Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+'Test_SetCertificate(files\DeviceTestCert1.crt)
+'Test_SetPrivateKeyDirectly(files\DeviceRSAPrivKey1.bin)
+'Test_NDTMGR_CreateSession(REGISTRATION)
+'Test_NDTMGR_ProcessRegistrationRequest()
+'Test_DRM_DeviceStore_UnRegisterDevice(files\DeviceTestCert1.crt, ABCDEF0123456789ABCDEF0123456789)
+
+'19209: UnRegisterDevice
+'Test_DRM_NDT_Initialize(sample.hds)
+'Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+'Test_SetCertificate(files\DeviceTestCert1.crt)
+'Test_SetPrivateKeyDirectly(files\DeviceRSAPrivKey1.bin)
+'Test_NDTMGR_CreateSession(REGISTRATION)
+'Test_NDTMGR_ProcessRegistrationRequest()
+'Test_SetFailAllocation(1)
+'Test_DRM_DeviceStore_UnRegisterDevice(files\DeviceTestCert1.crt, ABCDEF0123456789ABCDEF0123456789)
+
+'19210: GetDeviceById fails
+'Test_DRM_NDT_Initialize(sample.hds)
+'Test_DRM_DeviceStore_GetDeviceByID(files\DeviceTestCert1.crt, ABCDEF0123456789ABCDEF0123456789)=-2147171347
+
+'19211: GetDeviceById succeeds
+'Test_DRM_NDT_Initialize(sample.hds)
+'Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+'Test_SetCertificate(files\DeviceTestCert1.crt)
+'Test_SetPrivateKeyDirectly(files\DeviceRSAPrivKey1.bin)
+'Test_NDTMGR_CreateSession(REGISTRATION)
+'Test_NDTMGR_ProcessRegistrationRequest()
+'Test_DRM_DeviceStore_GetDeviceByID(files\DeviceTestCert1.crt, ABCDEF0123456789ABCDEF0123456789)
+
+'19212: GetDeviceAttr/GetDeviceAttrCount/GetDeviceAttrByIndex/IsDeviceValid
+'Test_DRM_NDT_Initialize(sample.hds)
+'Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+'Test_SetCertificate(files\DeviceTestCert1.crt)
+'Test_SetPrivateKeyDirectly(files\DeviceRSAPrivKey1.bin)
+'Test_NDTMGR_CreateSession(REGISTRATION)
+'Test_NDTMGR_ProcessRegistrationRequest()
+'Test_DRM_DeviceStore_GetFirstDevice()
+'Test_DRM_DeviceStore_GetDeviceAttrCount
+'Test_DRM_DeviceStore_GetDeviceAttrByIndex(0)	
+'Test_DRM_DeviceStore_SetDeviceAttr(foo, bar)
+'Test_DRM_DeviceStore_GetDeviceAttr(foo)
+'Test_Proximity(0)
+'Test_DRM_DeviceStore_IsDeviceValid()
+
+'19213: Is Device valid after registering
+'Test_DRM_NDT_Initialize(sample.hds)
+'Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+'Test_SetCertificate(files\DeviceTestCert1.crt)
+'Test_SetPrivateKeyDirectly(files\DeviceRSAPrivKey1.bin)
+'Test_NDTMGR_CreateSession(REGISTRATION)
+'Test_NDTMGR_ProcessRegistrationRequest()
+'Test_Proximity(0)
+'Test_DRM_DeviceStore_GetFirstDevice()
+'Test_DRM_DeviceStore_IsDeviceValid()
+
+'19214: Is Device valid timeout
+'Test_DRM_NDT_Initialize(sample.hds)
+'Test_SetSerialNumber(ABCDEF0123456789ABCDEF0123456789)
+'Test_SetCertificate(files\DeviceTestCert1.crt)
+'Test_SetPrivateKeyDirectly(files\DeviceRSAPrivKey1.bin)
+'Test_NDTMGR_CreateSession(REGISTRATION)
+'Test_NDTMGR_ProcessRegistrationRequest()
+'Test_Proximity(0)
+'Test_Sleep(VALIDATION_TIMEOUT)
+'Test_DRM_DeviceStore_GetFirstDevice()
+'Test_DRM_DeviceStore_IsDeviceValid()=-2147467259(DRM_E_FAIL)
+

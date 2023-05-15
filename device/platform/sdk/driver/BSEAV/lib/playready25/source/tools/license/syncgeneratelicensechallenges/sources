@@ -1,0 +1,38 @@
+#
+# Microsoft (r) PlayReady (r)
+# Copyright (c) Microsoft Corporation. All rights reserved.
+#
+
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=syncgeneratelicensechallenges
+TARGETTYPE=PROGRAM
+UMTYPE=console
+UMENTRY=wmain
+
+############################################################################
+#
+############################################################################
+
+SOURCES =                           \
+    syncgeneratelicensechallenges.c \
+
+!if "$(_DRM_BUILD_TOOL)" != "NMAKE"
+SOURCES = $(SOURCES) \
+      syncgeneratelicensechallenges.rc
+!endif
+
+############################################################################
+#
+############################################################################
+
+INCLUDES =                    \
+    $(INCLUDES)               \
+    $(_DRM_SOURCE_PATH)\tools\common
+
+TARGETLIBS = $(TARGETLIBS)                          \
+    $(_DRM_COMMON_LIBS)                             \
+    $(_DRM_OEM_MAIN_LIB)                            \
+    $(_DRM_BLACKBOX_LIBS)                           \
+    $(_DRM_TOOLS_COMMON_LIBS)                       \
+

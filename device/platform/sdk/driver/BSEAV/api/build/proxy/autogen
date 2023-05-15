@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# This file calls the perl script with the appropriate header
+# files for parsing.
+
+# Every header file except bsettop_pvr.h
+HEADERS="bsettop_display.h \
+	bsettop_message.h \
+	bsettop_recpump.h \
+	bsettop_types.h \
+	bsettop_cipher.h \
+	bsettop_encode.h \
+	bsettop_pcm.h \
+	bsettop_smartcard.h \
+	bsettop_user_io.h \
+	bsettop_config.h \
+	bsettop_graphics.h \
+	bsettop_playpump.h \
+	bsettop_stream.h \
+	bsettop_vbi.h \
+	bsettop_decode.h \
+	bsettop.h \
+	bsettop_tuner.h \
+	bsettop_mem.h \
+	bsettop_cablecard.h"
+
+echo 
+echo "Parsing Settop API header files:"
+echo
+echo $HEADERS
+echo
+
+for header in $HEADERS; do
+	HEADERLIST="$HEADERLIST ../../include/$header"
+done
+
+rm -vf bsettop_autogen_*
+
+perl bapi_build.pl $HEADERLIST
+

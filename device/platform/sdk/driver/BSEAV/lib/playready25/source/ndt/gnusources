@@ -1,0 +1,16 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmndt
+TARGETTYPE=LIBRARY
+
+SOURCES =                   \
+    drmndtmanager.c         \
+    drmpfd.c                \
+    drmpfdmanager.c         \
+    drmptrlist.c            \
+

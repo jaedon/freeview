@@ -1,0 +1,278 @@
+<!DOCTYPE HTML>
+<html xml:lang="en">
+
+<script type="text/javascript">
+
+      try {
+        if (typeof nrdp == 'undefined')
+        {
+
+          console.log("Instantiate NRDP");
+          var txtJs = String(n_init_api.init());
+          eval(txtJs);
+        }
+      } catch (e) {
+            document.writeln("An exception occurred in the NRDP script. Error name: " + e.name + ". Error message: " + e.message);
+      }
+
+</script>
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" type="text/css" href="mdx.css" />
+    <link rel="stylesheet" type="text/css" href="jquery-ui-1.8.16.custom.css" />
+    <script type="text/javascript" src="jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="mdx-app-controller.js"></script>
+    <script type="text/javascript" src="mdx.js"></script>
+    <script type="text/javascript" src="mdx-test-c2t-messages.js"></script>	
+    <script type="text/javascript" src="mdx-test-t2c-messages.js"></script>	
+
+    <title>Test MDX Controller</title>
+  </head>
+  <body onload="initialize();">
+    <div id="nf-header">
+      <h1 id="nf-logo">Netflix</h1>
+    </div>
+    <div id="main">
+      <table>
+        <tr>
+      <div>
+         <input type='button' value='ADD TARGET'  onclick="addTarget();">
+      </div>
+      </div>
+        </tr>
+      </table>
+
+      <div id="t1" class="instrument">
+	<input id="target1" class="target" type="radio" name="target" value="1" checked="checked" onclick="updateTarget();">Target #1
+      	<span id="handle-label1" class="inactive">Handle:</span>
+	<span id='active-handle1'>INVALID_HANDLE</span>
+	<span id="uuid-label1" class="inactive"> uuid:</span>
+	<span id='paired-uuid1' >-1</span>
+	<span id="sid-label1" class="inactive">sid:</span>
+	<span id='sid1'>-1</span>
+      </div>
+
+      <div id="t2" class="instrument">
+	<input id="target2" class="target" type="radio" name="target" value="2" onclick="updateTarget();">Target #2
+      	<span id="handle-label2" class="inactive">Handle:</span>
+	<span id='active-handle2'>INVALID_HANDLE</span>
+	<span id="uuid-label2" class="inactive"> uuid:</span>
+	<span id='paired-uuid2' >-1</span>
+	<span id="sid-label2" class="inactive">sid:</span>
+	<span id='sid2'>-1</span>
+      </div>
+
+      <div id="t3"class="instrument">
+	<input id="target3" class="target" type="radio" name="target" value="3" onclick="updateTarget();">Target #3
+      	<span id="handle-label3" class="inactive">Handle:</span>
+	<span id='active-handle3'>INVALID_HANDLE</span>
+	<span id="uuid-label3" class="inactive"> uuid:</span>
+	<span id='paired-uuid3' >-1</span>
+	<span id="sid-label3" class="inactive">sid:</span>
+	<span id='sid3'>-1</span>
+      </div>
+
+      <div id="t4" class="instrument">
+	<input id="target4" class="target" type="radio" name="target" value="4" onclick="updateTarget();">Target #4
+      	<span id="handle-label4" class="inactive">Handle:</span>
+	<span id='active-handle4'>INVALID_HANDLE</span>
+	<span id="uuid-label4" class="inactive"> uuid:</span>
+	<span id='paired-uuid4' >-1</span>
+	<span id="sid-label4" class="inactive">sid:</span>
+	<span id='sid4'>-1</span>
+      </div>
+
+      <div id="t5" class="instrument">
+	<input id="target5" class="target" type="radio" name="target" value="5" onclick="updateTarget();">Target #5
+      	<span id="handle-label5" class="inactive">Handle:</span>
+	<span id='active-handle5'>INVALID_HANDLE</span>
+	<span id="uuid-label5" class="inactive"> uuid:</span>
+	<span id='paired-uuid5' >-1</span>
+	<span id="sid-label5" class="inactive">sid:</span>
+	<span id='sid5'>-1</span>
+      </div>
+
+      <div id="t6" class="instrument">
+	<input id="target6" class="target" type="radio" name="target" value="6" onclick="updateTarget();">Target #6
+      	<span id="handle-label6" class="inactive">Handle:</span>
+	<span id='active-handle6'>INVALID_HANDLE</span>
+	<span id="uuid-label6" class="inactive"> uuid:</span>
+	<span id='paired-uuid6' >-1</span>
+	<span id="sid-label6" class="inactive">sid:</span>
+	<span id='sid6'>-1</span>
+      </div>
+
+      <table>
+        <tr>
+          <td>
+            <table class="left-panel">
+              <tr>
+                <td class="head-col subsection"><h3>Controller</h3>
+                </td>
+
+              </tr>
+              <tr>
+                <td>
+                  <h4>Command</h4>
+                  <input id="c-startSession" class="c-command" type="radio" name="c-cmd" value="startSession" checked="checked"/>
+                  <label for="c-startSession">startSession</label>
+                  <br />
+
+		  <input id="c-dePair" class="c-command" type="radio" name="c-cmd" value="dePair" />
+                  <label for="c-dePair">dePair</label>
+                  <br />
+
+                  <input id="c-play" class="c-command" type="radio" name="c-cmd" value="sendMessage" />
+                  <label for="c-play">sendMessage</label>
+                  <br />
+
+                  <input id="c-endSession" class="c-command" type="radio" name="c-cmd" value="endSession" />
+                  <label for="c-endSession">endSession</label>
+		  <br /><br />
+		  	
+                  <input id="c-httpRequest" class="c-command" type="radio" name="c-cmd" value="httpRequest" />
+                  <label id="c-httpRequest-label" for="c-httpRequest">DIAL</label>	
+
+                </td>
+                <td>
+                  <h4>Arguments</h4>
+		  <div id="duuid"></div>
+                  <div id="c-arg-anchor">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><span class="jbutton" id="c-execute"></span>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td class="device-panel">
+            <h4>Available Devices</h4>
+            <div id="mdx-device-wrapper">
+              <div
+                 class="device ui-corner-all device-template"
+                 style="display: none;" uuid="-1">
+                <h5>
+                  Name: <span></span>
+                </h5>
+                <ul>
+                  <li>selector key: <span>netflix</span>
+                  </li>
+                  <li>location: <span class='dlocation'>http://localhost/</span>
+                  </li>
+                  <li>uuid: <span>1</span></li>
+                  <li>usn:<span></span>
+                  </li>
+                </ul>
+                <div class="device-footer">
+                  <span class="pair"></span>
+                  <span class="handle">-1</span>
+                  <span class="handle-label">handle: </span>
+                </div>
+              </div>
+          </div></td>
+        </tr>
+      </table>
+      <h4>Log <span id="c-log-line">0</span></h4>
+        <div id="controller-log" class="logLarge"></div>
+      <span id="c-console" class="jbutton jbutton-large clear"></span>
+      <span class="log-control-anchor">
+        <input id="c-log-type-fromnative" class="log-control" type="checkbox" checked="checked"/>
+        <label for="c-log-type-fromnative" class="entry-fromnative">From Native</label>
+        <input id="c-log-type-tonative" class="log-control" type="checkbox" checked="checked"/>
+        <label for="c-log-type-tonative" class="entry-tonative">To Native</label>
+        <input id="c-log-type-discovery" class="log-control" type="checkbox" checked="checked"/>
+        <label for="c-log-type-discovery" class="entry-discovery">Discovery</label>
+        <input id="c-log-type-property" class="log-control" type="checkbox" checked="checked"/>
+        <label for="c-log-type-property" class="entry-property">Native Property</label>
+        <input id="c-log-type-event" class="log-control" type="checkbox" checked="checked"/>
+        <label for="c-log-type-event" class="entry-event">Events</label>
+
+	<input id="c-log-type-state" class="log-control" type="checkbox" checked="checked"/>
+        <label for="c-log-type-state" class="entry-state">State</label>
+
+	<input id="c-log-type-error" class="log-control" type="checkbox" checked="checked"/>
+        <label for="c-log-type-error" class="entry-error">Errors</label>
+
+	<input id="c-log-type-command" class="log-control" type="checkbox" checked="checked"/>
+        <label for="c-log-type-command" class="entry-command">Commands</label>
+
+	<input id="c-log-type-current" class="log-control" type="checkbox"/>
+        <label for="c-log-type-current" class="entry-current">Current Target</label>
+
+	<input id="c-log-limit" class="log-control log-limit" size="3" maxlength="3" type="text" name="c-log" value="100"/>
+        <label for="c-log-limit" style="left:0;top:0;">Lines</label>
+        </span>
+	
+	<br><br>
+	<div id="activate" style='float:left;'><input type='button' value='Go To Activation Page'  onclick="window.location='simple_activate.html' + location.search"></div>
+	<div id="reinit" style='float:left;'><input type='button' value='MDX INIT'  onclick="mdx.init('CONTROLLER', {});"></div>
+	<div id="quit" style='float:left;'><input type='button' value='MDX QUIT'  onclick="mdx.exit();"></div>
+  	<div id="update" style='float:left;'><input type='button' value='UPDATE DEVICES'  onclick="mdx.app.updateDevices();"></div>
+
+	<div style="clear:both;padding:10px 0px;">
+    <input id="interfaceName" style="float:left; font-size:10px;" size=33 value='interfaceName' onfocus="if(this.value=='interfaceName'){this.value='';}" />	
+	<input id="connected" style="float:left; font-size:10px;" size=33 value='connected' onfocus="if(this.value=='connected'){this.value='';}" />	
+	<div id="checkIterface" style="float:left;"><input type='button' value='Change Interface'  onclick="changeInterface();"></div>
+
+	<div style="clear:both;padding:10px 0px;">
+	<div id="configParams">
+   	<input id="advertisingPeriod" style="float:left; font-size:10px;" size=16 value='advertisingPeriod' onfocus="if(this.value=='advertisingPeriod'){this.value='';}" />	
+	<input id="advertisingTTL" style="float:left; font-size:10px;" size=16 value='advertisingTTL' onfocus="if(this.value=='advertisingTTL'){this.value='';}" />	
+	<input id="advertisingPort" style="float:left; font-size:10px;" size=16 value='advertisingPort' onfocus="if(this.value=='advertisingPort'){this.value='';}" />	
+	<input id="listeningPort" style="float:left; font-size:10px;" size=16 value='listeningPort' onfocus="if(this.value=='listeningPort'){this.value='';}" />	
+	<div id="configSet" style="float:left;"><input type='button' value='MDX Configure'  onclick="mdxConfigure();"></div>
+	</div>
+
+	<div style="clear:both;padding:0px;">
+   	<div style="float:left"><input id="cmdMap" style="font-size:10px;" size=33 value='{}' onfocus="if(this.value=='{}'){this.value='';}" /></div>	
+	<div id="setCmdMap" style="float:left;"><input type='button' value='Set Command Map'  onclick="setCommandMap();"></div>
+
+ 	<div id="isPS3" style='float:left;border:2px solid blue;padding: 2px 2px 1px 1px'>
+         <input id="c-is-PS3" class="c-is-PS3" type='checkbox'>
+         <label for="c-is-PS3" class="is-PS3-property">PS3</label>
+         <label class="c-cpu-usage-lbl" id="c-cpu-usage-lbl" name="c-cpu-usage-lbl" style="padding-left:5px;font-weight:bold;color:#808080;">CPU:</label>
+         <label class="c-cpu-usage-lbl" id="c-min-cpu-usage-lbl" name="c-min-cpu-usage-lbl" style="padding-left:1px;border:1px;color:#808080;">Min</label>
+         <input class="c-cpu-usage-val" id="c-min-cpu-usage-val" name="c-min-cpu-usage-val" size=6 style="font-size:10px;padding-left:0px;" />
+         <label class="c-cpu-usage-lbl" id="c-max-cpu-usage-lbl" name="c-max-cpu-usage-lbl" style="padding-left:1px;border:1px;color:#808080;">Max</label>
+         <input class="c-cpu-usage-val" id="c-max-cpu-usage-val" name="c-max-cpu-usage-val" size=6 style="font-size:10px;padding-left:0px;" />
+         <label class="c-cpu-usage-lbl" id="c-cur-cpu-usage-lbl" name="c-cur-cpu-usage-lbl" style="padding-left:1px;border:1px;color:#808080;">Current</label>
+         <input class="c-cpu-usage-val" id="c-cur-cpu-usage-val" name="c-cur-cpu-usage-val" size=6 style="font-size:10px;padding-left:0px;" />
+
+         <label class="c-memory-usage-lbl" id="c-memory-usage-lbl" name="c-memory-usage-lbl" style="padding-left:5px;font-weight:bold;color:#808080;">Memory:</label>
+         <label class="c-memory-usage-lbl" id="c-min-memory-usage-lbl" name="c-min-memory-usage-lbl" style="padding-left:1px;border:1px;color:#808080;">Min</label>
+         <input class="c-memory-usage-val" id="c-min-memory-usage-val" name="c-min-memory-usage-val" size=9 style="font-size:10px;padding-left:0px;" />
+         <label class="c-memory-usage-lbl" id="c-max-memory-usage-lbl" name="c-max-memory-usage-lbl" style="padding-left:1px;border:1px;color:#808080;">Max</label>
+         <input class="c-memory-usage-val" id="c-max-memory-usage-val" name="c-max-memory-usage-val" size=9 style="font-size:10px;padding-left:0px;" />
+         <label class="c-memory-usage-lbl" id="c-cur-memory-usage-lbl" name="c-cur-memory-usage-lbl" style="padding-left:1px;border:1px;color:#808080;">Current</label>
+         <input class="c-memory-usage-val" id="c-cur-memory-usage-val" name="c-cur-memory-usage-val" size=9 style="font-size:10px;padding-left:0px;" />
+        </div>
+
+        <div style="clear:both;padding:10px 0px;"></div>
+
+        <div id="stressMsgsTarget" style='float:left;border:2px solid green;padding: 2px 2px 1px 1px'>
+          <label class="c-send-messages-lbl" id="c-send-messages-lbl" style="padding-left:1px;border:1px;color:#808080;">Loops</label>
+          <input class="c-send-messages-loops" id="c-send-messages-loops" name="c-send-messages-loops" size=3 style="font-size:10px;padding-left:0px;" />
+          <input type='button' value='Send Target Messages'  onclick="sendTargetMessages();" />
+          <label class="c-sent-messages-lbl" id="c-sent-messages-lbl" style="padding-left:5px;border:1px;color:#808080;">Sent:</label>
+          <input class="c-sent-messages-number" id="c-sent-messages-number" name="c-sent-messages-number" size=5 style="font-size:10px;padding-left:5px;" />
+
+          <label class="c-recv-messages-lbl" id="c-recv-messages-lbl" style="padding-left:20px;border:1px;color:#808080;">Target messages received:</label>
+          <input class="c-recv-messages-number" id="c-recv-messages-number" name="c-recv-messages-number" size=5 style="font-size:10px;padding-left:5px;" />
+           <label class="c-expected-messages-lbl" id="c-expected-messages-lbl" style="padding-left:0px;border:1px;color:#808080;">Expected:</label>
+          <input class="c-expected-messages-number" id="c-expected-messages-number" name="c-expected-messages-number" size=5 style="font-size:10px;padding-left:5px;" />
+          <label class="c-matched-messages-lbl" id="c-matched-messages-lbl" style="padding-left:0px;border:1px;color:#808080;">Matched:</label>
+          <input class="c-matched-messages-number" id="c-matched-messages-number" name="c-matched-messages-number" size=5 style="font-size:10px;padding-left:5px;" />
+          <label class="c-mismatched-messages-lbl" id="c-mismatched-messages-lbl" style="padding-left:0px;border:1px;color:#808080;">Mismatched:</label>
+          <input class="c-mismatched-messages-number" id="c-mismatched-messages-number" name="c-mismatched-messages-number" size=5 style="font-size:10px;padding-left:5px;" />
+         <input type='button' value='Clear'  onclick="clearTargetMessages();" />
+        </div>
+	
+
+  </body>
+</html>

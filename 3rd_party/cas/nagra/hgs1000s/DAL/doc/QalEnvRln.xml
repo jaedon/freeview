@@ -1,0 +1,188 @@
+<?xml version="1.0" ?>
+<release_notes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="release.notes.xsd">
+	<project id="$Id: QalEnvRln.xml,v 1.2 2010/02/11 14:12:07 sbsuser Exp $" name="dalts_humax_XXX">
+		<contact_person comment="tel +41 21 732 04 45" email="dtesen.support@nagra.com" name="DTESEN support"/>
+	</project>
+	<release version="1_0_2">
+		<components>
+			<component name="prmapivr.h"/>
+			<component name="ca_os.h"/>
+			<component name="ca_sec.h"/>
+			<component name="ca_cert.h"/>
+			<component name="dalapivr.h"/>
+			<component name="ca_defs.h"/>
+			<component name="ca_bdc.h"/>
+			<component name="ca_mpeg.h"/>
+			<component name="ca_types.h"/>
+			<component name="ca_rph.h"/>
+			<component name="ca_cak.h"/>
+			<component name="ca_defsx.h"/>
+			<component name="ca_icc.h"/>
+			<component name="ca_dvl.h"/>
+			<component name="ca_dmx.h"/>
+			<component name="cakapivr.h"/>
+			<component name="ca_dvb.h"/>
+		</components>
+		<compatibility>
+			<product name="cakapi" version="1.24.0"/>
+			<product name="caoapi" version="1.11.1"/>
+			<product name="dalapi" version="7.3.1"/>
+			<product name="lw_testsuite" version="3.17.0"/>
+			<product name="makefiles" version="2.9.32"/>
+			<product name="prmapi" version="3.1.0"/>
+			<toolchain name="arm-linux-gnueabihf-gcc" version="4.8-1.0">
+				<compiler_flags>
+					<flag>-O2</flag>
+					<flag>-pipe</flag>
+					<flag>-marm</flag>
+					<flag>-march=armv7-a</flag>
+					<flag>-fdata-sections</flag>
+					<flag>-ffunction-sections</flag>
+					<flag>-fno-strict-aliasing</flag>
+					<flag>-fstack-protector-all</flag>
+					<flag>-Wall</flag>
+					<flag>-Wno-unused-value</flag>
+					<flag>-Wno-unused-function</flag>
+					<flag>-Wstrict-prototypes</flag>
+					<flag>-Wno-strict-aliasing</flag>
+					<flag>-Wdeclaration-after-statement</flag>
+					<flag>-Wno-pointer-sign</flag>
+				</compiler_flags>
+				<compiler_defines>
+					<define>_FILE_OFFSET_BITS=64</define>
+					<define>_LARGEFILE_SOURCE</define>
+					<define>_LARGEFILE64_SOURCE</define>
+					<define>BSTD_CPU_ENDIAN_LITTLE</define>
+					<define>LINUX</define>
+				</compiler_defines>
+			</toolchain>
+		</compatibility>
+		<bug_fixes/>
+		<changes/>
+		<new_features/>
+		<comments/>
+		<libraries>
+			<library name="dalts.cak7-merlin.release.arm-linux-gnueabihf-gcc.a" version="">
+				<operators/>
+			</library>
+		</libraries>
+	</release>
+	<release version="1_0_1">
+		<components>
+			<component name="prmapivr.h"/>
+			<component name="ca_os.h"/>
+			<component name="ca_sec.h"/>
+			<component name="ca_cert.h"/>
+			<component name="dalapivr.h"/>
+			<component name="ca_defs.h"/>
+			<component name="ca_bdc.h"/>
+			<component name="ca_mpeg.h"/>
+			<component name="ca_types.h"/>
+			<component name="ca_rph.h"/>
+			<component name="ca_cak.h"/>
+			<component name="ca_defsx.h"/>
+			<component name="ca_icc.h"/>
+			<component name="ca_dvl.h"/>
+			<component name="ca_dmx.h"/>
+			<component name="cakapivr.h"/>
+			<component name="ca_dvb.h"/>
+		</components>
+		<compatibility>
+			<product name="cakapi" version="1.24.0"/>
+			<product name="caoapi" version="1.11.1"/>
+			<product name="dalapi" version="7.3.1"/>
+			<product name="lw_testsuite" version="3.17.0"/>
+			<product name="makefiles" version="2.9.31"/>
+			<product name="prmapi" version="3.1.0"/>
+			<toolchain name="arm-linux-gnueabihf-gcc" version="4.8-1.0">
+				<compiler_flags>
+					<flag>-O2</flag>
+					<flag>-pipe</flag>
+					<flag>-marm</flag>
+					<flag>-march=armv7-a</flag>
+					<flag>-fdata-sections</flag>
+					<flag>-ffunction-sections</flag>
+					<flag>-fno-strict-aliasing</flag>
+					<flag>-fstack-protector-all</flag>
+					<flag>-Wall</flag>
+					<flag>-Wno-unused-value</flag>
+					<flag>-Wno-unused-function</flag>
+					<flag>-Wstrict-prototypes</flag>
+					<flag>-Wno-strict-aliasing</flag>
+					<flag>-Wdeclaration-after-statement</flag>
+					<flag>-Wno-pointer-sign</flag>
+				</compiler_flags>
+				<compiler_defines>
+					<define>_FILE_OFFSET_BITS=64</define>
+					<define>_LARGEFILE_SOURCE</define>
+					<define>_LARGEFILE64_SOURCE</define>
+					<define>BSTD_CPU_ENDIAN_LITTLE</define>
+					<define>LINUX</define>
+				</compiler_defines>
+			</toolchain>
+		</compatibility>
+		<bug_fixes/>
+		<changes/>
+		<new_features/>
+		<comments/>
+	</release>
+	<release version="1_0_0">
+		<components>
+			<component name="prmapivr.h"/>
+			<component name="ca_os.h"/>
+			<component name="ca_sec.h"/>
+			<component name="ca_cert.h"/>
+			<component name="dalapivr.h"/>
+			<component name="ca_defs.h"/>
+			<component name="ca_bdc.h"/>
+			<component name="ca_mpeg.h"/>
+			<component name="ca_types.h"/>
+			<component name="ca_rph.h"/>
+			<component name="ca_cak.h"/>
+			<component name="ca_defsx.h"/>
+			<component name="ca_icc.h"/>
+			<component name="ca_dvl.h"/>
+			<component name="ca_dmx.h"/>
+			<component name="cakapivr.h"/>
+			<component name="ca_dvb.h"/>
+		</components>
+		<compatibility>
+			<product name="cakapi" version="1.24.0"/>
+			<product name="caoapi" version="1.11.1"/>
+			<product name="dalapi" version="7.3.1"/>
+			<product name="lw_testsuite" version="3.17.0"/>
+			<product name="makefiles" version="2.10.19"/>
+			<product name="prmapi" version="3.1.0"/>
+			<toolchain name="arm-linux-gnueabihf-gcc" version="4.8-1.0">
+				<compiler_flags>
+					<flag>-O2</flag>
+					<flag>-pipe</flag>
+					<flag>-marm</flag>
+					<flag>-march=armv7-a</flag>
+					<flag>-fdata-sections</flag>
+					<flag>-ffunction-sections</flag>
+					<flag>-fno-strict-aliasing</flag>
+					<flag>-fstack-protector-all</flag>
+					<flag>-Wall</flag>
+					<flag>-Wno-unused-value</flag>
+					<flag>-Wno-unused-function</flag>
+					<flag>-Wstrict-prototypes</flag>
+					<flag>-Wno-strict-aliasing</flag>
+					<flag>-Wdeclaration-after-statement</flag>
+					<flag>-Wno-pointer-sign</flag>
+				</compiler_flags>
+				<compiler_defines>
+					<define>_FILE_OFFSET_BITS=64</define>
+					<define>_LARGEFILE_SOURCE</define>
+					<define>_LARGEFILE64_SOURCE</define>
+					<define>BSTD_CPU_ENDIAN_LITTLE</define>
+					<define>LINUX</define>
+				</compiler_defines>
+			</toolchain>
+		</compatibility>
+		<bug_fixes/>
+		<changes/>
+		<new_features/>
+		<comments/>
+	</release>
+</release_notes>

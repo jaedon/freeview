@@ -1,0 +1,198 @@
+##########################################
+# Common DI configuration menu
+##########################################
+
+	menu "CHANNEL"
+	source "driver/common_di_kconfig/channel_config.in"
+	endmenu
+
+	menu "CABLE MODEM"
+	source "driver/common_di_kconfig/cable_modem_config.in"
+	endmenu
+
+	menu "DEMUX"
+	source "driver/common_di_kconfig/demux_config.in"
+	endmenu
+
+	menu "MUX"
+	source "driver/common_di_kconfig/mux_config.in"
+	endmenu
+
+	menu "DSC"
+	source "driver/common_di_kconfig/dsc_config.in"
+	endmenu
+		
+	menu "VIDEO"
+	source "driver/common_di_kconfig/video_config.in"
+	endmenu
+	
+	menu "AUDIO"
+	source "driver/common_di_kconfig/audio_config.in"
+	endmenu
+
+	menu "OSD"
+	source "driver/common_di_kconfig/osd_config.in"
+	endmenu
+	
+	menu "PERIPHERAL"
+		menu "CI"
+		source "driver/common_di_kconfig/ci_config.in"
+		endmenu
+
+		menu "CRYPT"
+		source "driver/common_di_kconfig/crypt_config.in"
+		endmenu
+
+		menu "ETHERNET"
+		source "driver/common_di_kconfig/ethernet_config.in"
+		endmenu
+					
+		menu "EEPROM"
+		source "driver/common_di_kconfig/eeprom_config.in"
+		endmenu
+
+		menu "FAN"
+		source "driver/common_di_kconfig/fan_config.in"
+		endmenu
+
+		menu "FLASH"
+		source "driver/common_di_kconfig/flash_config.in"
+		endmenu
+
+		menu "FRONT KEY"
+		source "driver/common_di_kconfig/key_config.in"
+		endmenu
+
+		menu "FRONT LED"
+		source "driver/common_di_kconfig/led_config.in"
+		endmenu
+
+		menu "FRONT DISPLAY"
+		source "driver/common_di_kconfig/front_display_config.in"
+		endmenu
+
+		menu "HDD"
+		source "driver/common_di_kconfig/hdd_config.in"
+		endmenu	
+
+		menu "FS"
+		source "driver/common_di_kconfig/fs_config.in"
+		endmenu		
+		
+		menu "HDMI"
+		source "driver/common_di_kconfig/hdmi_config.in"
+		endmenu		
+
+		menu "IRB"
+		source "driver/common_di_kconfig/irb_config.in"
+		endmenu
+				
+		menu "MICOM"
+		source "driver/common_di_kconfig/micom_config.in"
+		endmenu
+
+		menu "STLED"
+		source "driver/common_di_kconfig/stled_config.in"
+		endmenu
+
+		menu "MODEM"
+		source "driver/common_di_kconfig/modem_config.in"
+		endmenu
+
+		menu "POWER"
+		source "driver/common_di_kconfig/power_config.in"
+		endmenu
+
+		menu "PWM"
+		source "driver/common_di_kconfig/pwm_config.in"
+		endmenu
+		
+		menu "RF"
+		source "driver/common_di_kconfig/rf_config.in"
+		endmenu
+
+		menu "RTC"
+		source "driver/common_di_kconfig/rtc_config.in"
+		endmenu
+
+		menu "SCART"
+		source "driver/common_di_kconfig/scart_config.in"
+		endmenu
+
+		menu "SPI"
+		source "driver/common_di_kconfig/spi_config.in"
+		endmenu
+		
+		menu "SMARTCARD"
+		source "driver/common_di_kconfig/smartcard_config.in"
+		endmenu
+
+		menu "USB"
+		source "driver/common_di_kconfig/usb_config.in"
+		endmenu
+
+		menu "WATCHDOG"
+		source "driver/common_di_kconfig/watchdog_config.in"
+		endmenu
+
+		menu "MMC"
+		source "driver/common_di_kconfig/mmc_config.in"
+		endmenu
+
+	endmenu
+
+	menu "PVR"
+	source "driver/common_di_kconfig/pvr_config.in"
+	endmenu	
+
+	menu "MEDIA"
+	source "driver/common_di_kconfig/media_config.in"
+	endmenu	
+
+	menu "CAS"
+	source "driver/common_di_kconfig/cas_config.in"
+	endmenu
+
+	menu "TRANSCODER"
+	source "driver/common_di_kconfig/transcoder_config.in"
+	endmenu
+	
+	menu "SATIP"
+	source "driver/common_di_kconfig/satip_config.in"
+	endmenu
+	
+	menu "JAPAN SPEC"
+	source "driver/common_di_kconfig/japan_spec_config.in"
+	endmenu
+
+	menu "PIP"
+	source "driver/common_di_kconfig/pip_config.in"
+	endmenu
+
+	menu "IPSTREAM"
+	source "driver/common_di_kconfig/ipstream_config.in"
+	endmenu
+
+	menu "MIC"
+	source "driver/common_di_kconfig/mic_config.in"
+	endmenu
+
+	menu "WORKAROUND"
+	source "driver/common_di_kconfig/workaround_config.in"
+	endmenu
+
+	menu "MoCA"
+	source "driver/common_di_kconfig/moca_config.in"
+	endmenu
+	
+	menu "AV SYNC"
+	source "driver/common_di_kconfig/sync_config.in"
+	endmenu
+
+	menu "NETAPP"
+	source "driver/common_di_kconfig/netapp_config.in"
+	endmenu
+	
+	menu "PUMP"
+	source "driver/common_di_kconfig/pump_config.in"
+	endmenu

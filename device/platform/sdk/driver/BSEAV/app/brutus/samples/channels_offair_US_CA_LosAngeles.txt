@@ -1,0 +1,50 @@
+# Dynamic Channel List for Brutus				
+# Brutus Dynamic Channel List
+# Syntax:
+#       INVALID
+#       QAM64       Disabled  Freq        SymbolRate   [AnnexA|AnnexB]
+#       QAM256      Disabled  Freq        SymbolRate   [AnnexA|AnnexB]
+#       QAM1024     Disabled  Freq        SymbolRate   [AnnexA|AnnexB]
+#       LINEINPUT   Index                 [PAL|NTSC]
+#       ANALOG      Disabled  Freq        [PAL|NTSC]
+#       VSB8        Disabled  Freq SymbolRate
+#       VSB16       Disabled  Freq SymbolRate
+#       STREAMER    Disabled  Index [TS|DSS_ES|DSS_PES]
+#
+# Key:
+#       Disabled = 1 | 0
+#       Freq = <floating point number> (center frequency)
+#       SymbolRate = DEFAULT | <floating point number>
+#
+# Tab or space separated fields, case insensitive
+# '#' marks the beginning of a line comment, all characters after are ignored.
+
+# Terrestrial Off-Air Channels in Los Angeles, California, USA
+
+VSB8 0 647.0 DEFAULT # KCBS-DT (ch2)     43
+VSB8 0 605.0 DEFAULT # KNBC-DT (ch4)     36
+VSB8 0 575.0 DEFAULT # KTLA-DT (CW-5)    31
+VSB8 0 177.0 DEFAULT # KABC-DT (ch7)     7 
+VSB8 0 189.0 DEFAULT # KCAL-DT (ch9)     9 
+VSB8 0 201.0 DEFAULT # KTTV-DT (Fox-11)  11
+VSB8 0 213.0 DEFAULT # KCOP-DT (MyN-13)  13
+VSB8 0 497.0 DEFAULT # KSCI    (ch18)    18
+VSB8 0 641.0 DEFAULT # KWHY-DT (ch22)    42
+VSB8 0 557.0 DEFAULT # KCET-DT (PBS-28)  28
+VSB8 0 617.0 DEFAULT # KPXN-DT (ION-30)  38
+VSB8 0 593.0 DEFAULT # KMEX-TV (Uni-34)  34
+VSB8 0 527.0 DEFAULT # KTBN-TV (ch40)    23
+VSB8 0 695.0 DEFAULT # KXLA-DT (ch44)    51
+VSB8 0 563.0 DEFAULT # KFTR-DT (Tel-46)  29
+VSB8 0 677.0 DEFAULT # KOCE-DT (PBS-50)  48
+VSB8 0 623.0 DEFAULT # KVEA-DT (TEL-52)  39
+VSB8 0 671.0 DEFAULT # KAZA-DT (Azt-54)  47
+VSB8 0 581.0 DEFAULT # KDOC-DT (ch56)    32
+VSB8 0 683.0 DEFAULT # KJLA-DT (ch57)    49
+VSB8 0 635.0 DEFAULT # KLCS-DT (PBS-58)  41
+VSB8 0 599.0 DEFAULT # KRCA    (ch62)    35
+VSB8 0 533.0 DEFAULT # KBEH    (ch63)    24
+
+# Test disabling Tuner and VSB/QAM control
+STREAMER	0	102	# 130
+

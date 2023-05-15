@@ -1,0 +1,382 @@
+'Valid MAS prikey: lVvvpn!q4bMJi!BosMpAPZ9IERg=
+
+210528:DRM_Manager_GenerateMeterChallenge and DRM_Manager_ProcessMeterResponse: with valid parameters should work
+SkipTestIf(!WMDRMSupported)
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_GenerateMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", "pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+
+
+211573:MGR_MTR_GenerateMeteringChallenge returns no data.
+SkipTestIf(!WMDRMSupported)
+TestDRM_Manager_Initialize()
+TestDRM_Manager_GenerateMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=")
+
+
+211574:MGR_MTR_GenerateMeteringChallenge returns proper MIDs metering data.
+SkipTestIf(!WMDRMSupported)
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_AddMeteringData("EXchRPpxP2YvGZR1d1OKKA==", "37HRLgAfR0G4fVSEAeR2lw==", "Copy", "3")
+TestDRM_Manager_GenerateMeterChallenge(files\metercert2.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", "EXchRPpxP2YvGZR1d1OKKA==", "37HRLgAfR0G4fVSEAeR2lw==", "Copy", "3")
+TestDRM_Manager_GenerateMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", "pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+
+
+211575:MGR_MTR_GenerateMeteringChallenge returns multiple actions
+SkipTestIf(!WMDRMSupported)
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_AddMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Copy", "3")
+TestDRM_Manager_GenerateMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", "pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2", "27HRLgAfR0G4fVSEAeR2lw==", "Copy", "3")
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+
+
+211576:MGR_MTR_ProcessMeteringResponse clears data
+SkipTestIf(!WMDRMSupported)
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_GenerateMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", "pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GenerateMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=")
+
+
+211577:MGR_MTR_GenerateMeteringChallenge returns multiple KIDs
+SkipTestIf(!WMDRMSupported)
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_AddMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", "37HRLgAfR0G4fVSEAeR2lw==", "Copy", "3")
+TestDRM_Manager_GenerateMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", "pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2", "37HRLgAfR0G4fVSEAeR2lw==", "Copy", "3")
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+
+
+211579:MGR_MTR_ProcessMeteringResponse clears proper KIDs data
+SkipTestIf(!WMDRMSupported)
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_GenerateMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", "pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_AddMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", "37HRLgAfR0G4fVSEAeR2lw==", "Copy", "3")
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GenerateMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", "pIKx8Wsy5aYRQN8LLIIcTQ==", "37HRLgAfR0G4fVSEAeR2lw==", "Copy", "3")
+
+
+211580:MGR_MTR_ProcessMeteringResponse clears proper action data
+SkipTestIf(!WMDRMSupported)
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_GenerateMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", "pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_AddMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Copy", "3")
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GenerateMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=")
+
+
+212604:Partial metering 200KIDs with 16K buffer
+SkipTestIf(!WMDRMSupported)
+Test_SetRandomSeed( RANDOM )
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddManyMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", 200)
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", NULL, 16384)
+
+
+212605:Partial metering intermixed 4 metercert each with 200 KIDs with 16K buffer
+SkipTestIf(!WMDRMSupported)
+Test_SetRandomSeed( RANDOM )
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddManyMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", 50)
+TestDRM_Manager_AddManyMeteringData("EXchRPpxP2YvGZR1d1OKKA==", 50)
+TestDRM_Manager_AddManyMeteringData("3IKx8Wsy5aYRQN8LLIIcTQ==", 50)
+TestDRM_Manager_AddManyMeteringData("4IKx8Wsy5aYRQN8LLIIcTQ==", 50)
+
+TestDRM_Manager_AddManyMeteringData("EXchRPpxP2YvGZR1d1OKKA==", 50)
+TestDRM_Manager_AddManyMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", 50)
+TestDRM_Manager_AddManyMeteringData("4IKx8Wsy5aYRQN8LLIIcTQ==", 50)
+TestDRM_Manager_AddManyMeteringData("3IKx8Wsy5aYRQN8LLIIcTQ==", 50)
+
+TestDRM_Manager_AddManyMeteringData("3IKx8Wsy5aYRQN8LLIIcTQ==", 50)
+TestDRM_Manager_AddManyMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", 50)
+TestDRM_Manager_AddManyMeteringData("EXchRPpxP2YvGZR1d1OKKA==", 50)
+TestDRM_Manager_AddManyMeteringData("4IKx8Wsy5aYRQN8LLIIcTQ==", 50)
+
+TestDRM_Manager_AddManyMeteringData("4IKx8Wsy5aYRQN8LLIIcTQ==", 50)
+TestDRM_Manager_AddManyMeteringData("EXchRPpxP2YvGZR1d1OKKA==", 50)
+TestDRM_Manager_AddManyMeteringData("3IKx8Wsy5aYRQN8LLIIcTQ==", 50)
+TestDRM_Manager_AddManyMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", 50)
+
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert3.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert3.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert2.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert2.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert4.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert4.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert2.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert2.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert3.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert3.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert4.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert4.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert4.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert4.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert4.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert4.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert3.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert3.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert3.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert3.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert2.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert2.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert2.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert2.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert2.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert2.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert3.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert3.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert4.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert4.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert2.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert2.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert3.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert3.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert4.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", 16384)
+TestDRM_Manager_ProcessMeterResponse(files\metercert4.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=",  NULL, 16384)
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert2.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", NULL, 16384)
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert3.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", NULL, 16384)
+TestDRM_Manager_GeneratePartialMeterChallenge(files\metercert4.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", NULL, 16384)
+
+
+211855:DRM_Manager_ProcessMeterResponse - Response signed with wrong key
+SkipTestIf(!WMDRMSupported)
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_GenerateMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", "pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "dsml2vSSmIIkNScihY5niY95fSQ=", "files\response.xml") = 0X8004A013( DRM_E_INVALID_METERRESPONSE_SIGNATURE )
+
+
+212609:Verify TID accuracy if meter challenge is interrupted before processing
+SkipTestIf(!WMDRMSupported)
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_GenerateMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml", "pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_GenerateMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response1.xml", "pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_VerifyTID("files\response.xml", "files\response1.xml", TRUE)
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response1.xml")
+TestDRM_Manager_AddMeteringData("pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_GenerateMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response2.xml", "pIKx8Wsy5aYRQN8LLIIcTQ==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_VerifyTID("files\response.xml", "files\response2.xml", FALSE)
+
+
+230003:DRT:P0:TestDRM_MTR_GenerateMeterCertChallenge
+TestDRM_Manager_Initialize()
+TestDRM_MTR_GenerateMeterCertChallenge("pIKx8Wsy5aYRQN8LLIIcTQ==", "Hello World")
+
+
+230004:DRT:P0:TestDRM_MTR_ProcessMeterCertResponse
+TestDRM_Manager_Initialize()
+TestDRM_MTR_ProcessMeterCertResponse(metercertresponse1.dat) = 2 (DRM_S_MORE_DATA)
+TestDRM_CompareMeterCert("EXchRPpxP2YvGZR1d1OKKA==",metercert2.xml)
+
+230005:TestDRM_MTR_GenerateMeterCertChallenge with null custom data
+TestDRM_Manager_Initialize()
+TestDRM_MTR_GenerateMeterCertChallenge("pIKx8Wsy5aYRQN8LLIIcTQ==", NULL)
+
+230006:TestDRM_MRT_GenerateMeterCertChallenge with null MID
+TestDRM_Manager_Initialize()
+TestDRM_MTR_GenerateMeterCertChallenge(NULL, "Hello World") = 0x80070057 (DRM_E_INVALIDARG)
+
+230007:TestDRM_MTR_ProcessMeterCertResponse with response without SOAP XML tag
+TestDRM_Manager_Initialize()
+TestDRM_MTR_ProcessMeterCertResponse(noSOAPmetercertresponse1.dat) = 0X8004CB01 (DRM_E_SOAPXML_XML_FORMAT)
+
+230008:TestDRM_MTR_ProcessMeterCertResponse with response without custom data
+TestDRM_Manager_Initialize()
+TestDRM_MTR_ProcessMeterCertResponse(noCustomDataMetercertresponse1.dat)
+TestDRM_CompareMeterCert("EXchRPpxP2YvGZR1d1OKKA==",metercert2.xml)
+
+230010:TestDRM_MTR_ProcessMeterCertResponse with bad SOAP meter cert (MeterCert tag labeled as Meter)
+TestDRM_Manager_Initialize()
+TestDRM_MTR_ProcessMeterCertResponse(badSOAPMetercertresponse1.dat, 0x8004cB01 DRM_E_SOAPXML_XML_FORMAT)=0x8004C3F2 (DRM_E_METERCERT_NOT_FOUND)
+
+1899:TestDRM_Manager_GenerateMeterChallengeV3
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "27HRLgAfR0G4FVSEAeR2lw==", "Play1", "4")
+TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, files\binmetercert1.dat, "Hello World", NORMAL, 2, NORMAL) = 0x8007007A (DRM_E_BUFFERTOOSMALL)
+TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, files\binmetercert1.dat, "Hello World", NORMAL, NORMAL, 1000) = 0x8007007A (DRM_E_BUFFERTOOSMALL)
+TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, files\binmetercert1.dat, "Hello World", NORMAL, NORMAL, NORMAL)
+TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, files\binmetercert1.dat, "\\\\?\\pipemtp#pipemtpaudio#1&79f5d87&0&01<<#{f33fdc04-d1ac-4e8e-9a30-19bbd4b108ae}$1<<", NORMAL, NORMAL, NORMAL)
+
+240001:TestDRM_Manager_GeneratePartialMeterChallengeV3
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddManyMeteringData("KXb4c+eaDkuUH6ueOLGATw==", 50)
+TestDRM_Manager_GeneratePartialMeterChallengeV3(binmetercert1.dat, "Hello World", 10000) = 1 (DRM_S_FALSE)
+
+240100:TestDRM_Manager_GenerateMeterChallengeV3 NULL APP context
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "27HRLgAfR0G4FVSEAeR2lw==", "Play1", "4")
+TestDRM_Manager_GenerateMeterChallengeV3(NULL, files\binmetercert1.dat, "Hello World", NORMAL, NORMAL, NORMAL) = 0x80070057
+
+240101:TestDRM_Manager_GenerateMeterChallengeV3 NULL Meter Cert
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "27HRLgAfR0G4FVSEAeR2lw==", "Play1", "4")
+TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, NULL, "Hello World", NORMAL, NORMAL, NORMAL) = 0x80070057
+
+240102:TestDRM_Manager_GenerateMeterChallengeV3 NULL Custom Data
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "27HRLgAfR0G4FVSEAeR2lw==", "Play1", "4")
+TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, files\binmetercert1.dat, NULL, NORMAL, NORMAL, NORMAL)
+
+240103:TestDRM_Manager_GenerateMeterChallengeV3 NULL URL
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "27HRLgAfR0G4FVSEAeR2lw==", "Play1", "4")
+TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, files\binmetercert1.dat, "Hello World", NORMAL, 0, NORMAL) = 0x8007007A
+
+240104:TestDRM_Manager_GenerateMeterChallengeV3 NULL challenge buffer
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "27HRLgAfR0G4FVSEAeR2lw==", "Play1", "4")
+TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, files\binmetercert1.dat, "Hello World", NORMAL, NORMAL, 0) = 0x8007007A
+
+240105:TestDRM_Manager_GenerateMeterChallengeV3 when there is no metering data to be reported
+TestDRM_Manager_Initialize()
+TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, files\binmetercert1.dat, "Hello World", NORMAL, NORMAL, NORMAL) = 0x80070103 (DRM_E_NOMORE)
+
+240150:TestDRM_Manager_ProcessMeterResponseV3 NULL App Context
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "8Vq7Qekm6wGzC6Yu2xI8FQ==", "Play", "1")
+TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "JAFeMA1EHEkGTbdNRxXeVA==", "Play", "1")
+TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "KQAjSL4YhGfhSmw91iyucg==", "Play", "1")
+TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, files\binmetercert1.dat, "Hello World", NORMAL, NORMAL, NORMAL)
+TestDRM_UpdateTID("KXb4c+eaDkuUH6ueOLGATw==","xQh0O+XmqIiiU6DGiKqSbg==");
+TestDRM_Manager_ProcessMeterResponseV3(NULL, SOAPmeterdataresponse1.dat, NORMAL, 0) = 0x80070057
+
+240151:TestDRM_Manager_ProcessMeterResponseV3 NULL Response
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "8Vq7Qekm6wGzC6Yu2xI8FQ==", "Play", "1")
+TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "JAFeMA1EHEkGTbdNRxXeVA==", "Play", "1")
+TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "KQAjSL4YhGfhSmw91iyucg==", "Play", "1")
+TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, files\binmetercert1.dat, "Hello World", NORMAL, NORMAL, NORMAL)
+TestDRM_UpdateTID("KXb4c+eaDkuUH6ueOLGATw==","xQh0O+XmqIiiU6DGiKqSbg==");
+TestDRM_Manager_ProcessMeterResponseV3(NORMAL, NULL, NORMAL, 0) = 0x80070057
+
+'Disabled due to assert being thrown
+'240152:TestDRM_Manager_ProcessMeterResponseV3 Response size smaller than size of actual response
+'TestDRM_Manager_Initialize()
+'TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "8Vq7Qekm6wGzC6Yu2xI8FQ==", "Play", "1")
+'TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "JAFeMA1EHEkGTbdNRxXeVA==", "Play", "1")
+'TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "KQAjSL4YhGfhSmw91iyucg==", "Play", "1")
+'TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, files\binmetercert1.dat, "Hello World", NORMAL, NORMAL, NORMAL)
+'TestDRM_UpdateTID("KXb4c+eaDkuUH6ueOLGATw==","xQh0O+XmqIiiU6DGiKqSbg==");
+'TestDRM_Manager_ProcessMeterResponseV3(NORMAL, SOAPmeterdataresponse1.dat, 1, 0) = 0X8004CB01
+
+'Disabled due to potential buffer overrun check crashing the test app
+'240153:TestDRM_Manager_ProcessMeterResponseV3 Response size larger than size of actual response
+'TestDRM_Manager_Initialize()
+'TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "8Vq7Qekm6wGzC6Yu2xI8FQ==", "Play", "1")
+'TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "JAFeMA1EHEkGTbdNRxXeVA==", "Play", "1")
+'TestDRM_Manager_AddMeteringData("KXb4c+eaDkuUH6ueOLGATw==", "KQAjSL4YhGfhSmw91iyucg==", "Play", "1")
+'TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, files\binmetercert1.dat, "Hello World", NORMAL, NORMAL, NORMAL)
+'TestDRM_UpdateTID("KXb4c+eaDkuUH6ueOLGATw==","xQh0O+XmqIiiU6DGiKqSbg==");
+'TestDRM_Manager_ProcessMeterResponseV3(NORMAL, SOAPmeterdataresponse1.dat, 2540, 0)
+
+-------------------BVT ends here--------------------------
+
+210529:DRM_Manager_GenerateMeterChallenge: bad mid in meter cert
+TestDRM_Manager_Initialize()
+TestDRM_Manager_GenerateMeterChallenge(files\badmidmetercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", files\meterresponse.xml)=0X8004a015( DRM_E_INVALID_METERCERT_SIGNATURE )
+
+210530:DRM_Manager_GenerateMeterChallenge: bad cert in meter cert
+TestDRM_Manager_Initialize()
+TestDRM_Manager_GenerateMeterChallenge(files\badmetercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", files\meterresponse.xml) = -2147184635
+
+210531:DRM_Manager_GenerateMeterChallenge: bad signature in meter cert
+TestDRM_Manager_Initialize()
+TestDRM_Manager_GenerateMeterChallenge(files\badsigmetercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", files\meterresponse.xml) = 0x8004a015( DRM_E_INVALID_METERCERT_SIGNATURE )
+
+210532:DRM_Manager_GenerateMeterChallenge: bad public key in meter cert
+TestDRM_Manager_Initialize()
+TestDRM_Manager_GenerateMeterChallenge(files\badpubkeymetercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", files\meterresponse.xml) = 0x8004a015( DRM_E_INVALID_METERCERT_SIGNATURE )
+
+210533:DRM_Manager_ProcessMeterResponse: bad mid in meter response
+TestDRM_Manager_Initialize()
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", files\badmidmeterresponse.xml) = -2147172257
+
+210534:DRM_Manager_ProcessMeterResponse: bad tid in meter response
+TestDRM_Manager_Initialize()
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", files\badtidmeterresponse.xml) =  0x8004a016( DRM_E_METERSTORE_DATA_NOT_FOUND )
+
+210535:DRM_Manager_ProcessMeterResponse: bad record in meter response
+TestDRM_Manager_Initialize()
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", files\badrecordmeterresponse.xml) = 0x8004a016( DRM_E_METERSTORE_DATA_NOT_FOUND )
+
+210536:DRM_Manager_ProcessMeterResponse: bad value in meter response
+TestDRM_Manager_Initialize()
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", files\badvaluemeterresponse.xml) =  0x8004a016( DRM_E_METERSTORE_DATA_NOT_FOUND )
+
+210537:DRM_Manager_ProcessMeterResponse: bad command in meter response
+TestDRM_Manager_Initialize()
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", files\badcmdmeterresponse.xml) = -2147172271
+
+230200:TestDRM_MTR_ProcessMeterCertResponse with bad (badmetercert.xml) meter cert in the response
+TestDRM_Manager_Initialize()
+TestDRM_MTR_ProcessMeterCertResponse(SOAPBadmetercertresponse.dat, 0x8004cB01 DRM_E_SOAPXML_XML_FORMAT)=0x8004C3F2L (DRM_E_METERCERT_NOT_FOUND)
+
+230201:TestDRM_MTR_ProcessMeterCertResponse with bad (badpubkeymetercert.xml) meter cert in the response
+TestDRM_Manager_Initialize()
+TestDRM_MTR_ProcessMeterCertResponse(SOAPbadpubkeymetercertresponse.dat, 0x8004CB01 DRM_E_SOAPXML_XML_FORMAT)=0x8004C3F2L (DRM_E_METERCERT_NOT_FOUND)
+
+230202:TestDRM_MTR_ProcessMeterCertResponse with bad (badSigmetercert.xml) meter cert in the response
+TestDRM_Manager_Initialize()
+TestDRM_MTR_ProcessMeterCertResponse(SOAPBadSigMetercertresponse.dat, 0x8004CB01 DRM_E_SOAPXML_XML_FORMAT)=0x8004C3F2L (DRM_E_METERCERT_NOT_FOUND)
+
+210543:PERF:DISABLED:MGR_MTR_GenerateMeteringChallenge and process response for single MID, multiple KIDs (250), same action - with 1K initial licenses in the store
+TestDRM_Manager_Initialize()
+RestoreDeviceStore(InitialCert,InitialStore)
+StartProfiling(10543.dat)
+TestDRM_Manager_GenerateMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=","files\response.xml", "pIKx8Wsy5aYRQN8LLIIcTQ==")
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+StopProfiling
+
+210544:PERF:DISABLED:MGR_MTR_GenerateMeteringChallenge and process response for single MID, multiple KIDs (250), same action - with 1K initial licenses in the store and multiple MIDs in store
+TestDRM_Manager_Initialize()
+Test_SetRandomSeed( RANDOM )
+RestoreDeviceStore(InitialCert,InitialStore)
+TestDRM_Manager_AddManyMeteringData("pIKy8Wsy5aYRQN8LLIIcTQ==", 200)
+TestDRM_Manager_AddManyMeteringData("pIKz8Wsy5aYRQN8LLIIcTQ==", 200)
+StartProfiling(10544.dat)
+TestDRM_Manager_GenerateMeterChallenge(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=","files\response.xml", "pIKx8Wsy5aYRQN8LLIIcTQ==")
+TestDRM_Manager_ProcessMeterResponse(files\metercert.xml, "lVvvpn!q4bMJi!BosMpAPZ9IERg=", "files\response.xml")
+StopProfiling

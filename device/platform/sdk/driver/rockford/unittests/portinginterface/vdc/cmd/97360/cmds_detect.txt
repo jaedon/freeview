@@ -1,0 +1,17 @@
+ovc
+
+pb
+os 0 0
+ow
+mad 1 1 1 0 0 1 18 
+ccm 1
+clear sleep
+bvncb
+detectmpeg
+bvncb
+pb
+cw
+cs
+cd
+quit
+

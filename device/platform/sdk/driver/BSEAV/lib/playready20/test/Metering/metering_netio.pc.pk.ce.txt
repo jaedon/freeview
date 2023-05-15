@@ -1,0 +1,8 @@
+240002:TestDRM_Manager_ProcessMeterResponseV3, Real Server
+TestDRM_Manager_Initialize()
+TestDRM_Manager_AddMeteringData("xw6TjIuUUmvdCcl00t4RBA==", "EiTBDp3P+ke2ml3rTgDXTw==", "Play", "1")
+TestDRM_Manager_AddMeteringData("xw6TjIuUUmvdCcl00t4RBA==", "Ol/YALar6E2dKcBNg7CfFw==", "Play", "1")
+TestDRM_Manager_AddMeteringData("xw6TjIuUUmvdCcl00t4RBA==", "79+ARuRoMUe0I//TNvGnyw==", "Play", "1")
+TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, files\binmetercert3.dat, "Hello World", NORMAL, NORMAL, NORMAL)
+TestDRM_Manager_ProcessMeterResponseV3(NORMAL, "http://playready.directtaps.net/pr/svc/rightsmanager.asmx", NORMAL, 0)
+

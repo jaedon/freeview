@@ -1,0 +1,2 @@
+This file contains incorrect UTF-8 sequence: four bytes that map into a code bigger then maximum unicode
+ô¿¿

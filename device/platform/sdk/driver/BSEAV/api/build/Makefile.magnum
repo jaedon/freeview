@@ -1,0 +1,369 @@
+############################################################
+#     Copyright (c) 2003-2011, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.magnum $
+# $brcm_Revision: 20 $
+# $brcm_Date: 2/15/11 7:14p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# Created: 02/09/2001 by Marcus Kellerman
+#
+# $brcm_Log: /BSEAV/api/build/Makefile.magnum $
+# 
+# 20   2/15/11 7:14p xhuang
+# SW7358-34: Add 7358/7552 support
+# 
+# 19   12/22/10 4:35p katrep
+# SW7231-25:add initial support for 7230
+# 
+# 18   12/16/10 11:20a katrep
+# SW7231-4:add 7231 support
+# 
+# 17   12/15/10 10:08a jrubio
+# SW7344-9: add 7344/7346 support
+# 
+# 16   11/10/10 5:37p spothana
+# SW7420-1078: Add BCM97409 platform support.
+# 
+# 15   10/20/10 3:27p nickh
+# SW7422-80: Add 7422 support
+# 
+# 14   1/20/10 5:29p garetht
+# SW7420-553: Add platform for 93380vms
+# 
+# 13   1/19/10 2:49p nickh
+# SW7420-541: Rename 97420dvr2 to 97420
+# 
+# 12   11/17/09 2:15p erickson
+# SW7405-3408: use $(filter) instead of $(findstring)
+# 
+# 11   10/30/09 5:25p nickh
+# SW7420-331: Rename 97410c to 97410
+# 
+# 10   9/15/09 5:01p nickh
+# SW7420-331: Add 7410 support
+# 
+# 9   2/4/09 10:16a jrubio
+# PR51629: add 7336 support
+# 
+# 8   12/14/08 6:31p nickh
+# PR50205: Add support for 97420dvr2
+# 
+# 7   6/20/08 6:18p anilmm
+# PR43453: Add support for 97459
+# 
+# 6   5/21/08 11:50a rjlewis
+# PR40352: tell me your installing the lib.
+# 
+# 5   5/6/08 12:47p vsilyaev
+# PR 42470: Decoupled BTRC and BPROFILE (BTRC could be used without
+# BPROFILE) and made BTRC macros avaliable all the time
+# 
+# 4   12/10/07 6:40p mward
+# PR38078: Create PLATFORM for 97018, 97018RNG
+# 
+# 3   12/3/07 4:48p katrep
+# PR37217: added 7335
+# 
+# 2   11/7/07 4:54p vsilyaev
+# PR 26656: Returned back -finstrument-function
+# 
+# 1   10/16/07 12:37p erickson
+# PR36068: api/build/Makefile is now a simple switch based on
+# BUILD_SYSTEM. previous Makefile moved to Makefile.magnum.
+# 
+# 34   10/3/07 5:40p jrubio
+# PR35015: add 7325
+# 
+# 33   8/15/07 2:31p vsilyaev
+# PR 34089: Use C99 standard to compile linux user level code
+# 
+# 32   1/29/07 12:33p erickson
+# PR25902: linux kernel cflags are now explicit, for future isolation
+# 
+# 31   1/17/07 11:48a anilmm
+# PR27129: add 97458A0 platform support
+#
+# 30   12/15/06 6:27p vsilyaev
+# PR 26656: Added BPRofile support
+#
+# 29   10/31/06 9:13a erickson
+# PR25109: add 7403 support
+#
+# 28   9/29/06 4:28p mward
+# PR24604: create PLATFORM for 97118RNG.
+#
+# 27   7/14/06 11:31a jgarrett
+# PR 19909: Merging to latest baseline
+#
+# PR19909/2   7/6/06 4:43p jgarrett
+# PR 19909: Merging to latest baseline
+#
+# 26   7/6/06 12:10p rjlewis
+# PR22498: only update the fcntlcom.h if not linux server.
+#
+# 25   6/13/06 11:56a mphillip
+# PR21883: Experimental aggressive optimization for p3d, opengles, vdc,
+# and grc enabled for 7038.
+#
+# 24   5/30/06 5:55p rjlewis
+# PR20134: vxworks 6 has new fcntlcom.h file.
+#
+# 97401_200605/1   5/23/06 6:27p rjlewis
+# PR20134: vxworks 6 has new fcntlcom file.
+#
+# 23   5/26/06 9:02a mward
+# PR21671: Add support for 7118 chip 97118 board.
+#
+# 22   5/17/06 3:28p vsilyaev
+# PR 21171: Use custom rule to make SRC target, that allows to keep .so
+# extension for shared objects
+#
+# 21   4/27/06 5:29p haisongw
+# PR 20984: add 97456 platform support
+#
+# 20   4/20/06 3:15p erickson
+# PR19738: 97435 merge
+#
+# PROD_97435C_REFSW_Devel/1   4/18/06 6:53p gqli
+# PR19738: add BCM97435C support
+#
+# PR19909/1   7/6/06 10:51a jgarrett
+# PR 19909: Reducing brutus build output
+#
+# 18   1/18/06 11:48a rjlewis
+# PR19044: Don't copy if already done.  Don't copy for vxworks 6.
+#
+# 17   11/23/05 5:10p erickson
+# PR18256: added 97455 support
+#
+# 16   10/10/05 11:37a vsilyaev
+# PR9497: Make Q_ options overwritable
+#
+# 15   9/16/05 1:14p erickson
+# PR17150: remove reference to 97395
+#
+# 14   9/7/05 5:06p vsilyaev
+# PR 15377: Merged 7401 changes
+#
+# Refsw_97401_Bringup/2   8/24/05 2:40p vsilyaev
+# Backmerge from /main/
+#
+# 13   8/17/05 9:39p bandrews
+# PR16360: Initial lip sync impl
+#
+# 12   8/9/05 1:47p rjlewis
+# PR16609: merged vxworks changes from branch PR15236.
+# PR15236: PR15236: Modified to copy over vxworks file
+#
+# 11   8/5/05 2:46p erickson
+# PR16583: use BUILD_SYSTEM=proxy for proxy builds so that PLATFORM
+# information is available in the proxy layer
+#
+# 10   7/18/05 6:13p vsilyaev
+# PR 15377: Refactoring of the board support package
+#
+# Refsw_97401_Bringup/1   7/12/05 1:47a vsilyaev
+# Added support for 97401
+#
+# 9   7/8/05 10:32a erickson
+# PR15145: modified find_latest_ccase_file so that it's ignored on
+# DEBUG=y builds, but fails on DEBUG=n builds. This must be resolved as
+# part of the release process now.
+#
+# 8   5/13/05 12:05p vsilyaev
+# PR15145: Fixed use of find_latest_ccase_file
+#
+# 7   5/5/05 2:31p erickson
+# PR15159: added double quotes for DOS builds
+#
+# 6   5/2/05 12:29p erickson
+# PR15145: added test to see if bsettop.h is latest checkin
+#
+# 5   3/24/05 12:52p vsilyaev
+# PR 14593: 93560 support
+#
+# Refsw_93560_Bringup/1   3/10/05 6:50p vsilyaev
+# Added 93560 support
+#
+# 4   3/9/05 7:44p vsilyaev
+# PR 14402: Moved compose into the toplevel makefile.
+#
+# 3   2/22/05 1:52p erickson
+# PR14180: DEBUG is now defaulted in tools.mak
+#
+# 2   2/17/05 1:51p erickson
+# PR9497: make vxworks-friendly
+#
+# 1   2/7/05 6:54p dlwin
+# Merge down for release 2005_REFSW_MERGETOMAIN:
+#
+# Irvine_BSEAVSW_Devel/34   1/28/05 11:13a erickson
+# PR13908: refactor to make external include of Makefile.core correct
+#
+# Irvine_BSEAVSW_Devel/33   1/25/05 5:11p erickson
+# PR13908: Settop API makefile rework
+#
+############################################################
+
+###############################
+#
+# Build Options
+#
+
+ifeq ($(Q_),)
+# Override this to nothing if you want verbose output
+Q_=@
+endif
+
+ifeq ($(BPROFILE_SUPPORT),y)
+CFLAGS_BPROFILE = -DB_HAS_BPROFILE=1 -DB_HAS_TRC
+CFLAGS_BPROFILE+= -finstrument-functions 
+endif
+
+
+
+ifeq ($(Q_),@)
+MAKE_OPTS = -s
+endif
+
+include tools.mak
+BSEAV = $(shell cd "../.." && ${PWD})
+
+# all: must be on top
+ifeq (${STATICLIB},no)
+all: check_environment shared
+else
+ifeq (${SHAREDLIB},no)
+all: check_environment static
+else
+all: check_environment shared static
+endif
+endif
+
+# proxy builds require BUILD_SYSTEM=proxy set externally
+ifneq ($(filter $(PLATFORM),93560 97038 97018 97018RNG 97118 97118RNG 97398 97401 97403  97325 97335 97336 97405 97455 97456 97458 97459 97400 97435 97420 97410 97409 93380vms 97422 97344 97346 97231 97230 97358 97552),)
+BUILD_SYSTEM = magnum
+else
+BUILD_SYSTEM = legacy
+endif
+
+###############################
+#
+# Source
+#
+
+# System specific source (This is the core of the Settop API)
+include ${BUILD_SYSTEM}/Makefile.core
+
+# Encoder Source
+include Makefile.encoder
+
+# PVR Source
+include Makefile.pvr
+
+include $(ROCKFORD)/inc/compose.mak
+SRCS +=  $(addsuffix .c, ${notdir ${OBJ}})
+OPTIMIZE_SRCS +=  $(addsuffix .c, ${notdir ${OPTIMIZE_OBJ}})
+CFLAGS += ${MAGNUM_INC}
+CFLAGS += ${B_REFSW_C_ONLY_FLAGS}
+NOPROFILE_OBJ = breg_mem bdbg bdbg_output
+NOPROFILE_SRCS +=  $(addsuffix .c, ${notdir ${NOPROFILE_OBJ}})
+
+###############################
+#
+# If VxWorks copy over the fnctlcom.h file it contains O_DIRECT definitions.
+# USE WIND_BASE set when torVars.bat is executed.
+# Note: cannot update the fcntlcom.h file if building on a linux server (no write permissions).
+#
+
+ifeq ($(SYSTEM),vxworks)
+ifneq ($(OSTYPE),linux)
+OTHER_MAKES += copy_fcntlcom
+.PHONY: copy_fcntlcom
+ifeq ($(vxWorksVersion),6)
+VXWORKS_VERSION=$(ROCKFORD)/bsp/vxWorks6x
+else
+VXWORKS_VERSION=$(ROCKFORD)/bsp/vxWorks55
+endif
+copy_fcntlcom: $(WIND_BASE)/target/h/sys/fcntlcom.h
+$(WIND_BASE)/target/h/sys/fcntlcom.h: $(VXWORKS_VERSION)/fcntlcom.h
+	@echo "***********************"
+	@echo "$(WIND_BASE)/target/h/sys/fcntlcom.h file is replaced."
+	@echo "***********************"
+	@$(CP) $(VXWORKS_VERSION)/fcntlcom.h $(WIND_BASE)/target/h/sys/
+endif
+endif
+
+# temp for linuxkernel
+ifeq ($(SYSTEM),linuxkernel)
+CFLAGS += ${B_REFSW_LINUXKERNEL_CFLAGS}
+endif
+
+###############################
+#
+# For release builds, test the public api to see if bsettop.h is the latest file.
+# If not, then BSETTOP_VERSION has probably not been incremented. Fail the build.
+# This only happens for release builds, therefore it should be always caught on prerelease validation.
+
+ifneq ($(SYSTEM),vxworks)
+ifeq ($(DEBUG),n)
+OTHER_MAKES=test_bsettop_version
+.PHONY: test_bsettop_version
+test_bsettop_version:
+	@if [ `env BSEAV=${BSEAV} /usr/bin/perl  find_latest_ccase_file.pl` != "bsettop.h" ]; then \
+		echo "***********************"; \
+		echo "bsettop.h is not up-to-date. BSETTOP_VERSION should be incremented for release."; \
+		echo "***********************"; \
+		test -z this_build_must_die; \
+	fi
+endif
+endif
+
+ifeq ($(BPROFILE_SUPPORT),y)
+#for now compile symbol table only for BPROFILE
+SYM_SRC = bsymbols.c
+CFLAGS += -DB_HAS_SYMTABLE
+endif
+
+###############################
+#
+# Build rules - requires the following to be defined:
+#
+# LIB - name of the lib
+# SRCS - the source files to build
+# vpath - for finding source
+# CFLAGS - for build source
+#
+
+LIB = settop
+include rules.mak
+
+###############################
+#
+# Optional installation
+#
+ifeq ($(INSTALL_DIR),)
+install:
+	$(error You must define INSTALL_DIR)
+else
+ifeq ($(BSETTOP_LIBS),)
+install:
+	@echo "Static build has no files to install."
+else
+install: all
+	@echo "[Install... libs]"
+	${Q_}$(CP) $(BSETTOP_LIBS) $(INSTALL_DIR)
+endif
+endif
+
+CFLAGS += -DBSYNC_XVD_TSM_ALLOWS_EARLY_FRAME

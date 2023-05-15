@@ -1,0 +1,49 @@
+-------------------BVT ends here--------------------------
+
+11447:FUNC:DRM_DDC_GetDeviceCertificate should fail if devcert template does not exist
+If(WMDRMSupported)
+    Test_API_GetDeviceCertificate(10240, 0, NORMAL, 0 DataBuffer)=0X8004D503 DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+EndIf
+Test_RemoveDeviceData
+Test_SetDeviceEnv(NULL, priv.dat, NULL, NULL, FALSE)
+If(WMDRMSupported)
+    Test_API_GetDeviceCertificate(10240, 0, NORMAL, 0 DataBuffer)=0X8004D503 DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+EndIf
+Test_API_GetBinaryDeviceCertificate(10240, 0, NORMAL, 0 DataBuffer)=0X8004D503 DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+
+
+12451:FUNC:DRM_DDC_GetDeviceCertificate should fail if private key data is corrupted
+Test_SetDeviceEnv(devcerttemplate.dat, priv_bad.dat, bgroupcert.dat, priv.dat, FALSE)
+Test_API_GetBinaryDeviceCertificate(10240, 0, NORMAL, 0 DataBuffer)=0X8004D503  DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+
+
+12513:FUNC:DRM_DDC_GetDeviceCertificate should fail if private key data does not exist
+If(WMDRMSupported)
+    Test_API_GetDeviceCertificate(10240, 0, NORMAL, 0 DataBuffer)=0X8004D503  DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+EndIf
+Test_RemoveDeviceData
+Test_SetDeviceEnv(devcerttemplate.dat, NULL,bgroupcert.dat, NULL, FALSE)
+Test_API_GetBinaryDeviceCertificate(10240, 0, NORMAL, 0 DataBuffer)=0X8004D503  DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+
+' Test Disabled if PRND is supported.
+' This test uses a hard-coded SL150 binary group certificate without
+' PRND support. Since this test isn't critical and doesn't need PRND support, we'll
+' run it on a build profile without PRND.
+11460:FUNC:Certificates are created with the same robustness versions
+SkipTestIf(PRNDTxSupported, PRNDRxSupported)
+Test_SetRobustnessVersion(1.3.0.100,5)
+Test_SetDeviceEnv(devcerttemplate.dat, priv.dat, bgroupcert150SecVer1.dat, zgpriv150SecVer1.dat, TRUE)
+Test_VerifyXMLDevcert_RobustnessVersion(0 DataBuffer, 1.3.0.100)
+Test_VerifyBinaryDevcert(Devcert, 1.3.0.100, 5)
+
+' Test Disabled if PRND is supported.
+' This test uses a hard-coded SL150 binary group certificate without
+' PRND support. Since this test isn't critical and doesn't need PRND support, we'll
+' run it on a build profile without PRND.
+12460:FUNC:Binary certificates are created with different robustness versions
+SkipTestIf(PRNDTxSupported, PRNDRxSupported)
+Test_SetRobustnessVersion(1.3.0.101,5,1)
+Test_SetRobustnessVersion(1.3.0.100,5,2)
+Test_SetDeviceEnv(devcerttemplate.dat, priv.dat, bgroupcert150SecVer1.dat, zgpriv150SecVer1.dat, TRUE)
+Test_VerifyXMLDevcert_RobustnessVersion(0 DataBuffer, 1.3.0.101)
+Test_VerifyBinaryDevcert(Devcert, 1.3.0.100, 5)

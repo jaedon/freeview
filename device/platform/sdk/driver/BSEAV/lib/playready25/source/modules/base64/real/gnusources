@@ -1,0 +1,13 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmbase64real
+TARGETTYPE=LIBRARY
+
+SOURCES =               \
+    drmbase64implreal.c
+

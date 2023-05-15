@@ -1,0 +1,57 @@
+HUMAX_APP_NAME := wind3
+HUMAX_SO_NAME := wind3port
+HUMAX_GLOBALCONF_DIR=$(HUMAX_GLOBALENV_CONFDIR)
+HUMAX_GLOBALENV_DIR=$(HUMAX_GLOBALENV_SODIR)
+HUMAX_CONFIG_MODE := .config
+
+export HUMAX_SO_NAME
+export HUMAX_GLOBALENV_DIR
+export HUMAX_CONFIG_MODE
+
+include $(HUMAX_MAKE_DIR)/$(HUMAX_CONFIG_MODE)
+
+ifeq ($(CONFIG_SUPPORT_WIND3_APP),y)
+obj-y += $(APPLTOP_SRC_DIR)/wind3/
+
+ccflags-y := $(HUMAX_PLATFORM_INCLUDE_FLAG)
+ccflags-y += -I$(OCTOLIB_SRC_DIR)/hlib/include
+ccflags-y += -I$(OCTOSVC_SRC_DIR)/hama/include
+ccflags-y += -I$(APPLTOP_SRC_DIR)/wind3
+
+include $(HUMAX_GLOBALENV_DIR)/HumaxDefaultMake.mak
+
+$(HUMAX_APP_NAME): $(HUMAX_SO_NAME)
+	@$(HUMAX_SUDO) $(HUMAX_MKDIR) $(HUMAX_NFS_INSTALL_DIR)/home/$(HUMAX_APP_NAME)
+	@$(HUMAX_MKDIR) $(HUMAX_APP_STAG_DIR)/root/home/$(HUMAX_APP_NAME)
+ifeq ($(CONFIG_DEBUG),y)
+		@$(HUMAX_SUDO) $(HUMAX_CP) -rdf $(APPLTOP_SRC_DIR)/$(HUMAX_APP_NAME)/bin/dbg/lib $(HUMAX_NFS_INSTALL_DIR)/home/$(HUMAX_APP_NAME)
+		@$(HUMAX_SUDO) $(HUMAX_CP) -rdf $(APPLTOP_SRC_DIR)/$(HUMAX_APP_NAME)/bin/dbg/run.sh $(HUMAX_NFS_INSTALL_DIR)/home/$(HUMAX_APP_NAME)
+		@$(HUMAX_SUDO) chmod +x $(HUMAX_NFS_INSTALL_DIR)/home/$(HUMAX_APP_NAME)
+		@$(HUMAX_SUDO) $(HUMAX_CP) -rdf $(APPLTOP_SRC_DIR)/$(HUMAX_APP_NAME)/bin/dbg/wind3 $(HUMAX_NFS_INSTALL_DIR)/home/$(HUMAX_APP_NAME)
+		@$(HUMAX_SUDO) chmod +x $(HUMAX_NFS_INSTALL_DIR)/home/$(HUMAX_APP_NAME)
+		@$(HUMAX_CP) -rdf  $(APPLTOP_SRC_DIR)/$(HUMAX_APP_NAME)/bin/dbg/lib $(HUMAX_APP_STAG_DIR)/root/home/$(HUMAX_APP_NAME)
+		@$(HUMAX_CP) -rdf  $(APPLTOP_SRC_DIR)/$(HUMAX_APP_NAME)/bin/dbg/run.sh $(HUMAX_APP_STAG_DIR)/root/home/$(HUMAX_APP_NAME)
+		@$(HUMAX_CP) -rdf  $(APPLTOP_SRC_DIR)/$(HUMAX_APP_NAME)/bin/dbg/wind3 $(HUMAX_APP_STAG_DIR)/root/home/$(HUMAX_APP_NAME)
+else
+		@$(HUMAX_SUDO) $(HUMAX_CP) -rdf $(APPLTOP_SRC_DIR)/$(HUMAX_APP_NAME)/bin/rel/lib $(HUMAX_NFS_INSTALL_DIR)/home/$(HUMAX_APP_NAME)
+		@$(HUMAX_SUDO) $(HUMAX_CP) -rdf $(APPLTOP_SRC_DIR)/$(HUMAX_APP_NAME)/bin/rel/run.sh $(HUMAX_NFS_INSTALL_DIR)/home/$(HUMAX_APP_NAME)
+		@$(HUMAX_SUDO) $(HUMAX_CP) -rdf $(APPLTOP_SRC_DIR)/$(HUMAX_APP_NAME)/bin/rel/wind3 $(HUMAX_NFS_INSTALL_DIR)/home/$(HUMAX_APP_NAME)
+		@$(HUMAX_CP) -rdf  $(APPLTOP_SRC_DIR)/$(HUMAX_APP_NAME)/bin/rel/lib $(HUMAX_APP_STAG_DIR)/root/home/$(HUMAX_APP_NAME)
+		@$(HUMAX_CP) -rdf  $(APPLTOP_SRC_DIR)/$(HUMAX_APP_NAME)/bin/rel/run.sh $(HUMAX_APP_STAG_DIR)/root/home/$(HUMAX_APP_NAME)
+		@$(HUMAX_CP) -rdf  $(APPLTOP_SRC_DIR)/$(HUMAX_APP_NAME)/bin/rel/wind3 $(HUMAX_APP_STAG_DIR)/root/home/$(HUMAX_APP_NAME)
+endif
+	@$(HUMAX_SUDO) find $(HUMAX_APP_STAG_DIR)/root/home/$(HUMAX_APP_NAME) -name ".svn" | xargs rm -rf
+	@$(HUMAX_SUDO) find $(HUMAX_NFS_INSTALL_DIR)/home/$(HUMAX_APP_NAME) -name ".svn" | xargs rm -rf
+
+distclean: clean
+	@$(HUMAX_SUDO) $(HUMAX_RM) $(HUMAX_NFS_INSTALL_DIR)/home/$(HUMAX_APP_NAME)
+	@$(HUMAX_RM) $(HUMAX_APP_STAG_DIR)/root/home/$(HUMAX_APP_NAME)
+else
+$(HUMAX_APP_NAME): 
+
+clean:
+
+distclean:
+endif
+
+

@@ -1,0 +1,14 @@
+DomainStore.pc.pk.ce.txt
+$(_DRM_OEM_FILES)\devcerttemplate.dat
+$(_DRM_OEM_FILES)\priv.dat
+$(_DRM_OEM_FILES)\bgroupcert.dat
+$(_DRM_OEM_FILES)\zprivsig.dat
+$(_DRM_OEM_FILES)\zprivencr.dat
+$(_DRM_OEM_FILES)\bdevcert.dat
+$(_DRM_OEM_FILES)\zgpriv.dat
+Data\domainkey1.dat
+Data\domainkey2.dat
+Data\domaincert1.dat
+Data\domaincert2.dat
+Data\binarydomaincert1.dat
+Data\binarydomaincert2.dat

@@ -1,0 +1,4 @@
+#define BCHP_GIO_HDD_ADDR		0x004094C4
+#define GPIO_HDD_PWR_MASK		0x00001000
+#define BCHP_GIO_HDD2_ADDR		0x00000000 /* not used */
+#define GPIO_HDD_PWR2_MASK		0x00000000 /* not used */

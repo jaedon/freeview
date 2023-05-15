@@ -1,0 +1,11 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=oem_parsers
+TARGETTYPE=LIBRARY
+
+SOURCES =                \
+    oemparsers_bcert.c   \
+    oemparsers_bcrl.c    \
+    oemparsers_revinfo.c \
+    oemparsers_utf8.c    \
+

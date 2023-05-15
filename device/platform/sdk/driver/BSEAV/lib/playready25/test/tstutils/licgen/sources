@@ -1,0 +1,15 @@
+!include ..\..\reftest.cmn
+
+TARGETNAME=tstlicgen
+TARGETTYPE=LIBRARY
+
+# Allow test to access internals of blackbox and oem hal, rather than adding internal functions to blackbox API
+INCLUDES = $(INCLUDES);           \
+    $(_DRM_SOURCE_PATH)\blackbox; \
+    $(_DRM_SOURCE_PATH)\oem\common\hal\oemimpl; \
+
+SOURCES =          \
+    tLicGen.c      \
+    tResponseGen.c \
+    SetClientID.c  \
+    LicGenXMR.c    \

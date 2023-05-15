@@ -1,0 +1,10 @@
+<WRMHEADER xmlns="http://schemas.microsoft.com/DRM/2007/03/PlayReadyHeader" version="4.1.0.0">
+	<DATA>
+		<LA_URL>http://playready.directtaps.net/playready/rightsmanager.asmx</LA_URL>
+		<DS_ID>AH+03juKbUGbHl1V/QIwRA==</DS_ID>
+		<PROTECTINFO>
+			<KID ALGID="AESCTR" CHECKSUM="769IWFHLo1Q="VALUE="AVhTknNlJOjo7F6b7HeNxg=="></KID>
+		</PROTECTINFO>
+		<DECRYPTORSETUP>ONDEMAND</DECRYPTORSETUP>
+	</DATA>
+</WRMHEADER>

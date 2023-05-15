@@ -1,0 +1,8 @@
+DIRS =               \
+    Initiators       \
+    NDR_Sim{X86}     \
+    MTPforDRM{X86}   \
+    chess            \
+    dsstress         \
+    uptest2          \
+

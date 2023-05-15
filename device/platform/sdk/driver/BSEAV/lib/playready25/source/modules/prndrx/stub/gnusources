@@ -1,0 +1,13 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmprndrxstub
+TARGETTYPE=LIBRARY
+
+SOURCES =                         \
+    drmprndprotocolreceiverstub.c
+

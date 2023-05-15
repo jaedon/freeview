@@ -1,0 +1,1 @@
+This file is for testing ASCII conversion to UTF. All symbols in this file should belong to ASCII range (0-127)

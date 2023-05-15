@@ -1,0 +1,29 @@
+7001:BVT:TestPRNDFormat_AllMessages
+TestPRNDFormatRegistrationRequest(0 WITHOUT_CUSTOM_DATA)
+TestPRNDFormatRegistrationRequest(1 WITH_CUSTOM_DATA)
+TestPRNDFormatRegistrationResponse(0 WITHOUT_REV_INFO WITHOUT_CUSTOM_DATA WITHOUT_TX_AUTH)
+TestPRNDFormatRegistrationResponse(1 WITH_REV_INFO    WITHOUT_CUSTOM_DATA WITHOUT_TX_AUTH)
+TestPRNDFormatRegistrationResponse(2 WITHOUT_REV_INFO WITH_CUSTOM_DATA    WITHOUT_TX_AUTH)
+TestPRNDFormatRegistrationResponse(3 WITH_REV_INFO    WITH_CUSTOM_DATA    WITHOUT_TX_AUTH)
+TestPRNDFormatRegistrationResponse(4 WITHOUT_REV_INFO WITHOUT_CUSTOM_DATA WITH_TX_AUTH)
+TestPRNDFormatRegistrationResponse(5 WITH_REV_INFO    WITHOUT_CUSTOM_DATA WITH_TX_AUTH)
+TestPRNDFormatRegistrationResponse(6 WITHOUT_REV_INFO WITH_CUSTOM_DATA    WITH_TX_AUTH)
+TestPRNDFormatRegistrationResponse(7 WITH_REV_INFO    WITH_CUSTOM_DATA    WITH_TX_AUTH)
+TestPRNDFormatRegistrationError()
+TestPRNDFormatProximityDetectionStart()
+TestPRNDFormatProximityDetectionChallenge()
+TestPRNDFormatProximityDetectionResponse()
+TestPRNDFormatProximityDetectionResult()
+TestPRNDFormatLicenseRequest(0 WITHOUT_CUSTOM_DATA WITHOUT_CID)
+TestPRNDFormatLicenseRequest(1 WITH_CUSTOM_DATA    WITHOUT_CID)
+TestPRNDFormatLicenseRequest(2 WITHOUT_CUSTOM_DATA WITH_CID)
+TestPRNDFormatLicenseRequest(3 WITH_CUSTOM_DATA    WITH_CID)
+TestPRNDFormatLicenseTransmit(3 WITH_REV_INFO     WITH_CUSTOM_DATA,    1 LICENSE_COUNT)
+TestPRNDFormatLicenseTransmit(0 WITHOUT_REV_INFO  WITHOUT_CUSTOM_DATA, 2 LICENSE_COUNT)
+TestPRNDFormatLicenseTransmit(1 WITH_REV_INFO     WITHOUT_CUSTOM_DATA, 2 LICENSE_COUNT)
+TestPRNDFormatLicenseTransmit(2 WITHOUT_REV_INFO  WITH_CUSTOM_DATA,    3 LICENSE_COUNT)
+TestPRNDFormatLicenseError()
+
+7002:BVT:TestPRNDFormat_ImcrementLMID
+TestPRNDFormatIncrementLMID
+

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="result-transform.xsl"?>
+
+<LOGSUMMARY stdout_log="/BlackBoxTest.htm">
+	<testinfo>
+		<scriptfilebases>
+			<file>refbb</file>
+		</scriptfilebases>
+		<platforms>
+			<platform>.tc.</platform>
+			<platform>.pk.</platform>
+		</platforms>
+		<runwhat DRT="NO" BVT="YES" FUNC="NO" PERF="NO" />
+	</testinfo>
+	<LOGRESULTS CaseNo="9670" Type="BVT" Result="PASS" Ticks="0">
+		<Title>GetClientID should return the proper client info</Title>
+	</LOGRESULTS>
+	<LOGRESULTS CaseNo="9677" Type="BVT" Result="PASS" Ticks="0">
+		<Title>CanBind should return DRM_SUCCESS for valid binding info</Title>
+	</LOGRESULTS>
+	<LOGRESULTS CaseNo="9690" Type="BVT" Result="PASS" Ticks="0">
+		<Title>CipherKeySetup should return DRM_SUCCESS for valid binding info</Title>
+	</LOGRESULTS>
+	<LOGRESULTS CaseNo="9685" Type="BVT" Result="PASS" Ticks="0">
+		<Title>DecryptLicense should decrypt license encrypted with the blackbox public key</Title>
+	</LOGRESULTS>
+	<LOGRESULTS CaseNo="90000" Type="BVT" Result="PASS" Ticks="10">
+		<Title>BVT:P0:Test DRM_BBX_SymmetricCipher Encrypt and Decrypt with Legacy crypto</Title>
+	</LOGRESULTS>
+	<LOGRESULTS CaseNo="90010" Type="BVT" Result="PASS" Ticks="0">
+		<Title>BVT:P0:Test DRM_BBX_SymmetricCipher Encrypt and Decrypt with new crypto</Title>
+	</LOGRESULTS>
+	<LOGRESULTS CaseNo="90020" Type="BVT" Result="PASS" Ticks="0">
+		<Title>BVT:P0:Test DRM_BBX_SymmetricCipher Encrypt and Decrypt In Place with Legacy crypto</Title>
+	</LOGRESULTS>
+	<LOGRESULTS CaseNo="90030" Type="BVT" Result="PASS" Ticks="0">
+		<Title>BVT:P0:Test DRM_BBX_SymmetricCipher Encrypt and Decrypt In Place with new crypto</Title>
+	</LOGRESULTS>
+	<LOGRESULTS CaseNo="90100" Type="BVT" Result="PASS" Ticks="0">
+		<Title>BVT:P0:Test DRM_BBX_ECC256_Decrypt for success with a passed in PUBKEY</Title>
+	</LOGRESULTS>
+	<LOGRESULTS CaseNo="90110" Type="BVT" Result="PASS" Ticks="10">
+		<Title>BVT:P0:Test DRM_BBX_ECC256_Decrypt for success with zeroed PUBKEY</Title>
+	</LOGRESULTS>
+	<LOGRESULTS CaseNo="90120" Type="BVT" Result="PASS" Ticks="10">
+		<Title>BVT:P0:Test DRM_BBX_ECC256_Decrypt for success with mismatched PUBKEY</Title>
+	</LOGRESULTS>
+	<LOGRESULTS CaseNo="90200" Type="BVT" Result="PASS" Ticks="20">
+		<Title>BVT:P0:Test DRM_BBX_ECC256_Sign for success</Title>
+	</LOGRESULTS>
+	<LOGRESULTS CaseNo="90230" Type="BVT" Result="PASS" Ticks="0">
+		<Title>BVT:P0:Test Symmetric Sign with valid inputs</Title>
+	</LOGRESULTS>
+</LOGSUMMARY>

@@ -1,0 +1,33 @@
+
+octopus-dbus-install:
+	echo "## OCTOPUS INSTALL! ##"
+
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/libdbus-c++/usr/* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/gettext/* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/	
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/expat/* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/
+
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/dbus/share $(HUMAX_APP_STAGGING_ROOT_DIR)/
+	@cp -drpf $(HUMAX_PACKAGE_DIR)/dbus/usr $(HUMAX_APP_STAGGING_ROOT_DIR)/
+
+define build_octopus
+        @$(MAKE) -C $(APPL_MAKE_DIR)/octopus $(APP_CONFIG) $(1) 2>&1 || exit -1;
+endef
+
+octopus : octopus-dbus-install
+	$(call build_octopus,octopus)
+
+octopus-clean	:
+	$(call build_octopus,clean)
+
+octopus-distclean:
+	$(call build_octopus,distclean)
+
+.PHONY: octopus octopus-clean octopus-distclean
+
+
+
+
+
+
+
+	

@@ -1,0 +1,67 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+#
+DRIVER_LIB_NAME := $(strip $(subst ",,$(HUMAX_PLATFORM_LIB_SRC)/libdriver.a))
+DRIVER_DOCSIS_LIB_NAME := $(strip $(subst ",,$(HUMAX_PLATFORM_LIB_SRC)/libdsgcc.a))
+DRIVER_BSA_LIB_NAME := $(strip $(subst ",,$(HUMAX_PLATFORM_LIB_SRC)/libbsa.a))
+
+ap_driver :
+	@if [ -f $(DRIVER_LIB_NAME) ]; then\
+		cp  -f $(DRIVER_LIB_NAME) $(HUMAX_STATIC_LIB_DIR)/; \
+	else \
+		echo "-----------------------------"; \
+		echo "NO $(DRIVER_LIB_NAME) !!!!!!!!!"; \
+		echo "-----------------------------"; \
+	fi
+ifneq ($(CONFIG_PROD_DEVICE_CABLE_MODEM),@)
+	@if [ -f $(DRIVER_DOCSIS_LIB_NAME) ]; then\
+		cp  -f $(DRIVER_DOCSIS_LIB_NAME) $(HUMAX_STATIC_LIB_DIR)/; \
+	else \
+		echo "-----------------------------"; \
+		echo "NO $(DRIVER_DOCSIS_LIB_NAME) !!!!!!!!!"; \
+		echo "-----------------------------"; \
+	fi
+endif
+
+ifeq ($(CONFIG_PROD_DEVICE_BLUETOOTH),y)
+	@if [ -f $(DRIVER_BSA_LIB_NAME) ]; then\
+		cp  -f $(DRIVER_BSA_LIB_NAME) $(HUMAX_STATIC_LIB_DIR)/; \
+	else \
+		echo "-----------------------------"; \
+		echo "NO $(DRIVER_BSA_LIB_NAME) !!!!!!!!!"; \
+		echo "-----------------------------"; \
+	fi
+endif
+
+ap_driver_clean :
+	@if [ -f $(HUMAX_STATIC_LIB_DIR)/libdriver.a ]; then\
+		rm $(HUMAX_STATIC_LIB_DIR)/libdriver.a; \
+	else \
+		echo "-----------------------------"; \
+		echo "NO $(HUMAX_STATIC_LIB_DIR)/libdriver.a !!!!!!!!!"; \
+		echo "-----------------------------"; \
+	fi
+ifneq ($(CONFIG_PROD_DEVICE_CABLE_MODEM),@)
+	@if [ -f $(HUMAX_STATIC_LIB_DIR)/libdsgcc.a ]; then\
+		rm $(HUMAX_STATIC_LIB_DIR)/libdsgcc.a; \
+	else \
+		echo "-----------------------------"; \
+		echo "NO $(HUMAX_STATIC_LIB_DIR)/libdsgcc.a !!!!!!!!!"; \
+		echo "-----------------------------"; \
+	fi
+endif
+
+ifeq ($(CONFIG_PROD_DEVICE_BLUETOOTH),y)
+	@if [ -f $(HUMAX_STATIC_LIB_DIR)/libbsa.a ]; then\
+		rm $(HUMAX_STATIC_LIB_DIR)/libbsa.a; \
+	else \
+		echo "-----------------------------"; \
+		echo "NO $(HUMAX_STATIC_LIB_DIR)/libbsa.a !!!!!!!!!"; \
+		echo "-----------------------------"; \
+	fi
+endif
+
+ap_driver_distclean : ap_driver_clean
+	@echo @ !!

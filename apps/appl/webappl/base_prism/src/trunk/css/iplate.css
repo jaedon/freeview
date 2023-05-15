@@ -1,0 +1,458 @@
+#-iplate {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 1280px;
+  height: 720px;
+  opacity: 0;
+}
+#-iplate.show {
+  opacity: 1;
+}
+#-iplate #-iplate-dim {
+  position: inherit;
+  width: inherit;
+  height: 575px;
+  top: 145px;
+  background: url(../images/614_BG_LTV.png);
+}
+#-iplate #-iplate-banner {
+  position: inherit;
+  left: 110px;
+  top: 464px;
+  width: 1060px;
+  height: 174px;
+  border-top: 1px solid rgba(255, 255, 255, 0.196);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.196);
+}
+#-iplate #-iplate-banner #-iplate-background {
+  position: inherit;
+  width: inherit;
+  height: inherit;
+  background-color: #000000;
+  opacity: 0.8;
+}
+#-iplate #-iplate-banner #-iplate-thumbnail {
+  position: inherit;
+  left: 22px;
+  top: 24px;
+  width: 226px;
+  height: 127px;
+}
+#-iplate #-iplate-banner #-iplate-lcn {
+  position: inherit;
+  display: inline-block;
+  left: 262px;
+  top: 20px;
+  font-size: 36px;
+  font-family: PrismFontB;
+  color: #ffffff;
+  text-align: left;
+}
+#-iplate #-iplate-banner #-iplate-splitLine {
+  position: inherit;
+  left: 344px;
+  top: 28px;
+  width: 1px;
+  height: 26px;
+  background: url(../images/614_LTV_Ban_Line.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-svcname {
+  position: inherit;
+  left: 359px;
+  top: 21px;
+  width: 455px;
+  font-size: 34px;
+  font-family: PrismFontB;
+  color: #ffffff;
+  text-align: left;
+}
+#-iplate #-iplate-banner #-iplate-now {
+  position: inherit;
+  left: 831px;
+  top: 19px;
+  width: 204px;
+  font-size: 22px;
+  font-family: PrismFontL;
+  color: #bebebe;
+  text-align: right;
+}
+#-iplate #-iplate-banner #-iplate-now span {
+  color: #555555;
+}
+#-iplate #-iplate-banner #-iplate-evtname {
+  position: inherit;
+  left: 262px;
+  top: 62px;
+  width: 773px;
+  font-size: 28px;
+  font-family: PrismFontL;
+  color: #ffffff;
+  text-align: left;
+}
+#-iplate #-iplate-banner #-iplate-secondary {
+  position: inherit;
+  left: 262px;
+  top: 97px;
+  width: 550px;
+  font-size: 20px;
+  font-family: PrismFontL;
+  color: #888888;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#-iplate #-iplate-banner #-iplate-group {
+  position: inherit;
+  right: 25px;
+  top: 99px;
+  width: 204px;
+  font-size: 20px;
+  font-family: PrismFontL;
+  color: #ffffff;
+  text-align: right;
+}
+#-iplate #-iplate-banner #-iplate-starttime {
+  position: inherit;
+  display: inline-block;
+  left: 262px;
+  top: 127px;
+  font-size: 18px;
+  font-family: PrismFontL;
+  text-align: left;
+}
+#-iplate #-iplate-banner #-iplate-starttime span {
+  color: #555555;
+}
+#-iplate #-iplate-banner #-iplate-endtime {
+  position: inherit;
+  display: inline-block;
+  left: 532px;
+  top: 127px;
+  font-size: 18px;
+  font-family: PrismFontL;
+  text-align: right;
+}
+#-iplate #-iplate-banner #-iplate-icons {
+  position: inherit;
+  right: 25px;
+  top: 126px;
+  height: 28px;
+}
+#-iplate #-iplate-banner #-iplate-arrowleft {
+  position: inherit;
+  left: -6px;
+  top: 78px;
+  width: 14px;
+  height: 19px;
+  background: url(../images/614_LTV_Ban_Arrow_L.png) no-repeat;
+  opacity: 0;
+}
+#-iplate #-iplate-banner #-iplate-arrowleft.show {
+  opacity: 1;
+}
+#-iplate #-iplate-banner #-iplate-arrowright {
+  position: inherit;
+  left: 1052px;
+  top: 78px;
+  width: 14px;
+  height: 19px;
+  background: url(../images/614_LTV_Ban_Arrow_R.png) no-repeat;
+  opacity: 0;
+}
+#-iplate #-iplate-banner #-iplate-arrowright.show {
+  opacity: 1;
+}
+#-iplate #-iplate-banner #-iplate-arrowup {
+  position: inherit;
+  left: 520px;
+  top: -6px;
+  width: 19px;
+  height: 14px;
+  background: url(../images/614_LTV_Ban_Arrow_U.png) no-repeat;
+  opacity: 0;
+}
+#-iplate #-iplate-banner #-iplate-arrowup.show {
+  opacity: 1;
+}
+#-iplate #-iplate-banner #-iplate-arrowdown {
+  position: inherit;
+  left: 520px;
+  top: 166px;
+  width: 19px;
+  height: 14px;
+  background: url(../images/614_LTV_Ban_Arrow_D.png) no-repeat;
+  opacity: 0;
+}
+#-iplate #-iplate-banner #-iplate-arrowdown.show {
+  opacity: 1;
+}
+#-iplate #-iplate-banner #-iplate-progress {
+  position: inherit;
+  left: 262px;
+  top: 149px;
+  width: 310px;
+  height: 3px;
+}
+#-iplate #-iplate-banner #-iplate-progressBG {
+  height: 2px;
+  opacity: 0;
+  background-color: #ffffff;
+}
+#-iplate #-iplate-banner #-iplate-progressBG.show {
+  opacity: 0.3;
+}
+#-iplate #-iplate-banner #-iplate-progressBar {
+  position: absolute;
+  top: -1px;
+  height: 3px;
+  background: #ffff00;
+  opacity: 0;
+}
+#-iplate #-iplate-banner #-iplate-progressBar.show {
+  opacity: 1;
+}
+#-iplate #-iplate-banner #-iplate-siIcons {
+  position: inherit;
+  left: 615px;
+  top: 126px;
+  width: 420px;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img {
+  position: relative;
+  margin-left: 2px;
+  float: right;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#hd {
+  display: none;
+  width: 36px;
+  height: 28px;
+  background: url(../images/203_Resolition_HD.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#enc {
+  display: none;
+  width: 44px;
+  height: 28px;
+  background: url(../images/614_PD_ENC.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#hd_linkage {
+  display: none;
+  width: 45px;
+  height: 28px;
+  background: url(../images/614_PD_HD.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#guidance {
+  display: none;
+  width: 28px;
+  height: 28px;
+  background: url(../images/614_PD_Guidance.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#recommendation {
+  display: none;
+  width: 37px;
+  height: 28px;
+  background: url(../images/614_PD_Recommendation.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#split {
+  display: none;
+  width: 36px;
+  height: 28px;
+  background: url(../images/614_PD_Split.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#ad {
+  display: none;
+  width: 36px;
+  height: 28px;
+  background: url(../images/614_PD_AD.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#drm {
+  display: none;
+  width: 57px;
+  height: 28px;
+  background: url(../images/211_Lock_DRM.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#lock {
+  display: none;
+  width: 22px;
+  height: 28px;
+  background: url(../images/211_Lock.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#ttx {
+  display: none;
+  width: 28px;
+  height: 28px;
+  background: url(../images/220_Teletext.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#subDVB {
+  display: none;
+  width: 44px;
+  height: 28px;
+  background: url(../images/614_Subtitle.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#subEBU {
+  display: none;
+  width: 44px;
+  height: 28px;
+  background: url(../images/614_Subtitle.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#ma {
+  display: none;
+  width: 35px;
+  height: 28px;
+  background: url(../images/219_MultipleAudio.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#available {
+  display: none;
+  width: 28px;
+  height: 28px;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#reminder {
+  display: none;
+  width: 28px;
+  height: 28px;
+  background: url(../images/205_REC_Reservation_Watch.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#recording {
+  display: none;
+  width: 28px;
+  height: 28px;
+  background: url(../images/205_REC_Recording.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#schedule {
+  display: none;
+  width: 28px;
+  height: 28px;
+  background: url(../images/205_REC_Reservation_Recording.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#series-schedule {
+  display: none;
+  width: 33px;
+  height: 28px;
+  background: url(../images/205_REC_Reservation_Series.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons > img#recorded {
+  display: none;
+  width: 36px;
+  height: 28px;
+  background: url(../images/205_REC_Recording_Watch.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-hd #hd {
+  display: block;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-enc #enc {
+  display: block;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-hd_linkage #hd_linkage {
+  display: block;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-guidance #guidance {
+  display: block;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-recommendation #recommendation {
+  display: block;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-split #split {
+  display: block;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-ad #ad {
+  display: block;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-drm #drm {
+  display: block;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-lock #lock {
+  display: block;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-ttx #ttx {
+  display: block;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-subDVB #subDVB {
+  display: block;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-subEBU #subEBU {
+  display: block;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-ma #ma {
+  display: block;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-available #available {
+  display: block;
+  background: url(../images/205_REC_Play.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-commingsoon #available {
+  display: block;
+  background: url(../images/614_EPG_Comingsoon.png) no-repeat;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-reminder #reminder {
+  display: block;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-recording #recording {
+  display: block;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-schedule #schedule {
+  display: block;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-series-schedule #series-schedule {
+  display: block;
+}
+#-iplate #-iplate-banner #-iplate-siIcons.-iplate-recorded #recorded {
+  display: block;
+}
+#-iplate #-iplate-footer {
+  position: inherit;
+  left: 110px;
+  top: 638px;
+  width: 1010px;
+  padding: 0 25px 0 25px;
+}
+#-iplate #-iplate-footer > img {
+  position: relative;
+  top: 10px;
+  width: 32px;
+  height: 32px;
+  float: left;
+}
+#-iplate #-iplate-footer > img#-iplate-more {
+  margin-right: 6px;
+  background: url(../images/614_LTV_Ban_indi02.png) no-repeat;
+}
+#-iplate #-iplate-footer > img#-iplate-chlist {
+  margin-right: 0px;
+  background: url(../images/614_LTV_Ban_indi03.png) no-repeat;
+}
+#-iplate #-iplate-footer > img#-iplate-livestreaming {
+  display: none;
+  margin-left: 10px;
+  background: url(../images/205_REC_Live.png) no-repeat;
+}
+#-iplate #-iplate-footer > img#-iplate-livestreaming.show {
+  display: block;
+}
+#-iplate #-iplate-footer > img#-iplate-recordings {
+  display: none;
+  margin-left: 10px;
+  background: url(../images/205_REC_Recording.png) no-repeat;
+}
+#-iplate #-iplate-footer > img#-iplate-recordings.show {
+  display: block;
+}
+#-iplate #-iplate-footer > div {
+  position: relative;
+  display: inline-block;
+  top: 13px;
+  margin-right: 28px;
+  font-family: PrismFontL;
+  font-size: 20px;
+  color: #ffffff;
+  float: left;
+}
+#-iplate #-iplate-footer .align-right {
+  display: none;
+  margin-left: 5px;
+  margin-right: 0px;
+  float: right;
+}
+#-iplate #-iplate-footer .align-right.show {
+  display: inline-block;
+}

@@ -1,0 +1,626 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+-include .config
+
+settop=1000
+obama=1001
+prism=1002
+nima=1003
+umma=1004
+thma=1005
+dama=1006
+sama=1007
+pama=1008
+tima=1009
+sechdlr=1100
+dfbmaster=1101
+se_pama=1102
+se_nima=1103
+se_umma=1104
+se_tima=1105
+corsair=1201
+imma=1202
+homma=1203
+ipepg=1204
+hama=1300
+device=1400
+libgrp=1500
+pvr=1600
+media=1700
+
+secure_platform : securefiles
+
+securefiles: usermode chroot lxc
+
+usermode:
+ifeq ($(strip $(CONFIG_DROP_ROOT_PRIVILEGES)),y)
+
+	@echo "---- Changing Ownership of Each Sandboxed Root ----."
+	@sudo chown -hR root:root $(HUMAX_NFS_INSTALL_DIR)/
+ifeq ($(strip $(CONFIG_USES_NFSROOT)),y)
+	@sudo chmod go+w $(HUMAX_NFS_INSTALL_DIR)/
+endif
+ifeq ($(strip $(CONFIG_ENABLE_SANDBOXING)),y)
+	@sudo chown -hR root:root $(HUMAX_NFS_INSTALL_DIR)/home/sechdlr/root
+	@sudo chown -hR $(settop):$(settop) $(HUMAX_NFS_INSTALL_DIR)/home/settop/root
+	@sudo chown -hR $(corsair):$(corsair) $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root
+	@sudo chown -hR $(imma):$(imma) $(HUMAX_NFS_INSTALL_DIR)/home/imma/root
+	@sudo chown -hR $(homma):$(homma) $(HUMAX_NFS_INSTALL_DIR)/home/homma/root
+	@sudo chown -hR $(ipepg):$(ipepg) $(HUMAX_NFS_INSTALL_DIR)/home/ipepg/root
+ifeq ($(strip $(CONFIG_USES_NFSROOT)),y)
+	@sudo chmod g+w $(HUMAX_NFS_INSTALL_DIR)/home/sechdlr/root
+	@sudo chmod g+w $(HUMAX_NFS_INSTALL_DIR)/home/settop/root
+	@sudo chmod g+w $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root
+	@sudo chmod g+w $(HUMAX_NFS_INSTALL_DIR)/home/imma/root
+	@sudo chmod g+w $(HUMAX_NFS_INSTALL_DIR)/home/homma/root
+	@sudo chmod g+w $(HUMAX_NFS_INSTALL_DIR)/home/ipepg/root
+endif
+endif
+
+	@echo "---- Changing Ownership & Permission of Libray Files ----."
+	@sudo chmod u-w,go-rwx $(HUMAX_NFS_INSTALL_DIR)/lib/ld*
+	@sudo chmod u-w,go-rwx $(HUMAX_NFS_INSTALL_DIR)/lib/lib*
+	@sudo chmod u-w,go-rwx $(HUMAX_NFS_INSTALL_DIR)/usr/lib/lib*
+#	@echo "---- Changing Ownership & Permission some libaries to be loading during runtime ----."
+#	@echo "---- [Start] For Global and Opera browser ----."
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/lib/libgcc*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/lib/libgcc*
+#	@echo "---- [End] For Global  and Opera browser ----."
+#	@echo "---- [Start] For Opera browser ----."
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/lib/ld*
+	@sudo chmod g+rx $(HUMAX_NFS_INSTALL_DIR)/lib/ld*
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/lib/libm*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/lib/libm*
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/lib/libstdc++*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/lib/libstdc++*
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/lib/libuClibc*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/lib/libuClibc*
+#	@echo "---- [End] For Opera browser ----."
+#	@echo "---- [Start] For obama & umma & thma ----."
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/lib/libcrypt*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/lib/libcrypt*
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/lib/libdl*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/lib/libdl*
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libdl*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libdl*
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/lib/libc.*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/lib/libc.*	
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/lib/libpthread*
+	@sudo chmod g+rx $(HUMAX_NFS_INSTALL_DIR)/lib/libpthread*
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libav*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libav*
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libexif*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libexif*
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libid3*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libid3*
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libjpeg*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libjpeg*
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libpng*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libpng*
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libswscale*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libswscale*
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libz*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libz*
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libxml*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libxml*
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libcurl*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libcurl*
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libcrypto*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libcrypto*	
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libssl*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libssl*
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libresolv*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/usr/lib/libresolv*
+	@sudo chown -hR root:$(libgrp) $(HUMAX_NFS_INSTALL_DIR)/lib/libubacktrace*
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/lib/libubacktrace*
+	
+#	@echo "---- [end] For obama & umma & thma ----."
+
+	@echo "---- Changing Ownership & Permission of Executable Files ----."
+	@sudo chown -hR root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/bin/*
+	@sudo chmod g+rx $(HUMAX_NFS_INSTALL_DIR)/bin/*
+	@sudo chown -hR root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/sbin/*
+	@sudo chmod g+rx $(HUMAX_NFS_INSTALL_DIR)/sbin/*
+	@sudo chown -hR root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/usr/bin/*
+	@sudo chmod g+rx $(HUMAX_NFS_INSTALL_DIR)/usr/bin/*
+	@sudo chown -hR root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/usr/sbin/*
+	@sudo chmod g+rx $(HUMAX_NFS_INSTALL_DIR)/usr/sbin/*
+
+	@echo "---- Removing Unusable Device Files ----."
+#	@sudo rm -f $(HUMAX_NFS_INSTALL_DIR)/dev/nexus_*
+	@sudo rm -f $(HUMAX_NFS_INSTALL_DIR)/dev/kmem
+	@sudo rm -f $(HUMAX_NFS_INSTALL_DIR)/dev/bcmfpga
+	@sudo rm -f $(HUMAX_NFS_INSTALL_DIR)/dev/had*
+	@sudo rm -f $(HUMAX_NFS_INSTALL_DIR)/dev/ttyS64
+	@sudo rm -f $(HUMAX_NFS_INSTALL_DIR)/dev/ttyS3
+	@sudo rm -f $(HUMAX_NFS_INSTALL_DIR)/dev/ttyUSB0
+
+	@echo "---- Changing Ownership & Permission of Device Files ----."
+	@sudo chmod o-rwx $(HUMAX_NFS_INSTALL_DIR)/dev/brcm0
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/brcm0
+	@sudo chmod o-rwx $(HUMAX_NFS_INSTALL_DIR)/dev/bt*
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/bt*
+	@sudo chmod o-rwx $(HUMAX_NFS_INSTALL_DIR)/dev/full
+	@sudo chmod g-w,g+rx,o-rw,o+x $(HUMAX_NFS_INSTALL_DIR)/dev/mapper
+	@sudo chmod o-rw $(HUMAX_NFS_INSTALL_DIR)/dev/mmc*
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/mmc*
+	@sudo chmod g-rw,o-rw $(HUMAX_NFS_INSTALL_DIR)/dev/mtd*
+	@sudo chown root:$(obama) $(HUMAX_NFS_INSTALL_DIR)/dev/mtd1
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/dev/mtd1
+	@sudo chown root:$(obama) $(HUMAX_NFS_INSTALL_DIR)/dev/mtd2
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/dev/mtd2
+	@sudo chown root:$(obama) $(HUMAX_NFS_INSTALL_DIR)/dev/mtd3
+	@sudo chmod g+rw $(HUMAX_NFS_INSTALL_DIR)/dev/mtd3
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/mtd4
+	@sudo chmod g+rw $(HUMAX_NFS_INSTALL_DIR)/dev/mtd4
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/mtd5
+	@sudo chmod g+rw $(HUMAX_NFS_INSTALL_DIR)/dev/mtd5
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/mtd6
+	@sudo chmod g+rw $(HUMAX_NFS_INSTALL_DIR)/dev/mtd6
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/mtd7
+	@sudo chmod g+rw $(HUMAX_NFS_INSTALL_DIR)/dev/mtd7
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/mtd8
+	@sudo chmod g+rw $(HUMAX_NFS_INSTALL_DIR)/dev/mtd8
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/mtd9
+	@sudo chmod g+rw $(HUMAX_NFS_INSTALL_DIR)/dev/mtd9
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/mtd10
+	@sudo chmod g+rw $(HUMAX_NFS_INSTALL_DIR)/dev/mtd10
+	@sudo chown root:$(obama) $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock1
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock1
+	@sudo chown root:$(obama) $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock2
+	@sudo chmod g+r $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock2
+	@sudo chown root:$(obama) $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock3
+	@sudo chmod g+rw $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock3
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock4
+	@sudo chmod g+rw $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock4
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock5
+	@sudo chmod g+rw $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock5
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock6
+	@sudo chmod g+rw $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock6
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock7
+	@sudo chmod g+rw $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock7
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock8
+	@sudo chmod g+rw $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock8
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock9
+	@sudo chmod g+rw $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock9
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock10
+	@sudo chmod g+rw $(HUMAX_NFS_INSTALL_DIR)/dev/mtdblock10
+	@sudo chmod o-r $(HUMAX_NFS_INSTALL_DIR)/dev/nexus
+	@sudo chmod o-rw $(HUMAX_NFS_INSTALL_DIR)/dev/null
+	@sudo chmod o-rw $(HUMAX_NFS_INSTALL_DIR)/dev/port
+	@sudo chmod o-rw $(HUMAX_NFS_INSTALL_DIR)/dev/ptmx
+	@sudo chmod g-w $(HUMAX_NFS_INSTALL_DIR)/dev/pts
+	@sudo chmod o-rw $(HUMAX_NFS_INSTALL_DIR)/dev/ptyp*
+	@sudo chmod o-rw $(HUMAX_NFS_INSTALL_DIR)/dev/random
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/sd*
+	@sudo chmod g-w,o-rw $(HUMAX_NFS_INSTALL_DIR)/dev/shm
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/tty*
+	@sudo chmod o-rw $(HUMAX_NFS_INSTALL_DIR)/dev/tty*
+	@sudo chown root:$(settop) $(HUMAX_NFS_INSTALL_DIR)/dev/ubi*
+	@sudo chmod o-rw $(HUMAX_NFS_INSTALL_DIR)/dev/ubi*
+	@sudo chmod o-rw $(HUMAX_NFS_INSTALL_DIR)/dev/fusion/*
+	@sudo chmod o-rw $(HUMAX_NFS_INSTALL_DIR)/dev/input/event*
+	
+	@echo "---- Changing Ownership & Permission of Files used Each Process ----."
+	@sudo chown -hR $(settop):$(settop) $(HUMAX_NFS_INSTALL_DIR)/usr/fonts
+	@sudo chmod -R ug-w,o-rwx $(HUMAX_NFS_INSTALL_DIR)/usr/fonts/
+	@sudo chmod -R g+r $(HUMAX_NFS_INSTALL_DIR)/usr/fonts/
+	@sudo chown -hR $(settop):$(settop) $(HUMAX_NFS_INSTALL_DIR)/usr/image
+	@sudo chmod -R ug-w,o-rwx $(HUMAX_NFS_INSTALL_DIR)/usr/image/
+	@if [ -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser ]; \
+	then sudo chown -hR $(corsair):$(settop) $(HUMAX_NFS_INSTALL_DIR)/usr/browser; \
+	sudo find $(HUMAX_NFS_INSTALL_DIR)/usr/browser -type f -print0 | xargs -0r -n5 sudo chmod u-w; \
+	sudo find $(HUMAX_NFS_INSTALL_DIR)/usr/browser -type f -print0 | xargs -0r -n5 sudo chmod g-rwx; \
+	sudo find $(HUMAX_NFS_INSTALL_DIR)/usr/browser -type f -print0 | xargs -0r -n5 sudo chmod o-rwx; \
+	fi;
+	@if [ -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser/opera_home ]; \
+	then sudo chown -hR $(corsair):$(corsair) $(HUMAX_NFS_INSTALL_DIR)/usr/browser/opera_home; \
+	sudo chmod 500 $(HUMAX_NFS_INSTALL_DIR)/usr/browser/opera_home; \
+	sudo find $(HUMAX_NFS_INSTALL_DIR)/usr/browser/opera_home -type f -print0 | xargs -0r sudo chmod u+wx; \
+	fi;
+	@if [ -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser/opera_dir ]; \
+	then sudo chown -hR $(corsair):$(corsair) $(HUMAX_NFS_INSTALL_DIR)/usr/browser/opera_dir; \
+	sudo chmod 500 $(HUMAX_NFS_INSTALL_DIR)/usr/browser/opera_dir; \
+	sudo find $(HUMAX_NFS_INSTALL_DIR)/usr/browser/opera_dir -type f -print0 | xargs -0r sudo chmod u+x; \
+	fi;
+ifeq ($(strip $(CONFIG_ENABLE_SANDBOXING)),y)
+	@if [ -d $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser ]; \
+	then sudo chown -hR $(corsair):$(settop) $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser; \
+	sudo find $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser -type f -print0 | xargs -0r -n5 sudo chmod u-w; \
+	sudo find $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser -type f -print0 | xargs -0r -n5 sudo chmod g-rwx; \
+	sudo find $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser -type f -print0 | xargs -0r -n5 sudo chmod o-rwx; \
+	fi;
+	@if [ -d $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_home ]; \
+	then sudo chown -hR $(corsair):$(corsair) $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_home; \
+	sudo chmod 700 $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_home; \
+	sudo find $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_home -type f -print0 | xargs -0r sudo chmod u+wx; \
+	fi;
+	@if [ -d $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_dir ]; \
+	then sudo chown -hR $(corsair):$(corsair) $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_dir; \
+	sudo chmod 500 $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_dir; \
+	sudo find $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_dir -type f -print0 | xargs -0r sudo chmod u+x; \
+	fi;
+endif
+	@sudo chmod -R u-w $(HUMAX_NFS_INSTALL_DIR)/etc/
+	@sudo chown -hR $(imma):$(imma) $(HUMAX_NFS_INSTALL_DIR)/etc/Wireless
+	@sudo chmod -R ugo-w,ugo+r $(HUMAX_NFS_INSTALL_DIR)/etc/Wireless
+	@sudo chmod ugo+r $(HUMAX_NFS_INSTALL_DIR)/etc/ipc.def
+	@sudo chmod ugo+r $(HUMAX_NFS_INSTALL_DIR)/etc/services
+	@sudo chown -hR $(imma):$(imma) $(HUMAX_NFS_INSTALL_DIR)/etc/pki
+	@sudo chmod -R u-w,go-rwx $(HUMAX_NFS_INSTALL_DIR)/etc/pki/
+	@sudo chown -hR $(imma):$(imma) $(HUMAX_NFS_INSTALL_DIR)/usr/drm
+	@sudo chmod -R u-w,go-rwx $(HUMAX_NFS_INSTALL_DIR)/usr/drm
+	@sudo chown -hR $(homma):$(homma) $(HUMAX_NFS_INSTALL_DIR)/share/udhcpc
+	@sudo chmod -R u-w,go-rwx $(HUMAX_NFS_INSTALL_DIR)/share/udhcpc/
+	@if [ -d $(HUMAX_NFS_INSTALL_DIR)/usr/dlna ]; \
+	then sudo chown -hR $(homma):$(homma) $(HUMAX_NFS_INSTALL_DIR)/usr/dlna; \
+	sudo chmod -R u-w,go-rwx $(HUMAX_NFS_INSTALL_DIR)/usr/dlna/; \
+	fi;
+	@if [ -d $(HUMAX_NFS_INSTALL_DIR)/home/homma/root/usr/dlna ]; \
+	then sudo chown -hR $(homma):$(homma) $(HUMAX_NFS_INSTALL_DIR)/home/homma/root/usr/dlna; \
+	sudo chmod -R u-w,go-rwx $(HUMAX_NFS_INSTALL_DIR)/home/homma/root/usr/dlna/; \
+	fi;
+	@sudo chown -hR $(homma):$(homma) $(HUMAX_NFS_INSTALL_DIR)/usr/share/udhcpc
+	@sudo chmod -R u-w,go-rwx $(HUMAX_NFS_INSTALL_DIR)/usr/share/udhcpc/
+
+ifeq ($(strip $(CONFIG_USES_NFSROOT)),y)
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/log.config ]; \
+	then sudo chmod u-w,go-rw $(HUMAX_NFS_INSTALL_DIR)/log.config; \
+	fi;
+endif
+
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/etc/pre_ch_deu.csv ]; \
+	then sudo chown $(obama):$(obama) $(HUMAX_NFS_INSTALL_DIR)/etc/pre_ch_deu.csv ; \
+	sudo chmod u-w,go-rwx $(HUMAX_NFS_INSTALL_DIR)/etc/pre_ch_deu.csv ; \
+	fi;
+
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/etc/pre_ch_aut.csv ]; \
+	then sudo chown $(obama):$(obama) $(HUMAX_NFS_INSTALL_DIR)/etc/pre_ch_aut.csv ; \
+	sudo chmod u-w,go-rwx $(HUMAX_NFS_INSTALL_DIR)/etc/pre_ch_aut.csv ; \
+	fi;
+
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/etc/deu.xml ]; \
+	then sudo chown $(ipepg):$(ipepg) $(HUMAX_NFS_INSTALL_DIR)/etc/deu.xml ; \
+	sudo chmod u-w,go-rwx $(HUMAX_NFS_INSTALL_DIR)/etc/deu.xml ; \
+	fi;
+
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/etc/aut.xml ]; \
+	then sudo chown $(ipepg):$(ipepg) $(HUMAX_NFS_INSTALL_DIR)/etc/aut.xml ; \
+	sudo chmod u-w,go-rwx $(HUMAX_NFS_INSTALL_DIR)/etc/aut.xml ; \
+	fi;
+
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/usr/etc/storage_profile.json ]; \
+	then sudo chown $(umma):$(umma) $(HUMAX_NFS_INSTALL_DIR)/usr/etc/storage_profile.json ; \
+	sudo chmod u-w,go-rwx $(HUMAX_NFS_INSTALL_DIR)/usr/etc/storage_profile.json ; \
+	fi;
+
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/usr/etc/net_profile.xml ]; \
+	then sudo chown $(nima):$(nima) $(HUMAX_NFS_INSTALL_DIR)/usr/etc/net_profile.xml ; \
+	sudo chmod u-w,go-rwx $(HUMAX_NFS_INSTALL_DIR)/usr/etc/net_profile.xml ; \
+	fi;
+
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/usr/samba/smb.conf ]; \
+	then sudo chown $(umma):$(umma) $(HUMAX_NFS_INSTALL_DIR)/usr/samba/smb.conf ; \
+	sudo chmod u-w,go-rwx $(HUMAX_NFS_INSTALL_DIR)/usr/samba/smb.conf ; \
+	fi;
+
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/usr/data/cas_string.bin ]; \
+	then sudo chown $(obama):$(obama) $(HUMAX_NFS_INSTALL_DIR)/usr/data/cas_string.bin ; \
+	sudo chmod u-w,go-rwx $(HUMAX_NFS_INSTALL_DIR)/usr/data/cas_string.bin ; \
+	fi;
+else
+	@echo Noting to do for usermode.
+endif	
+
+chroot:
+ifeq ($(strip $(CONFIG_HAVE_DOT_CONFIG)),y)
+ifeq ($(strip $(CONFIG_ENABLE_SANDBOXING)),y)
+	@echo "---- [settop] Moving Excutable Files to Each Home Folder ----."
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/usr/bin/dfbmaster ]; \
+	then sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/usr/bin/dfbmaster $(HUMAX_NFS_INSTALL_DIR)/home/; \
+	fi;
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/comma/comma ]; \
+	then sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/home/comma/comma $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/comma/; \
+	sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/comma; \
+	fi;
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/dama/dama ]; \
+	then sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/home/dama/dama $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/dama/; \
+	sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/dama; \
+	fi;
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/nima/nima ]; \
+	then sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/home/nima/nima $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/nima/; \
+	sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/nima; \
+	fi;
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/obama/obama ]; \
+	then sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/home/obama/obama $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/obama/; \
+	sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/obama; \
+	fi;
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/pama/pama ]; \
+	then sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/home/pama/pama $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/pama/; \
+	sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/pama; \
+	fi;
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/prism/prism ]; \
+	then sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/home/prism/prism $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/prism/; \
+	sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/prism; \
+	fi;
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/sama/sama ]; \
+	then sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/home/sama/sama $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/sama/; \
+	sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/sama; \
+	fi;
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/thma/thma ]; \
+	then sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/home/thma/thma $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/thma/; \
+	sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/thma; \
+	fi;
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/tima/tima ]; \
+	then sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/home/tima/tima $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/tima/; \
+	sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/tima; \
+	fi;
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/umma/umma ]; \
+	then sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/home/umma/umma $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/umma/; \
+	sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/umma; \
+	fi;
+ifeq ($(strip $(CONFIG_SUPPORT_REMOTEAPP_APP)),y)
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/remoteapp/remoteapp ]; \
+	then sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/home/remoteapp/remoteapp $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/remoteapp/; \
+	sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/remoteapp; \
+	fi;
+endif
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/hamalauncher ]; \
+	then sudo cp -afp $(HUMAX_NFS_INSTALL_DIR)/home/hamalauncher $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/; \
+	fi;
+
+	@sudo rm -f $(HUMAX_NFS_INSTALL_DIR)/home/hconfig.cfg
+
+ifeq ($(strip $(CONFIG_USES_NFSROOT)),y)
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/log.config ]; \
+	then sudo chmod go+rw $(HUMAX_NFS_INSTALL_DIR)/log.config; \
+	fi;
+	@if [ ! -f $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/log.config ]; \
+	then sudo cp -apf $(HUMAX_NFS_INSTALL_DIR)/log.config $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/; \
+	fi;
+	@if [ ! -f $(HUMAX_NFS_INSTALL_DIR)/home/sechdlr/root/log.config ]; \
+	then sudo cp -apf $(HUMAX_NFS_INSTALL_DIR)/log.config $(HUMAX_NFS_INSTALL_DIR)/home/sechdlr/root/; \
+	fi;
+	@if [ ! -f $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/log.config ]; \
+	then sudo cp -apf $(HUMAX_NFS_INSTALL_DIR)/log.config $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/; \
+	fi;
+	@if [ ! -f $(HUMAX_NFS_INSTALL_DIR)/home/imma/root/log.config ]; \
+	then sudo cp -apf $(HUMAX_NFS_INSTALL_DIR)/log.config $(HUMAX_NFS_INSTALL_DIR)/home/imma/root/; \
+	fi;
+	@if [ ! -f $(HUMAX_NFS_INSTALL_DIR)/home/homma/root/log.config ]; \
+	then sudo cp -apf $(HUMAX_NFS_INSTALL_DIR)/log.config $(HUMAX_NFS_INSTALL_DIR)/home/homma/root/; \
+	fi;
+	@if [ ! -f $(HUMAX_NFS_INSTALL_DIR)/home/ipepg/root/log.config ]; \
+	then sudo cp -apf $(HUMAX_NFS_INSTALL_DIR)/log.config $(HUMAX_NFS_INSTALL_DIR)/home/ipepg/root/; \
+	fi;
+endif
+
+	@echo "---- [sechdlr] Moving Excutable Files to Each Home Folder ----."
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/sechdlr/se_nima ]; \
+	then sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/home/sechdlr/se_nima $(HUMAX_NFS_INSTALL_DIR)/home/sechdlr/root/home/se_nima/; \
+	fi;
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/sechdlr/se_tima ]; \
+	then sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/home/sechdlr/se_tima $(HUMAX_NFS_INSTALL_DIR)/home/sechdlr/root/home/se_tima/; \
+	fi;
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/sechdlr/se_umma ]; \
+	then sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/home/sechdlr/se_umma $(HUMAX_NFS_INSTALL_DIR)/home/sechdlr/root/home/se_umma/; \
+	fi;
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/hamalauncher ]; \
+	then sudo cp -afp $(HUMAX_NFS_INSTALL_DIR)/home/hamalauncher $(HUMAX_NFS_INSTALL_DIR)/home/sechdlr/root/home/; \
+	fi;
+	
+#	@sudo rm -f $(HUMAX_NFS_INSTALL_DIR)/home/hamalauncher
+	@sudo find $(HUMAX_NFS_INSTALL_DIR)/home -name "hconfig.cfg" | xargs -r sudo chmod u-x
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/dfbmaster ]; \
+	then sudo chown root:root $(HUMAX_NFS_INSTALL_DIR)/home/dfbmaster; \
+	sudo chmod go-rwx $(HUMAX_NFS_INSTALL_DIR)/home/dfbmaster; \
+	fi;
+
+#ifneq ($(strip $(CONFIG_SUPPORT_IPEPG_APP)),y)
+#	@sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/ipepg
+#endif
+
+#	@echo "---- Moving the files related Browser to corsair home folder."
+#	@if [ -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser/drm ]; then sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/drm; sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/usr/browser/drm $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/drm; fi;
+#	@if [ -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser/opera_dir ]; then sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_dir; sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/usr/browser/opera_dir $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_dir; fi;
+#	@if [ -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser/opera_home ]; then sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_home; sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/usr/browser/opera_home $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_home; fi;
+#	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps/default.html ]; then sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/webapps; sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/webapps; fi;
+#	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps ]; then sudo mkdir $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps; sudo chown 1000:1000 $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps; sudo chmod 775 $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps; fi;
+#ifeq ($(strip $(CONFIG_USES_NFSROOT)),y)
+#	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps/apps_hmx ]; then sudo mkdir $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps/apps_hmx; sudo chown 1000:1000 $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps/apps_hmx; sudo chmod 775 $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps/apps_hmx; fi;
+#	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/webapps/apps_hmx ]; then sudo mkdir $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/webapps/apps_hmx; sudo chown 1000:1000 $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/webapps/apps_hmx; sudo chmod 775 $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/webapps/apps_hmx; fi;
+#else
+#	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps/apps ]; then sudo mkdir $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps/apps; sudo chown 1000:1000 $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps/apps; sudo chmod 775 $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps/apps; fi;
+#	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/webapps/apps ]; then sudo mkdir $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/webapps/apps; sudo chown 1000:1000 $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/webapps/apps; sudo chmod 775 $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/webapps/apps; fi;
+#endif
+#	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps/upgrade ]; then sudo mkdir $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps/upgrade; sudo chown 1000:1000 $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps/upgrade; sudo chmod 775 $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps/upgrade; fi;
+#	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/webapps/upgrade ]; then sudo mkdir $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/webapps/upgrade; sudo chown 1000:1000 $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/webapps/upgrade; sudo chmod 775 $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/webapps/upgrade; fi;
+#	@if [ -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser ]; then sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/usr/browser; fi;
+
+#	@echo "---- Moving the files related imma to corsair home folder."
+#	@if [ -d $(HUMAX_NFS_INSTALL_DIR)/usr/dlna ]; then sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/homma/root/usr/dlna; sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/usr/dlna $(HUMAX_NFS_INSTALL_DIR)/home/homma/root/usr/dlna; fi;
+
+else
+	@echo Noting to do for chroot.
+endif	
+else
+	@echo you have to do xxx_defconfig, at first. in $@
+endif
+
+lxc:
+ifeq ($(strip $(CONFIG_HAVE_DOT_CONFIG)),y)
+ifeq ($(strip $(CONFIG_ENABLE_SANDBOXING)),y)
+	@echo "---- Changing ownership and permission ----."
+#	@sudo chmod -R 440 $(HUMAX_NFS_INSTALL_DIR)/usr/fonts
+#	@sudo chmod 550 $(HUMAX_NFS_INSTALL_DIR)/usr/fonts
+#	@sudo chown -R $(settop):$(settop) $(HUMAX_NFS_INSTALL_DIR)/usr/fonts
+	@sudo chown $(settop):$(settop) $(HUMAX_NFS_INSTALL_DIR)/mnt/hd4
+#	@sudo chmod +r $(HUMAX_NFS_INSTALL_DIR)/etc/ipc.def
+#	@sudo chmod +r -R $(HUMAX_NFS_INSTALL_DIR)/lib
+#	@sudo chmod +r -R $(HUMAX_NFS_INSTALL_DIR)/usr/lib
+	@sudo chmod +rx $(HUMAX_NFS_INSTALL_DIR)/bin/busybox
+	
+################################################################################################
+## make imma rootfs for the lxc
+################################################################################################
+	@echo "---- Start making the imma lxc rootfs."
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/hamalauncher ]; \
+	then sudo cp -afp $(HUMAX_NFS_INSTALL_DIR)/home/hamalauncher $(HUMAX_NFS_INSTALL_DIR)/home/imma/root/home/; \
+	fi;
+	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/home/imma/root/home/imma ]; then \
+		sudo mkdir $(HUMAX_NFS_INSTALL_DIR)/home/imma/root/home/imma; \
+	fi;
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/imma/imma ]; then \
+		sudo mv $(HUMAX_NFS_INSTALL_DIR)/home/imma/imma $(HUMAX_NFS_INSTALL_DIR)/home/imma/root/home/imma/; \
+	fi;
+	@echo "---- completed"
+	
+################################################################################################
+## make corsair rootfs for the lxc
+################################################################################################
+	@echo "---- Start making the corsair lxc rootfs."
+		
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/hamalauncher ]; \
+	then sudo cp -afp $(HUMAX_NFS_INSTALL_DIR)/home/hamalauncher $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/home/; \
+	fi;
+	
+	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/home/corsair ]; then \
+		sudo mkdir $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/home/corsair; \
+	fi;
+	
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/corsair/corsair ]; then \
+		sudo mv $(HUMAX_NFS_INSTALL_DIR)/home/corsair/corsair $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/home/corsair/; \
+	fi;
+	
+	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser ]; then \
+		sudo mkdir $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser; \
+	fi;
+	
+#ifeq ($(strip $(CONFIG_USES_NFSROOT)),y)
+#	@if [ -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser ]; then \
+#		sudo cp -af $(HUMAX_NFS_INSTALL_DIR)/usr/browser/* $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/; \
+#	fi;
+#else
+#	@if [ -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser ]; then \
+#		sudo cp -af $(HUMAX_NFS_INSTALL_DIR)/usr/browser/* $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/; \
+#		sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/usr/browser ; \
+#	fi;
+#endif	
+	
+#	@sudo chmod 500 $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/
+#	@sudo chown $(corsair):$(settop) $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser
+#	@sudo chmod -R 400 $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/drm
+#	@sudo chown -R $(corsair):$(settop) $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/drm
+#	@sudo chmod -R 700 $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_home
+#	@sudo chown -R $(corsair):$(settop) $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_home
+#	@sudo chmod -R 500 $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_dir
+#	@sudo chown -R $(corsair):$(settop) $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_dir
+#	@sudo chmod -R 500 $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/webapps
+#	@sudo chown -R $(corsair):$(settop) $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/webapps
+
+	@if [ -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser/drm ]; then sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/drm; sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/usr/browser/drm $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/drm; fi;
+	@if [ -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser/opera_dir ]; then sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_dir; sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/usr/browser/opera_dir $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_dir; fi;
+	@if [ -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser/opera_home ]; then sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_home; sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/usr/browser/opera_home $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/opera_home; fi;
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps/default.html ]; then sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/webapps; sudo mv -f $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/webapps; fi;
+	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps ]; then sudo mkdir $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps; sudo chown $(corsair):$(settop) $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps; sudo chmod 775 $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps; fi;	
+	@echo "---- completed"
+	
+################################################################################################
+## make homma rootfs for the lxc
+################################################################################################
+	@echo "---- Start making the homma lxc rootfs."
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/hamalauncher ]; \
+	then sudo cp -afp $(HUMAX_NFS_INSTALL_DIR)/home/hamalauncher $(HUMAX_NFS_INSTALL_DIR)/home/homma/root/home/; \
+	fi;
+
+	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/home/homma/root/home/homma ]; then \
+		sudo mkdir $(HUMAX_NFS_INSTALL_DIR)/home/homma/root/home/homma; \
+	fi;
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/homma/homma ]; then \
+		sudo mv $(HUMAX_NFS_INSTALL_DIR)/home/homma/homma $(HUMAX_NFS_INSTALL_DIR)/home/homma/root/home/homma/; \
+	fi;
+	@sudo chmod 744 $(HUMAX_NFS_INSTALL_DIR)/home/homma/root/usr/etc/transcoder_profile.hxm
+	@sudo chown 1203:1000 $(HUMAX_NFS_INSTALL_DIR)/home/homma/root/usr/etc/transcoder_profile.hxm
+	@echo "---- completed"
+
+################################################################################################
+## make ipepg rootfs for the lxc
+################################################################################################
+	@echo "---- Start making the ipepg lxc rootfs."
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/hamalauncher ]; \
+	then sudo cp -afp $(HUMAX_NFS_INSTALL_DIR)/home/hamalauncher $(HUMAX_NFS_INSTALL_DIR)/home/ipepg/root/home/; \
+	fi;
+
+	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/home/ipepg/root/home/ipepg ]; then \
+		sudo mkdir $(HUMAX_NFS_INSTALL_DIR)/home/ipepg/root/home/ipepg; \
+	fi;
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/ipepg/ipepg ]; then \
+		sudo mv $(HUMAX_NFS_INSTALL_DIR)/home/ipepg/ipepg $(HUMAX_NFS_INSTALL_DIR)/home/ipepg/root/home/ipepg/; \
+	fi;
+	@echo "---- completed"
+
+################################################################################################
+## make mheg rootfs for the lxc
+################################################################################################
+	@echo "---- Start making the mheg lxc rootfs."
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/hamalauncher ]; \
+	then sudo cp -afp $(HUMAX_NFS_INSTALL_DIR)/home/hamalauncher $(HUMAX_NFS_INSTALL_DIR)/home/mheg/root/home/; \
+	fi;
+	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/home/mheg/root/home/mheg ]; then \
+		sudo mkdir $(HUMAX_NFS_INSTALL_DIR)/home/mheg/root/home/mheg; \
+	fi;
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/mheg/mheg ]; then \
+		sudo mv $(HUMAX_NFS_INSTALL_DIR)/home/mheg/mheg $(HUMAX_NFS_INSTALL_DIR)/home/mheg/root/home/mheg/; \
+	fi;
+	@echo "---- completed"
+	
+	@echo "This is temporary change to get the execution permission with all processes"
+	@sudo chmod u+x $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/comma/comma
+	@sudo chmod u+x $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/dama/dama
+	@sudo chmod u+x $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/nima/nima
+	@sudo chmod u+x $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/obama/obama
+	@sudo chmod u+x $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/pama/pama
+	@sudo chmod u+x $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/prism/prism
+	@sudo chmod u+x $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/sama/sama
+	@sudo chmod u+x $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/thma/thma
+	@sudo chmod u+x $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/tima/tima
+	@sudo chmod u+x $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/umma/umma
+	@sudo chmod u+x $(HUMAX_NFS_INSTALL_DIR)/home/settop/root/home/remoteapp/remoteapp
+
+	@sudo chmod u+x $(HUMAX_NFS_INSTALL_DIR)/home/sechdlr/root/home/se_nima/se_nima
+	@sudo chmod u+x $(HUMAX_NFS_INSTALL_DIR)/home/sechdlr/root/home/se_tima/se_tima
+	@sudo chmod u+x $(HUMAX_NFS_INSTALL_DIR)/home/sechdlr/root/home/se_umma/se_umma
+
+	@sudo chmod u+x $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/home/corsair/corsair
+	@sudo chmod u+x $(HUMAX_NFS_INSTALL_DIR)/home/homma/root/home/homma/homma
+	@sudo chmod u+x $(HUMAX_NFS_INSTALL_DIR)/home/imma/root/home/imma/imma
+	@sudo chmod u+x $(HUMAX_NFS_INSTALL_DIR)/home/ipepg/root/home/ipepg/ipepg
+
+	@echo "Moving all sandboxing components to /home1 from /home"
+	@if [ -f $(HUMAX_NFS_INSTALL_DIR)/home/hamalauncher ]; \
+	then sudo rm -f $(HUMAX_NFS_INSTALL_DIR)/home/hamalauncher; \
+	fi;
+ifeq ($(strip $(CONFIG_USES_NFSROOT)),y)
+	@sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home1/*
+	@sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/usr/browser/*
+	-@sudo cp -af $(HUMAX_NFS_INSTALL_DIR)/home/corsair/root/usr/browser/* $(HUMAX_NFS_INSTALL_DIR)/usr/browser
+	-@sudo cp -af $(HUMAX_NFS_INSTALL_DIR)/home/sechdlr/ $(HUMAX_NFS_INSTALL_DIR)/home1/
+	-@sudo cp -af $(HUMAX_NFS_INSTALL_DIR)/home/settop/ $(HUMAX_NFS_INSTALL_DIR)/home1/
+	-@sudo cp -af $(HUMAX_NFS_INSTALL_DIR)/home/cmduartconsole $(HUMAX_NFS_INSTALL_DIR)/home1/
+	-@sudo cp -af $(HUMAX_NFS_INSTALL_DIR)/home/hama $(HUMAX_NFS_INSTALL_DIR)/home1/
+#	-@sudo cp -af $(HUMAX_NFS_INSTALL_DIR)/home/hamalauncher $(HUMAX_NFS_INSTALL_DIR)/home1/
+	-@sudo cp -af $(HUMAX_NFS_INSTALL_DIR)/home/dfbmaster $(HUMAX_NFS_INSTALL_DIR)/home1/
+else
+	@sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/home1/*
+	@sudo rm -rf $(HUMAX_NFS_INSTALL_DIR)/usr/browser/*
+	@sudo mv $(HUMAX_NFS_INSTALL_DIR)/home/* $(HUMAX_NFS_INSTALL_DIR)/home1/
+	@sudo mv $(HUMAX_NFS_INSTALL_DIR)/home1/corsair/root/usr/browser/* $(HUMAX_NFS_INSTALL_DIR)/usr/browser/
+endif
+else
+	@echo Noting to do for lxc.
+endif	
+else
+	@echo you have to do xxx_defconfig, at first. in $@
+endif

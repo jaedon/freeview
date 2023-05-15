@@ -1,0 +1,244 @@
+#**@@@+++@@@@*********************************************************
+#*
+#* Microsoft PlayReady
+#* Copyright (c) Microsoft Corporation. All rights reserved.
+#*
+#**@@@---@@@@********************************************************/
+
+# Customization for MS internal builds
+
+DRM_PK_TEST_CODE_BUILDING=1
+
+!IF "$(_BUILDARCH)" == "ia64"
+DRM_TEST_SUPPORT_NET_IO=1
+!ENDIF
+
+!IF defined(MAKEDIR_RELATIVE_TO_BASEDIR)
+!INCLUDE $(BASEDIR)\source\PK\WMDRM-MD\test\pctopkprofile.cmn
+!ENDIF
+
+!if "$(DRM_BUILD_PROFILE)" == "OEM" || "$(DRM_BUILD_PROFILE)" == "OEMPLAYONLY"
+DRM_SUPPORT_TEST_SETTINGS=1
+!endif
+
+# $(_DRM_SOURCE_PATH) doesn't work with the Xbox version of NTBuild for prebuild steps.
+# If we have $(BASEDIR) we'll use that.
+!IF "$(BASEDIR)"==""
+!include $(_DRM_SOURCE_PATH)\drmbuild.cmn
+!ELSE
+!INCLUDE $(BASEDIR)\source\pk\WMDRM-MD\source\drmbuild.cmn
+!ENDIF
+
+!if defined(MAKEDIR_RELATIVE_TO_BASEDIR)
+
+!IF "$(PK_CODECOVERAGE_BUILD)" != ""
+#Turn On DRM_TEST_LINK_TO_DRMAPI_DLL and turn off DRM_EXPORT_APIS_TO_DLL when building tests for Code coverage
+_DRM_C_DEFINES = $(_DRM_C_DEFINES) DRM_TEST_LINK_TO_DRMAPI_DLL=1 DRM_EXPORT_APIS_TO_DLL=0
+!ENDIF
+
+!endif
+# End of customization
+
+NO_DEFAULT_INCLUDES = 1
+
+#----------------------------------------
+# We currently need to set PK_TEST
+# unless we're running PC tests or WIN_CE
+#----------------------------------------
+!IF "$(PC_TEST)" != "1" && "$(WINCE_TEST)" != "1"
+PK_TEST = 1
+!ENDIF
+
+INCLUDES = $(INCLUDES);                  \
+    $(_DRM_TEST_PATH)\inc;               \
+    $(_DRM_TEST_PATH)\tstutils\utils;    \
+    $(_DRM_SOURCE_PATH)\tools\common;    \
+
+!IF "$(DRM_BUILD_PLATFORM)" == "XBOX"
+
+INCLUDES = $(INCLUDES);                  \
+    $(_DRM_TEST_PATH)\toemimp\xbox\inc;  \
+
+!else
+
+INCLUDES = $(INCLUDES);                  \
+    $(_DRM_TEST_PATH)\toemimp\win32\inc; \
+
+!endif
+
+_DRM_TC_LIBS=                                 \
+    $(DRM_PK_TEST_LIB_PATH)\PKTestCore.lib    \
+    $(DRM_PK_TEST_LIB_PATH)\tstutils.lib      \
+    $(DRM_PK_TEST_LIB_PATH)\toemimp.lib       \
+    $(DRM_PK_TEST_LIB_PATH)\tgetClientID.lib  \
+    $(DRM_PK_TEST_LIB_PATH)\tstlicgen.lib     \
+    $(DRM_PK_TEST_LIB_PATH)\tstheadergen.lib  \
+
+_DRM_TC_LIBS= \
+    $(_DRM_TC_LIBS) \
+    $(DRM_PK_TEST_LIB_PATH)\xmrlicgen.lib     \
+    $(DRM_PK_TEST_LIB_PATH)\contentkey.lib    \
+
+################################################
+#### Optional Feature Libs          ############
+################################################
+
+_DRM_TEST_BCERT_LIB=               $(DRM_PK_TEST_LIB_PATH)\BCertTestAPI.lib
+_DRM_TEST_BLACKBOX_LIB=            $(DRM_PK_TEST_LIB_PATH)\BlackBoxTestAPI.lib
+_DRM_TEST_CRYPTO_LIB=              $(DRM_PK_TEST_LIB_PATH)\CryptoTestAPI.lib
+_DRM_TEST_DEVCERTPARSER_LIB=       $(DRM_PK_TEST_LIB_PATH)\DCParserTestAPI.lib
+_DRM_TEST_DEVICEDEVCERT_LIB=       $(DRM_PK_TEST_LIB_PATH)\DeviceDevCertTestAPI.lib
+_DRM_TEST_DEVICESTORE_LIB=         $(DRM_PK_TEST_LIB_PATH)\DeviceStoreTestAPI.lib
+_DRM_TEST_DRMMANAGER_LIB=          $(DRM_PK_TEST_LIB_PATH)\DRMManagerTestAPI.lib
+_DRM_TEST_DATASTORE_LIB=           $(DRM_PK_TEST_LIB_PATH)\DataStoreTestAPI.lib
+_DRM_TEST_HDS_LIB=                 $(DRM_PK_TEST_LIB_PATH)\HDSTestAPI.lib
+_DRM_TEST_HEADER_LIB=              $(DRM_PK_TEST_LIB_PATH)\HeaderTestAPI.lib
+_DRM_TEST_METERCERTSTORE_LIB=      $(DRM_PK_TEST_LIB_PATH)\MeterCertStoreTestAPI.lib
+_DRM_TEST_NETIO_LIB=               $(DRM_PK_TEST_LIB_PATH)\NetIOTestAPI.lib
+
+!IF "$(DRM_SUPPORT_METERING)" == "1"
+_DRM_TEST_METERING_LIB=            $(DRM_PK_TEST_LIB_PATH)\MeteringTestAPI.lib
+!ELSE
+_DRM_TEST_METERING_LIB=            $(DRM_PK_TEST_LIB_PATH)\MeteringTestAPI_stub.lib
+!ENDIF
+
+_DRM_TEST_OEMTEST_LIB=             $(DRM_PK_TEST_LIB_PATH)\OEMTestAPI.lib
+_DRM_TEST_PK_COMMON_LIB=           $(DRM_PK_TEST_LIB_PATH)\PKCommonTestAPI.lib
+_DRM_TEST_TOOLTEST_LIB=            $(DRM_PK_TEST_LIB_PATH)\ToolTestAPI.lib
+_DRM_TEST_UTF_LIB=                 $(DRM_PK_TEST_LIB_PATH)\UTFTestAPI.lib
+_DRM_TEST_UTILTEST_LIB=            $(DRM_PK_TEST_LIB_PATH)\UtilTestAPI.lib
+_DRM_TEST_DOMAIN_LIB=              $(DRM_PK_TEST_LIB_PATH)\DomainTestAPI.lib
+_DRM_TEST_DOMAINSTORE_LIB=         $(DRM_PK_TEST_LIB_PATH)\DomainStoreTestAPI.lib
+_DRM_TEST_INITPARSER_LIB=          $(DRM_PK_TEST_LIB_PATH)\InitParserTestAPI.lib
+_DRM_TEST_COREEMBEDDING_LIB=       $(DRM_PK_TEST_LIB_PATH)\CoreEmbeddingTestAPI.lib
+_DRM_TEST_LICACQV3_LIB=            $(DRM_PK_TEST_LIB_PATH)\LicAcqV3TestAPI.lib
+_DRM_TEST_LICEVAL_LIB=             $(DRM_PK_TEST_LIB_PATH)\LicEvalTestAPI.lib
+_DRM_TEST_XMR_LIB=                 $(DRM_PK_TEST_LIB_PATH)\XMRTestAPI.lib
+_DRM_TEST_NONCESTORE_LIB=          $(DRM_PK_TEST_LIB_PATH)\NonceStoreTestAPI.lib
+_DRM_TEST_POLICYSTATE_LIB=         $(DRM_PK_TEST_LIB_PATH)\PolicyStateTestAPI.lib
+_DRM_TEST_XMLSIG_LIB=              $(DRM_PK_TEST_LIB_PATH)\XMLSigTestAPI.lib
+_DRM_TEST_XMLPARSE_LIB=            $(DRM_PK_TEST_LIB_PATH)\XMLParserTestAPI.lib
+_DRM_TEST_XMLBUILDERA_LIB=         $(DRM_PK_TEST_LIB_PATH)\XMLBuilderATestAPI.lib
+_DRM_TEST_ACTIVATION_LIB=          $(DRM_PK_TEST_LIB_PATH)\ActivationTestAPI.lib
+_DRM_TEST_XMLBUILDER_LIB=          $(DRM_PK_TEST_LIB_PATH)\XMLBuilderTestAPI.lib
+_DRM_TEST_VIEWRIGHTS_LIB=          $(DRM_PK_TEST_LIB_PATH)\ViewRightsTestAPI.lib
+_DRM_TEST_SYNCLIST_LIB=            $(DRM_PK_TEST_LIB_PATH)\SyncListTestAPI.lib
+_DRM_TEST_SECCLOCK_LIB=            $(DRM_PK_TEST_LIB_PATH)\SecClockTestAPI.lib
+_DRM_TEST_SECSTORE_LIB=            $(DRM_PK_TEST_LIB_PATH)\SecStoreTestAPI.lib
+_DRM_TEST_LICSTORE_LIB=            $(DRM_PK_TEST_LIB_PATH)\LicStoreTestAPI.lib
+_DRM_TEST_LICPARSER_LIB=           $(DRM_PK_TEST_LIB_PATH)\LicParserTestAPI.lib
+_DRM_TEST_EXPREVAL_LIB=            $(DRM_PK_TEST_LIB_PATH)\ExprEvalTestAPI.lib
+_DRM_TEST_TESTSUITENDT_LIB=        $(DRM_PK_TEST_LIB_PATH)\Test_Suite_NDT.lib
+_DRM_TEST_CONSOLENDR_LIB=          $(DRM_PK_TEST_LIB_PATH)\ConsoleNDR.lib
+_DRM_TEST_PLAYREADYREFTEST_LIB=    $(DRM_PK_TEST_LIB_PATH)\PlayReadyRefTestAPI.lib
+_DRM_TEST_KEYFILE_LIB=             $(DRM_PK_TEST_LIB_PATH)\KeyFileTestAPI.lib
+_DRM_TEST_DRMMANAGERCE_NOOBFUS_LIB=$(DRM_PK_TEST_LIB_PATH)\DRMManagerCETestAPI_noobfus.lib
+_DRM_TEST_DRMMANAGERCE_WHITEBOX_LIB=$(DRM_PK_TEST_LIB_PATH)\DRMManagerCETestAPI_whitebox.lib
+_DRM_TEST_DRMMANAGERCE_LIB=        $(DRM_PK_TEST_LIB_PATH)\DRMManagerCETestAPI.lib
+_DRM_TEST_DERIVEDKEY_LIB=          $(DRM_PK_TEST_LIB_PATH)\DerivedKeyTestApiTestAPI.lib
+_DRM_TEST_LIVETV_LIB=              $(DRM_PK_TEST_LIB_PATH)\LiveTVTestAPI.lib
+_DRM_TEST_PERFORMANCE_LIB=         $(DRM_PK_TEST_LIB_PATH)\PerformanceTestAPI.lib
+_DRM_TEST_PRND_LIB=                $(DRM_PK_TEST_LIB_PATH)\prndtestapi.lib
+_DRM_TEST_M2TSENCRYPTOR_LIB=       $(DRM_PK_TEST_LIB_PATH)\M2TSEncryptorTestAPI.lib
+_DRM_TEST_LICGEN_LIB=              $(DRM_PK_TEST_LIB_PATH)\licgentestapi.lib
+_DRM_TEST_MATHSAFE_LIB=            $(DRM_PK_TEST_LIB_PATH)\mathsafetestapi.lib
+
+_DRM_DRMAPIDLL_LIB=                $(DRM_PK_SOURCE_LIB_PATH)\DrmApiDll.lib
+_DRM_DRMCONSTANTS_LIB=             $(DRM_PK_SOURCE_LIB_PATH)\drmconstants.lib
+_DRM_PKDRMCHKDBGFORPC_LIB=         $(DRM_PK_SOURCE_LIB_PATH)\drmchkdebugreal.lib
+_DRM_CMDLNPARS_LIB=                $(DRM_PK_SOURCE_LIB_PATH)\cmdlnpars.lib
+_DRM_TOOLSCOMMON_LIB=              $(DRM_PK_SOURCE_LIB_PATH)\drmtoolscommon.lib
+_DRM_XMRCOMMON_LIB=                $(DRM_PK_SOURCE_LIB_PATH)\drmxmrcommon.lib
+
+_DRM_NDT_LIBS=                                        \
+        $(DRM_PK_SOURCE_LIB_PATH)\ndt.lib             \
+        $(DRM_PK_SOURCE_LIB_PATH)\ndtasf.lib          \
+        $(DRM_PK_SOURCE_LIB_PATH)\ndtmgr.lib          \
+        $(DRM_PK_SOURCE_LIB_PATH)\oem_devstore_dvs.lib
+
+_DRM_NDR_LIBS=                           \
+        $(DRM_PK_SOURCE_LIB_PATH)\ndr.lib \
+
+
+!IF "$(DRM_BUILD_PLATFORM)" == "XBOX"
+
+_DRM_COMMON_LIBS = $(_DRM_COMMON_LIBS)                          \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmconstants_protected.lib        \
+
+!else
+
+!if "$(_DRM_BUILD_TOOL)" == "NTBUILD"
+
+_DRM_TC_LIBS= $(_DRM_TC_LIBS) \
+    $(SDK_LIB_PATH)\wininet.lib \
+!  else
+
+_DRM_TC_LIBS= $(_DRM_TC_LIBS) \
+    wininet.lib \
+!  endif
+!endif
+
+!IF "$(PK_TEST)" == "1"
+_DRM_TC_LIBS= $(_DRM_TC_LIBS) \
+    $(_DRM_TEST_PK_COMMON_LIB)
+!ENDIF
+
+
+#
+# When performing a PK code coverage build, _DRM_REFCODE_LIBS, must be as minimal as possible.
+# It must contain $(_DRM_DRMAPIDLL_LIB) to pick up the PK "dev" code, plus only those other libs
+# necessary to achieve the successful linking of the test executables.
+# Anything libs listed here, except for $(_DRM_DRMAPIDLL_LIB), will not produce code coverage data,
+# as only $(_DRM_DRMAPIDLL_LIB) is instrumented for code coverage.
+# Furthermore, and more importantly, any unnecessary/extra libs listed here will prevent code coverage
+# data from being collected if they contain functions that are also present in $(_DRM_DRMAPIDLL_LIB)
+# (static linking overriding dynamic linking).
+# IN SHORT -- DONT CHANGE THIS VARIABLE FOR CODE COVERAGE BUILDS!   :)  <smile>
+#
+!IF "$(PK_CODECOVERAGE_BUILD)" == "1"
+_DRM_REFCODE_LIBS=$(_DRM_DRMAPIDLL_LIB)                         \
+                  $(_DRM_DRMCONSTANTS_LIB)                      \
+                  $(_DRM_PKDRMCHKDBGFORPC_LIB)                  \
+                  $(_DRM_CMDLNPARS_LIB)                         \
+                  $(_DRM_OEM_MAIN_LIB)                          \
+                  $(DRM_PK_SOURCE_LIB_PATH)\drmtoolscommon.lib  \
+
+!ELSE
+
+_DRM_REFCODE_LIBS_NO_BBX_COMMON=                    \
+    $(_DRM_COMMON_LIBS)                             \
+    $(_DRM_OEM_MAIN_LIB)                            \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemrsabase.lib        \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemaes.lib            \
+    $(DRM_PK_SOURCE_LIB_PATH)\wmdrmcert.lib         \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmcerts.lib          \
+    $(_DRM_NDT_LIBS)                                \
+    $(_DRM_NDR_LIBS)                                \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmerror.lib          \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmkeyfile.lib        \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemeccbaseimpl.lib    \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemeccbase.lib        \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemrsaoaeppssimpl.lib \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemrsaoaeppss.lib     \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmtoolscommon.lib    \
+
+
+_DRM_REFCODE_LIBS_NO_BBX=                           \
+    $(_DRM_REFCODE_LIBS_NO_BBX_COMMON)              \
+    $(_DRM_REFCODE_LIB_DRMDEVICEDEVCERT)            \
+
+_DRM_REFCODE_LIBS_NO_BBX_WM7TEST=                          \
+    $(_DRM_REFCODE_LIBS_NO_BBX_COMMON)                     \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmdevicedevcert_wm7test.lib \
+
+_DRM_REFCODE_LIBS_NO_DRMMGR=                        \
+    $(_DRM_REFCODE_LIBS_NO_BBX)                     \
+    $(_DRM_BLACKBOX_LIBS)                           \
+
+_DRM_REFCODE_LIBS=                                  \
+    $(_DRM_REFCODE_LIBS_NO_DRMMGR)                  \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmmanager.lib        \
+
+
+!ENDIF
+

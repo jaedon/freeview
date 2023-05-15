@@ -1,0 +1,2 @@
+dcParser.pc.pk.ce.txt
+$(_DRM_OEM_FILES)\devcert.dat

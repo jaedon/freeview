@@ -1,0 +1,2 @@
+DIRS = hash hmac sha1 sha256
+

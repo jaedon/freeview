@@ -1,0 +1,18 @@
+################################################
+#					MW/COMM Configuration					#
+################################################
+
+comment "MW/COMM(Communication) Configuration."
+
+
+	comment "Communication"
+
+	config MW_COMM
+		bool "MW_COMM - Support the UART/Model Communication"
+		default n
+
+		config MW_COMM_BD_FUNAI
+			depends on MW_COMM
+			bool "MW_COMM_BD_FUNAI - Control the Funai BD B/D by UART Comm."
+			default n
+

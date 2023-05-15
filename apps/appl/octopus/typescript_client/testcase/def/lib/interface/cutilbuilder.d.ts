@@ -1,0 +1,41 @@
+/// <reference path="../../../def/node.d.ts" />
+import tdata = require('./tdata');
+import dbusConn = require('../util/dbus_connect');
+declare class CUtilBuilder extends dbusConn.CDBusInterface {
+    constructor();
+    public StartEvent(aCb: (msgInt: number, msgStr: string, param1: number, param2: number, param3: number, param4: number) => void): void;
+    public OpenSession(aDeliveryType: number, aScanType: string, aActionInfo: number[], aCb: (aBuilderHandle: number) => void): void;
+    public CloseSession(aBuilderHandle: number, aCb: () => void): void;
+    public ClearBuildInfo(aBuilderHandle: number, aCb: () => void): void;
+    public AddBuildInfo_Sat(aBuilderHandle: number, aTunerParam: tdata.TTunerParamSat, aCb: () => void): void;
+    public AddBuildInfo_Ter(aBuilderHandle: number, aTunerParam: tdata.TTunerParamTer, aCb: () => void): void;
+    public AddBuildInfo_Cab(aBuilderHandle: number, aTunerParam: tdata.TTunerParamCab, aCb: () => void): void;
+    public RemoveBuildInfo(aBuilderHandle: number, aBuildInfo: number, aCb: () => void): void;
+    public GetOption(aBuilderHandle: number, aCb: (aBuildInfo: number[]) => void): void;
+    public SetOption(aBuilderHandle: number, aBuildInfo: number[], aCb: () => void): void;
+    public GetBuilderStatus(aBuilderHandle: number, aCb: (aTotalTuningNum: number, aCompleteTuningNum: number, aSearchedTuningNum: number, aSearchState: number, aFrequency: number, aDeliveryType: number, aTunerParam: number) => void): void;
+    public GetBuilderSignalStatus(aBuilderHandle: number, aCb: (aSignalStrength: number, aSignalQuality: number) => void): void;
+    public GetBuilderSvcInfo(aBuilderHandle: number, aStartIndex: number, aCount: number, aCb: (aSvcInfoList: ArrayBuffer) => void): void;
+    public GetScanType(aBuilderHandle: number, aCb: (aScanType: string) => void): void;
+    public StartScan(aBuilderHandle: number, aCb: () => void): void;
+    public StopScan(aBuilderHandle: number, aCb: () => void): void;
+    public PauseScan(aBuilderHandle: number, aCb: () => void): void;
+    public ResumeScan(aBuilderHandle: number, aCb: () => void): void;
+    public SetAdditionalNumbers(aBuilderHandle: number, aCb: () => void): void;
+    public MotorGotoPosition(aBuilderHandle: number, aPosition: number, aCb: () => void): void;
+    public MotorStorePosition(aBuilderHandle: number, aPosition: number, aCb: () => void): void;
+    public MotorResetPosition(aBuilderHandle: number, aCb: () => void): void;
+    public MotorRecalcuate(aBuilderHandle: number, aPosition: number, aCb: () => void): void;
+    public MotorMove(aBuilderHandle: number, aDirection: number, aMode: number, aStep: number, aCb: () => void): void;
+    public MotorStop(aBuilderHandle: number, aCb: () => void): void;
+    public MotorSetLimit(aBuilderHandle: number, aDirection: number, aCb: () => void): void;
+    public MotorEnableLimit(aBuilderHandle: number, aCb: () => void): void;
+    public MotorDisableLimit(aBuilderHandle: number, aCb: () => void): void;
+    public MotorGotoDegree(aBuilderHandle: number, aDegree: number, aCb: () => void): void;
+    public MotorGotoSatellite(aBuilderHandle: number, aSatellite: number, aCb: () => void): void;
+    public MotorSetMyLongitude(aNewLongitude: number, aCb: () => void): void;
+    public MotorSetMyLatitude(aNewLatitude: number, aCb: () => void): void;
+    public MotorGetMyLongitude(aCb: (aMyLongitude: number) => void): void;
+    public MotorGetMyLatitude(aCb: (aMyLatitude: number) => void): void;
+}
+export = CUtilBuilder;

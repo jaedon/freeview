@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Cas/Ci">   
+    <interface name="Octopus.Appkit.Cas.Ci">
+
+    <method name="IsSupportedCI">
+    	<arg type="b" name="supported" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="IsSupportedCIPlus">
+    	<arg type="b" name="supported" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+                                                                        
+    <method name="GetCIPlusVersionName">
+    	<arg type="s" name="versionName" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetSlotCount">
+    	<arg type="u" name="slotCount" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="GetCamNumberBySlot">
+    	<arg type="u" name="slot" direction="in" />
+        <arg type="u" name="camNumber" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>        
+
+    <method name="GetCamStatusByIndex">
+    	<arg type="u" name="slot" direction="in" />
+        <arg type="u" name="camStatus" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>        
+
+    <method name="GetCamNameByIndex">
+    	<arg type="u" name="slot" direction="in" />
+        <arg type="s" name="camName" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>        
+
+    <method name="RequestFileorData">
+    	<arg type="u" name="sessionId" direction="in" />
+        <arg type="u" name="reqType" direction="in" />
+        <arg type="s" name="reqName" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+    
+    <method name="RequestAppAbort">
+    	<arg type="u" name="sessionId" direction="in" />
+        <arg type="u" name="abortReqCode" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+    
+    
+    <signal name="event">
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+    <signal name="mmi_event">
+      <arg type="u" name="msgType" direction="in"/>
+      <arg type="ay" name="userData" direction="in"/>
+    </signal>
+  </interface>
+</node>

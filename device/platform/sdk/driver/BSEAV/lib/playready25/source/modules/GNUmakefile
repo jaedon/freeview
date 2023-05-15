@@ -1,0 +1,70 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETS = \
+    activation           \
+    antirollbackclock    \
+    apppolicy            \
+    apprevocation        \
+    base64               \
+    blackboxlegacy       \
+    blackboxslk          \
+    bytemanip            \
+    certcache            \
+    certparsercache      \
+    chkdebug             \
+    cleanstore           \
+    contentrevocation    \
+    copyopl              \
+    contract             \
+    crt                  \
+    datastore            \
+    deletedstore         \
+    devcertkeygen        \
+    deviceassets         \
+    devicerevocation     \
+    devicestore          \
+    dla                  \
+    domain               \
+    est                  \
+    hds                  \
+    hdsblockheadercache  \
+    headerparser         \
+    licensesync          \
+    licstore             \
+    licgen               \
+    m2tsencryptor        \
+    metercertrevocation  \
+    metering             \
+    modelrevocation      \
+    move                 \
+    noncestore           \
+    performance          \
+    playreadyobj         \
+    prnd                 \
+    prndrx               \
+    prndtx               \
+    profiling            \
+    removaldatestore     \
+    secure_clock         \
+    stkalloc             \
+    strsafe              \
+    symopt               \
+    thumbnail            \
+    utf                  \
+    utilities            \
+    viewrights           \
+    wmdrm                \
+    wmdrmnet             \
+    xbinary              \
+    xmlbuilder           \
+    xmlhash              \
+    xmlparser            \
+    xmlsig               \
+
+include $(PLAYREADY_DIR)/GNUmakefile.common
+

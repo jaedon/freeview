@@ -1,0 +1,25 @@
+Before compiling please change the following in TestWebCrypto.cpp
+1. In getReeWebCrypto change the kpe and kph to appropriate values
+	These should be pre-shared keys.
+
+NOTE:
+- Persist Keys test are not included because it needs NRDAPP to access file system.
+- Diffie-Hellman tests are tested in Diffie-Hellman stress test.
+- All the symmetric tests are tested REE vs TEE. Except for large buffer tests, which are tested only in TEE.
+	- Encrypt - Decrypt
+	- HmacSign - HmacVerify
+
+Compile:
+=======
+	<PATH TO NRDP>/nrdapp/14.1/configure --nrdlib=<PATH TO NRDP>/nrdlib/14.1 --mdxlib=<PATH TO NRDP>/mdxlib/14.1 --toolchain=/usr/local/i686-netflix-linux-gnu-4.1 --nrdapp-tests=webcrypto
+	make webcrypto-tests
+	
+Run:
+===
+	./tests/webcrypto/TestWebCrypto <PATH TO MANUF_SS>
+		Ex: ./tests/webcrypto/TestWebCrypto /home/skommidi/manuf_ss.bin
+	./tests/webcrypto/TestLargeBuffers <PATH TO MANUF_SS> <PATH TO LARGE FILE>
+		Ex: ./tests/webcrypto/TestLargeBuffers /home/skommidi/manuf_ss.bin /home/skommidi/testfile_8MB
+	
+
+	

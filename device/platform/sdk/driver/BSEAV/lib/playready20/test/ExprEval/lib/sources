@@ -1,0 +1,10 @@
+
+TARGETNAME=ExprEvalTestAPI
+TARGETTYPE=LIBRARY
+
+SOURCES = \
+    ../expreval.c \
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \

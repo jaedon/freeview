@@ -1,0 +1,280 @@
+gOipfEmul.processScheduleList({
+   "meta":{
+      "target":"schedule",
+      "request_id":43,
+      "accesscode":96803072,
+      "property":{
+         "schedule":{
+            "method":"list",
+            "list":[
+               {
+                  "uid":5,
+                  "eventbase":false,
+                  "eventid":48874,
+                  "starttime":1365561720,
+                  "duration":1800,
+                  "prestart":30,
+                  "svcuid":3,
+                  "action":"record",
+                  "record":{
+                     "programid":0,
+                     "seriesid":"",
+                     "seriesrec":true,
+                     "startpadding":0,
+                     "endpadding":0
+                  },
+                   "groupCRIDs": ['WWW.CHANNEL4.COM/60050'],
+                  "name":"Doctors"
+               },
+               {
+                  "uid":4,
+                  "eventbase":true,
+                  "eventid":51924,
+                  "starttime":1366541720,
+                  "duration":1800,
+                  "prestart":30,
+                  "svcuid":1111,
+                  "action":"record",
+                  "record":{
+                     "programid":0,
+                     "seriesid":"",
+                     "seriesrec":true,
+                     "startpadding":0,
+                     "endpadding":0
+                  },
+                   "groupCRIDs": ['WWW.CHANNEL4.COM/60050'],
+                  "name":"Blue Peter"
+               },
+               {
+                  "uid":3,
+                  "eventbase":true,
+                  "eventid":28285,
+                  "starttime":1367531720,
+                  "duration":3600,
+                  "prestart":30,
+                  "svcuid":1,
+                  "action":"record",
+                  "record":{
+                     "programid":0,
+                     "seriesid":"",
+                     "seriesrec":true,
+                     "startpadding":0,
+                     "endpadding":0
+                  },
+                   "groupCRIDs": ['WWW.CHANNEL4.COM/60050'],
+                  "name":"CSI"
+               },
+               {
+                  "uid":1,
+                  "eventbase":true,
+                  "eventid":19975,
+                  "starttime":1368521720,
+                  "duration":3600,
+                  "prestart":30,
+                  "svcuid":2,
+                  "action":"record",
+                  "record":{
+                     "programid":0,
+                     "seriesid":"",
+                     "seriesrec":true,
+                     "startpadding":0,
+                     "endpadding":0
+                  },
+                   "groupCRIDs": ['WWW.CHANNEL4.COM/60050'],
+                  "name":"Star Trek: The Next Generation"
+               },
+               {
+                  "uid":6,
+                  "eventbase":true,
+                  "eventid":29935,
+                  "starttime":1369511720,
+                  "duration":3600,
+                  "prestart":30,
+                  "svcuid":3,
+                  "action":"record",
+                  "record":{
+                     "programid":0,
+                     "seriesid":"",
+                     "seriesrec":false,
+                     "startpadding":0,
+                     "endpadding":0
+                  },
+                   "groupCRIDs": ['WWW.CHANNEL4.COM/60050'],
+                  "name":"OnePiece"
+               },
+               {
+                  "uid":7,
+                  "eventbase":true,
+                  "eventid":38273,
+                  "starttime":1370531720,
+                  "duration":3600,
+                  "prestart":30,
+                  "svcuid":2,
+                  "action":"record",
+                  "record":{
+                     "programid":0,
+                     "seriesid":"",
+                     "seriesrec":true,
+                     "startpadding":0,
+                     "endpadding":0
+                  },
+                   "groupCRIDs": ['WWW.CHANNEL4.COM/60050'],
+                  "name":"Running Man"
+               },
+               {
+                  "uid":8,
+                  "eventbase":true,
+                  "eventid":12273,
+                  "starttime":1371131720,
+                  "duration":3600,
+                  "prestart":30,
+                  "svcuid":2,
+                  "action":"record",
+                  "record":{
+                     "programid":0,
+                     "seriesid":"",
+                     "seriesrec":true,
+                     "startpadding":0,
+                     "endpadding":0
+                  },
+                  "groupCRIDs": ['WWW.CHANNEL4.COM/60050'],
+                  "name":"Dark knight"
+               },
+               {
+                  "uid":9,
+                  "eventbase":true,
+                  "eventid":47931,
+                  "starttime":1372631720,
+                  "duration":7600,
+                  "prestart":30,
+                  "svcuid":2,
+                  "action":"record",
+                  "record":{
+                     "programid":0,
+                     "seriesid":"",
+                     "seriesrec":false,
+                     "startpadding":0,
+                     "endpadding":0
+                  },
+                   "groupCRIDs": ['WWW.CHANNEL4.COM/60050'],
+                  "name":"Big brother"
+               },
+               {
+                  "uid":10,
+                  "eventbase":true,
+                  "eventid":32225,
+                  "starttime":1373631720,
+                  "duration":3728,
+                  "prestart":30,
+                  "svcuid":2,
+                  "action":"record",
+                  "record":{
+                     "programid":0,
+                     "seriesid":"",
+                     "seriesrec":false,
+                     "startpadding":0,
+                     "endpadding":0
+                  },
+                   "groupCRIDs": ['WWW.CHANNEL4.COM/60050'],
+                  "name":"bin zip"
+               },
+               {
+                  "uid":11,
+                  "eventbase":true,
+                  "eventid":45517,
+                  "starttime":1381031720,
+                  "duration":300,
+                  "prestart":30,
+                  "svcuid":238,
+                  "action":"record",
+                  "record":{
+                     "programid":0,
+                     "seriesid":"",
+                     "seriesrec":false,
+                     "startpadding":0,
+                     "endpadding":0
+                  },
+                   "groupCRIDs": ['WWW.CHANNEL4.COM/60050'],
+                  "name":"BBC London News"
+               },
+               {
+                  "uid":12,
+                  "eventbase":true,
+                  "eventid":46747,
+                  "starttime":1382031720,
+                  "duration":3600,
+                  "prestart":30,
+                  "svcuid":240,
+                  "action":"record",
+                  "record":{
+                     "programid":0,
+                     "seriesid":"",
+                     "seriesrec":false,
+                     "startpadding":0,
+                     "endpadding":0
+                  },
+                   "groupCRIDs": ['WWW.CHANNEL4.COM/60050'],
+                  "name":"Final Score"
+               },
+               {
+                  "uid":13,
+                  "eventbase":false,
+                  "eventid":46541,
+                  "starttime":1383331720,
+                  "duration":3600,
+                  "prestart":30,
+                  "svcuid":240,
+                  "action":"watch",
+                  "record":{
+                     "programid":0,
+                     "seriesid":"",
+                     "seriesrec":false,
+                     "startpadding":0,
+                     "endpadding":0
+                  },
+                   "groupCRIDs": ['WWW.CHANNEL4.COM/60050'],
+                  "name":"reminder test1"
+               },
+               {
+                  "uid":14,
+                  "eventbase":false,
+                  "eventid":46542,
+                  "starttime":1384531720,
+                  "duration":3600,
+                  "prestart":30,
+                  "svcuid":240,
+                  "action":"hls",
+                  "record":{
+                     "programid":0,
+                     "seriesid":"",
+                     "seriesrec":false,
+                     "startpadding":0,
+                     "endpadding":0
+                  },
+                   "groupCRIDs": ['WWW.CHANNEL4.COM/60050'],
+                  "name":"hls test1"
+               },
+               {
+                  "uid":15,
+                  "eventbase":false,
+                  "eventid":46543,
+                  "starttime":1385631720,
+                  "duration":3600,
+                  "prestart":30,
+                  "svcuid":240,
+                  "action":"hls",
+                  "record":{
+                     "programid":0,
+                     "seriesid":"",
+                     "seriesrec":false,
+                     "startpadding":0,
+                     "endpadding":0
+                  },
+                   "groupCRIDs": ['WWW.CHANNEL4.COM/60050'],
+                  "name":"hls test2"
+               }
+            ]
+         }
+      }
+   }
+});

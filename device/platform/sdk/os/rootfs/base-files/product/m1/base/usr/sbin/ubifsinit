@@ -1,0 +1,12 @@
+#!/bin/sh
+
+	umount /var/lib/humaxtv
+	umount /var/lib/humaxtv_backup
+	umount /var/lib/humaxtv_user
+	ubidetach -m 2
+	ubiformat -y /dev/mtd2
+	ubiattach -m 2
+	ubimkvol /dev/ubi1 -N dbbackup -s 4MiB
+	ubimkvol /dev/ubi1 -N dbdata -s 4MiB
+	ubimkvol /dev/ubi1 -N dbuser -s 145MiB	
+	ubidetach -m 2

@@ -1,0 +1,8 @@
+##########################################
+# DI IR TRANSMITTER configuration menu
+##########################################
+
+config IRB
+	bool
+	prompt "IRB"
+	default n

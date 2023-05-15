@@ -1,0 +1,44 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+################     Compiler Setting
+BCHP_VER_LOWER ?= $(shell awk 'BEGIN{print tolower("$(BCHP_VER)")}')
+
+ifeq ($(shell expr $(NEXUS_TREE) ">=" TREE_1303),1)
+	ifeq ($(CONFIG_ARM),y)
+		DOCSIS_TOP_DIR=$(HUMAX_WORK_DIR)/platform/sdk/driver/BSEAV/cable/docsis/estb/arm
+	else
+		DOCSIS_TOP_DIR=$(HUMAX_WORK_DIR)/platform/sdk/driver/BSEAV/cable/docsis/estb/mips
+	endif
+else
+	DOCSIS_TOP_DIR=$(HUMAX_WORK_DIR)/platform/sdk/driver/BSEAV/docsis
+endif
+
+PCIE_DIR=$(DOCSIS_TOP_DIR)/StbHostApps/Drivers/PcieVirtualEthernetDriver
+PCIE_KDRIVER:= $(PCIE_DIR)/bcmpcieeth.ko
+TARGET_LIB = bcmpcieeth.ko
+
+PCIE_CONFIG = LINUX=$(KERNEL_DIR)
+
+define build_pcie
+	cd $(PCIE_DIR) && \
+	export LINUX=$(KERNEL_DIR) && \
+	./makedrv chipid 3255 $1 
+endef
+
+TARGETS += pcie
+
+pcie:
+	$(call build_pcie)
+	@test -d $(HUMAX_PREPARE_ROOT_DIR)/$(NEXUS_MOD_PREFIX) || install -d -m 755 $(HUMAX_PREPARE_ROOT_DIR)/$(NEXUS_MOD_PREFIX)
+	@install -m 644 $(PCIE_KDRIVER) $(HUMAX_PREPARE_ROOT_DIR)/$(NEXUS_MOD_PREFIX)
+	perl $(HUMAX_TOOL_DIR)/depmod/depmod.pl -b $(HUMAX_PREPARE_ROOT_DIR)/lib/modules/$(KERNELRELEASE) -k $(KERNEL_DIR)/vmlinux
+
+clean_pcie:
+	$(call build_pcie,clean)
+
+pcie-distclean:
+	$(call build_pcie,clean)
+
+.PHONY: pcie clean_pcie distclean_pcie

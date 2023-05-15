@@ -1,0 +1,10 @@
+#!/bin/sh
+
+	umount /mnt/flash
+	umount /var/lib/humaxtv
+	umount /var/lib/humaxtv_backup
+	ubidetach -m 11
+	ubiattach -m 11
+	mount -t ubifs -o sync ubi4:altidata /mnt/flash
+	mount -t ubifs -o sync ubi4:altidb /var/lib/humaxtv
+	mount -t ubifs -o sync ubi4:altidbbackup /var/lib/humaxtv_backup

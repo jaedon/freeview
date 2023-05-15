@@ -1,0 +1,134 @@
+############################################################
+#     Copyright (c) 2003-2012, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.drv $
+# $brcm_Revision: 2 $ 
+# $brcm_Date: 9/17/12 4:37p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /BSEAV/linux/driver/build/97205/Makefile.drv $
+# 
+# 2   9/17/12 4:37p mphillip
+# SW7425-3739: Update legacy driver target directories to match new
+# hierarchy
+# 
+# 1   9/13/12 6:31p mphillip
+# SW7425-3739: Merge symlink removal to main
+# 
+# SW7425-3739/1   9/13/12 12:38p mphillip
+# SW7425-3739: Remove symlinks for linux/driver/build subdirectories and
+# dependencies
+# 
+# 2   7/20/07 11:51a katrep
+# PR27643: Add B_CONFIG_IMAGE support for 7405
+# 
+# 9   1/31/07 4:08p jgarrett
+# PR 20139 : Converting to new driver build
+# 
+# 8   10/12/06 2:48p jrubio
+# PR24902: Added IP STB build for 7400 boards
+# 
+# 7   9/20/06 3:07p jackli
+# PR24025: enable B_HAS_PLAYPUMP_IP for 97456 only, also change defconfig
+# for 97456
+# 
+# 6   9/1/06 1:11p jackli
+# PR24025: add ip support in kernel mode api in 97456
+# 
+# 6   8/31/06 5:28p jackli
+# PR24025: add ip support in kernel mode api in 97456
+# 
+# 6   8/31/06 5:21p jackli
+# PR24025: add ip support in kernel mode api in 97456
+# 
+# 5   7/19/06 5:40p jgarrett
+# PR 19909: Fixing make -j
+# 
+# 4   7/14/06 11:32a jgarrett
+# PR 19909: Merging to latest baseline
+# 
+# PR19909/2   7/6/06 4:44p jgarrett
+# PR 19909: Merging to latest baseline
+# 
+# 3   6/19/06 10:16a jgarrett
+# PR 22214: Bump to include LINUX as /opt/brcm by default
+# 
+# 2   6/14/06 5:39p jgarrett
+# PR 20139: Converting to shared 2.6.x kernel
+# $brcm_Log: /BSEAV/linux/driver/build/97205/Makefile.drv $
+# 
+# 2   9/17/12 4:37p mphillip
+# SW7425-3739: Update legacy driver target directories to match new
+# hierarchy
+# 
+# 1   9/13/12 6:31p mphillip
+# SW7425-3739: Merge symlink removal to main
+# 
+# SW7425-3739/1   9/13/12 12:38p mphillip
+# SW7425-3739: Remove symlinks for linux/driver/build subdirectories and
+# dependencies
+# 
+# 2   7/20/07 11:51a katrep
+# PR27643: Add B_CONFIG_IMAGE support for 7405
+# 
+# 9   1/31/07 4:08p jgarrett
+# PR 20139 : Converting to new driver build
+# 
+# 8   10/12/06 2:48p jrubio
+# PR24902: Added IP STB build for 7400 boards
+# 
+# 7   9/20/06 3:07p jackli
+# PR24025: enable B_HAS_PLAYPUMP_IP for 97456 only, also change defconfig
+# for 97456
+# 
+# 6   9/1/06 1:11p jackli
+# PR24025: add ip support in kernel mode api in 97456
+# 
+# 6   8/31/06 5:28p jackli
+# PR24025: add ip support in kernel mode api in 97456
+# 
+# 6   8/31/06 5:21p jackli
+# PR24025: add ip support in kernel mode api in 97456
+# 
+# 5   7/19/06 5:40p jgarrett
+# PR 19909: Fixing make -j
+# 
+# 4   7/14/06 11:32a jgarrett
+# PR 19909: Merging to latest baseline
+# 
+# PR19909/2   7/6/06 4:44p jgarrett
+# PR 19909: Merging to latest baseline
+# 
+# PR19909/1   7/6/06 11:04a jgarrett
+# PR 19909: Reducing build output
+# 
+# 3   12/22/05 5:00p vsilyaev
+# PR 18019: Added install target
+# 
+# 2   12/9/05 3:25p vsilyaev
+# PR 18019: Added support for 2.6 kernel
+# 
+# 1   9/16/05 10:18a marcusk
+# PR17108: Basic shell version of these files.
+# 
+############################################################
+
+# Check for SMP vs. non-SMP kernel configuration
+ifeq ($(SMP),y)
+DEFCONFIG := arch/mips/configs/bcm${PLATFORM}${PLATFORM_VERSION}-smp${ENDIAN_STRING}_defconfig
+else
+DEFCONFIG = arch/mips/configs/bcm${PLATFORM}${PLATFORM_VERSION}${ENDIAN_STRING}_defconfig
+endif
+
+# Remainder comes from 97400
+include ../97400/Makefile.drv
+

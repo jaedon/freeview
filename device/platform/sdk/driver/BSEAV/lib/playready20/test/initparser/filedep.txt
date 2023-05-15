@@ -1,0 +1,3 @@
+initiatorparser.pc.pk.ce.txt
+data\list_medium.txt
+data\list_large.txt

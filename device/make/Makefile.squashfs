@@ -1,0 +1,102 @@
+#
+# Copyright (C) 2010 HUMAX Co., Ltd. All rights reserved.
+#
+
+ifeq ($(CONFIG_TARGET_ROOTFS_SQUASHFS),y)
+TARGETS += squashfs-tools
+endif
+
+HUMAX_SQUASHFS_DIR=squashfs
+
+#
+# Add excluded files and directories in strip target
+#
+EXCLUDE_STRIP_FILE:=
+ifeq ($(CONFIG_PRODUCT_IMAGE_HWTEST),y)
+EXCLUDE_STRIP_FILE += humaxtv
+endif
+
+EXCLUDE_STRIP_DIR:=
+EXCLUDE_STRIP_DIR +=
+
+#
+# Squashfs config
+#
+ifeq ($(CONFIG_ROOTFS_SQUASHFS),y)
+ifeq ($(CONFIG_ROOTFS_SQUASHFS_GZIP_SUPPORT),y)
+SQUASHFS_COMPILE_FLAGS = \
+	GZIP_SUPPORT=1 \
+	COMP_DEFAULT=gzip
+else ifeq ($(CONFIG_ROOTFS_SQUASHFS_LZMA_SUPPORT),y)
+SQUASHFS_COMPILE_FLAGS = \
+	LZMA_XZ_SUPPORT=1 \
+	COMP_DEFAULT=lzma
+else ifeq ($(CONFIG_ROOTFS_SQUASHFS_XZ_SUPPORT),y)
+SQUASHFS_COMPILE_FLAGS = \
+	XZ_SUPPORT=1 \
+	COMP_DEFAULT=xz
+endif
+
+ifeq ($(CONFIG_ROOTFS_SQUASHFS_BLOCK_SIZE_256K),y)
+SQUASHFS_BLOCK_SIZE=262144
+else
+# Default 128 Kbytes
+SQUASHFS_BLOCK_SIZE=131072
+endif
+endif
+
+define build_squashfs
+	$(MAKE) -C $(HUMAX_TOOL_DIR)/$(HUMAX_SQUASHFS_DIR) $(SQUASHFS_COMPILE_FLAGS) $(1)
+endef
+
+ifneq ($(CONFIG_PRODUCT_IMAGE_NOAPP), y)
+ifeq ($(CONFIG_PRODUCT_IMAGE_RELEASE),y)
+ifeq ($(CONFIG_AUTO_STRIP),y)
+auto-strip-all:
+	sudo find $(HUMAX_NFS_INSTALL_DIR) -type f $(patsubst %,! -name %,$(EXCLUDE_STRIP_FILE)) $(patsubst %,! -path %,$(EXCLUDE_STRIP_DIR)) -exec $(HUMAX_MAKE_DIR)/autostrip.sh $(HUMAX_STRIP) {} \;
+
+remove-unnecessary-files:
+	sudo find $(HUMAX_NFS_INSTALL_DIR) -name ".svn" | xargs rm -rf
+
+squashfs-tools: remove-unnecessary-files auto-strip-all
+else
+squashfs-tools:
+endif
+else
+squashfs-tools:	
+endif
+else
+squashfs-tools:
+endif
+	@if [ ! -f $(HUMAX_TOOL_DIR)/$(HUMAX_SQUASHFS_DIR)/mksquashfs ]; then \
+		$(call build_squashfs,);\
+	fi;
+
+# Need to remove others permission to none for conax
+ifeq ($(CONFIG_CAS_CX),y)
+	@sudo chmod -R o-rwx $(HUMAX_NFS_INSTALL_DIR)
+	@sudo chmod -R a-w $(HUMAX_NFS_INSTALL_DIR)/etc/
+	@sudo chmod -R a-w $(HUMAX_NFS_INSTALL_DIR)/bin/
+	@sudo chmod -R a-w $(HUMAX_NFS_INSTALL_DIR)/sbin/
+	@sudo chmod -R a-w $(HUMAX_NFS_INSTALL_DIR)/usr/bin/
+	@sudo chmod -R a-w $(HUMAX_NFS_INSTALL_DIR)/usr/sbin/
+endif
+
+ifeq ($(CONFIG_LXC), y)
+	@sudo $(HUMAX_TOOL_DIR)/$(HUMAX_SQUASHFS_DIR)/mksquashfs $(HUMAX_NFS_INSTALL_DIR) $(HUMAX_NFS_DIR)/image/root.squa -noappend -b $(SQUASHFS_BLOCK_SIZE)
+else
+ifeq ($(CONFIG_CAS_NA), y)
+	@sudo $(HUMAX_TOOL_DIR)/$(HUMAX_SQUASHFS_DIR)/mksquashfs $(HUMAX_NFS_INSTALL_DIR) $(HUMAX_NFS_DIR)/image/root.squa -noappend -b $(SQUASHFS_BLOCK_SIZE)
+else
+	@sudo $(HUMAX_TOOL_DIR)/$(HUMAX_SQUASHFS_DIR)/mksquashfs $(HUMAX_NFS_INSTALL_DIR) $(HUMAX_NFS_DIR)/image/root.squa -all-root -noappend -b $(SQUASHFS_BLOCK_SIZE)
+endif	
+endif	
+	@sudo chown -R $(USER) $(HUMAX_NFS_DIR)/image
+	@sudo chmod 666 $(HUMAX_NFS_DIR)/image/root.squa
+
+squashfs-tools-clean:
+	$(call build_squashfs, clean)
+
+squashfs-tools-distclean: squashfs-tools-clean
+
+.PHONY: squashfs-tools squashfs-tools-clean squashfs-tools-distclean

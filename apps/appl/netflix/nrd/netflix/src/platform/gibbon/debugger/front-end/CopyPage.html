@@ -1,0 +1,19 @@
+<html>
+<head>
+<script>
+function onMessage(msg) {
+    var t = document.getElementById("text");
+    t.value = atob(msg.data);
+
+    // pong back
+    msg.source.postMessage("ok", "*");
+}
+function go() {
+    window.addEventListener('message', onMessage, false);
+}
+</script
+</head>
+<body onload="go()">
+<textarea id="text" rows="20" cols="80"></textarea>
+</body>
+</html>

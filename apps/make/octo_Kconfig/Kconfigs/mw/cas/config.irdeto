@@ -1,0 +1,98 @@
+# IRDETO
+
+	config MW_CAS_IRDETO_LOADER_V5
+		bool "MW_CAS_IRDETO_LOADER_V5  - Support loader version5 "
+		default n
+
+	config MW_CAS_IRDETO_SDT_RUNNING_STATUS_BLOCK
+		bool "MW_CAS_IRDETO_SDT_RUNNING_STATUS_BLOCK  - include Irdeto SDT running status check"
+		default y
+	
+	config MW_CAS_IRDETO_SCELL
+		bool "MW_CAS_IRDETO_SCELL - Set Irdeto Softcell"
+		default n
+
+	config MW_CAS_IRDETO_UCAS
+		bool "MW_CAS_IRDETO_UCAS - Set Irdeto Universal CA System"
+		default n
+		
+		config MW_CAS_IRDETO_UCAS_VM_VAILDATOR
+			bool "MW_CAS_IRDETO_UCAS_VM_VAILDATOR - Set VM Vaildator for Irdeto Universal CA System"
+			default n
+			depends on (DEBUG && MW_CAS_IRDETO_UCAS)
+
+	config MW_CAS_IRDETO_PPV
+		bool "MW_CAS_IRDETO_PPV - Include IRDETO PPV feature"
+		default n
+
+	config MW_CAS_IRDETO_CA_SYSTEM_SELECTION
+		bool "MW_CAS_IRDETO_CA_SYSTEM_SELECTION -Available IRdeto CA System"
+		default n
+
+	config MW_CAS_IRDETO_PVR
+		bool "MW_CAS_IRDETO_PVR - include Irdeto PVR feature for Record and Playback"
+		default n
+
+	config MW_CAS_IRDETO_SOL
+		bool "MW_CAS_IRDETO_SOL  - STB to Operator Locking"
+		default n
+
+	config MW_CAS_IRDETO_SECURE
+		bool "MW_CAS_IRDETO_SECURE  - Support Irdeto secure model"
+		default n
+
+	config IRDETO_HMX_PVR
+		bool "IRDETO  - Support Irdeto-Humax PVR"
+		default n
+
+	config MW_CAS_IRDETO_SMC_NEGOTIATE_MODE
+		bool "IRDETO  - Support Irdeto Negotiate mode smart card"
+		default y
+
+	config MW_CAS_IRDETO_HOMINGCHANNEL
+		bool "IRDETO  - Support Irdeto homing channel"
+		default n
+
+	config MW_CAS_IRDETO_RECOVERY_RESCAN_HOME
+		bool "IRDETO  - Support Irdeto home channel rescan"
+		default n
+
+	config MW_CAS_IRDETO_MATURITY_RATING
+		bool "IRDETO  - Support Irdeto Maturity rating"
+		default n	
+		
+	config MW_CAS_IRDETO_USE_WINCP1256_MAIL_MSG
+		bool "IRDETO  - Support WIN CP 1256(Arabic) encoded mail msg"
+		default n	
+		
+	config MW_CAS_IRDETO_COMPONENT_LEVEL_SCRAMBLE
+		bool "IRDETO  - Support component level scrambling"
+		default n
+
+	config MW_CAS_IRDETO_SOFTCELL_3_11
+		bool "IRDETO  - Support softcell 3.11"
+		default n
+
+	config MW_CAS_IRDETO_FTA_BLOCK
+		bool "IRDETO  - FTA BLOCK"
+		default n
+
+	config MW_CAS_IRDETO_PVR_DLNA_TVPORTAL_BLOCK
+		bool "IRDETO  - PVR DLNA TVPORTAL BLOCK"
+		default n		
+
+	config MW_CAS_IRDETO_STANDBY_EMM
+		bool "IRDETO  - Support receiving EMM on active standby mode."
+		default n
+
+	config MW_CAS_IRDETO_PASSIVE_STNB_EMM
+		bool "IRDETO  - Support receiving EMM on passive standby mode."
+		default n
+
+	config MW_CAS_IRDETO_SUPPORT_COVERT_FINGERPRINT
+		bool "IRDETO  - Support Covert Fingerprint."
+		default n
+
+	config MW_CAS_IRDETO_PREVIEW
+		bool "IRDETO  - Support Preview. Mandatory if above Softcell 3.12"
+		default n

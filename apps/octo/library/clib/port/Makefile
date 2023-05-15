@@ -1,0 +1,15 @@
+obj-y += clib_port.o
+obj-y += clib_port_default.o
+obj-y += clib_port_me.o
+obj-y += clib_port_ausdtt.o
+obj-y += clib_port_ertelecom.o
+obj-y += clib_port_ses.o
+obj-y += clib_port_ziggo.o
+obj-y += clib_port_ukdtt.o
+obj-y += clib_port_itadtt.o
+obj-y += clib_port_orf.o
+obj-y += clib_port_telenor.o
+obj-y += clib_port_tdc.o
+obj-y += clib_port_mbc.o
+obj-y += clib_port_amx.o
+ccflags-y += ../

@@ -1,0 +1,406 @@
+1939:FUNC:P0:Generate and Process Challenge DLA w/ AES
+'Override the URL from the header
+StoreStringInTestVariable( Test_URL , http://playready.directtaps.net/pr20/svc/rightsmanager.asmx  )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope(EnvelopeBuffer,jazzV4_AES_internal.eny)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, ChallengeBuffer, "UseAesKey")
+TestSendChallenge( LICGET, ChallengeBuffer, ResponseBuffer, Test_URL )
+TestManagerProcessResponse(Dump,Dump,0,0, ResponseBuffer)
+TestManagerGenerateLicenseAck(ChallengeBuffer) = DRM_S_FALSE
+TestSendChallenge( LICACK,ChallengeBuffer,ResponseBuffer, Test_URL )
+TestManagerProcessLicenseAckResponse(ResponseBuffer)
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0, Dump, Dump, Use Callback function )
+TestManagerInitializeEnvelopeRead(EnvelopeBuffer)
+TestManagerReadEnvelope(EnvelopeBuffer,jazz.wma)
+
+
+60002:FUNC:P0:Generate and Process Challenge DLA, with Domains ( try LA Before Joining )
+'Override the URL from the header
+StoreStringInTestVariable( Test_URL , http://playready.directtaps.net/pr20/svc/rightsmanager.asmx  )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseDomainCert")
+TestSendChallenge( LICGET, 1, 2, Test_URL )
+TestManagerProcessResponse(Dump,Dump,0,0, 2, 0x8004C605 DRM_E_SERVER_DOMAIN_REQUIRED) = DRM_E_TEST_UNEXPECTED_OUTPUT
+'TestProcessAdditionalData( 2, 4, REDIRECT_URL )
+'TestProcessAdditionalData( 2, CustomData, CUSTOM )
+SetDomainID( 0 )
+GenerateDomainJoinChallenge( 1, 0, "HelloWorld", "My Phone" )
+TestSendChallenge( JOIN, 1, 2, Test_URL )
+ProcessDomainJoinResponse( 2 ) = 2 ( DRM_S_MORE_DATA )
+TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseDomainCert")
+TestSendChallenge( LICGET, 1, 2, Test_URL )
+TestManagerProcessResponse( Dump, Dump, 0, 0, 2)
+TestManagerGenerateLicenseAck( 1 ) = DRM_S_FALSE
+TestSendChallenge( LICACK,1,2, Test_URL)
+TestManagerProcessLicenseAckResponse( 2 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0, Dump, Dump, Use Callback function )
+TestManagerInitializeEnvelopeRead(4)
+TestManagerReadEnvelope(4,jazz.wma)
+GenerateDomainLeaveChallenge( 1, 0, "HelloWorld" )
+TestSendChallenge( LEAVE, 1, 2, Test_URL )
+ProcessDomainLeaveResponse( 2 ) = 2 ( DRM_S_MORE_DATA )
+
+
+60003:FUNC:P0:Generate and Process Challenge DLA w/ AES, with Domains ( Join Domain before LA )
+'Override the URL from the header
+StoreStringInTestVariable( Test_URL , http://playready.directtaps.net/pr20/svc/rightsmanager.asmx  )
+SetDomainID( 0 )
+GenerateDomainJoinChallenge( 1, 0, "HelloWorld", "My Phone" )
+TestSendChallenge( JOIN, 1, 2, Test_URL )
+ProcessDomainJoinResponse( 2 ) = 2 ( DRM_S_MORE_DATA )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseDomainCert UseAesKey")
+TestSendChallenge( LICGET, 1, 2, Test_URL )
+TestManagerProcessResponse( Dump, Dump, 0, 0, 2)
+TestManagerGenerateLicenseAck( 1 ) = DRM_S_FALSE
+TestSendChallenge( LICACK,1,2, Test_URL )
+TestManagerProcessLicenseAckResponse( 2 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0, Dump, Dump, Use Callback function )
+TestManagerInitializeEnvelopeRead(4)
+TestManagerReadEnvelope(4,jazz.wma)
+GenerateDomainLeaveChallenge( 1, 0, "HelloWorld" )
+TestSendChallenge( LEAVE, 1, 2, Test_URL )
+ProcessDomainLeaveResponse( 2 ) = 2 ( DRM_S_MORE_DATA )
+
+
+60040:FUNC:Generate and Process Challenge DLA w/ AES, with Multiple Domains ( Join Domain before LA )
+'Override the URL from the header
+StoreStringInTestVariable( Test_URL , http://playready.directtaps.net/pr20/svc/rightsmanager.asmx  )
+StoreStringInTestVariable( Service_id   , AH+03juKbUGbHl1V/QIwRA== )
+StoreStringInTestVariable( Account_id_1 , NjU0MzIxMDk4NzY1NDMyMQ== )
+StoreStringInTestVariable( Account_id_2 , NeY1NDMyMTA5ODc2NTQzMg== )
+SetDomainID( Domain_1, Service_id, Account_id_1 )
+SetDomainID( Domain_2, Service_id, Account_id_2 )
+TestManagerSetRights(Play)
+
+'Join Domain_1
+GenerateDomainJoinChallenge( ChallengeBuffer, Domain_1, "HelloWorld", "My Phone" )
+TestSendChallenge( JOIN, ChallengeBuffer, ResponseBuffer, Test_URL )
+ProcessDomainJoinResponse( ResponseBuffer ) = 2 ( DRM_S_MORE_DATA )
+
+'Get and use a license in Domain_1
+TestManagerOpenEnvelope( EnvelopeBuffer,jazzV4_AES_internal.eny)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, ChallengeBuffer, "UseDomainCert UseAesKey")
+TestSendChallenge( LICGET, ChallengeBuffer, ResponseBuffer, Test_URL )
+TestManagerProcessResponse(Dump,Dump,0,0, ResponseBuffer)
+TestManagerGenerateLicenseAck( ChallengeBuffer) = DRM_S_FALSE
+TestSendChallenge( LICACK, ChallengeBuffer, ResponseBuffer, Test_URL )
+TestManagerProcessLicenseAckResponse( ResponseBuffer)
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0, Dump, Dump, Use Callback function )
+TestManagerInitializeEnvelopeRead(EnvelopeBuffer)
+TestManagerReadEnvelope(EnvelopeBuffer,jazz.wma)
+TestManagerCloseEnvelope(EnvelopeBuffer)
+
+'Leave Domain_1
+GenerateDomainLeaveChallenge( ChallengeBuffer, Domain_1, "HelloWorld" )
+TestSendChallenge( LEAVE, ChallengeBuffer, ResponseBuffer, Test_URL )
+ProcessDomainLeaveResponse( ResponseBuffer ) = 2 ( DRM_S_MORE_DATA )
+
+'Join Domain_1
+GenerateDomainJoinChallenge( ChallengeBuffer, Domain_2, "HelloWorld", "My Phone" )
+TestSendChallenge( JOIN, ChallengeBuffer, ResponseBuffer, Test_URL )
+ProcessDomainJoinResponse( ResponseBuffer ) = 2 ( DRM_S_MORE_DATA )
+
+'Get and use a License in Domain_2
+TestManagerOpenEnvelope( EnvelopeBuffer,jazzV4_AES_internal.eny)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, ChallengeBuffer, "UseDomainCert UseAesKey")
+TestSendChallenge( LICGET, ChallengeBuffer, ResponseBuffer, Test_URL )
+TestManagerProcessResponse(Dump,Dump,0,0, ResponseBuffer)
+TestManagerGenerateLicenseAck( ChallengeBuffer) = DRM_S_FALSE
+TestSendChallenge( LICACK, ChallengeBuffer, ResponseBuffer, Test_URL )
+TestManagerProcessLicenseAckResponse( ResponseBuffer)
+
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0, Dump, Dump, Use Callback function )
+TestManagerInitializeEnvelopeRead(EnvelopeBuffer)
+TestManagerReadEnvelope(EnvelopeBuffer,jazz.wma)
+TestManagerCloseEnvelope(EnvelopeBuffer)
+
+'leave Domain_2
+GenerateDomainLeaveChallenge( ChallengeBuffer, Domain_2, "HelloWorld" )
+TestSendChallenge( LEAVE, ChallengeBuffer, ResponseBuffer, Test_URL )
+ProcessDomainLeaveResponse( ResponseBuffer ) = 2 ( DRM_S_MORE_DATA )
+
+'rejoin Domain_1 and try to use the content
+GenerateDomainJoinChallenge( ChallengeBuffer, Domain_1, "HelloWorld", "My Phone" )
+TestSendChallenge( JOIN, ChallengeBuffer, ResponseBuffer, Test_URL )
+ProcessDomainJoinResponse( ResponseBuffer ) = 2 ( DRM_S_MORE_DATA )
+TestManagerOpenEnvelope( EnvelopeBuffer,jazzV4_AES_internal.eny)
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0, Dump, Dump, Use Callback function )
+TestManagerInitializeEnvelopeRead(EnvelopeBuffer)
+TestManagerReadEnvelope(EnvelopeBuffer,jazz.wma)
+TestManagerCloseEnvelope(EnvelopeBuffer)
+
+
+60004:FUNC:P0:Generate and Process Challenge DLA w/ AES, with Domains ( Join Domain before LA, Domain Expired )
+'Override the URL from the header
+StoreStringInTestVariable( Test_URL , http://playready.directtaps.net/pr20/svc/rightsmanager.asmx  )
+SetDomainID( 0 )
+GenerateDomainJoinChallenge( 1, 0, "HelloWorld", "My Phone" )
+TestSendChallenge( JOIN, 1, 2, Test_URL )
+ProcessDomainJoinResponse( 2 ) = 2 ( DRM_S_MORE_DATA )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseDomainCert UseAesKey DomainCertExpired")
+TestSendChallenge( LICGET, 1, 2, Test_URL )
+TestManagerProcessResponse(Dump,Dump,0,0, 2, 0x8004C606 DRM_E_SERVER_RENEW_DOMAIN) = DRM_E_TEST_UNEXPECTED_OUTPUT
+'TestProcessAdditionalData( 2, 4, REDIRECT_URL )
+'TestProcessAdditionalData( 2, 5, SERVICE_ID )
+'TestProcessAdditionalData( 2, 6, ACCOUNT_ID )
+
+'for now don't use the returned url and service/account IDs
+'SetDomainID( 0, 5, 6 )
+GenerateDomainJoinChallenge( 1, 0, "HelloWorld WellKnownRevisionExpired", "My Phone" )
+TestSendChallenge( JOIN, 1, 2, Test_URL )
+ProcessDomainJoinResponse( 2 ) = 2 ( DRM_S_MORE_DATA )
+
+TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseDomainCert UseAesKey")
+TestSendChallenge( LICGET, 1, 2, Test_URL )
+TestManagerProcessResponse( Dump, Dump, 0, 0, 2)
+TestManagerGenerateLicenseAck( 1 ) = DRM_S_FALSE
+TestSendChallenge( LICACK,1,2, Test_URL )
+TestManagerProcessLicenseAckResponse(2)
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0, Dump, Dump, Use Callback function )
+TestManagerInitializeEnvelopeRead(4)
+TestManagerReadEnvelope(4,jazz.wma)
+GenerateDomainLeaveChallenge( 1, 0, "HelloWorld" )
+TestSendChallenge( LEAVE, 1, 2, Test_URL )
+ProcessDomainLeaveResponse( 2 ) = 2 ( DRM_S_MORE_DATA )
+
+
+60005:FUNC:P0:Generate and Process Challenge DLA w/ AES, with Domains and chained license ( Join Domain before LA )
+'Override the URL from the header
+StoreStringInTestVariable( Test_URL , http://playready.directtaps.net/pr20/svc/rightsmanager.asmx  )
+SetDomainID( 0 )
+GenerateDomainJoinChallenge( 1, 0, "HelloWorld", "My Phone" )
+TestSendChallenge( JOIN, 1, 2, Test_URL )
+ProcessDomainJoinResponse( 2 ) = 2 ( DRM_S_MORE_DATA )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseDomainCert UseAesKey UseChainedLicense")
+TestSendChallenge( LICGET, 1, 2, Test_URL )
+TestManagerProcessResponse( Dump, Dump, 0, 0, 2)
+TestManagerGenerateLicenseAck( 1 ) = DRM_S_FALSE
+TestSendChallenge( LICACK,1,2, Test_URL )
+TestManagerProcessLicenseAckResponse( 2 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0, Dump, Dump, Use Callback function )
+TestManagerInitializeEnvelopeRead(4)
+TestManagerReadEnvelope(4,jazz.wma)
+GenerateDomainLeaveChallenge( 1, 0, "HelloWorld" )
+TestSendChallenge( LEAVE, 1, 2, Test_URL )
+ProcessDomainLeaveResponse( 2 ) = 2 ( DRM_S_MORE_DATA )
+
+
+60006:DRT:Acquire over DLA and use extensible policy license, Play right
+'Override the URL from the header
+StoreStringInTestVariable( Test_URL , http://playready.directtaps.net/pr20/svc/rightsmanager.asmx  )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseExtensiblePolicy UseAesKey")
+TestSendChallenge( LICGET, 1, 2, Test_URL )
+TestManagerProcessResponse( Dump, Dump, 0, 0, 2)
+TestManagerGenerateLicenseAck( 1 ) = DRM_S_FALSE
+TestSendChallenge( LICACK,1,2, Test_URL )
+TestManagerProcessLicenseAckResponse(2)
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+'Try to Bind to the Play right
+TestManagerBind( 0, Dump, Dump, Use Callback function )
+TestManagerInitializeEnvelopeRead(4)
+TestManagerReadEnvelope(4,jazz.wma)
+
+
+60008:DRT:Acquire over DLA and use extensible policy license, PlaylistBurn right
+'Override the URL from the header
+StoreStringInTestVariable( Test_URL , http://playready.directtaps.net/pr20/svc/rightsmanager.asmx  )
+TestManagerSetRights( PlaylistBurn )
+TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseExtensiblePolicy UseAesKey")
+TestSendChallenge( LICGET, 1, 2, Test_URL )
+TestManagerProcessResponse( Dump, Dump, 0, 0, 2)
+TestManagerGenerateLicenseAck( 1 ) = DRM_S_FALSE
+TestSendChallenge( LICACK, 1, 2, Test_URL )
+TestManagerProcessLicenseAckResponse(2)
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+'Current settings on server have no rights for playlistburn
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, Use Callback function )=0x8004C00B DRM_E_RIGHTSNOTAVAILABLE
+'This is due to Server returns a Play extensible restriction thats MUST_UNDERSTAND so the license will show up in the sync list upon license storage
+'Bind returns LicenseExpired error if there is a corresponding entry in the sync list
+
+
+' Header test cases
+60011:FUNC:Set V4 header in context, create challenge, override URL in header, process response, and bind
+'Override the URL from the header
+StoreStringInTestVariable( 3 , http://playready.directtaps.net/pr20/svc/rightsmanager.asmx )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL, V4Header.xml, UTF-16, NULL, V4)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0, NULL, NULL, NULL, NULL, NULL, 0, 2 Store Challenge, 1, "UseAesKey")
+TestSendChallenge( LICGET, 1, 2, 3 )
+TestManagerProcessResponse( Dump, Dump, 0, 0, 2)
+TestManagerGenerateLicenseAck( 1 ) = DRM_S_FALSE
+TestSendChallenge( LICACK, 1, 2, 3 )
+TestManagerProcessLicenseAckResponse( 2 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0, Dump, Dump, Use Callback function )
+
+
+60014:FUNC:Set V4 header in context, create challenge, send challenge to URL from header, process response, and bind
+'Override the URL from the header
+'StoreStringInTestVariable( Test_URL , http://playready.directtaps.net/pr20/svc/rightsmanager.asmx  )
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL, V4Header2.xml, UTF-16, NULL, V4)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0, NULL, NULL, NULL, NULL, NULL, 0, 2 Store Challenge, 1, "UseAesKey")
+TestSendChallenge( LICGET, 1, 2)
+TestManagerProcessResponse( Dump, Dump, 0, 0, 2)
+TestManagerGenerateLicenseAck( 1 ) = DRM_S_FALSE
+TestSendChallenge( LICACK, 1, 2, NULL )
+TestManagerProcessLicenseAckResponse( 2 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0, Dump, Dump, Use Callback function )
+
+
+' I can't see how this is supposed to be getting a bad key from the server, disabling for now.
+'60035:DRT: Bind to an XMR license with incorrect content key should fail
+'StoreStringInTestVariable( 3 , http://playready.directtaps.net/pr20/svc/rightsmanager.asmx  )
+'TestManagerSetRights(Play)
+'TestManagerSetHeader(NORMAL,uplinkHeaderV4.xml)
+'TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseAesKey")
+'TestSendChallenge( LICGET, 1, 2, 3 )
+'TestManagerProcessResponse(Dump,Dump,0,0, 2)=2
+'TestManagerGenerateLicenseAck(1)
+'TestSendChallenge( LICACK, 1, 2, 3 )
+'TestManagerProcessLicenseAckResponse(2) = 2 ( DRM_S_MORE_DATA )
+'TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+'TestManagerBind(0, Dump, Dump, Use Callback function)=0x8004110E(DRM_E_CH_BAD_KEY)
+'TestManagerReinitialize(Reset)
+
+
+'60039:FUNC:P0:Generate and Process Challenge DLA w/ AES, with Both the leaf and root of a chain expiring after first use.
+''Override the URL from the header
+'StoreStringInTestVariable( 3 , http://playready.directtaps.net/pr20/svc/rightsmanager.asmx )
+'TestManagerSetRights(Play)
+'TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+'TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseAesKey UseChainedLicense ExpireAfterFirstUse RootExpireAfterFirstUse")
+'TestSendChallenge( LICGET, 1, 2, 3 )
+'TestManagerProcessResponse(Dump,Dump,0,0, 2) = 2 ( DRM_S_MORE_DATA )
+'TestManagerGenerateLicenseAck(1)
+'TestSendChallenge( LICACK,1,2, 3 )
+'TestManagerProcessLicenseAckResponse(2) = 2 ( DRM_S_MORE_DATA )
+'TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+'TestManagerBind( 0, Dump, Dump, Use Callback function )
+'TestManagerInitializeEnvelopeRead(4)
+'TestManagerReadEnvelope(4,jazz.wma)
+'TestManagerCommit
+'Test_ChangeTimeSeconds( 86401 )
+'TestManagerBind( 0, Dump, Dump, Use Callback function )=0x8004c009 (DRM_E_LICENSEEXPIRED)
+'TestManagerCloseEnvelope(4)
+
+
+60060:FUNC:P0:Generate and Process Challenge DLA w/ Silverlight License
+'Override the URL from the header
+StoreStringInTestVariable( Test_URL , http://playready.directtaps.net/pr20/svc/rightsmanager.asmx  )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope(EnvelopeBuffer,jazzV4_AES_internal.eny)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, ChallengeBuffer, "UseSilverlightLicense UseAesKey")
+TestSendChallenge( LICGET, ChallengeBuffer, ResponseBuffer, Test_URL )
+TestManagerProcessResponse(Dump,Dump,0,0, ResponseBuffer)
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0, Dump, Dump, Use Callback function )
+TestManagerInitializeEnvelopeRead(EnvelopeBuffer)
+TestManagerReadEnvelope(EnvelopeBuffer,jazz.wma)
+
+
+60061:FUNC:P0:Generate and Attempt to Process Challenge DLA w/ Silverlight License w/ incorrect Nonce in store then w/ correct Nonce
+'Override the URL from the header
+StoreStringInTestVariable( Test_URL , http://playready.directtaps.net/pr20/svc/rightsmanager.asmx  )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope(EnvelopeBuffer,jazzV4_AES_internal.eny)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, ChallengeBuffer, "UseSilverlightLicense UseAesKey")
+TestManagerParseNonceTokenFromChallenge(ChallengeBuffer)
+TestSendChallenge( LICGET, ChallengeBuffer, ResponseBuffer, Test_URL )
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, ChallengeBuffer, "UseSilverlightLicense UseAesKey")
+TestManagerProcessResponse(Dump,Dump,0,0, ResponseBuffer)
+TestManagerProcessResponse_CheckResults( yKVI+lebDEiMAGVPCRr9oA==, NONCE, 0x8004D000 DRM_E_NONCE_STORE_TOKEN_NOT_FOUND, 0 NO_FLAGS )
+TestSendChallenge( LICGET, ChallengeBuffer, ResponseBuffer, Test_URL )
+TestManagerProcessResponse(Dump,Dump,0,0, ResponseBuffer)
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0, Dump, Dump, Use Callback function )
+TestManagerInitializeEnvelopeRead(EnvelopeBuffer)
+TestManagerReadEnvelope(EnvelopeBuffer,jazz.wma)
+
+
+60070:FUNC:P0:Test special characters used in custom data for DLA.
+'Override the URL from the header
+StoreStringInTestVariable( Test_URL , http://playready.directtaps.net/pr20/svc/rightsmanager.asmx  )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope(EnvelopeBuffer,jazzV4_AES_internal.eny)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,6, ChallengeBuffer, "\"&<>'   (1)'\\t'  (2)'\\r\\n' (3)'\\r' hello\"&<>' (4)'\\r\\r' (5)'\\n' ")
+TestSendChallenge( LICGET, ChallengeBuffer, ResponseBuffer, Test_URL )
+TestManagerProcessResponse(Dump,Dump,0,0, ResponseBuffer)
+TestManagerGenerateLicenseAck(ChallengeBuffer) = DRM_S_FALSE
+TestSendChallenge( LICACK,ChallengeBuffer,ResponseBuffer, Test_URL )
+TestManagerProcessLicenseAckResponse(ResponseBuffer)
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0, Dump, Dump, Use Callback function )
+TestManagerInitializeEnvelopeRead(EnvelopeBuffer)
+TestManagerReadEnvelope(EnvelopeBuffer,jazz.wma)
+
+
+60073:FUNC:P0:Opt-in signature verification
+'Override the URL from the header
+StoreStringInTestVariable( Test_URL , http://playready.directtaps.net/pr20/svc/rightsmanager.asmx )
+SetDomainID( 0 )
+GenerateDomainJoinChallenge( 1, 0, "HelloWorld", "My Phone" )
+TestSendChallenge( JOIN, 1, 2, Test_URL )
+ProcessDomainJoinResponse( 2, NULL, 0 ) = 2 ( DRM_S_MORE_DATA )
+TestManagerSetRights(Play)
+TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseDomainCert UseAesKey")
+TestSendChallenge( LICGET, 1, 2, Test_URL )
+TestManagerProcessResponse( Dump, Dump, 0, 0, 2)
+TestManagerGenerateLicenseAck( 1 ) = DRM_S_FALSE
+TestSendChallenge( LICACK,1,2, Test_URL )
+TestManagerProcessLicenseAckResponse( 2 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0, Dump, Dump, Use Callback function )
+TestManagerInitializeEnvelopeRead(4)
+TestManagerReadEnvelope(4,jazz.wma)
+GenerateDomainLeaveChallenge( 1, 0, "HelloWorld" )
+TestSendChallenge( LEAVE, 1, 2, Test_URL )
+ProcessDomainLeaveResponse( 2 ) = 2 ( DRM_S_MORE_DATA )
+
+
+60074:FUNC:P1:Expired enrollment cert of license server shall result in rejected domain join response
+'Override the URL from the header
+StoreStringInTestVariable( Test_URL , http://playready.directtaps.net/pr20/svc/rightsmanager.asmx  )
+SetDomainID( 0 )
+GenerateDomainJoinChallenge( 1, 0, "HelloWorld", "My Phone" )
+TestSendChallenge( JOIN, 1, 2, Test_URL )
+ProcessDomainJoinResponse( 2, NULL, 0 ) = 2 ( DRM_S_MORE_DATA )
+' roll clock forward by 2 years
+Test_ChangeTimeSeconds( 63072000 )
+ProcessDomainJoinResponse( 2, NULL, 1 ) = 0x8004c079 (DRM_E_INVALID_DOMAIN_JOIN_RESPONSE_SIGNATURE) 
+ProcessDomainJoinResponse( 2, NULL, 0 ) = 0x8004c079 (DRM_E_INVALID_DOMAIN_JOIN_RESPONSE_SIGNATURE)
+ProcessDomainJoinResponse( 2, NULL, 2 ) = 0x80070057 (DRM_E_INVALIDARG)
+
+
+60075:FUNC:P1:Use empty v4.1 header to generate license acquistion challenge
+'Override the URL from the header
+StoreStringInTestVariable( Test_URL , http://playready.directtaps.net/pr20/svc/rightsmanager.asmx  )
+TestManagerSetRights(Play)
+TestManagerSetV41Header( "WRMHeaderString", 0 ) = 0x80070057 (DRM_E_INVALIDARG)
+TestManagerSetV41Header( NULL, 10 ) = 0x80070057 (DRM_E_INVALIDARG)
+TestManagerSetV41Header( NULL, 0 )
+TestManagerGenerateChallenge(Dump,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, ChallengeBuffer, "<RightsPool><LicenseRights KeyId=\"Gxb+VIuhg0SPHiJJG8UzFA==\"><Play /></LicenseRights></RightsPool>")
+TestSendChallenge( LICGET, ChallengeBuffer, ResponseBuffer, Test_URL )
+TestManagerProcessResponse(Dump,Dump,0,0, ResponseBuffer)

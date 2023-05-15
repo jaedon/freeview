@@ -1,0 +1,36 @@
+# Nordig
+
+menu "NorDig Specific functions"
+	comment "Select NorDig specific functions."
+
+	config OP_NORDIG_LIPSYNC
+		depends on OP_NORDIG
+		bool "OP_NORDIG_LIPSYNC - Nordic LipSync"
+		default n
+
+	config OP_NORDIG_BOXER
+		depends on OP_NORDIG
+		bool "OP_NORDIG_BOXER - Swedish OP Boxer"
+		default n
+
+	config OP_NORDIG_BOXER_EIT_PLUS
+		depends on OP_NORDIG_BOXER
+		bool "OP_NORDIG_BOXER_EIT_PLUS - receive both EIT and EIT+ (on separated PID)"
+		default n
+
+	config OP_NORDIG_BOXER_NAVIGATOR
+		depends on OP_NORDIG_BOXER_EIT_PLUS
+		bool "OP_NORDIG_BOXER_NAVIGATOR - EPG and PVR based on EIT and EIT+"
+		default n
+		
+	config OP_PVR_BASED_ON_TVANYTIME
+		depends on OP_NORDIG
+		bool "OP_PVR_BASED_ON_TVANYTIME - PVR specification is based on TV-AnyTime on / off"
+		default y
+
+	config OP_PVR_BASED_ON_TVANYTIME_ACCURATE_RECORD
+		depends on OP_PVR_BASED_ON_TVANYTIME
+		bool "OP_PVR_BASED_ON_TVANYTIME_ACCURATE_RECORD - TV-AnyTime Accurate Record on / off"
+		default n			
+endmenu
+

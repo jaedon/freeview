@@ -1,0 +1,478 @@
+121000:DRT:P0:Generate a domain join challenge with a non empty valid domain ID
+TestDrm_GenerateChallenge("0", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==", NULL, "TestClient", "10", NULL, "0", "0", "0")
+
+121002:DRT:P0:Generate a domain join challenge with a non empty valid domain ID and custom data (type CUSTOM DATA)
+TestDrm_GenerateChallenge("0", "0", "1", "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==", NULL, "TestClient", "10", "SomeCustomData", "14", "0", "0")
+
+121003:DRT:P0:Generate a domain join challenge with a Service ID and custom data (type INDIRECT QUERY DATA)
+TestDrm_GenerateChallenge("0", "0", "2", NULL, "AH+03juKbUGbHl1V/QIwRA==", NULL, NULL, "0","<JoinDomain type=\"challenge\"><Data><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><FriendlyName>TestClient</FriendlyName><CustomData>SomeCustomData</CustomData></Data></JoinDomain>", "182", "0", "0")
+
+121004:DRT:P0:Generate a domain join challenge with a NULL domain ID and data without JoinDomain XML tags (type INDIRECT QUERY DATA)
+TestDrm_GenerateChallenge("0", "0", "2", NULL, NULL, NULL, NULL, "0","<Data><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><FriendlyName>TestClient</FriendlyName><CustomData>SomeCustomData</CustomData></Data>", "139", "0", "0") = 0x8004c508 (DRM_E_DOMAIN_INVALID_CUSTOM_DATA)
+
+121005:DRT:P0:Pass in a NULL DRM Manager context to generate a domain join challenge will fail
+TestDrm_GenerateChallenge("0", NULL, "0", "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==", NULL, "TestClient", "10", NULL, "0", "0", "0") = -2147024809 (DRM_E_INVALIDARG)
+
+121006:DRT:P0:Generate a domain join challenge with a Service ID and data with out Data XML tags(type INDIRECT QUERY DATA)
+TestDrm_GenerateChallenge("0", "0", "2", NULL, "AH+03juKbUGbHl1V/QIwRA==", NULL, NULL, "0","<JoinDomain type=\"challenge\"><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><FriendlyName>TestClient</FriendlyName><CustomData>SomeCustomData</CustomData></JoinDomain>", "169", "0", "0") = 0x8004c508 (DRM_E_DOMAIN_INVALID_CUSTOM_DATA)
+
+121007:DRT:P0:Generate a domain join challenge with a Service ID and data without AccountID XML tags(type INDIRECT QUERY DATA)
+TestDrm_GenerateChallenge("0", "0", "2", NULL, "AH+03juKbUGbHl1V/QIwRA==", NULL, NULL, "0","<JoinDomain type=\"challenge\"><Data><FriendlyName>TestClient</FriendlyName><CustomData>SomeCustomData</CustomData></Data></JoinDomain>", "136", "0", "0")
+
+121008:DRT:P0:Generate a domain join challenge with data without FriendlyName or CustomData XML tags (type INDIRECT QUERY DATA)
+TestDrm_GenerateChallenge("0", "0", "2", NULL, NULL, NULL, NULL, "0","<JoinDomain type=\"challenge\"><Data><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID></Data></JoinDomain>", "105", "0", "0")
+
+121010:DRT:P0:Generate a domain leave challenge with a non empty valid domain ID
+TestDrm_GenerateChallenge("1", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, NULL, NULL, NULL, NULL, "0", "0", "0") = 0X8004C509 (DRM_E_DOMAIN_NOT_FOUND)
+
+121011:DRT:P0:Generate a domain leave challenge with a NULL domain ID should fail.
+TestDrm_GenerateChallenge("1", "0", "0", NULL, NULL, NULL, NULL, NULL, NULL, "0", "0", "0") = -2147024809 (DRM_E_INVALIDARG)
+
+121012:DRT:P0:Pass in a NULL DRM Manager context to generate a domain leave challenge will fail.
+TestDrm_GenerateChallenge("1", NULL, "0", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, NULL, NULL, NULL, NULL, "0", "0", "0") = -2147024809 (DRM_E_INVALIDARG)
+
+121020:DRT:P0:Process a valid domain join V2 response
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+
+121021:DRT:P0:Process an invalid domain join response (invalid domain ID) should fail
+TestDrm_ProcessResponse("0", "0", data\registresp_bad1.dat, "0", "0", "0", 0x8004C04F DRM_E_XMLNOTFOUND)=0x8004C04F DRM_E_XMLNOTFOUND
+
+121022:DRT:P0:Process an valid domain join response with NULL buffer should fail
+TestDrm_ProcessResponse("0", "0", NULL, "0", "0", "0") = -2147024809 (DRM_E_INVALIDARG)
+
+121023:DRT:P0:Process an valid domain join response with a valid buffer but size 0 should fail (4296 is the size of the file)
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "-4296", "0", "0") = -2147024809 (DRM_E_INVALIDARG)
+
+121024:DRT:P0:Pass in a NULL DRM Manager context to process a domain join response will fail
+TestDrm_ProcessResponse("0", NULL, data\registresp1.dat, "0", "0", "0") = -2147024809 (DRM_E_INVALIDARG)
+
+121025:DRT:P0:Process a valid domain join V1 response which should fail
+TestDrm_ProcessResponse("0", "0", data\joinresp_v1.dat, "0", "0", "0") = 0X8004C075 (DRM_E_PROTOCOL_VERSION_NOT_SUPPORTED)
+
+121026:DRT:P0:Process a valid domain join V2 response with no customdata node
+TestDrm_ProcessResponse("0", "0", data\registresp_nocustom.dat, "0", "0", "0")
+
+121030:DRT:P0:Process a valid domain leave response
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_ProcessResponse("1", "0", data\unregistresp1.dat, "0", "0", NULL) = 2 (DRM_S_MORE_DATA)
+
+121031:DRT:P0:Pass in a NULL DRM Manager context to process a domain leave response will fail.
+TestDrm_ProcessResponse("1", NULL, data\registresp1.dat, "0", "0", NULL) = -2147024809 (DRM_E_INVALIDARG)
+TestDrm_ProcessResponse("1", NULL, data\unregistresp1.dat, "0", "0", NULL) = -2147024809 (DRM_E_INVALIDARG)
+
+121040:DRT:P0:Retrieve a domain cert for a non empty valid domain ID
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_Find("0", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, "0", "0", "0")
+
+121041:DRT:P0:Retrieve a domain cert with a NULL buffer should fail
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_Find("0", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, "0", NULL, "-10") = -2147024774 (DRM_E_BUFFERTOOSMALL)
+
+121042:DRT:P0:Retrieve a domain cert with a NULL domain ID should fail
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_Find("0", NULL, NULL, "0", "0", "0") = -2147024809 (DRM_E_INVALIDARG)
+
+121050:DRT:P0:Retrieve output for an error status code 0x8004c604 (service specific error) (REDIRECT URL)
+TestDrm_ProcessResponse("0", "0", data\errorresp2.dat, "0", "0", "0", "-2147170812")=0x8004C04F
+TestDrm_GetAdditionalResponseData(data\errorresp2.dat, "0", "2", "0", "0", "http://bad.contoso.com/login.aspx")
+
+121051:DRT:P0:Retrieve output for an error status code 0x8004c605 (domain required) (REDIRECT URL, SERVICE ID)
+TestDrm_ProcessResponse("0", "0", data\errorresp3.dat, "0", "0", "0", "-2147170811")=0x8004C04F
+TestDrm_GetAdditionalResponseData(data\errorresp3.dat, "0", "2", "0", "0", "http://bad.contoso.com/RightsManager.asmx")
+TestDrm_GetAdditionalResponseData(data\errorresp3.dat, "0", "3", "0", "0", "AH+03juKbUGbHl1V/QIwRA==")
+
+121052:DRT:P0:Retrieve output for an error status code 0x8004c606 (domain expired) (REDIRECT URL, SERVICE ID, ACCOUNT ID)
+TestDrm_ProcessResponse("0", "0", data\errorresp4.dat, "0", "0", "0", "-2147170810")=0x8004C04F
+TestDrm_GetAdditionalResponseData(data\errorresp4.dat, "0", "2", "0", "0", "http://bad.contoso.com/RightsManager.asmx")
+TestDrm_GetAdditionalResponseData(data\errorresp4.dat, "0", "3", "0", "0", "AH+03juKbUGbHl1V/QIwRA==")
+TestDrm_GetAdditionalResponseData(data\errorresp4.dat, "0", "4", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==")
+
+121053:DRT:P0:Retrieve output for an error status code 0x8004c602 (domain limit reached) (REDIRECT URL)
+TestDrm_ProcessResponse("0", "0", data\errorresp5.dat, "0", "0", "0", "-2147170814")=0x8004C04F
+TestDrm_GetAdditionalResponseData(data\errorresp5.dat, "0", "2", "0", "0", "http://bad.contoso.com/tooManyDevices.aspx")
+TestDrm_GetAdditionalResponseData(data\errorresp5.dat, "0", "1", "0", "0", "Service Specific Error Data")
+
+121060:DRT:P0:Initialize domain Certificate enumeration context
+TestDrm_DomainCert_InitEnum("0", "0")
+
+121061:DRT:P0:Enumerate a domain certificate
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+
+122000:BVT:P0:Generate Domain Join Challenge with NULL Account ID
+TestDrm_GenerateChallenge("0", "0", "0", NULL, NULL, "0", NULL, "0", NULL, "0", "0", "0", "joinchallenge0.dat")
+
+122001:BVT:P0:Generate Domain Join Challenge with Valid Account ID
+TestDrm_GenerateChallenge("0", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, NULL, NULL, "0", NULL, "0", "0", "0", "joinchallenge1.dat")
+
+122002:BVT:P0:Generate Domain Join Challenge with Valid Account ID
+TestDrm_GenerateChallenge("0", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, NULL, NULL, "0", NULL, "0", "0", "0", "joinchallenge2.dat")
+
+122003:BVT:P0:Generate Domain Join Challenge with Valid Account ID and Valid Service ID
+TestDrm_GenerateChallenge("0", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==", NULL, NULL, "0", NULL, "0", "0", "0", "joinchallenge3.dat")
+
+122004:BVT:P0:Generate Domain Join Challenge with Valid Account ID and Valid Revision
+TestDrm_GenerateChallenge("0", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==", "2", NULL, "0", NULL, "0", "0", "0", "joinchallenge4.dat")
+
+122005:BVT:P0:Generate Domain Join Challenge with Valid Account ID and Valid Friendly Name
+TestDrm_GenerateChallenge("0", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==", "0", "TestClient", "10", NULL, "0", "0", "0", "joinchallenge4.dat")
+
+122006:BVT:P0:Generate Domain Join Challenge with Valid Account ID and Valid Custom Data (CUSTOM DATA)
+TestDrm_GenerateChallenge("0", "0", "1", "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==", "0", "TestClient", "10", "SomeCustomData", "14", "0", "0", "joinchallenge5.dat")
+
+122007:BVT:P0:Generate Domain Join Challenge with Valid Account ID and Valid Custom Data (CUSTOM DATA) to be XML Encoded
+TestDrm_GenerateChallenge("0", "0", "1", "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==", "0", "TestClient", "10", "\\\\?\\pipemtp#pipemtpaudio#1&79f5d87&0&01<<#{f33fdc04-d1ac-4e8e-9a30-19bbd4b108ae}$1<<", "85", "0", "0", "joinchallenge6.dat")
+
+122008:BVT:P0:Generate Domain Join Challenge with NULL Account ID and Valid Custom Data (INDIRECT QUERY DATA)
+TestDrm_GenerateChallenge("0", "0", "2", NULL, NULL, "0", NULL, "0","<JoinDomain type=\"challenge\"><Data><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><FriendlyName>TestClient</FriendlyName><CustomData>SomeCustomData</CustomData></Data></JoinDomain>", "182", "0", "0", "joinchallenge7.dat")
+
+122100:BVT:P0:Generate Domain Leave Challenge with a Valid Account ID
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+TestDrm_GenerateChallenge("1", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, NULL, NULL, NULL, NULL, "0", "0", "0", "leavechallenge0.dat")
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0") = -2147024637 (DRM_E_NOMORE)
+
+122101:BVT:P0:Generate Domain Leave Challenge with Valid Account ID and Valid Custom Data (CUSTOM DATA)
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+TestDrm_GenerateChallenge("1", "0", "1", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, NULL, NULL, NULL, "SomeCustomData", "14", "0", "0", "leavechallenge1.dat")
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0") = -2147024637 (DRM_E_NOMORE)
+
+122102:BVT:P0:Generate Domain Leave Challenge with Valid Account ID and Valid Custom Data (CUSTOM DATA) to be XML Encoded
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+TestDrm_GenerateChallenge("1", "0", "1", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, NULL, NULL, NULL, "\\\\?\\pipemtp#pipemtpaudio#1&79f5d87&0&01<<#{f33fdc04-d1ac-4e8e-9a30-19bbd4b108ae}$1<<", "85", "0", "0", "leavechallenge2.dat")
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0") = -2147024637 (DRM_E_NOMORE)
+
+122103:BVT:P0:Generate Domain Leave Challenge with NULL Account ID and Valid Custom Data (INDIRECT QUERY DATA)
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+TestDrm_GenerateChallenge("1", "0", "2", NULL, NULL, NULL, NULL, 0, "<LeaveDomain type=\"challenge\"><Data><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>SomeCustomData</CustomData></Data></LeaveDomain>", "143", "0", "0", "leavechallenge3.dat")
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0") = -2147024637 (DRM_E_NOMORE)
+
+122104:BVT:P0:Generate a domain Leave challenge with a NULL domain ID and data without LeaveDomain XML tags(type INDIRECT QUERY DATA)
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+TestDrm_GenerateChallenge("1", "0", "2", NULL, NULL, NULL, NULL, "0","<Data><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>SomeCustomData</CustomData></Data>", "139", "0", "0") = 0x8004c508 (DRM_E_DOMAIN_INVALID_CUSTOM_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+
+122105:BVT:P0:Generate a domain Leave challenge with out Data XML tags(type INDIRECT QUERY DATA)
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+TestDrm_GenerateChallenge("1", "0", "2", NULL, NULL, NULL, NULL, "0","<LeaveDomain type=\"challenge\"><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>SomeCustomData</CustomData></LeaveDomain>", "132", "0", "0") = 0x8004c508 (DRM_E_DOMAIN_INVALID_CUSTOM_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+
+122106:BVT:P0:Generate a domain Leave challenge with data without AccountID XML tags(type INDIRECT QUERY DATA)
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+TestDrm_GenerateChallenge("1", "0", "2", NULL, NULL, NULL, NULL, "0","<LeaveDomain type=\"challenge\"><Data><CustomData>SomeCustomData</CustomData></Data></LeaveDomain>", "100", "0", "0") = 0x8004c508 (DRM_E_DOMAIN_INVALID_CUSTOM_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+
+122107:BVT:P0:Generate a domain Leave challenge with data without CustomData XML tags (type INDIRECT QUERY DATA)
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0". "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+TestDrm_GenerateChallenge("1", "0", "2", NULL, NULL, NULL, NULL, "0","<LeaveDomain type=\"challenge\"><Data><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID></Data></LeaveDomain>", "107", "0", "0")
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0") = -2147024637 (DRM_E_NOMORE)
+
+122108:BVT:P0:Generate Domain Leave Challenge with a Valid Account ID and Domain not Joined
+TestDrm_GenerateChallenge("1", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, NULL, NULL, NULL, NULL, "0", "0", "0", "leavechallenge0.dat")= 0X8004C509 (DRM_E_DOMAIN_NOT_FOUND)
+
+122200:BVT:P0:Process a Valid Domain Join Response
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+
+122201:BVT:P0:Process a Valid Domain Join Response with NULL Domain ID
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", NULL) = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+
+122202:BVT:P0:Process a Valid Domain Join Response with Expired Domain
+TestDrm_ProcessResponse("0", "0", data\joinresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+
+122300:BVT:P0:Process a Valid Domain Leave Response
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_ProcessResponse("1", "0", data\unregistresp1.dat, "0", "0", NULL) = 2 (DRM_S_MORE_DATA)
+
+122400:BVT:P0:Retrieve a Domain Cert for a Valid Account ID
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_Find("0", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, "0", "0", "0")
+
+122401:BVT:P0:Retrieve a Domain Cert for a Valid Service ID
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_Find("0", "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==", "0", "0", "0")
+
+122500:BVT:P0:Initialize Domain Cert Context
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_InitEnum("0", "0")
+
+122600:BVT:P0:Enumerate a Domain Certificate
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+
+122601:BVT:P0:Enumerate a Domain Certificate when there is no Cert
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0") = -2147024637 (DRM_E_NOMORE)
+
+122700:BVT:P0:Get Additional Response Data (CUSTOM DATA)
+TestDrm_ProcessResponse("0", "0", data\errorresp5.dat, "0", "0", "0", "-2147170814")=0x8004C04F
+TestDrm_GetAdditionalResponseData(data\errorresp5.dat, "0", "1", "0", "0", "Service Specific Error Data")
+
+122701:BVT:P0:Get Additional Response Data (REDIRECT URL)
+TestDrm_ProcessResponse("0", "0", data\errorresp5.dat, "0", "0", "0", "-2147170814")=0x8004C04F
+TestDrm_GetAdditionalResponseData(data\errorresp5.dat, "0", "2", "0", "0", "http://bad.contoso.com/tooManyDevices.aspx")
+
+122702:BVT:P0:Get Additional Response Data (SERVICE ID)
+TestDrm_ProcessResponse("0", "0", data\errorresp3.dat, "0", "0", "0", "-2147170811")=0x8004C04F
+TestDrm_GetAdditionalResponseData(data\errorresp3.dat, "0", "3", "0", "0", "AH+03juKbUGbHl1V/QIwRA==")
+
+122703:BVT:P0:Get Additional Response Data (REDIRECT URL)
+TestDrm_ProcessResponse("0", "0", data\errorresp2.dat, "0", "0", "0", "-2147170812")=0x8004C04F
+TestDrm_GetAdditionalResponseData(data\errorresp2.dat, "0", "2", "0", "0", "http://bad.contoso.com/login.aspx")
+
+122704:BVT:P0:Get Additional Join Response Data (CUSTOM DATA XML Encoded)
+TestDrm_GetAdditionalResponseData(data\joinrespxmlenc.dat, "0", "1", "0", "0", "\\\\?\\pipemtp#pipemtpaudio#1&79f5d87&0&01<<#{f33fdc04-d1ac-4e8e-9a30-19bbd4b108ae}$1<<")
+
+122705:BVT:P0:Get Additional Leave Response Data (CUSTOM DATA XML Encoded)
+TestDrm_GetAdditionalResponseData(data\leaverespxmlenc.dat, "0", "1", "0", "0", "\\\\?\\pipemtp#pipemtpaudio#1&79f5d87&0&01<<#{f33fdc04-d1ac-4e8e-9a30-19bbd4b108ae}$1<<")
+
+123000:FUNC:P1:Call GenerateJoinChallenge with NULL Challenge to get Challenge Count
+TestDrm_GenerateChallenge("0", "0", "0", NULL, NULL, "0", NULL, "0", NULL, "0", NULL, "0") = -2147024774 (DRM_E_BUFFERTOOSMALL)
+
+123001:FUNC:P1:Call GenerateJoinChallenge with NULL Challenge and Valid Domain ID to get Challenge Count
+TestDrm_GenerateChallenge("0", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, NULL, NULL, "0", NULL, "0", NULL, "0") = -2147024774 (DRM_E_BUFFERTOOSMALL)
+
+123002:FUNC:P1:Call GenerateJoinChallenge with NULL Challenge and Valid Service ID to get Challenge Count
+TestDrm_GenerateChallenge("0", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==", NULL, NULL, "0", NULL, "0", NULL, "0") = -2147024774 (DRM_E_BUFFERTOOSMALL)
+
+123003:FUNC:P1:Call GenerateJoinChallenge with NULL Challenge and Valid Revision to get Challenge Count
+TestDrm_GenerateChallenge("0", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==", "0", NULL, "0", NULL, "0", NULL, "0") = -2147024774 (DRM_E_BUFFERTOOSMALL)
+
+123004:FUNC:P1:Call GenerateJoinChallenge with NULL Challenge and Valid Friendly Name to get Challenge Count
+TestDrm_GenerateChallenge("0", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==", "0", "TestClient", "10", NULL, "0", NULL, "0") = -2147024774 (DRM_E_BUFFERTOOSMALL)
+
+123005:FUNC:P1:Call GenerateJoinChallenge with NULL Challenge and Valid Custom Data to get Challenge Count (CUSTOM DATA)
+TestDrm_GenerateChallenge("0", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==", "0", "TestClient", "10", "SomeCustomData", "14", NULL, "0") = -2147024774 (DRM_E_BUFFERTOOSMALL)
+
+123006:FUNC:P1:Call GenerateJoinChallenge with NULL Challenge and Valid Custom Data to get Challenge Count (INDIRECT QUERY DATA)
+TestDrm_GenerateChallenge("0", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==", "0", "TestClient", "10", "<Data><DomainID>NjU0MzIxMDk4NzY1NDMyMQ==</DomainID><CustomData>SomeCustomData</CustomData></Data>", "97", NULL, "0") = -2147024774 (DRM_E_BUFFERTOOSMALL)
+
+123007:FUNC:P1:Generate Domain Join Challenge with NULL Context
+TestDrm_GenerateChallenge("0", NULL, "0", NULL, NULL, "0", NULL, "0", NULL, "0", "0", "0") = -2147024809 (DRM_E_INVALIDARG)
+
+123008:FUNC:P1:Generate Domain Join Challenge with Invalid Flags
+TestDrm_GenerateChallenge("0", "0", "-1", NULL, NULL, "0", NULL, "0", NULL, "0", "0", "0") = 0X8004C501(DRM_E_DOMAIN_INVALID_CUSTOM_DATA_TYPE) 
+
+123009:FUNC:P1:Generate Domain Join Challenge with NULL Challenge Count
+TestDrm_GenerateChallenge("0", "0", "0", NULL, NULL, "0", NULL, "0", NULL, "0", "0", NULL) = 0x80070057 (DRM_E_INVALIDARG)
+
+123010:FUNC:P1:Generate Domain Join Challenge with Incorrect Challenge Count
+TestDrm_GenerateChallenge("0", "0", "0", NULL, NULL, "0", NULL, "0", NULL, "0", "0", "-1") = 0x8007007A (DRM_E_BUFFERTOOSMALL)
+
+123011:FUNC:P1:Generate Domain Join Challenge with NULL Account ID and Malformed Custom Data (INDIRECT QUERY DATA)
+TestDrm_GenerateChallenge("0", "0", "2", NULL, NULL, "0", NULL, "0","Jo1nDoma1n type=\"challenge\">Data><AccountID>Malformed</AccountID><FriendlyName TestClient<FriendlyName><CustomData>SomeCustomData<CustomData</Data>/JoinDomain>", "182", "0", "0") = 0x8004C508 (DRM_E_DOMAIN_INVALID_CUSTOM_DATA)
+
+123012:FUNC:P1:Generate Domain Join Challenge with NULL Account ID, Valid Custom Data (INDIRECT QUERY DATA) and Incorrect Custom Data Count
+TestDrm_GenerateChallenge("0", "0", "2", NULL, NULL, "0", NULL, "0","<JoinDomain type=\"challenge\"><Data><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><FriendlyName>TestClient</FriendlyName><CustomData>SomeCustomData</CustomData></Data></JoinDomain>", "5", "0", "0") = 0x8004C508 (DRM_E_DOMAIN_INVALID_CUSTOM_DATA)
+
+123100:FUNC:P1:Call GenerateLeaveChallenge with NULL Challenge to get Challenge Count
+TestDrm_GenerateChallenge("1", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, NULL, NULL, NULL, NULL, "0", NULL, "0") = -2147024774 (DRM_E_BUFFERTOOSMALL)
+
+123101:FUNC:P1:Call GenerateLeaveChallenge with NULL Challenge and Valid Custom Data to get Challenge Count (CUSTOM DATA)
+TestDrm_GenerateChallenge("1", "0", "1", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, NULL, NULL, NULL, NULL, "0", NULL, "0") = -2147024774 (DRM_E_BUFFERTOOSMALL)
+
+123102:FUNC:P1:Call GenerateLeaveChallenge with NULL Challenge and Valid Custom Data to get Challenge Count (INDIRECT QUERY DATA)
+TestDrm_GenerateChallenge("1", "0", "2", NULL, NULL, NULL, NULL, NULL, NULL, "0", NULL, "0") = 0x80070057 (DRM_E_INVALIDARG)
+
+123103:FUNC:P1:Generate Domain Leave Challenge with NULL Context
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+TestDrm_GenerateChallenge("1", NULL, "0", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, NULL, NULL, NULL, NULL, "0", "0", "0") = -2147024809 (DRM_E_INVALIDARG)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+
+123104:FUNC:P1:Generate Domain Leave Challenge with Invalid Flags
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+TestDrm_GenerateChallenge("1", "0", "-1", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, NULL, NULL, NULL, NULL, "0", "0", "0") = 0X8004C501 (DRM_E_DOMAIN_INVALID_CUSTOM_DATA_TYPE) 
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+
+123105:FUNC:P1:Generate Domain Leave Challenge with NULL Challenge Count
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+TestDrm_GenerateChallenge("1", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, NULL, NULL, NULL, NULL, "0", "0", NULL) = 0x80070057 (DRM_E_INVALIDARG)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+
+123106:FUNC:P1:Generate Domain Leave Challenge with Incorrect Challenge Count
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+TestDrm_GenerateChallenge("1", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, NULL, NULL, NULL, NULL, "0", "0", "-1") = 0x8007007A (DRM_E_BUFFERTOOSMALL)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+
+123107:FUNC:P1:Generate Domain Leave Challenge with NULL Account ID and Malformed Custom Data (INDIRECT QUERY DATA)
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+TestDrm_GenerateChallenge("1", "0", "2", NULL, NULL, NULL, NULL, 0, "LeaveDoma1n type=\"challenge\">Data><AccountID>Malformed</AccountID><CustomData>SomeCustomData<CustomData></Data>/LeaveDomain>", "143", "0", "0") = 0x8004C508 (DRM_E_DOMAIN_INVALID_CUSTOM_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+
+123108:FUNC:P1:Generate Domain Leave Challenge with NULL Account ID, Valid Custom Data (INDIRECT QUERY DATA) and Incorrect Custom Data Count
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+TestDrm_GenerateChallenge("1", "0", "2", NULL, NULL, NULL, NULL, 0, "<LeaveDomain type=\"challenge\"><Data><AccountID>NjU0MzIxMDk4NzY1NDMyMQ==</AccountID><CustomData>SomeCustomData</CustomData></Data></LeaveDomain>", "5", "0", "0") = 0x8004C508 (DRM_E_DOMAIN_INVALID_CUSTOM_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+
+123200:FUNC:P1:Process a Valid Domain Join Response with NULL Context
+TestDrm_ProcessResponse("0", NULL, data\registresp1.dat, "0", "0", "0") = 0x80070057 (DRM_E_INVALIDARG)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0") = -2147024637 (DRM_E_NOMORE)
+
+123201:FUNC:P1:Process a Valid Domain Join Response with NULL Response
+TestDrm_ProcessResponse("0", "0", NULL, "0", "0", "0") = 0x80070057 (DRM_E_INVALIDARG)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0") = -2147024637 (DRM_E_NOMORE)
+
+123202:FUNC:P1:Process a Valid Domain Join Response with NULL Result
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", NULL, "0") = 2 (DRM_E_INVALIDARG)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0")
+
+123203:FUNC:P1:Process a Valid Domain Join Response with Invalid Count
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "-5", "0", "0") = 0x8004CB01 (DRM_E_SOAPXML_XML_FORMAT)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0") = -2147024637 (DRM_E_NOMORE)
+
+123204:FUNC:P1:Process a Malformed Domain Join Response
+TestDrm_ProcessResponse("0", "0", data\malregistresp1.dat, "0", "0", "0") = 0x8004CB01 (DRM_E_SOAPXML_XML_FORMAT)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", "0") = -2147024637 (DRM_E_NOMORE)
+
+123300:FUNC:P1:Process a Valid Domain Leave Response with NULL Context
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_ProcessResponse("1", NULL, data\unregistresp1.dat, "0", "0", NULL) = 0x80070057 (DRM_E_INVALIDARG)
+
+123301:FUNC:P1:Process a Valid Domain Leave Response with NULL Response
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_ProcessResponse("1", "0", NULL, "0", "0", NULL) = 0x80070057 (DRM_E_INVALIDARG)
+
+123302:FUNC:P1:Process a Valid Domain Leave Response with NULL Result
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_ProcessResponse("1", "0", data\unregistresp1.dat, "0", NULL, NULL) = 2 (DRM_S_MORE_DATA)
+
+123303:FUNC:P1:Process a Valid Domain Leave Response with Invalid Count
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_ProcessResponse("1", "0", data\unregistresp1.dat, "-1", "0", NULL) = 0x8004CB01 (DRM_E_SOAPXML_XML_FORMAT)
+
+123304:FUNC:P1:Process a Malformed Domain Leave Response
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_ProcessResponse("1", "0", data\malunregistresp1.dat, "0", "0", NULL) = 0x8004CB01 (DRM_E_SOAPXML_XML_FORMAT)
+
+123400:FUNC:P1:Retrieve a Domain Cert for NULL Account ID
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_Find("0", NULL, NULL, "0", "0", "0") = 0x80070057 (DRM_E_INVALIDARG)
+
+123401:FUNC:P1:Retrieve a Domain Cert for NULL Context
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_Find(NULL, "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, "0", "0", "0") = 0x80070057 (DRM_E_INVALIDARG)
+
+123402:FUNC:P1:Retrieve a Domain Cert Count with NULL Certificate
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_Find(NULL, "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, "0", NULL, "0") = 0x80070057 (DRM_E_INVALIDARG)
+
+123403:FUNC:P1:Retrieve a Domain Cert with NULL Certificate Count
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_Find(NULL, "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, "0", "0", NULL) = 0x80070057 (DRM_E_INVALIDARG)
+
+123404:FUNC:P1:Retrieve a Domain Cert with Incorrect Certificate Count
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_Find(NULL, "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, "0", "0", "-1") = 0x80070057 (DRM_E_INVALIDARG)
+
+123500:FUNC:P1:Initialize Domain Cert Context with NULL App Context
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_InitEnum(NULL, "0") = 0x80070057 (DRM_E_INVALIDARG)
+
+123501:FUNC:P1:Initialize Domain Cert Context with NULL Cert Context
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_InitEnum("0", NULL) = 0x80070057 (DRM_E_INVALIDARG)
+
+123600:FUNC:P1:Enumerate a Domain Certificate with NULL Context
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext(NULL, "1", "1", NULL, "0") = -2147024809 (DRM_E_INVALIDARG)
+
+123601:FUNC:P1:Enumerate a Domain Certificate with Cert False
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "0", "1", "0", "0")
+
+123602:FUNC:P1:Enumerate a Domain Certificate with Init False
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "0", "0", "0") = -2147024809 (DRM_E_INVALIDARG)
+
+123603:FUNC:P1:Enumerate a Domain Certificate with NULL Count
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", NULL, "0") = -2147024809 (DRM_E_INVALIDARG)
+
+123604:FUNC:P1:Enumerate a Domain Certificate with NULL Info
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_DomainCert_EnumNext("0", "1", "1", "0", NULL) = -2147024809 (DRM_E_INVALIDARG)
+
+123700:FUNC:P1:Get Additional Response Data (CUSTOM DATA) with NULL Response
+TestDrm_ProcessResponse("0", "0", data\errorresp5.dat, "0", "0", "0", "-2147170814")= DRM_E_XMLNOTFOUND
+TestDrm_GetAdditionalResponseData(NULL, "0", "1", "0", "0", "Service Specific Error Data") = DRM_E_INVALIDARG
+
+123701:FUNC:P1:Get Additional Response Data (CUSTOM DATA) with Incorrect Response Count
+TestDrm_ProcessResponse("0", "0", data\errorresp5.dat, "0", "0", "0", "-2147170814")= DRM_E_XMLNOTFOUND
+TestDrm_GetAdditionalResponseData(data\errorresp5.dat, "-1", "1", "0", "0", "Service Specific Error Data")
+
+123702:FUNC:P1:Get Additional Response Data (CUSTOM DATA) with Incorrect Data Type
+TestDrm_ProcessResponse("0", "0", data\errorresp5.dat, "0", "0", "0", "-2147170814")= DRM_E_XMLNOTFOUND
+TestDrm_GetAdditionalResponseData(data\errorresp5.dat, "0", "-1", "0", "0", "Service Specific Error Data") = DRM_E_INVALIDARG
+
+123703:FUNC:P1:Get Additional Response Data (CUSTOM DATA) with NULL Data
+TestDrm_ProcessResponse("0", "0", data\errorresp5.dat, "0", "0", "0", "-2147170814")= DRM_E_XMLNOTFOUND
+TestDrm_GetAdditionalResponseData(data\errorresp5.dat, "0", "1", NULL, "0", "Service Specific Error Data") = DRM_E_BUFFERTOOSMALL
+
+123704:FUNC:P1:Get Additional Response Data (CUSTOM DATA) with NULL Data Count
+TestDrm_ProcessResponse("0", "0", data\errorresp5.dat, "0", "0", "0", "-2147170814")= DRM_E_XMLNOTFOUND
+TestDrm_GetAdditionalResponseData(data\errorresp5.dat, "0", "1", "0", NULL, "Service Specific Error Data") = DRM_E_FAIL
+
+123705:FUNC:P1:Get Additional Response Data (CUSTOM DATA) with Incorrect Data Count
+TestDrm_ProcessResponse("0", "0", data\errorresp5.dat, "0", "0", "0", "-2147170814")= DRM_E_XMLNOTFOUND
+TestDrm_GetAdditionalResponseData(data\errorresp5.dat, "0", "1", "0", "-1", "Service Specific Error Data") = DRM_E_FAIL
+
+123707:FUNC:P1:Get Additional Response Data (CUSTOM DATA) with Zero Data Count
+TestDrm_ProcessResponse("0", "0", data\errorresp5.dat, "0", "0", "0", "-2147170814")= DRM_E_XMLNOTFOUND
+TestDrm_GetAdditionalResponseData(data\errorresp5.dat, "0", "1", "0", "-27") = DRM_E_INVALIDARG
+
+123706:FUNC:P1:process a domain join response with signature verification
+' The next line is temporarily disabled because the signature has expired.  TFS #807816 is tracking as of 2012-Dec-03.
+'TestDrm_ProcessResponse_VerifySignature("0", "0", data\joinresp_signature.dat, "0", "0", "0") = 2 (DRM_S_MOREDATA)
+TestDrm_ProcessResponse_VerifySignature("0", "0", data\joinresp_bad_signature.dat, "0", "0", "0") = 0x8004c079 (DRM_E_INVALID_DOMAIN_JOIN_RESPONSE_SIGNATURE)
+TestDrm_ProcessResponse_VerifySignature("0", "0", data\joinresp1.dat, "0", "0", "0") = 0x8004c07a (DRM_E_DOMAIN_JOIN_RESPONSE_SIGNATURE_MISSING)
+TestDrm_ProcessResponse_VerifySignature("0", "0", data\joinresp_corrupted_signingcert.dat, "0", "0", "0") = 0x800480CF (DRM_E_INVALID_SIGNATURE)
+TestDrm_ProcessResponse_VerifySignature("0", "0", data\joinresp_missing_signature.dat, "0", "0", "0") = 0x8004c07a (DRM_E_DOMAIN_JOIN_RESPONSE_SIGNATURE_MISSING)
+TestDrm_ProcessResponse_VerifySignature("0", "0", data\joinresp_missing_signingcert.dat, "0", "0", "0") = 0x8004c07a (DRM_E_DOMAIN_JOIN_RESPONSE_SIGNATURE_MISSING)
+' The next line is temporarily disabled because the signature has expired.  TFS #807816 is tracking as of 2012-Dec-03.
+'TestDrm_ProcessResponse("0", "0", data\joinresp_signature.dat, "0", "0", "0") = 2 (DRM_S_MOREDATA)
+TestDrm_ProcessResponse("0", "0", data\joinresp_bad_signature.dat, "0", "0", "0") = 0x8004c079 (DRM_E_INVALID_DOMAIN_JOIN_RESPONSE_SIGNATURE)
+TestDrm_ProcessResponse("0", "0", data\joinresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_ProcessResponse("0", "0", data\joinresp_corrupted_signingcert.dat, "0", "0", "0") = 0x800480CF (DRM_E_INVALID_SIGNATURE)
+TestDrm_ProcessResponse("0", "0", data\joinresp_missing_signature.dat, "0", "0", "0")
+TestDrm_ProcessResponse("0", "0", data\joinresp_missing_signingcert.dat, "0", "0", "0") = 0x8004c07a (DRM_E_DOMAIN_JOIN_RESPONSE_SIGNATURE_MISSING)
+
+10546:PERF:DISABLED:Generate Domain Join Challenge with Valid Account ID and Valid Friendly Name
+RestoreDeviceStore(InitialCert,InitialStore)
+StartProfiling(10546.dat)
+TestDrm_GenerateChallenge("0", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==", "0", "TestClient", "10", NULL, "0", "0", "0", "joinchallenge4.dat")
+StopProfiling
+
+10547:PERF:DISABLED:Generate Domain Join Challenge with Valid Account ID and Valid Service ID
+RestoreDeviceStore(InitialCert,InitialStore)
+StartProfiling(10547.dat)
+TestDrm_GenerateChallenge("0", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==", NULL, NULL, "0", NULL, "0", "0", "0", "joinchallenge3.dat")
+StopProfiling
+
+10548:PERF:DISABLED:Process a domain join/leave response and generate domain leave challenge with a non empty valid domain ID
+RestoreDeviceStore(InitialCert,InitialStore)
+StartProfiling(10548.dat)
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_GenerateChallenge("1", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, NULL, NULL, NULL, NULL, "0", "0", "0")
+TestDrm_ProcessResponse("1", "0", data\unregistresp1.dat, "0", "0", NULL) = 2 (DRM_S_MORE_DATA)
+StopProfiling
+
+10553:PERF:DISABLED:Check the size of Domain Join Challenge
+TestDrm_GenerateChallenge("0", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==", NULL, NULL, "0", NULL, "0", "0", "0", "joinchallenge3.dat",5252)
+
+10554:PERF:DISABLED:Check the size of Domain Leave Challenge
+TestDrm_ProcessResponse("0", "0", data\registresp1.dat, "0", "0", "0") = 2 (DRM_S_MORE_DATA)
+TestDrm_GenerateChallenge("1", "0", "0", "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, NULL, NULL, NULL, NULL, "0", "0", "0","leavechallenge.dat",5207)

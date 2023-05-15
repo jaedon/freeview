@@ -1,0 +1,28 @@
+rul
+ovc
+pb
+x1 och 0 0
+os
+ow
+c1
+oc
+ow
+c0
+cf 3
+dnr 30 2 80 2 90 2 70
+mad 1 1 0 0 0 1 20
+clear sleep bvncb
+autoformatstress 100
+bvncb
+sleep
+rul
+pb
+c1
+cw
+cd
+c0
+cw
+cs
+cd
+quit
+

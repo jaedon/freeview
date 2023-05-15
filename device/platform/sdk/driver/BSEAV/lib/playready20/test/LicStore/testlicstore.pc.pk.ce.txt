@@ -1,0 +1,1420 @@
+'Daily test cases
+
+'************************************************************************
+'BVT test case
+          
+     
+'test case 8788 is also covered here
+'TFS: 52455: PK: licstore test 10064, others add XML licenses to XMR license stores
+8789:BVT:P0:Add multiple licenses (XML and XMR stores)
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense1.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense2.txt, 4 )
+Test_DRM_LST_Close( XML LS Context, 1 )
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense1.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense2.txt, 4 )
+Test_DRM_LST_Close( XMR LS Context, 1 )
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+'test case 8785 is also covered here 
+8787:BVT:P0:Open and close license store multiple times (XML and XMR stores)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 1 )
+Test_DRM_LST_Close( XMR LS Context, 0 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS )
+Test_DRM_LST_Close( XMR LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+
+'TFS: 52455: PK: licstore test 10064, others add XML licenses to XMR license stores
+8792:BVT:P0:Get an existing license (XML and XMR)
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense3.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense3.txt )
+Test_DRM_LST_GetLicense( XML LS Context, Dump, Dump, NULL, 0, 4 )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense3.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XMR LicenseType, regularlicense3.txt )=0x80004001( DRM_E_NOTIMPL )
+'Test_DRM_LST_GetLicense( XMR LS Context, Dump, Dump, NULL, 0, 4 )
+Test_DRM_LST_Close( XMR LS Context, 1 ) 
+TestLicStoreReinitialize( 0 ) 
+EndIf
+ 
+'test case 8790 is also covered here
+8795:BVT:P0:Add and get a license only containing min license info (XML only)
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, minlicense1.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, minlicense1.txt )
+Test_DRM_LST_GetLicense( XML LS Context, Dump, Dump, NULL, 0, 4 )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+'TFS: 52455: PK: licstore test 10064, others add XML licenses to XMR license stores
+9782:BVT:P0:Enumerate license when there is only one license in the store (XML and XMR)
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense19.txt, 4 )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 19PgSn1czUaZpE4OPSbZbg==, {45227A28-3FEE-4EB5-AF13-F77A5258A919})
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL)=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense19.txt, 4 )
+Test_DRM_LST_InitEnum( XMR LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 19PgSn1czUaZpE4OPSbZbg==, {45227A28-3FEE-4EB5-AF13-F77A5258A919} )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XMR LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10782:BVT:P0:Enumerate license from multiple stores when there is only one license
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 0 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense19.txt, 4 )
+Test_DRM_LST_InitEnumMultiple( BOTH1 LS Context, NULL, 0, Dump, 16 )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 19PgSn1czUaZpE4OPSbZbg==, {45227A28-3FEE-4EB5-AF13-F77A5258A919}, XMR )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, NULL, NULL)=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+Test_DRM_LST_Close( XMR LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+'TFS: 52455: PK: licstore test 10064, others add XML licenses to XMR license stores
+9783:BVT:P0:Enumerate multiple licenses of the same KID (XML and XMR)
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense15.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense16.txt, 4 )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense15.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense16.txt, 4 )
+Test_DRM_LST_InitEnum( XMR LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XMR LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10783:BVT:P0:Enumerate multiple licenses over multiple stores (same KIDs)
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense36.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense38.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense40.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense41.txt, 4 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 0 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense35.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense37.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense42.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense43.txt, 4 )
+Test_DRM_LST_InitEnumMultiple( BOTH1 LS Context, 34PgSn1czUaZpE4OPSbZbg==, 1, Dump, 16 )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A43-3FEE-4EB5-AF13-F77A5258A932}, XMR ) 
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A42-3FEE-4EB5-AF13-F77A5258A932}, XMR )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A41-3FEE-4EB5-AF13-F77A5258A932}, XML )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A40-3FEE-4EB5-AF13-F77A5258A932}, XML )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A38-3FEE-4EB5-AF13-F77A5258A932}, XML )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A37-3FEE-4EB5-AF13-F77A5258A932}, XMR )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A36-3FEE-4EB5-AF13-F77A5258A932}, XML )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A35-3FEE-4EB5-AF13-F77A5258A932}, XMR )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+Test_DRM_LST_Close( XMR LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+'TFS: 52455: PK: licstore test 10064, others add XML licenses to XMR license stores
+9784:BVT:P0:Enumerate multiple licenses of different KIDs (XML and XMR)
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense5.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense6.txt, 4 )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense5.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense6.txt, 4 )
+Test_DRM_LST_InitEnum( XMR LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XMR LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10784:BVT:P0:Enumerate multiple licenses over muliple stores (different KIDs)
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense15.txt, 4, 1 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 0 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense19.txt, 4, 0 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense34.txt, 4, 2 )
+Test_DRM_LST_InitEnumMultiple( BOTH1 LS Context, NULL, 0 Not Prioritized, Dump, 16 )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, NULL, NULL )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, NULL, NULL )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, NULL, NULL )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+Test_DRM_LST_Close( XMR LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10785:BVT:P0:Enumerate multiple licenses over muliple stores with licenses only in one store
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 0 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense41.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense42.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense43.txt, 4 )
+Test_DRM_LST_InitEnumMultiple( BOTH1 LS Context, 34PgSn1czUaZpE4OPSbZbg==, 1, Dump, 16 )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A43-3FEE-4EB5-AF13-F77A5258A932}, XML ) 
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A42-3FEE-4EB5-AF13-F77A5258A932}, XML )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A41-3FEE-4EB5-AF13-F77A5258A932}, XML )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+Test_DRM_LST_Close( XMR LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+'TFS: 52455: PK: licstore test 10064, others add XML licenses to XMR license stores
+1533:BVT:P0:Enum delete licenses when fPriority is true (XML, XMR, and embedded)
+If(WMDRMSupported)
+' XML Store in HDS
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 0 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense36.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense38.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense40.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense41.txt, 4 )
+Test_DRM_LST_InitEnum( XML LS Context, 34PgSn1czUaZpE4OPSbZbg==, 1 Prioritized, Dump, 16 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A41-3FEE-4EB5-AF13-F77A5258A932} )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A40-3FEE-4EB5-AF13-F77A5258A932} )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A38-3FEE-4EB5-AF13-F77A5258A932} )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A36-3FEE-4EB5-AF13-F77A5258A932} )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+' XMR Store in HDS
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 0 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense35.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense37.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense42.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense43.txt, 4 )
+Test_DRM_LST_InitEnum( XMR LS Context, 34PgSn1czUaZpE4OPSbZbg==, 1 Prioritized, Dump, 16 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A43-3FEE-4EB5-AF13-F77A5258A932} )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A42-3FEE-4EB5-AF13-F77A5258A932} )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A37-3FEE-4EB5-AF13-F77A5258A932} )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A35-3FEE-4EB5-AF13-F77A5258A932} )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XMR LS Context, 0 ) 
+' Embedded XMR Store
+TestLicStoreReinitialize( 0 )
+TestLicStoreSetEmbeddedStore( TestEmbeddedStore.dat )
+Test_DRM_LST_Open( EMB LS Context, EMBEDDED DataStore, 0 )
+Test_DRM_LST_InitEnum( EMB LS Context, AVhTknNlJOjo7F6b7HeNxg==, 1 Prioritized, Dump, 16 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, AVhTknNlJOjo7F6b7HeNxg==, {C58BFCC3-08F1-4090-A8E5-F56809A732A3} )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, AVhTknNlJOjo7F6b7HeNxg==, {C58BFCC3-08F1-4090-A8E5-F56809A732A2} )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, AVhTknNlJOjo7F6b7HeNxg==, {C58BFCC3-08F1-4090-A8E5-F56809A732A1} )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, AVhTknNlJOjo7F6b7HeNxg==, {C58BFCC3-08F1-4090-A8E5-F56809A732A0} )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( EMB LS Context, 0 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+'TFS: 52455: PK: licstore test 10064, others add XML licenses to XMR license stores
+10065:BVT:P0:Verify that enumerations are consistent when EnumDelete is used (not prioritized)
+If(WMDRMSupported)
+' XML Store in HDS
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 0 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense36.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense38.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense40.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense41.txt, 4 )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0 Not Prioritized, Dump, 16 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+' XMR Store in HDS
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 0 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense35.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense37.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense42.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense43.txt, 4 )
+Test_DRM_LST_InitEnum( XMR LS Context, NULL, 0 Not Prioritized, Dump, 16 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XMR LS Context, 0 ) 
+' Embedded XMR store
+TestLicStoreReinitialize( 0 )
+TestLicStoreSetEmbeddedStore( TestEmbeddedStore.dat )
+Test_DRM_LST_Open( EMB LS Context, EMBEDDED DataStore, 0 )
+Test_DRM_LST_InitEnum( EMB LS Context, NULL, 0 Not Prioritized, Dump, 16 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, AVhTknNlJOjo7F6b7HeNxg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, AVhTknNlJOjo7F6b7HeNxg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, AVhTknNlJOjo7F6b7HeNxg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, AVhTknNlJOjo7F6b7HeNxg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( EMB LS Context, 0 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10066:BVT:P0:Verify that multiple-store enumeration is consistent when EnumDelete is used (prioritized)
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 0 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense36.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense38.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense40.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense41.txt, 4 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense35.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense37.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense42.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense43.txt, 4 )
+Test_DRM_LST_InitEnumMultiple( BOTH1 LS Context, 34PgSn1czUaZpE4OPSbZbg==, 1, Dump, 16 )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A43-3FEE-4EB5-AF13-F77A5258A932}, XMR ) 
+Test_DRM_LST_EnumDeleteMultiple( Dump )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A42-3FEE-4EB5-AF13-F77A5258A932}, XMR )
+Test_DRM_LST_EnumDeleteMultiple( Dump )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A41-3FEE-4EB5-AF13-F77A5258A932}, XML )
+Test_DRM_LST_EnumDeleteMultiple( Dump )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A40-3FEE-4EB5-AF13-F77A5258A932}, XML )
+Test_DRM_LST_EnumDeleteMultiple( Dump )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A38-3FEE-4EB5-AF13-F77A5258A932}, XML )
+Test_DRM_LST_EnumDeleteMultiple( Dump )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A37-3FEE-4EB5-AF13-F77A5258A932}, XMR )
+Test_DRM_LST_EnumDeleteMultiple( Dump )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A36-3FEE-4EB5-AF13-F77A5258A932}, XML )
+Test_DRM_LST_EnumDeleteMultiple( Dump )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A35-3FEE-4EB5-AF13-F77A5258A932}, XMR )
+Test_DRM_LST_EnumDeleteMultiple( Dump )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 0 )
+Test_DRM_LST_Close( XMR LS Context, 1 )
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10067:BVT:P0:Verify that multiple-store enumeration is consistent when EnumDelete is used (not prioritized)
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 0 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense36.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense38.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense40.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense41.txt, 4 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense35.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense37.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense42.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense43.txt, 4 )
+Test_DRM_LST_InitEnumMultiple( BOTH1 LS Context, 34PgSn1czUaZpE4OPSbZbg==, 1, Dump, 16 )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL ) 
+Test_DRM_LST_EnumDeleteMultiple( Dump )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDeleteMultiple( Dump )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDeleteMultiple( Dump )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDeleteMultiple( Dump )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDeleteMultiple( Dump )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDeleteMultiple( Dump )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDeleteMultiple( Dump )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDeleteMultiple( Dump )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+Test_DRM_LST_Close( XMR LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10068:BVT:P0:Enumerate in reverse priority order (XML and XMR) in a single store
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 0 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense36.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense38.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense40.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense41.txt, 4 )
+Test_DRM_LST_InitReverseEnum( XML LS Context, 34PgSn1czUaZpE4OPSbZbg==, Dump, 16 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A36-3FEE-4EB5-AF13-F77A5258A932} )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A38-3FEE-4EB5-AF13-F77A5258A932} )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A40-3FEE-4EB5-AF13-F77A5258A932} )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A41-3FEE-4EB5-AF13-F77A5258A932} )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 0 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense35.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense37.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense42.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense43.txt, 4 )
+Test_DRM_LST_InitReverseEnum( XMR LS Context, 34PgSn1czUaZpE4OPSbZbg==, Dump, 16 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A35-3FEE-4EB5-AF13-F77A5258A932} )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A37-3FEE-4EB5-AF13-F77A5258A932} )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A42-3FEE-4EB5-AF13-F77A5258A932} )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A43-3FEE-4EB5-AF13-F77A5258A932} ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XMR LS Context, 0 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+-------------------BVT ends here--------------------------
+
+'test case 8791 is also covered here
+8796:DRT:P0:Add and get a license only containing all sort of license info
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, maxlicense1.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, maxlicense1.txt )
+Test_DRM_LST_GetLicense( XML LS Context, Dump, Dump, NULL, 0, 4 )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+8793:DRT:P0:Get license from the one added at different context. 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense4.txt, 4 )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense4.txt )
+Test_DRM_LST_GetLicense( XML LS Context, Dump, Dump, NULL, 0, 4 )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+   
+8794:ADRT:P0:dd multiple license and get them from the same context section
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense5.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense6.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense5.txt )
+Test_DRM_LST_GetLicense( XML LS Context, Dump, Dump, NULL, 0, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense6.txt )
+Test_DRM_LST_GetLicense( XML LS Context, Dump, Dump, NULL, 0, 4 )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+'************************************************************************
+'Negative test case
+
+8875:DRT:P0:Close the store which has been already closed 
+TestLicStoreReinitialize( 30 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_Close( XML LS Context, 0 )  
+Test_DRM_LST_Close( XML LS Context, 1 )= 0X80070057 (DRM_E_INVALIDARG)
+TestLicStoreReinitialize( 0 ) 
+ 
+8864:DRT:P0:Repeatedly get the same license  
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense4.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense4.txt )
+Test_DRM_LST_GetLicense( XML LS Context, Dump, Dump, NULL, 0, 4 ) 
+Test_DRM_LST_GetLicense( XML LS Context, Dump, Dump, NULL, 0, 4 )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 ) 
+EndIf
+
+
+8861:DRT:P0:get a license when the store has been closed
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense3.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense3.txt )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+Test_DRM_LST_GetLicense( XML LS Context, Dump, Dump, NULL, 0, 4 )=0x80070057 ( DRM_E_INVALIDARG )
+TestLicStoreReinitialize( 0 ) 
+EndIf
+
+
+8860:DRT:P0:Add a license when the store has been closed 
+TestLicStoreReinitialize( 30 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense2.txt, 4 )=0x80070057 ( DRM_E_INVALIDARG )
+TestLicStoreReinitialize( 0 ) 
+
+8859:DRT:P0:Repeatedly add the same license  
+If(WMDRMSupported)
+TestLicStoreReinitialize( 30 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense1.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense1.txt, 4 )=0X8004C070 DRM_E_DUPLICATE_LICENSE
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+TestLicStoreReinitialize( 0 ) 
+EndIf
+
+
+'************************************************************************
+'below is invalid argument test cases
+
+2056:DRT:P0:Open license store with empty string
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( NULL, Valid HDS )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_Close( XML LS Context, 1 )=0x80070057 (DRM_E_INVALIDARG)
+TestLicStoreReinitialize( 0 )
+
+8849:DRT:P0:Close the store with NULL pbLicContext 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_Close( NULL, 0 )=0x80070057 ( DRM_E_INVALIDARG ) 
+Test_DRM_LST_Close( XML LS Context, 1 )
+TestLicStoreReinitialize( 0 ) 
+ 
+8822:DRT:P0:Get a license with NULL KID
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense21.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense21.txt )
+Test_DRM_LST_GetLicense( XML LS Context, NULL, Dump, NULL, 0, 20 )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 ) 
+EndIf
+
+
+8821:DRT:P0:Get a license with invalid pLicContext, e.g. empty
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense15.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense15.txt )
+Test_DRM_LST_GetLicense( NULL, Dump, Dump, NULL, 0, 1 )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_GetLicense( XML LS Context, Dump, Dump, NULL, 0, 5 )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_GetLicense( XML LS Context, Dump, Dump, NULL, 0, 0 )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 ) 
+EndIf
+
+
+8829:DRT:P0:Get a license with pbLicense is prepopulated with garbage
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense20.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense20.txt )
+Test_DRM_LST_GetLicense( XML LS Context, Dump, Dump, anything, 9, 4 )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 ) 
+EndIf
+
+
+8828:DRT:P0:Get a license with pbLicense is NULL 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense11.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense11.txt )
+Test_DRM_LST_GetLicense( XML LS Context, Dump, Dump, NULL, 0, 12 ) 
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 ) 
+EndIf
+
+
+8824:DRT:P0:Get a license with NULL LID
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense7.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense7.txt )
+Test_DRM_LST_GetLicense( XML LS Context, Dump, NULL, NULL, 0, 36 )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 ) 
+EndIf
+
+  
+8825:DRT:P0:Get a license with invalid LID, empty string
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense8.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense8.txt )
+Test_DRM_LST_GetLicense( XML LS Context, Dump, EMPTY, NULL, 0, 36 )=-2147172316
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 ) 
+EndIf
+
+
+8826:DRT:P0:Get a license with long LID string ( longer than LID_SIZE )
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense9.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense9.txt )
+Test_DRM_LST_GetLicense( XML LS Context, Dump, anythinganythinganythinganythinganythinganythinganything, NULL, 0, 36 )=-2147172316
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 ) 
+EndIf
+
+  
+8827:DRT:P0:Get a license with long KID string ( longer than KID_SIZE )
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense10.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense10.txt )
+Test_DRM_LST_GetLicense( XML LS Context, anythinganythinganythinganythinganythinganythinganything, Dump, NULL, 0, 20 )=-2147172316
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 ) 
+EndIf
+
+ 
+8823:DRT:P0:Get a license with invalid KID, empty string
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense6.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense6.txt )
+Test_DRM_LST_GetLicense( XML LS Context, EMPTY, Dump, NULL, 0, 20 )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 ) 
+EndIf
+
+  
+8819:DRT:P0:DRM_LicStoreAddLicense, pbLicense is empty or malformed
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, EMPTY, 4 )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, invalidlicense3.txt, 4 )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, invalidlicense4.txt, 4 )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, invalidlicense5.txt, 4 )=0X8004C04F ( DRM_E_XMLNOTFOUND )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, invalidlicense6.txt, 4 )=!DRM_SUCCESS
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, invalidlicense7.txt, 4 )=0X8004C04F ( DRM_E_XMLNOTFOUND )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, invalidlicense8.txt, 4 )=!DRM_SUCCESS
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, invalidlicense9.txt, 4 )=0X8004C04F ( DRM_E_XMLNOTFOUND )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, invalidlicense10.txt, 4 )=0X8004C04F ( DRM_E_XMLNOTFOUND )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, invalidlicense10.txt, 4 )=0X8004C04F ( DRM_E_XMLNOTFOUND )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+'Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+'Test_DRM_LST_AddLicense( XML LS Context, 0, invalidlicense11.txt, 4 )=0x80070057 ( DRM_E_INVALIDARG )
+'Test_DRM_LST_Close( XML LS Context, 1 ) 
+'TestLicStoreReinitialize( 0 )
+'Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+'Test_DRM_LST_AddLicense( XML LS Context, 0, invalidlicense12.txt, 4 )=0x80070057 ( DRM_E_INVALIDARG )
+'Test_DRM_LST_Close( XML LS Context, 1 ) 
+'TestLicStoreReinitialize( 0 )
+'Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+'Test_DRM_LST_AddLicense( XML LS Context, 0, invalidlicense13.txt, 4 )
+'Test_DRM_LST_Close( XML LS Context, 1 ) 
+'TestLicStoreReinitialize( 0 )
+'Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+'Test_DRM_LST_AddLicense( XML LS Context, 0, invalidlicense14.txt, 4 )
+'Test_DRM_LST_Close( XML LS Context, 1 ) 
+'TestLicStoreReinitialize( 0 )
+'Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+'Test_DRM_LST_AddLicense( XML LS Context, 0, invalidlicense15.txt, 4 )=0X8004C04F ( DRM_E_XMLNOTFOUND )
+'Test_DRM_LST_Close( XML LS Context, 1 ) 
+'TestLicStoreReinitialize( 0 )
+'Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+'Test_DRM_LST_AddLicense( XML LS Context, 0, invalidlicense16.txt, 4 )=0X8004C04F ( DRM_E_XMLNOTFOUND )
+'Test_DRM_LST_Close( XML LS Context, 1 ) 
+'TestLicStoreReinitialize( 0 )
+'Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+'Test_DRM_LST_AddLicense( XML LS Context, 0, invalidlicense17.txt, 4 )
+'Test_DRM_LST_Close( XML LS Context, 1 ) 
+'TestLicStoreReinitialize( 0 )
+EndIf
+
+
+8818:DRT:P0:DRM_LicStoreAddLicense, pbLicense contains nonprintable characters 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, invalidlicense2.txt, 4 )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+2058:DRT:P0:Version is not 2.0.0.0
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, invalidlicense1.txt, 4 )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+ 
+8817:DRT:P0:DRM_LicStoreAddLicense, pbLicense is NULL
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, NULL, 4 )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+ 
+8816:DRT:P0:DRM_LicStoreAddLicense, cbLicense is a small number
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 1, regularlicense2.txt, 12 )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+'8815 is also covered here.
+'8814:DRT:P0:DRM_LicStoreAddLicense, cbLicense is a large number
+'TestLicStoreReinitialize( 0 )
+'Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+'Test_DRM_LST_AddLicense( XML LS Context, -1, regularlicense2.txt, 12 )=0x80070216 ( DRM_E_ARITHMETICOVERFLOW )
+'Test_DRM_LST_Close( XML LS Context, 1 ) 
+'TestLicStoreReinitialize( 0 )
+'Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+'Test_DRM_LST_AddLicense( XML LS Context, 75535, regularlicense3.txt, 12 )
+'Test_DRM_LST_Close( XML LS Context, 1 ) 
+'TestLicStoreReinitialize( 0 )
+
+8808:DRT:P0:Open the store when pbLicContext is NULL 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( NULL, Valid HDS )=0x80070057 ( DRM_E_INVALIDARG )
+TestLicStoreReinitialize( 0 )
+
+8812:DRM_LicStoreAddLicense, pbLicContext is NULL 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( NULL, 0, regularlicense1.txt, 5 )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+ 
+8820:DRT:P0:Get a license with NULL pbLicContext
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense4.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense4.txt )
+Test_DRM_LST_GetLicense( NULL, Dump, Dump, NULL, 0, 5 )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 ) 
+EndIf
+
+
+'************************************************************************
+'below are enumeration functions test cases.  
+
+
+9786:DRT:P0:enumerate licenses added to the store at different context 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense15.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense16.txt, 4 )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL)
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL)
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+9787:DRT:P0:initialize the enum context while the store context is NULL 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense15.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense16.txt, 4 )
+Test_DRM_LST_InitEnum( NULL, NULL, 0, Dump, 17 )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+9788:DRT:P0:initialize the enum context while the enum context is NULL 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense15.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense16.txt, 4 )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, NULL, 16 )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL)
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+9789:DRT:P0:enumerate next while the enum context is NULL 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense15.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense16.txt, 4 )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( NULL, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+9790:DRT:P0:enumerate next while the KID and LID are NULLs 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense15.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense16.txt, 4 )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, NULL, NULL, 0, NULL, NULL )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_EnumNext( Dump, NULL, Dump, 0, NULL, NULL )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_EnumNext( Dump, Dump, NULL, 0, NULL, NULL )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+9792:DRT:P0:enumerate next while pcbLicense ( size ) is NULL 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense15.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense16.txt, 4 )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, NULL, NULL, NULL )=0
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+9793:DRT:P0:enumerate next while cbLicense ( size ) is 0, 1, -1
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense15.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense16.txt, 4 )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, -1, 15PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 1, 15PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+9794:DRT:P0:call initialize enum context repeatedly
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense15.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense16.txt, 4 )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+9795:DRT:P0:call initialize enum context while the store has been closed 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense15.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense16.txt, 4 )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 )=0x80070057 ( DRM_E_INVALIDARG )
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+9796:DRT:P0:call enum get next while the store has been closed 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense15.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense16.txt, 4 )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070057 ( DRM_E_INVALIDARG )
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+9797:DRT:P0:call enum get next while the store has no license 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+
+9798:DRT:P0:call enum get next repeatedly while the store has been one license 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense15.txt, 4 )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10051:DRT:P0:Enumerate licenses when the enum context is initialized with given KID. Only one license in the store
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense34.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense34.txt )
+Test_DRM_LST_InitEnum( XML LS Context, Dump, 0, Dump, 0 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+9785:DRT:P0:Enumerate licenses when the enum context is initialized with given KID. More than 10 licenses 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense34.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense35.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense36.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense37.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense38.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense39.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense40.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense41.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense42.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense43.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense44.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense34.txt )
+Test_DRM_LST_InitEnum( XML LS Context, Dump, 0, Dump, 0 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+10786:DRT:P0:Enumerate licenses when the enum context is initialized with given KID. More than 10 licenses, multiple store enumeration
+If(WMDRMSupported)
+' This test case ensures that a store in post-prioritized mode will continue to enumerate licenses after the prioritized list is exhausted
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 0 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense34.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense35.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense36.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense37.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense38.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense39.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense40.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense41.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense42.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense43.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense44.txt, 4 )
+Test_DRM_LST_InitEnumMultiple( BOTH1 LS Context, 34PgSn1czUaZpE4OPSbZbg==, 1, Dump, 16 )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A44-3FEE-4EB5-AF13-F77A5258A932}, XML )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A43-3FEE-4EB5-AF13-F77A5258A932}, XML )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A42-3FEE-4EB5-AF13-F77A5258A932}, XML )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A41-3FEE-4EB5-AF13-F77A5258A932}, XML )
+' regularlicense40 and regularlicense39 have the same priority
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL, XML )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL, XML )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A38-3FEE-4EB5-AF13-F77A5258A932}, XML )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A37-3FEE-4EB5-AF13-F77A5258A932}, XML )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A36-3FEE-4EB5-AF13-F77A5258A932}, XML )
+' regularlicense34 and regularlicense35 have the same priority
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL, XML )
+' This should come from natural enumeration, not prioritized
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL, XML )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+Test_DRM_LST_Close( XMR LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10052:DRT:P0:Enumerate licenses when the enum context is initialized with given KID. Only one matched license 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense34.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense1.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense34.txt )
+Test_DRM_LST_InitEnum( XML LS Context, Dump, 0, Dump, 0 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+ 
+10053:DRT:P0:Enumerate licenses when the enum context is initialized with given KID while no matched license in the store  
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense34.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense1.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense3.txt )
+Test_DRM_LST_InitEnum( XML LS Context, Dump, 0, Dump, 0 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense3.txt )
+Test_DRM_LST_InitEnum( XML LS Context, Dump, 1, Dump, 0 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+ 
+10050:DRT:P0:Enumerate licenses when the enum context is initialized with given KID and fPrioritized=TRUE
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense34.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense35.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense36.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense37.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense38.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense39.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense40.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense41.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense42.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense43.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense34.txt )
+Test_DRM_LST_InitEnum( XML LS Context, Dump, 1, Dump, 0 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10054:DRT:P0:Enumerate licenses when the enum context is initialized with given KID and fPrioritized=TRUE. 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense34.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense34.txt )
+Test_DRM_LST_InitEnum( XML LS Context, Dump, 1, Dump, 0 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10055:DRT:P0:Enumerate licenses and then delete them 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense34.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense35.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense36.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense37.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense38.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense39.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense40.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense41.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense42.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense43.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense44.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense34.txt )
+Test_DRM_LST_InitEnum( XML LS Context, Dump, 0, Dump, 0 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10056:DRT:P0:Enumerate license and delete it when there is only one  
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense34.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense34.txt )
+Test_DRM_LST_InitEnum( XML LS Context, Dump, 0, Dump, 0 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10057:DRT:P0:Enumerate license and delete it when there are mutliple licenses but only one matched. 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense34.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense4.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense34.txt )
+Test_DRM_LST_InitEnum( XML LS Context, Dump, 0, Dump, 0 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10058:DRT:P0:repeatedly enum delete one license 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense34.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense4.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense34.txt )
+Test_DRM_LST_InitEnum( XML LS Context, Dump, 0, Dump, 0 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( Dump, 0 )
+Test_DRM_LST_EnumDelete( Dump, 0 )=-2147172333
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10059:DRT:P0:enum delete one license when the store has been closed 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense34.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense4.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense34.txt )
+Test_DRM_LST_InitEnum( XML LS Context, Dump, 0, Dump, 0 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+Test_DRM_LST_EnumDelete( Dump, 0 )=0x80070057 ( DRM_E_INVALIDARG )
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10060:DRT:P0:enum delete one license when the enum context is NULL 
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense34.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense4.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense34.txt )
+Test_DRM_LST_InitEnum( XML LS Context, Dump, 0, Dump, 0 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, NULL )
+Test_DRM_LST_EnumDelete( NULL, 2 )=0x80070057 ( DRM_E_INVALIDARG )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10061:DRT:P0:enum delete one license w/o calling DRM_LicstoreEnumNext
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense34.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense4.txt, 4 )
+Test_DRM_LST_GetLicenseKeys( XML LicenseType, regularlicense34.txt )
+Test_DRM_LST_InitEnum( XML LS Context, Dump, 0, Dump, 0 ) 
+Test_DRM_LST_EnumDelete( Dump, 0 )=-2147172333
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10062:DRT:P0: Add licenses to XML and XMR stores (open at same time)
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 0 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense34.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense34.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense4.txt, 4 )
+Test_DRM_LST_Close( XML LS Context, 0 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense4.txt, 4 )
+Test_DRM_LST_Close( XMR LS Context, 1 ) 
+EndIf
+
+
+10063:DRT:P0:Delete a license from a XML license store
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense15.txt, 4 )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL)
+Test_DRM_LST_DeleteLicense( XML LS Context, 15PgSn1czUaZpE4OPSbZbg==, {45227A28-3FEE-4EB5-AF13-F77A5258A915} );
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL) = 0x80070103 (DRM_E_NOMORE)
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+EndIf
+
+
+'TFS: 52455: PK: licstore test 10064, others add XML licenses to XMR license stores
+10064:DRT:P0:Delete a license from a XMR license store
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense15.txt, 4 )
+Test_DRM_LST_InitEnum( XMR LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL)
+Test_DRM_LST_DeleteLicense( XMR LS Context, 15PgSn1czUaZpE4OPSbZbg==, {45227A28-3FEE-4EB5-AF13-F77A5258A915} );
+Test_DRM_LST_InitEnum( XMR LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL) = 0x80070103 (DRM_E_NOMORE)
+Test_DRM_LST_Close( XMR LS Context, 1 )
+EndIf
+
+
+'TFS: 52455: PK: licstore test 10064, others add XML licenses to XMR license stores
+10069:DRT:P0:Verify that DRM_LST_EnumNext returns correct license size
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense15.txt, 4 )
+Test_DRM_LST_InitEnum( XMR LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL, 5228 )
+Test_DRM_LST_Close( XMR LS Context, 1 )
+TestLicStoreReinitialize( 0 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 1 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense15.txt, 4 )
+Test_DRM_LST_InitEnum( XML LS Context, NULL, 0, Dump, 16 ) 
+Test_DRM_LST_EnumNext( Dump, Dump, Dump, 0, 15PgSn1czUaZpE4OPSbZbg==, NULL, 5228 )
+Test_DRM_LST_Close( XML LS Context, 1 ) 
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10100:DRT:P0:Enumerate multiple licenses over multiple stores (XMR HDS and XMR Embedded)(same KIDs)
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+TestLicStoreSetEmbeddedStore( NULL )
+Test_DRM_LST_Open( EMB LS Context, EMBEDDED DataStore, 0 )
+Test_DRM_LST_AddLicense( EMB LS Context, 0, regularlicense36.txt, 4 )
+Test_DRM_LST_AddLicense( EMB LS Context, 0, regularlicense38.txt, 4 )
+Test_DRM_LST_AddLicense( EMB LS Context, 0, regularlicense40.txt, 4 )
+Test_DRM_LST_AddLicense( EMB LS Context, 0, regularlicense41.txt, 4 )
+Test_DRM_LST_Open( XMR LS Context, Valid HDS, 0 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense35.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense37.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense42.txt, 4 )
+Test_DRM_LST_AddLicense( XMR LS Context, 0, regularlicense43.txt, 4 )
+Test_DRM_LST_InitEnumMultiple( BOTH2 LS Context, 34PgSn1czUaZpE4OPSbZbg==, 1, Dump, 16 )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A43-3FEE-4EB5-AF13-F77A5258A932}, XMR ) 
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A42-3FEE-4EB5-AF13-F77A5258A932}, XMR )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A41-3FEE-4EB5-AF13-F77A5258A932}, EMB )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A40-3FEE-4EB5-AF13-F77A5258A932}, EMB )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A38-3FEE-4EB5-AF13-F77A5258A932}, EMB )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A37-3FEE-4EB5-AF13-F77A5258A932}, XMR )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A36-3FEE-4EB5-AF13-F77A5258A932}, EMB )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A35-3FEE-4EB5-AF13-F77A5258A932}, XMR )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XMR LS Context, 0 ) 
+Test_DRM_LST_Close( EMB LS Context, 0 )
+TestLicStoreReinitialize( 0 )
+EndIf
+
+
+10101:DRT:P0:Enumerate multiple licenses over multiple stores (XML HDS and XMR Embedded)(same KIDs)
+If(WMDRMSupported)
+TestLicStoreReinitialize( 0 )
+TestLicStoreSetEmbeddedStore( NULL )
+Test_DRM_LST_Open( EMB LS Context, EMBEDDED DataStore, 0 )
+Test_DRM_LST_AddLicense( EMB LS Context, 0, regularlicense36.txt, 4 )
+Test_DRM_LST_AddLicense( EMB LS Context, 0, regularlicense38.txt, 4 )
+Test_DRM_LST_AddLicense( EMB LS Context, 0, regularlicense40.txt, 4 )
+Test_DRM_LST_AddLicense( EMB LS Context, 0, regularlicense41.txt, 4 )
+Test_DRM_LST_Open( XML LS Context, Valid HDS, 0 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense35.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense37.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense42.txt, 4 )
+Test_DRM_LST_AddLicense( XML LS Context, 0, regularlicense43.txt, 4 )
+Test_DRM_LST_InitEnumMultiple( BOTH3 LS Context, 34PgSn1czUaZpE4OPSbZbg==, 1, Dump, 16 )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A43-3FEE-4EB5-AF13-F77A5258A932}, XML ) 
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A42-3FEE-4EB5-AF13-F77A5258A932}, XML )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A41-3FEE-4EB5-AF13-F77A5258A932}, EMB )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A40-3FEE-4EB5-AF13-F77A5258A932}, EMB )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A38-3FEE-4EB5-AF13-F77A5258A932}, EMB )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A37-3FEE-4EB5-AF13-F77A5258A932}, XML )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A36-3FEE-4EB5-AF13-F77A5258A932}, EMB )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, 34PgSn1czUaZpE4OPSbZbg==, {45227A35-3FEE-4EB5-AF13-F77A5258A932}, XML )
+Test_DRM_LST_EnumNextMultiple( Dump, Dump, Dump, 0, NULL, NULL )=0x80070103 ( DRM_E_NOMORE )
+Test_DRM_LST_Close( XML LS Context, 0 ) 
+Test_DRM_LST_Close( EMB LS Context, 0 )
+TestLicStoreReinitialize( 0 )
+EndIf
+

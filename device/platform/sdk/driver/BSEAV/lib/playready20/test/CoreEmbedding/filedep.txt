@@ -1,0 +1,14 @@
+CoreEmbedding.pc.pk.ce.txt
+files\EnvelopeWithEmbeddedLeaf02.eny
+files\EnvelopeForEmbeddingTest01.eny
+files\DomainResponseForEmbeddingTest.dat
+files\DomainResponseForEmbeddingTest02.dat
+$(_DRM_OEM_FILES)\devcerttemplate.dat
+$(_DRM_OEM_FILES)\priv.dat
+$(_DRM_OEM_FILES)\bgroupcert.dat
+$(_DRM_OEM_FILES)\zgpriv.dat
+$(_DRM_OEM_FILES)\zprivsig.dat
+$(_DRM_OEM_FILES)\zprivencr.dat
+$(_DRM_OEM_FILES)\devcert.dat
+$(_DRM_OEM_FILES)\bdevcert.dat
+

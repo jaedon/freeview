@@ -1,0 +1,16 @@
+
+TARGETNAME=tstutils
+TARGETTYPE=LIBRARY
+
+#We always link in oemtime_test.lib
+C_DEFINES = $(C_DEFINES)                     \
+            -DDRM_TEST_USE_OFFSET_CLOCK=1    \
+
+#DRM_MODULE_CFLAGS += -DDRM_TEST_USE_OFFSET_CLOCK=1
+
+SOURCES = \
+	tstutils.c \
+	tstHDSutils.c \
+	tstXMLutils.c \
+	stubcert.c \
+    NdtDrmXmr.c \

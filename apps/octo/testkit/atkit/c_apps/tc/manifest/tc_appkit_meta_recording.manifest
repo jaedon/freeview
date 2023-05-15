@@ -1,0 +1,91 @@
+{
+	"RUN_ALL": false,
+
+	"RUN_CATEGORY":[
+		"all"
+		],
+
+	"RUN_TC":[
+
+		],
+	"TC_LIST":[
+		{
+			"tc_name": "TC_APPKIT_Meta_Recording_All",
+			"category": ["all"],
+			"argument": {
+				"StartInfo": {
+					"eSuppSvcType": 0,
+					"nStartOffset": 0,
+					"ulDuration": 35,
+					"eStorageType": 1, 
+					"szName": "Meta Testing"
+				},
+				"rename": {
+					"new_name": "All Testing"
+				},
+				"copy": {
+					"PathCopyto": "/media/drive1/.recordings/"
+				},
+				"delete": {}
+			},
+			"expect_result": {
+				"result": 0
+			}
+		},
+		{
+			"tc_name": "TC_APPKIT_Meta_Recording_Rename",
+			"category": ["rename"],
+			"argument": {
+				"StartInfo": {
+					"eSuppSvcType": 0,
+					"nStartOffset": 0,
+					"ulDuration": 35,
+					"eStorageType": 1, 
+					"szName": "Meta Testing"
+				},
+				"rename": {
+					"new_name": "Rename Testing"
+				}
+			},
+			"expect_result": {
+				"result": 0
+			}
+		},
+		{
+			"tc_name": "TC_APPKIT_Meta_Recording_Copy",
+			"category": ["copy"],
+			"argument": {
+				"StartInfo": {
+					"eSuppSvcType": 0,
+					"nStartOffset": 0,
+					"ulDuration": 35,
+					"eStorageType": 1, 
+					"szName": "Copy Testing"
+				},
+				"copy": {
+					"PathCopyto": "/media/drive1/.recordings/"
+				}
+			},
+			"expect_result": {
+				"result": 0
+			}
+		},
+		{
+			"tc_name": "TC_APPKIT_Meta_Recording_Delete",
+			"category": ["delete"],
+			"argument": {
+				"StartInfo": {
+					"eSuppSvcType": 0,
+					"nStartOffset": 0,
+					"ulDuration": 35,
+					"eStorageType": 1, 
+					"szName": "Delete Testing"
+				}
+			},
+			"expect_result": {
+				"result": 0
+			}
+		}
+	]
+}
+

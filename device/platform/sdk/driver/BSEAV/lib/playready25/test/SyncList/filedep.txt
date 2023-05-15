@@ -1,0 +1,7 @@
+Testsynclist.pc.pk.ce.txt
+$(_DRM_REFCODE_TEST_FILES)\testcerts.txt
+$(_DRM_OEM_FILES)\devcerttemplate.dat
+$(_DRM_OEM_FILES)\priv.dat
+$(_DRM_OEM_FILES)\bgroupcert.dat
+$(_DRM_OEM_FILES)\zgpriv.dat
+header1.xml

@@ -1,0 +1,253 @@
+<h2 class=title id=9670>9670 -- GetClientID should return the proper client info</h2>
+<pre>
+Start test case #9670 at 2012-09-03 00:58:53
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\DRMDeviceStore.hds
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\keyfile.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\devcert.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\bdevcert.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\ndrcert.dat
+
+1>2012-09-03 00:58:53	If( WMDRMSupported )
+1>2012-09-03 00:58:53	Condition WMDRMSupported was met
+1>2012-09-03 00:58:53	If : One or more of the conditions were met
+1>2012-09-03 00:58:53	Test_API_GetClientID( GLOBAL, NORMAL )
+1>2012-09-03 00:58:53	Test_VerifyClientID( )
+1>2012-09-03 00:58:53	EndIf( )
+</pre>
+<br/>
+Time=0 ms
+<br/>
+Result="PASS" at 		2012-09-03 00:58:53
+<h2 class=title id=9677>9677 -- CanBind should return DRM_SUCCESS for valid binding info</h2>
+<pre>
+Start test case #9677 at 2012-09-03 00:58:53
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\devcert.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\bdevcert.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\ndrcert.dat
+
+1>2012-09-03 00:58:53	If( WMDRMSupported )
+1>2012-09-03 00:58:53	Condition WMDRMSupported was met
+1>2012-09-03 00:58:53	If : One or more of the conditions were met
+1>2012-09-03 00:58:53	Test_CreateBindingInfo( 0 GLOBAL, VALID )
+1>2012-09-03 00:58:53	Test_API_CanBind( 0 GLOBAL, NORMAL )
+1>2012-09-03 00:58:53	EndIf( )
+</pre>
+<br/>
+Time=0 ms
+<br/>
+Result="PASS" at 		2012-09-03 00:58:53
+<h2 class=title id=9690>9690 -- CipherKeySetup should return DRM_SUCCESS for valid binding info</h2>
+<pre>
+Start test case #9690 at 2012-09-03 00:58:53
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\devcert.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\bdevcert.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\ndrcert.dat
+
+1>2012-09-03 00:58:53	If( WMDRMSupported )
+1>2012-09-03 00:58:53	Condition WMDRMSupported was met
+1>2012-09-03 00:58:53	If : One or more of the conditions were met
+1>2012-09-03 00:58:53	Test_CreateBindingInfo( 0 GLOBAL, VALID )
+1>2012-09-03 00:58:53	Test_API_CipherKeySetup( 0 GLOBAL, 0 GLOBAL, NORMAL )
+1>2012-09-03 00:58:53	EndIf( )
+</pre>
+<br/>
+Time=0 ms
+<br/>
+Result="PASS" at 		2012-09-03 00:58:53
+<h2 class=title id=9685>9685 -- DecryptLicense should decrypt license encrypted with the blackbox public key</h2>
+<pre>
+Start test case #9685 at 2012-09-03 00:58:53
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\devcert.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\bdevcert.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\ndrcert.dat
+
+1>2012-09-03 00:58:53	If( WMDRMSupported )
+1>2012-09-03 00:58:53	Condition WMDRMSupported was met
+1>2012-09-03 00:58:53	If : One or more of the conditions were met
+1>2012-09-03 00:58:53	Test_GenRandomBlob( 0 GLOBAL, 5000 bytes )
+1>2012-09-03 00:58:53	Test_PKEncryptLarge( 0 GLOBAL, 5000 bytes, 1 GLOBAL, 7 )
+1>2012-09-03 00:58:53	Test_API_DecryptLicense( 1 GLOBAL, 5000 bytes, 2 GLOBAL, NORMAL )
+1>2012-09-03 00:58:53	Test_BlobOps( memcmp, 0, 2, 5000 bytes )
+1>2012-09-03 00:58:53	EndIf( )
+</pre>
+<br/>
+Time=0 ms
+<br/>
+Result="PASS" at 		2012-09-03 00:58:53
+<h2 class=title id=90000>90000 -- BVT:P0:Test DRM_BBX_SymmetricCipher Encrypt and Decrypt with Legacy crypto</h2>
+<pre>
+Start test case #90000 at 2012-09-03 00:58:53
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\devcert.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\bdevcert.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\ndrcert.dat
+
+1>2012-09-03 00:58:53	Test_SetRandomSeed( FIXED )
+1>2012-09-03 00:58:53	Setting random seed to default value: ( 25B946EB, C0B36173 )
+1>2012-09-03 00:58:53	TestBBXSymmetricCipher( TRUE, 7, 16 )
+1>2012-09-03 00:58:53	TestBBXSymmetricCipher( TRUE, 7, 128 )
+</pre>
+<br/>
+Time=10 ms
+<br/>
+Result="PASS" at 		2012-09-03 00:58:53
+<h2 class=title id=90010>90010 -- BVT:P0:Test DRM_BBX_SymmetricCipher Encrypt and Decrypt with new crypto</h2>
+<pre>
+Start test case #90010 at 2012-09-03 00:58:53
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\devcert.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\bdevcert.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\ndrcert.dat
+
+1>2012-09-03 00:58:53	Test_SetRandomSeed( FIXED )
+1>2012-09-03 00:58:53	Setting random seed to default value: ( 25B946EB, C0B36173 )
+1>2012-09-03 00:58:53	TestBBXSymmetricCipher( FALSE, AES128KEY, 256 )
+1>2012-09-03 00:58:53	TestBBXSymmetricCipher( FALSE, AES128KEY, 512 )
+1>2012-09-03 00:58:53	TestBBXSymmetricCipher( FALSE, AES128KEY, 1024 )
+</pre>
+<br/>
+Time=0 ms
+<br/>
+Result="PASS" at 		2012-09-03 00:58:53
+<h2 class=title id=90020>90020 -- BVT:P0:Test DRM_BBX_SymmetricCipher Encrypt and Decrypt In Place with Legacy crypto</h2>
+<pre>
+Start test case #90020 at 2012-09-03 00:58:53
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\devcert.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\bdevcert.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\ndrcert.dat
+
+1>2012-09-03 00:58:53	Test_SetRandomSeed( FIXED )
+1>2012-09-03 00:58:53	Setting random seed to default value: ( 25B946EB, C0B36173 )
+1>2012-09-03 00:58:53	TestBBXSymmetricCipher( TRUE, 7, 16, NULL )
+1>2012-09-03 00:58:53	TestBBXSymmetricCipher( TRUE, 7, 128, NULL )
+</pre>
+<br/>
+Time=0 ms
+<br/>
+Result="PASS" at 		2012-09-03 00:58:53
+<h2 class=title id=90030>90030 -- BVT:P0:Test DRM_BBX_SymmetricCipher Encrypt and Decrypt In Place with new crypto</h2>
+<pre>
+Start test case #90030 at 2012-09-03 00:58:53
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\devcert.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\bdevcert.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\ndrcert.dat
+
+1>2012-09-03 00:58:53	Test_SetRandomSeed( FIXED )
+1>2012-09-03 00:58:53	Setting random seed to default value: ( 25B946EB, C0B36173 )
+1>2012-09-03 00:58:53	TestBBXSymmetricCipher( FALSE, AES128KEY, 256, NULL )
+1>2012-09-03 00:58:53	TestBBXSymmetricCipher( FALSE, AES128KEY, 512, NULL )
+1>2012-09-03 00:58:53	TestBBXSymmetricCipher( FALSE, AES128KEY, 1024, NULL )
+</pre>
+<br/>
+Time=0 ms
+<br/>
+Result="PASS" at 		2012-09-03 00:58:53
+<h2 class=title id=90100>90100 -- BVT:P0:Test DRM_BBX_ECC256_Decrypt for success with a passed in PUBKEY</h2>
+<pre>
+Start test case #90100 at 2012-09-03 00:58:53
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\devcert.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\bdevcert.dat
+
+1>2012-09-03 00:58:53	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\ndrcert.dat
+
+1>2012-09-03 00:58:54	Test_SetRandomSeed( FIXED )
+1>2012-09-03 00:58:54	Setting random seed to default value: ( 25B946EB, C0B36173 )
+1>2012-09-03 00:58:54	Test_ECCP256_Decrypt( 0 NO OPTs )
+</pre>
+<br/>
+Time=0 ms
+<br/>
+Result="PASS" at 		2012-09-03 00:58:54
+<h2 class=title id=90110>90110 -- BVT:P0:Test DRM_BBX_ECC256_Decrypt for success with zeroed PUBKEY</h2>
+<pre>
+Start test case #90110 at 2012-09-03 00:58:54
+1>2012-09-03 00:58:54	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\devcert.dat
+
+1>2012-09-03 00:58:54	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\bdevcert.dat
+
+1>2012-09-03 00:58:54	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\ndrcert.dat
+
+1>2012-09-03 00:58:54	Test_SetRandomSeed( FIXED )
+1>2012-09-03 00:58:54	Setting random seed to default value: ( 25B946EB, C0B36173 )
+1>2012-09-03 00:58:54	Test_ECCP256_Decrypt( 128 OPT_ZERO_PUBKEY )
+</pre>
+<br/>
+Time=10 ms
+<br/>
+Result="PASS" at 		2012-09-03 00:58:54
+<h2 class=title id=90120>90120 -- BVT:P0:Test DRM_BBX_ECC256_Decrypt for success with mismatched PUBKEY</h2>
+<pre>
+Start test case #90120 at 2012-09-03 00:58:54
+1>2012-09-03 00:58:54	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\devcert.dat
+
+1>2012-09-03 00:58:54	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\bdevcert.dat
+
+1>2012-09-03 00:58:54	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\ndrcert.dat
+
+1>2012-09-03 00:58:54	Test_SetRandomSeed( FIXED )
+1>2012-09-03 00:58:54	Setting random seed to default value: ( 25B946EB, C0B36173 )
+1>2012-09-03 00:58:54	Test_ECCP256_Decrypt( 256 OPT_MISMATCH_PUBKEY )
+1>2012-09-03 00:58:54	dr=0X8004D502 at ../blackboxtest.c : 592.
+DRM_BBX_ECC256_Decrypt( ( ( dwOption & OPT_NULL_BBCONTEXT ) != 0 ) ? NULL : &g_BBContext, ( ( dwOption & OPT_NULL_DATAPOINTER ) != 0 ) ? NULL : oCipherData.m_rgbCiphertext, ( ( dwOption & OPT_NULL_SIZEPOINTER ) != 0 ) ? NULL : &cbCipherData, ( ( dwOption & OPT_NULL_PUBKEY ) != 0 ) ? NULL : &oPubKey )
+
+</pre>
+<br/>
+Time=10 ms
+<br/>
+Result="PASS" at 		2012-09-03 00:58:54
+<h2 class=title id=90200>90200 -- BVT:P0:Test DRM_BBX_ECC256_Sign for success</h2>
+<pre>
+Start test case #90200 at 2012-09-03 00:58:54
+1>2012-09-03 00:58:54	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\devcert.dat
+
+1>2012-09-03 00:58:54	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\bdevcert.dat
+
+1>2012-09-03 00:58:54	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\ndrcert.dat
+
+1>2012-09-03 00:58:54	Test_SetRandomSeed( FIXED )
+1>2012-09-03 00:58:54	Setting random seed to default value: ( 25B946EB, C0B36173 )
+1>2012-09-03 00:58:54	Test_ECCP256_Sign_Verify( 24 )
+1>2012-09-03 00:58:54	Test_ECCP256_Sign_Verify( 100 )
+1>2012-09-03 00:58:54	Test_ECCP256_Sign_Verify( 512 )
+</pre>
+<br/>
+Time=20 ms
+<br/>
+Result="PASS" at 		2012-09-03 00:58:54
+<h2 class=title id=90230>90230 -- BVT:P0:Test Symmetric Sign with valid inputs</h2>
+<pre>
+Start test case #90230 at 2012-09-03 00:58:54
+1>2012-09-03 00:58:54	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\devcert.dat
+
+1>2012-09-03 00:58:54	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\bdevcert.dat
+
+1>2012-09-03 00:58:54	 		From tRemoveFile - Failed to Remove file /home/juyou/project/utils/Device_PK_2.0.0_working/test/blackbox/exe\ndrcert.dat
+
+1>2012-09-03 00:58:54	If( WMDRMSupported )
+1>2012-09-03 00:58:54	Condition WMDRMSupported was met
+1>2012-09-03 00:58:54	If : One or more of the conditions were met
+1>2012-09-03 00:58:54	Test_SymmetricSign( NULL, 100 )
+1>2012-09-03 00:58:54	Test_SymmetricSign( NULL, 1 )
+1>2012-09-03 00:58:54	EndIf( )
+</pre>
+<br/>
+Time=0 ms
+<br/>
+Result="PASS" at 		2012-09-03 00:58:54

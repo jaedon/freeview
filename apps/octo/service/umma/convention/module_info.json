@@ -1,0 +1,13 @@
+{
+	"null" : {
+				"base" : { 
+                     "gen": 
+                                ["[umma]/main/module/[d_name]/",
+								"[umma]/main/module/[d_name]/umma_[name].c",
+								"[umma]/main/module/[d_name]/Makefile",
+                                "[umma]/main/module/[d_name]/include/",
+                                "[umma]/main/module/[d_name]/include/umma_[name].h"
+                               ]
+                         }
+				}
+}

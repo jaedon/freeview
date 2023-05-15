@@ -1,0 +1,9 @@
+##########################################
+# DI DSC configuration menu
+##########################################
+
+config MUX
+	bool
+	prompt "MUX"
+	default n
+

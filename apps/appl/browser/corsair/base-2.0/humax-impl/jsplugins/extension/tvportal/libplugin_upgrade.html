@@ -1,0 +1,60 @@
+<html>
+<head>
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="pragma" content="no-cache" />
+</head>
+
+<body style="background-color:#FFFFFF">
+<object type="valups/upgrade" id="system" width=200 height=200></object>
+<div id="info" style="margin:10px;">
+<b>Select Movie:</b><br>
+1: Normal Upgrade <br>
+1: Forced Upgrade <br>
+(available buttons: blue (clear log))<br>
+</div>
+<div id="outputNode" style="clear:left;margin-left:10px;";></div>
+
+<script language="javascript">
+
+try {
+	var upgrade = document.getElementById('upgrade');
+	var outputNode = document.getElementById('outputNode');
+	var startTime = new Date().getTime();
+}
+catch(e)
+{
+	alert(e);
+}
+
+	function output(text) {
+		outputNode.innerHTML += "<br>["+(new Date().getTime()-startTime)+"] "+text;
+	}
+
+	function clearLog() {
+		outputNode.innerHTML = "[0] Log:";
+	}
+
+	document.onkeypress = function(event) { 
+		var data = "";
+		switch (event.keyCode || event.which) {
+			case 49:
+				output("Normal Upgrade");
+				upgrade.upgrade("tftp://10.0.10.2/mode/image", "1.0.1");
+				break;
+			case 50:
+				output("Forced Upgrade");
+				upgrade.forcedupgrade("tftp://10.0.10.2/mode/image", "1.0.1");
+				break;
+			case 406:clearLog();break;
+		}
+	};
+
+	function init()
+	{
+		/* nothing */
+	}
+
+</script>
+
+</body onload="init()">
+</html>

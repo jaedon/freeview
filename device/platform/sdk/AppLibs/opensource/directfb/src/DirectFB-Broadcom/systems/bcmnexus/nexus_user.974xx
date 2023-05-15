@@ -1,0 +1,53 @@
+#!/bin/sh
+#
+# (C)2007-2011 Broadcom Corporation
+# This script prepares a settop/dtv for the DirectFB driver.
+
+#
+# Simple function to return a version identifier
+#
+make_ver ()
+{
+    RETVAL=$(($1*65536+$2*256+$3))
+}
+
+# Test for zombie processes still connected to our driver
+BIN_DIR/killer.sh
+
+# Remove all possible drivers
+if [ "`cat /proc/devices | grep brcm`" != "" ]; then
+    /sbin/rmmod bcmdriver
+fi
+if [ "`cat /proc/devices | grep nexus`" != "" ]; then
+    /sbin/rmmod nexus
+fi
+if [ "`cat /proc/devices | grep fusion`" != "" ]; then
+    /sbin/rmmod fusion
+fi
+
+# Install the user-mode driver.
+# This means that the porting interface runs in user mode.
+
+# Work out what the kernel version is
+fusion_ver_maj=`uname -r | cut -d\- -f1 | cut -d\. -f1`
+fusion_ver_min=`uname -r | cut -d\- -f1 | cut -d\. -f2`
+fusion_ver_mic=`uname -r | cut -d\- -f1 | cut -d\. -f3`
+
+make_ver $fusion_ver_maj $fusion_ver_min $fusion_ver_mic
+fusion_ver_tot=$RETVAL
+make_ver 2 6 37
+fusion_ver_lim=$RETVAL
+
+# Now work out what is the preferred virtual address for fusion
+# to reside in memory and the size.
+fusion_base_size=0x10000000
+if [ $fusion_ver_tot -ge $fusion_ver_lim ]; then
+fusion_base_addr=0x20000000
+else
+fusion_base_addr=0x50010000
+fi
+
+# Insmod the fusion and bcmdriver kernel modules
+[ -e MODULES_DIR/fusion.ko ] && /sbin/insmod MODULES_DIR/fusion.ko fusion_shm_base=$fusion_base_addr fusion_shm_size=$fusion_base_size
+/sbin/insmod MODULES_DIR/bcmdriver.ko || exit
+

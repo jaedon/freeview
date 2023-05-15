@@ -1,0 +1,40 @@
+10401:Successful scenarios for testing command line parsing (single char command option)
+TestCommandLineParser("-c:myfile.txt,extradata", "c", "myfile.txt", "extradata")
+TestCommandLineParser("/C:myfile.txt", "C", "myfile.txt")
+TestCommandLineParser("-1", "1")
+TestCommandLineParser("/1 -4", "1")
+TestCommandLineParser("/1 -4", "5")=0X8004C31E (DRM_E_TEST_UNEXPECTED_OUTPUT) command option was not found
+TestCommandLineParser("/c:myfile.txt -b:anotherparam,extradata", "b", "anotherparam", "extradata")
+TestCommandLineParser("/c:myfile.txt,extradata,more", "c", "myfile.txt", "extradata,more")=0 (DRM_SUCCESS) One extra data only
+TestCommandLineParser("-c:,extra", "c", "", "extra")=0 (DRM_SUCCESS) Empty value is allowed
+TestCommandLineParser("-c:,", "c", "", "")=0 (DRM_SUCCESS) Empty value and extra data are allowed
+
+10402:Wrongful scenarios for testing command line parsing (single char command option)
+TestCommandLineParser("", "")=0X8004C308 (DRM_E_TEST_INVALIDARG) expecting at least 1 parameter
+TestCommandLineParser("-", "")=0X8004C32A (DRM_E_TEST_PARSING_ERROR)
+TestCommandLineParser("/", "")=0X8004C32A (DRM_E_TEST_PARSING_ERROR)
+TestCommandLineParser("/1 -4", "5")=0X8004C31E (DRM_E_TEST_UNEXPECTED_OUTPUT) command option was not found
+TestCommandLineParser("/c:myfile.txt", "C", "myfile.txt")=0X8004C31E (DRM_E_TEST_UNEXPECTED_OUTPUT) command option is case sensitive
+TestCommandLineParser("-c,extra", "c", "", "extra")=0X8004C32A (DRM_E_TEST_PARSING_ERROR) Typo, factual option is "c,extra"
+
+10411:Successful scenarios for testing command line parsing (multi char command option)
+TestCommandLineParserMultiChar("-cmd:myfile.txt,extradata", "cmd", "myfile.txt", "extradata")
+TestCommandLineParserMultiChar("/Cmd:myfile.txt", "Cmd", "myfile.txt")
+TestCommandLineParserMultiChar("-123", "123")
+TestCommandLineParserMultiChar("/123 -456", "123")
+TestCommandLineParserMultiChar("/123 -456", "456")
+TestCommandLineParserMultiChar("/123 -456", "45")=0X8004C31E (DRM_E_TEST_UNEXPECTED_OUTPUT) command option was not found
+TestCommandLineParserMultiChar("/c:myfile.txt -b:anotherparam,extradata", "b", "anotherparam", "extradata")
+TestCommandLineParserMultiChar("/cmd:myfile.txt,extradata,more", "cmd", "myfile.txt", "extradata,more")=0 (DRM_SUCCESS) One extra data only
+TestCommandLineParserMultiChar("-cmd:,Extra", "cmd", "", "Extra")=0 (DRM_SUCCESS) Empty value is allowed
+TestCommandLineParserMultiChar("-CMD:,", "CMD", "", "")=0 (DRM_SUCCESS) Empty value and extra data are allowed
+TestCommandLineParserMultiChar("test.wma",EMPTY,"test.wma","")
+
+10412:Wrongful scenarios for testing command line parsing (multi char command option)
+TestCommandLineParserMultiChar("", "")=0X8004C308 (DRM_E_TEST_INVALIDARG) expecting at least 1 parameter
+TestCommandLineParserMultiChar("-", "")=0X8004C32A (DRM_E_TEST_PARSING_ERROR)
+TestCommandLineParserMultiChar("/", "")=0X8004C32A (DRM_E_TEST_PARSING_ERROR)
+TestCommandLineParserMultiChar("/1 -4", "5")=0X8004C31E (DRM_E_TEST_UNEXPECTED_OUTPUT) command option was not found
+TestCommandLineParserMultiChar("/123 -124", "12")=0X8004C31E (DRM_E_TEST_UNEXPECTED_OUTPUT) command option was not found
+TestCommandLineParserMultiChar("/Cmd:myfile.txt", "cmd", "myfile.txt")=0X8004C31E (DRM_E_TEST_UNEXPECTED_OUTPUT) command option is case sensitive
+TestCommandLineParserMultiChar("-cmd,extra", "cmd", "", "extra")=0X8004C31E (DRM_E_TEST_UNEXPECTED_OUTPUT) Typo, factual option is "cmd,extra"

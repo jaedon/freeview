@@ -1,0 +1,351 @@
+#wiz{
+  .cont {
+    margin: 35px 0 69px;
+    text-align: center;
+    height: 521px;
+    position: relative;
+    .button {
+      width: 250px;
+      color: #d2d2d2;
+      &.double {
+        width: 212px;
+      }
+    }
+  }
+  .ins {
+    position: relative;
+    width: 1031px;
+    height: 207px;
+    margin: 60px 0 0 92px;
+    background: url(../../../images/320_WIZ_EU_Process.png) no-repeat -10px 0;
+    li {
+      display: inline-block;
+      overflow: hidden;
+      float: left;
+      width: 205px;
+      margin: 82px 54px 88px 0;
+      font-size: 34px;
+      word-break:break-all;
+      color: #fff;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+  h1 {
+    overflow: hidden;
+    position: relative;
+    margin: 0 0 16px;
+    line-height: 67px;
+    border-bottom: 1px solid rgba(255,255,255,.3);
+    font-size: 60px;
+    color: #e6e6e6;
+    .step1, .step2, .step3, .step4 {
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      bottom: 12px;
+      width: 79px;
+      height: 27px;
+    }
+    .step1 {
+      background: url(../../../images/320_WIZ_EU_Step01.png) no-repeat 0 0;
+    }
+    .step2 {
+      background: url(../../../images/320_WIZ_EU_Step02.png) no-repeat 0 0;
+    }
+    .step3 {
+      background: url(../../../images/320_WIZ_EU_Step03.png) no-repeat 0 0;
+    }
+    .step4 {
+      background: url(../../../images/320_WIZ_EU_Step04.png) no-repeat 0 0;
+    }
+  }
+  .menu {
+    position: relative;
+    width: 773px;
+    margin: 15px 0 0;
+    li {
+      position: relative;
+      height: 60px;
+      line-height: 60px;
+      padding: 0 20px;
+      text-align: left;
+      em {
+        position: absolute;
+        right: 20px;
+        top: 0;
+      }
+    }
+    .dep1{
+      li {
+        background: rgba(255,255,255,.15);
+        color: #d2d2d2;
+
+        position: relative;
+        margin: 0 0 10px;
+        font-size: 28px;
+
+        &.on {
+          background: #2eb2ff;
+          color: #000;
+        }
+        &.his {
+          background: rgba(46,178,255,.25);
+          color: #fff;
+        }
+        &.dis {
+          background: rgba(255,255,255,.05);
+          color: rgba(80,80,80,.5);
+        }
+      }
+      .on{
+        &:after {
+          content: "";
+          position: absolute;
+          top: 15px;
+          right: -36px;
+          width: 30px;
+          height: 30px;
+          background: url(../../../images/106_Arrow_Right.png) no-repeat;
+        }
+      }
+      position: absolute;
+      left: 0;
+      width: 773px;
+    }
+    .dep2{
+      &.active+{
+        .dep1{
+          .his {
+            background: #414141;
+            color: #919191;
+            z-index: 1;
+          }
+        }
+      }
+      li {
+        color: #fff;
+        background: none;
+        font-size: 36px;
+        margin-bottom: 10px;
+        &.on {
+          color: #2eb2ff;
+        }
+        &.his {
+          color: #135c86;
+        }
+        &.dis {
+          color: rgba(80,80,80,1);
+        }
+      }
+      .item {
+        width: 347px;
+      }
+      display: none;
+      position: absolute;
+      left: 784px;
+      top: 0;
+      width: 386px;
+      height: 541px;
+
+      em {
+        display: none;
+      }
+      &.active{
+        display: block;
+        left: 775px;
+        z-index: 1;
+        &:after {
+          content: "";
+          position: absolute;
+          left: -835px;
+          top: -330px;
+          width: 1280px;
+          height: 720px;
+          /* background: rgba(0,0,0,.8); */
+          z-index: -1;
+        }
+      }
+    }
+    .item, .value, .item2, .item3 {
+       display: inline-block;
+       overflow: hidden;
+       text-overflow: ellipsis;
+       white-space: nowrap;
+     }
+    .value {
+      width: 210px;
+      text-align: right;
+    }
+    &.root {
+      .his .item, .dep2 .item {
+        width: 356px;
+      }
+    }
+    .item2 {
+      width: 613px;
+    }
+    .item3 {
+      width: 730px;
+    }
+    .icoStorage .item3 {
+      width: 680px;
+    }
+  }
+}
+
+#DIA {
+  #trailer {
+    position: absolute;
+    background: url(../../../images/614_BG_Trailer.png) no-repeat;
+    width: 800px;
+    height: 400px;
+    #minipop {
+      position: absolute;
+      &.dimTrailer {
+        position: absolute;
+        .minimessage {
+          margin-top: 30px;
+          margin-left: 30px;
+          .txt {
+            .greenbtn {
+              display: inline-block;
+              width: 168px;
+              height: 30px;
+              margin:0 10px;
+              background: url(../../../images/614_Trailer_icon.png) no-repeat;
+            }
+            .OK {
+              display: inline-block;
+              width: 39px;
+              height: 39px;
+              margin:0 10px;
+              background: url(../../../images/351_LTV_OK.png) no-repeat;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#DIA {
+  #trailer2 {
+    position: absolute;
+    width: 1280px;
+    height: 720px;
+    background: url(../../../images/614_BG_Trailer2.png) no-repeat;
+    text-align:center;
+    .cont {
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      left: 60px;
+      width: 558px;
+      height: 535px;
+      margin: 77px 0 0;
+      font-size: 26px;
+      font-family: HelveticaL;
+      color: #bebebe
+    }
+    .wrap_title {
+      position: absolute;
+      top: 65px;
+      left: 88px;
+      width: 492px;
+      height: 80px;
+    }
+    .tit_tr {
+      position:absolute;
+      font-size: 44px;
+      color: #fff;
+      width:492px;
+      padding:6px 0;
+      margin:0 auto;
+      word-break: break-all;
+    }
+    .icon {
+      position: absolute;
+      left: -20px;
+      top: -30px;
+      width: 33px;
+      height: 28px;
+      margin:9px 5px 0;
+      &.rec {
+        background: url(../../../images/205_REC_Reservation_Recording.png) no-repeat;
+      }
+      &.rec_series {
+        background: url(../../../images/205_REC_Reservation_Series.png) no-repeat;
+      }
+      &.remind {
+        background: url(../../../images/205_REC_Reservation_Watch.png) no-repeat;
+      }
+    }
+    .desp {
+      position: absolute;
+      left: 0px;
+      width: 550px;
+      height: 232px;
+      line-height: 34px;
+      margin: 99px 0 0 0;
+      padding:10px 0;
+      font-family:HelveticaL;
+      font-size: 24px;
+      text-align:left;
+      overflow: hidden;
+      word-break: break-all;
+    }
+    .ep {
+      position: absolute;
+      top: 512px;
+      left: 60px;
+      width: 550px;
+      .button {
+        width: 550px;
+        height: 45px;
+        line-height: 44px;
+        margin: 0 0 8px;
+        padding:5px 0;
+        font-size:28px;
+      }
+    }
+    .paging_tra {
+      position: absolute;
+      top: 89px;
+      left: 54px;
+      .pagingPrv {
+        position: absolute;
+        display: inline-block;
+        width: 33px;
+        height: 28px;
+        background: url(../../../images/614_Trailer_Pagepre_N.png) no-repeat;
+      }
+      .pagingNxt {
+        position: absolute;
+        display: inline-block;
+        width: 33px;
+        height: 28px;
+        margin-left: 530px;
+        background: url(../../../images/614_Trailer_Pagenext_N.png) no-repeat;
+      }
+      &.on {
+        .pagingPrv {
+          position: absolute;
+          display: inline-block;
+          width: 33px;
+          height: 28px;
+          background: url(../../../images/614_Trailer_Pagepre_C.png) no-repeat;
+        }
+        .pagingNxt {
+          position: absolute;
+          display: inline-block;
+          width: 33px;
+          height: 28px;
+          margin-left: 530px;
+          background: url(../../../images/614_Trailer_Pagenext_C.png) no-repeat;
+        }
+      }
+    }
+  }
+}

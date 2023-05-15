@@ -1,0 +1,9 @@
+"meta" : {
+	"operation" : "get",
+	"target" : "svclist",
+	"property" : {
+		"searched" : false,
+		"type"  : "tv",
+		"sort" : "numeric"
+	}
+}

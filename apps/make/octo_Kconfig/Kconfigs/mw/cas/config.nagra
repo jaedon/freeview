@@ -1,0 +1,282 @@
+# Nagra
+comment "Configuration of Nagra. (MW_CAS_NAGRA_XXX)"
+# define for NOCS TYPE
+	choice
+		prompt "Select the type of NOCS"
+		default MW_CAS_NAGRA_NOCS_1_X
+		depends on MW_CAS_NAGRA
+
+		config MW_CAS_NAGRA_NOCS_1_X
+			bool "NOCS 1.X"
+		config MW_CAS_NAGRA_NOCS_3_X
+			bool "NOCS 3.X"
+	endchoice
+
+# define for CA Product 
+	choice
+		prompt "Select the CA Product"
+		default MW_CAS_NAGRA_CA_PRODUCT_ME
+		depends on MW_CAS_NAGRA
+
+		config MW_CAS_NAGRA_CA_PRODUCT_ME
+			bool "CLK Merlin"
+		config MW_CAS_NAGRA_CA_PRODUCT_ALME
+			bool "CLK Aladin & Merlin"
+		config MW_CAS_NAGRA_CA_PRODUCT_TI
+			bool "CLK Tiger"
+		config MW_CAS_NAGRA_CA_PRODUCT_CL
+			bool "ELK"
+		config MW_CAS_NAGRA_CA_PRODUCT_CLME
+			bool "Hybrid EKL + Merline"
+		config MW_CAS_NAGRA_CA_PRODUCT_ICME
+			bool "DLK (Cardless + Merlin)"
+		config MW_CAS_NAGRA_CA_PRODUCT_ZLME
+			bool "ZLK"
+	endchoice
+
+# define for PRM
+	config MW_CAS_NAGRA_PRM
+		bool
+		prompt "Support the Nagra PRM"
+		default n
+		depends on MW_CAS_NAGRA
+
+		choice
+			prompt "Select the type of PRM"
+			default MW_CAS_NAGRA_PRM_VOD_ONLY
+			depends on MW_CAS_NAGRA_PRM
+	
+			config MW_CAS_NAGRA_PRM_VOD_ONLY
+				bool "PRM for VOD Only"
+			config MW_CAS_NAGRA_PRM_PVR_ONLY
+				bool "PRM for PVR Only"
+			config MW_CAS_NAGRA_PRM_VOD_PVR
+				bool "PRM for both VOD and PVR"
+		endchoice
+
+		choice
+			prompt "Select the version of PRM"
+			default MW_CAS_NAGRA_PRM_2_6
+			depends on MW_CAS_NAGRA_PRM
+	
+			config MW_CAS_NAGRA_PRM_3_1
+				bool "PRM 3.1"
+			config MW_CAS_NAGRA_PRM_2_6
+				bool "PRM 2.6"
+		endchoice
+
+	config MW_CAS_NAGRA_STREAM_INPUT_MAX 
+		int
+		prompt "Maximum of simultaneous scrambled stream inputs"
+		default 1
+		depends on MW_CAS_NAGRA
+
+#	Configure the CA features
+comment "Configure the CA Feature."
+	config MW_CAS_NAGRA_FEATURE_PPV
+		bool
+		prompt "Enable the feature of PPV"
+		default n
+		depends on MW_CAS_NAGRA
+
+	config MW_CAS_NAGRA_FEATURE_RPH
+		bool
+		prompt "Enable the feature of Return Path"
+		default n
+		depends on MW_CAS_NAGRA
+
+	config MW_CAS_NAGRA_FEATURE_MULTI_EMM_FILTERING
+		bool
+		prompt "Enable the feature of multi EMM filtering"
+		default n
+		depends on MW_CAS_NAGRA
+		
+	config MW_CAS_NAGRA_FEATURE_PARENTAL_CONTROL
+		bool
+		prompt "Enable the feature of Parental Control"
+		default n
+		depends on MW_CAS_NAGRA
+		
+	config MW_CAS_NAGRA_FEATURE_SOFTWARE_UPGRADE
+		bool
+		prompt "Enable the feature of Software Upgrade"
+		default n
+		depends on MW_CAS_NAGRA
+
+# define for OP specific 
+comment "Configure the OP Specific."
+	config MW_CAS_NAGRA_OP_SES
+		bool
+		prompt "Include NAGRA OP SES feature"
+		default y
+		depends on OP_SES && MW_CAS_NAGRA
+
+	config MW_CAS_NAGRA_OP_SES_DVLTEST
+		bool
+		prompt "DVL Test For SES Specific"
+		default n
+		depends on MW_CAS_NAGRA
+
+	config MW_CAS_NAGRA_OP_SES_CAKTEST
+		bool
+		prompt "CAK Test For SES Specific"
+		default n
+		depends on MW_CAS_NAGRA
+
+	config MW_CAS_NAGRA_OP_SKYD
+		bool
+		prompt "Include NAGRA OP SKY Deutschland feature"
+		default y
+		depends on OP_SKYD && MW_CAS_NAGRA
+
+	config MW_CAS_NAGRA_OP_MEDIASET
+		bool 
+		prompt "Include NAGRA OP MEDIASET feature"
+		default y
+		depends on OP_ITALY_DBOOK && MW_CAS_NAGRA
+
+	config MW_CAS_NAGRA_OP_TIVU
+		bool
+		prompt "Include NAGRA OP TIVU feature"
+		default y
+		depends on OP_TIVU && MW_CAS_NAGRA
+
+	config MW_CAS_NAGRA_OP_RCS
+		bool
+		prompt "Include NAGRA OP RCS feature"
+		default y
+		depends on OP_RCS && MW_CAS_NAGRA
+
+	config MW_CAS_NAGRA_OP_UPC
+		bool
+		prompt "Include NAGRA UPC feature"
+		default y
+		depends on OP_UPC && MW_CAS_NAGRA
+
+	config MW_CAS_NAGRA_OP_SWISS_CANAL
+		bool
+		prompt "Include NAGRA OP Swiss Canal feature"
+		default y
+		depends on OP_SWISS_CANAL && MW_CAS_NAGRA
+
+	config MW_CAS_NAGRA_OP_SPAIN_TDT
+		bool
+		prompt "Include NAGRA OP Spain TDT feature"
+		default y
+		depends on OP_SPAIN_TDT && MW_CAS_NAGRA
+
+	config MW_CAS_NAGRA_OP_ERT
+		bool
+		prompt "Include NAGRA OP ER Telecom feature"
+		default y
+		depends on OP_ERTELECOM && MW_CAS_NAGRA
+
+	config MW_CAS_NAGRA_OP_AMX
+		bool
+		prompt "Include NAGRA OP AMX"
+		default y
+		depends on OP_AMX && MW_CAS_NAGRA
+
+# define for specific IRDCMD
+comment "Configure the IRD Command."
+	config MW_CAS_NAGRA_IRDCMD 
+		bool
+		prompt "Include NAGRA IRD Command"
+		default n
+		depends on MW_CAS_NAGRA
+	
+		config MW_CAS_NAGRA_IRDCMD_PINCTL
+			bool
+			prompt "Include NAGRA IRD command PIN control"
+			default n
+			depends on MW_CAS_NAGRA_IRDCMD
+	
+		config MW_CAS_NAGRA_IRDCMD_MAIL
+			bool
+			prompt "Include NAGRA IRD command mail message"
+			default n
+			depends on MW_CAS_NAGRA_IRDCMD
+	
+		config MW_CAS_NAGRA_IRDCMD_TUNE
+			bool
+			prompt "Include NAGRA IRD command force tune"
+			default n
+			depends on MW_CAS_NAGRA_IRDCMD
+	
+		config MW_CAS_NAGRA_IRDCMD_FINGER
+			bool
+			prompt "Include NAGRA IRD command Finger Print"
+			default n
+			depends on MW_CAS_NAGRA_IRDCMD
+	
+		config MW_CAS_NAGRA_IRDCMD_STANDBY
+			bool
+			prompt "Include NAGRA IRD command go to standby"
+			default n
+			depends on MW_CAS_NAGRA_IRDCMD
+	
+		config MW_CAS_NAGRA_IRDCMD_DEFSETTING
+			bool
+			prompt "Include NAGRA IRD command default setting"
+			default n
+			depends on MW_CAS_NAGRA_IRDCMD
+	
+		config MW_CAS_NAGRA_IRDCMD_POPUP
+			bool
+			prompt "Include NAGRA IRD command pop up message"
+			default n
+			depends on MW_CAS_NAGRA_IRDCMD
+	
+		config MW_CAS_NAGRA_IRDCMD_USAGE
+			bool
+			prompt "Include NAGRA IRD command change usage"
+			default n
+			depends on MW_CAS_NAGRA_IRDCMD
+	
+		config MW_CAS_NAGRA_IRDCMD_REBOOT
+			bool
+			prompt "Include NAGRA IRD command reboot"
+			default n
+			depends on MW_CAS_NAGRA_IRDCMD
+	
+		config MW_CAS_NAGRA_IRDCMD_FORMATDISK
+			bool
+			prompt "Include NAGRA IRD command format disk"
+			default n
+			depends on MW_CAS_NAGRA_IRDCMD
+	
+		config MW_CAS_NAGRA_IRDCMD_EMMWAKEUP
+			bool
+			prompt "Include NAGRA IRD command EMM wakeup"
+			default n
+			depends on MW_CAS_NAGRA_IRDCMD
+
+		config MW_CAS_NAGRA_IRDCMD_ZONEID
+			bool
+			prompt "Include NAGRA IRD command ZoneID"
+			default n
+			depends on MW_CAS_NAGRA_IRDCMD
+
+comment "Configure the Extra Function."
+	config MW_CAS_NAGRA_DALAPI_7_1_ABOVE
+		bool
+		prompt "DAL API Version above v7.1.0"
+		default n
+		depends on MW_CAS_NAGRA
+
+	config MW_CAS_NAGRA_DALTEST
+		bool
+		prompt "Enable the DAL TEST"
+		default n
+		depends on MW_CAS_NAGRA
+	
+	config MW_CAS_NAGRA_ISO7816_ICC
+		bool
+		prompt "New Icc for ISO-7816"
+		default n
+		depends on MW_CAS_NAGRA
+
+	config MW_CAS_NAGRA_ISO7816_ICC_PPS
+		bool "support PPS in ISO-7816"
+		default n
+		depends on MW_CAS_NAGRA_ISO7816_ICC

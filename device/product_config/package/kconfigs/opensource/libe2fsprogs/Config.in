@@ -1,0 +1,4 @@
+config PACKAGE_LIBE2FSPROGS
+	bool "libe2fsprogs"
+	help
+	  file system utilities for ext2

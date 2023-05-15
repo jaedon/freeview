@@ -1,0 +1,56 @@
+##########################################
+# DI PANEL DISPLAY configuration menu
+##########################################
+
+config FRONT_DISPLAY
+        bool
+        prompt "FRONT_DISPLAY"
+        default y
+
+choice
+	prompt "Select PANEL"
+	depends on FRONT_DISPLAY
+	default PANEL_VFD   
+	config PANEL_VFD
+		bool
+		prompt "PANEL_VFD"
+
+		config PANEL_VFD_LENGTH
+			int
+			default 16
+			prompt "VFD MAX_PANEL_LENGTH"
+			depends on PANEL_VFD
+
+	config PANEL_LCD
+		bool
+		prompt "PANEL_LCD"
+
+	config PANEL_7SEG
+		bool
+		prompt "PANEL_7SEG"
+
+	config PANEL_11SEG
+		bool
+		prompt "PANEL_11SEG"
+endchoice
+
+config PANEL_DISPLAY_ON
+	bool
+	prompt "PANEL_DISPLAY_ON"
+	default y
+
+config PANEL_DIMMING_LEVEL_ON
+	bool
+	prompt "PANEL_DIMMING_LEVEL_ON"
+	default y
+
+config  PANEL_LED_PWM
+	bool
+	prompt "select y if front led controlled by pwm"
+	default n
+	
+	config  PANEL_LED_PWM_NUM
+		hex
+		prompt "pwm number on chip, which connected to led"
+		depends on PANEL_LED_PWM
+		default 2

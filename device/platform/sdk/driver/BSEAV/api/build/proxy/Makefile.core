@@ -1,0 +1,283 @@
+############################################################
+#     Copyright (c) 2003-2008, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.core $
+# $brcm_Revision: 29 $
+# $brcm_Date: 2/7/08 5:58p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# Created: 02/09/2001 by Marcus Kellerman
+#
+# $brcm_Log: /BSEAV/api/build/proxy/Makefile.core $
+# 
+# 29   2/7/08 5:58p jrubio
+# PR39415: add 7325 kernelmode suport
+# 
+# 28   1/3/08 2:02p mphillip
+# PR35854: Merge p3d changes
+# 
+# 27   12/10/07 6:42p mward
+# PR38078: Create PLATFORM for 97018, 97018RNG
+# 
+# 26   11/26/07 12:18p katrep
+# PR37217: Added 97335 platfrom
+# 
+# 25   11/14/07 10:24a gmohile
+# PR 25109 : Default unified itb on for 7401
+# 
+# PR35854/2   12/18/07 7:44p mphillip
+# PR35854: Remove p3d user-space BCHP
+# 
+# PR35854/1   12/3/07 6:35p mphillip
+# PR35854: Update build for kernel-mode 3d
+# 
+# 24   8/29/07 5:58p mward
+# PR31736:  Now default on UNIFIED_ITB_SUPPORT for 97400. (correct
+# comment)
+# 
+# 23   8/29/07 12:11p mward
+# PR31736:  Now default on UNIFIED_ITB_SUPPORT for 97400.
+# 
+# 22   8/21/07 6:23p mward
+# PR31736:  Pass through UNIFIED_ITB_SUPPORT for 97400 development,
+# default off.
+# 
+# 21   8/13/07 6:34p mward
+# PR32434: Default UNIFIED_ITB_SUPPORT for 97118[RNG] again, working now.
+# 
+# 20   8/8/07 6:07p mward
+# PR32434: Default UNIFIED_ITB_SUPPORT for 97118[RNG] off, audio
+# problems.
+# 
+# 19   8/8/07 10:48a ayxiang
+# PR33836: add B_CONFIG_IMAGE support for 97458
+# 
+# 18   8/6/07 12:32p mward
+# PR32434: Default UNIFIED_ITB_SUPPORT for 97118[RNG]
+# 
+# 17   8/2/07 12:25p mward
+# PR32537:  Pass through UNIFIED_ITB_SUPPORT for 97118[RNG] development.
+# 
+# 16   7/20/07 8:35p katrep
+# PR27643: Updated for 7405
+# 
+# 15   7/20/07 11:51a katrep
+# PR27643: Add B_CONFIG_IMAGE support for 7405
+# 
+# 14   7/17/07 3:10p gmohile
+# PR 33056: Add B_CONFIG_IMAGE support for 7403
+# 
+# 13   7/6/07 10:21a prasadv
+# PR32537, PR32809: Add B_CONFIG_IMAGE support for  97455 and 97456
+# 
+# 12   6/27/07 5:07p mward
+# PR32537: Add B_CONFIG_IMAGE support for  97118[RNG].
+# 
+# 11   6/14/07 4:00p ahulse
+# PR23100: B_CONFIG_IMAGE support for 7400
+# 
+# 10   6/12/07 3:00p ahulse
+# PR23100: B_CONFIG_IMAGE support for 7401
+# 
+# 9   1/11/07 2:32p jgarrett
+# PR 27004: Adding transition.inc
+# 
+# 8   9/6/06 5:04p vsilyaev
+# PR 24124: Added framework to detect stack overflow
+# 
+# 7   8/10/06 2:49p jgarrett
+# PR 23016: Merging new linuxkernel KNI to main branch.
+# 
+# PR23016/1   8/3/06 1:15p jgarrett
+# PR 23016: Adding bsettop_syslog.c
+# 
+# 6   3/15/06 4:51p vsilyaev
+# PR20221: NetIF DMA interface
+# 
+# 5   11/1/05 7:07p vsilyaev
+# PR 17883: Use image for the raptor audio
+# 
+# 4   10/31/05 6:13p vsilyaev
+# PR 17883: Added image interface to the 97398 platform
+# 
+# 3   9/15/05 11:34a erickson
+# PR17148: added new required basemodules
+# 
+# 2   3/10/05 3:57p mphillip
+# PR14402: Catch the proxy build up by moving compose into the toplevel
+# makefile
+# 
+# 1   2/7/05 6:57p dlwin
+# Merge down for release 2005_REFSW_MERGETOMAIN:
+# 
+# Irvine_BSEAVSW_Devel/6   1/28/05 11:13a erickson
+# PR13908: refactor to make external include of Makefile.core correct
+# 
+# Irvine_BSEAVSW_Devel/5   1/25/05 5:12p erickson
+# PR13908: Settop API makefile rework
+# 
+# Irvine_BSEAVSW_Devel/4   11/24/04 5:29p vsilyaev
+# PR13165: Interface for the timer module.
+# 
+# Irvine_BSEAVSW_Devel/3   7/6/04 3:56p erickson
+# PR11771: settop api dataflow redesign
+# 
+# Irvine_BSEAVSW_Devel/2   6/16/04 5:16p erickson
+# PR11135: added callback support
+# 
+# Irvine_BSEAVSW_Devel/1   5/17/04 11:14a erickson
+# PR11135: added initial linux proxy impl
+# 
+# Irvine_BSEAVSW_Devel/16   5/12/04 10:23a erickson
+# PR10967: added standard header
+############################################################
+
+include $(BSEAV)/api/build/Makefile.common
+
+BUILD_SYSTEM=proxy
+OS = linuxuser
+
+CFLAGS += -I$(BSETTOP)/src/proxy
+CFLAGS += -I$(BSETTOP)/build/proxy
+CFLAGS += -I$(BSETTOP)/src/pvr
+
+vpath %.c $(BSETTOP)/src/proxy
+vpath %.c $(BSETTOP)/build/proxy
+
+OBJ =
+ROCKFORD := ${MAGNUM}/../rockford
+include $(ROCKFORD)/modules/basemodules.inc
+CFLAGS += -I$(MAGNUM)/basemodules/chp
+CFLAGS += -I$(MAGNUM)/basemodules/reg
+CFLAGS += -DB_SYSTEM_proxy=1
+
+
+ifeq (${SYSTEM}, linux)
+SRCS += \
+	bsettop_base_mem.c \
+	bsettop_core.c \
+	bsettop_core_stackguard.c \
+	bsettop_linux.c \
+	bsettop_priv.c \
+	bsettop_timer.c \
+	bsettop_kernelproxy.c \
+	bsettop_base.c \
+	bsettop_syslog.c
+endif
+
+
+ifeq (${PLATFORM}, 97398)
+BCHP_XVD_CHIP := 7411
+SRCS +=  \
+	bsettop_image.c
+
+include  $(ROCKFORD)/modules/${BCHP_XVD_CHIP}_img.inc
+include  $(ROCKFORD)/modules/${BCHP_XVD_CHIP}/rap_img.inc
+include  $(ROCKFORD)/modules/img.inc
+
+CFLAGS += -I${BSEAV}/linux/driver/97038 -DB_CONFIG_IMAGE=1
+
+endif
+
+ifeq ($(findstring $(PLATFORM),97400 97401 97403 97405 97335 97325 97018 97018RNG 97118 97118RNG 97455 97456 97458), $(PLATFORM))
+
+BCHP_VER_LOWER ?= $(shell awk 'BEGIN{print tolower("$(BCHP_VER)")}')
+
+ifeq ($(findstring $(PLATFORM),97401 97455), $(PLATFORM))
+BCHP_CHIP ?= 7401
+BCHP_XVD_CHIP := 7401
+ifneq ($(subst N,n,${UNIFIED_ITB_SUPPORT}),n)
+CFLAGS += -DUNIFIED_ITB_SUPPORT
+UNIFIED_ITB_SUPPORT := y
+endif
+endif
+ifeq ($(findstring $(PLATFORM),97403, 97458), $(PLATFORM))
+BCHP_CHIP ?= 7403
+BCHP_XVD_CHIP := 7403
+endif
+ifeq ($(findstring $(PLATFORM),97405), $(PLATFORM))
+BCHP_CHIP ?= 7405
+BCHP_XVD_CHIP := 7405
+endif
+ifeq ($(findstring $(PLATFORM),97335), $(PLATFORM))
+BCHP_CHIP ?= 7335
+BCHP_XVD_CHIP := 7335
+endif
+ifeq ($(findstring $(PLATFORM),97325), $(PLATFORM))
+BCHP_CHIP ?= 7325
+BCHP_XVD_CHIP := 7325
+endif
+ifeq ($(findstring $(PLATFORM),97018 97018RNG 97118 97118RNG), $(PLATFORM))
+BCHP_CHIP ?= 7118
+BCHP_XVD_CHIP := 7118
+# RAVE unified ITB support. (default on)
+ifneq ($(subst N,n,${UNIFIED_ITB_SUPPORT}),n)
+CFLAGS += -DUNIFIED_ITB_SUPPORT
+UNIFIED_ITB_SUPPORT := y
+endif
+endif
+ifeq ($(findstring $(PLATFORM),97400 97456), $(PLATFORM))
+BCHP_CHIP ?= 7400
+# RAVE unified ITB support. (default on)
+ifneq ($(subst N,n,${UNIFIED_ITB_SUPPORT}),n)
+CFLAGS += -DUNIFIED_ITB_SUPPORT
+UNIFIED_ITB_SUPPORT := y
+endif
+endif
+
+SRCS +=  \
+    bsettop_image.c
+
+BRAP_IMG_ONLY := y
+BXVD_IMG_ONLY := y
+
+include ${MAGNUM}/portinginterface/rap/brap.inc
+include ${MAGNUM}/portinginterface/xvd/bxvd.inc
+
+CFLAGS += -I${BSEAV}/linux/driver/97038 -DB_CONFIG_IMAGE=1 
+CFLAGS += -I$(MAGNUM)/commonutils/img
+
+ifeq ($(B_GLES_SUPPORT),y)
+include ${MAGNUM}/portinginterface/p3d/bp3d.inc
+
+CFLAGS += -I$(MAGNUM)/basemodules/mem
+CFLAGS += -I$(MAGNUM)/basemodules/int
+CFLAGS += -I$(MAGNUM)/basemodules/chp/${BCHP_CHIP}
+CFLAGS += -I$(MAGNUM)/basemodules/chp/${BCHP_CHIP}/rdb/c0
+CFLAGS += -I$(MAGNUM)/commonutils/sur/${BCHP_CHIP}
+CFLAGS += -I$(MAGNUM)/commonutils/pxl/
+CFLAGS += -I$(MAGNUM)/portinginterface/grc/${BCHP_CHIP}
+include $(ROCKFORD)/modules/opengles.inc
+include $(ROCKFORD)/middleware/opengles/linux/opengles.inc
+
+include $(MAGNUM)/commonutils/pxl/bpxl.inc
+include $(MAGNUM)/commonutils/sur/bsur.inc
+
+include $(MAGNUM)/basemodules/mem/bmem.inc
+include $(MAGNUM)/basemodules/reg/breg.inc
+include $(MAGNUM)/portinginterface/grc/bgrc.inc
+
+CFLAGS += -I$(MAGNUM)/basemodules/tmr/${BCHP_CHIP}
+include $(MAGNUM)/basemodules/tmr/btmr.inc
+include $(MAGNUM)/basemodules/int/bint.inc
+endif
+
+endif
+
+# Include transition.inc file at the end of the build
+# Do not fail on this, it should be harmless on older builds
+ifeq ($(wildcard $(ROCKFORD)/modules/transition.inc),)
+$(warning $(ROCKFORD)/modules/transition.inc is missing.  This may cause problems in your build.)
+else
+include $(ROCKFORD)/modules/transition.inc
+endif
+

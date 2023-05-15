@@ -1,0 +1,13 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmdevcertkeygenreal
+TARGETTYPE=LIBRARY
+
+SOURCES =                   \
+    devcertkeygenimplreal.c
+

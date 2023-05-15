@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Meta/Antenna">   
+    <interface name="Octopus.Appkit.Meta.Antenna">
+
+    <method name="Add">
+    	<arg type="(issuau)" name="antInfo" direction="in" />
+    	<arg type="i" name="uid" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="RemoveAll">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                        
+
+    <method name="Count">
+    	<arg type="u" name="count" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetUidAt">
+    	<arg type="i" name="index" direction="in" />
+    	<arg type="i" name="uid" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="GetInfo">
+    	<arg type="i" name="uid" direction="in" />
+    	<arg type="(issuau)" name="antInfo" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="SetInfo">
+    	<arg type="i" name="uid" direction="in" />
+    	<arg type="(issuau)" name="antInfo" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="Load">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+    
+    <method name="Save">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>   
+                    
+	</interface>
+</node>

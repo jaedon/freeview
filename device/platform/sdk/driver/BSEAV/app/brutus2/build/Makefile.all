@@ -1,0 +1,89 @@
+############################################################
+#     Copyright (c) 2003-2012, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.all $
+# $brcm_Revision: 1 $
+# $brcm_Date: 1/12/12 7:00p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# Created: 02/09/2001 by Marcus Kellerman
+#
+# $brcm_Log: /BSEAV/app/brutus2/build/Makefile.all $
+# 
+# 1   1/12/12 7:00p tokushig
+# SW7405-5581: Brutus2 initial check in
+# 
+# 2   3/9/05 9:17a erickson
+# PR14384: store big endian/little endian fonts in build directory
+# 
+# 1   2/7/05 7:43p dlwin
+# Merge down for release 2005_REFSW_MERGETOMAIN:
+# 
+# Irvine_BSEAVSW_Devel/11   12/15/04 3:42p erickson
+# PR13496: now using platforms.mak from Settop API
+# 
+# Irvine_BSEAVSW_Devel/10   11/1/04 2:59p bandrews
+# PR12686: Removed 7327 until later
+# 
+# Irvine_BSEAVSW_Devel/9   9/22/04 2:09p bandrews
+# PR12687: 7312 and 7327 support
+# 
+# Irvine_BSEAVSW_Devel/8   8/18/04 12:35p bandrews
+# PR11657: 7329 Support
+# 
+# Irvine_BSEAVSW_Devel/7   5/12/04 10:25a erickson
+# PR10967: added standard header
+############################################################
+
+#
+# Build all brutus platforms
+#
+include platforms.mak
+
+.PHONY: $(PLATFORMS)
+
+all: $(PLATFORMS)
+
+superall:
+	ARCH=mipsel-linux  DEBUG=y ${MAKE} -f Makefile.all
+	ARCH=mipsel-uclibc DEBUG=y ${MAKE} -f Makefile.all
+	ARCH=mipsel-linux  DEBUG=n ${MAKE} -f Makefile.all
+	ARCH=mipsel-uclibc DEBUG=n ${MAKE} -f Makefile.all
+
+superclean:
+	ARCH=mipsel-linux  DEBUG=y ${MAKE} -f Makefile.all clean
+	ARCH=mipsel-uclibc DEBUG=y ${MAKE} -f Makefile.all clean
+	ARCH=mipsel-linux  DEBUG=n ${MAKE} -f Makefile.all clean
+	ARCH=mipsel-uclibc DEBUG=n ${MAKE} -f Makefile.all clean
+
+.PHONY: clean install
+
+${PLATFORMS}:
+	@echo "### Building for $@"
+	@${MAKE} PLATFORM=$@
+
+clean:
+	@for platform in $(PLATFORMS); do \
+		echo "### Run $@ for $$platform"; \
+		$(MAKE) PLATFORM=$$platform $@; \
+	done
+
+ifeq ($(INSTALL_DIR),)
+install:
+	@echo 'INSTALL_DIR environment variable not defined. Aborted.'
+else
+install:
+	@for platform in $(PLATFORMS); do \
+		echo "### Run $@ for $$platform"; \
+		$(MAKE) PLATFORM=$$platform INSTALL_DIR=$$INSTALL_DIR/$$platform $@; \
+	done
+endif

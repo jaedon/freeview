@@ -1,0 +1,11 @@
+
+TARGETTYPE=PROGRAM
+TARGETNAME=ConsoleNDR
+UMTYPE=console
+
+SOURCES = \
+        ../main.c
+
+TARGETLIBS = $(_DRM_REFCODE_LIBS) \
+             $(_DRM_TC_LIBS) \
+             $(_DRM_TEST_CONSOLENDR_LIB) \

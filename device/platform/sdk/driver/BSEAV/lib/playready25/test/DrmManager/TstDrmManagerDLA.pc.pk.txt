@@ -1,0 +1,610 @@
+' =============================================================================
+1939:FUNC:Generate and Process Challenge DLA w/ AES
+TestCopyFileIfExists( servers_internal.xml, servers.xml )
+ForEachItemInFile( servers.xml )
+    'Override the URL from the header
+    StoreStringInTestVariable( Test_URL , %PKTestServerURI%  )
+    TestManagerSetRights( Play, TRUE )
+    TestManagerOpenEnvelope(EnvelopeBuffer,jazzV4_AES_internal.eny)
+    TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, ChallengeBuffer, "UseAesKey")
+    TestSendChallenge( LICGET, ChallengeBuffer, ResponseBuffer, Test_URL )
+    If( %PKTestServerFeatureCustomDataInResponse% )
+        TestManagerProcessResponse(Dump,Dump,0,0, ResponseBuffer) = DRM_S_MORE_DATA
+    Else
+        TestManagerProcessResponse(Dump,Dump,0,0, ResponseBuffer)
+    EndIf
+    If( %PKTestServerFeatureLicenseAck% )
+        TestManagerGenerateLicenseAck(ChallengeBuffer)
+        TestSendChallenge( LICACK, ChallengeBuffer, ResponseBuffer, Test_URL )
+        If( %PKTestServerFeatureCustomDataInAckResponse% )
+            TestManagerProcessLicenseAckResponse( ResponseBuffer ) = DRM_S_MORE_DATA
+        Else
+            TestManagerProcessLicenseAckResponse( ResponseBuffer )
+        EndIf
+    EndIf
+    TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+    TestManagerBind( 0, Dump, Dump, Use Callback function )
+    TestManagerInitializeEnvelopeRead( EnvelopeBuffer )
+    TestManagerReadEnvelope( EnvelopeBuffer, jazz.wma )
+    TestManagerCloseEnvelope( EnvelopeBuffer )
+    TestManagerClose()
+EndOfLoop
+
+
+' =============================================================================
+60002:FUNC:Generate and Process Challenge DLA, with Domains ( try LA Before Joining )
+TestCopyFileIfExists( servers_internal.xml, servers.xml )
+ForEachItemInFile( servers.xml )
+    If( %PKTestServerFeatureDomains% )
+        'Override the URL from the header
+        StoreStringInTestVariable( Test_URL, %PKTestServerURIDomains%  )
+        TestManagerSetRights( Play, TRUE )
+        TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+        TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseDomainCert")
+        TestSendChallenge( LICGET, 1, 2, Test_URL )
+        TestManagerProcessResponse(Dump,Dump,0,0, 2, 0x8004C605 DRM_E_SERVER_DOMAIN_REQUIRED)
+        TestProcessAdditionalData( 2, 5, REDIRECT_URL )
+        TestProcessAdditionalData( 2, CustomData, CUSTOM )
+        SetDomainID( 0 )
+        GenerateDomainJoinChallenge( 1, 0, "HelloWorld", "My Phone" )
+        TestSendChallenge( JOIN, 1, 2, Test_URL )
+        ProcessDomainJoinResponse( 2 ) = DRM_S_MORE_DATA
+        TestManagerCloseEnvelope(4)
+        TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+        TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseDomainCert")
+        TestSendChallenge( LICGET, 1, 2, Test_URL )
+        If( %PKTestServerFeatureCustomDataInResponseDomains% )
+            TestManagerProcessResponse( Dump, Dump, 0, 0, 2) = DRM_S_MORE_DATA
+        Else
+            TestManagerProcessResponse( Dump, Dump, 0, 0, 2)
+        EndIf
+        If( %PKTestServerFeatureLicenseAckDomains% )
+            TestManagerGenerateLicenseAck( 1 )
+            TestSendChallenge( LICACK, 1, 2, Test_URL )
+            If( %PKTestServerFeatureCustomDataInAckResponse% )
+                TestManagerProcessLicenseAckResponse( 2 ) = DRM_S_MORE_DATA
+            Else
+                TestManagerProcessLicenseAckResponse( 2 )
+            EndIf
+        EndIf
+        TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+        TestManagerBind( 0, Dump, Dump, Use Callback function )
+        TestManagerInitializeEnvelopeRead(4)
+        TestManagerReadEnvelope(4,jazz.wma)
+        TestManagerCloseEnvelope( 4 )
+        TestManagerClose()
+        GenerateDomainLeaveChallenge( 1, 0, "HelloWorld" )
+        TestSendChallenge( LEAVE, 1, 2, Test_URL )
+        ProcessDomainLeaveResponse( 2 ) = DRM_S_MORE_DATA
+    EndIf
+EndOfLoop
+
+
+' =============================================================================
+60003:FUNC:Generate and Process Challenge DLA w/ AES, with Domains ( Join Domain before LA )
+TestCopyFileIfExists( servers_internal.xml, servers.xml )
+ForEachItemInFile( servers.xml )
+    If( %PKTestServerFeatureDomains% )
+        'Override the URL from the header
+        StoreStringInTestVariable( Test_URL, %PKTestServerURIDomains%  )
+        SetDomainID( 0 )
+        GenerateDomainJoinChallenge( 1, 0, "HelloWorld", "My Phone" )
+        TestSendChallenge( JOIN, 1, 2, Test_URL )
+        ProcessDomainJoinResponse( 2 ) = DRM_S_MORE_DATA
+        TestManagerSetRights(Play, TRUE)
+        TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+        TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseDomainCert UseAesKey")
+        TestSendChallenge( LICGET, 1, 2, Test_URL )
+        If( %PKTestServerFeatureCustomDataInResponseDomains% )
+            TestManagerProcessResponse( Dump, Dump, 0, 0, 2) = DRM_S_MORE_DATA
+        Else
+            TestManagerProcessResponse( Dump, Dump, 0, 0, 2)
+        EndIf
+        If( %PKTestServerFeatureLicenseAckDomains% )
+            TestManagerGenerateLicenseAck( 1 )
+            TestSendChallenge( LICACK,1,2, Test_URL )
+            If( %PKTestServerFeatureCustomDataInAckResponse% )
+                TestManagerProcessLicenseAckResponse( 2 ) = DRM_S_MORE_DATA
+            Else
+                TestManagerProcessLicenseAckResponse( 2 )
+            EndIf
+        EndIf
+        TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+        TestManagerBind( 0, Dump, Dump, Use Callback function )
+        TestManagerInitializeEnvelopeRead(4)
+        TestManagerReadEnvelope(4,jazz.wma)
+        GenerateDomainLeaveChallenge( 1, 0, "HelloWorld" )
+        TestSendChallenge( LEAVE, 1, 2, Test_URL )
+        ProcessDomainLeaveResponse( 2 ) = DRM_S_MORE_DATA
+        TestManagerCloseEnvelope( 4 )
+        TestManagerClose()
+    EndIf
+EndOfLoop
+
+
+' =============================================================================
+60040:FUNC:Generate and Process Challenge DLA w/ AES, with Multiple Domains ( Join Domain before LA )
+TestCopyFileIfExists( servers_internal.xml, servers.xml )
+ForEachItemInFile( servers.xml )
+    If( %PKTestServerFeatureDomains% )
+        'Override the URL from the header
+        StoreStringInTestVariable( Test_URL , %PKTestServerURIDomains%  )
+        StoreStringInTestVariable( Service_id   , AH+03juKbUGbHl1V/QIwRA== )
+        StoreStringInTestVariable( Account_id_1 , NjU0MzIxMDk4NzY1NDMyMQ== )
+        StoreStringInTestVariable( Account_id_2 , NeY1NDMyMTA5ODc2NTQzMg== )
+        SetDomainID( Domain_1, Service_id, Account_id_1 )
+        SetDomainID( Domain_2, Service_id, Account_id_2 )
+        TestManagerSetRights(Play, TRUE)
+
+        'Join Domain_1
+        GenerateDomainJoinChallenge( ChallengeBuffer, Domain_1, "HelloWorld", "My Phone" )
+        TestSendChallenge( JOIN, ChallengeBuffer, ResponseBuffer, Test_URL )
+        ProcessDomainJoinResponse( ResponseBuffer ) = DRM_S_MORE_DATA
+
+        'Get and use a license in Domain_1
+        TestManagerOpenEnvelope( EnvelopeBuffer,jazzV4_AES_internal.eny)
+        TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, ChallengeBuffer, "UseDomainCert UseAesKey")
+        TestSendChallenge( LICGET, ChallengeBuffer, ResponseBuffer, Test_URL )
+        If( %PKTestServerFeatureCustomDataInResponseDomains% )
+            TestManagerProcessResponse(Dump,Dump,0,0, ResponseBuffer) = DRM_S_MORE_DATA
+        Else
+            TestManagerProcessResponse(Dump,Dump,0,0, ResponseBuffer)
+        EndIf
+        If( %PKTestServerFeatureLicenseAckDomains% )
+            TestManagerGenerateLicenseAck( ChallengeBuffer)
+            TestSendChallenge( LICACK, ChallengeBuffer, ResponseBuffer, Test_URL )
+            If( %PKTestServerFeatureCustomDataInAckResponse% )
+                TestManagerProcessLicenseAckResponse( ResponseBuffer ) = DRM_S_MORE_DATA
+            Else
+                TestManagerProcessLicenseAckResponse( ResponseBuffer )
+            EndIf
+        EndIf
+        TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+        TestManagerBind( 0, Dump, Dump, Use Callback function )
+        TestManagerInitializeEnvelopeRead(EnvelopeBuffer)
+        TestManagerReadEnvelope(EnvelopeBuffer,jazz.wma)
+        TestManagerCloseEnvelope(EnvelopeBuffer)
+        TestManagerClose()
+
+        'Leave Domain_1
+        GenerateDomainLeaveChallenge( ChallengeBuffer, Domain_1, "HelloWorld" )
+        TestSendChallenge( LEAVE, ChallengeBuffer, ResponseBuffer, Test_URL )
+        ProcessDomainLeaveResponse( ResponseBuffer ) = DRM_S_MORE_DATA
+
+        'Join Domain_2
+        GenerateDomainJoinChallenge( ChallengeBuffer, Domain_2, "HelloWorld", "My Phone" )
+        TestSendChallenge( JOIN, ChallengeBuffer, ResponseBuffer, Test_URL )
+        ProcessDomainJoinResponse( ResponseBuffer ) = DRM_S_MORE_DATA
+
+        'Get and use a License in Domain_2
+        TestManagerOpenEnvelope( EnvelopeBuffer,jazzV4_AES_internal.eny)
+        TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, ChallengeBuffer, "UseDomainCert UseAesKey")
+        TestSendChallenge( LICGET, ChallengeBuffer, ResponseBuffer, Test_URL )
+        If( %PKTestServerFeatureCustomDataInResponseDomains% )
+            TestManagerProcessResponse( Dump, Dump, 0, 0, ResponseBuffer ) = DRM_S_MORE_DATA
+        Else
+            TestManagerProcessResponse( Dump, Dump, 0, 0, ResponseBuffer )
+        EndIf
+        If( %PKTestServerFeatureLicenseAckDomains% )
+            TestManagerGenerateLicenseAck( ChallengeBuffer )
+            TestSendChallenge( LICACK, ChallengeBuffer, ResponseBuffer, Test_URL )
+            If( %PKTestServerFeatureCustomDataInAckResponse% )
+                TestManagerProcessLicenseAckResponse( ResponseBuffer ) = DRM_S_MORE_DATA
+            Else
+                TestManagerProcessLicenseAckResponse( ResponseBuffer )
+            EndIf
+        EndIf
+
+        TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+        TestManagerBind( 0, Dump, Dump, Use Callback function )
+        TestManagerInitializeEnvelopeRead(EnvelopeBuffer)
+        TestManagerReadEnvelope(EnvelopeBuffer,jazz.wma)
+        TestManagerCloseEnvelope(EnvelopeBuffer)
+        TestManagerClose()
+
+        'leave Domain_2
+        GenerateDomainLeaveChallenge( ChallengeBuffer, Domain_2, "HelloWorld" )
+        TestSendChallenge( LEAVE, ChallengeBuffer, ResponseBuffer, Test_URL )
+        ProcessDomainLeaveResponse( ResponseBuffer ) = DRM_S_MORE_DATA
+
+        'rejoin Domain_1 and try to use the content
+        GenerateDomainJoinChallenge( ChallengeBuffer, Domain_1, "HelloWorld", "My Phone" )
+        TestSendChallenge( JOIN, ChallengeBuffer, ResponseBuffer, Test_URL )
+        ProcessDomainJoinResponse( ResponseBuffer ) = DRM_S_MORE_DATA
+        TestManagerOpenEnvelope( EnvelopeBuffer,jazzV4_AES_internal.eny)
+        TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+        TestManagerBind( 0, Dump, Dump, Use Callback function )
+        TestManagerInitializeEnvelopeRead(EnvelopeBuffer)
+        TestManagerReadEnvelope(EnvelopeBuffer,jazz.wma)
+        TestManagerCloseEnvelope(EnvelopeBuffer)
+        TestManagerClose()
+    EndIf
+EndOfLoop
+
+
+' =============================================================================
+60004:FUNC:Generate and Process Challenge DLA w/ AES, with Domains ( Join Domain before LA, Domain Expired )
+TestCopyFileIfExists( servers_internal.xml, servers.xml )
+ForEachItemInFile( servers.xml )
+    If( %PKTestServerFeatureDomains% )
+        'Override the URL from the header
+        StoreStringInTestVariable( Test_URL , %PKTestServerURIDomains%  )
+        SetDomainID( 0 )
+        GenerateDomainJoinChallenge( 1, 0, "HelloWorld", "My Phone" )
+        TestSendChallenge( JOIN, 1, 2, Test_URL )
+        ProcessDomainJoinResponse( 2 ) = DRM_S_MORE_DATA
+        TestManagerSetRights(Play, TRUE)
+        TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+        TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseDomainCert UseAesKey DomainCertExpired")
+        TestSendChallenge( LICGET, 1, 2, Test_URL )
+        TestManagerProcessResponse(Dump,Dump,0,0, 2, 0x8004C606 DRM_E_SERVER_RENEW_DOMAIN)
+        TestProcessAdditionalData( 2, 7, REDIRECT_URL )
+        TestProcessAdditionalData( 2, 5, SERVICE_ID )
+        TestProcessAdditionalData( 2, 6, ACCOUNT_ID )
+
+        'for now don't use the returned url and service/account IDs
+        'SetDomainID( 0, 5, 6 )
+        GenerateDomainJoinChallenge( 1, 0, "HelloWorld WellKnownRevisionExpired", "My Phone" )
+        TestSendChallenge( JOIN, 1, 2, Test_URL )
+        ProcessDomainJoinResponse( 2 ) = DRM_S_MORE_DATA
+
+        TestManagerCloseEnvelope(4)
+        TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+        TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseDomainCert UseAesKey")
+        TestSendChallenge( LICGET, 1, 2, Test_URL )
+        If( %PKTestServerFeatureCustomDataInResponseDomains% )
+            TestManagerProcessResponse( Dump, Dump, 0, 0, 2) = DRM_S_MORE_DATA
+        Else
+            TestManagerProcessResponse( Dump, Dump, 0, 0, 2)
+        EndIf
+        If( %PKTestServerFeatureLicenseAckDomains% )
+            TestManagerGenerateLicenseAck( 1 )
+            TestSendChallenge( LICACK, 1, 2, Test_URL )
+            If( %PKTestServerFeatureCustomDataInAckResponse% )
+                TestManagerProcessLicenseAckResponse( 2 ) = DRM_S_MORE_DATA
+            Else
+                TestManagerProcessLicenseAckResponse( 2 )
+            EndIf
+        EndIf
+        TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+        TestManagerBind( 0, Dump, Dump, Use Callback function )
+        TestManagerInitializeEnvelopeRead( 4 )
+        TestManagerReadEnvelope( 4, jazz.wma )
+        TestManagerCloseEnvelope( 4 )
+        TestManagerClose()
+        GenerateDomainLeaveChallenge( 1, 0, "HelloWorld" )
+        TestSendChallenge( LEAVE, 1, 2, Test_URL )
+        ProcessDomainLeaveResponse( 2 ) = DRM_S_MORE_DATA
+    EndIf
+EndOfLoop
+
+
+' =============================================================================
+60005:FUNC:Generate and Process Challenge DLA w/ AES, with Domains and chained license ( Join Domain before LA )
+TestCopyFileIfExists( servers_internal.xml, servers.xml )
+ForEachItemInFile( servers.xml )
+    If( %PKTestServerFeatureDomains% )
+        'Override the URL from the header
+        StoreStringInTestVariable( Test_URL , %PKTestServerURIDomains%  )
+        SetDomainID( 0 )
+        GenerateDomainJoinChallenge( 1, 0, "HelloWorld", "My Phone" )
+        TestSendChallenge( JOIN, 1, 2, Test_URL )
+        ProcessDomainJoinResponse( 2 ) = DRM_S_MORE_DATA
+        TestManagerSetRights(Play, TRUE)
+        TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+        TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseDomainCert UseAesKey UseChainedLicense")
+        TestSendChallenge( LICGET, 1, 2, Test_URL )
+        If( %PKTestServerFeatureCustomDataInResponseDomains% )
+            TestManagerProcessResponse( Dump, Dump, 0, 0, 2) = DRM_S_MORE_DATA
+        Else
+            TestManagerProcessResponse( Dump, Dump, 0, 0, 2)
+        EndIf
+        If( %PKTestServerFeatureLicenseAckDomains% )
+            TestManagerGenerateLicenseAck( 1 )
+            TestSendChallenge( LICACK,1,2, Test_URL )
+            If( %PKTestServerFeatureCustomDataInAckResponse% )
+                TestManagerProcessLicenseAckResponse( 2 ) = DRM_S_MORE_DATA
+            Else
+                TestManagerProcessLicenseAckResponse( 2 )
+            EndIf
+        EndIf
+        TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+        TestManagerBind( 0, Dump, Dump, Use Callback function )
+        TestManagerInitializeEnvelopeRead( 4 )
+        TestManagerReadEnvelope( 4, jazz.wma )
+        TestManagerCloseEnvelope( 4 )
+        TestManagerClose()
+        GenerateDomainLeaveChallenge( 1, 0, "HelloWorld" )
+        TestSendChallenge( LEAVE, 1, 2, Test_URL )
+        ProcessDomainLeaveResponse( 2 ) = 2 ( DRM_S_MORE_DATA )
+    EndIf
+EndOfLoop
+
+
+' =============================================================================
+60006:FUNC:Acquire over DLA and use extensible policy license, Play right
+TestCopyFileIfExists( servers_internal.xml, servers.xml )
+ForEachItemInFile( servers.xml )
+    'Override the URL from the header
+    StoreStringInTestVariable( Test_URL, %PKTestServerURI% )
+    TestManagerSetRights(Play, TRUE)
+    TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+    TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseExtensiblePolicy UseAesKey")
+    TestSendChallenge( LICGET, 1, 2, Test_URL )
+    If( %PKTestServerFeatureCustomDataInResponse% )
+        TestManagerProcessResponse( Dump, Dump, 0, 0, 2) = DRM_S_MORE_DATA
+    Else
+        TestManagerProcessResponse( Dump, Dump, 0, 0, 2)
+    EndIf
+    If( %PKTestServerFeatureLicenseAck% )
+        TestManagerGenerateLicenseAck( 1 )
+        TestSendChallenge( LICACK, 1, 2, Test_URL )
+        If( %PKTestServerFeatureCustomDataInAckResponse% )
+            TestManagerProcessLicenseAckResponse( 2 ) = DRM_S_MORE_DATA
+        Else
+            TestManagerProcessLicenseAckResponse( 2 )
+        EndIf
+    EndIf
+    TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+    'Try to Bind to the Play right
+    TestManagerBind( 0, Dump, Dump, Use Callback function )
+    TestManagerInitializeEnvelopeRead(4)
+    TestManagerReadEnvelope(4,jazz.wma)
+    TestManagerCloseEnvelope( 4 )
+    TestManagerClose()
+EndOfLoop
+
+
+' =============================================================================
+60008:FUNC:Acquire over DLA and use extensible policy license, PlaylistBurn right
+TestCopyFileIfExists( servers_internal.xml, servers.xml )
+ForEachItemInFile( servers.xml )
+    'Override the URL from the header
+    StoreStringInTestVariable( Test_URL , %PKTestServerURI% )
+    TestManagerSetRights( PlaylistBurn, TRUE )
+    TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+    TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseExtensiblePolicy UseAesKey")
+    TestSendChallenge( LICGET, 1, 2, Test_URL )
+    If( %PKTestServerFeatureCustomDataInResponse% )
+        TestManagerProcessResponse( Dump, Dump, 0, 0, 2) = DRM_S_MORE_DATA
+    Else
+        TestManagerProcessResponse( Dump, Dump, 0, 0, 2)
+    EndIf
+    If( %PKTestServerFeatureLicenseAck% )
+        TestManagerGenerateLicenseAck( 1 )
+        TestSendChallenge( LICACK, 1, 2, Test_URL )
+        If( %PKTestServerFeatureCustomDataInAckResponse% )
+            TestManagerProcessLicenseAckResponse( 2 ) = DRM_S_MORE_DATA
+        Else
+            TestManagerProcessLicenseAckResponse( 2 )
+        EndIf
+    EndIf
+    TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+    'Current settings on server have no rights for playlistburn
+    TestManagerBind( 0, Dump, Dump, Use Callback function ) = DRM_E_RIGHTS_NOT_AVAILABLE
+    'This is due to Server returns a Play extensible restriction thats MUST_UNDERSTAND so the license will show up in the sync list upon license storage
+    'Bind returns LicenseExpired error if there is a corresponding entry in the sync list
+    TestManagerCloseEnvelope(4)
+EndOfLoop
+
+
+' =============================================================================
+60011:FUNC:Set V4 header in context, create challenge, override URL in header, process response, and bind
+TestCopyFileIfExists( servers_internal.xml, servers.xml )
+ForEachItemInFile( servers.xml )
+    'Override the URL from the header
+    StoreStringInTestVariable( Test_URL , %PKTestServerURI% )
+    TestManagerSetRights(Play, TRUE)
+    TestManagerSetHeader(NORMAL, V4Header.xml, UTF-16, NULL, V4)
+    TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0, NULL, NULL, NULL, NULL, NULL, 0, 2 Store Challenge, 1, "UseAesKey")
+    TestSendChallenge( LICGET, 1, 2, Test_URL )
+    If( %PKTestServerFeatureCustomDataInResponse% )
+        TestManagerProcessResponse( Dump, Dump, 0, 0, 2) = DRM_S_MORE_DATA
+    Else
+        TestManagerProcessResponse( Dump, Dump, 0, 0, 2)
+    EndIf
+    If( %PKTestServerFeatureLicenseAck% )
+        TestManagerGenerateLicenseAck( 1 )
+        TestSendChallenge( LICACK, 1, 2, Test_URL )
+        If( %PKTestServerFeatureCustomDataInAckResponse% )
+            TestManagerProcessLicenseAckResponse( 2 ) = DRM_S_MORE_DATA
+        Else
+            TestManagerProcessLicenseAckResponse( 2 )
+        EndIf
+    EndIf
+    TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+    TestManagerBind( 0, Dump, Dump, Use Callback function )
+    TestClearHeader
+    TestManagerClose()
+EndOfLoop
+
+
+' =============================================================================
+60014:FUNC:Set V4 header in context, create challenge, send challenge to URL from header, process response, and bind
+' There is no looping for this test, as the LA URL intentionally comes from the header.
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL, V4Header2.xml, UTF-16, NULL, V4)
+TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0, NULL, NULL, NULL, NULL, NULL, 0, 2 Store Challenge, 1, "UseAesKey")
+TestSendChallenge( LICGET, 1, 2)
+TestManagerProcessResponse( Dump, Dump, 0, 0, 2)
+TestManagerGenerateLicenseAck( 1 ) = DRM_S_FALSE
+TestSendChallenge( LICACK, 1, 2, NULL )
+TestManagerProcessLicenseAckResponse( 2 )
+TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+TestManagerBind( 0, Dump, Dump, Use Callback function )
+TestManagerClose()
+
+
+' =============================================================================
+60060:FUNC:Generate and Process Challenge DLA w/ Silverlight License
+TestCopyFileIfExists( servers_internal.xml, servers.xml )
+ForEachItemInFile( servers.xml )
+    If( %PKTestServerFeatureSilverlight% )
+        'Override the URL from the header
+        StoreStringInTestVariable( Test_URL, %PKTestServerURISimpleNonPersist% )
+        TestManagerSetRights(Play, TRUE)
+        TestManagerOpenEnvelope(EnvelopeBuffer,jazzV4_AES_internal.eny)
+        TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, ChallengeBuffer, "UseSilverlightLicense UseAesKey")
+        TestSendChallenge( LICGET, ChallengeBuffer, ResponseBuffer, Test_URL )
+        If( %PKTestServerFeatureCustomDataInResponseSilverlight% )
+            TestManagerProcessResponse( Dump, Dump, 0, 0, ResponseBuffer ) = DRM_S_MORE_DATA
+        Else
+            TestManagerProcessResponse( Dump, Dump, 0, 0, ResponseBuffer )
+        EndIf
+        TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+        TestManagerBind( 0, Dump, Dump, Use Callback function )
+        TestManagerInitializeEnvelopeRead(EnvelopeBuffer)
+        TestManagerReadEnvelope(EnvelopeBuffer,jazz.wma)
+        TestManagerCloseEnvelope(EnvelopeBuffer)
+        TestManagerClose()
+    EndIf
+EndOfLoop
+
+
+' =============================================================================
+60061:FUNC:Generate and Attempt to Process Challenge DLA w/ Silverlight License w/ incorrect Nonce in store then w/ correct Nonce
+TestCopyFileIfExists( servers_internal.xml, servers.xml )
+ForEachItemInFile( servers.xml )
+    If( %PKTestServerFeatureSilverlight% )
+        'Override the URL from the header
+        StoreStringInTestVariable( Test_URL , %PKTestServerURISimpleNonPersist%  )
+        TestManagerSetRights(Play, TRUE)
+        TestManagerOpenEnvelope(EnvelopeBuffer,jazzV4_AES_internal.eny)
+        TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, ChallengeBuffer, "UseSilverlightLicense UseAesKey")
+        TestManagerParseNonceTokenFromChallenge(ChallengeBuffer)
+        TestSendChallenge( LICGET, ChallengeBuffer, ResponseBuffer, Test_URL )
+        TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, ChallengeBuffer, "UseSilverlightLicense UseAesKey")
+        If( %PKTestServerFeatureCustomDataInResponseSilverlight% )
+            TestManagerProcessResponse(Dump,Dump,0,0, ResponseBuffer) = DRM_S_MORE_DATA
+        Else
+            TestManagerProcessResponse(Dump,Dump,0,0, ResponseBuffer)
+        EndIf
+        TestManagerProcessResponse_CheckResults( yKVI+lebDEiMAGVPCRr9oA==, NONCE, 0x8004D000 DRM_E_NONCE_STORE_TOKEN_NOT_FOUND, 0 NO_FLAGS )
+        TestSendChallenge( LICGET, ChallengeBuffer, ResponseBuffer, Test_URL )
+        If( %PKTestServerFeatureCustomDataInResponseSilverlight% )
+            TestManagerProcessResponse(Dump,Dump,0,0, ResponseBuffer) = DRM_S_MORE_DATA
+        Else
+            TestManagerProcessResponse(Dump,Dump,0,0, ResponseBuffer)
+        EndIf
+        TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+        TestManagerBind( 0, Dump, Dump, Use Callback function )
+        TestManagerInitializeEnvelopeRead(EnvelopeBuffer)
+        TestManagerReadEnvelope(EnvelopeBuffer,jazz.wma)
+        TestManagerCloseEnvelope(EnvelopeBuffer)
+        TestManagerClose()
+    EndIf
+EndOfLoop
+
+
+' =============================================================================
+60070:FUNC:Test special characters used in custom data for DLA.
+TestCopyFileIfExists( servers_internal.xml, servers.xml )
+ForEachItemInFile( servers.xml )
+    'Override the URL from the header
+    StoreStringInTestVariable( Test_URL, %PKTestServerURI% )
+    TestManagerSetRights(Play, TRUE)
+    TestManagerOpenEnvelope(EnvelopeBuffer,jazzV4_AES_internal.eny)
+    TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,6, ChallengeBuffer, "\"&<>'   (1)'\\t'  (2)'\\r\\n' (3)'\\r' hello\"&<>' (4)'\\r\\r' (5)'\\n' ")
+    TestSendChallenge( LICGET, ChallengeBuffer, ResponseBuffer, Test_URL )
+    If( %PKTestServerFeatureCustomDataInResponse% )
+        TestManagerProcessResponse( Dump, Dump, 0, 0, ResponseBuffer ) = DRM_S_MORE_DATA
+    Else
+        TestManagerProcessResponse( Dump, Dump, 0, 0, ResponseBuffer )
+    EndIf
+    If( %PKTestServerFeatureLicenseAck% )
+        TestManagerGenerateLicenseAck( ChallengeBuffer )
+        TestSendChallenge( LICACK, ChallengeBuffer, ResponseBuffer, Test_URL )
+        If( %PKTestServerFeatureCustomDataInAckResponse% )
+            TestManagerProcessLicenseAckResponse( ResponseBuffer ) = DRM_S_MORE_DATA
+        Else
+            TestManagerProcessLicenseAckResponse( ResponseBuffer )
+        EndIf
+    EndIf
+    TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+    TestManagerBind( 0, Dump, Dump, Use Callback function )
+    TestManagerInitializeEnvelopeRead(EnvelopeBuffer)
+    TestManagerReadEnvelope(EnvelopeBuffer,jazz.wma)
+    TestManagerCloseEnvelope(EnvelopeBuffer)
+    TestManagerClose()
+EndOfLoop
+
+
+' =============================================================================
+60073:FUNC:Opt-in signature verification with domains
+TestCopyFileIfExists( servers_internal.xml, servers.xml )
+ForEachItemInFile( servers.xml )
+    If( %PKTestServerFeatureDomains% )
+        'Override the URL from the header
+        StoreStringInTestVariable( Test_URL, %PKTestServerURIDomains% )
+        SetDomainID( 0 )
+        GenerateDomainJoinChallenge( 1, 0, "HelloWorld", "My Phone" )
+        TestSendChallenge( JOIN, 1, 2, Test_URL )
+        ProcessDomainJoinResponse( 2, NULL, 0 ) = 2 ( DRM_S_MORE_DATA )
+        TestManagerSetRights(Play, TRUE)
+        TestManagerOpenEnvelope(4,jazzV4_AES_internal.eny)
+        TestManagerGenerateChallenge(Dump,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, 1, "UseDomainCert UseAesKey")
+        TestSendChallenge( LICGET, 1, 2, Test_URL )
+        If( %PKTestServerFeatureCustomDataInResponseDomains% )
+            TestManagerProcessResponse( Dump, Dump, 0, 0, 2 ) = DRM_S_MORE_DATA
+        Else
+            TestManagerProcessResponse( Dump, Dump, 0, 0, 2 )
+        EndIf
+        If( %PKTestServerFeatureLicenseAckDomains% )
+            TestManagerGenerateLicenseAck( 1 )
+            TestSendChallenge( LICACK,1,2, Test_URL )
+            If( %PKTestServerFeatureCustomDataInAckResponse% )
+                TestManagerProcessLicenseAckResponse( 2 ) = DRM_S_MORE_DATA
+            Else
+                TestManagerProcessLicenseAckResponse( 2 )
+            EndIf
+        EndIf
+        TestManagerPrepareOPLCallback(100,100,100,100,100,0,0)
+        TestManagerBind( 0, Dump, Dump, Use Callback function )
+        TestManagerInitializeEnvelopeRead(4)
+        TestManagerReadEnvelope(4,jazz.wma)
+        TestManagerCloseEnvelope(4)
+        TestManagerClose()
+        GenerateDomainLeaveChallenge( 1, 0, "HelloWorld" )
+        TestSendChallenge( LEAVE, 1, 2, Test_URL )
+        ProcessDomainLeaveResponse( 2 ) = 2 ( DRM_S_MORE_DATA )
+    EndIf
+EndOfLoop
+
+
+' =============================================================================
+60074:FUNC:Expired enrollment cert of license server shall result in rejected domain join response
+TestCopyFileIfExists( servers_internal.xml, servers.xml )
+ForEachItemInFile( servers.xml )
+    If( %PKTestServerFeatureDomains% )
+        'Override the URL from the header
+        StoreStringInTestVariable( Test_URL , %PKTestServerURIDomains% )
+        SetDomainID( 0 )
+        GenerateDomainJoinChallenge( 1, 0, "HelloWorld", "My Phone" )
+        TestSendChallenge( JOIN, 1, 2, Test_URL )
+        ProcessDomainJoinResponse( 2, NULL, 0 ) = 2 ( DRM_S_MORE_DATA )
+        ' roll clock forward by 2 years
+        Test_ChangeTimeSeconds( 63072000 )
+        ProcessDomainJoinResponse( 2, NULL, 1 ) = 0x8004c079 (DRM_E_INVALID_DOMAIN_JOIN_RESPONSE_SIGNATURE) 
+        ProcessDomainJoinResponse( 2, NULL, 0 ) = 0x8004c079 (DRM_E_INVALID_DOMAIN_JOIN_RESPONSE_SIGNATURE)
+        ProcessDomainJoinResponse( 2, NULL, 2 ) = 0x80070057 (DRM_E_INVALIDARG)
+        ' roll clock back to current time
+        Test_ChangeTimeSeconds( -63072000 )
+    EndIf
+EndOfLoop
+
+
+' =============================================================================
+60075:FUNC:Use empty v4.1 header to generate license acquistion challenge
+TestCopyFileIfExists( servers_internal.xml, servers.xml )
+ForEachItemInFile( servers.xml )
+    'Override the URL from the header
+    StoreStringInTestVariable( Test_URL, %PKTestServerURI% )
+    TestManagerSetRights(Play, TRUE)
+    TestManagerSetV41Header( "WRMHeaderString", 0 ) = 0x80070057 (DRM_E_INVALIDARG)
+    TestManagerSetV41Header( NULL, 10 ) = 0x80070057 (DRM_E_INVALIDARG)
+    TestManagerSetV41Header( NULL, 0 )
+    TestManagerGenerateChallenge(Dump,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,0,2, ChallengeBuffer, "<RightsPool><LicenseRights KeyId=\"Gxb+VIuhg0SPHiJJG8UzFA==\"><Play /></LicenseRights></RightsPool>")
+    TestSendChallenge( LICGET, ChallengeBuffer, ResponseBuffer, Test_URL )
+    TestManagerProcessResponse( Dump, Dump, 0, 0, ResponseBuffer )
+    TestClearHeader()
+EndOfLoop

@@ -1,0 +1,318 @@
+dnl Process this file with autoconf to produce a configure script.
+
+AC_INIT(systems/bcmnexus/Makefile.am)
+
+AC_PREREQ(2.52)
+
+BRCM_MAJOR_VERSION=1
+BRCM_MINOR_VERSION=0
+BRCM_MICRO_VERSION=0
+
+BRCM_DIRECTFB_VERSION=$BRCM_MAJOR_VERSION.$BRCM_MINOR_VERSION.$BRCM_MICRO_VERSION
+
+AC_SUBST(BRCM_MAJOR_VERSION)
+AC_SUBST(BRCM_MINOR_VERSION)
+AC_SUBST(BRCM_MICRO_VERSION)
+AC_SUBST(BRCM_DIRECTFB_VERSION)
+
+# libtool versioning
+LT_RELEASE=$BRCM_MAJOR_VERSION.$BRCM_MINOR_VERSION
+LT_CURRENT=$BRCM_MICRO_VERSION
+LT_BINARY=0
+LT_REVISION=0
+LT_AGE=0
+
+AC_SUBST(LT_RELEASE)
+AC_SUBST(LT_CURRENT)
+AC_SUBST(LT_BINARY)
+AC_SUBST(LT_REVISION)
+AC_SUBST(LT_AGE)
+
+# The earliest version that this release has binary compatibility with.
+# This is used for module locations.
+BINARY_VERSION=$BRCM_MAJOR_VERSION.$BRCM_MINOR_VERSION-$LT_BINARY
+
+VERSION=$BRCM_DIRECTFB_VERSION
+PACKAGE=DirectFB-Broadcom
+
+AC_CANONICAL_HOST
+AC_CANONICAL_TARGET
+
+AM_INIT_AUTOMAKE($PACKAGE, $VERSION, no-define)
+PKG_PROG_PKG_CONFIG
+
+#
+# Enable silent compilation showing just CC or CCLD rather than the full
+# compile-time GCC output.
+# 
+AM_SILENT_RULES([yes])
+
+AM_MAINTAINER_MODE
+
+AM_CONFIG_HEADER(config.h)
+
+AC_DISABLE_STATIC
+AM_PROG_LIBTOOL
+AM_SANITY_CHECK
+AC_ISC_POSIX
+AM_PROG_CC_STDC
+AC_PROG_INSTALL
+AC_PROG_MAKE_SET
+AC_HEADER_STDC
+#AC_PROG_CXX
+
+AC_CHECK_HEADERS(stdbool.h)
+
+#
+# Find pkg-config
+#
+AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
+if test x$PKG_CONFIG = xno ; then
+  AC_MSG_ERROR([*** pkg-config not found. See http://pkgconfig.sourceforge.net])
+fi
+
+if ! pkg-config --atleast-pkgconfig-version 0.9 ; then
+  AC_MSG_ERROR([*** pkg-config too old; version 0.9 or better required.])
+fi
+
+#
+# Check for DirectFB
+#
+
+DIRECTFB_REQUIRED_VERSION=1.4.16
+
+PKG_CHECK_MODULES(DFB, directfb >= $DIRECTFB_REQUIRED_VERSION, [dfb_ok=yes ],
+    [dfb_ok=no]
+	AC_MSG_ERROR([$DIRECTFB_PKG_ERRORS
+*** DirectFB $DIRECTFB_REQUIRED_VERSION or newer is required. The latest version
+*** of DirectFB is available from http://www.directfb.org/.]))
+
+DFB_AVAILABLE_VERSION=`$PKG_CONFIG --modversion directfb`
+
+BINARY_VERSION=`echo $DFB_AVAILABLE_VERSION | sed 's/\./-/2'`
+
+PKG_CHECK_MODULES(DFB_INTERNAL, directfb-internal >= $DIRECTFB_REQUIRED_VERSION, [dfb_internal_ok=yes],
+    [dfb_internal_ok=no]
+	AC_MSG_ERROR([$DIRECTFB_PKG_ERRORS
+*** DirectFB $DIRECTFB_REQUIRED_VERSION or newer is required. The latest version
+*** of DirectFB is available from http://www.directfb.org/.]))
+
+
+DFB_CFLAGS="$DFB_CFLAGS $DFB_INTERNAL_CFLAGS -DREENTRANT"
+
+if test "x$GCC" = xyes; then
+  DFB_CFLAGS="$DFB_CFLAGS -O3 -fexpensive-optimizations -ffast-math -Wall"
+fi
+
+#
+# check target architecture
+#
+have_x86=no
+have_ppc=no
+
+case x"$target" in
+  xNONE | x)
+    target_or_host="$host" ;;
+  *)
+    target_or_host="$target" ;;
+esac
+
+case "$target_or_host" in
+  i*86-*-*)
+    have_x86=yes
+    AC_DEFINE(ARCH_X86,1,[Define to 1 if you are compiling for ix86.])
+    ;;
+
+  x86_64-*)
+    have_x86=yes
+    have_x86_64=yes
+    AC_DEFINE(ARCH_X86_64,1,[Define to 1 if you are compiling for AMD64.])
+    ;;
+
+  ppc-*-linux* | powerpc-*)
+    have_ppc=yes
+    AC_DEFINE(ARCH_PPC,1,[Define to 1 if you are compiling for PowerPC.])
+    ;;
+
+  *)
+    ;;
+esac
+
+#
+# Conditional debugging support
+#
+
+AC_ARG_ENABLE(debug, [  --enable-debug          enable debugging support [[default=no]]],, enable_debug=no)
+if test "x$enable_debug" = xyes; then
+    AC_DEFINE(DFB_DEBUG, 1, [Define to 1 to enable debugging support.])
+    DFB_CFLAGS="$DFB_CFLAGS -g3"
+    MODULEDIR=$libdir/directfb-$BINARY_VERSION$MODULEDIRNAME_SUFFIX
+else
+    DFB_CFLAGS="$DFB_CFLAGS -g0"
+    MODULEDIR=$libdir/directfb-$BINARY_VERSION-pure$MODULEDIRNAME_SUFFIX
+fi
+AM_CONDITIONAL(ENABLE_DEBUG, test "x$enable_debug" = xyes)
+
+MODULECLIENTDIR=$MODULEDIR$NEXUS_CLIENT_LIB_SUFFIX
+
+if test x"$DIRECTFB_MASTER_LIB" = x"n" -a x"$DIRECTFB_CLIENT_LIB" = x"y"; then
+MODULECLIENTDIR=$MODULEDIR
+fi
+
+DFB_LDFLAGS="$DFB_LDFLAGS -O1"
+
+FFMPEG=no
+
+AC_ARG_ENABLE(ffmpeg,
+              AC_HELP_STRING([--enable-ffmpeg],
+                             [build FFMPEG image provider @<:@default=yes@:>@]),
+              [], [enable_ffmpeg=yes])
+
+if test "$enable_ffmpeg" = "yes"; then
+  if test -z "$LIBAVCODEC"; then
+    AC_CHECK_HEADER(libavcodec/avcodec.h,
+      ffmpeg_ok=yes,
+      ffmpeg_ok=no)
+      if test "$ffmpeg_ok" = yes; then
+        FFMPEG=yes
+      else
+        enable_ffmpeg=no
+      fi
+  fi
+fi
+
+AM_CONDITIONAL(FFMPEG_PROVIDER, test "$FFMPEG" = "yes")
+
+dnl Test for sid                                                                                                                                                                                                                                           
+AC_ARG_ENABLE(sid,
+              AC_HELP_STRING([--enable-sid],
+                             [build SID image provider @<:@default=no@:>@]),
+              [], [enable_sid=no])
+
+AM_CONDITIONAL(SID_PROVIDER, test "$enable_sid" = "yes")
+
+
+enable_bcmnexus_ir=yes
+#enable_bcmnexus_key=no
+# HUMAX_PLATFORM_BASE
+enable_bcmnexus_key=yes
+enable_bcmnexus_rf4ce=yes
+
+AM_CONDITIONAL(BCMNEXUS_IR_INPUT, test "$enable_bcmnexus_ir" = "yes")
+AM_CONDITIONAL(BCMNEXUS_KEY_INPUT, test "$enable_bcmnexus_key" = "yes")
+AM_CONDITIONAL(BCMNEXUS_RF4CE_INPUT, test "$enable_bcmnexus_rf4ce" = "yes")
+
+dnl Test for bcmnexus_keyboard_pointer                                                                                                                                                                                                                                           
+AC_ARG_ENABLE(bcmnexus_keyboard_pointer,
+              AC_HELP_STRING([--enable-bcmnexus_keyboard_pointer],
+                             [build NIR BCM Driver @<:@default=no@:>@]),
+              [], [enable_bcmnexus_keyboard_pointer=no])
+
+AM_CONDITIONAL(BCMNEXUS_KEYBOARD_POINTER_INPUT, test "$enable_bcmnexus_keyboard_pointer" = "yes")
+
+
+DIRECTFB_IR_PROTOCOL=$DIRECTFB_IR_PROTOCOL
+DIRECTFB_IR_KEYCODES=$DIRECTFB_IR_KEYCODES
+
+AC_SUBST(DIRECTFB_IR_PROTOCOL)
+AC_SUBST(DIRECTFB_IR_KEYCODES)
+
+AC_DEFINE_UNQUOTED(DIRECTFB_IR_PROTOCOL, "$DIRECTFB_IR_PROTOCOL",[The Broadcom IR Protocol])
+AC_DEFINE_UNQUOTED(DIRECTFB_IR_KEYCODES, "$DIRECTFB_IR_KEYCODES",[The Broadcom IR Keycodes])
+
+#
+# GLES
+#
+
+AC_ARG_ENABLE(bcmnexus-gles, [  --enable-bcmnexus-gles          enable Broadcom GLES support [[default=no]]],, enable_bcmnexus_gles=no)
+AM_CONDITIONAL(BCMNEXUS_GLES, test "x$enable_bcmnexus_gles" = xyes)
+
+
+#
+# Master Nexus library support
+# 
+
+AC_ARG_ENABLE(master-lib, [  --enable-master-lib          enable Master Nexus library support [[default=no]]],, enable_master_lib=no)
+AM_CONDITIONAL(DIRECTFB_MASTER_LIB, test "x$enable_master_lib" = xyes)
+
+#
+# Client Nexus library support
+# 
+
+AC_ARG_ENABLE(client-lib, [  --enable-client-lib          enable Client Nexus library support [[default=no]]],, enable_client_lib=no)
+AM_CONDITIONAL(DIRECTFB_CLIENT_LIB, test "x$enable_client_lib" = xyes)
+
+AM_CONDITIONAL(DIRECTFB_MULTI, test "x$DIRECTFB_MULTI" = xy)
+
+AM_CONDITIONAL(DIRECTFB_NSC_SUPPORT, test "$DIRECTFB_NSC_SUPPORT" = "y" -o "$DIRECTFB_NSC_SUPPORT" = "tunnelled")
+AM_CONDITIONAL(DIRECTFB_NIR_SUPPORT, test "$DIRECTFB_NIR_SUPPORT" = "y")
+
+
+DATAROOTDIR=$datarootdir/
+DATADIR=$datadir/directfb-$DFB_AVAILABLE_VERSION
+INCLUDEDIR=$includedir/directfb
+INTERNALINCLUDEDIR=$includedir/directfb-internal
+
+# Honor aclocal flags
+ACLOCAL="$ACLOCAL $ACLOCAL_FLAGS"
+
+AM_CONDITIONAL(BUILD_SHARED, test "$enable_shared" = "yes")
+AM_CONDITIONAL(BUILD_STATIC, test "$enable_static" = "yes")
+
+
+AC_SUBST(DIRECTFB_NSC_SUPPORT)
+AC_SUBST(DIRECTFB_NIR_SUPPORT)
+AC_SUBST(DIRECTFB_MASTER_LIB)
+AC_SUBST(DIRECTFB_CLIENT_LIB)
+AC_SUBST(DIRECTFB_MULTI)
+AC_SUBST(FFMPEG_PROVIDER)
+AC_SUBST(SID_PROVIDER)
+AC_SUBST(BCMNEXUS_IR_INPUT)
+AC_SUBST(BCMNEXUS_KEY_INPUT)
+AC_SUBST(BCMNEXUS_KEYBOARD_POINTER_INPUT)
+AC_SUBST(BCMNEXUS_RF4CE_INPUT)
+AC_SUBST(DFB_CFLAGS)
+AC_SUBST(DFB_LDFLAGS)
+AC_SUBST(DFB_LIBS)
+AC_SUBST(DATAROOTDIR)
+AC_SUBST(DATADIR)
+AC_SUBST(MODULEDIR)
+AC_SUBST(MODULECLIENTDIR)
+AC_SUBST(MODULEDIRNAME)
+AC_SUBST(PACKAGE)
+AC_SUBST(INCLUDEDIR)
+AC_SUBST(INTERNALINCLUDEDIR)
+
+
+CFLAGS="$CFLAGS -Werror-implicit-function-declaration $DFB_CFLAGS"
+
+AC_OUTPUT([
+Makefile
+gfxdrivers/Makefile
+gfxdrivers/bcmnexus/Makefile
+inputdrivers/Makefile
+inputdrivers/bcmnexus/Makefile
+inputdrivers/bcmnexus/core/Makefile
+inputdrivers/bcmnexus/keycodes/Makefile
+interfaces/Makefile
+interfaces/IDirectFBImageProvider/Makefile
+platform/Makefile
+rules/Makefile
+systems/Makefile
+systems/bcmnexus/Makefile
+systems/bcmnexus/gl/Makefile
+tools/Makefile
+])
+
+
+AC_MSG_RESULT([
+Build options:
+  Debug mode             $enable_debug
+  Master libraries       $enable_master_lib ($MODULEDIR)
+  Client libraries       $enable_client_lib ($MODULECLIENTDIR)
+  Broadcom OpenGL ES 1.0 $enable_bcmnexus_gles
+
+Building system modules:
+  Broadcom               yes
+])
+

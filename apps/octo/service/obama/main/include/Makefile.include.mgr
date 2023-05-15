@@ -1,0 +1,10 @@
+# DB
+#ccflags-y += -I$(OCTO_DB_DIR)/include_plugin
+
+# TV Manager */
+ccflags-y += -I$(OCTO_TVMANAGER_DIR)/include
+ccflags-y += -I$(OCTO_TVMANAGER_DIR)/bus/include
+#ccflags-y += -I$(OCTO_TVMANAGER_DIR)/oapi_manager
+
+# TV Service */
+

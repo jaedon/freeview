@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config_root>
+  <config_data>
+    <include>etc/conf/gibbon.xml</include>
+    <screen_width>1920</screen_width>
+    <screen_height>1080</screen_height>
+    <debug_flags>testScreenCoordinateScale</debug_flags>
+    <!-- <inject_js>http://localcontrol.netflix.com/js/inject/1080_boxshots.js</inject_js> -->
+  </config_data>
+</config_root>

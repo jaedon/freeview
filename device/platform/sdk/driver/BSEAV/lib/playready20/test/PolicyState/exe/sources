@@ -1,0 +1,26 @@
+
+TARGETTYPE=PROGRAM
+TARGETNAME=PolicyStateTest
+UMTYPE=console
+
+SOURCES = \
+	../main.c \
+
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \
+    $(_DRM_TEST_POLICYSTATE_LIB) \
+    $(_COREDLL) \
+    $(_DCOMUUID) \
+    $(_OLE32) \
+    $(_OLEAUT32) \
+    $(_ATL8LIBS) \
+    $(_XGF) \
+    $(_AYGSHELL) \
+    $(_DATAMODEL) \
+    $(_DMSAPI) \
+    $(_SQMPROXY) \
+    $(_RIL) \
+    $(_OSSVCS) \
+

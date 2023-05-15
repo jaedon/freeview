@@ -1,0 +1,19 @@
+# Must define BSEAV before doing any Settop API includes
+# 
+# Feel free to copy this file (and this file only, *DO*NOT*COPY* bsp_top.mak and bsp_bottom.mak files)
+# you might also want to copy&paste content of that file to some other location. 
+
+# BSEAV shall point to the root of BSEAV VOB
+BSEAV=$(shell cd ../../..; pwd)
+include ${BSEAV}/api/tests/magnum/bsp_top.mak
+
+# to compile  and add inclide path for module foo uncomment line  below
+#include ${ROCKFORD}/modules/mvd.inc
+
+# default APP. if you want to compile another app, run as "make APP=yourapp"
+APP = test_bsp
+
+# assumes app has one .c file of same name
+SRCS += $(APP).c
+
+include ${BSEAV}/api/tests/magnum/bsp_bottom.mak

@@ -1,0 +1,20 @@
+########################################
+#					Choice Path Menu	    				#
+#########################################
+
+	comment "Global Path configuration"
+	
+	config PRODUCT_DATA_DIR
+		string
+		prompt "Humax Data Dir"
+		default "/var/lib/humaxtv"
+	
+	config PRODUCT_BACKUPDATA_DIR
+		string
+		prompt "Humax Backup Data Dir"
+		default "/var/lib/humaxtv_backup"
+	
+	config PRODUCT_USERDATA_DIR
+		string
+		prompt "Humax User Data Dir"
+		default "/var/lib/humaxtv_user"

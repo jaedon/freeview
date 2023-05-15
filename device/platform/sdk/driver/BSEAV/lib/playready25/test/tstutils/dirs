@@ -1,0 +1,8 @@
+DIRS= \
+    utils          \
+    generatorutils \
+    licgen         \
+    getclientid    \
+    xmrlicgen      \
+    contentkey     \
+    headergen      \

@@ -1,0 +1,33 @@
+
+OTHER_CLEANS += livemedia_clean
+
+LIVEMEDIA = ../../livemedia/live
+OTHER_MAKES =  livemedia
+CPPFLAGS += ${CFLAGS} \
+	-I$(LIVEMEDIA)/liveMedia/include \
+	-I$(LIVEMEDIA)/groupsock/include \
+	-I$(LIVEMEDIA)/UsageEnvironment/include  \
+	-I$(LIVEMEDIA)/BasicUsageEnvironment/include
+
+LIBS += 	\
+	$(LIVEMEDIA)/liveMedia/libliveMedia.a \
+	$(LIVEMEDIA)/groupsock/libgroupsock.a \
+	$(LIVEMEDIA)/UsageEnvironment/libUsageEnvironment.a \
+	$(LIVEMEDIA)/BasicUsageEnvironment/libBasicUsageEnvironment.a
+
+
+LDFLAGS += -lstdc++ 
+
+#LM_DEBUG = B_REFSW_CFLAGS=-DDEBUG
+
+livemedia:
+	${MAKE} -C ${LIVEMEDIA}/liveMedia CROSS_COMPILE=${CROSS_COMPILE} ${LM_DEBUG}
+	${MAKE} -C ${LIVEMEDIA}/groupsock CROSS_COMPILE=${CROSS_COMPILE}  ${LM_DEBUG}
+	${MAKE} -C ${LIVEMEDIA}/UsageEnvironment CROSS_COMPILE=${CROSS_COMPILE} ${LM_DEBUG}
+	${MAKE} -C ${LIVEMEDIA}/BasicUsageEnvironment CROSS_COMPILE=${CROSS_COMPILE} ${LM_DEBUG}
+
+livemedia_clean:
+	${MAKE} -C ${LIVEMEDIA} clean
+
+OBJS += ${ODIR}/lm_lgpl.o ${ODIR}/lm.o
+

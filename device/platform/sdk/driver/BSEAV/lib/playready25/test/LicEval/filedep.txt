@@ -1,0 +1,8 @@
+LicEval.pc.pk.ce.txt
+LicEval_AntiRollback.pc.pk.ce.txt
+LicEval.pk.ce.txt
+$(_DRM_OEM_FILES)\devcerttemplate.dat
+$(_DRM_OEM_FILES)\priv.dat
+$(_DRM_OEM_FILES)\bgroupcert.dat
+$(_DRM_OEM_FILES)\zgpriv.dat
+$(_DRM_OEM_FILES)\devcert.dat

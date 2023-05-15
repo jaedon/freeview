@@ -1,0 +1,335 @@
+#wiz .cont {
+  margin: 35px 0 69px;
+  text-align: center;
+  height: 521px;
+  position: relative;
+}
+#wiz .cont .button {
+  width: 250px;
+  color: #d2d2d2;
+}
+#wiz .cont .button.double {
+  width: 212px;
+}
+#wiz .ins {
+  position: relative;
+  width: 1031px;
+  height: 207px;
+  margin: 60px 0 0 92px;
+  background: url(../../../images/320_WIZ_EU_Process.png) no-repeat -10px 0;
+}
+#wiz .ins li {
+  display: inline-block;
+  overflow: hidden;
+  float: left;
+  width: 205px;
+  margin: 82px 54px 88px 0;
+  font-size: 34px;
+  word-break: break-all;
+  color: #fff;
+}
+#wiz .ins li:last-child {
+  margin-right: 0;
+}
+#wiz h1 {
+  overflow: hidden;
+  position: relative;
+  margin: 0 0 16px;
+  line-height: 67px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 60px;
+  color: #e6e6e6;
+}
+#wiz h1 .step1,
+#wiz h1 .step2,
+#wiz h1 .step3,
+#wiz h1 .step4 {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  bottom: 12px;
+  width: 79px;
+  height: 27px;
+}
+#wiz h1 .step1 {
+  background: url(../../../images/320_WIZ_EU_Step01.png) no-repeat 0 0;
+}
+#wiz h1 .step2 {
+  background: url(../../../images/320_WIZ_EU_Step02.png) no-repeat 0 0;
+}
+#wiz h1 .step3 {
+  background: url(../../../images/320_WIZ_EU_Step03.png) no-repeat 0 0;
+}
+#wiz h1 .step4 {
+  background: url(../../../images/320_WIZ_EU_Step04.png) no-repeat 0 0;
+}
+#wiz .menu {
+  position: relative;
+  width: 773px;
+  margin: 15px 0 0;
+}
+#wiz .menu li {
+  position: relative;
+  height: 60px;
+  line-height: 60px;
+  padding: 0 20px;
+  text-align: left;
+}
+#wiz .menu li em {
+  position: absolute;
+  right: 20px;
+  top: 0;
+}
+#wiz .menu .dep1 {
+  position: absolute;
+  left: 0;
+  width: 773px;
+}
+#wiz .menu .dep1 li {
+  background: rgba(255, 255, 255, 0.15);
+  color: #d2d2d2;
+  position: relative;
+  margin: 0 0 10px;
+  font-size: 28px;
+}
+#wiz .menu .dep1 li.on {
+  background: #2eb2ff;
+  color: #000;
+}
+#wiz .menu .dep1 li.his {
+  background: rgba(46, 178, 255, 0.25);
+  color: #fff;
+}
+#wiz .menu .dep1 li.dis {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(80, 80, 80, 0.5);
+}
+#wiz .menu .dep1 .on:after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  right: -36px;
+  width: 30px;
+  height: 30px;
+  background: url(../../../images/106_Arrow_Right.png) no-repeat;
+}
+#wiz .menu .dep2 {
+  display: none;
+  position: absolute;
+  left: 784px;
+  top: 0;
+  width: 386px;
+  height: 541px;
+}
+#wiz .menu .dep2.active .dep1 .his {
+  background: #414141;
+  color: #919191;
+  z-index: 1;
+}
+#wiz .menu .dep2 li {
+  color: #fff;
+  background: none;
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+#wiz .menu .dep2 li.on {
+  color: #2eb2ff;
+}
+#wiz .menu .dep2 li.his {
+  color: #135c86;
+}
+#wiz .menu .dep2 li.dis {
+  color: #505050;
+}
+#wiz .menu .dep2 .item {
+  width: 347px;
+}
+#wiz .menu .dep2 em {
+  display: none;
+}
+#wiz .menu .dep2.active {
+  display: block;
+  left: 775px;
+  z-index: 1;
+}
+#wiz .menu .dep2.active:after {
+  content: "";
+  position: absolute;
+  left: -835px;
+  top: -330px;
+  width: 1280px;
+  height: 720px;
+  /* background: rgba(0,0,0,.8); */
+  z-index: -1;
+}
+#wiz .menu .item,
+#wiz .menu .value,
+#wiz .menu .item2,
+#wiz .menu .item3 {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#wiz .menu .value {
+  width: 210px;
+  text-align: right;
+}
+#wiz .menu.root .his .item,
+#wiz .menu.root .dep2 .item {
+  width: 356px;
+}
+#wiz .menu .item2 {
+  width: 613px;
+}
+#wiz .menu .item3 {
+  width: 730px;
+}
+#wiz .menu .icoStorage .item3 {
+  width: 680px;
+}
+#DIA #trailer {
+  position: absolute;
+  background: url(../../../images/614_BG_Trailer.png) no-repeat;
+  width: 800px;
+  height: 400px;
+}
+#DIA #trailer #minipop {
+  position: absolute;
+}
+#DIA #trailer #minipop.dimTrailer {
+  position: absolute;
+}
+#DIA #trailer #minipop.dimTrailer .minimessage {
+  margin-top: 30px;
+  margin-left: 30px;
+}
+#DIA #trailer #minipop.dimTrailer .minimessage .txt .greenbtn {
+  display: inline-block;
+  width: 168px;
+  height: 30px;
+  margin: 0 10px;
+  background: url(../../../images/614_Trailer_icon.png) no-repeat;
+}
+#DIA #trailer #minipop.dimTrailer .minimessage .txt .OK {
+  display: inline-block;
+  width: 39px;
+  height: 39px;
+  margin: 0 10px;
+  background: url(../../../images/351_LTV_OK.png) no-repeat;
+}
+#DIA #trailer2 {
+  position: absolute;
+  width: 1280px;
+  height: 720px;
+  background: url(../../../images/614_BG_Trailer2.png) no-repeat;
+  text-align: center;
+}
+#DIA #trailer2 .cont {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 60px;
+  width: 558px;
+  height: 535px;
+  margin: 77px 0 0;
+  font-size: 26px;
+  font-family: HelveticaL;
+  color: #bebebe;
+}
+#DIA #trailer2 .wrap_title {
+  position: absolute;
+  top: 65px;
+  left: 88px;
+  width: 492px;
+  height: 80px;
+}
+#DIA #trailer2 .tit_tr {
+  position: absolute;
+  font-size: 44px;
+  color: #fff;
+  width: 492px;
+  padding: 6px 0;
+  margin: 0 auto;
+  word-break: break-all;
+}
+#DIA #trailer2 .icon {
+  position: absolute;
+  left: -20px;
+  top: -30px;
+  width: 33px;
+  height: 28px;
+  margin: 9px 5px 0;
+}
+#DIA #trailer2 .icon.rec {
+  background: url(../../../images/205_REC_Reservation_Recording.png) no-repeat;
+}
+#DIA #trailer2 .icon.rec_series {
+  background: url(../../../images/205_REC_Reservation_Series.png) no-repeat;
+}
+#DIA #trailer2 .icon.remind {
+  background: url(../../../images/205_REC_Reservation_Watch.png) no-repeat;
+}
+#DIA #trailer2 .desp {
+  position: absolute;
+  left: 0px;
+  width: 550px;
+  height: 232px;
+  line-height: 34px;
+  margin: 99px 0 0 0;
+  padding: 10px 0;
+  font-family: HelveticaL;
+  font-size: 24px;
+  text-align: left;
+  overflow: hidden;
+  word-break: break-all;
+}
+#DIA #trailer2 .ep {
+  position: absolute;
+  top: 512px;
+  left: 60px;
+  width: 550px;
+}
+#DIA #trailer2 .ep .button {
+  width: 550px;
+  height: 45px;
+  line-height: 44px;
+  margin: 0 0 8px;
+  padding: 5px 0;
+  font-size: 28px;
+}
+#DIA #trailer2 .paging_tra {
+  position: absolute;
+  top: 89px;
+  left: 54px;
+}
+#DIA #trailer2 .paging_tra .pagingPrv {
+  position: absolute;
+  display: inline-block;
+  width: 33px;
+  height: 28px;
+  background: url(../../../images/614_Trailer_Pagepre_N.png) no-repeat;
+}
+#DIA #trailer2 .paging_tra .pagingNxt {
+  position: absolute;
+  display: inline-block;
+  width: 33px;
+  height: 28px;
+  margin-left: 530px;
+  background: url(../../../images/614_Trailer_Pagenext_N.png) no-repeat;
+}
+#DIA #trailer2 .paging_tra.on .pagingPrv {
+  position: absolute;
+  display: inline-block;
+  width: 33px;
+  height: 28px;
+  background: url(../../../images/614_Trailer_Pagepre_C.png) no-repeat;
+}
+#DIA #trailer2 .paging_tra.on .pagingNxt {
+  position: absolute;
+  display: inline-block;
+  width: 33px;
+  height: 28px;
+  margin-left: 530px;
+  background: url(../../../images/614_Trailer_Pagenext_C.png) no-repeat;
+}

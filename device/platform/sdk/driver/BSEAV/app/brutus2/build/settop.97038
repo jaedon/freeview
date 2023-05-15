@@ -1,0 +1,22 @@
+# Install 97038 board, both B and C boards.
+
+# Remove all possible drivers
+/sbin/rmmod bcmdriver bcm7038 bcm7041
+
+# Install the user-mode driver.
+# This means that the porting interface runs in user mode.
+/sbin/insmod bcmdriver.o || exit
+
+# For 97038 ver 0 boards, you cannot do PVR and use the encoder at the same time.
+# In order to not bring up the encoder, one sure way is to
+# delete the bcm7041 driver. That's why the following statement has an "if" conditional.
+
+# A Bx board uses the 7041. A Cx board uses the 7042 but has no encoder driver.
+case %%BCHP_REV%% in
+B*)
+	if [ -e bcm7041.o ]; then
+		/sbin/insmod bcm7041.o || exit
+	fi
+	;;
+esac
+

@@ -1,0 +1,615 @@
+
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>html {
+    border: 3px solid #EEEEEE;
+    margin: 2em auto;
+    padding: 0;
+    width: 975px; }
+
+body {
+    background-color: white;
+    border: 1px solid #CACACA;
+    font-family: Helvetica,arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 30px;
+    margin: 0; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4;
+  text-decoration: none; }
+a:hover {
+  text-decoration: underline; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url("../../images/modules/styleguide/para.png") no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url("https://a248.e.akamai.net/assets.github.com/assets/primer/markdown/dirty-shade-0e7d81b119cc9beae17b0c98093d121fa0050a74.png") repeat-x 0 0;
+  border: 0 none;
+  color: #ccc;
+  height: 4px;
+  padding: 0; }
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+ul :last-child, ol :last-child {
+  margin-bottom: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  border-collapse: collapse; border-spacing: 0; padding: 0; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+
+.markdown-body code,.markdown-body tt{margin:0 2px;padding:0px 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}
+.markdown-body pre>code{margin:0;padding:0;white-space:pre;border:none;background:transparent}
+.markdown-body .highlight pre,.markdown-body pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}
+.markdown-body pre code,.markdown-body pre tt{background-color:transparent;border:none}
+.highlight{background:#ffffff}
+.highlight .c{color:#999988;font-style:italic}
+.highlight .err{color:#a61717;background-color:#e3d2d2}
+.highlight .k{font-weight:bold}
+.highlight .o{font-weight:bold}
+.highlight .cm{color:#999988;font-style:italic}
+.highlight .cp{color:#999999;font-weight:bold}
+.highlight .c1{color:#999988;font-style:italic}
+.highlight .cs{color:#999999;font-weight:bold;font-style:italic}
+.highlight .gd{color:#000000;background-color:#ffdddd}
+.highlight .gd .x{color:#000000;background-color:#ffaaaa}
+.highlight .ge{font-style:italic}
+.highlight .gr{color:#aa0000}
+.highlight .gh{color:#999999}
+.highlight .gi{color:#000000;background-color:#ddffdd}
+.highlight .gi .x{color:#000000;background-color:#aaffaa}
+.highlight .go{color:#888888}
+.highlight .gp{color:#555555}
+.highlight .gs{font-weight:bold}
+.highlight .gu{color:#800080;font-weight:bold}
+.highlight .gt{color:#aa0000}
+.highlight .kc{font-weight:bold}
+.highlight .kd{font-weight:bold}
+.highlight .kn{font-weight:bold}
+.highlight .kp{font-weight:bold}
+.highlight .kr{font-weight:bold}
+.highlight .kt{color:#445588;font-weight:bold}
+.highlight .m{color:#009999}
+.highlight .s{color:#d14}
+.highlight .na{color:#008080}
+.highlight .nb{color:#0086B3}
+.highlight .nc{color:#445588;font-weight:bold}
+.highlight .no{color:#008080}
+.highlight .ni{color:#800080}
+.highlight .ne{color:#990000;font-weight:bold}
+.highlight .nf{color:#990000;font-weight:bold}
+.highlight .nn{color:#555555}
+.highlight .nt{color:#000080}
+.highlight .nv{color:#008080}
+.highlight .ow{font-weight:bold}
+.highlight .w{color:#bbbbbb}
+.highlight .mf{color:#009999}
+.highlight .mh{color:#009999}
+.highlight .mi{color:#009999}
+.highlight .mo{color:#009999}
+.highlight .sb{color:#d14}
+.highlight .sc{color:#d14}
+.highlight .sd{color:#d14}
+.highlight .s2{color:#d14}
+.highlight .se{color:#d14}
+.highlight .sh{color:#d14}
+.highlight .si{color:#d14}
+.highlight .sx{color:#d14}
+.highlight .sr{color:#009926}
+.highlight .s1{color:#d14}
+.highlight .ss{color:#990073}
+.highlight .bp{color:#999999}
+.highlight .vc{color:#008080}
+.highlight .vg{color:#008080}
+.highlight .vi{color:#008080}
+.highlight .il{color:#009999}
+.highlight .gc{color:#999;background-color:#EAF2F5}
+.type-csharp .highlight .k{color:#0000FF}
+.type-csharp .highlight .kt{color:#0000FF}
+.type-csharp .highlight .nf{color:#000000;font-weight:normal}
+.type-csharp .highlight .nc{color:#2B91AF}
+.type-csharp .highlight .nn{color:#000000}
+.type-csharp .highlight .s{color:#A31515}
+.type-csharp .highlight .sc{color:#A31515}
+
+
+</style></head><body><h1>DaMa</h1>
+
+<h2>DB 구조</h2>
+
+<p><a target="_blank" href="DB_Structure.png"><img src="DB_Structure.png" alt="DB Structure" title="DB Structure" style="max-width:100%;"></a></p>
+
+<h4>Main DB</h4>
+
+<blockquote>
+<p>Ram에 상주 하는 DB<br>
+Flash 및 HDD에 저장되어 있는 File DB를 Load하여 구성되는 Superset</p>
+</blockquote>
+
+<h4>File DB</h4>
+
+<blockquote>
+<p>Flash 및 HDD에 저장되는 목적의 DB</p>
+</blockquote>
+
+<h4>Binary File</h4>
+
+<blockquote>
+<p>DB 사이즈를 줄이기 위해 큰 사이즈의 데이터들을 따로 파일로 저장<br>
+Binary 파일들에 대한 링크만 DB에 저장됨</p>
+</blockquote>
+
+<h2>동작</h2>
+
+<p><a target="_blank" href="Operation.png"><img src="Operation.png" alt="DaMa Operation" title="DaMa Operation" style="max-width:100%;"></a><br><code>빨간 글씨들은 dlib과의 관계</code></p>
+
+<h3>Set</h3>
+
+<div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * Batch begin/end 사이에 DAPI_Set을 호출하면 한번에 모았다가 Set을 함</span>
+<span class="cm"> * 빨라빨라빨라~</span>
+<span class="cm"> */</span>
+<span class="n">DERROR</span>  <span class="n">DAPI_BatchBegin</span> <span class="p">(</span><span class="k">const</span> <span class="n">HCHAR</span> <span class="o">*</span><span class="n">name</span><span class="p">);</span>
+<span class="n">DERROR</span>  <span class="n">DAPI_BatchEnd</span> <span class="p">(</span><span class="k">const</span> <span class="n">HCHAR</span> <span class="o">*</span><span class="n">name</span><span class="p">);</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * data를 dama에 전송</span>
+<span class="cm"> */</span>
+<span class="n">DERROR</span>  <span class="n">DAPI_Set</span> <span class="p">(</span><span class="k">const</span> <span class="n">HCHAR</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="n">HUID</span> <span class="n">uid</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="n">HUINT32</span> <span class="n">size</span><span class="p">);</span>
+</pre></div>
+
+<blockquote>
+<p>DaMa로 데이터를 전송</p>
+
+<ul>
+<li>DxLIB_Encode
+
+<ul>
+<li>전송 받은 데이터를 저장용 포멧으로 Encoding(ex. json)</li>
+</ul>
+</li>
+<li>DxLIB_GetField
+
+<ul>
+<li>DB Field를 참조하여 인덱싱</li>
+</ul>
+</li>
+<li>DxLIB_WriteData
+
+<ul>
+<li>만약 데이터 사이즈가 커서 (ex. IP-EPG) 외부 저장소를 사용해야 하면, 사용</li>
+</ul>
+</li>
+<li>데이터에 변화가 감지되면, notification Q에 등록</li>
+</ul>
+</blockquote>
+
+<h3>Reset</h3>
+
+<div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * name과 uid에 match되는 데이터를 삭제</span>
+<span class="cm"> */</span>
+<span class="n">DERROR</span>  <span class="n">DAPI_Reset</span> <span class="p">(</span><span class="k">const</span> <span class="n">HCHAR</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="n">HUID</span> <span class="n">uid</span><span class="p">);</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * name에 match되는 테이블을 삭제</span>
+<span class="cm"> */</span>
+<span class="n">DERROR</span>  <span class="n">DAPI_ResetTable</span> <span class="p">(</span><span class="k">const</span> <span class="n">HCHAR</span> <span class="o">*</span><span class="n">name</span><span class="p">);</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * 모든 DB Table을 삭제 &amp; Sync</span>
+<span class="cm"> * 이 함수는 동기화를 보장함</span>
+<span class="cm"> */</span>
+<span class="n">DERROR</span>  <span class="n">DAPI_ResetAll</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+
+<blockquote>
+<p>데이터 삭제</p>
+
+<ul>
+<li>reset item (by UID)
+
+<ul>
+<li>main db에서 item DELETE
+
+<ul>
+<li>만약 외부 저장소를 사용하면, 삭제 (DxLIB_WriteData(0))</li>
+</ul>
+</li>
+<li>notification Q에 등록</li>
+</ul>
+</li>
+<li>reset table
+
+<ul>
+<li>main db에서 table 삭제</li>
+<li>notification Q에 등록 </li>
+</ul>
+</li>
+<li>reset all
+
+<ul>
+<li>DB 전체 삭제 (저장된 파일 포함)</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+
+<h3>Request</h3>
+
+<div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * name 과 uid에 match되는 데이터를 dama로부터 get</span>
+<span class="cm"> * - getter는 async로 호출 됨</span>
+<span class="cm"> */</span>
+<span class="n">DERROR</span>  <span class="n">DAPI_Get</span> <span class="p">(</span><span class="k">const</span> <span class="n">HCHAR</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="n">HUID</span> <span class="n">uid</span><span class="p">,</span> <span class="n">DAPI_Getter</span> <span class="n">getter</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">userdata</span><span class="p">);</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * query에 match되는 데이터를 dama로 부터 get</span>
+<span class="cm"> */</span>
+<span class="n">DERROR</span>  <span class="n">DAPI_Query</span> <span class="p">(</span><span class="k">const</span> <span class="n">HCHAR</span> <span class="o">*</span><span class="n">query</span><span class="p">,</span> <span class="n">DAPI_Getter</span> <span class="n">getter</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">userdata</span><span class="p">);</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * name 에 match 되는 모든 테이블의 데이터를 dama로부터 get</span>
+<span class="cm"> */</span>
+<span class="n">DERROR</span>  <span class="n">DAPI_GetAll</span> <span class="p">(</span><span class="k">const</span> <span class="n">HCHAR</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="n">DAPI_Getter</span> <span class="n">getter</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">userdata</span><span class="p">);</span>
+</pre></div>
+
+<blockquote>
+<p>데이터 검색</p>
+
+<ul>
+<li>uid, table name, 또는 full SQL로 데이터 검색</li>
+<li>DxLIB_Decode
+
+<ul>
+<li>저장된 데이터를 기존 데이터 형태로 Decoding (ex. json to structure)</li>
+</ul>
+</li>
+<li>만약 외부 저장소를 사용하는 경우 DxLIB_ReadData를 통해 데이터 Load</li>
+</ul>
+</blockquote>
+
+<h3>Notification</h3>
+
+<div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * name과 uid에 match되는 데이터의 업데이트가 있는 경우, notifier가 오도록 등록</span>
+<span class="cm"> * - notifier는 async로 호출됨</span>
+<span class="cm"> */</span>
+<span class="n">HUINT32</span> <span class="n">DAPI_AddNotifier</span> <span class="p">(</span><span class="k">const</span> <span class="n">HCHAR</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="n">HUID</span> <span class="n">uid</span><span class="p">,</span> <span class="n">DAPI_Getter</span> <span class="n">notifier</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">userdata</span><span class="p">);</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * name에 match되는 데이터의 업데이트가 있는 경우, notifier가 오도록 등록</span>
+<span class="cm"> * - notifier는 async로 호출됨</span>
+<span class="cm"> */</span>
+<span class="n">HUINT32</span> <span class="n">DAPI_AddTableNotifier</span><span class="p">(</span><span class="k">const</span> <span class="n">HCHAR</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="n">DAPI_Getter</span> <span class="n">notifier</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">userdata</span><span class="p">);</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * notifier 등록 해제</span>
+<span class="cm"> */</span>
+<span class="kt">void</span>    <span class="n">DAPI_RemoveNotifier</span> <span class="p">(</span><span class="n">HUINT32</span> <span class="n">id</span><span class="p">);</span>
+</pre></div>
+
+<blockquote>
+<p>데이터의 변화 감지</p>
+
+<ul>
+<li>DaMa 내부적으로 일정 시간에 한번 씩, Push Notification Q 검사</li>
+<li>Notification 정책
+
+<ul>
+<li>DxLIB_GetPushCycle()가 포팅된 경우,
+
+<ul>
+<li>명시된 cycle 내의 notification을 push</li>
+</ul>
+</li>
+<li>DxLIB_GetPushCycle()가 포팅되지 않은 경우,
+
+<ul>
+<li>1초 이내에 notification Q의 변화가 없는 경우 push (이는 빈번한 push를 회피 하여, 성능 개선에 도움을 줌)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+
+<h3>Sync</h3>
+
+<div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * name 에 match되는 DB table을 storage에 sync</span>
+<span class="cm"> */</span>
+<span class="n">DERROR</span>  <span class="n">DAPI_Sync</span> <span class="p">(</span><span class="k">const</span> <span class="n">HCHAR</span> <span class="o">*</span><span class="n">name</span><span class="p">);</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * 기능은 DAPI_Sync와 같지만, term (millisec) 동안 name에 대한 아무런 API call이 없는 경우</span>
+<span class="cm"> * 동기화를 시도한다.</span>
+<span class="cm"> * - 자잘하게 요청이 많은 경우 성능 유지를 할 수 있다.</span>
+<span class="cm"> */</span>
+<span class="n">DERROR</span>  <span class="n">DAPI_LazySync</span> <span class="p">(</span><span class="k">const</span> <span class="n">HCHAR</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="n">HUINT32</span> <span class="n">term</span><span class="p">);</span>
+</pre></div>
+
+<blockquote>
+<p>데이터를 저장소에 저장</p>
+
+<ul>
+<li>Sync 정책
+
+<ul>
+<li>DxLIB_GetSyncTime()이 포팅된 경우,
+
+<ul>
+<li>명시된 time 에 한번씩 <code>DB에 변화가 있는 경우</code> 저장</li>
+</ul>
+</li>
+<li>DxLIB_GetSyncTime()이 포팅되지 않은 경우,
+
+<ul>
+<li>위의 함수를 호출하여 강제 싱크를 하지 않으면 싱크되지 않음</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+
+<h3>Restore</h3>
+
+<div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * name 에 match되는 DB table을 storage로부터 load</span>
+<span class="cm"> */</span>
+<span class="n">DERROR</span>  <span class="n">DAPI_Restore</span> <span class="p">(</span><span class="k">const</span> <span class="n">HCHAR</span> <span class="o">*</span><span class="n">name</span><span class="p">);</span>
+</pre></div>
+
+<blockquote>
+<p>메인 DB의 데이터를 삭제 하고, 파일로 부터 데이터 강제 복구</p>
+</blockquote></body>

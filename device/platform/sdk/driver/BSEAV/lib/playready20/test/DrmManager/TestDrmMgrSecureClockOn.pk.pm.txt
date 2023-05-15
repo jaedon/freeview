@@ -1,0 +1,362 @@
+11559: BVT: Bind should succeed when the license is within grace period
+If(WMDRMSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,NULL,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(exists(secstate.securetime.ingraceperiod)&&secstate.securetime.ingraceperiod==1)?(datediff(\"h\", secstate.securetime.gpstarttime, machine.datetime) < 1):1]]></CONDITION></ONSELECT>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerSetGetClockState(Set, TRUE)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+Test_ChangeTimeSeconds(1800)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit 
+TestManagerInitDecrypt( NORMAL DecryptContext, NORMAL InitDecryptContext ) 
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+EndIf
+
+911559: BVT: Bind should succeed when the license is within grace period (XMR)
+TestManagerAddXMRLicense(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL,NULL,NULL,NULL,NULL,NULL,NULL,5000)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetGetClockState(Set, TRUE)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+Test_ChangeTimeSeconds(100)
+TestManagerSetRights(Play)
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit 
+
+9115591: BVT: Bind should succeed when the license is within grace period and has expiry date (XMR)
+TestManagerAddXMRLicense(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL,NULL,NULL,NULL,NULL,NULL,7000,5000)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetGetClockState(Set, TRUE)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+Test_ChangeTimeSeconds(100)
+TestManagerSetRights(Play)
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit 
+
+11560: BVT: Bind should fail when the license is out of grace period
+If(WMDRMSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,NULL,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(exists(secstate.securetime.ingraceperiod)&&secstate.securetime.ingraceperiod==1)?(datediff(\"h\", secstate.securetime.gpstarttime, machine.datetime) < 1):1]]></CONDITION></ONSELECT>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerSetGetClockState(Set, TRUE)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+Test_ChangeTimeSeconds(5400)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTSNOTAVAILABLE
+EndIf
+
+911560: BVT: Bind should fail when the license is out of grace period (XMR)
+TestManagerAddXMRLicense(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL,NULL,NULL,NULL,NULL,NULL,NULL,2000)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetGetClockState(Set, TRUE)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+Test_ChangeTimeSeconds(5400)
+TestManagerSetRights(Play)
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTSNOTAVAILABLE
+
+9115601: BVT: Bind should fail when the license is out of grace period and has expiry date (XMR)
+TestManagerAddXMRLicense(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL,NULL,NULL,NULL,NULL,NULL,2000,1000)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetGetClockState(Set, TRUE)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+Test_ChangeTimeSeconds(1005)
+TestManagerSetRights(Play)
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTSNOTAVAILABLE
+
+11561:BVT : Bind should work for time-based license after the secure clock refresh date
+If(WMDRMSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,NULL,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(exists(secstate.securetime.ingraceperiod)&&secstate.securetime.ingraceperiod==1)?(datediff(\"h\", secstate.securetime.gpstarttime, machine.datetime) < 1):1]]></CONDITION></ONSELECT>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+' Roll forward 35 days to pass the secure clock refresh date (30 days)
+Test_ChangeTimeSeconds(3024000)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+Test_ChangeTimeSeconds(1800)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit 
+TestManagerInitDecrypt( NORMAL DecryptContext, NORMAL InitDecryptContext ) 
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+EndIf
+
+11622:Secure clock rollback should not disable the license
+If(WMDRMSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,NULL,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[((datediff(\"h\",secstate.FirstUseDate,machine.datetime)>3)?(deletelicense();0):1)&&(exists(secstate.securetime.ingraceperiod)&&(secstate.securetime.ingraceperiod==1)?(datediff(\"h\", secstate.securetime.gpstarttime,machine.datetime)<5):1)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.FirstUseDate=machine.datetime]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerSetGetClockState(Set, TRUE)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+Test_ChangeTimeSeconds(-72000)
+TestManagerSetRights(Play)
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit 
+TestManagerInitDecrypt( NORMAL DecryptContext, NORMAL InitDecryptContext ) 
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+Test_ChangeTimeSeconds(72000)
+TestManagerSetRights(Play)
+TestManagerReinitialize(Drm_Reinitialize)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit 
+TestManagerInitDecrypt( NORMAL DecryptContext, NORMAL InitDecryptContext ) 
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+EndIf
+
+51561:BVT : Bind should work for time-based license after the secure clock refresh date (XMR)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader( NORMAL, music1V4header.xml )
+TestManagerInitResponse
+'expires in 40 days
+TestManagerAddXMRLicense( nz/NueNnHDgdPwHsbrQhIw==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,NULL,NULL,NULL,NULL,NULL,3456000)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+' Roll forward 35 days to pass the secure clock refresh date (30 days)
+Test_ChangeTimeSeconds(3024000)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+'Test_ChangeTimeSeconds(1800)
+TestManagerSetRights(Play)
+TestManagerSetHeader( NORMAL, music1V4header.xml )
+TestManagerEncrypt( AES CipherType, 100 DataLengthToEncrypt )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump )
+TestManagerCommit 
+TestManagerInitDecrypt( NORMAL DecryptContext, NORMAL InitDecryptContext ) 
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NORMAL CounterModeCtx )
+
+-------------------BVT ends here--------------------------
+
+11557:Bind should fail when secure clock is reset and grace period is 0 in the license
+If(WMDRMSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,NULL,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(exists(secstate.securetime.ingraceperiod)&&secstate.securetime.ingraceperiod==1)?(datediff(\"h\", secstate.securetime.gpstarttime, machine.datetime) < 0):1]]></CONDITION></ONSELECT>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerSetGetClockState(Set, TRUE)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0x8004C00B DRM_E_RIGHTSNOTAVAILABLE
+EndIf
+
+
+11558:Bind should succeed when secure clock is on and grace period is 0 in the license
+If(WMDRMSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,NULL,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[(exists(secstate.securetime.ingraceperiod)&&secstate.securetime.ingraceperiod==1)?(datediff(\"h\", secstate.securetime.gpstarttime, machine.datetime) < 0):1]]></CONDITION></ONSELECT>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit 
+TestManagerInitDecrypt( NORMAL DecryptContext, NORMAL InitDecryptContext ) 
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NULL )
+EndIf
+
+
+51558: FUNC : Bind should succeed when secure clock is on and grace period is 0 in the license (XMR\RC4)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader( NORMAL, music1V4header.xml )
+TestManagerInitResponse 
+TestManagerAddXMRLicense( nz/NueNnHDgdPwHsbrQhIw==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I,NULL,NULL,NULL,NULL,3600  ,NULL,NULL,0   ,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerReinitialize(Reset, FALSE, TRUE)
+TestManagerSetRights(Play)
+TestManagerSetHeader( NORMAL, music1V4header.xml )
+TestManagerEncrypt( AES CipherType, 100 DataLengthToEncrypt )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump )
+TestManagerCommit 
+TestManagerInitDecrypt( NORMAL DecryptContext, NORMAL InitDecryptContext ) 
+TestManagerDecrypt( NORMAL DecryptContext, 100 DataLengthToDecrypt, NORMAL pbData, 0 MisAlignmentBytes, NORMAL CounterModeCtx )
+
+11620:Bind should fail for time bound license if secure clock is not set
+If(WMDRMSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,NULL,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[machine.datetime < secstate.ExpirationDate]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.ExpirationDate=#",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,NULL,NULL,17520)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerSetGetClockState(Set, TRUE)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+Test_ChangeTimeSeconds(50)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=-2147172261(0X8004C05B, DRM_E_CLK_NOT_SET)
+EndIf
+
+
+911620:Bind should fail for time bound end date license if secure clock is not set (XMR)
+TestManagerSetRights(Play)
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerAddXMRLicense(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL,NULL,NULL,NULL,NULL,NULL,500,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetGetClockState(Set, TRUE)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+Test_ChangeTimeSeconds(50)
+TestManagerSetRights(Play)
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=-2147172261(0X8004C05B, DRM_E_CLK_NOT_SET)
+
+'DISABLED, EXPIRE on store isn't valid in XMR V3
+'9116201:Bind should fail for time bound expire on store license if secure clock is not set (XMR)
+'TestManagerSetRights(Play)
+'TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==)
+'TestManagerAddXMRLicense(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL,NULL,NULL,NULL,NULL,500,NULL,NULL)
+'TestManagerProcessResponse( Dump, Dump, 0, 0 )
+'TestManagerSetGetClockState(Set, TRUE)
+'TestManagerReinitialize(Reset, FALSE, TRUE)
+'Test_ChangeTimeSeconds(50)
+'TestManagerSetRights(Play)
+'TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==)
+'TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=-2147172261(0X8004C05B, DRM_E_CLK_NOT_SET)
+
+9116202:Bind should fail for time bound expire on first use license if secure clock is not set (XMR)
+TestManagerSetRights(Play)
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerAddXMRLicense(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL,NULL,NULL,NULL,500,NULL,NULL,NULL)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetGetClockState(Set, TRUE)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+Test_ChangeTimeSeconds(50)
+TestManagerSetRights(Play)
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=-2147172261(0X8004C05B, DRM_E_CLK_NOT_SET)
+
+9116203:Bind should fail for time bound begin date license if secure clock is not set (XMR)
+TestManagerSetRights(Play)
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerAddXMRLicense(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetGetClockState(Set, TRUE)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+Test_ChangeTimeSeconds(50)
+TestManagerSetRights(Play)
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=-2147172261(0X8004C05B, DRM_E_CLK_NOT_SET)
+
+11621:License can expire when in grace period
+If(WMDRMSupported)
+Test_SetRandomSeed( FIXED RandomSeedType )
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,NULL,64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[((datediff(\"h\",secstate.FirstUseDate,machine.datetime)>3)?(deletelicense();0):1)&&(exists(secstate.securetime.ingraceperiod)&&(secstate.securetime.ingraceperiod==1)?(datediff(\"h\", secstate.securetime.gpstarttime,machine.datetime)<5):1)]]></CONDITION></ONSELECT><ONSTORE><ACTION><![CDATA[secstate.FirstUseDate=machine.datetime]]></ACTION></ONSTORE>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerSetGetClockState(Set, TRUE)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+'This value must be larger than 4 hours because Reinitialize will have reset 
+'us back to last known good time, which may be a few seconds earlier than 
+'real-time. Because the KG script datediff function always rounds down, we have
+'to be sure that we're longer than 4 hours.
+Test_ChangeTimeSeconds(14500)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerEncrypt( RC4 CipherType, 100 DataLengthToEncrypt )
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0X8004C009 DRM_E_LICENSEEXPIRED
+EndIf
+
+
+911621:License should operate while in grace period and should be playable again when the clock gets set back to normal until it expires (XMR)
+TestManagerAddXMRLicense(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL,NULL,NULL,NULL,NULL,NULL,5000,3000)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetGetClockState(Set, TRUE)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+Test_ChangeTimeSeconds(50)
+TestManagerSetRights(Play)
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+Test_ChangeTimeSeconds(3005)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)=0X8004C00B DRM_E_RIGHTSNOTAVAILABLE
+TestManagerSetGetClockState(Set, FALSE)
+TestManagerSetSecureClock(8 CLK_LK_RSC_VALID)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+Test_ChangeTimeSeconds(2005)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)=0X8004C009 DRM_E_LICENSEEXPIRED
+
+911622:License can expire when in grace period and coming out of grace period shouldn't allow it to be playable while expired (XMR)
+TestManagerAddXMRLicense(!3x8NSroVg4eXCzWqPU!BA==,RANDOM,XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL,NULL,NULL,NULL,NULL,NULL,5000,3000)
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerSetGetClockState(Set, TRUE)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+Test_ChangeTimeSeconds(50)
+TestManagerSetRights(Play)
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)
+TestManagerCommit
+Test_ChangeTimeSeconds(3005)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)=0X8004C00B DRM_E_RIGHTSNOTAVAILABLE
+Test_ChangeTimeSeconds(2005)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)=0X8004C009 DRM_E_LICENSEEXPIRED
+TestManagerSetGetClockState(Set, FALSE)
+TestManagerSetSecureClock(8 CLK_LK_RSC_VALID)
+TestManagerReinitialize(Reset, FALSE, TRUE)
+TestManagerSetKID(!3x8NSroVg4eXCzWqPU!BA==)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump,NULL)=0X8004C009 DRM_E_LICENSEEXPIRED
+

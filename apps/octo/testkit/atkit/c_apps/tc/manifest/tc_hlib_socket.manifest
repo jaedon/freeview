@@ -1,0 +1,62 @@
+{
+    "RUN_ALL": false,
+    "RUN_CATEGORY": [
+        "server","client"
+    ],
+    "RUN_TC": [],
+    "TC_LIST": [
+        {
+            "tc_name": "TC_SOCKET_SERVER_Open",
+            "category": [
+                "server"
+            ],
+            "argument": {
+                
+            },
+            "expect_result": {
+                
+            }
+        },
+        {
+            "tc_name": "TC_SOCKET_SERVER_Listen",
+            "category": [
+                "server"
+            ],
+            "argument": {
+            	
+
+            },
+            "expect_result": {
+            	
+
+            }
+        },
+        {
+            "tc_name": "TC_SOCKET_CLIENT_Open",
+            "category": [
+                "client"
+            ],
+            "argument": {
+                "limit_tc": 1500
+            },
+            "expect_result": {
+                
+
+            }
+        },
+        {
+            "tc_name": "TC_SOCKET_CLIENT_ListenTimeOut",
+            "category": [
+                "client"
+            ],
+            "argument": {
+                "timeout": 10
+
+            },
+            "expect_result": {
+                
+
+            }
+        }
+    ]
+}

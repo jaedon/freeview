@@ -1,0 +1,85 @@
+/*
+    Font
+*/
+/*
+    Image
+*/
+/*
+*/
+.-zindex-100 {
+  position: absolute;
+  z-index: 100;
+}
+.-multi-selection-list {
+  position: absolute;
+  left: -60px;
+}
+.-view-multi-selection .-btns .-btn {
+  width: 190px;
+  top: 216px;
+  position: absolute;
+  text-align: center;
+  left: 70px;
+  height: 40px;
+  border-color: #e1e1e1;
+}
+.-view-multi-selection .-btns .-btn.-f {
+  background-color: #3e3e3e;
+}
+.-view-multi-selection .-btns.-fd .-btn.-afd-leaf {
+  background-color: #b6b6b6;
+}
+#option-dlg {
+  position: absolute;
+  width: 1280px;
+  height: 720px;
+  background: url("../../images/614_EPG_OPT_Dim_R.png") 100% no-repeat transparent;
+  z-index: 4;
+}
+#option-dlg div {
+  position: inherit;
+  width: inherit;
+  height: inherit;
+}
+#option-dlg .-group-view {
+  position: absolute;
+}
+#option-dlg .-group-view.-sort-option {
+  bottom: 90px;
+  width: 405px;
+  height: 180px;
+  padding: 0px 5px 10px 0px;
+  right: 55px;
+  z-index: 2;
+}
+#option-dlg .-group-view.-sort-option .-list-item {
+  height: 50px;
+  text-align: right;
+  font-family: PrismFontL;
+  font-size: 42px;
+  color: #A3A3A3;
+  vertical-align: text-bottom;
+}
+#option-dlg .-group-view.-sort-option .-list-item > div {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  height: 42px;
+  vertical-align: text-bottom;
+  display: inline-block;
+  text-overflow: ellipsis;
+}
+#option-dlg .-group-view.-sort-option:after {
+  position: absolute;
+  content: '';
+  width: inherit;
+  height: 1px;
+  bottom: 0px;
+  background: url("../../images/107_Line_Context_R.png") no-repeat bottom;
+}
+#option-dlg .-group-view.-fd .-list-item.-fd {
+  font-family: PrismFontB;
+}
+#option-dlg .-group-view.-fd .-list-item.-fd > div {
+  color: #2EBEFF;
+}

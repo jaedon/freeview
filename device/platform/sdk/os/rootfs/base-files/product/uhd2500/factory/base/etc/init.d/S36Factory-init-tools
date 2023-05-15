@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo 0 > /sys/block/mmcblk0/mmcblk0boot1/force_ro
+cd /pgtool
+/pgtool/rtinit.sh

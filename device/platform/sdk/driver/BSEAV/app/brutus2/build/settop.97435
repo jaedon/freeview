@@ -1,0 +1,11 @@
+# Install 97038 board, both B and C boards.
+
+# Remove all possible drivers
+
+/sbin/rmmod bcmdriver bcm7401
+
+# Install the user-mode driver.
+# This means that the porting interface runs in user mode.
+
+/sbin/insmod bcmdriver.ko || exit
+

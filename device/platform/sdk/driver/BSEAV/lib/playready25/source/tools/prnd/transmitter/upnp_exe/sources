@@ -1,0 +1,98 @@
+UNICODE=1
+
+DRM_SUPPORT_CERTPARSERCACHE=0
+DRM_SUPPORT_DLA=0
+DRM_SUPPORT_WMDRM=0
+DRM_SUPPORT_CONTRACT=0
+DRM_SUPPORT_SECURE_CLOCK=2
+DRM_SUPPORT_BBXLEGACY=0
+DRM_SUPPORT_BBXSLK=0
+
+DRM_SUPPORT_PRNDTX=1
+DRM_SUPPORT_LICGEN=1
+DRM_SUPPORT_M2TSENCRYPTOR=1
+DRM_SUPPORT_DEVICESTORE=1
+
+# We use the offset clock to be able to simulate clock drift, 
+# so we need the version of oemtime.c that supports it.
+DRM_SUPPORT_TEST_SETTINGS=1
+
+DRM_TOOLS_PRND_TRANSMITTER_USES_UPNP=1
+
+!include ..\..\..\..\drmbuild.cmn
+
+TARGETNAME=PRNDTransmitter
+TARGETTYPE=PROGRAM
+
+# The PlayReady Porting Kit nmake build system does not handle IDL and RC files.
+# These are both necessary to include the use of UPnP in the Sample Transmitter.
+# The binary version of PRNDTransmitter included in the "Tools" directory at the
+# root of the MSI installation does use UPnP and the code is provided as a sample
+# of how it might be done.
+
+!if "$(_DRM_BUILD_TOOL)" != "NTBUILD"
+!error UPNP inclusion isn't supported out of the box with MSI install build
+!endif
+
+UMTYPE=console
+UMENTRY=main
+
+USER_C_FLAGS = $(USER_C_FLAGS)
+
+USE_ATL=1
+USE_STL=1
+USE_RTTI=1
+
+SOURCES =                                          \
+          ..\FileLogger.cpp                        \
+          ..\FuzzFunctions.cpp                     \
+          ..\HelperFunctions.cpp                   \
+          ..\HttpClient.cpp                        \
+          ..\HttpServer.cpp                        \
+          ..\LicenseGenerator.cpp                  \
+          ..\PRNDLicenseRequestProcessor.cpp       \
+          ..\PRNDMediaStreamer.cpp                 \
+          ..\PRNDMessageProcessor.cpp              \
+          ..\PRNDProximityDetectionProcessor.cpp   \
+          ..\PRNDRegistrationRequestProcessor.cpp  \
+          ..\PRNDSession.cpp                       \
+          ..\PRNDSessionManager.cpp                \
+          ..\ServerSocket.cpp                      \
+          ..\transmitter.cpp                       \
+          ..\TransmitterConfig.cpp                 \
+          ..\TSFile.cpp                            \
+          ..\UPnpTransmitter.cpp                   \
+          transmitter.rc                           \
+
+PRECOMPILED_CXX = 1
+PRECOMPILED_INCLUDE = ..\stdafx.h
+PRECOMPILED_SOURCEFILE = ..\stdafx.cpp
+
+INCLUDES =                                          \
+    $(INCLUDES)                                     \
+    $(_DRM_SOURCE_PATH)\tools\common;               \
+    $(_DRM_SOURCE_PATH)\tools\prnd\common;          \
+    $(_DRM_SOURCE_PATH)\tools\prnd\upnp\lib;        \
+    $(WMDRM_MD_OBJ_DIR)\tools\prnd\upnp\lib\$(O);   \
+
+# N.B. The final path is the path for the IDL compilation output.
+
+TARGETLIBS = $(TARGETLIBS)                             \
+    $(_DRM_COMMON_LIBS)                                \
+    $(_DRM_OEM_MAIN_LIB)                               \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmmanager.lib           \
+    $(DRM_PK_SOURCE_LIB_PATH)\ndt.lib                  \
+    $(_DRM_BLACKBOX_LIBS)                              \
+    $(DRM_PK_SOURCE_LIB_PATH)\wmdrmcert.lib            \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemrsabase.lib           \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmtoolscommon.lib       \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemaes.lib               \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemeccbaseimpl.lib       \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemeccbase.lib           \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemrsaoaeppssimpl.lib    \
+    $(DRM_PK_SOURCE_LIB_PATH)\oemrsaoaeppss.lib        \
+    $(DRM_PK_SOURCE_LIB_PATH)\oem_devstore_dvs.lib     \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmm2tsencryptorreal.lib \
+    $(DRM_PK_SOURCE_LIB_PATH)\prnd_tools_common.lib    \
+    $(DRM_PK_SOURCE_LIB_PATH)\UPnPUtils.lib            \
+    $(SDK_LIB_PATH)\Ws2_32.lib                         \

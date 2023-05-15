@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# execute the default stbhotplug script
+/sbin/stbhotplug $@
+
+# input hotplug
+if [ "$1" = "input" ] && [ "$ACTION" = "add" -o "$ACTION" = "remove" ]; then
+	if [ -f HOTPLUG_DIR/dfb_input_hotplug ]; then
+		exec HOTPLUG_DIR/dfb_input_hotplug
+	fi
+fi
+
+exit 0

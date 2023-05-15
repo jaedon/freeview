@@ -1,0 +1,24 @@
+{
+	"provider": [{
+		"prv_uid": 1,
+		"prv_name": "ARD"
+	}, {
+		"prv_uid": 2,
+		"prv_name": "ProSiebenSat.1"
+	}, {
+		"prv_uid": 3,
+		"prv_name": "RADIO Neue Hoffnung"
+	}, {
+		"prv_uid": 4,
+		"prv_name": "ZDFvision"
+	}, {
+		"prv_uid": 5,
+		"prv_name": "ROVI corporation"
+	}, {
+		"prv_uid": 6,
+		"prv_name": "SES ASTRA"
+	}, {
+		"prv_uid": 7,
+		"prv_name": "MIT-xperts GmbH"
+	}]
+}

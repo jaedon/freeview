@@ -1,0 +1,6 @@
+/sbin/rmmod bcmdriver bcm7041 bcm7038
+
+# Install the kernel-mode driver
+# This means that the porting interface runs in kernel mode.
+/sbin/insmod bcm7038.o config="${config}" || exit
+

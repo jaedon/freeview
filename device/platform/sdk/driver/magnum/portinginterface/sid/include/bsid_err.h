@@ -1,0 +1,120 @@
+/******************************************************************************
+*     Copyright (c) 2004-2012, Broadcom Corporation
+*     All Rights Reserved
+*     Confidential Property of Broadcom Corporation
+*
+*  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+*  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+*  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+*
+* $brcm_Workfile: bsid_err.h $
+* $brcm_Revision: Hydra_Software_Devel/1 $
+* $brcm_Date: 1/20/12 2:05p $
+*
+* Module Description:
+*   See Module Overview below.
+*
+* Revision History:
+*
+* $brcm_Log: /magnum/portinginterface/sid/7425/bsid_err.h $
+* 
+* Hydra_Software_Devel/1   1/20/12 2:05p fbasso
+* SW7425-1619: release SID multi channel interface to
+* Hydra_Software_Devel
+* 
+* Hydra_Software_Devel/4   6/21/11 11:12a parijat
+* SW7425-674: Added $brcm_Log: /magnum/portinginterface/sid/7425/bsid_err.h $
+* SW7425-674: Added 
+* SW7425-674: Added Hydra_Software_Devel/1   1/20/12 2:05p fbasso
+* SW7425-674: Added SW7425-1619: release SID multi channel interface to
+* SW7425-674: Added Hydra_Software_Devel
+*
+* Hydra_Software_Devel/1   5/03/06 09:19a fbasso
+* - Created this file
+******************************************************************************/
+
+#ifndef BSID_ERR_H__
+#define BSID_ERR_H__
+
+#include "berr_ids.h"
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+#define BSID_ERR_ZERO                      BERR_MAKE_CODE(BERR_SID_ID, 0x0000)
+#define BSID_ERR_GIF_BAD_FORMAT            BERR_MAKE_CODE(BERR_SID_ID, 0x2000)
+#define BSID_ERR_GIF_NO_COLOR_MAP          BERR_MAKE_CODE(BERR_SID_ID, 0x2001)
+#define BSID_ERR_GIF_INTERLACE             BERR_MAKE_CODE(BERR_SID_ID, 0x2002)
+#define BSID_ERR_GIF_NO_IMG_START          BERR_MAKE_CODE(BERR_SID_ID, 0x2003)
+#define BSID_ERR_GIF_BAD_ID                BERR_MAKE_CODE(BERR_SID_ID, 0x2004)
+#define BSID_ERR_GIF_ILLEGAL_SIZE          BERR_MAKE_CODE(BERR_SID_ID, 0x2005)
+#define BSID_ERR_GIF_BAD_EXTENSION         BERR_MAKE_CODE(BERR_SID_ID, 0x2006)
+#define BSID_ERR_GIF_EARLY_FILE_END        BERR_MAKE_CODE(BERR_SID_ID, 0x2007)
+
+#define BSID_ERR_PNG_BAD_HEADER            BERR_MAKE_CODE(BERR_SID_ID, 0x3000)
+#define BSID_ERR_PNG_BAD_COMP_METHOD       BERR_MAKE_CODE(BERR_SID_ID, 0x3001)
+#define BSID_ERR_PNG_BAD_HUFFMAN           BERR_MAKE_CODE(BERR_SID_ID, 0x3002)
+#define BSID_ERR_PNG_BAD_BLK_TYPE_0        BERR_MAKE_CODE(BERR_SID_ID, 0x3003)
+#define BSID_ERR_PNG_BAD_INTERLACE         BERR_MAKE_CODE(BERR_SID_ID, 0x3004)
+#define BSID_ERR_PNG_ILLEGAL_SIZE          BERR_MAKE_CODE(BERR_SID_ID, 0x3005)
+#define BSID_ERR_PNG_BAD_BPP               BERR_MAKE_CODE(BERR_SID_ID, 0x3006)
+#define BSID_ERR_PNG_BAD_CUST_HUFFMAN      BERR_MAKE_CODE(BERR_SID_ID, 0x3007)
+#define BSID_ERR_PNG_TOO_WIDE              BERR_MAKE_CODE(BERR_SID_ID, 0x3008)
+#define BSID_ERR_PNG_BAD_CRC               BERR_MAKE_CODE(BERR_SID_ID, 0x3009)
+#define BSID_ERR_PNG_BAD_TRANSPARENCY      BERR_MAKE_CODE(BERR_SID_ID, 0x300a)
+#define BSID_ERR_PNG_BAD_PALETTE           BERR_MAKE_CODE(BERR_SID_ID, 0x300b)
+
+#define BSID_ERR_JPEG_BAD_HEADER           BERR_MAKE_CODE(BERR_SID_ID, 0x4000)
+#define BSID_ERR_JPEG_BAD_MARKER           BERR_MAKE_CODE(BERR_SID_ID, 0x4001)
+#define BSID_ERR_JPEG_NO_SOF_HUFF          BERR_MAKE_CODE(BERR_SID_ID, 0x4002)
+#define BSID_ERR_JPEG_UNKNOWN_FMT          BERR_MAKE_CODE(BERR_SID_ID, 0x4003)
+#define BSID_ERR_JPEG_BAD_NUM_COMPS        BERR_MAKE_CODE(BERR_SID_ID, 0x4004)
+#define BSID_ERR_JPEG_TOO_MANY_DEQUANT     BERR_MAKE_CODE(BERR_SID_ID, 0x4005)
+#define BSID_ERR_JPEG_UNKNOWN_HUFF_TC      BERR_MAKE_CODE(BERR_SID_ID, 0x4006)
+#define BSID_ERR_JPEG_UNKNOWN_HUFF_TH      BERR_MAKE_CODE(BERR_SID_ID, 0x4007)
+#define BSID_ERR_JPEG_BAD_HUFF_TABLE       BERR_MAKE_CODE(BERR_SID_ID, 0x4008)
+#define BSID_ERR_JPEG_BAD_QUANT            BERR_MAKE_CODE(BERR_SID_ID, 0x4009)
+#define BSID_ERR_JPEG_UNSUPP_TYPE          BERR_MAKE_CODE(BERR_SID_ID, 0x400a)
+#define BSID_ERR_JPEG_BAD_FRM_HEAD         BERR_MAKE_CODE(BERR_SID_ID, 0x400b)
+#define BSID_ERR_JPEG_BAD_RST_MARKER       BERR_MAKE_CODE(BERR_SID_ID, 0x400c)
+#define BSID_ERR_JPEG_BAD_SIZE             BERR_MAKE_CODE(BERR_SID_ID, 0x400d)
+#define BSID_ERR_JPEG_BAD_MARKER_SEGMENT   BERR_MAKE_CODE(BERR_SID_ID, 0x400e)
+#define BSID_ERR_JPEG_PROG_BAD_DC          BERR_MAKE_CODE(BERR_SID_ID, 0x400f)
+#define BSID_ERR_JPEG_PROG_BAD_AL_AH       BERR_MAKE_CODE(BERR_SID_ID, 0x4010)
+#define BSID_ERR_JPEG_PROG_BAD_HUFF_LOOKUP BERR_MAKE_CODE(BERR_SID_ID, 0x4011)
+
+#define BSID_ERR_RLE_BAD_FILE              BERR_MAKE_CODE(BERR_SID_ID, 0x5000)
+#define BSID_ERR_RLE_NO_COMMAND_7          BERR_MAKE_CODE(BERR_SID_ID, 0x5001)
+#define BSID_ERR_RLE_UNKNOWN_COMMAND       BERR_MAKE_CODE(BERR_SID_ID, 0x5002)
+#define BSID_ERR_RLE_BAD_SUBFMT            BERR_MAKE_CODE(BERR_SID_ID, 0x5003)
+#define BSID_ERR_RLE_BAD_HEADER            BERR_MAKE_CODE(BERR_SID_ID, 0x5004)
+#define BSID_ERR_RLEB_BAD_PALETTE          BERR_MAKE_CODE(BERR_SID_ID, 0x5005)
+#define BSID_ERR_RLEB_BAD_SEG_TYPE         BERR_MAKE_CODE(BERR_SID_ID, 0x5006)
+#define BSID_ERR_RLE_DCSQT_TOO_BIG         BERR_MAKE_CODE(BERR_SID_ID, 0x5007)
+#define BSID_ERR_RLE_BAD_SIZE              BERR_MAKE_CODE(BERR_SID_ID, 0x5008)
+#define BSID_ERR_RLE_BAD_DCSQT             BERR_MAKE_CODE(BERR_SID_ID, 0x5009)
+#define BSID_ERR_RLE_ILLEGAL_SIZE          BERR_MAKE_CODE(BERR_SID_ID, 0x500a
+
+#define BSID_ERR_BE_ERROR_FOUND            BERR_MAKE_CODE(BERR_SID_ID, 0x6000)
+
+#define BSID_ERR_SETUP_ERR                 BERR_MAKE_CODE(BERR_SID_ID, 0x7000)
+#define BSID_ERR_UNSUPPORTED_FEATURE       BERR_MAKE_CODE(BERR_SID_ID, 0x7001)
+#define BSID_ERR_ILLEGAL_STRIDE            BERR_MAKE_CODE(BERR_SID_ID, 0x7002)
+#define BSID_ERR_NO_STATE_BUFFER           BERR_MAKE_CODE(BERR_SID_ID, 0x7003)
+#define BSID_ERR_BAD PARAMS                BERR_MAKE_CODE(BERR_SID_ID, 0x7004)
+#define BSID_ERR_IMG_TOO_BIG               BERR_MAKE_CODE(BERR_SID_ID, 0x7005)
+
+#define BSID_ERR_BAD_PIX_CNT               BERR_MAKE_CODE(BERR_SID_ID, 0xe000)
+
+#define BSID_ERR_UNKNOWN_FMT               BERR_MAKE_CODE(BERR_SID_ID, 0xf000)
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* #ifndef BSID_ERR_H__ */
+
+/* end of file */

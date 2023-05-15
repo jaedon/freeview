@@ -1,0 +1,8 @@
+DIRS =   \
+    real \
+    stub \
+
+DRM_DIRS =                          \
+    real{!DRM_SUPPORT_SECUREOEMHAL} \
+    stub                            \
+

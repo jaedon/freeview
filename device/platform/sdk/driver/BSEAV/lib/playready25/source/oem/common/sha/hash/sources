@@ -1,0 +1,11 @@
+!include ..\..\..\..\drmbuild.cmn
+
+TARGETNAME=oemshahash
+TARGETTYPE=LIBRARY
+
+C_DEFINES=$(C_DEFINES)    \
+    -DDRM_BUILDING_OEMSHAHASH_LIB
+
+SOURCES=          \
+    oemshahash.c  \
+

@@ -1,0 +1,787 @@
+
+#include "_dlib.h"
+
+static	DxEnumStringTable_t	_stBaseOPTypeTable =
+{
+	(HCHAR*)"DxOPTYPE_e",
+	{
+		{	"eDxOPTYPE_ALL",			eDxOPTYPE_ALL		},
+		{	"eDxOPTYPE_NONE",		eDxOPTYPE_NONE		},
+		{	"eDxOPTYPE_APSHD",		eDxOPTYPE_APSHD 	},
+		{	"eDxOPTYPE_FREESAT",		eDxOPTYPE_FREESAT	},
+		{	"eDxOPTYPE_CANALSAT",	eDxOPTYPE_CANALSAT	},
+		{	"eDxOPTYPE_NTVPLUS",		eDxOPTYPE_NTVPLUS	},
+		{	"eDxOPTYPE_UPC",			eDxOPTYPE_UPC		},
+		{	"eDxOPTYPE_ADTV",		eDxOPTYPE_ADTV		},
+		{	"eDxOPTYPE_ALJAZEERA",	eDxOPTYPE_ALJAZEERA },
+		{	"eDxOPTYPE_CNE",			eDxOPTYPE_CNE		},
+		{	"eDxOPTYPE_DIGITURK",	eDxOPTYPE_DIGITURK	},
+		{	"eDxOPTYPE_NONDIGITURK",	eDxOPTYPE_NONDIGITURK},
+		{	"eDxOPTYPE_TIVUSAT",		eDxOPTYPE_TIVUSAT	},
+		{	"eDxOPTYPE_MOSTELECOM", eDxOPTYPE_MOSTELECOM},
+		{	"eDxOPTYPE_MAX",			eDxOPTYPE_MAX		},
+		{	NULL,					0					}
+	}
+};
+
+static	DxEnumStringTable_t	_stBaseDeliveryTypeTable =
+{
+	(HCHAR*)"DxDeliveryType_e",
+	{
+		{	"eDxDELIVERY_ALL",		eDxDELIVERY_TYPE_ALL 	},
+		{	"eDxDELIVERY_SAT",		eDxDELIVERY_TYPE_SAT 	},
+		{	"eDxDELIVERY_TER",		eDxDELIVERY_TYPE_TER 	},
+		{	"eDxDELIVERY_CAB",		eDxDELIVERY_TYPE_CAB 	},
+		{	"eDxDELIVERY_NET",		eDxDELIVERY_TYPE_MULTICAST 	},
+		{	NULL,					0					}
+	}
+};
+
+static	DxEnumStringTable_t	_stBaseVideoTypeTable =
+{
+	(HCHAR*)"DxVideoType_e",
+	{
+		{	"eDxVIDEO_TYPE_ALL",	eDxVIDEO_TYPE_ALL	},
+		{	"eDxVIDEO_TYPE_SD", 	eDxVIDEO_TYPE_SD	},
+		{	"eDxVIDEO_TYPE_HD", 	eDxVIDEO_TYPE_HD	},
+		{	NULL,					0					}
+	}
+};
+
+static	DxEnumStringTable_t	_stBaseCasTypeBitTable =
+{
+	(HCHAR*)"DxCasType_e",
+	{
+		{	"eDxCAS_TYPE_All",			eDxCAS_TYPE_All 		},
+		{	"eDxCAS_TYPE_FTA",			eDxCAS_TYPE_FTA 		},
+		{	"eDxCAS_TYPE_NAGRA",		eDxCAS_TYPE_NAGRA		},
+		{	"eDxCAS_TYPE_IRDETO",		eDxCAS_TYPE_IRDETO		},
+		{	"eDxCAS_TYPE_NDS",			eDxCAS_TYPE_NDS 		},
+		{	"eDxCAS_TYPE_VIACCESS", 	eDxCAS_TYPE_VIACCESS	},
+		{	"eDxCAS_TYPE_CONAX",		eDxCAS_TYPE_CONAX		},
+		{	"eDxCAS_TYPE_MEDIAGUARD",	eDxCAS_TYPE_MEDIAGUARD	},
+		{	"eDxCAS_TYPE_CRYPTOWORKS",	eDxCAS_TYPE_CRYPTOWORKS },
+		{	"eDxCAS_TYPE_VMX",			eDxCAS_TYPE_VERIMATRIX	},
+		{	"eDxCAS_TYPE_JPBCAS",		eDxCAS_TYPE_JPBCAS		},
+		{	"eDxCAS_TYPE_JPCCAS",		eDxCAS_TYPE_JPCCAS		},
+		{	"eDxCAS_TYPE_ALLCAS",		eDxCAS_TYPE_ALLCAS		},
+		{	NULL,						0						}
+	}
+};
+
+static	DxEnumStringTable_t	_stBaseVideoCodecTable =
+{
+	(HCHAR*)"DxVideoCodec_e",
+	{
+		{	"eDxVIDEO_CODEC_UNKNOWN",	eDxVIDEO_CODEC_UNKNOWN	},
+		{	"eDxVIDEO_CODEC_MPEG1", 	eDxVIDEO_CODEC_MPEG1	},
+		{	"eDxVIDEO_CODEC_MPEG2", 	eDxVIDEO_CODEC_MPEG2	},
+		{	"eDxVIDEO_CODEC_MPEG4Part2",	eDxVIDEO_CODEC_MPEG4_PART2},
+		{	"eDxVIDEO_CODEC_H261",		eDxVIDEO_CODEC_H261 	},
+		{	"eDxVIDEO_CODEC_H263",		eDxVIDEO_CODEC_H263 	},
+		{	"eDxVIDEO_CODEC_H264",		eDxVIDEO_CODEC_H264 	},
+		{	"eDxVIDEO_CODEC_H264_Svc",	eDxVIDEO_CODEC_H264_SVC },
+		{	"eDxVIDEO_CODEC_H264_Mvc",	eDxVIDEO_CODEC_H264_MVC },
+		{	"eDxVIDEO_CODEC_VC1",		eDxVIDEO_CODEC_VC1		},
+		{	"eDxVIDEO_CODEC_VC1_SimpleMain",	eDxVIDEO_CODEC_VC1_SIMPLEMAIN},
+		{	"eDxVIDEO_CODEC_AVS",		eDxVIDEO_CODEC_AVS		},
+		{	"eDxVIDEO_CODEC_RV40",		eDxVIDEO_CODEC_RV40 	},
+		{	"eDxVIDEO_CODEC_VP6",		eDxVIDEO_CODEC_VP6		},
+		{	"eDxVIDEO_CODEC_DIVX311",	eDxVIDEO_CODEC_DIVX311	},
+		{	"eDxVIDEO_CODEC_XVID",		eDxVIDEO_CODEC_XVID 	},
+		{	"eDxVIDEO_CODEC_Max",		eDxVIDEO_CODEC_MAX_NUM		},
+		{	NULL,						0						}
+	}
+};
+
+static	DxEnumStringTable_t	_stBaseAudioCodecTable =
+{
+	(HCHAR*)"DxAudioCodec_e",
+	{
+		{	"eDxAUDIO_CODEC_UNKNOWN",	eDxAUDIO_CODEC_UNKNOWN	},
+		{	"eDxAUDIO_CODEC_MPEG",		eDxAUDIO_CODEC_MPEG 	},
+		{	"eDxAUDIO_CODEC_MP3",		eDxAUDIO_CODEC_MP3		},
+		{	"eDxAUDIO_CODEC_DOLBY_AC3", eDxAUDIO_CODEC_DOLBY_AC3},
+		{	"eDxAUDIO_CODEC_DOLBY_AC3P",	eDxAUDIO_CODEC_DOLBY_AC3P},
+		{	"eDxAUDIO_CODEC_PCM",		eDxAUDIO_CODEC_PCM		},
+		{	"eDxAUDIO_CODEC_AAC",		eDxAUDIO_CODEC_AAC		},
+		{	"eDxAUDIO_CODEC_AAC_LOAS",	eDxAUDIO_CODEC_AAC_LOAS },
+		{	"eDxAUDIO_CODEC_AAC_PLUS",	eDxAUDIO_CODEC_AAC_PLUS },
+		{	"eDxAUDIO_CODEC_AAC_PLUS_ADTS", eDxAUDIO_CODEC_AAC_PLUS_ADTS},
+		{	"eDxAUDIO_CODEC_DTS",		eDxAUDIO_CODEC_DTS		},
+		{	"eDxAUDIO_CODEC_DTS_HD",	eDxAUDIO_CODEC_DTS_HD	},
+		{	"eDxAUDIO_CODEC_LPCM_DVD",	eDxAUDIO_CODEC_LPCM_DVD },
+		{	"eDxAUDIO_CODEC_LPCM_HD_DVD",eDxAUDIO_CODEC_LPCM_HD_DVD},
+		{	"eDxAUDIO_CODEC_LPCM_BLUERAY",eDxAUDIO_CODEC_LPCM_BLUERAY},
+		{	"eDxAUDIO_CODEC_WMA_STD",	eDxAUDIO_CODEC_WMA_STD	},
+		{	"eDxAUDIO_CODEC_WMA_PRO",	eDxAUDIO_CODEC_WMA_PRO	},
+		{	"eDxAUDIO_CODEC_PCMWAVE",	eDxAUDIO_CODEC_PCMWAVE	},
+		{	"eDxAUDIO_CODEC_DRA",		eDxAUDIO_CODEC_DRA		},
+		{	"eDxAUDIO_CODEC_AIFF",		eDxAUDIO_CODEC_AIFF 	},
+		{	"eDxAUDIO_CODEC_MAX_NUM",	eDxAUDIO_CODEC_MAX_NUM		},
+		{	NULL,								0						}
+	}
+};
+
+static	DxEnumStringTable_t	_stBaseAudioConfigTable =
+{
+	(HCHAR*)"DxStereoSelect_e",
+	{
+		{	"eDxSTEREO_SELECT_UNKNOWN",	eDxSTEREO_SELECT_UNKNOWN },
+		{	"eDxSTEREO_SELECT_STEREO",	eDxSTEREO_SELECT_STEREO	},
+		{	"eDxSTEREO_SELECT_MONOLEFT", 	eDxSTEREO_SELECT_MONOLEFT},
+		{	"eDxSTEREO_SELECT_MONORIGHT",	eDxSTEREO_SELECT_MONORIGHT},
+		{	"eDxSTEREO_SELECT_MONOMIXED",		eDxSTEREO_SELECT_MONOMIXED 	},
+		{	NULL,						0						}
+	}
+};
+
+static	DxEnumStringTable_t	_stBaseAntennaTypeTable =
+{
+	(HCHAR*)"DxAntennaType_e",
+	{
+		{	"eDxANT_TYPE_LNB_ONLY", 	eDxANT_TYPE_LNB_ONLY	},
+		{	"eDxANT_TYPE_DISEQC",		eDxANT_TYPE_DISEQC		},
+		{	"eDxANT_TYPE_SCD",			eDxANT_TYPE_SCD 		},
+		{	"eDxANT_TYPE_SMATV",		eDxANT_TYPE_SMATV		},
+		{	"eDxANT_TYPE_MONOBLOCK_LNB",	eDxANT_TYPE_MONOBLOCK_LNB},
+		{	NULL,						0						}
+	}
+};
+
+static	DxEnumStringTable_t	_stANTLNBVoltTable =
+{
+	(HCHAR*)"DxSAT_LnbVoltage_e",
+	{
+		{	DxNAMEOF(eDxLNB_VOLT_STD),		eDxLNB_VOLT_STD 	},
+		{	DxNAMEOF(eDxLNB_VOLT_HIGH), 	eDxLNB_VOLT_HIGH	},
+		{	NULL,													0									}
+	}
+};
+
+static	DxEnumStringTable_t	_stANTDiSEqCVerTable =
+{
+	(HCHAR*)"DxSAT_DiseqcVer_e",
+	{
+		{	DxNAMEOF(eDxDISEQC_VER_1_0),	eDxDISEQC_VER_1_0	},
+		{	DxNAMEOF(eDxDISEQC_VER_1_1),	eDxDISEQC_VER_1_1	},
+		{	DxNAMEOF(eDxDISEQC_VER_1_2),	eDxDISEQC_VER_1_2	},
+		{	DxNAMEOF(eDxDISEQC_VER_1_3),	eDxDISEQC_VER_1_3	},
+		{	DxNAMEOF(eDxDISEQC_VER_2_0),	eDxDISEQC_VER_2_0	},
+		{	NULL,							0					}
+	}
+};
+
+static	DxEnumStringTable_t	_stANTDiSEqCInputTable =
+{
+	(HCHAR*)"DxSAT_DiseqcInput_e",
+	{
+		{	DxNAMEOF(eDxDISEQC_INPUT_NONE), eDxDISEQC_INPUT_NONE	},
+		{	DxNAMEOF(eDxDISEQC_INPUT_A),	eDxDISEQC_INPUT_A	},
+		{	DxNAMEOF(eDxDISEQC_INPUT_B),	eDxDISEQC_INPUT_B	},
+		{	DxNAMEOF(eDxDISEQC_INPUT_C),	eDxDISEQC_INPUT_C	},
+		{	DxNAMEOF(eDxDISEQC_INPUT_D),	eDxDISEQC_INPUT_D	},
+		{	NULL,							0					}
+	}
+};
+
+static	DxEnumStringTable_t	_stANTSCDInputTable =
+{
+	(HCHAR*)"DxSAT_ScdInput_e",
+	{
+		{	DxNAMEOF(eDxSCD_INPUT_NONE),	eDxSCD_INPUT_NONE	},
+		{	DxNAMEOF(eDxSCD_INPUT_SCD_A),	eDxSCD_INPUT_SCD_A	},
+		{	DxNAMEOF(eDxSCD_INPUT_SCD_B),	eDxSCD_INPUT_SCD_B	},
+		{	NULL,							0					}
+	}
+};
+
+static	DxEnumStringTable_t	_stANTToneTable =
+{
+	(HCHAR*)"DxSAT_ToneBurst_e",
+	{
+		{	DxNAMEOF(eDxTONE_BURST_NONE),	eDxTONE_BURST_NONE	},
+		{	DxNAMEOF(eDxTONE_BURST_A),		eDxTONE_BURST_A	},
+		{	DxNAMEOF(eDxTONE_BURST_B),		eDxTONE_BURST_B	},
+		{	NULL,							0					}
+	}
+};
+
+static	DxEnumStringTable_t	_stRecStatusTable =
+{
+	(HCHAR*)DxNAMEOF(DxRecStatus_e),
+	{
+		{	DxNAMEOF(eDxREC_STS_RECORD_START),	eDxREC_STS_RECORD_START	},
+		{	DxNAMEOF(eDxREC_STS_RECORDING),		eDxREC_STS_RECORDING	},
+		{	DxNAMEOF(eDxREC_STS_RECORDED),		eDxREC_STS_RECORDED	},
+		{	DxNAMEOF(eDxREC_STS_INCOMPLETED), 	eDxREC_STS_INCOMPLETED	},
+		{	NULL,								-1}
+	}
+};
+
+static	DxEnumStringTable_t	_stRecTimestampTable =
+{
+	(HCHAR*)DxNAMEOF(DxRecTimestampType_e),
+	{
+		{	DxNAMEOF(eDxREC_TIMESTAMP_PMT),		eDxREC_TIMESTAMP_PMT	},
+		{	DxNAMEOF(eDxREC_TIMESTAMP_EIT),		eDxREC_TIMESTAMP_EIT	},
+		{	DxNAMEOF(eDxREC_TIMESTAMP_DRM),		eDxREC_TIMESTAMP_DRM	},
+		{	DxNAMEOF(eDxREC_TIMESTAMP_LICENSE), eDxREC_TIMESTAMP_LICENSE	},
+		{	NULL,								-1}
+	}
+};
+
+
+static	DxEnumStringTable_t	_stRecEndReasonTable =
+{
+	(HCHAR*)DxNAMEOF(DxRecEndReasonType_e),
+	{
+		{	DxNAMEOF(eDxREC_FAILED_NOFAIL),				eDxREC_FAILED_NOFAIL	},
+		{	DxNAMEOF(eDxREC_FAILED_HDDFULL),			eDxREC_FAILED_HDDFULL	},
+		{	DxNAMEOF(eDxREC_FAILED_MAXNUM),				eDxREC_FAILED_MAXNUM	},
+		{	DxNAMEOF(eDxREC_FAILED_MAXRECORDLISTNUM), 	eDxREC_FAILED_MAXRECORDLISTNUM	},
+		{	DxNAMEOF(eDxREC_FAILED_LESS30SEC), 			eDxREC_FAILED_LESS30SEC	},
+		{	DxNAMEOF(eDxREC_FAILED_NOSIGNAL),			eDxREC_FAILED_NOSIGNAL	},
+		{	DxNAMEOF(eDxREC_FAILED_NONSERVICE),			eDxREC_FAILED_NONSERVICE},
+		{	DxNAMEOF(eDxREC_FAILED_SEARCHING),			eDxREC_FAILED_SEARCHING	},
+
+		{	DxNAMEOF(eDxREC_FAILED_CONFLICT_TP),		eDxREC_FAILED_CONFLICT_TP},
+		{	DxNAMEOF(eDxREC_FAILED_DRM),				eDxREC_FAILED_DRM	},
+		{	DxNAMEOF(eDxREC_FAILED_NOSC_SCR),			eDxREC_FAILED_NOSC_SCR},
+		{	DxNAMEOF(eDxREC_FAILED_NORIGHT_SCR),		eDxREC_FAILED_NORIGHT_SCR	},
+
+		{	DxNAMEOF(eDxREC_FAILED_NOHDD),				eDxREC_FAILED_NOHDD},
+		{	DxNAMEOF(eDxREC_INCOMPLETE_HDDFULL),		eDxREC_INCOMPLETE_HDDFULL	},
+		{	DxNAMEOF(eDxREC_FAILED_UNKNOWN),				eDxREC_FAILED_UNKNOWN},
+		{	DxNAMEOF(eDxREC_FAILED_NOUSBHDD),			eDxREC_FAILED_NOUSBHDD	},
+
+		{	DxNAMEOF(eDxREC_FAILED_DISCONNECTUSBHDD),	eDxREC_FAILED_DISCONNECTUSBHDD},
+		{	DxNAMEOF(eDxREC_FAILED_EXTUSB_CopyDel),		eDxREC_FAILED_EXTUSB_CopyDel	},
+		{	DxNAMEOF(eDxREC_FAILED_SAME_SVC_RECORDING),	eDxREC_FAILED_SAME_SVC_RECORDING},
+		{	DxNAMEOF(eDxREC_FAILED_HIGHER_PRIORITY),	eDxREC_FAILED_HIGHER_PRIORITY	},
+		{	DxNAMEOF(eDxREC_FAILED_UNABLE_TRACKING),	eDxREC_FAILED_UNABLE_TRACKING	},
+		{	DxNAMEOF(eDxREC_FAILED_NO_VIDEO_AUDIO),	eDxREC_FAILED_NO_VIDEO_AUDIO	},
+		{	DxNAMEOF(eDxREC_FAILED_SI_TIMEOUT),		eDxREC_FAILED_SI_TIMEOUT	},
+		{	DxNAMEOF(eDxREC_FAILED_POWER_OFF),		eDxREC_FAILED_POWER_OFF	},
+		{	NULL,								-1}
+	}
+};
+
+static	DxEnumStringTable_t	_stAudioTypeTable =
+{
+	(HCHAR*)DxNAMEOF(DxAUDIO_Type_e),
+	{
+		{	DxNAMEOF(eDxAUDIO_TYPE_UNDEFINED),			eDxAUDIO_TYPE_UNDEFINED	},
+		{	DxNAMEOF(eDxAUDIO_TYPE_CLEAN_EFFECTS),		eDxAUDIO_TYPE_CLEAN_EFFECTS	},
+		{	DxNAMEOF(eDxAUDIO_TYPE_HEARING_IMPAIRED),	eDxAUDIO_TYPE_HEARING_IMPAIRED	},
+		{	DxNAMEOF(eDxAUDIO_TYPE_VISUAL_IMPAIRED),	eDxAUDIO_TYPE_VISUAL_IMPAIRED	},
+		{	DxNAMEOF(eDxAUDIO_TYPE_RESERVED), 			eDxAUDIO_TYPE_RESERVED	},
+		{	NULL,								-1}
+	}
+};
+
+#if defined(CONFIG_OP_FREESAT)
+static	DxEnumStringTable_t	_stFreesat_PVR_GuidanceTypeTable =
+{
+	(HCHAR*)DxNAMEOF(DxFreesat_PVR_GuidanceType_e),
+	{
+		{	DxNAMEOF(eDxFSat_GUIDANCE_TYPE_NONE),		eDxFSat_GUIDANCE_TYPE_NONE	},
+		{	DxNAMEOF(eDxFSat_GUIDANCE_TYPE_MAX),		eDxFSat_GUIDANCE_TYPE_MAX	},
+		{	NULL,								-1}
+	}
+};
+#endif
+
+static	DxEnumStringTable_t	_stRsvTypeTable =
+{
+	(HCHAR*)DxNAMEOF(DxRsvType_e),
+	{
+		{	DxNAMEOF(DxRSVTYPE_NOTHING),		DxRSVTYPE_NOTHING	},
+		{	DxNAMEOF(DxRSVTYPE_WATCHING_EBR),	DxRSVTYPE_WATCHING_EBR	},
+		{	DxNAMEOF(DxRSVTYPE_WATCHING_TBR),	DxRSVTYPE_WATCHING_TBR	},
+		{	DxNAMEOF(DxRSVTYPE_RECORD_EBR), 	DxRSVTYPE_RECORD_EBR	},
+		{	DxNAMEOF(DxRSVTYPE_RECORD_TBR), 	DxRSVTYPE_RECORD_TBR	},
+		{	DxNAMEOF(DxRSVTYPE_POWER_ON),		DxRSVTYPE_POWER_ON	},
+		{	DxNAMEOF(DxRSVTYPE_POWER_OFF),		DxRSVTYPE_POWER_OFF },
+		{	DxNAMEOF(DxRSVTYPE_REGULAR_OTA),	DxRSVTYPE_REGULAR_OTA	},
+		{	DxNAMEOF(DxRSVTYPE_EPG_GATHERING),	DxRSVTYPE_EPG_GATHERING },
+		{	DxNAMEOF(DxRSVTYPE_EMM),			DxRSVTYPE_EMM	},
+		{	DxNAMEOF(DxRSVTYPE_UPDATE_TASK),	DxRSVTYPE_UPDATE_TASK	},
+		{	DxNAMEOF(DxRSVTYPE_ASO_NOTIFY), 	DxRSVTYPE_ASO_NOTIFY	},
+		{	DxNAMEOF(DxRSVTYPE_MYEPG_UPDATE),	DxRSVTYPE_MYEPG_UPDATE	},
+		{	DxNAMEOF(DxRSVTYPE_NET_UPDATE), 	DxRSVTYPE_NET_UPDATE	},
+		{	DxNAMEOF(DxRSVTYPE_BLURAY_TBR), 	DxRSVTYPE_BLURAY_TBR	},
+		{	DxNAMEOF(DxRSVTYPE_BLURAY_EBR), 	DxRSVTYPE_BLURAY_EBR	},
+		{	DxNAMEOF(DxRSVTYPE_RECORD_INSTANT), DxRSVTYPE_RECORD_INSTANT	},
+		{	DxNAMEOF(DxRSVTYPE_RECORD_DELAYED), DxRSVTYPE_RECORD_DELAYED	},
+		{	DxNAMEOF(DxRSVTYPE_KEYWORD_RECORD_NOTSURE), DxRSVTYPE_KEYWORD_RECORD_NOTSURE	},
+		{	DxNAMEOF(DxRSVTYPE_CAS_POWER_CTRL), DxRSVTYPE_CAS_POWER_CTRL	},
+		{	DxNAMEOF(DxRSVTYPE_LOGO_DOWN),		DxRSVTYPE_LOGO_DOWN },
+		{	DxNAMEOF(DxRSVTYPE_RESCAN), 		DxRSVTYPE_RESCAN	},
+		{	DxNAMEOF(DxRSVTYPE_CAS_TEL),		DxRSVTYPE_CAS_TEL	},
+		{	DxNAMEOF(DxRSVTYPE_CHANNEL_MASK),	DxRSVTYPE_CHANNEL_MASK	},
+		{	DxNAMEOF(DxRSVTYPE_DUBBING),		DxRSVTYPE_DUBBING	},
+		{	DxNAMEOF(DxRSVTYPE_OTA_BD), 		DxRSVTYPE_OTA_BD	},
+		{	DxNAMEOF(DxRSVTYPE_IP_EPG_GATHERING),	DxRSVTYPE_IP_EPG_GATHERING	},
+		{	DxNAMEOF(DxRSVTYPE_IP_REMOTE_PROGRAMMING),	DxRSVTYPE_IP_REMOTE_PROGRAMMING },
+		{	DxNAMEOF(DxRSVTYPE_DLNA_EBR),	DxRSVTYPE_DLNA_EBR },
+		{	DxNAMEOF(DxRSVTYPE_DLNA_TBR),	DxRSVTYPE_DLNA_TBR },
+		{	DxNAMEOF(DxRSVTYPE_DLNA_DUBBING),	DxRSVTYPE_DLNA_DUBBING },
+		{	DxNAMEOF(DxRSVTYPE_NETSTREAMING_LIVE),	DxRSVTYPE_NETSTREAMING_LIVE },
+		{	DxNAMEOF(DxRSVTYPE_NETSTREAMING_FILE),	DxRSVTYPE_NETSTREAMING_FILE },
+		{	DxNAMEOF(DxRSVTYPE_RECORD_SERIES_EBR), 	DxRSVTYPE_RECORD_SERIES_EBR	},
+		{	DxNAMEOF(DxRSVTYPE_RECORD_SATRECORD_TBR), 	DxRSVTYPE_RECORD_SATRECORD_TBR	},
+		{	DxNAMEOF(DxRSVTYPE_ACTIVATION_TIME), 	DxRSVTYPE_ACTIVATION_TIME	},
+		{	DxNAMEOF(DxRSVTYPE_DESC_REC_STANDBY),	DxRSVTYPE_DESC_REC_STANDBY },
+		{	DxNAMEOF(DxRSVTYPE_TVTVEPG_TIMER),			DxRSVTYPE_TVTVEPG_TIMER	},
+		{	DxNAMEOF(DxRSVTYPE_CHECK_SATRECORD_TIMER),			DxRSVTYPE_CHECK_SATRECORD_TIMER	},
+		{	DxNAMEOF(DxRSVTYPE_WATCHING_SERIES_EBR),			DxRSVTYPE_WATCHING_SERIES_EBR	},
+		{	DxNAMEOF(DxRSVTYPE_EndOfCase),		DxRSVTYPE_EndOfCase },
+		{	NULL,								0}
+	}
+};
+
+static	DxEnumStringTable_t	_stRsvReadyTable =
+{
+	(HCHAR*)DxNAMEOF(DxRsvReady_e),
+	{
+		{	DxNAMEOF(DxRSVREADY_0_SEC),		DxRSVREADY_0_SEC	},
+		{	DxNAMEOF(DxRSVREADY_10_SEC),	DxRSVREADY_10_SEC	},
+		{	DxNAMEOF(DxRSVREADY_20_SEC),	DxRSVREADY_20_SEC	},
+		{	DxNAMEOF(DxRSVREADY_30_SEC), 	DxRSVREADY_30_SEC	},
+		{	DxNAMEOF(DxRSVREADY_40_SEC),	DxRSVREADY_40_SEC	},
+		{	DxNAMEOF(DxRSVREADY_60_SEC), 	DxRSVREADY_60_SEC	},
+		{	DxNAMEOF(DxRSVREADY_180_SEC),		DxRSVREADY_180_SEC	},
+		{	DxNAMEOF(DxRSVREADY_300_SEC),	DxRSVREADY_300_SEC	},
+		{	DxNAMEOF(DxRSVREADY_TVA_TRACKING),	DxRSVREADY_TVA_TRACKING	},
+		{	NULL,								0}
+	}
+};
+
+static	DxEnumStringTable_t	_stRsvRepeatTable =
+{
+	(HCHAR*)DxNAMEOF(DxRsvRepeat_e),
+	{
+		{	DxNAMEOF(DxRSVREPEAT_ONCE),		DxRSVREPEAT_ONCE	},
+		{	DxNAMEOF(DxRSVREPEAT_DAILY),	DxRSVREPEAT_DAILY	},
+		{	DxNAMEOF(DxRSVREPEAT_WEEKLY),	DxRSVREPEAT_WEEKLY	},
+		{	DxNAMEOF(DxRSVREPEAT_WEEKDAYS), DxRSVREPEAT_WEEKDAYS	},
+		{	DxNAMEOF(DxRSVREPEAT_WEEKEND), 	DxRSVREPEAT_WEEKEND	},
+		{	DxNAMEOF(DxRSVREPEAT_WITHOUT_SUNDAY),	DxRSVREPEAT_WITHOUT_SUNDAY	},
+		{	DxNAMEOF(DxRSVREPEAT_KEYWORD),	DxRSVREPEAT_KEYWORD	},
+		{	DxNAMEOF(DxRSVREPEAT_FEWDAY_OF_WEEK),	DxRSVREPEAT_FEWDAY_OF_WEEK	},
+		{	NULL,								0}
+	}
+};
+
+static	DxEnumStringTable_t	_stRsvStatusTable =
+{
+	(HCHAR*)DxNAMEOF(DxRsvStatus_e),
+	{
+		{	DxNAMEOF(DxRSVSTATUS_WAITING),		DxRSVSTATUS_WAITING	},
+		{	DxNAMEOF(DxRSVSTATUS_READY),		DxRSVSTATUS_READY	},
+		{	DxNAMEOF(DxRSVSTATUS_CH_CHANGE),	DxRSVSTATUS_CH_CHANGE	},
+		{	DxNAMEOF(DxRSVSTATUS_RUNNING),		DxRSVSTATUS_RUNNING	},
+		{	DxNAMEOF(DxRSVSTATUS_STOP), 		DxRSVSTATUS_STOP	},
+		{	NULL,								0}
+	}
+};
+
+static	DxEnumStringTable_t	_stSVCUpdateTable =
+{
+	(HCHAR*)"DxSvcUpdateFlag_e",
+	{
+		{	DxNAMEOF(eDxSVC_UPDATE_NORMAL),		eDxSVC_UPDATE_NORMAL	},
+		{	DxNAMEOF(eDxSVC_UPDATE_NEWCHANNEL),	eDxSVC_UPDATE_NEWCHANNEL	},
+		{	DxNAMEOF(eDxSVC_UPDATE_UPDATECHANNEL),	eDxSVC_UPDATE_UPDATECHANNEL	},
+		{	DxNAMEOF(eDxSVC_UPDATE_READONLY),	eDxSVC_UPDATE_READONLY	},
+		{	NULL,								0					}
+	}
+};
+
+static	DxEnumStringTable_t	_stSVCOrgSvcTypeTable =
+{
+	(HCHAR*)"DxOrgSvcType_e",
+	{
+		{	DxNAMEOF(eDxOrgSVC_TYPE_DIGITAL_TV),	eDxOrgSVC_TYPE_DIGITAL_TV	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_DIGITAL_RADIO),	eDxOrgSVC_TYPE_DIGITAL_RADIO	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_TELETEXT),		eDxOrgSVC_TYPE_TELETEXT	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_NVOD_REFERENCE),eDxOrgSVC_TYPE_NVOD_REFERENCE	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_NVOD_TIMESHIFT),eDxOrgSVC_TYPE_NVOD_TIMESHIFT	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_MOSAIC),		eDxOrgSVC_TYPE_MOSAIC	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_PAL),			eDxOrgSVC_TYPE_PAL	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_SECAM),			eDxOrgSVC_TYPE_SECAM	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_DD2_MAC),		eDxOrgSVC_TYPE_DD2_MAC	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_FM_RADIO),		eDxOrgSVC_TYPE_FM_RADIO	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_NTSC),			eDxOrgSVC_TYPE_NTSC	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_DATA_BROADCAST),eDxOrgSVC_TYPE_DATA_BROADCAST	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_DVB_MHP),		eDxOrgSVC_TYPE_DVB_MHP	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_MPEG2_HD),		eDxOrgSVC_TYPE_MPEG2_HD	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_MPEG2_HD_NVOD_TIMESHIFT),eDxOrgSVC_TYPE_MPEG2_HD_NVOD_TIMESHIFT	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_MPEG2_HD_NVOD_REFERENCE),eDxOrgSVC_TYPE_MPEG2_HD_NVOD_REFERENCE	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_AAC_AUDIO),		eDxOrgSVC_TYPE_AAC_AUDIO	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_AAC_V2_AUDIO),	eDxOrgSVC_TYPE_AAC_V2_AUDIO	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_AVC_SD_DIGITAL_TV),		eDxOrgSVC_TYPE_AVC_SD_DIGITAL_TV	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_AVC_SD_NVOD_TIMESHIFT),	eDxOrgSVC_TYPE_AVC_SD_NVOD_TIMESHIFT	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_AVC_SD_NVOD_REFERENCE),	eDxOrgSVC_TYPE_AVC_SD_NVOD_REFERENCE	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_AVC_HD_DIGITAL_TV),		eDxOrgSVC_TYPE_AVC_HD_DIGITAL_TV	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_AVC_HD_NVOD_TIMESHIFT),	eDxOrgSVC_TYPE_AVC_HD_NVOD_TIMESHIFT	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_AVC_HD_NVOD_REFERENCE),	eDxOrgSVC_TYPE_AVC_HD_NVOD_REFERENCE	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_DIGITURK_DOWN_START),	eDxOrgSVC_TYPE_DIGITURK_DOWN_START	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_DIGITURK_TV_NO_PTS),	eDxOrgSVC_TYPE_DIGITURK_TV_NO_PTS	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_DIGITURK_INTERACTIVE),	eDxOrgSVC_TYPE_DIGITURK_INTERACTIVE	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_AVC_HD_DIGITAL_TV2),	eDxOrgSVC_TYPE_AVC_HD_DIGITAL_TV2	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_DIGITURK_DOWN_END),		eDxOrgSVC_TYPE_DIGITURK_DOWN_END	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_ARIB_TEMP_VIDEO),		eDxOrgSVC_TYPE_ARIB_TEMP_VIDEO	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_ARIB_TEMP_AUDIO),		eDxOrgSVC_TYPE_ARIB_TEMP_AUDIO	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_ARIB_TEMP_DATA),		eDxOrgSVC_TYPE_ARIB_TEMP_DATA	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_ARIB_ENGINEERING),		eDxOrgSVC_TYPE_ARIB_ENGINEERING	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_ARIB_PROMOTION_VIDEO),	eDxOrgSVC_TYPE_ARIB_PROMOTION_VIDEO	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_ARIB_PROMOTION_AUDIO),	eDxOrgSVC_TYPE_ARIB_PROMOTION_AUDIO	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_ARIB_PROMOTION_DATA),	eDxOrgSVC_TYPE_ARIB_PROMOTION_DATA	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_ARIB_BEFORE_ACCUMUL_DATA),	eDxOrgSVC_TYPE_ARIB_BEFORE_ACCUMUL_DATA	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_ARIB_ACCUMUL_DATA),		eDxOrgSVC_TYPE_ARIB_ACCUMUL_DATA	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_ARIB_BOOKMARK_LIST_DATA),	eDxOrgSVC_TYPE_ARIB_BOOKMARK_LIST_DATA	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_DATA),					eDxOrgSVC_TYPE_DATA	},
+		{	DxNAMEOF(eDxOrgSVC_TYPE_SUBFEED),				eDxOrgSVC_TYPE_SUBFEED	},
+		{	NULL,											0					}
+	}
+};
+
+static	DxEnumStringTable_t	_stSATCodeRateTable =
+{
+	(HCHAR*)"DxSat_CodeRate_e",
+	{
+		{	DxNAMEOF(eDxSAT_CODERATE_AUTO),		eDxSAT_CODERATE_AUTO},
+		{	DxNAMEOF(eDxSAT_CODERATE_NONE),		eDxSAT_CODERATE_NONE},
+		{	DxNAMEOF(eDxSAT_CODERATE_1_2),		eDxSAT_CODERATE_1_2 },
+		{	DxNAMEOF(eDxSAT_CODERATE_2_3),		eDxSAT_CODERATE_2_3	},
+		{	DxNAMEOF(eDxSAT_CODERATE_3_4),		eDxSAT_CODERATE_3_4	},
+		{	DxNAMEOF(eDxSAT_CODERATE_5_6),		eDxSAT_CODERATE_5_6	},
+		{	DxNAMEOF(eDxSAT_CODERATE_7_8),		eDxSAT_CODERATE_7_8	},
+		{	DxNAMEOF(eDxSAT_CODERATE_3_5),		eDxSAT_CODERATE_3_5	},
+		{	DxNAMEOF(eDxSAT_CODERATE_4_5),		eDxSAT_CODERATE_4_5 },
+		{	DxNAMEOF(eDxSAT_CODERATE_5_11),		eDxSAT_CODERATE_5_11},
+		{	DxNAMEOF(eDxSAT_CODERATE_6_7),		eDxSAT_CODERATE_6_7	},
+		{	DxNAMEOF(eDxSAT_CODERATE_8_9),		eDxSAT_CODERATE_8_9	},
+		{	DxNAMEOF(eDxSAT_CODERATE_9_10),		eDxSAT_CODERATE_9_10},
+		{	NULL,					0					}
+	}
+};
+
+static	DxEnumStringTable_t	_stSATPolarizationTable =
+{
+	(HCHAR*)"DxSat_Polarization_e",
+	{
+		{	DxNAMEOF(eDxSAT_POLAR_AUTO),	eDxSAT_POLAR_AUTO		},
+		{	DxNAMEOF(eDxSAT_POLAR_HOR),		eDxSAT_POLAR_HOR		},
+		{	DxNAMEOF(eDxSAT_POLAR_VER),		eDxSAT_POLAR_VER		},
+		{	DxNAMEOF(eDxSAT_POLAR_LEFT),	eDxSAT_POLAR_LEFT		},
+		{	DxNAMEOF(eDxSAT_POLAR_RIGHT),	eDxSAT_POLAR_RIGHT		},
+		{	NULL,							0						}
+	}
+};
+
+static	DxEnumStringTable_t	_stSATTransportSpecTable =
+{
+	(HCHAR*)"DxSat_TransportSpec_e",
+	{
+		{	DxNAMEOF(eDxSAT_TRANS_DVBS),	eDxSAT_TRANS_DVBS		},
+		{	DxNAMEOF(eDxSAT_TRANS_DVBS2),	eDxSAT_TRANS_DVBS2		},
+		{	NULL,							0						}
+	}
+};
+
+static	DxEnumStringTable_t	_stSATPSKModulationTable =
+{
+	(HCHAR*)"DxSat_PskModulation_e",
+	{
+		{	DxNAMEOF(eDxSAT_PSK_AUTO),		eDxSAT_PSK_AUTO 		},
+		{	DxNAMEOF(eDxSAT_PSK_QPSK), 		eDxSAT_PSK_QPSK 		},
+		{	DxNAMEOF(eDxSAT_PSK_8PSK), 		eDxSAT_PSK_8PSK 		},
+		{	NULL,							0						}
+	}
+};
+
+static	DxEnumStringTable_t	_stSATPilotTable =
+{
+	(HCHAR*)"DxSat_Pilot_e",
+	{
+		{	DxNAMEOF(eDxSAT_PILOT_AUTO),	eDxSAT_PILOT_AUTO		},
+		{	DxNAMEOF(eDxSAT_PILOT_OFF),		eDxSAT_PILOT_OFF		},
+		{	DxNAMEOF(eDxSAT_PILOT_ON), 		eDxSAT_PILOT_ON 		},
+		{	NULL,							0						}
+	}
+};
+
+static	DxEnumStringTable_t	_stSATRollOffTable =
+{
+	(HCHAR*)"DxSat_RollOff_e",
+	{
+		{	DxNAMEOF(eDxSAT_ROLL_020), 		eDxSAT_ROLL_020 		},
+		{	DxNAMEOF(eDxSAT_ROLL_025), 		eDxSAT_ROLL_025 		},
+		{	DxNAMEOF(eDxSAT_ROLL_035), 		eDxSAT_ROLL_035 		},
+		{	NULL,							0						}
+	}
+};
+
+static	DxEnumStringTable_t	_stCABContellationTable =
+{
+	(HCHAR*)"DxCab_Constellation_e",
+	{
+		{	DxNAMEOF(eDxCAB_CONSTELLATION_AUTO),	eDxCAB_CONSTELLATION_AUTO	},
+		{	DxNAMEOF(eDxCAB_CONSTELLATION_16QAM),	eDxCAB_CONSTELLATION_16QAM	},
+		{	DxNAMEOF(eDxCAB_CONSTELLATION_32QAM),	eDxCAB_CONSTELLATION_32QAM	},
+		{	DxNAMEOF(eDxCAB_CONSTELLATION_64QAM),	eDxCAB_CONSTELLATION_64QAM	},
+		{	DxNAMEOF(eDxCAB_CONSTELLATION_128QAM),	eDxCAB_CONSTELLATION_128QAM	},
+		{	DxNAMEOF(eDxCAB_CONSTELLATION_256QAM),	eDxCAB_CONSTELLATION_256QAM	},
+		{	NULL,																		0				}
+	}
+};
+
+static	DxEnumStringTable_t	_stCABSpectrumTable =
+{
+	(HCHAR*)"DxCab_Spectrum_e",
+	{
+		{	DxNAMEOF(eDxCAB_SPECTRUM_AUTO),	eDxCAB_SPECTRUM_AUTO	},
+		{	DxNAMEOF(eDxCAB_SPECTRUM_NORMAL),	eDxCAB_SPECTRUM_NORMAL	},
+		{	DxNAMEOF(eDxCAB_SPECTRUM_INVERTED),	eDxCAB_SPECTRUM_INVERTED	},
+		{	NULL,																		0				}
+	}
+};
+
+static	DxEnumStringTable_t	_stTERBandwidthTable =
+{
+	(HCHAR*)"DxTer_BandWidth_e",
+	{
+		{	DxNAMEOF(eDxTER_BANDWIDTH_8M),	eDxTER_BANDWIDTH_8M	},
+		{	DxNAMEOF(eDxTER_BANDWIDTH_7M),	eDxTER_BANDWIDTH_7M	},
+		{	DxNAMEOF(eDxTER_BANDWIDTH_6M),	eDxTER_BANDWIDTH_6M	},
+		{	DxNAMEOF(eDxTER_T2BANDWIDTH_5MHZ),	eDxTER_T2BANDWIDTH_5MHZ	},
+		{	DxNAMEOF(eDxTER_T2BANDWIDTH_10MHZ),	eDxTER_T2BANDWIDTH_10MHZ	},
+		{	DxNAMEOF(eDxTER_T2BANDWIDTH_1P7MHZ),	eDxTER_T2BANDWIDTH_1P7MHZ	},
+		{	NULL,																		0				}
+	}
+};
+
+static	DxEnumStringTable_t	_stTERContellationTable =
+{
+	(HCHAR*)"DxTer_Constellation_e",
+	{
+		{	DxNAMEOF(eDxTER_CONSTELLATION_AUTO),	eDxTER_CONSTELLATION_AUTO	},
+		{	DxNAMEOF(eDxTER_CONSTELLATION_QPSK),	eDxTER_CONSTELLATION_QPSK	},
+		{	DxNAMEOF(eDxTER_CONSTELLATION_16QAM),	eDxTER_CONSTELLATION_16QAM	},
+		{	DxNAMEOF(eDxTER_CONSTELLATION_64QAM),	eDxTER_CONSTELLATION_64QAM	},
+		{	DxNAMEOF(eDxTER_CONSTELLATION_256QAM),	eDxTER_CONSTELLATION_256QAM	},
+		{	NULL,																		0				}
+	}
+};
+
+static	DxEnumStringTable_t	_stTERHierachyTable =
+{
+	(HCHAR*)"DxTer_Hierachy_e",
+	{
+		{	DxNAMEOF(eDxTER_HIERACHY_AUTO),	eDxTER_HIERACHY_AUTO	},
+		{	DxNAMEOF(eDxTER_HIERACHY_NONE),	eDxTER_HIERACHY_NONE	},
+		{	DxNAMEOF(eDxTER_HIERACHY_1),	eDxTER_HIERACHY_1	},
+		{	DxNAMEOF(eDxTER_HIERACHY_2),	eDxTER_HIERACHY_2	},
+		{	DxNAMEOF(eDxTER_HIERACHY_4),	eDxTER_HIERACHY_4	},
+		{	NULL,																		0				}
+	}
+};
+
+static	DxEnumStringTable_t	_stTERCodeRateTable =
+{
+	(HCHAR*)"DxTer_CodeRate_e",
+	{
+		{	DxNAMEOF(eDxTER_CODERATE_AUTO),	eDxTER_CODERATE_AUTO	},
+		{	DxNAMEOF(eDxTER_CODERATE_1_2),	eDxTER_CODERATE_1_2	},
+		{	DxNAMEOF(eDxTER_CODERATE_2_3),	eDxTER_CODERATE_2_3	},
+		{	DxNAMEOF(eDxTER_CODERATE_3_4),	eDxTER_CODERATE_3_4	},
+		{	DxNAMEOF(eDxTER_CODERATE_5_6),	eDxTER_CODERATE_5_6	},
+		{	DxNAMEOF(eDxTER_CODERATE_7_8),	eDxTER_CODERATE_7_8	},
+		{	NULL,																		0				}
+	}
+};
+
+static	DxEnumStringTable_t	_stTERTransModeTable =
+{
+	(HCHAR*)"DxTer_TransMode_e",
+	{
+		{	DxNAMEOF(eDxTER_TRANSMODE_AUTO),	eDxTER_TRANSMODE_AUTO	},
+		{	DxNAMEOF(eDxTER_TRANSMODE_2K),	eDxTER_TRANSMODE_2K	},
+		{	DxNAMEOF(eDxTER_TRANSMODE_8K),	eDxTER_TRANSMODE_8K	},
+		{	DxNAMEOF(eDxTER_T2TRANSMODE_1K),	eDxTER_T2TRANSMODE_1K	},
+		{	DxNAMEOF(eDxTER_T2TRANSMODE_4K),	eDxTER_T2TRANSMODE_4K	},
+		{	DxNAMEOF(eDxTER_T2TRANSMODE_16K),	eDxTER_T2TRANSMODE_16K	},
+		{	DxNAMEOF(eDxTER_T2TRANSMODE_32K),	eDxTER_T2TRANSMODE_32K	},
+		{	NULL,																		0				}
+	}
+};
+
+static	DxEnumStringTable_t	_stTERGuardIntervalTable =
+{
+	(HCHAR*)"DxTer_GuardInterval_e",
+	{
+		{	DxNAMEOF(eDxTER_GUARDINTERVAL_AUTO),	eDxTER_GUARDINTERVAL_AUTO	},
+		{	DxNAMEOF(eDxTER_GUARDINTERVAL_1_4),	eDxTER_GUARDINTERVAL_1_4	},
+		{	DxNAMEOF(eDxTER_GUARDINTERVAL_1_8),	eDxTER_GUARDINTERVAL_1_8	},
+		{	DxNAMEOF(eDxTER_GUARDINTERVAL_1_16),	eDxTER_GUARDINTERVAL_1_16	},
+		{	DxNAMEOF(eDxTER_GUARDINTERVAL_1_32),	eDxTER_GUARDINTERVAL_1_32	},
+		{	DxNAMEOF(eDxTER_T2GUARDINTERVAL_1_128),	eDxTER_T2GUARDINTERVAL_1_128	},
+		{	DxNAMEOF(eDxTER_T2GUARDINTERVAL_19_128),	eDxTER_T2GUARDINTERVAL_19_128	},
+		{	DxNAMEOF(eDxTER_T2GUARDINTERVAL_19_256),	eDxTER_T2GUARDINTERVAL_19_256	},
+		{	NULL,																		0				}
+	}
+};
+
+static	DxEnumStringTable_t	_stTERStreamTable =
+{
+	(HCHAR*)"DxTer_Stream_e",
+	{
+		{	DxNAMEOF(eDxTER_STREAM_HP),	eDxTER_STREAM_HP	},
+		{	DxNAMEOF(eDxTER_STREAM_LP),	eDxTER_STREAM_LP	},
+		{	NULL,																		0				}
+	}
+};
+
+static	DxEnumStringTable_t	_stTEROffsetTable =
+{
+	(HCHAR*)"DxTer_Offset_e",
+	{
+		{	DxNAMEOF(eDxTER_OFFSET_AUTO),	eDxTER_OFFSET_AUTO	},
+		{	DxNAMEOF(eDxTER_OFFSET_NONE),	eDxTER_OFFSET_NONE	},
+		{	DxNAMEOF(eDxTER_OFFSET_1_6_P),	eDxTER_OFFSET_1_6_P	},
+		{	DxNAMEOF(eDxTER_OFFSET_1_6_N),	eDxTER_OFFSET_1_6_N	},
+		{	DxNAMEOF(eDxTER_OFFSET_2_6_P),	eDxTER_OFFSET_2_6_P	},
+		{	DxNAMEOF(eDxTER_OFFSET_2_6_N),	eDxTER_OFFSET_2_6_N	},
+		{	DxNAMEOF(eDxTER_OFFSET_3_6_P),	eDxTER_OFFSET_3_6_P	},
+		{	DxNAMEOF(eDxTER_OFFSET_3_6_N),	eDxTER_OFFSET_3_6_N	},
+		{	NULL,																		0				}
+	}
+};
+
+static	DxEnumStringTable_t	_stTERSystemTable =
+{
+	(HCHAR*)"DxTer_System_e",
+	{
+		{	DxNAMEOF(eDxTER_DVB_T),	eDxTER_DVB_T	},
+		{	DxNAMEOF(eDxTER_DVB_T2),	eDxTER_DVB_T2	},
+		{	NULL,																		0				}
+	}
+};
+
+static	DxEnumStringTable_t	_stTERPreambleFormatTable =
+{
+	(HCHAR*)"DxTer_PreambleFormat_e",
+	{
+		{	DxNAMEOF(eDxTER_SISO),	eDxTER_SISO	},
+		{	DxNAMEOF(eDxTER_MISO),	eDxTER_MISO	},
+		{	NULL,																		0				}
+	}
+};
+
+static	DxEnumStringTable_t	_stTERMixedTable =
+{
+	(HCHAR*)"DxTer_Mixed_e",
+	{
+		{	DxNAMEOF(eDxTER_NOT_MIXED),	eDxTER_NOT_MIXED	},
+		{	DxNAMEOF(eDxTER_MIXED),	eDxTER_MIXED	},
+		{	NULL,																		0				}
+	}
+};
+
+static	DxEnumStringTable_t	_stTERPilotPatternTable =
+{
+	(HCHAR*)"DxTer_Pilot_Pattern_e",
+	{
+		{	DxNAMEOF(eDxTER_PP_AUTO),	eDxTER_PP_AUTO	},
+		{	DxNAMEOF(eDxTER_PP1),	eDxTER_PP1	},
+		{	DxNAMEOF(eDxTER_PP2),	eDxTER_PP2	},
+		{	DxNAMEOF(eDxTER_PP3),	eDxTER_PP3	},
+		{	DxNAMEOF(eDxTER_PP4),	eDxTER_PP4	},
+		{	DxNAMEOF(eDxTER_PP5),	eDxTER_PP5	},
+		{	DxNAMEOF(eDxTER_PP6),	eDxTER_PP6	},
+		{	DxNAMEOF(eDxTER_PP7),	eDxTER_PP7	},
+		{	DxNAMEOF(eDxTER_PP8),	eDxTER_PP8	},
+		{	NULL,																		0				}
+	}
+};
+
+static	DxEnumStringTable_t	_stTERExtendedCarrierTable =
+{
+	(HCHAR*)"DxTer_ExtendedCarrier_e",
+	{
+		{	DxNAMEOF(eDxTER_T2NOT_USED),	eDxTER_T2NOT_USED	},
+		{	DxNAMEOF(eDxTER_T2USED),	eDxTER_T2USED	},
+		{	NULL,																		0				}
+	}
+};
+
+static	DxEnumStringTable_t	_stTERPAPRReductionTable =
+{
+	(HCHAR*)"DxTer_PAPR_Reduction_e",
+	{
+		{	DxNAMEOF(eDxTER_REDUCTION_NONE),	eDxTER_REDUCTION_NONE	},
+		{	DxNAMEOF(eDxTER_ACE),	eDxTER_ACE	},
+		{	DxNAMEOF(eDxTER_TR),	eDxTER_TR	},
+		{	DxNAMEOF(eDxTER_AVE_TR),	eDxTER_AVE_TR	},
+		{	NULL,				0}
+	}
+};
+
+//	for keeping compatibility with previous enum values.
+HERROR	DLIB_BASE_Deprecated(void)
+{
+	dlib_RegisterEnumTable_deprecated(&_stBaseOPTypeTable);
+	dlib_RegisterEnumTable_deprecated(&_stBaseDeliveryTypeTable);
+	dlib_RegisterEnumTable_deprecated(&_stBaseVideoTypeTable);
+	dlib_RegisterEnumTable_deprecated(&_stBaseCasTypeBitTable);
+	dlib_RegisterEnumTable_deprecated(&_stBaseVideoCodecTable);
+	dlib_RegisterEnumTable_deprecated(&_stBaseAudioCodecTable);
+	dlib_RegisterEnumTable_deprecated(&_stBaseAudioConfigTable);
+	dlib_RegisterEnumTable_deprecated(&_stBaseAntennaTypeTable);
+	dlib_RegisterEnumTable_deprecated(&_stANTLNBVoltTable);
+	dlib_RegisterEnumTable_deprecated(&_stANTDiSEqCVerTable);
+	dlib_RegisterEnumTable_deprecated(&_stANTDiSEqCInputTable);
+	dlib_RegisterEnumTable_deprecated(&_stANTSCDInputTable);
+	dlib_RegisterEnumTable_deprecated(&_stANTToneTable);
+	dlib_RegisterEnumTable_deprecated(&_stRecStatusTable);
+	dlib_RegisterEnumTable_deprecated(&_stRecTimestampTable);
+	dlib_RegisterEnumTable_deprecated(&_stRecEndReasonTable);
+	dlib_RegisterEnumTable_deprecated(&_stAudioTypeTable);
+#if defined(CONFIG_OP_FREESAT)
+	dlib_RegisterEnumTable_deprecated(&_stFreesat_PVR_GuidanceTypeTable);
+#endif
+	dlib_RegisterEnumTable_deprecated(&_stRsvTypeTable);
+	dlib_RegisterEnumTable_deprecated(&_stRsvReadyTable);
+	dlib_RegisterEnumTable_deprecated(&_stRsvRepeatTable);
+	dlib_RegisterEnumTable_deprecated(&_stRsvStatusTable);
+	dlib_RegisterEnumTable_deprecated(&_stSVCUpdateTable);
+	dlib_RegisterEnumTable_deprecated(&_stSVCOrgSvcTypeTable);
+	dlib_RegisterEnumTable_deprecated(&_stSATCodeRateTable);
+	dlib_RegisterEnumTable_deprecated(&_stSATPolarizationTable);
+	dlib_RegisterEnumTable_deprecated(&_stSATTransportSpecTable);
+	dlib_RegisterEnumTable_deprecated(&_stSATPSKModulationTable);
+	dlib_RegisterEnumTable_deprecated(&_stSATPilotTable);
+	dlib_RegisterEnumTable_deprecated(&_stSATRollOffTable);
+	dlib_RegisterEnumTable_deprecated(&_stCABContellationTable);
+	dlib_RegisterEnumTable_deprecated(&_stCABSpectrumTable);
+	dlib_RegisterEnumTable_deprecated(&_stTERBandwidthTable);
+	dlib_RegisterEnumTable_deprecated(&_stTERContellationTable);
+	dlib_RegisterEnumTable_deprecated(&_stTERHierachyTable);
+	dlib_RegisterEnumTable_deprecated(&_stTERCodeRateTable);
+	dlib_RegisterEnumTable_deprecated(&_stTERTransModeTable);
+	dlib_RegisterEnumTable_deprecated(&_stTERGuardIntervalTable);
+	dlib_RegisterEnumTable_deprecated(&_stTERStreamTable);
+	dlib_RegisterEnumTable_deprecated(&_stTEROffsetTable);
+	dlib_RegisterEnumTable_deprecated(&_stTERSystemTable);
+	dlib_RegisterEnumTable_deprecated(&_stTERPreambleFormatTable);
+	dlib_RegisterEnumTable_deprecated(&_stTERMixedTable);
+	dlib_RegisterEnumTable_deprecated(&_stTERPilotPatternTable);
+	dlib_RegisterEnumTable_deprecated(&_stTERExtendedCarrierTable);
+	dlib_RegisterEnumTable_deprecated(&_stTERPAPRReductionTable);
+
+	return ERR_OK;
+}
+

@@ -1,0 +1,1 @@
+mipsel-linux-gcc -I ../Drivers/VirtualEthernetDriver -O2 hostboot.c -o hostboot7125

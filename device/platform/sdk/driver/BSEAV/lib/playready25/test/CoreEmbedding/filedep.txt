@@ -1,0 +1,10 @@
+CoreEmbedding.pc.pk.ce.txt
+files\EnvelopeWithEmbeddedLeaf02.eny
+files\EnvelopeForEmbeddingTest01.eny
+$(_DRM_REFCODE_TEST_FILES)\..\DrmManager\files\DomainCertChainForEmbeddingTest.dat
+$(_DRM_REFCODE_TEST_FILES)\..\DrmManager\files\DomainCertChainForEmbeddingTest2.dat
+$(_DRM_OEM_FILES)\devcerttemplate.dat
+$(_DRM_OEM_FILES)\priv.dat
+$(_DRM_OEM_FILES)\bgroupcert.dat
+$(_DRM_OEM_FILES)\zgpriv.dat
+$(_DRM_OEM_FILES)\devcert.dat

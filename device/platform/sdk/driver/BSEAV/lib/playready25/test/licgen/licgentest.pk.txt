@@ -1,0 +1,93 @@
+8881:BVT:TestLicGenCreateLicense
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestLicGenCreateLicense(1 CANNOT_PERSIST)
+TestPRNDCRLTimeOffset()
+TestLicGenCreateLicense(0 CAN_PERSIST)
+
+8882:BVT:TestLicGenCreateWDRMHeaderAndPRO
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestLicGenCreateWDRMHeaderAndPRO()
+
+8883:BVT:TestLicGenCreatePROAndDecrypt
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestLicGenCreatePROAndDecrypt()
+
+8884:BVT:TestLicGenTopLevel
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestLicGenTopLevel(0 CAN_PERSIST    CLEAR_BUFFER)
+TestLicGenTopLevel(1 CANNOT_PERSIST CLEAR_BUFFER)
+TestLicGenTopLevel(2 CAN_PERSIST    OPAQUE_BUFFER)
+
+8885:BVT:TestLicGenRootLeafLicense
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestLicGenRootLeafLicense()
+
+8886:BVT:TestLicGenCreateLicense with Expiration date
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestLicGenCreateLicense(2 EXPIRES)
+
+8887:BVT:TestLicGenCreateLicense with ExpireAfterFirstPlay
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestLicGenCreateLicense(4 EXPIREAFTERFIRSTPLAY)
+
+8888:BVT:TestLicGenCreateLicense with OutputProtection
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestLicGenCreateLicense(8 OUTPUTLEVEL)
+
+8889:BVT:TestLicGenCreateLicense with SourceID
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestLicGenCreateLicense(16 SOURCEID)
+
+8890:BVT:TestLicGenCreateLicense with PlayEnabler
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestLicGenCreateLicense(32 PLAYENABLER)
+
+8891:BVT:TestLicGenCreateLicense with ExpireAfterFirstPlay OutputProtection SourceID and PlayEnaber
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestLicGenCreateLicense(60 EXPIREAFTERFIRSTPLAY OUTPUTPROTECTION SOURCEID PLAYENABLER)
+
+8892:BVT:TestLicGenCache
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestLicGenCache()
+
+8893:BVT:TestLicGenCreateLicense with Expiration RealTimeExpiration
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestLicGenCreateLicense(66 EXPIRES REALTIMEEXPIRATION)
+
+8894:BVT:TestLicGenCreateLicense with ExpireAfterFirstPlay RealTimeExpiration
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestLicGenCreateLicense(68 EXPIREAFTERFIRSTPLAY REALTIMEEXPIRATION)
+
+8895:BVT:TestLicGenCreateLicenseWithRemoteCert
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestLicGenCreateLicenseWithRemoteCert()
+
+8896:BVT:TestLicGenInvalidDescriptor
+SkipTestIf( !PRNDRxSupported )
+TestManagerStoreRevocationPackage(FALSE,revpackage.xml)
+TestPRNDCRLTimeOffset()
+TestPRNDTopLevelRegistration()
+TestPRNDTopLevelProximityDetection()
+TestLicGenInvalidDescriptor()
+

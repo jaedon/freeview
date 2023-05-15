@@ -1,0 +1,76 @@
+{
+    "RUN_ALL": false,
+    "RUN_CATEGORY": [
+        "sysinfo_stb",
+        "sysinfo_tuner"
+    ],
+    "RUN_TC": [],
+    "TC_LIST": [
+        {
+            "tc_name": "TC_APK_SYSINFO_STB_AntennaPower",
+            "category": [
+                "sysinfo_stb"
+            ],
+            "argument": {
+                "AntennaPower": false
+            },
+            "expect_result": { 
+            }
+        },
+        {
+            "tc_name": "TC_APK_SYSINFO_STB_FirstBootOnProduction",
+            "category": [
+                "sysinfo_stb"
+            ],
+            "argument": {
+                "FirstBootOnProduction": false
+            },
+            "expect_result": { 
+            }
+        },
+        {
+            "tc_name": "TC_APK_SYSINFO_STB_NetflixESN",
+            "category": [
+                "sysinfo_stb"
+            ],
+            "argument": {
+                
+            },
+            "expect_result": { 
+            }
+        },
+        {
+            "tc_name": "TC_APK_SYSINFO_STB_ServiceUpdateFlag",
+            "category": [
+                "sysinfo_stb"
+            ],
+            "argument": {
+                "ServiceUpdateFlag": false
+            },
+            "expect_result": { 
+            }
+        },
+        {
+            "tc_name": "TC_APK_SYSINFO_STB_GetInfo",
+            "category": [
+                "sysinfo_stb"
+            ],
+            "argument": {
+              },
+            "expect_result": { 
+            }
+        },
+        {
+            "tc_name": "TC_APK_SYSINFO_TUNER_GetInfo",
+            "category": [
+                "sysinfo_tuner"
+            ],
+            "argument": {
+              },
+            "expect_result": { 
+            }
+        }
+
+
+    ]
+}

@@ -1,0 +1,20 @@
+#############################################
+#					MW/DOWNLOAD Configuration					#
+#############################################
+
+comment "MW/DOWNLOAD Configuration. (MW_DOWNLOAD_XXX)"
+
+comment "Functions"
+
+	config MW_DOWNLOAD_HBBTV
+		bool "MW_DOWNLOAD_HBBTV - Download the object carousel by HBB-TV spec"
+		default n
+
+	config MW_DOWNLOAD_OTA_IMAGE
+		bool "MW_DOWNLOAD_OTA_IMAGE - Download the OTA Image"
+		default n
+
+	config MW_DOWNLOAD_SAT_RECORD
+		depends on MW_SATRECORD
+		bool "MW_DOWNLOAD_SAT_RECORD - Download the Satlite Record"
+		default n

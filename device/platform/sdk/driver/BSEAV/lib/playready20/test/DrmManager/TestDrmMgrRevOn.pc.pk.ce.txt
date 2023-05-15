@@ -1,0 +1,186 @@
+-------------------BVT ends here--------------------------
+'REVOCATION TESTS
+
+30230: Call DRM_MGR_GetRevInfo with empty license store, it should return empty CRL
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, NULL)
+
+30250: Process license response without any CRL, call DRM_MGR_GetRevInfo with empty license store, it should return empty CRL
+If(WMDRMSupported)
+TestManagerReinitialize( Reset, FALSE, FALSE )
+TestManagerInitialize(Dump)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><RESTRICTIONS><COMPRESSEDDIGITALVIDEO level='300'/></RESTRICTIONS><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerGetRevocationList(DRM_REVOCATION_TYPE_WMDRM_REVINFO, NULL)
+EndIf
+
+
+30542:BVT:Attempt to generate a meter challenge with a revoked meter cert
+TestManagerStoreRevocationPackage(FALSE,MeterCert_RevV1_crl_Package.xml)
+TestDRM_Manager_AddMeteringData("AAAJCmftO0ij5zVyjmjsfg==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, "files\\MeterCert_RevV1.dat", "Hello World", NORMAL, NORMAL, NORMAL)=0X8004C053 DRM_E_CERTIFICATE_REVOKED
+
+30543:BVT:Generate meter challenge before and after revoking a meter cert
+TestDRM_Manager_AddMeteringData("AAAJCmftO0ij5zVyjmjsfg==", "27HRLgAfR0G4fVSEAeR2lw==", "Play", "2")
+TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, "files\\MeterCert_RevV1.dat", "Hello World", NORMAL, NORMAL, NORMAL)
+TestManagerStoreRevocationPackage(FALSE,MeterCert_RevV1_crl_Package.xml)
+TestDRM_Manager_GenerateMeterChallengeV3(NORMAL, "files\\MeterCert_RevV1.dat", "Hello World", NORMAL, NORMAL, NORMAL)=0X8004C053 DRM_E_CERTIFICATE_REVOKED
+
+30544:BVT:Attempt to generate a partial meter challenge with a revoked meter cert
+TestManagerStoreRevocationPackage(FALSE,MeterCert_RevV1_crl_Package.xml)
+TestDRM_Manager_AddManyMeteringData("AAAJCmftO0ij5zVyjmjsfg==", 500)
+TestDRM_Manager_GeneratePartialMeterChallengeV3(MeterCert_RevV1.dat, "Hello World", 10000) = 0X8004C053 DRM_E_CERTIFICATE_REVOKED
+
+30545:BVT:ProcessMeterCertResponse of a revoked meter cert
+TestManagerStoreRevocationPackage(FALSE,MeterCert_RevV1_crl_Package.xml)
+TestDRM_MTR_GenerateMeterCertChallenge("AAAJCmftO0ij5zVyjmjsfg==", NULL)
+TestDRM_MTR_ProcessMeterCertResponse(MeterCert_RevV1_Response.dat)=0X8004C053 DRM_E_CERTIFICATE_REVOKED
+
+
+31001:BVT:If an XMR license require a minimum PLAYREADY_REVINFO2 CRL version, and the actual PLAYREADY_REVINFO2 CRL is with version lower than required, binding should fail with 0x8004C063 (DRM_E_RIV_TOO_SMALL):
+'Store a revocation package with PLAYREADY_REVINFO2 CRL version = 2
+TestManagerStoreRevocationPackage(FALSE,files\revpackage.xml)
+'Confirm version of the CRLs saved in HDS:
+TestManagerCheckRevCRLVersion(DRM_REVOCATION_TYPE_PLAYREADY_REVINFO2, 2)
+
+' XMR license requires the minimum PLAYREADY_REVINFO2 CRL version=3, binding should fail with 0x8004C063 (DRM_E_RIV_TOO_SMALL):
+TestManagerSetRights( Play )
+TestManagerSetHeader( NORMAL, files\headerXMR.xml )
+TestManagerInitResponse( V3 )
+TestManagerCreateXMRLicense( LICENSE_1, lFmb2gxg0Cr5bfEnJXgJeA==, {D52E05C4-5D2F-4F60-872E-49A92CF3AF76}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3)
+TestManagerGenerateXMRResponse( LICENSE_1 )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+TestManagerBind(0 don't overwrite drmmanager context, Dump,Dump,NULL) = 0x8004C063 (DRM_E_RIV_TOO_SMALL)
+TestManagerReinitialize(Reset)
+
+31002:BVT:Revoked model cannot save the updated CRL
+'Store a revocation package with PLAYREADY_RUNTIME CRL version=2, and PLAYREADY_REVINFO2 CRL version=2
+TestManagerStoreRevocationPackage(FALSE,files\revpackage.xml)
+'Confirm version of the CRLs saved in HDS:
+TestManagerCheckRevCRLVersion(DRM_REVOCATION_TYPE_PLAYREADY_RUNTIME, 2)
+TestManagerCheckRevCRLVersion(DRM_REVOCATION_TYPE_PLAYREADY_REVINFO2, 2)
+
+' XMR license requires the PLAYREADY_REVINFO2 CRL version=3, XMR respons with PLAYREADY_REVINFO2 CRL version=3 and PLAYREADY_RUNTIME CRL version=3 that is revoking model name "CEPC", and Model name "CEPC2" , process response should fail with 0X8004C065 (DRM_E_DEVCERT_REVOKED), and CRLs not saved:
+TestManagerInitResponse( V3 )
+TestManagerCreateXMRLicense( LICENSE_1, lFmb2gxg0Cr5bfEnJXgJeA==, {D52E05C4-5D2F-4F60-872E-49A92CF3AF76}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3)
+TestManagerSetPRRevDataFromFile(files\PR_CRL_RunTime_revokeV3_mix02.wchar)
+TestManagerGenerateXMRResponse( LICENSE_1 )
+'Set Model Name as CEPC, revoked:
+TestManagerSetModelNamefromReg("CEPC")
+TestManagerProcessResponse_ModelRevoked( Dump, Dump, 0, 0 ) 
+'Confirm updated CRLs not saved, version of the CRLs in HDS still 2:
+TestManagerCheckRevCRLVersionWM7(DRM_REVOCATION_TYPE_PLAYREADY_RUNTIME, 2)
+TestManagerCheckRevCRLVersionWM7(DRM_REVOCATION_TYPE_PLAYREADY_REVINFO2, 2)
+TestManagerReinitialize(Reset)
+
+31003:BVT:Revoke a model name, and then, de-revoke, updated CRLs can only be saved after de-revoke:
+'Store a revocation package with PLAYREADY_RUNTIME CRL version=2, and PLAYREADY_REVINFO2 CRL version=2
+TestManagerStoreRevocationPackage(FALSE,files\revpackage.xml)
+'Confirm version of the CRLs saved in HDS:
+TestManagerCheckRevCRLVersion(DRM_REVOCATION_TYPE_PLAYREADY_RUNTIME, 2)
+TestManagerCheckRevCRLVersion(DRM_REVOCATION_TYPE_PLAYREADY_REVINFO2, 2)
+
+' XMR license requires the PLAYREADY_REVINFO2 CRL version=3, XMR respons with PLAYREADY_REVINFO2 CRL version=3 and PLAYREADY_RUNTIME CRL version=3 that is revoking model name "CEPC", and Model name "CEPC2" , process response failed with 0X8004C065 (DRM_E_DEVCERT_REVOKED), Confirm CRLs not saved
+TestManagerInitResponse( V3 )
+TestManagerCreateXMRLicense( LICENSE_1, lFmb2gxg0Cr5bfEnJXgJeA==, {D52E05C4-5D2F-4F60-872E-49A92CF3AF76}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3)
+TestManagerSetPRRevDataFromFile(files\PR_CRL_RunTime_revokeV3_mix02.wchar)
+TestManagerGenerateXMRResponse( LICENSE_1 )
+'Set Model name as "CEPC", revoked:
+TestManagerSetModelNamefromReg("CEPC")
+TestManagerProcessResponse_ModelRevoked( Dump, Dump, 0, 0 )
+'Confirm new CRL not saved, CRLs in HDS still version 2:
+TestManagerCheckRevCRLVersionWM7(DRM_REVOCATION_TYPE_PLAYREADY_RUNTIME, 2)
+TestManagerCheckRevCRLVersionWM7(DRM_REVOCATION_TYPE_PLAYREADY_REVINFO2, 2)
+TestManagerReinitialize(Reset)
+
+'De-revoked, re-aquire the same license again to update the CRL, CRL updated:
+TestManagerInitResponse( V3 )
+TestManagerCreateXMRLicense( LICENSE_1, lFmb2gxg0Cr5bfEnJXgJeA==, {D52E05C4-5D2F-4F60-872E-49A92CF3AF76}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3)
+TestManagerSetPRRevDataFromFile(files\PR_CRL_RunTime_revokeV3_mix02.wchar)
+TestManagerGenerateXMRResponse( LICENSE_1 )
+'De-revoke by changing the model name:
+TestManagerSetModelNamefromReg("CEPC3")
+TestManagerProcessResponse( Dump, Dump, 0, 0 ) 
+'Confirm version of the CRLs ger updated:
+TestManagerCheckRevCRLVersion(DRM_REVOCATION_TYPE_PLAYREADY_RUNTIME, 3)
+TestManagerCheckRevCRLVersion(DRM_REVOCATION_TYPE_PLAYREADY_REVINFO2, 3)
+TestManagerReinitialize(Reset)
+
+31004:BVT:License aquired before model revocation can still bind:
+' XMR license requires the RevInfoVersion = 1, XMR response with a CRL of RevInfoVersion = 1 that is revoking a device group cert, bind ok:
+TestManagerSetRights( Play )
+TestManagerSetHeader( NORMAL, files\headerXMR.xml )
+TestManagerInitResponse( V3 )
+TestManagerCreateXMRLicense( LICENSE_1, lFmb2gxg0Cr5bfEnJXgJeA==, RANDOM, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1)
+TestManagerSetPRRevDataFromFile(files\PR_CRL_RunTime_revokeV1_GroupCert.wchar)
+TestManagerGenerateXMRResponse( LICENSE_1 )
+TestManagerProcessResponse( Dump, Dump, 0, 0 )
+'Confirm version of the CRLs:
+TestManagerCheckRevCRLVersion(DRM_REVOCATION_TYPE_PLAYREADY_RUNTIME, 1)
+TestManagerCheckRevCRLVersion(DRM_REVOCATION_TYPE_PLAYREADY_REVINFO2, 1)
+TestManagerBind( 0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+TestManagerReinitialize(Reset)
+
+' XMR license requires the RevInfoVersion = 3, XMR respons with a CRL of RevInfoVersion = 3 that is revoking device group cert model name "CEPC", and Model name "CEPC2" , process response fails with 0X8004C065 (DRM_E_DEVCERT_REVOKED),updated CRL not saved:
+TestManagerInitResponse( V3 )
+TestManagerCreateXMRLicense( LICENSE_2, bwZMCIVHW0OiOdJyppOqKQ==, {D52E05C4-5D2F-4F60-872E-49A92CF3AF76}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3)
+TestManagerSetPRRevDataFromFile(files\PR_CRL_RunTime_revokeV3_mix02.wchar)
+TestManagerGenerateXMRResponse( LICENSE_2 )
+'Set model name as "CEPC", revoked:
+TestManagerSetModelNamefromReg("CEPC")
+TestManagerProcessResponse_ModelRevoked( Dump, Dump, 0, 0 )
+'Confirm new CRL not saved, version of the CRLs still 1:
+TestManagerCheckRevCRLVersionWM7(DRM_REVOCATION_TYPE_PLAYREADY_RUNTIME, 1)
+TestManagerCheckRevCRLVersionWM7(DRM_REVOCATION_TYPE_PLAYREADY_REVINFO2, 1)
+TestManagerReinitialize(Reset)
+
+'Bind license saved before model name "CEPC" get revoked, should pass
+TestManagerSetRights( Play )
+TestManagerSetHeader( NORMAL, files\headerXMR.xml )
+TestManagerBind(0 don't overwrite drmmanager context, Dump,Dump,NULL)
+TestManagerCommit
+TestManagerReinitialize(Reset)
+
+31005:FUNC:If a model is revoked by PlayReady server, it can still process license response from WMDRM server and playback WMDRM content:
+If(WMDRMSupported)
+'For comparison purpose, store a revocation package with PLAYREADY_REVINFO2 CRL version = 2
+TestManagerStoreRevocationPackage(FALSE,files\revpackage.xml)
+'Confirm version of the CRLs saved in HDS:
+TestManagerCheckRevCRLVersion(DRM_REVOCATION_TYPE_PLAYREADY_REVINFO2, 2)
+
+' XMR license requires the RevInfoVersion = 3, XMR respons with a CRL of RevInfoVersion = 3 that is revoking device group cert model name "CEPC", and Model name "CEPC2" , process response fails with 0X8004C065 (DRM_E_DEVCERT_REVOKED),updated CRL not saved:
+TestManagerInitResponse( V3 )
+TestManagerCreateXMRLicense( LICENSE_2, bwZMCIVHW0OiOdJyppOqKQ==, {D52E05C4-5D2F-4F60-872E-49A92CF3AF76}, XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3)
+TestManagerSetPRRevDataFromFile(files\PR_CRL_RunTime_revokeV3_mix02.wchar)
+TestManagerGenerateXMRResponse( LICENSE_2 )
+'Set model name as "CEPC", revoked:
+TestManagerSetModelNamefromReg("CEPC")
+TestManagerProcessResponse_ModelRevoked( Dump, Dump, 0, 0 )
+'Confirm new PlayReady RunTime CRL not saved, version of the CRLs still 1:
+TestManagerCheckRevCRLVersionWM7(DRM_REVOCATION_TYPE_PLAYREADY_RUNTIME, 2)
+TestManagerCheckRevCRLVersionWM7(DRM_REVOCATION_TYPE_PLAYREADY_REVINFO2, 2)
+TestManagerReinitialize(Reset)
+
+'Process a WMDRM license response containing WMDRM Device revocation list, confirm processing WMDRM license response correctly, binding and commit correctly:
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<REVINFOVERSION>1</REVINFOVERSION><ONACTION type=\"Play\"><RESTRICTIONS><COMPRESSEDDIGITALVIDEO level='300'/></RESTRICTIONS><CONDITION><![CDATA[1]]></CONDITION></ONACTION>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerSetRevocationInfo(files\rlvi_1_device_1.b64.signed_wchar)
+TestManagerSetRevocation({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, files\crl_device_1.b64_wchar)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+'TestManagerCheckRevCRLVersion({3129E375-CEB0-47D5-9CCA-9DB74CFD4332}, 1): By now we only save WMDRM_REVINFO, not this
+'TestManagerCheckRevCRLVersion(DRM_REVOCATION_TYPE_WMDRM_REVINFO, 1): We are saving this WMDRM_REVINFO now, but to change to not save it later. No need to check it for this test case anyways.
+TestManagerPrepareOPLCallback(300,100,100,100,100,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump,Dump, Use Callback function)
+TestManagerCommit
+TestManagerReinitialize(Reset)
+EndIf
+

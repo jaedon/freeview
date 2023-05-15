@@ -1,0 +1,18 @@
+# Test/Check Confuguration
+
+	comment "Test/Check Configuration"
+
+	config ZAPPING_TIME_CHECK
+		bool "ZAPPING_TIME_CHECK - Enable the channel zapping time checking:"
+		default n
+
+	config ZAPPING_TIME_CHECK_LOGFILE
+		depends on ZAPPING_TIME_CHECK
+		string
+		prompt "File Path and Name for logging:"
+		default "/var/lib/humaxtv/zaptime.log"
+
+	config NO_DRIVER
+		bool "NO_DRIVER - OBAMA do not link the driver - for checking the memory usage"
+		default n
+

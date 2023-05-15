@@ -1,0 +1,55 @@
+#############################################################################
+#
+#       Copyright (c) 2005-2011, Broadcom Corporation.
+#       All rights reserved.
+#       Confidential Property of Broadcom Corporation.
+# 
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.spdif_format_switch $
+# $brcm_Revision: Hydra_Software_Devel/1 $
+# $brcm_Date: 9/13/11 11:05a $
+#
+# File Description:
+# 	Makefile for compiling ape_test unit test application for testing APE PI
+#
+# $brcm_Log: /rockford/unittests/portinginterface/ape/97422/Makefile.spdif_format_switch $
+# 
+# Hydra_Software_Devel/1   9/13/11 11:05a jgarrett
+# SW7346-436: Adding application to test SPDIF format switching
+# 
+# Hydra_Software_Devel/4   8/12/11 4:12p jgarrett
+# SWDTV-8208: Resolving issues with ape_test and EC
+# 
+# Hydra_Software_Devel/3   8/10/11 9:14a venkatr
+# SWDTV-8208 : [35233] Develop ape_test to test scenarios using ape
+# interface
+# 
+# Hydra_Software_Devel/1   12/16/10 4:07p jgarrett
+# SW7422-146: Initial compilable ape_test app
+# 
+# Hydra_Software_Devel/1   12/15/10 6:51p jgarrett
+# SW7422-146: Adding basic dsp unit test
+# 
+#############################################################################
+
+# Name of application
+ifeq (${SYSTEM},vxworks)
+APP = spdif_format_switch.out
+else
+APP = spdif_format_switch
+endif
+
+VPATH += spdif_format_switch
+
+# Application object file list, include path, and C flags
+APP_SOURCES = \
+  spdif_format_switch.c 
+
+APP_INCLUDES = ./ ./spdif_format_switch/
+APP_CFLAGS =
+
+# Include common APE makefile
+include Makefile.common

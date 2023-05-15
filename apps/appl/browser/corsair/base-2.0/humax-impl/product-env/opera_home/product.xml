@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<product>
+	<information>
+		<product-name>fvp4000t</product-name>
+		<model-name>fvp4000t</model-name>
+		<widget>0</widget>
+	</information>
+	<memory>
+		<heap-limit-size>350</heap-limit-size>
+		<allocated-limit-size>330</allocated-limit-size>
+	</memory>
+	<directory>
+		<opera-widget-install-dir>/mnt/hd4/widgets/</opera-widget-install-dir>
+		<opera-home-target-dir>/var/lib/humaxtv/browser/</opera-home-target-dir>
+		<opera-home-source-dir>/usr/browser/opera_home/</opera-home-source-dir>
+		<opera-dir>/usr/browser/opera_dir/</opera-dir>
+		<opera-font-dir>/usr/fonts/</opera-font-dir>
+	</directory>
+	<font>
+		<default>TiresiasScreenfont</default>
+		<cursive>DejaVu Sans Condensed</cursive>
+		<fantasy>DejaVu Sans Condensed</fantasy>
+		<monospace>DejaVu Sans Mono</monospace>
+		<sans-serif>TiresiasScreenfont</sans-serif>
+		<serif>TiresiasScreenfont</serif>
+	<TiresiasScreenfont>TiresiasScreenfont</TiresiasScreenfont>
+	</font>
+	<enabled>
+		<dragonfly>1</dragonfly>
+		<url>1</url>
+		<mainapp>1</mainapp>
+	</enabled>		
+</product>	

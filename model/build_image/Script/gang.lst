@@ -1,0 +1,25 @@
+[GANG_ALL
+	"root.squa"			$2000000
+	"db.bin"			$3600000
+	"dbbackup.bin"		$3800000
+	"loader.bin"		$3C00000
+	"user_bg.jpg"		$3CA0000
+	"config.bin"		$3CC0000
+	"_preld_f.bin"		$3CE0000
+	"loader_f.hcf"		$3D00000
+	"vmlinuz"			$3E00000
+]
+[APP_LOADER
+	"root.squa"			$2000000
+	"db.bin"			$3600000
+	"dbbackup.bin"		$3800000
+	"loader.bin"		$3C00000
+	"user_bg.jpg"		$3CA0000
+	"config.bin"		$3CC0000
+	"vmlinuz"			$3E00000
+]
+[BINS_ONEROOTFS
+	"root.squa"			$2000000
+	"dbbackup.bin"		$3800000
+	"vmlinuz"			$3E00000
+]

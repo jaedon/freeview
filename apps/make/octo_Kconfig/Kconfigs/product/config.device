@@ -1,0 +1,63 @@
+#########################################
+#					Device Requirements				#
+#########################################
+
+	comment "Device Requirements (PROD_DEVICE_XXX)"
+
+	config PROD_DEVICE_FILE_SYSTEM
+		bool "PROD_DEVICE_FILE_SYSTEM - Support the file system"
+		default y
+
+		config PROD_DEVICE_STORAGE_PROFILE_PATH
+			depends on PROD_DEVICE_FILE_SYSTEM
+			string "STORAGE_PROFILE_PATH - Path of Storage Profile"
+			default "\/usr\/etc\/storage_profile.json"
+
+	config PROD_DEVICE_STORAGE_HDD
+		bool "PROD_DEVICE_STORAGE_HDD - support the (e)SATA HDD storage(i.e. internal HDD, detachable HDD, or eSATA HDD)"
+		default n
+
+	config PROD_DEVICE_STORAGE_USB
+		bool "PROD_DEVICE_STORAGE_USB - support the USB storage device"
+		default y
+
+	config PROD_DEVICE_STORAGE_MMC
+		bool "PROD_DEVICE_STORAGE_MMC - support the Multi-Media Card"
+		default n
+
+	config PROD_DEVICE_UART_COMM
+		bool "PROD_DEVICE_UART_COMM - Use the UART communication"
+		default n
+
+	config PROD_DEVICE_DLNA
+		bool "DLNA - Use DLNA Module"
+		default n
+
+	config PROD_DEVICE_CABLE_MODEM
+		bool "Cable modem - Use cable modem Module"
+		default n
+
+	config PROD_DEVICE_BLUETOOTH
+		bool "Bluetooth - Use Bluetooth Module"
+		default n
+
+	config PROD_DEVICE_KERNEL_MODE
+		bool "PROD_DEVICE_KERNEL_MODE - device driver is working in kernel mode"
+		default n
+
+	config PROD_DEVICE_MIC
+		bool "PROD_DEVICE_MIC - Use MIC(Microphone) Module"
+		default n
+
+	config PROD_DEVICE_NUM_FULLSCREEN
+		int "PROD_DEVICE_NUM_FULLSCREEN - the number of main screen"
+		default 1
+
+	config PROD_DEVICE_NUM_PIP
+		int "PROD_DEVICE_NUM_PIP - the number of PIP"
+		default 0
+
+	config PROD_DEVICE_SERVER_CLIENT
+		bool "select y if you want to use server/client model of driver layer"
+		default n
+

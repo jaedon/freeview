@@ -1,0 +1,40 @@
+-include ./dirs
+
+ifeq ($(DIRS),)
+TARGET = constants
+
+SOURCES =                \
+	drmactivationconstants.c \
+	drmantirollbackclockconstants.c \
+	drmconstants.c \
+	drmcontentrevocationconstants.c \
+	drmdevcertconstants.c \
+	drmdlaconstants.c \
+	drmdomainconstants.c \
+	drmhdrbuilderconstants.c \
+	drmheaderparserconstants.c \
+	drmlicacqv3constants.c \
+	drmlicensesyncconstants.c \
+	drmmanagerconstants.c \
+	drmmeterconstants.c \
+	drmmoveconstants.c \
+	drmndcertconstants.c \
+	drmplayreadyobjconstants.c \
+	drmpubkeydeviceexclusion.c \
+	drmrevocationconstants.c \
+	drmsecureclockconstants.c \
+	drmsoapxmlconstants.c \
+	drmsymoptconstants.c \
+	drmtoolsconstants.c \
+	drmversionconstants.c \
+	drmviewrightsconstants.c \
+	drmwmdrmconstants.c \
+	drmwmdrmnetconstants.c \
+	drmxmlbuilderconstants.c \
+	drmxmlparserconstants.c \
+	drmxmlsigconstants.c \
+	ndtconstants.c \
+	
+endif
+   
+include $(DRM_SOURCE_PATH)/default.mak

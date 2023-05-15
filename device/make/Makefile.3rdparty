@@ -1,0 +1,60 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+# 
+
+TARGETS += 3rdparty
+IGNORE += 3rdparty
+
+######################################
+HUMAX_CONFIG_THIRDPARTY_DIR=$(HUMAX_PRODUCT_CONFIG_DIR)/3rd_party
+HUMAX_THIRDPARTY_DIR=$(HUMAX_WORK_DIR)/../3rd_party
+HUMAX_CHECK_STATIC_DLNA_LIB := $(wildcard  $(HUMAX_PACKAGE_DIR)/../3rd_party/dlna/mxlib/lib/HUMAX/libmxdtcp.a)
+
+THIRDPARTY_COMPILE_FLAGS=CONFIG_TOOLCHAIN_PATH=$(CONFIG_TOOLCHAIN_PATH) \
+	HUMAX_PORTING_MAKE_DIR=$(HUMAX_PORTING_MAKE_DIR) \
+	HUMAX_WORK_DIR=$(HUMAX_WORK_DIR) \
+	HUMAX_PACKAGE_DIR=$(HUMAX_PACKAGE_DIR) \
+	CONFIG_PRODUCT_NAME=$(CONFIG_PRODUCT_NAME) \
+	CONFIG_PRODUCT_IMAGE_TYPE=$(CONFIG_PRODUCT_IMAGE_TYPE) \
+	HUMAX_MAKE_DIR=$(HUMAX_MAKE_DIR) \
+	HUMAX_KCONFIG_TOOL_DIR=$(HUMAX_KCONFIG_TOOL_DIR) \
+	CONFIG_PRODUCT_DI_DEBUG_SYMBOL=$(CONFIG_PRODUCT_DI_DEBUG_SYMBOL) \
+	HUMAX_OUTPUT_DIR=$(HUMAX_OUTPUT_DIR) \
+	HUMAX_PREPARE_ROOT_DIR=$(HUMAX_PREPARE_ROOT_DIR)
+
+3rdparty : 
+	@echo ======= Copy 3rd Party Libraries ========
+	@echo == Copy default libraries and binaries	
+	@echo == Copy selectable libraries and binaries
+
+ifdef CONFIG_MEDIA20
+	@echo -- DLNA_Library
+ifeq ($(strip $(HUMAX_CHECK_STATIC_DLNA_LIB)),)
+ifeq ($(CONFIG_DEBUG), y)
+	@rm -f $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/debug/*.so
+	@(cd $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/debug; ln -s libmxdlna_core.so.0 libmxdlna_core.so)
+	@(cd $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/debug; ln -s libmxdtcp.so.0 libmxdtcp.so)
+	@(cd $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/debug; ln -s libmxfile.so.0 libmxfile.so)
+	@(cd $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/debug; ln -s libmxkernel.so.0 libmxkernel.so)
+	@$(HUMAX_CP) -rfa $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/debug/libmxdtcp.so*	$(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -rfa $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/debug/libmxfile.so*	$(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -rfa $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/debug/libmxkernel.so*	$(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -rfa $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/debug/libmxdlna_core.so*	$(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+else
+	@rm -f $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/release/*.so
+	@(cd $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/release; ln -s libmxdlna_core.so.0 libmxdlna_core.so)
+	@(cd $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/release; ln -s libmxdtcp.so.0 libmxdtcp.so)
+	@(cd $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/release; ln -s libmxfile.so.0 libmxfile.so)
+	@(cd $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/release; ln -s libmxkernel.so.0 libmxkernel.so)
+	@$(HUMAX_CP) -rfa $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/release/libmxdtcp.so*	$(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -rfa $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/release/libmxfile.so*	$(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -rfa $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/release/libmxkernel.so*	$(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+	@$(HUMAX_CP) -rfa $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/release/libmxdlna_core.so*	$(HUMAX_PREPARE_ROOT_DIR)/usr/lib
+endif
+else
+	@$(HUMAX_CP) -rfa $(HUMAX_THIRDPARTY_DIR)/dlna/mxlib/lib/HUMAX/*.a $(HUMAX_OUTPUT_DIR)/lib
+endif
+endif
+

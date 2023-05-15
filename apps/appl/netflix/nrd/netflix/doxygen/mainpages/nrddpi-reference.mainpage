@@ -1,0 +1,25 @@
+/**
+@mainpage DPI Reference
+<p>This document provides reference entries for the <b><i>Device Porting Interface (DPI)</i></b>. The DPI
+is a set of hardware platform-specific functions for which you <em>must</em> provide the implementation
+for your device.</p>
+
+<div style="height:150px">&nbsp;</div>
+&nbsp;
+*/
+
+/** @namespace netflix The parent namespace for all classes in the NRD Platform SDK.
+*
+*/
+
+/** @namespace netflix::device The Device Porting Interface (DPI).
+*   The NRD Platform core libraries use these interfaces to access the
+*   device's system and playback related functionality. Partners <em>must</em>
+*   implement these interfaces for their device.
+*/
+
+/** @namespace netflix::crypto The Crypto DPI.
+*   The NRD Platform core libraries use these interfaces to access the
+*   device's crypto functionality. Partners <em>must</em> implement these
+*   interfaces for their device.
+*/

@@ -1,0 +1,14 @@
+DRM_SUPPORT_XMLHASH=0
+!include ..\..\reftest.cmn
+
+TARGETNAME=TestXMLParser_ansi
+TARGETTYPE=PROGRAM
+UMTYPE=console
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS)   \
+    $(_DRM_TC_LIBS)        \
+    $(_DRM_TEST_XMLPARSE_LIB) \
+
+SOURCES =                        \
+    ..\main.c                  

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config_root>
+  <config_data>
+    <include>etc/conf/gibbon.xml</include>
+    <allow_insecure_requests>true</allow_insecure_requests>
+    <inject_js>http://ppd.builds.test.netflix.net/view/NRDJS/job/PPD-NRDJS-master/lastSuccessfulBuild/artifact/origin/master/nrdjs.min.js</inject_js>
+    <ui_url>http://lgux-pnavarro3.corp.netflix.com:8080/master/nrdptest/certification/gibbon/index.js?debug=true</ui_url>
+  </config_data>
+</config_root>

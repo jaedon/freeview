@@ -1,0 +1,16 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmsecureclockstub
+TARGETTYPE=LIBRARY
+
+SOURCES =                      \
+    secureclockmanagerstub.c   \
+    secureclockrequeststub.c   \
+    secureclockresponsestub.c  \
+    secureclockutilstub.c
+

@@ -1,0 +1,398 @@
+/*
+ * /prismux/prism.page.recordings.css
+ */
+#recordingsPage{
+  .storageStatusArea {
+    width: 230px;
+    height: 118px;
+    padding-left: 10px;
+    .txtTitle {
+      font-family: "PrismFontB";
+      color: #d2d2d2; /* T_REC_Menu */
+      font-size: 24px;
+      width: inherit;
+    }
+    .graph {
+      position: absolute;
+      height: 30px;
+      width: 230px;
+    }
+    .info {
+      position: absolute;
+      top: 62px;
+      width: 230px;
+      font-family: "PrismFontL";
+      color: #bebebe;
+      text-align: left;
+      font-size: 22px;
+      line-height: 22px;
+    }
+    .txtType {
+      font-family: "PrismFontB";
+      color: #D2D2D2;
+      text-align: left;
+      font-size: 24px;
+      line-height: 28px;
+      height: 26px;
+    }
+    .txtSize {
+      font-family: "PrismFontB";
+      color: #D2D2D2;
+      text-align: left;
+      font-size: 20px;
+      line-height: 20px;
+      width : 100px;
+    }
+    .hd {
+      position: absolute;
+      top: 0px;
+      background: none;
+      height: 46px;
+      width: 61px;
+    }
+    .sd {
+      position: absolute;
+      top: 51px;
+      margin: 0px 0px 0px;
+    }
+  }
+  .circleBg {
+    width: 86px;
+    height: 86px;
+    border-radius: 43px;
+    background: white;
+  }
+  .circleHole {
+    width: 86px;
+    height: 86px;
+    border-radius: 43px;
+    background: white;
+  }
+  .noContent {
+    &.img {
+      background: url(../images/390_REC_NoREC.png) no-repeat 50% 90px;
+    }
+  }
+  .viewDlg {
+    width: 892px;
+  }
+  &.inactive{
+    .gridItem{
+        &.-afd-leaf {
+          border: solid 6px #135C86; /* F_Cursor_H // history*/
+        }
+    }
+  }
+  .nonblockLoading {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 140px; /*change from 93px to 140px for Persian*/
+    height: 53px;
+    padding: 42px 60px 0 87px;
+    background: url(../images/206_Loading_DW.gif) no-repeat 20px 25px,rgba(0,0,0,.85);
+    text-align: center;
+    color: #fff;
+    font-size: 24px;
+    font-family: PrismFontL;
+  }
+  .scheduledItem {
+    width: 848px;
+    height: 58px;
+    &.-afd-leaf {
+      background-color: #2EB2FF;
+      .title {
+        color: #000000;
+        font-family: 'PrismFontB';
+      }
+      .time {
+        color: #000000;
+        font-family: 'PrismFontB';
+      }
+      .remain {
+        color: #000000;
+        font-family: 'PrismFontB';
+      }
+    }
+    &.checked {
+      >.thumbnail {
+        left: 42px;
+      }
+      >.title {
+        left: 133px;
+        width: 410px;
+      }
+    }
+    &.checked:after {
+      content: "";
+      position: absolute;
+      top: 13px;
+      left: 5px;
+      width: 32px;
+      height: 32px;
+      background: url(../images/112_DIA_Check_On.png) no-repeat;
+    }
+    &.unchecked {
+      >.thumbnail {
+        left: 42px;
+      }
+      >.title {
+        left: 133px;
+        width: 505px;
+      }
+    }
+    &.unchecked:after {
+      content: "";
+      position: absolute;
+      top: 13px;
+      left: 5px;
+      width: 32px;
+      height: 32px;
+      background: url(../images/112_DIA_Check_Off.png) no-repeat;
+    }
+    .thumbnail {
+      position: absolute;
+      left: 5px;
+      top: 5px;
+      width: 85px;
+      height: 48px;
+      background-color: rgba(255, 255, 255, 0.102);
+      .name {
+        position: absolute;
+        font-size: 18px;
+        font-family: PrismFontL;
+        vertical-align: middle;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: 48px;
+        width: 75px;
+        left: 5px;
+      }
+    }
+    .title {
+      position: absolute;
+      left: 96px;
+      top: 17px;
+      width: 377px;
+      height: 41px;
+      line-height: 24px;
+      font-family: 'PrismFontL';
+      font-size: 24px;
+      color: #FFFFFF;
+      overflow: hidden;
+      text-align: left;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .time {
+      position: absolute;
+      left: 479px;
+      top: 17px;
+      width: 206px;
+      height: 41px;
+      line-height: 24px;
+      font-family: 'PrismFontL';
+      font-size: 24px;
+      color: #FFFFFF;
+      overflow: hidden;
+      text-align: left;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .remain {
+      position: absolute;
+      left: 691px;
+      top: 17px;
+      width: 110px;
+      height: 41px;
+      line-height: 24px;
+      font-family: 'PrismFontL';
+      font-size: 24px;
+      color: #FFFFFF;
+      overflow: hidden;
+      text-align: left;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .icon {
+      position: absolute;
+      right: 10px;
+      top: 15px;
+
+      &.reminder {
+        background: url("../images/205_REC_Reservation_Watch.png") no-repeat transparent;
+        width: 28px;
+        height: 28px;
+      }
+      &.series {
+        background: url("../images/205_REC_Reservation_Series.png") no-repeat transparent;
+        width: 33px;
+        height: 28px;
+      }
+      &.onceRec {
+        background: url("../images/205_REC_Reservation_Recording.png") no-repeat transparent;
+        width: 33px;
+        height: 28px;
+      }
+      &.weeklyRec {
+        background: url("../images/205_REC_Reservation_Weekly.png") no-repeat transparent;
+        width: 33px;
+        height: 28px;
+      }
+      &.dailyRec {
+        background: url("../images/205_REC_Reservation_Daily.png") no-repeat transparent;
+        width: 33px;
+        height: 28px;
+      }
+    }
+  }
+  .tobedeletedItem {
+    width: 848px;
+    height: 58px;
+    &.-afd-leaf {
+      background-color: #2EB2FF;
+      .title {
+        color: #000000;
+        font-family: 'PrismFontB';
+      }
+    }
+    &.checked {
+      >.thumbnail {
+        left: 42px;
+      }
+      >.title {
+        left: 133px;
+        width: 410px;
+      }
+    }
+    &.checked:after {
+      content: "";
+      position: absolute;
+      top: 13px;
+      left: 5px;
+      width: 32px;
+      height: 32px;
+      background: url(../images/112_DIA_Check_On.png) no-repeat;
+    }
+    &.unchecked {
+      >.thumbnail {
+        left: 42px;
+      }
+      >.title {
+        left: 133px;
+        width: 505px;
+      }
+    }
+    &.unchecked:after {
+      content: "";
+      position: absolute;
+      top: 13px;
+      left: 5px;
+      width: 32px;
+      height: 32px;
+      background: url(../images/112_DIA_Check_Off.png);
+    }
+    .thumbnail {
+      position: absolute;
+      left: 5px;
+      top: 5px;
+      width: 85px;
+      height: 48px;
+      background-color: rgba(255, 255, 255, 0.102);
+      .name {
+        position: absolute;
+        font-size: 18px;
+        font-family: PrismFontL;
+        vertical-align: middle;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: 48px;
+        width: 75px;
+        left: 5px;
+      }
+    }
+    .title {
+      position: absolute;
+      left: 96px;
+      top: 17px;
+      width: 377px;
+      height: 41px;
+      line-height: 24px;
+      font-family: 'PrismFontL';
+      font-size: 24px;
+      color: #FFFFFF;
+      overflow: hidden;
+      text-align: left;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .icons {
+      position: absolute;
+      left: 699px;
+      top: 0px;
+      width: 149px;
+      height: inherit;
+      padding-right: 10px;
+      >img {
+        position: relative;
+        margin-left: 6px;
+        top: 13px;
+        float: right;
+        &.play {
+          width: 28px;
+          height: 28px;
+          background: url(../images/205_REC_Play.png) no-repeat;
+        }
+        &.partially {
+          width: 28px;
+          height: 28px;
+          background: url(../images/614_REC_Play_partially.png) no-repeat;
+        }
+        &.new {
+          width: 45px;
+          height: 26px;
+          background: url(../images/614_REC_New.png) no-repeat;
+        }
+        &.series {
+          width: 33px;
+          height: 26px;
+          background: url(../images/614_REC_Series.png) no-repeat;
+        }
+        &.lock {
+          width: 22px;
+          height: 28px;
+          background: url(../images/211_Lock.png) no-repeat;
+        }
+        &.broken {
+          width: 35px;
+          height: 28px;
+          background: url(../images/614_REC_Broken.png) no-repeat;
+        }
+      }
+    }
+  }
+}
+#badge {
+  width: 40px;
+  height: 22px;
+  line-height: 22px;
+  border-radius: 30px;
+  color: black;
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  text-align: center;
+  vertical-align: middle;
+  left: 213px;
+  top: 19px;
+  position: absolute;
+  opacity: 0;
+}
+.selected {
+  #badge {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,106 @@
+#########################################################
+# Chip specific DI feature configuration menu
+#########################################################
+
+config CRYPTO
+	bool
+	prompt "CRYPTO"
+	default y
+		
+	config CRYPTO_NEW_SLOT_NUM
+		bool
+		prompt "Apply new slot number for CA/M2M/RMX/CACP"
+		default y
+		help 
+			Apply new slot number for CA, M2M, RMX, and CACP, it should be selected when CONFIG_CRYPT_NEW_SLOT_NUM option selected in loader
+		depends on CRYPTO
+		
+config SECURITY_EXTENSION
+	bool
+	prompt "Use security extension"
+	default n
+	help
+		When using security extension driver, should select this option
+
+	config SECURITY_REGION_VERIFICATION
+		bool
+		prompt "Security Region Verification"
+		default n
+		depends on SECURITY_EXTENSION
+	
+	config SECURITY_REGION_VERIFICATION_DUMP_FW
+		bool
+		prompt "Security Region Verification Dump Firmware"
+		default n
+		depends on SECURITY_REGION_VERIFICATION
+	
+#config DRM
+#	bool
+#	prompt "DRM"
+#	default n
+
+config LXC
+	bool
+	prompt "LXC Support"
+	default n
+	select NETFILTER
+
+config NETFILTER
+	bool
+	prompt "NETFILTER Support"
+	default n
+
+config STATICLIB
+	bool
+	prompt "STATICLIB"
+	default n
+
+config THREAD_JOIN_TEMPORARY
+	bool
+	prompt "THREAD_JOIN_TEMPORARY"
+	default n
+
+config SUPPORT_CPU_TEMP
+	bool
+	prompt "SUPPORT_CPU_TEMP"
+	default n
+
+config BMEM_OPTIMIZE
+	bool
+	prompt "BMEM_OPTIMIZE"
+	default n
+
+config FAST_AV_CHANGE
+	bool
+	prompt "FAST_AV_CHANGE"
+	default n
+	
+	config PRIMER_COUNT
+		int
+		prompt "Default primer count"
+		default 3
+		depends on FAST_AV_CHANGE
+	
+	config FAST_CHANNEL_CHANGE
+		bool
+		prompt "Fast channel change"
+		default n
+		depends on FAST_AV_CHANGE
+		
+		config FAST_CHANNEL_CHANGE_AUDIO_PRIMER
+			bool
+			prompt "Fast channel change with audio primer (Not recommend from broadcom)"
+			default n
+			depends on FAST_CHANNEL_CHANGE
+	
+	config FAST_AUDIO_CHANGE
+		bool
+		prompt "Fast audio change for media & playback"
+		default n
+		depends on FAST_AV_CHANGE
+		
+config S3_WARM_SECURE_BOOT
+	bool
+	prompt "S3_WARM_SECURE_BOOT"
+	default n
+

@@ -1,0 +1,44 @@
+Bcmplayer Documentation
+----------------------------
+
+bcmplayer_docs.tgz
+	This is HTML documentation produced by DocJet from the source code.
+	It covers both bcmplayer and bcmindexer.
+	It also includes design and system-level documentation from the Twiki site.
+
+bcmplayer.doc
+	This is a MS Word documention produced by DocJet from the source code.
+	It covers both bcmplayer and bcmindexer.
+	It also includes design and system-level documentation from the Twiki site.
+	
+	NOTE: The formatting of this document has not been finalized and is a little rough.
+
+tsplayer.doc
+	Word document for tsplayer.
+
+tsindexer.doc
+	Word document for tsindexer.
+
+-----------------------------
+Sample Code
+
+You can find sample application code in three places:
+
+1. Inside the documentation. This is the smallest and easiest to understand, but it
+doesn't show the full features of bcmplayer.
+
+2. BSEAV/api/src/*/bsettop_playback.c. This is the PVR implementation for the
+reference software. It is part of the Settop API and is a complete implementation.
+
+3. BSEAV/api/utils/playback. This is an application that uses the Settop API. It doesn't
+use bcmplayer directly, but it's a simple and useable app.
+
+-----------------------------
+Internal Broadcom Notes
+
+The source for the latest design and system-level documentation (including usage notes) 
+is located on the twiki site:
+
+http://twiki-01.broadcom.com/twiki/bin/view/Bseavsw/?topic=BroadcomTrickModes
+
+

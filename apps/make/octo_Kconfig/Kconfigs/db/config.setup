@@ -1,0 +1,14 @@
+#############################################
+#					Setup DB Configuration					#
+#############################################
+
+comment	"Setup DB Configuration. (DB_SETUP_XXX)"
+
+	choice
+		prompt "Setup DB's System"
+		default DB_SETUP_JSON
+
+		config DB_SETUP_JSON
+			bool "DB_SETUP_INTERNAL - for using internal db, with file system"
+	endchoice
+

@@ -1,0 +1,29 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+# 
+
+TARGETS += toolchains-patch
+IGNORE += toolchains-patch
+
+ifneq ($(CONFIG_ENDIAN_BIG),)
+ENDIAN = be
+else
+ENDIAN = le
+endif
+
+ifeq ($(strip $(CONFIG_TOOLCHAIN_PATCH)),y)
+HUMAX_TOOLCHAINS_PATCH_DIR=$(HUMAX_WORK_DIR)/$(shell echo $(CONFIG_TOOLCHAIN_PATCH_DIR) | sed '/^.\"/d')
+endif
+
+toolchains-patch :
+ifdef CONFIG_TOOLCHAIN_PATCH
+	@echo -- patch for uClibc, depends on each compiler.
+	@echo $(HUMAX_TOOLCHAINS_PATCH_DIR)
+	@if [ ! -d $(HUMAX_TOOLCHAINS_PATCH_DIR) ]; then \
+		echo "'$(HUMAX_TOOLCHAINS_PATCH_DIR)' directory is not exist." ; \
+		exit 1 ; \
+	fi;
+	@$(HUMAX_CP) -dpf $(HUMAX_TOOLCHAINS_PATCH_DIR)/* $(HUMAX_PREPARE_ROOT_DIR)/lib
+endif

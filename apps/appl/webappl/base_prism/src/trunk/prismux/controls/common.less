@@ -1,0 +1,337 @@
+﻿
+@DEF_ANIM_DURATION_FAST: .2s;
+@DEF_ANIM_DURATION_DEFAULT: .3s;
+@DEF_ANIM_DURATION_SLOW: .5s;
+ 
+// Color palete from FreesatG2 UI Spec 4.0 p.445
+@DEF_COLOR_WHITE: #e1e1e1;
+@DEF_COLOR_LIGHTEST_GREY: #b6b6b6;
+@DEF_COLOR_LIGHT_GREY: #a2a2a2;
+@DEF_COLOR_MEDIUM_GREY: #8e8e8e;
+@DEF_COLOR_DARK_GREY: #525252;
+@DEF_COLOR_DARKEST_GREY: #3e3e3e;
+@DEF_COLOR_TV_BLACK: #141414;
+@DEF_COLOR_GRID_LINE: rgb(39, 56, 46);
+@DEF_COLOR_BORDER_BLACK: #21101a;
+@DEF_COLOR_OPACITY_GREY1: rgba(255,255,255,.25);
+@DEF_COLOR_OPACITY_GREY2: rgba(255,255,255,.2);
+
+// Green
+@DEF_COLOR_GREEN1: #97ee99;
+@DEF_COLOR_GREEN2: #78c882;
+@DEF_COLOR_GREEN3: #328c50;
+@DEF_COLOR_GREEN4: rgba(0, 111, 59, .4);
+@DEF_COLOR_GREEN_LINE: rgb(39, 56, 46);
+
+// Turquoise
+@DEF_COLOR_TURQUOISE1: #3cbff1;
+@DEF_COLOR_TURQUOISE2: #309ec6;
+@DEF_COLOR_TURQUOISE3: #427e97;
+@DEF_COLOR_TURQUOISE4: rgba(11, 83, 119, .4);
+@DEF_COLOR_TURQUOISE_LINE: rgb(26, 44, 46);
+
+// Royal Blue
+@DEF_COLOR_ROYAL_BLUE1: #78adfd;
+@DEF_COLOR_ROYAL_BLUE2: #6092dd;
+@DEF_COLOR_ROYAL_BLUE3: #3960b0;
+@DEF_COLOR_ROYAL_BLUE4: rgba(2, 35, 100, .4);
+@DEF_COLOR_ROYAL_BLUE_LINE: rgb(48, 54, 86);
+
+// Pink
+@DEF_COLOR_PINK1: #ed7ab3;
+@DEF_COLOR_PINK2: #ca6298;
+@DEF_COLOR_PINK3: #993270;
+@DEF_COLOR_PINK4: rgba(100, 0, 80, .4);
+@DEF_COLOR_PINK5: #6a3450;
+@DEF_COLOR_PINK_LINE: rgb(55, 0, 46);
+
+// Gold
+@DEF_COLOR_GOLD1: #ffa842;
+@DEF_COLOR_GOLD2: #c16c03;
+@DEF_COLOR_GOLD3: #a05202;
+@DEF_COLOR_GOLD4: rgba(61, 28, 7, .4);
+@DEF_COLOR_GOLD_LINE: rgb(47, 37, 31);
+
+// Grey blue
+@DEF_COLOR_GREY_BLUE1: #4d87c3;
+@DEF_COLOR_GREY_BLUE2: #4d76b5;
+//@DEF_COLOR_GREY_BLUE3: #303656;
+@DEF_COLOR_GREY_BLUE3: #4d87c3;
+@DEF_COLOR_GREY_BLUE4: rgba(39, 55, 104, .4);
+@DEF_COLOR_GREY_BLUE5: #367C96;
+@DEF_COLOR_GREY_BLUE_LINE: #273768;
+
+// Purple
+@DEF_COLOR_PURPLE1: #ba77ee;
+@DEF_COLOR_PURPLE2: #925dba;
+@DEF_COLOR_PURPLE3: #883FC3;
+@DEF_COLOR_PURPLE4: rgba(123, 81, 157, .4);
+@DEF_COLOR_PURPLE5: #9F4AE2;
+@DEF_COLOR_PURPLE_LINE: #3e2757;
+
+// Violet
+@DEF_COLOR_VIOLET1: #7B4F9D;
+@DEF_COLOR_VIOLET2: #9F4AE2;
+@DEF_COLOR_VIOLET3: #51187D;
+@DEF_COLOR_VIOLET4: rgba(61, 48, 70, .4);
+@DEF_COLOR_VIOLET_LINE: #3D3046;
+
+// Grey blue2
+@DEF_COLOR_GREY_BLUE21: #A7C4E2;
+@DEF_COLOR_GREY_BLUE22: #7AA5D2;
+@DEF_COLOR_GREY_BLUE23: #4D87C3;
+@DEF_COLOR_GREY_BLUE24: rgba(65, 115, 166, .4);
+@DEF_COLOR_GREY_BLUE2_LINE: #3A6592;
+
+@THEME_COLOR1: @DEF_COLOR_LIGHTEST_GREY;
+@THEME_COLOR2: @DEF_COLOR_MEDIUM_GREY;
+@THEME_COLOR3: @DEF_COLOR_LIGHTEST_GREY;
+@THEME_COLOR4: @DEF_COLOR_DARKEST_GREY;
+@THEME_COLOR_LINE: @DEF_COLOR_GRID_LINE;
+@THEME_IMG_ARROW_RIGHT:url("@{DEF_IMAGE_BASE_URL}arrow/arrow_right_dark_L.png");
+@THEME_IMG_ARROW_LEFT: url("@{DEF_IMAGE_BASE_URL}arrow/arrow_left_dark_L.png");
+@DEF_PAGE_BG_IMAGE_URL: url("@{DEF_IMAGE_BASE_URL}bg/bg_neutral.png");
+
+@DEF_FONT_COLOR_LIGHT: @DEF_COLOR_LIGHTEST_GREY;
+@DEF_FONT_COLOR_DEFAULT: @DEF_COLOR_MEDIUM_GREY;
+@DEF_FONT_COLOR_DARK: @DEF_COLOR_DARKEST_GREY;
+
+.DEF_DEBUG_BORDER (@color: blue) {
+    box-sizing:border-box;
+    border: 1px solid @color;
+}
+
+.DEF_DEBUG_FILL (@color: red) {
+    background-color: @color;
+}
+
+.DEF_DEFAULT() {
+    border: 0px none currentColor;
+    color: #A2A2A2;
+    font-family: "HelveticaNeueLT W1G 67 MdCn";
+    font-size: 26px;
+    margin: 0px;
+    outline: 0px none currentColor;
+    padding: 0px;
+    vertical-align: middle;
+}
+
+.DEF_ANIMATION_CLEAR() {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+
+.DEF_ANIMATION_POS (@duration: @DEF_ANIM_DURATION_DEFAULT, @timing: linear) {
+    -webkit-transition: top @duration linear, left @duration @timing;
+    -moz-transition: top @duration linear, left @duration @timing;
+    -ms-transition: top @duration linear, left @duration @timing;
+    -o-transition: top @duration linear, left @duration @timing;
+    transition: top @duration linear, left @duration @timing;
+}
+
+.DEF_ANIMATION_RECT (@duration: @DEF_ANIM_DURATION_DEFAULT) {
+    -webkit-transition: top @duration linear, left @duration linear, width @duration linear, height @duration linear;
+    -moz-transition: top @duration linear, left @duration linear, width @duration linear, height @duration linear;
+    -ms-transition: top @duration linear, left @duration linear, width @duration linear, height @duration linear;
+    -o-transition: top @duration linear, left @duration linear, width @duration linear, height @duration linear;
+    transition: top @duration linear, left @duration linear, width @duration linear, height @duration linear;
+}
+
+.DEF_ANIMATION_OPACITY (@duration: @DEF_ANIM_DURATION_DEFAULT) {
+    -webkit-transition: opacity @duration linear;
+    -moz-transition: opacity @duration linear;
+    -ms-transition: opacity @duration linear;
+    -o-transition: opacity @duration linear;
+    transition: opacity @duration linear;
+}
+
+.DEF_ANIMATION_OPACITY_WITH_DELAY (@delay, @duration: @DEF_ANIM_DURATION_DEFAULT) {
+  -webkit-transition: opacity @duration linear @delay;
+  -moz-transition: opacity @duration linear @delay;
+  -ms-transition: opacity @duration linear @delay;
+  -o-transition: opacity @duration linear @delay;
+  transition: opacity @duration linear @delay;
+}
+
+.DEF_ANIMATION_COLOR (@duration: @DEF_ANIM_DURATION_DEFAULT) {
+    -webkit-transition: color @duration linear;
+    -moz-transition: color @duration linear;
+    -ms-transition: color @duration linear;
+    -o-transition: color @duration linear;
+    transition: color @duration linear;
+}
+
+.DEF_ANIMATION_BGCOLOR (@duration: @DEF_ANIM_DURATION_DEFAULT) {
+    -webkit-transition: background-color @duration linear;
+    -moz-transition: background-color @duration linear;
+    -ms-transition: background-color @duration linear;
+    -o-transition: background-color @duration linear;
+    transition: background-color @duration linear;
+}
+
+.DEF_ANIMATION_ALL (@duration: @DEF_ANIM_DURATION_DEFAULT) {
+    -webkit-transition: all @duration linear;
+    -moz-transition: all @duration linear;
+    -ms-transition: all @duration linear;
+    -o-transition: all @duration linear;
+    transition: all @duration linear;
+}
+
+.DEF_ANIMATION_ROLLMENU (@duration: @DEF_ANIM_DURATION_DEFAULT) {
+  -webkit-transition: top @duration linear;
+  -moz-transition: top @duration linear;
+  -ms-transition: top @duration linear;
+  -o-transition: top @duration linear;
+  transition: top @duration linear;
+}
+
+.DEF_ANIMATION_DELAY(@duration: @DEF_ANIM_DURATION_DEFAULT) {
+    -webkit-transition-delay: @duration;
+    -moz-transition-delay: @duration;
+    -ms-transition-delay: @duration;
+    -o-transition-delay: @duration;
+    transition-delay: @duration;
+}
+
+@DEF_LAYOUT_PAGE_WIDTH: 1280px;
+@DEF_LAYOUT_PAGE_HEIGHT: 720px;
+@DEF_LAYOUT_PAGE_LEFT_WIDTH: 348px;
+@DEF_LAYOUT_PAGE_HEAD_HEIGHT: 210px;
+@DEF_LAYOUT_PAGE_STRIPE_HEIGHT: 64px;
+@DEF_LAYOUT_PAGE_CONTENT_WIDTH: 314px;
+
+.DEF_LAYOUT_PAGE_FULL() {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width: @DEF_LAYOUT_PAGE_WIDTH;
+    height: @DEF_LAYOUT_PAGE_HEIGHT;
+}
+
+.DEF_LAYOUT_PAGE_HALF_BG() {
+    position:absolute;
+    left:0px;
+    top:@DEF_LAYOUT_PAGE_HEAD_HEIGHT;
+    width:@DEF_LAYOUT_PAGE_WIDTH;
+    height:@DEF_LAYOUT_PAGE_HEIGHT - @DEF_LAYOUT_PAGE_HEAD_HEIGHT;
+}
+
+.DEF_LAYOUT_PAGE_HALF_LEFT() {
+    position:absolute;
+    left:0px;
+    top:@DEF_LAYOUT_PAGE_HEAD_HEIGHT;
+    width:@DEF_LAYOUT_PAGE_LEFT_WIDTH;
+    height:@DEF_LAYOUT_PAGE_HEIGHT - @DEF_LAYOUT_PAGE_HEAD_HEIGHT;
+}
+
+.DEF_LAYOUT_PAGE_HALF_RIGHT() {
+    position:absolute;
+    left:@DEF_LAYOUT_PAGE_LEFT_WIDTH;
+    top:@DEF_LAYOUT_PAGE_HEAD_HEIGHT;
+    width:@DEF_LAYOUT_PAGE_WIDTH - @DEF_LAYOUT_PAGE_LEFT_WIDTH;
+    height:@DEF_LAYOUT_PAGE_HEIGHT - @DEF_LAYOUT_PAGE_HEAD_HEIGHT;
+}
+
+.DEF_LAYOUT_PAGE_STRIPE() {
+    position:absolute;
+    left:0px;
+    top:@DEF_LAYOUT_PAGE_HEAD_HEIGHT;
+    width:@DEF_LAYOUT_PAGE_WIDTH;
+    height:@DEF_LAYOUT_PAGE_STRIPE_HEIGHT;
+}
+
+.DEF_LAYOUT_PAGE_STRIPE_LEFT() {
+    position:absolute;
+    left:0px;
+    top:@DEF_LAYOUT_PAGE_HEAD_HEIGHT;
+    width:@DEF_LAYOUT_PAGE_LEFT_WIDTH;
+    height:@DEF_LAYOUT_PAGE_STRIPE_HEIGHT;
+}
+
+.DEF_LAYOUT_PAGE_STRIPE_RIGHT() {
+    position:absolute;
+    left:@DEF_LAYOUT_PAGE_LEFT_WIDTH;
+    top:@DEF_LAYOUT_PAGE_HEAD_HEIGHT;
+    width:@DEF_LAYOUT_PAGE_WIDTH - @DEF_LAYOUT_PAGE_HEAD_HEIGHT;
+    height:@DEF_LAYOUT_PAGE_STRIPE_HEIGHT;
+}
+
+.DEF_LAYOUT_PAGE_BOTTOM() {
+    position:absolute;
+    left:0px;
+    top:@DEF_LAYOUT_PAGE_HEAD_HEIGHT + @DEF_LAYOUT_PAGE_STRIPE_HEIGHT;
+    width:@DEF_LAYOUT_PAGE_WIDTH;
+    height:@DEF_LAYOUT_PAGE_HEIGHT - @DEF_LAYOUT_PAGE_HEAD_HEIGHT - @DEF_LAYOUT_PAGE_STRIPE_HEIGHT;
+}
+
+.DEF_LAYOUT_PAGE_BOTTOM_LEFT() {
+    position:absolute;
+    left:0px;
+    top:@DEF_LAYOUT_PAGE_HEAD_HEIGHT + @DEF_LAYOUT_PAGE_STRIPE_HEIGHT;
+    width:@DEF_LAYOUT_PAGE_LEFT_WIDTH;
+    height:@DEF_LAYOUT_PAGE_HEIGHT - @DEF_LAYOUT_PAGE_HEAD_HEIGHT - @DEF_LAYOUT_PAGE_STRIPE_HEIGHT;
+}
+
+.DEF_LAYOUT_PAGE_BOTTOM_RIGHT() {
+    position:absolute;
+    left:@DEF_LAYOUT_PAGE_LEFT_WIDTH;
+    top:@DEF_LAYOUT_PAGE_HEAD_HEIGHT + @DEF_LAYOUT_PAGE_STRIPE_HEIGHT;
+    width:@DEF_LAYOUT_PAGE_WIDTH - @DEF_LAYOUT_PAGE_LEFT_WIDTH;
+    height:@DEF_LAYOUT_PAGE_HEIGHT - @DEF_LAYOUT_PAGE_HEAD_HEIGHT - @DEF_LAYOUT_PAGE_STRIPE_HEIGHT;
+}
+
+.DEF_LAYOUT_PAGE_THUMBNAIL() {
+    position: absolute;
+    top: 44px;
+    left: 878px;
+    width: 272px;
+    height: 154px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.DEF_LAYOUT_PAGE_TOP_CENTER() {
+    position: absolute;
+    left: 350px;
+    top: 0px;
+    width: 520px;
+}
+
+/*
+    Font
+*/
+.DEF_FONT_K() {
+    font-family: "Klavika Light";
+}
+
+.DEF_FONT_H() {
+    font-family: "HelveticaNeueLT W1G 67 MdCn";
+}
+
+.DEF_FONT_TITLE() {
+    .DEF_FONT_K;
+}
+
+.DEF_FONT_DEFAULT() {
+    .DEF_FONT_H;
+}
+
+/*
+    Image
+*/
+@DEF_IMAGE_BASE_URL: "../../image/";
+
+
+/*
+*/
+@DEF_ZINDEX_NOTIFICATION: 100;
+
+.DEF_ELLIPSIS() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

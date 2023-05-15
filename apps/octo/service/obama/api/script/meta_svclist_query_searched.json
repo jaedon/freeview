@@ -1,0 +1,7 @@
+"meta":{
+	"operation" : "get",
+	"target"    : "svclist",
+	"property"  : {
+		"searched" : true
+	}
+}

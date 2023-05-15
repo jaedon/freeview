@@ -1,0 +1,20 @@
+################################################
+#					GWM Configuration					#
+################################################
+
+comment "GWM Configuration. (GWM_XXX)"
+
+
+	config GWM_APPCLIPAREA
+		bool "GWM_APPCLIPAREA - App Clipping Update"
+		default n
+
+	config GWM_UPDATE_AREALIST
+		bool "GWM_UPDATE_AREALIST - Update Area List Management"
+		default n
+
+	config GWM_O2_ANIMATION
+		bool "GWM_O2_ANIMATION - Object Offset(O2) Animation"
+		default n
+
+

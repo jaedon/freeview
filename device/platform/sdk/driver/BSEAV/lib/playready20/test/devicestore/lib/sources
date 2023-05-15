@@ -1,0 +1,7 @@
+
+TARGETTYPE=LIBRARY
+TARGETNAME=DeviceStoreTestAPI
+
+SOURCES = \
+	../testdevicestore.c
+

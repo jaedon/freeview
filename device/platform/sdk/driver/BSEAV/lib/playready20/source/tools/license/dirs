@@ -1,0 +1,6 @@
+DIRS = licensecleanstore \
+	licensegeneratechallenge \
+	licenseprocessresponse \
+	licenseviewstore \
+	syncgeneratelicensechallenges
+

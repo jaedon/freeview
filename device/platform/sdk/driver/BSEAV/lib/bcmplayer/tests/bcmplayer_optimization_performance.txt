@@ -1,0 +1,57 @@
+Bcmplayer optimizations
+
+Date: 4/22/03
+Platform: 97320 A1
+File: pvrgui8.mpg (Live echostar stream)
+
+-----------------------------------
+Test technique:
+
+I used the bcmplayback test_app which is found in:
+
+	SetTop/linux/application/driverintf/test_apps/playback
+
+It depends on the linux kernelmode driver and libdriverintf.a.
+Then I used the command-line scripting feature and the bash "time" utility.
+
+For example:
+	To time normal play: time ./bcmplayer -once -scrtext "wait;st;q" ...
+	To time rewind:      time ./bcmplayer -once -scrtext "g 3194;7;wait;st;q" ...
+
+In the final results, the difference between bytes read and played are the
+software-generated BTP packets.
+
+-----------------------------------
+File information:
+
+Index length: 3194 frames
+File size: 38598656 bytes
+
+-----------------------------------
+Normal Playback:
+	time: 1m 44s
+	bytes read: 38195200
+	bytes played: 38195200
+
+	NOTE: 3194/30 = 106 which is about 104 seconds. The difference is the initial
+		frames preceding the seqhdr which are thrown away by bcmplayer.
+
+1x Rewind:
+	time: 1m 59s
+	bytes read: 318727368
+	bytes played: 327116800
+
+1x Rewind w/ EXTRA_B:
+	time: 1m 55s
+	bytes read: 222069612
+	bytes played: 227993600
+
+1x Rewind w/ EXTRA_B and DUMMY_PICTURE:
+	time: 1m 54s
+	bytes read: 202668200
+	bytes played: 208332800
+
+1x Rewind w/ EXTRA_B, DUMMY_PICTURE and DISPLAY_PAST_BUFFER:
+	time: 1m 46s
+	bytes read: 120913204
+	bytes played: 124672000

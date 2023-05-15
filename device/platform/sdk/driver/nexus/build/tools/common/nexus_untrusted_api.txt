@@ -1,0 +1,43 @@
+# Untrusted client API
+# 
+# untrusted clients may access the following API's:
+#
+# 1) any function explicitly allowed here
+# OR
+# 2) any function which takes a validated handle which is not explicitly denied here
+# OR
+# 3) any function which only returns one output parameter (for example, all GetDefaultSettings functions)
+# OR
+# 4) any function which is local and does not pass through the multiprocess thunk (this includes, playback, record, file) 
+#    (there is no code for this. they are simply not present in driver/server-side thunk)
+
+allow:
+NEXUS_Dma_Open
+NEXUS_Graphics2D_Open
+NEXUS_Graphics2D_ConvertFilter
+NEXUS_Graphics2D_ConvertColorMatrix
+NEXUS_Graphics2D_SetAlphaColorMatrix
+NEXUS_InputClient_Acquire
+NEXUS_PictureDecoder_Open
+NEXUS_Playpump_Open
+NEXUS_SimpleVideoDecoder_Acquire
+NEXUS_SimpleAudioDecoder_Acquire
+NEXUS_SimpleAudioPlayback_Acquire
+NEXUS_StcChannel_Open
+NEXUS_StcChannel_GetDefaultSettings
+NEXUS_SurfaceClient_Acquire
+NEXUS_Surface_Create
+NEXUS_Recpump_Open
+NEXUS_MemoryBlock_FromAddress
+NEXUS_Graphics3d_Open
+
+deny:
+NEXUS_InputRouter_DestroyClient
+NEXUS_SimpleAudioDecoder_Destroy
+NEXUS_SimpleAudioDecoder_GetServerSettings
+NEXUS_SimpleAudioDecoder_SetServerSettings
+NEXUS_SimpleAudioPlayback_Destroy
+NEXUS_SimpleVideoDecoder_Destroy
+NEXUS_SimpleVideoDecoder_GetServerSettings
+NEXUS_SimpleVideoDecoder_SetServerSettings
+NEXUS_SurfaceCompositor_DestroyClient

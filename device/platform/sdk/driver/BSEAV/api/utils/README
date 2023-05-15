@@ -1,0 +1,9 @@
+Settop API utils README
+
+The utils directory contains a set of simple command line apps.
+
+It should be noted that the Settop API does not maintain state
+between application runs. It is a side-effect that on linux,
+the kernel-mode driver maintains state. On other architectures, or
+in linux user-mode, there is no state maintained between application
+runs. The previous test_apps made use of this driver state.

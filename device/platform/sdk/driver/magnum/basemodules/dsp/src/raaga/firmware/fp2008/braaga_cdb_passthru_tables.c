@@ -1,0 +1,62 @@
+/***************************************************************************
+ *     Copyright (c) 1999-2012, Broadcom Corporation
+ *     All Rights Reserved
+ *     Confidential Property of Broadcom Corporation
+ *
+ *
+ * THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+ * AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+ * EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+ *
+ ***************************************************************************/
+
+#include "bchp.h"
+const uint32_t BDSP_IMG_cdb_passthru_tables_array1[] = {
+	0x00000001,
+	0x00000002,
+	0x00000003,
+	0x00000004,
+	0x00000005,
+	0x00000006,
+	0x00000007,
+	0x00000008,
+	0x00000009,
+	0x0000000a,
+	0x0000000b,
+	0x0000000c,
+	0x0000000f,
+	0x0000000e,
+	0x0000000d,
+	0x0000000c,
+	0x0000000b,
+	0x0000000a,
+	0x00000009,
+	0x00000008,
+	0x00000007,
+	0x00000006,
+	0x00000005,
+	0x00000004,
+	0x00000003,
+	0x00000002,
+	0x00000001,
+	0x00000000,
+	0x00000000,
+	0x00000001,
+	0x00000002,
+	0x00000003,
+	0x00000004,
+	0x00000005,
+	0x00000006,
+	0x00000007,
+	0x00000008,
+	0x00000009,
+	0x0000000a,
+	0x0000000b,
+	0x0000000c,
+	0x0000000d,
+	0x0000000e,
+	0x0000000f
+};
+const uint32_t BDSP_IMG_cdb_passthru_tables_header [2] = {sizeof(BDSP_IMG_cdb_passthru_tables_array1), 1};
+const void * const BDSP_IMG_cdb_passthru_tables [2] = {BDSP_IMG_cdb_passthru_tables_header, BDSP_IMG_cdb_passthru_tables_array1};
+/* End of File */

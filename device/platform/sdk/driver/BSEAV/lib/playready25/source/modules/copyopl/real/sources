@@ -1,0 +1,9 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmcopyoplreal
+TARGETTYPE=LIBRARY
+
+SOURCES =             \
+    copyoplimplreal.c \
+    copyoplutilreal.c \
+

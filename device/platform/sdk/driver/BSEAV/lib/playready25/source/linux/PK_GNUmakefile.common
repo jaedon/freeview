@@ -1,0 +1,64 @@
+# /*++
+# Copyright (c) Microsoft Corporation. All rights reserved.
+#
+# Common includes and variables for the per folder makefiles.
+#
+# This file is NOT generated
+#
+# --*/
+
+PLATFORM = linux
+
+_DRM_PLAYREADYPK_LIB   = $(PLAYREADY_ROOT)/output/bin/lib/libplayreadypk_test.a
+
+TOP_SRC_DIR = $(PLAYREADY_ROOT)/source
+
+BINFOLDER =
+
+include gnusources
+
+MODULE_NAME = $(TARGETNAME)
+C_SRCS = $(SOURCES)
+
+include $(PLAYREADY_DIR)/GNUmakefile.common
+
+INCLUDE_DIRS +=                             \
+    -I.                                     \
+    -I..                                    \
+    -I$(SRC_DIR)                            \
+    -I$(TOP_SRC_DIR)/blackbox               \
+    -I$(TOP_SRC_DIR)/certs                  \
+    -I$(TOP_SRC_DIR)/inc                    \
+    -I$(TOP_SRC_DIR)/keyfile                \
+    -I$(TOP_SRC_DIR)/keyfileformat          \
+    -I$(TOP_SRC_DIR)/modules/prnd/real      \
+    -I$(TOP_SRC_DIR)/results/checkedin      \
+    -I$(TOP_SRC_DIR)/results                \
+    -I$(TOP_SRC_DIR)/ndtinc                 \
+    -I$(TOP_SRC_DIR)/oem/linux/bcm          \
+    -I$(TOP_SRC_DIR)/oem/ansi/inc           \
+    -I$(TOP_SRC_DIR)/oem/common/inc         \
+    -I$(TOP_SRC_DIR)/oem/common/hal/oemimpl \
+    -I$(TOP_SRC_DIR)/oem/common/hal/shared  \
+    -I$(TOP_SRC_DIR)/xmr                    \
+    -I$(TOP_SRC_DIR)/tee                    \
+
+
+
+					
+ifneq "" "$(DRM_BUILD_PROFILE)"
+
+REQUIRED_CFLAGS +=                           \
+    -DDRM_BUILD_PROFILE=$(DRM_BUILD_PROFILE) \
+
+else
+
+REQUIRED_CFLAGS +=                           \
+    -DDRM_BUILD_PROFILE=900                  \
+
+endif
+
+REQUIRED_CFLAGS +=                           \
+    -DTARGET_LITTLE_ENDIAN=1                 \
+    -DTARGET_SUPPORTS_UNALIGNED_DWORD_POINTERS=1	\
+

@@ -1,0 +1,589 @@
+9202:BVT:DRM_LICEVAL_CONTEXT: valid data should work (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9203:BVT:DRM_LICEVAL_CONTEXT: valid data should work (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9235:BVT:STORE operation with ONSTORE right should work (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9204:BVT:STORE operation with expire ONSTORE should work (XMR V1)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, 3600, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1 )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9238:BVT:STORE operation with DRM_LICENSE_EVAL_DONE_WITH_OPERATION (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 3, old )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9206:BVT:STORE operation with DRM_LICENSE_EVAL_DONE_WITH_OPERATION (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, 3600, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1 )
+TestLicEvalContextSetting( XMR LicenseType, 3, old, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9245:BVT:SELECT operation should work with CAN_DO operation state (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_SELECT, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9201:BVT:SELECT operation should work with CAN_DO operation state (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_SELECT, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9246:BVT:SELECT operation should work with DONE_WITH operation state (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_SELECT, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+
+
+1394:BVT:SELECT operation should work with DONE_WITH operation state (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid , SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_SELECT, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+ 
+9249:BVT:verify STORE operation and SELECT operation work together well (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_SELECT, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9258:BVT:DELETE operation works with CAN_DO state (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_DELETE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9222:BVT:DELETE operation works with CAN_DO state (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_DELETE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9259:BVT:DELETE operation works with DONE_WITH state (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_DELETE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9224:BVT:DELETE operation works with DONE_WITH state (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_DELETE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9273:BVT:ACTION operation works for play action (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Play, NORMAL, NORMAL )
+
+
+9227:BVT:ACTION operation works for play action (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Play, NORMAL, NORMAL )
+
+
+9229:BVT:ACTION operation works for play action with action qualifier (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, ActionQualifiers, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperationsXMR( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NULL, NORMAL, NORMAL, NULL )
+TestLicenseEvalPerformOperationsXMR( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Play, 0, NORMAL, NORMAL, PERFORM )
+TestLicenseEvalPerformOperationsXMR( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Play, 1, NORMAL, NORMAL, PERFORM )
+TestLicenseEvalPerformOperationsXMR( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Play, 2, NORMAL, NORMAL, PERFORM )
+TestLicenseEvalPerformOperationsXMR( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Play, 3, NORMAL, NORMAL, PERFORM )
+TestLicenseEvalPerformOperationsXMR( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Play, NONEXIST, NORMAL, NORMAL, NOPERFORM )
+TestLicenseEvalPerformOperationsXMR( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Play, NULL, NORMAL, NORMAL, PERFORM )
+TestLicenseEvalPerformOperationsXMR( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Copy, 4, NORMAL, NORMAL, PERFORM )
+TestLicenseEvalPerformOperationsXMR( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Copy, 5, NORMAL, NORMAL, PERFORM )
+TestLicenseEvalPerformOperationsXMR( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Copy, 6, NORMAL, NORMAL, PERFORM )
+TestLicenseEvalPerformOperationsXMR( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Copy, 7, NORMAL, NORMAL, PERFORM )
+TestLicenseEvalPerformOperationsXMR( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Copy, NONEXIST, NORMAL, NORMAL, NOPERFORM )
+TestLicenseEvalPerformOperationsXMR( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Copy, NULL, NORMAL, NORMAL, PERFORM )
+
+
+9274:BVT:ACTION operation works for backup action (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Backup, NORMAL, NORMAL )
+
+
+9228:BVT:ACTION operation works for backup action (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Backup, NORMAL, NORMAL )
+
+
+9275:BVT:ACTION operation works for Print.redbook action (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Print.redbook, NORMAL, NORMAL )
+ 
+
+-------------------BVT ends here--------------------------
+
+9205:DRM_LICEVAL_CONTEXT: wszContentHeader: default (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 2, default )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9209:LicEvalContext.dwFlags: Context.dwFlags=0 should work (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 10, NULL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9233:LicEvalContext.dwFlags: Context.dwFlags=0 should work (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 10, NULL, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9210:DRM_LICEVAL_CONTEXT: Old license should work (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 3, old )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9234:DRM_LICEVAL_CONTEXT: Old license should work (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 3, old, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9211:DRM_LICEVAL_CONTEXT: Invalid license should fail (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 3, invalid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )=-2147172346( DRM_E_INVALID_LICENSE )
+
+
+9248:DRM_LICEVAL_CONTEXT: Invalid license should fail (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+' V3 and expire on on store is invalid, should fail to unpack.
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, 3600, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3 )
+TestLicEvalContextSetting( XMR LicenseType, 3, invalid, SHARED_XMR_LICENSE )=0X8004C006( DRM_E_INVALID_LICENSE )
+
+
+9212:DRM_LICEVAL_CONTEXT: NULL license should fail (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 3, NULL )=-2147024809( 0X80070057, DRM_E_INVALIDARG )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )=-2147172160( DRM_E_LICEVAL_LICENSE_NOT_SUPPLIED )
+
+
+9250:DRM_LICEVAL_CONTEXT: NULL license should fail (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestLicEvalContextSetting( XMR LicenseType, 3, NULL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )=-2147172160( DRM_E_LICEVAL_LICENSE_NOT_SUPPLIED )
+
+
+9214:DRM_LICEVAL_CONTEXT: Context.wszBBVer, invalid wszBBVer=NULL should not crash, it would get overwritten (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 4, NULL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL ) 
+
+
+9251:DRM_LICEVAL_CONTEXT: Context.wszBBVer, invalid wszBBVer=NULL should not crash, it would get overwritten (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 4, NULL, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL ) 
+
+
+9215:DRM_LICEVAL_CONTEXT: Context.wszBBVer, invalid wszBBVer=1.0.0.0 should not fail, it gets overwritten (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 4, invalid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL ) 
+
+
+9252:DRM_LICEVAL_CONTEXT: Context.wszBBVer, invalid wszBBVer=1.0.0.0 should not fail, it gets overwritten (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 4, invalid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9216:DRM_LICEVAL_CONTEXT: Context.wszDRMVer, invalid wszDRMVer=2.3.0.1 or 1.0.0.1 should get overwritten with correct version (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 5, invalid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL ) 
+
+
+9253:DRM_LICEVAL_CONTEXT: Context.wszDRMVer, invalid wszDRMVer=2.3.0.1 or 1.0.0.1 should get overwritten with correct version (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 5, invalid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL ) 
+
+9217:DRM_LICEVAL_CONTEXT: Context.wszDRMVer, invalid wszDRMVer=NULL should not crash and should get overwritten with correct version (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 5, NULL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9254:DRM_LICEVAL_CONTEXT: Context.wszDRMVer, invalid wszDRMVer=NULL should not crash and should get overwritten with correct version (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 5, NULL, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9218:DRM_LICEVAL_CONTEXT: NULL pContext should fail and handle correctly (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NULL )=-2147024809( DRM_E_INVALIDARG )
+
+
+9255:DRM_LICEVAL_CONTEXT: NULL pContext should fail and handle correctly (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NULL )=-2147024809( DRM_E_INVALIDARG )
+
+
+9219:Other global secure store password should be accepted (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 11, invalid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9256:Other global secure store password should be accepted (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 11, invalid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9220:NULL global secure store password should be okay for Read Only (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 11, NULL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Play, NORMAL, NORMAL )
+
+
+9257:NULL global secure store password should be okay for Read Only (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 11, NULL, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, Play, NORMAL, NORMAL )
+
+
+9225:NULL pbRevocationSecStoreContext should fail (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 7, NULL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NULL, NORMAL )=-2147024809( DRM_E_INVALIDARG )
+
+
+9261:NULL pbRevocationSecStoreContext should fail (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 7, NULL, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NULL, NORMAL )=-2147024809( DRM_E_INVALIDARG )
+
+
+9230:DRM_LICEVAL_CONTEXT: Context.rgbLID invalid should fail (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 8, invalid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9231:DRM_LICEVAL_CONTEXT: NULL Context.rgbLID should fail (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 8, NULL )=0X80070057( DRM_E_INVALIDARG )
+
+
+9232:DRM_LICEVAL_CONTEXT: NULL rgbKID should fail (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 9, NULL )=-2147024809( DRM_E_INVALIDARG )
+
+
+9221:DRM_LICEVAL_CONTEXT: invalid rgbKID should get overwritten and pass (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 9, invalid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9236:STORE operation with NO ONSTORE right should not work (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 3, NOStoreRight )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )=-2147172346( DRM_E_INVALID_LICENSE )
+
+
+9268:STORE operation with "Cannot Persist" right should not fail (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, Cannot Persist )
+TestLicEvalContextSetting( XMR LicenseType, 3, NOStoreRight, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9237:STORE operation fail without license set (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 3, NULL )=-2147024809( 0X80070057, DRM_E_INVALIDARG )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )=-2147172160( DRM_E_LICEVAL_LICENSE_NOT_SUPPLIED )
+
+
+9278:STORE operation fail without license set (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 3, NULL, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )=-2147172160( DRM_E_LICEVAL_LICENSE_NOT_SUPPLIED )
+
+
+9239:STORE operation fails with DONE_WITH_OPERATION without ONSTORE right (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 3, NOStoreRight )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )=-2147172346( DRM_E_INVALID_LICENSE )
+
+
+9279:STORE operation fails with "Cannot Persist" right and DONE_WITH_OPERATION should not fail (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, Cannot Persist )
+TestLicEvalContextSetting( XMR LicenseType, 3, NOStoreRight, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+
+
+9240:STORE operation fails with DONE_WITH_OPERATION without license set (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 3, NULL )=-2147024809( 0X80070057, DRM_E_INVALIDARG )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )=-2147172160( DRM_E_LICEVAL_LICENSE_NOT_SUPPLIED )
+
+
+1463:STORE operation fails with DONE_WITH_OPERATION without license set (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestLicEvalContextSetting( XMR LicenseType, 3, NULL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )=-2147172160( DRM_E_LICEVAL_LICENSE_NOT_SUPPLIED )
+
+
+9241:STORE operation fails with NULL operation state (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, NULL, NULL, NORMAL, NORMAL )=-2147024809( DRM_E_INVALIDARG )
+
+
+9284:STORE operation fails with NULL operation state (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, NULL, NULL, NORMAL, NORMAL )=-2147024809( DRM_E_INVALIDARG )
+
+
+9242:STORE operation fails with invalid operation state (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, 3, NULL, NORMAL, NORMAL )=-2147024809( DRM_E_INVALIDARG )
+
+
+9285:STORE operation fails with invalid operation state (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, 3, NULL, NORMAL, NORMAL )=-2147024809( DRM_E_INVALIDARG )
+
+
+9243:invalid fEvalResult fails gracefully (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NULL, NORMAL )=-2147024809( DRM_E_INVALIDARG )
+
+
+9286:invalid fEvalResult fails gracefully (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NULL, NORMAL )=-2147024809( DRM_E_INVALIDARG )
+
+
+9244:invalid operation fails gracefully (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( NULL, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )=-2147024809( DRM_E_INVALIDARG )
+
+
+9287:invalid operation fails gracefully (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( NULL, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )=-2147024809( DRM_E_INVALIDARG )
+
+
+9247:SELECT operation should fail without license (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 3, NULL )=-2147024809( 0X80070057, DRM_E_INVALIDARG )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_SELECT, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )=-2147172160( DRM_E_LICEVAL_LICENSE_NOT_SUPPLIED )
+
+
+9288:SELECT operation should fail without license (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestLicEvalContextSetting( XMR LicenseType, 3, NULL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_SELECT, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )=-2147172160( DRM_E_LICEVAL_LICENSE_NOT_SUPPLIED )
+
+9264:DELETE operation with CAN_DO state fails without license set (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 3, NULL )=-2147024809( 0X80070057, DRM_E_INVALIDARG )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_DELETE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )=-2147172160( DRM_E_LICEVAL_LICENSE_NOT_SUPPLIED )
+
+
+9289:DELETE operation with CAN_DO state fails without license set (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestLicEvalContextSetting( XMR LicenseType, 3, NULL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_DELETE, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )=-2147172160( DRM_E_LICEVAL_LICENSE_NOT_SUPPLIED )
+ 
+ 
+9265:DELETE operation fails with DONE_WITH state without license set (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 3, NULL )=-2147024809( 0X80070057, DRM_E_INVALIDARG )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_DELETE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )=-2147172160( DRM_E_LICEVAL_LICENSE_NOT_SUPPLIED )
+
+
+9290:DELETE operation fails with DONE_WITH state without license set (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestLicEvalContextSetting( XMR LicenseType, 3, NULL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )=-2147172160( DRM_E_LICEVAL_LICENSE_NOT_SUPPLIED )
+
+
+9272:ACTION operation should fail when missing action string (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )=-2147024809( DRM_E_INVALIDARG )
+
+
+9293:ACTION operation should fail when missing action string (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, NULL, NORMAL, NORMAL )=-2147024809( DRM_E_INVALIDARG )
+
+9276:ACTION operation accept empty action name (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, EMPTY, NORMAL, NORMAL )
+
+
+9294:ACTION operation accept empty action name (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_CAN_DO_OPERATION, EMPTY, NORMAL, NORMAL )
+
+
+9277:ACTION operation would fail if no license set (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 3, NULL )=-2147024809( 0X80070057, DRM_E_INVALIDARG )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, Play, NORMAL, NORMAL )=-2147172160( DRM_E_LICEVAL_LICENSE_NOT_SUPPLIED )
+
+
+9295:ACTION operation would fail if no license set (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestLicEvalContextSetting( XMR LicenseType, 3, NULL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, Play, NORMAL, NORMAL )=-2147172160( DRM_E_LICEVAL_LICENSE_NOT_SUPPLIED )
+
+
+9280:ACTION operation with DONE_WITH state works for play action (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, Play, NORMAL, NORMAL )
+
+
+9296:ACTION operation with DONE_WITH state works for play action (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, Play, NORMAL, NORMAL )
+
+
+9281:ACTION operation with DONE_WITH state works for backup action (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, Backup, NORMAL, NORMAL )
+
+
+9297:ACTION operation with DONE_WITH state works for backup action (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, Backup, NORMAL, NORMAL )
+
+
+9282:ACTION operation with DONE_WITH state works for Print.redbook action (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, Print.redbook, NORMAL, NORMAL )
+
+
+9298:ACTION operation with DONE_WITH state works for Print.redbook action (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, Print.redbook, NORMAL, NORMAL )
+
+
+11258:ACTION operation with DONE_WITH state works for CREATE_PM_LICENSE action (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, CREATE_PM_LICENSE, NORMAL, NORMAL )
+
+
+11259:ACTION operation with DONE_WITH state accept empty action name (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, EMPTY, NORMAL, NORMAL )
+
+
+9300:ACTION operation with DONE_WITH state accept empty action name (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, EMPTY, NORMAL, NORMAL )
+
+11260:ACTION operation with DONE_WITH state does not accept NULL action name (XML)
+SkipTestIf(!WMDRMSupported)
+TestLicEvalContextSetting( XML LicenseType, 0, valid )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )=-2147024809( DRM_E_INVALIDARG )
+
+
+9301:DRT:P0: ACTION operation with DONE_WITH state does not accept NULL action name (XMR)
+SkipTestIf( !DeviceAssetsSupported )
+TestManagerCreateXMRLicense( SHARED_XMR_LICENSE, nz/NueNnHDgdPwHsbrQhIw== , RANDOM , XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I )
+TestLicEvalContextSetting( XMR LicenseType, 0, valid, SHARED_XMR_LICENSE )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_STORE, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )
+TestLicenseEvalPerformOperations( DRM_LICENSE_EVAL_ACTION, DRM_LICENSE_EVAL_DONE_WITH_OPERATION, NULL, NORMAL, NORMAL )=-2147024809( DRM_E_INVALIDARG )
+

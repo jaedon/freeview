@@ -1,0 +1,16 @@
+"downloader" : {
+	"target" : "dsmcc",
+	"operation" : "get",
+	"property" : {
+		"action" : "config"
+		"param" : {
+			"type" : "hbbtv",
+			"target_url" : "",
+			"steps" : [
+				"connect",
+				"download",
+				"install"
+			]
+		}
+	}
+}

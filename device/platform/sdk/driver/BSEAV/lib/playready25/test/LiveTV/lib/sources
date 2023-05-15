@@ -1,0 +1,13 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=LIBRARY
+TARGETNAME=LiveTVTestAPI
+
+SOURCES = \
+    ..\LiveTVTestAPI.c \
+    ..\DerivedKeyTestAPI.c \
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \
+    $(DRM_PK_TEST_LIB_PATH)\generatorutils.lib \

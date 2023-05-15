@@ -1,0 +1,69 @@
+##########################################
+# DI USB configuration menu
+##########################################
+
+config USB
+	bool
+	prompt "USB HID Class"
+	default y
+
+config USB_HOSTCONTROLLER_CNT
+	int "Number of Host Controller"
+	range 0 10
+	default 2
+	depends on USB
+
+config USB_XHCI_HOSTCONTROLLER_CNT
+	int "Number of XHCI Host Controller(USB3.0)"
+	range 0 10
+	default 0
+	depends on USB
+	
+config USB_PORT_CNT
+	int "Number of PORT"
+	range 0 10
+	default 2 
+	
+config USB_HID
+	bool
+	prompt "USB HID Class"
+	default n
+	depends on USB && !DIRECTFB_INPUT
+
+config USB_WIRELESS
+	bool
+	prompt "USB Wireless class"
+	default n
+	depends on USB
+
+config USB_MODULE
+	bool
+	prompt "Use USB Module"
+	default n
+	depends on USB
+
+config USB2SERIAL
+	bool
+	prompt "Use USB Serial"
+	default n
+	depends on USB
+
+
+config USB_SUBPORT_DISABLE_MASK 
+	hex
+	prompt "If one controller to disable one of the two ports"
+	default 0x00
+	depends on USB
+
+
+config EXTERNAL_USB_HUB
+	bool
+	prompt "In case of use external usb hub, reset pin should be controled"
+	default n
+	depends on USB
+	
+config USB2ETH
+	bool
+	prompt "Use USB Ethernet"
+	default n
+	depends on USB

@@ -1,0 +1,104 @@
+############################################################
+#     Copyright (c) 2003-2012, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: Makefile.encoder $
+# $brcm_Revision: 1 $
+# $brcm_Date: 1/12/12 7:01p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# Created: 02/09/2001 by Marcus Kellerman
+#
+# $brcm_Log: /BSEAV/app/brutus2/build/Makefile.encoder $
+# 
+# 1   1/12/12 7:01p tokushig
+# SW7405-5581: Brutus2 initial check in
+# 
+# 4   11/17/09 2:13p erickson
+# SW7405-3408: use $(filter) instead of $(findstring)
+# 
+# 3   5/5/05 2:29p erickson
+# PR15159: added quotes for DOS builds
+# 
+# 2   2/17/05 1:53p erickson
+# PR9497: make vxworks-friendly
+# 
+# 1   2/7/05 7:43p dlwin
+# Merge down for release 2005_REFSW_MERGETOMAIN:
+# 
+# Irvine_BSEAVSW_Devel/4   5/12/04 10:25a erickson
+# PR10967: added standard header
+############################################################
+
+#
+# Top-level makefile add-on for the MPEG encoder chips
+#
+# Inputs: VENDOR_CFLAGS, MPEGENCODER, LINUX_INC, HW_CHIP, HW_BME_INCLUDE, MPEGVIDEO
+#
+
+.PHONY: encoder
+all: check_environment encoder
+
+BSEAV = $(shell cd "../../.." && {PWD})
+include ../config.mk
+
+ifeq ($(filter $(CHIP),venom2 7110),$(CHIP))
+ENCODER = bcm7041
+KFIR_LIB = libkf2x
+else
+ENCODER = bcm7040
+KFIR_LIB = libkfir
+endif
+DEBUG=n
+
+ifeq ($(DEBUG),y)
+	BCMENC_DEBUG_FLAGS += -g
+else
+	BCMENC_DEBUG_FLAGS += -DNDEBUG
+endif
+
+encoder: $(ENCODER).a
+
+HWINTF_DIRS = -I$(HWINTF) -I$(HW_CHIP_INCLUDE) -I$(HW_CHIP_BME) -I$(HW_BOARD) -I$(HW_CHIP_ENDIAN) -I$(HW_BOARD_ENDIAN)
+
+ENCODER_CFLAGS = \
+	-I$(STD_INC) -I$(GCC_INC) -I$(MPEGENCODER)/$(ENCODER)/kfirddk/include \
+	$(HWINTF_DIRS) -I$(DEVICE) -I$(KERNELINTF_OS) -I$(MPEGVIDEO)/include \
+	-I$(BUILDDIR) -fno-pic
+
+MAKE_FLAGS="CROSS_COMPILE"=$(CROSS_COMPILE)
+
+KF_CC_FLAGS = \
+	-I$(STD_INC) -I$(GCC_INC) -I$(DEVICE) $(HWINTF_DIRS) \
+	-DUSE_KFIR_I2CBUS=0
+
+ifeq ($(filter $(CHIP),7115 7110),$(CHIP))
+KF_CC_FLAGS += -DBCM704X_EBI_BUS=1
+ENCODER_CFLAGS += -DBCM704X_EBI_BUS=1
+endif
+
+$(KFIR_LIB).a:
+	$(MAKE) -r -C $(MPEGENCODER)/$(ENCODER)/kfirddk/unix $(MAKE_FLAGS) KF_CC_FLAGS="$(KF_CC_FLAGS)" CC_DEBUG=$(BCMENC_DEBUG_FLAGS) clean $(KFIR_LIB).a
+	$(CP) $(MPEGENCODER)/$(ENCODER)/kfirddk/unix/$(KFIR_LIB).a $(KFIR_LIB).a
+
+bcmmpegenc.o:
+	$(CC) -c $(ENCODER_CFLAGS) $(MPEGENCODER)/bcmmpegenc.c -o bcmmpegenc.o
+
+$(ENCODER).a: $(KFIR_LIB).a bcmmpegenc.o
+	echo $(HW_BOARD)
+	$(CP) $(KFIR_LIB).a $(ENCODER).a
+	$(AR) q $(ENCODER).a bcmmpegenc.o
+	$(RANLIB) $(ENCODER).a
+
+clean:
+	$(RM) -f $(ENCODER).a $(KFIR_LIB).a bcmmpegenc.o
+	$(MAKE) -C $(MPEGENCODER)/$(ENCODER)/kfirddk/linux clean
+	$(MAKE) -C $(MPEGENCODER)/$(ENCODER)/kfirddk/unix clean

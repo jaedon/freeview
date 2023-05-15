@@ -1,0 +1,132 @@
+/**@@@+++@@@@******************************************************************
+**
+** Microsoft (r) PlayReady (r)
+** Copyright (c) Microsoft Corporation. All rights reserved.
+**
+***@@@---@@@@******************************************************************
+*/
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+/// <summary>
+/// UPnP Service Type ID of the PRND Transmitter Service
+/// </summary>
+const wchar_t PRND_TRANSMITTER_UPNP_SERVICE_TYPE_ID[] = L"urn:microsoft_com:service:PRNDTransmitter:1";
+
+/// <summary>
+/// Default UPnP Service ID of the PRND Transmitter Service.
+/// This is provided here for convenience as each device can expose the service using a different ID.
+/// </summary>
+const wchar_t PRND_TRANSMITTER_UPNP_DEFAULT_SERVICE_ID[] = L"urn:microsoft_com:serviceId:PRNDTransmitter";
+
+/// <summary>
+/// Dispatch IDs of the methods in IUPnPService_PlayReadyTransmitterDual
+/// </summary>
+typedef [v1_enum] enum PLAYREADYTRANSMITTERSERVICE_DISPIDS
+{
+    DISPID_A_ARG_TYPE_SESSIONID = 1,
+    DISPID_A_ARG_TYPE_LICENSEPUSHTYPE,
+    DISPID_A_ARG_TYPE_LICENSEPUSHADDRESS,
+    DISPID_A_ARG_TYPE_GENERICDATA,
+    DISPID_REGISTERDEVICE,
+    DISPID_FETCHLICENSE
+} PLAYREADYTRANSMITTERSERVICE_DISPIDS;
+
+/// <summary>
+/// Interface exposed by an object supporting the PRND Transmitter UPnP Service
+/// through the Windows UPnP Framework. It represents the actions and state variables
+/// of the UPnP Service of type 'urn:microsoft_com:service:PRNDTransmitter:1'
+/// in a way the Windows UPnP Framork can translate to actual UPnP messages in the
+/// network.
+/// </summary>
+[
+    uuid("2fb7c97a-6d3c-4957-87e0-74c8fd5ec510"),
+    dual,
+    pointer_default(unique)
+]
+interface IUPnPService_PlayReadyTransmitterDual : IDispatch
+{
+    /// <summary>
+    /// Maps the A_ARG_TYPE_SessionID state varible of the service,
+    /// which exists in the UPnP service description exclusively to define an argument type.
+    /// </summary>
+    /// <returns>null Session ID ( i.e., all bits set to zero )</returns>
+    [propget, id( DISPID_A_ARG_TYPE_SESSIONID ), helpstring( "Property A_ARG_TYPE_SessionID" )]
+    HRESULT A_ARG_TYPE_SessionID(
+        [out, retval] SAFEARRAY( BYTE ) *pA_ARG_TYPE_SessionID );
+
+    /// <summary>
+    /// Maps the A_ARG_TYPE_LicensePushType state varible of the service,
+    /// which exists in the UPnP service description exclusively to define an argument type.
+    /// </summary>
+    /// <returns>0</returns>
+    [propget, id( DISPID_A_ARG_TYPE_LICENSEPUSHTYPE ), helpstring( "Property A_ARG_TYPE_LicensePushType" )]
+    HRESULT A_ARG_TYPE_LicensePushType(
+        [out, retval] long *pA_ARG_TYPE_LicensePushType );
+
+    /// <summary>
+    /// Maps the A_ARG_TYPE_SessionID state varible of the service,
+    /// which exists in the UPnP service description exclusively to define an argument type.
+    /// </summary>
+    /// <returns>empty string</returns>
+    [propget, id( DISPID_A_ARG_TYPE_LICENSEPUSHADDRESS ), helpstring( "Property A_ARG_TYPE_LicensePushAddress" )]
+    HRESULT A_ARG_TYPE_LicensePushAddress(
+        [out, retval] BSTR *pA_ARG_TYPE_LicensePushAddress );
+
+    /// <summary>
+    /// Maps the A_ARG_TYPE_GenericData state varible of the service,
+    /// which exists in the UPnP service description exclusively to define an argument type.
+    /// </summary>
+    /// <returns>a BYTE array of one element set to zero</returns>
+    [propget, id( DISPID_A_ARG_TYPE_GENERICDATA ), helpstring( "Property A_ARG_TYPE_GenericData" )]
+    HRESULT A_ARG_TYPE_GenericData(
+        [out, retval] SAFEARRAY( BYTE ) *pA_ARG_TYPE_GenericData );
+
+    /// <summary>
+    /// Maps the RegisterDevice action of the service.
+    /// </summary>
+    /// <param name="punkRemoteEndpointInfo">Information about the endpoint requesting the action</param>
+    /// <param name="OldSessionID">SessionID to renewal the registration or a null SessionID ( i.e., all zeros ) for a new registration</param>
+    /// <param name="LicensePushType">Method of license pushing the requester supports</param>
+    /// <param name="LicensePushAddress">Target address for license push, if supported. The format of the parameter depends on the LicensePushType parameter</param>
+    /// <param name="pRegistrationRequestMessage">A VARIANT with a SAFEARRAY( BYTE ) with the PRND registration request message</param>
+    /// <param name="pResponseSessionID">Receives the SessionID</param>
+    /// <param name="pRegistrationRequestMessage">Receives a SAFEARRAY( BYTE ) with the PRND registration response</param>
+    [id( DISPID_REGISTERDEVICE ), helpstring( "Method RegisterDevice" )]
+    HRESULT RegisterDevice(
+        [in] IUnknown *punkRemoteEndpointInfo,
+        [in] VARIANT* pOldSessionID,
+        [in] long LicensePushType,
+        [in] BSTR LicensePushAddress,
+        [in] VARIANT *pRegistrationRequestMessage,
+        [in, out] VARIANT *pResponseSessionID,
+        [in, out] VARIANT *pRegistrationResponseMessage );
+
+    /// <summary>
+    /// Maps the FetchLicense action of the service.
+    /// </summary>
+    /// <param name="punkRemoteEndpointInfo">Information about the endpoint requesting the action</param>
+    /// <param name="SessionID">SessionID obtained during registration</param>
+    /// <param name="pLicenseRequestMessage">A VARIANT with a SAFEARRAY( BYTE ) with the PRND license fetch request</param>
+    /// <param name="pLicenseResponseMessage">Receives a SAFEARRAY( BYTE ) with the PRND license fetch response</param>
+    [ id( DISPID_FETCHLICENSE ), helpstring( "Method FetchLicense" )]
+    HRESULT FetchLicense(
+        [in] IUnknown *punkRemoteEndpointInfo,
+        [in] VARIANT *pSessionID,
+        [in] VARIANT *pLicenseRequestMessage,
+        [in, out] VARIANT *pLicenseResponseMessage );
+};
+
+/// <summary>
+/// Type Library
+/// </summary>
+[
+    uuid(EABA7EA6-2E77-45BB-98C3-9B51F3CC4701),
+    version( 1.0 ),
+]
+library UPnPService_PlayReadyTransmitter
+{
+    [dual] interface IUPnPService_PlayReadyTransmitterDual;
+};
+

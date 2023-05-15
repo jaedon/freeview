@@ -1,0 +1,56 @@
+
+	config MW_SYS_VFD
+		bool "MW_SYS_VFD  - Front Panel is VFD"
+		default n
+
+	config MW_SYS_LCD
+		bool "MW_SYS_LCD  - Front Panel is LCD"
+		default n
+
+	config MW_SYS_7SEG
+		bool "MW_SYS_7SEG  - Apply 7 Segment Scenario (not string scroll, display ch number or Settop Status with max 4 characters)"
+		default n
+
+	config MW_SYS_STRING_LEN
+		int "MW_SYS_STRING_LEN - Front Panel String Length"
+		default 12
+
+	config MW_SYS_RUSSIAN_FRONT_PANEL
+		bool "MW_SYS_RUSSIAN_FRONT_PANEL - support front panel with Russian font"
+		default n
+
+	config MW_SYS_DISABLE_PANEL_SCROLL
+		bool "MW_SYS_DISABLE_PANEL_SCROLL - Disable string scroll at front display (LCD, 7SEG)"
+		default n
+
+	config MW_SYS_PANEL_SCROLL_ONCE
+		bool "MW_SYS_PANEL_SCROLL_ONCE - string scroll once at front display"
+		default n
+
+	config MW_SYS_COLOR_LED
+		bool "MW_SYS_COLOR_LED - if your HW support Color LED in Front panel, please turn on"
+		default n
+
+	config MW_SYS_LED_DIMMING_CTRL_ON_STBY
+		bool "MW_SYS_LED_DIMMING_CTRL - RED LED dimming down on standby mode."
+		default n
+
+ 	config MW_SYS_HOTKEY
+		bool "MW_SYS_HOTKEY - Support hotkey ???"
+		default n
+
+	config MW_SYS_NAND_FLASH_ONLY
+		bool "MW_SYS_NAND_FLASH_ONLY - Support flash only product"
+		default n
+
+	config MW_SYS_THERMAL_PROTECTION
+		bool "MW_SYS_THERMAL_PROTECTION - Support Thermal Protection"
+		default n
+		
+	config MW_SYS_ACTIVESTBY_BY_PWRSAVINGONSTBY
+		bool "MW_SYS_ACTIVESTBY_BY_PWRSAVINGONSTBY - Active Standby By Power Saving On Standby"
+		default n
+
+	config MW_SYS_SUPPORT_CHIPID_X64
+		bool "MW_SYS_SUPPORT_CHIPID_X64 - Use 64bit ChipId instead of 32bit ChipId"
+		default n

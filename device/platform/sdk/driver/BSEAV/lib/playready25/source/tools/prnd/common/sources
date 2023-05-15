@@ -1,0 +1,11 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=prnd_tools_common
+TARGETTYPE=LIBRARY
+
+INCLUDES=                               \
+    $(INCLUDES);                        \
+    $(DRM_COMMON_INC);                  \
+
+SOURCES=                                \
+    Socket.cpp                          \

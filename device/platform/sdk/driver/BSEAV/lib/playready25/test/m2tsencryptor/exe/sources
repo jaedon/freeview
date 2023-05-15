@@ -1,0 +1,15 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=PROGRAM
+TARGETNAME=M2TSEncryptorTest
+UMTYPE=console
+
+SOURCES = \
+    ..\main.c \
+
+TARGETLIBS = $(TARGETLIBS)         \
+    $(_DRM_REFCODE_LIBS)           \
+    $(_DRM_TC_LIBS)                \
+    $(_DRM_TEST_M2TSENCRYPTOR_LIB) \
+    $(_DRM_TEST_DRMMANAGER_LIB)    \
+    $(_DRM_TEST_PRND_LIB)          \

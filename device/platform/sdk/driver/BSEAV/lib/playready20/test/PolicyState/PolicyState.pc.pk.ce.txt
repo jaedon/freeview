@@ -1,0 +1,42 @@
+'Daily test cases
+'''''''''''''''''''''''''''''''''''''''''''''
+' DRTs
+
+18000:DRT: Set a LONG value and a string value and then retrieve them.
+TestPolicySetStateData( "NjU0MzIxMDk4NzY1NDMyMQ==", "play count", INTEGER, 10 )
+TestPolicySetStateData( "NjU0MzIxMDk4NzY1NDMyMQ==", "my friend", STRING, bill )
+TestPolicyGetStateData( "NjU0MzIxMDk4NzY1NDMyMQ==", "play count", 1024, NORMAL, INTEGER, 10 )
+TestPolicyGetStateData( "NjU0MzIxMDk4NzY1NDMyMQ==", "my friend", 1024, NORMAL, STRING, bill )
+
+18001:DRT: Set a LONG value and a string value and then retrieve them, interfaced with two KIDs.
+TestPolicySetStateData( "NjU0MzIxMDk4NzY1NDMyMQ==", "play count", INTEGER, 10 )
+TestPolicySetStateData( "AH+03juKbUGbHl1V/QIwRA==", "my friend", STRING, test )
+TestPolicySetStateData( "AH+03juKbUGbHl1V/QIwRA==", "play count", INTEGER, 20 )
+TestPolicySetStateData( "NjU0MzIxMDk4NzY1NDMyMQ==", "my friend", STRING, bill )
+TestPolicyGetStateData( "NjU0MzIxMDk4NzY1NDMyMQ==", "play count", 1024, NORMAL, INTEGER, 10 )
+TestPolicyGetStateData( "NjU0MzIxMDk4NzY1NDMyMQ==", "my friend", 1024, NORMAL, STRING, bill )
+TestPolicyGetStateData( "AH+03juKbUGbHl1V/QIwRA==", "play count", 1024, NORMAL, INTEGER, 20 )
+TestPolicyGetStateData( "AH+03juKbUGbHl1V/QIwRA==", "my friend", 1024, NORMAL, STRING, test )
+
+1889:DRT: Set a state using NULL state name should fail.
+TestPolicySetStateData( "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, INTEGER, 10 ) = 0x80070057 (DRM_E_INVALIDARG)
+
+1892:DRT: Set a state using NULL state data should fail.
+TestPolicySetStateData( "NjU0MzIxMDk4NzY1NDMyMQ==", "my friend", STRING, NULL ) = 0x80070057 (DRM_E_INVALIDARG)
+
+1895:DRT: Set a state using shorter KID should not fail.
+TestPolicySetStateData( "NjU0MzIxMDk==", "play count", INTEGER, 10 )
+
+1918:DRT: Get a state using NULL state name should fail.
+TestPolicyGetStateData( "NjU0MzIxMDk4NzY1NDMyMQ==", NULL, 1024, NORMAL, INTEGER, 10 ) = 0x80070057 (DRM_E_INVALIDARG)
+
+2048:DRT: Get a state using NULL state data buffer should fail.
+TestPolicySetStateData( "NjU0MzIxMDk4NzY1NDMyMQ==", "play count", INTEGER, 10 )
+TestPolicyGetStateData( "NjU0MzIxMDk4NzY1NDMyMQ==", "play count", 0, NULL, INTEGER, 10 ) = 0x8007007a (DRM_E_BUFFERTOOSMALL)
+
+2049:DRT: Get a state using shorter KID should not fail (if the state exists).
+TestPolicySetStateData( "NjU0MzIxMDk==", "play count", INTEGER, 10 )
+TestPolicyGetStateData( "NjU0MzIxMDk==", "play count", 1024, NORMAL, INTEGER, 10 )
+
+2050:DRT: Get a state that does not exist should fail.
+TestPolicyGetStateData( "NjU0MzIxMDk4NzY1NDMyMQ==", "play count", 1024, NORMAL, INTEGER, 10 ) = 0x8004d200 (DRM_E_POLICYSTATE_NOT_FOUND)

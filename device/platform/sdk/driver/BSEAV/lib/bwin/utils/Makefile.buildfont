@@ -1,0 +1,60 @@
+# buildfont needs to be handled as a special case because
+# 1) it requires freetype always (be aware that you probably will have to make clean
+#    your bwin build if you've been building brutus)
+# 2) it does not require Settop API
+# 3) it can be built for i386-linux, which doesn't support Settop API
+#
+# This makefile
+
+FREETYPE_SUPPORT=y
+PNG_SUPPORT=n
+
+all: buildfont
+
+STATICLIB ?= yes
+
+CFLAGS += -DBDBG_DEBUG_BUILD=1
+#LFLAGS += -lm
+
+include ../build/tools.mak
+include ../build/rules.mak
+BSEAV=$(shell cd ../../.. && ${PWD})
+CFLAGS += $(SYSTEM_FLAGS)
+
+include $(BSEAV)/build/refsw_inc.mak
+include $(BSEAV)/api/include/api.mak
+CFLAGS += $(BSETTOP_CFLAGS)
+LFLAGS += ${BSETTOP_LDFLAGS}
+include $(BSEAV)/lib/bwin/include/bwin.mak
+CFLAGS += $(BWIN_CFLAGS)
+LFLAGS += ${BWIN_LDFLAGS}
+#include $(BSEAV)/lib/bwin/build/magnumbase.mak
+CFLAGS += $(MAGNUM_INCLUDE) $(MAGNUM_GENERIC_CHIP_DEFINES)
+CFLAGS += $(B_REFSW_MAGNUM_INCLUDE_DIRS)
+
+ifeq ($(SYSTEM),linux)
+OS=linuxuser
+else
+OS=$(SYSTEM)
+endif
+
+include $(BSEAV)/../rockford/modules/basemodules.inc
+MAGNUM_OBJS += $(addsuffix .o, $(addprefix $(BSEAV)/../magnum/,${OBJ}))
+LFLAGS += $(MAGNUM_LD_FLAGS)
+
+bwin:
+	$(MAKE) FREETYPE_SUPPORT=y -C $(BWIN_DIR)/build 
+
+buildfont: bwin $(MAGNUM_OBJS)
+ifeq ($(SYSTEM),vxworks)
+	$(CC) -o $@.out $(CFLAGS) $@.c $(LFLAGS)
+else
+	$(CC) -o $@ $(CFLAGS) $@.c $(LFLAGS) $(MAGNUM_OBJS)
+endif
+
+clean: clean-bwin
+	$(RM) buildfont $(MAGNUM_OBJS)
+
+clean-bwin:
+	$(MAKE) -C $(BWIN_DIR)/build clean
+

@@ -1,0 +1,452 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+#
+
+## this is temporary configuration. i have to delete below line... -_-!!!!
+
+HUMAX_VERBOSE := @
+#HUMAX_VERBOSE :=
+
+APP_WEB_HOME_DIR := $(HUMAX_TOP_DIR)/apps/appl/webappl
+APP_WEB_BASESRC_DIR := $(strip $(subst ",,$(APP_WEB_HOME_DIR)/base_$(CONFIG_APWEB_UI_NAME)))
+TEST_WEB_BASESRC_DIR := $(APP_WEB_BASESRC_DIR)/product/$(CONFIG_PRODUCT_NAME)/test/prm))
+#HUMAX_NFS_INSTALL_DIR := $(strip $(subst ",,/nfsroot/$(USER)/$(CONFIG_PRODUCT_NAME)/root))
+HUMAX_NFS_WEBAPP_DIR := $(HUMAX_NFS_INSTALL_DIR)/usr/browser/webapps
+
+
+HUMAX_APP_STAGGING_TOP_DIR=$(HUMAX_MAKE_DIR)/_gen_rootfs
+HUMAX_APP_STAGGING_ROOT_DIR=$(HUMAX_APP_STAGGING_TOP_DIR)/root
+HUMAX_APP_STAGGING_IMG_DIR=$(HUMAX_APP_STAGGING_TOP_DIR)/image
+HUMAX_WEBAPP_STAGGING_TARGET_DIR=$(HUMAX_APP_STAGGING_TOP_DIR)/root/usr/browser/webapps
+
+ifeq ($(CONFIG_ENHANCED_SECURITY),y)
+HUMAX_SUDO := sudo
+else
+HUMAX_SUDO :=
+endif
+
+ap_web-stag:
+ifeq ($(CONFIG_OP_UK_DTT),y)
+	echo $(CONFIG_PRODUCT_NAME) > $(APP_WEB_BASESRC_DIR)/product_name
+endif
+	echo $(CONFIG_USES_NFSROOT)
+ifneq ($(HUMAX_VERBOSE),@)
+	echo ------------------------------
+	echo $(CONFIG_APWEB_UI_NAME)
+	echo $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)
+	echo $(APP_WEB_BASESRC_DIR)
+	echo ------------------------------
+endif
+	@echo "---- COPY Web App to $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)"
+	@if [ ! -d $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) ]; then \
+		mkdir -p $(HUMAX_WEBAPP_STAGGING_TARGET_DIR);echo "mkdir";	\
+	fi;
+
+ifeq (,$(findstring sotal,$(CONFIG_APWEB_UI_NAME)))
+ifeq (,$(findstring yousee,$(CONFIG_APWEB_UI_NAME)))
+# All except sotal and yousee web app
+
+ifneq ($(strip $(CONFIG_USES_NFSROOT)),y)
+ifneq ($(filter y,$(CONFIG_DEBUG_RELEASE_LOG) $(CONFIG_DEVELOP_RELEASE)),)
+	@if [ -d $(APP_WEB_BASESRC_DIR) ]; then \
+		cp -dprf $(APP_WEB_BASESRC_DIR)/*		$(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/;	\
+		sudo find $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) -name ".svn" | xargs rm -rf; \
+	fi;
+else # CONFIG_DEBUG_RELEASE_LOG
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/*
+	sudo rm -rf $(HUMAX_NFS_WEBAPP_DIR)/*
+	@echo 'python $(CURDIR)/prepare_release.py -s $(APP_WEB_BASESRC_DIR) -t $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) 2>&1 | tee prepare_release.py.log'
+	@if [ -d $(APP_WEB_BASESRC_DIR) ]; then \
+		python $(CURDIR)/prepare_release.py -s $(APP_WEB_BASESRC_DIR) -t $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) 2>&1 | tee prepare_release.py.log; \
+		sudo find $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) -name ".svn" | xargs rm -rf; \
+	fi;
+endif # CONFIG_DEBUG_RELEASE_LOG
+else
+	@if [ -d $(APP_WEB_BASESRC_DIR) ]; then \
+		cp -dprf $(APP_WEB_BASESRC_DIR)/*		$(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/;	\
+		sudo find $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) -name ".svn" | xargs rm -rf; \
+	fi;
+endif
+
+ifeq ($(CONFIG_SUPPORT_WIND3_APP),y)
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/wind3/emul
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/wind3/buildtsall.sh.log
+	$(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/wind3/buildtsall.sh nodef 2>&1 | tee $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/wind3/buildtsall.sh.log
+	sudo rm $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/wind3/buildtsall.sh
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/images/*
+ifneq ($(strip $(CONFIG_USES_NFSROOT)),y)
+	cp -dprf $(HUMAX_TOP_DIR)/apps/appl/wind3/bin/rel/js/wind.js $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/wind3
+	sudo find $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/wind3/ -name "*.ts" -o -name "*.js.map" | xargs rm -f
+	sudo rm  $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/wind3/buildtsall.sh.log
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/wind3/resources/demo/*
+else
+	cp -dprf $(HUMAX_TOP_DIR)/apps/appl/wind3/bin/dbg/js/wind.js $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/wind3
+endif
+endif
+
+ifeq ($(CONFIG_PROD_JAPAN), y)
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/font/*
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/test/jcngs
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/test/FreesatTVGuide
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/test/Performance
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/design_result
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/fw/service/HMX
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/fw/service/JLAB/emul
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/navy_string.xlsm
+else
+# framework
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/fw/service/JLAB
+
+# product
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+	mkdir -p $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/$(CONFIG_PRODUCT_NAME) $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+ifeq ($(CONFIG_OP_ERTELECOM), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/cas_irdeto $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_ZIGGO), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_ziggo $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_UK_DTT_DBOOK), y)
+#	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_ukdttdbook $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_FREESAT), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_freesat $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_AUS_DTT), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_ausdtt $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_APS), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_aps $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+#ifeq ($(CONFIG_OP_NORDIG), y)
+#	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_nordig $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+#endif
+ifeq ($(CONFIG_OP_TIVU), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_tivu $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_ITALY_DBOOK), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_italydbook $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_HD_TNT), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_hdtnt $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_SKYD), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_skyd $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_KDG), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_kdg $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_CANALREADY), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_canalready $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_RCS), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_rcs $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_NTVPLUS), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_ntvplus $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_DIGITURK), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_digiturk $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_MIDDLE_EAST), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_middleeast $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_TRUEVISION), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_truevision $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_UPC), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_upc $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_SPAIN_TDT), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_spaindtt $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_SKYLINK), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_skylink $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_JAPAN), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_japan $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_JCOM), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_jcom $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_NON_JCOM), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_nonjcom $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_SWISS_CANAL), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_swisscanal $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_MOSTELECOM), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_mostelecom $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_SES), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_ses $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_RUSSIA_TVT), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_russiatvt $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_OP_TELENOR), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/op_telenor $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_MW_CAS_IRDETO), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/cas_irdeto $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_MW_CAS_NAGRA), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/cas_nagra $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_MW_CAS_VIACCESS), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/cas_irdeto $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+ifeq ($(CONFIG_MW_CAS_CONAX), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/cas_conax $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+endif
+
+#temp hgs1000s
+#ifeq ($(CONFIG_PROD_HGS1000S), y)
+#	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/cas_nagra $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+#endif
+
+ifeq ($(CONFIG_PROD_HD9000I),y)
+ifeq ($(strip $(CONFIG_USES_NFSROOT)),y)
+	@if [ ! -d $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/apps_hmx ]; then \
+		echo "mkdir -p $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/apps_hmx";	\
+		mkdir -p $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/apps_hmx; \
+	fi;
+else
+	@if [ ! -d $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/apps ]; then \
+		echo "mkdir -p $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/apps";	\
+		mkdir -p $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/apps; \
+	fi;
+endif
+	@if [ ! -d $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/upgrade ]; then \
+		echo "mkdir -p $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/upgrade";	\
+		mkdir -p $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/upgrade; \
+	fi;
+endif
+
+ifeq (,$(findstring freetime,$(CONFIG_APWEB_UI_NAME)))
+#for prism
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product
+	cp -af $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/$(CONFIG_PRODUCT_NAME)/default.html $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)
+	cp -af $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/$(CONFIG_PRODUCT_NAME)/global_dialog.html $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/builtin_apps/global_dialog
+	cp -af $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/$(CONFIG_PRODUCT_NAME)/home_menu_new.html $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/builtin_apps/home_menu
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_name
+	echo $(CONFIG_PRODUCT_NAME) >> $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_name
+else
+#only freetime
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product
+	cp -af $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product/$(CONFIG_PRODUCT_NAME)/default.html $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)
+endif
+
+# language
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+	mkdir -p $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+
+ifeq (,$(findstring freetime,$(CONFIG_APWEB_UI_NAME)))
+#for prism
+ifeq ($(CONFIG_PROD_LANG_ARABIC), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/ara.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_BULGARIAN), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/bul.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_CATALAN), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/cat.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_CROATIAN), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/hrv.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_CZECH), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/cze.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_DANISH), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/dan.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_DUTCH), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/dut.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_ENGLISH), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/eng.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_FINNISH), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/fin.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_FRENCH), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/fre.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_GERMAN), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/ger.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_GREEK), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/gre.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_HUNGARIAN), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/hun.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_HINDI), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/bul.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_ITALIAN), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/ita.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_NORWEGIAN), y)
+#	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/nor.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_PERSIAN), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/per.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_POLISH), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/pol.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_PORTUGUESE), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/por.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_ROMANIAN), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/rum.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_RUSSIAN), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/rus.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_SERBIAN), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/srp.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_SLOVAK), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/slo.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_SLOVENIAN), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/slv.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_SPANISH), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/spa.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_SWEDISH), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/swe.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_TURKISH), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/tur.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_UKRAINIAN), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/ukr.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_THAI), y)
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/tha.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+ifeq ($(CONFIG_PROD_LANG_JAPAN), y)
+#	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/jpn.json $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+else
+#only for freetime
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/eng_label.js $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/gla_label.js $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/label.d.ts $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/label.js $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res/wel_label.js $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp
+endif
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res
+	mv -f $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res_temp $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/res
+endif
+
+# for release, java script & css minify
+# default is disabled, but we will always doing in release mode, near furure.
+ifneq ($(strip $(CONFIG_USES_NFSROOT)),y)
+ifneq ($(CONFIG_DEBUG_RELEASE_LOG),y)
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/fw/service/HMX/emul
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/fw/service/OIPF/emul
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/fw/service/rcu
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/design_result
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/design_result2
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/images/test
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/test
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/css/*.gss
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/css/*.jar
+	sudo find $(HUMAX_TOP_DIR)/apps/make/ -name "Preview_*.js" | xargs rm -f; \
+	sudo find $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) -name "*.ts" -o -name "*.less" -o -name "*.js.map" | xargs rm -f
+	$(CURDIR)/minify_js.sh 2>&1 | tee minify_js.sh.log
+endif
+endif
+
+else
+	# only for yousee model
+	@echo Making for TDC web app -- APP_WEB_BASESRC_DIR = $(APP_WEB_BASESRC_DIR)
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/*
+	sudo rm -rf $(HUMAX_NFS_WEBAPP_DIR)/*
+	$(HUMAX_SUDO) cp -dprf $(APP_WEB_BASESRC_DIR)/* $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/
+	sudo find $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) -name ".svn" | xargs rm -rf
+endif
+else
+	@echo Making for SOTAL web app -- APP_WEB_BASESRC_DIR = $(APP_WEB_BASESRC_DIR)
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/product_temp
+ifeq ($(strip $(CONFIG_USES_NFSROOT)),y)
+	@if [ ! -d $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/apps_hmx ]; then \
+		echo "mkdir -p $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/apps_hmx";	\
+		mkdir -p $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/apps_hmx; \
+	fi;
+else
+	@if [ ! -d $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/apps ]; then \
+		echo "mkdir -p $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/apps";	\
+		mkdir -p $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/apps; \
+	fi;
+endif
+	@if [ ! -d $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/upgrade ]; then \
+		echo "mkdir -p $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/upgrade";	\
+		mkdir -p $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/upgrade; \
+	fi;
+	$(HUMAX_SUDO) cp -dprf $(APP_WEB_BASESRC_DIR)/* $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/
+	sudo find $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) -name ".svn" | xargs rm -rf
+ifneq ($(strip $(CONFIG_USES_NFSROOT)),y)
+	$(HUMAX_SUDO) rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/apps/*
+	$(HUMAX_SUDO) rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/upgrade/*
+endif
+endif
+ifeq ($(CONFIG_APWEB_NUMA),y)
+	mkdir -p $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/browser/numa
+	cp -r $(APP_WEB_HOME_DIR)/base_numa/* $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/browser/numa
+endif
+
+
+ap_testweb-stag:
+	@if [ ! -d $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) ]; then \
+		mkdir -p $(HUMAX_WEBAPP_STAGGING_TARGET_DIR);echo "mkdir";	\
+	fi;
+	echo $(CONFIG_APWEB_UI_NAME)
+	echo $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)
+	echo $(TEST_WEB_BASESRC_DIR)
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/*
+	cp -dprf $(TEST_WEB_BASESRC_DIR)/*		$(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/;	\
+	sudo find $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) -name ".svn" | xargs rm -rf; \
+	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/oipf
+ap_testweb : ap_testweb-stag FORCE
+	@echo "---- COPY Test Web App to $(HUMAX_NFS_WEBAPP_DIR)"
+	@if [ ! -d $(HUMAX_NFS_WEBAPP_DIR) ]; then \
+		$(HUMAX_SUDO) mkdir -p $(HUMAX_NFS_WEBAPP_DIR);	\
+	fi;
+	@$(HUMAX_SUDO) cp -dprf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/* $(HUMAX_NFS_WEBAPP_DIR)/
+
+ap_web : ap_web-stag FORCE
+	@echo "---- COPY Web App to $(HUMAX_NFS_WEBAPP_DIR)"
+	@if [ ! -d $(HUMAX_NFS_WEBAPP_DIR) ]; then \
+		$(HUMAX_SUDO) mkdir -p $(HUMAX_NFS_WEBAPP_DIR);	\
+	fi;
+	@$(HUMAX_SUDO) cp -dprf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/* $(HUMAX_NFS_WEBAPP_DIR)/
+ifeq ($(CONFIG_APWEB_NUMA),y)
+	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/usr/browser/numa ]; then \
+		$(HUMAX_SUDO) mkdir -p $(HUMAX_NFS_INSTALL_DIR)/usr/browser/numa;	\
+	fi;
+	$(HUMAX_SUDO) cp -dprf $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/browser/numa/* $(HUMAX_NFS_INSTALL_DIR)/usr/browser/numa
+endif
+
+ap_web_clean :
+	@echo "---- delete -> $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)"
+	@if [ -d $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) ]; then \
+		sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR); \
+	fi;
+	@echo "---- delete -> $(HUMAX_NFS_WEBAPP_DIR)"
+	@if [ -d $(HUMAX_NFS_WEBAPP_DIR) ]; then \
+		sudo rm -rf $(HUMAX_NFS_WEBAPP_DIR); \
+	fi;
+
+ap_web_distclean : ap_web_clean

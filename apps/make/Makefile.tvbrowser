@@ -1,0 +1,61 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+#
+
+## this is temporary configuration. i have to delete below line... -_-!!!!
+-include $(HUMAX_MAKE_DIR)/.config
+
+TVBROWSER_WORK_DIR := $(HUMAX_TOP_DIR)/apps/appl/browser/surfer/base-2.0/build/mipsel
+#HUMAX_NFS_INSTALL_DIR := $(strip $(subst ",,/nfsroot/$(USER)/$(CONFIG_PRODUCT_NAME)/root))
+
+BROWSER_DIR=$(TVBROWSER_WORK_DIR)/out/
+
+
+HUMAX_APP_STAGGING_TOP_DIR=$(HUMAX_MAKE_DIR)/_gen_rootfs
+HUMAX_APP_STAGGING_ROOT_DIR=$(HUMAX_APP_STAGGING_TOP_DIR)/root
+HUMAX_APP_STAGGING_IMG_DIR=$(HUMAX_APP_STAGGING_TOP_DIR)/image
+
+ifeq ($(CONFIG_ENHANCED_SECURITY),y)
+HUMAX_SUDO := sudo
+else
+HUMAX_SUDO :=
+endif
+
+ap_tvbrowser-stag:
+	@if [ ! -d $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/tvbrowser ]; then \
+		mkdir -p $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/tvbrowser/;	\
+	fi;\
+echo $(TVBROWSER_WORK_DIR)
+	@if [ -d $(TVBROWSER_WORK_DIR) ]; then \
+		make -C $(TVBROWSER_WORK_DIR) || exit -1;		\
+		mkdir -p $(HUMAX_APP_STAGGING_ROOT_DIR)/home/surfer;	\
+		cp -af $(TVBROWSER_WORK_DIR)/out/bin/*		$(HUMAX_APP_STAGGING_ROOT_DIR)/home/surfer/;	\
+		cp -af $(TVBROWSER_WORK_DIR)/out/lib/*.so*	$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/lib/;	\
+		cp -af $(TVBROWSER_WORK_DIR)/out/opera_dir	$(HUMAX_APP_STAGGING_ROOT_DIR)/usr/tvbrowser/;	\
+		cp -af $(TVBROWSER_WORK_DIR)/out/opera_home $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/tvbrowser/;	\
+	fi;
+
+ap_tvbrowser : ap_tvbrowser-stag FORCE
+	@if [ ! -d $(HUMAX_NFS_INSTALL_DIR)/usr/tvbrowser ]; then \
+		$(HUMAX_SUDO) mkdir -p $(HUMAX_NFS_INSTALL_DIR)/usr/tvbrowser/;	\
+	fi;\
+
+	@if [ -d $(TVBROWSER_WORK_DIR) ]; then \
+		$(HUMAX_SUDO) cp -af $(TVBROWSER_WORK_DIR)/out/lib/*.so*	$(HUMAX_NFS_INSTALL_DIR)/usr/lib/;	\
+		$(HUMAX_SUDO) cp -dprf $(HUMAX_APP_STAGGING_ROOT_DIR)/usr/tvbrowser/* $(HUMAX_NFS_INSTALL_DIR)/usr/tvbrowser/;	\
+		$(HUMAX_SUDO) mkdir -p $(HUMAX_NFS_INSTALL_DIR)/home/surfer;	\
+		$(HUMAX_SUDO) cp -dprf $(HUMAX_APP_STAGGING_ROOT_DIR)/home/surfer/surfer $(HUMAX_NFS_INSTALL_DIR)/home/surfer;	\
+	fi;
+
+ap_tvbrowser_clean :
+	@if [ -d $(TVBROWSER_WORK_DIR) ]; then \
+		make -C $(TVBROWSER_WORK_DIR) clean;	\
+	fi;
+	find $(APPLTOP_SRC_DIR)/browser/tvbrowser/base-2.0 -name "*.d" -or -name "*.o" | xargs rm -f
+
+ap_tvbrowser_distclean :
+	@if [ -d $(TVBROWSER_WORK_DIR) ]; then \
+		make -C $(TVBROWSER_WORK_DIR) distclean;	\
+	fi;

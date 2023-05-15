@@ -1,0 +1,10 @@
+{
+  "type":"event",
+  "info":{
+	 "handle":19237920,
+	 "event":"created",
+	 "param":{
+		"cache_path":"/tmp/cache/"
+	 }
+  }
+}

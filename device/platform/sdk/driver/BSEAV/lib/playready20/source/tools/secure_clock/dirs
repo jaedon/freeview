@@ -1,0 +1,5 @@
+DIRS =  \
+	secureclockgeneratechallenge \
+	secureclockprocessresponse
+
+# secureclockgetresponse

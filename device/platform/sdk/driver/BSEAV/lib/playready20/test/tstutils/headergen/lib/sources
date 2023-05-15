@@ -1,0 +1,9 @@
+
+TARGETNAME=tstheadergen
+TARGETTYPE=LIBRARY
+
+SOURCES = \
+    ../tstheadergen.c \
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(DRM_PK_TEST_LIB_PATH)\tgeneratorutils.c \

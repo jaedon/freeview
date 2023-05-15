@@ -1,0 +1,46 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmconstants
+TARGETTYPE=LIBRARY
+
+SOURCES =                           \
+    drmactivationconstants.c        \
+    drmantirollbackclockconstants.c \
+    drmcertparserconstants.c        \
+    drmconstants.c                  \
+    drmcontentrevocationconstants.c \
+    drmdevcertconstants.c           \
+    drmdlaconstants.c               \
+    drmdomainconstants.c            \
+    drmhdrbuilderconstants.c        \
+    drmheaderparserconstants.c      \
+    drminitparserconstants.c        \
+    drminitstrings.c                \
+    drmlicacqv3constants.c          \
+    drmlicensesyncconstants.c       \
+    drmmanagerconstants.c           \
+    drmmeterconstants.c             \
+    drmmoveconstants.c              \
+    drmndcertconstants.c            \
+    drmplayreadyobjconstants.c      \
+    drmpubkeydeviceexclusion.c      \
+    drmrevocationconstants.c        \
+    drmsecureclockconstants.c       \
+    drmsoapxmlconstants.c           \
+    drmsymoptconstants.c            \
+    drmtoolsconstants.c             \
+    drmutilitiesgeneralconstants.c  \
+    drmversionconstants.c           \
+    drmviewrightsconstants.c        \
+    drmwmdrmconstants.c             \
+    drmwmdrmnetconstants.c          \
+    drmxmlbuilderconstants.c        \
+    drmxmlparserconstants.c         \
+    drmxmlsigconstants.c            \
+    ndtconstants.c                  \
+

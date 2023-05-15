@@ -1,0 +1,35 @@
+menu "Device configuration options"
+	choice 
+		prompt "User/kernel mode driver"
+		default DEVICE_MODE_USER	
+
+	config DEVICE_MODE_USER
+		bool "User mode"	
+		default y
+	
+	config DEVICE_MODE_KERNEL
+		bool "Kernel mode"	
+		default y
+
+	endchoice
+
+if DEVICE_MODE_USER
+	choice 
+		prompt "Device library mode"
+		default DEVICE_LIB_SHARED
+
+	config DEVICE_LIB_SHARED
+		bool "Shared"	
+	
+	config DEVICE_LIB_STATIC
+		bool "Static"	
+
+	endchoice
+endif
+
+config DEVICE_MODULE_TYPE
+	string
+	prompt "Require Product Name for Building Each Customized Compile Options"
+	default "MODULE_TYPE_MEDIA | MODULE_TYPE_DRM | MODULE_TYPE_MAD_SCALE_75_PER"
+
+endmenu

@@ -1,0 +1,17 @@
+# SKY D
+
+menu "Select Operator's specific configs"
+	comment "Select Operator's specific configs"
+
+	config OP_SKYD_SERVICE_MENU
+		depends on OP_SKYD
+		bool "OP_SKYD_SERVICE_MENU - Deutch's Service Menu on / off"
+		default y
+
+	config OP_SKYD_USE_FAV
+		depends on OP_SKYD
+		bool "OP_SKYD_USE_FAV - Use favourite(preferred list) in sky service configuration fil(xml)"
+		default n
+
+endmenu
+

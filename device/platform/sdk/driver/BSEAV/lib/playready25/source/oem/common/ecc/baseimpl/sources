@@ -1,0 +1,12 @@
+!include ..\..\..\..\drmbuild.cmn
+
+TARGETNAME=oemeccbaseimpl
+TARGETTYPE=LIBRARY
+
+C_DEFINES= $(C_DEFINES)                 \
+    -DDRM_BUILDING_OEMECCBASEIMPL_LIB   \
+
+SOURCES =                     \
+    oemeccp160impl.c          \
+    oemeccp256impl.c          \
+

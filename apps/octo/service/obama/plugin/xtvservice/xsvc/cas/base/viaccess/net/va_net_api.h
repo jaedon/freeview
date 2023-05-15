@@ -1,0 +1,38 @@
+#ifndef VA_NET_API_H
+#define VA_NET_API_H
+
+void VA_NET_Init();
+
+#define VA_NET_IP_LENGTH			64
+
+typedef enum
+{
+	VA_NET_MSG_INIT = 0,
+	VA_NET_MSG_OPEN_FAIL,
+	VA_NET_MSG_OPEN_DONE,
+	VA_NET_MSG_RECEIVE_FAIL,
+	VA_NET_MSG_RECEIVE_PROC,
+	VA_NET_MSG_RECEIVE_DONE,
+	VA_NET_MSG_SEND_PROC,
+	VA_NET_MSG_SEND_DONE,
+	VA_NET_MSG_MULTI_OPEN_FAIL,
+	VA_NET_MSG_MULTI_OPEN_DONE,
+	VA_NET_MSG_MULTI_NOTIFY_PROC,
+	VA_NET_MSG_MULTI_NOTIFY,
+	VA_NET_MSG_ERROR
+} VA_NET_MSG_TYPE_ENUM;
+
+typedef struct {
+	DWORD dwVaNetHandle; 
+	DWORD dwStbNetHandle;
+	char *pIPAddress;
+	UINT16 uiPort;
+	BOOL bActive;
+	BOOL bReceive;
+	BOOL bLock;
+	int datacount;
+} VA_NET_Slot;
+
+
+#endif //VA_NET_API_H
+

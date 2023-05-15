@@ -1,0 +1,15 @@
+# GNU Makefile for Visual C++
+
+CFLAGS=-DSTANDALONE=1 -DOBJSUFFIX=\".obj\" -DWIN32
+SRC=main.c pr.c parse.c include.c cppsetup.c ifparser.c
+OBJ=$(SRC:%.c=%.obj)
+
+makedepend.exe: $(OBJ)
+	link /out:$@ $^
+
+clean:
+	-del *.obj makedepend.exe *.bak
+	-del *.*~
+
+%.obj: %.c
+	cl /nologo $(CFLAGS) /Fo$@ /c $<

@@ -1,0 +1,114 @@
+#
+# Copyright (C) 2011 HUMAX Co., Ltd. All rights reserved.
+#
+
+TARGETS += squashfs-tools
+
+HUMAX_SQUASHFS_DIR=squashfs
+
+EXCLUSE = $(TARGET_DIR)/usr/lib/*
+EXCLUSE += $(TARGET_DIR)/usr/bin/*
+EXCLUSE += $(TARGET_DIR)/opt/share/*
+
+define build_squashfs
+	$(MAKE) -C $(HUMAX_TOOL_DIR)/$(HUMAX_SQUASHFS_DIR) $(1)
+endef
+
+squashfs-tools: 
+ifeq ($(CONFIG_TARGET_ROOTFS_SQUASHFS),y)
+	@if [ ! -f $(HUMAX_TOOL_DIR)/$(HUMAX_SQUASHFS_DIR)/mksquashfs ]; then \
+		$(call build_squashfs,);\
+	fi;
+	
+	@echo ---------- start auto-strip -------------
+ifeq ($(CONFIG_DEVELOP_RELEASE),y)
+	sudo find $(HUMAX_NFS_INSTALL_DIR) -type f -exec $(HUMAX_MAKE_DIR)/autostrip-exec.sh $(HUMAX_STRIP) {} \;
+else
+	sudo find $(HUMAX_NFS_INSTALL_DIR) -type f -exec $(HUMAX_MAKE_DIR)/autostrip.sh $(HUMAX_STRIP) {} \;
+endif
+	@echo ---------- end auto-strip ---------------
+	@echo ---------- start remove .svn ------------
+	sudo find $(HUMAX_NFS_INSTALL_DIR) -name ".svn" | xargs rm -rf
+	@echo -----------end remove .svn --------------
+	@echo ---------- start squashfs ---------------
+	@echo $(HUMAX_NFS_INSTALL_DIR)
+	@echo $(HUMAX_NFS_TOP_DIR)
+	@echo ---------- end squashfs ---------------
+
+	@rm -f rootfs_excludings
+	@touch rootfs_excludings
+
+ifeq ($(CONFIG_MW_CAS_VERIMATRIX_SEPARATED_LIB_DIR),y)
+	@echo
+	@echo separate verimatrix library $(CONFIG_MW_CAS_VERIMATRIX_LIB_DIR_NAME) to squashfs partition
+	@echo
+	cd $(HUMAX_NFS_INSTALL_DIR)$(CONFIG_MW_CAS_VERIMATRIX_LIB_DIR_NAME) && \
+	for f in *; do \
+		rm -f ../$$f; \
+		ln -s vmx/$$f ../$$f; \
+	done
+	sudo $(HUMAX_TOOL_DIR)/$(HUMAX_SQUASHFS_DIR)/mksquashfs $(HUMAX_NFS_INSTALL_DIR)$(CONFIG_MW_CAS_VERIMATRIX_LIB_DIR_NAME) $(HUMAX_NFS_TOP_DIR)/image/vmxlib.squa -noappend
+	ls -d $(HUMAX_NFS_INSTALL_DIR)$(CONFIG_MW_CAS_VERIMATRIX_LIB_DIR_NAME)/* >> rootfs_excludings
+endif
+
+ifeq ($(CONFIG_APWEB_SEPARATED_DIR),y)
+	@echo
+	@echo separate web app directory to ext4 partition
+	@echo
+	rm -f $(HUMAX_NFS_TOP_DIR)/image/webapp.ext4
+	dd if=/dev/zero of=$(HUMAX_NFS_TOP_DIR)/image/webapp.ext4 bs=1k count=65502
+	yes | mkfs.ext4 $(HUMAX_NFS_TOP_DIR)/image/webapp.ext4
+	sudo rm -rf tmp_webapp_dir
+	sudo mkdir -p tmp_webapp_dir
+	sudo mount $(HUMAX_NFS_TOP_DIR)/image/webapp.ext4 tmp_webapp_dir
+	sudo cp -r $(HUMAX_NFS_INSTALL_DIR)$(CONFIG_APWEB_SEPARATED_DIR_NAME)/* tmp_webapp_dir
+	sudo rm -rf tmp_webapp_dir/lost+found
+	sudo sync
+	sudo umount tmp_webapp_dir
+	sudo rmdir tmp_webapp_dir
+	ls -d $(HUMAX_NFS_INSTALL_DIR)$(CONFIG_APWEB_SEPARATED_DIR_NAME)/* >> rootfs_excludings
+endif
+
+ifeq ($(CONFIG_ENHANCED_SECURITY),y)
+	@sudo $(HUMAX_TOOL_DIR)/$(HUMAX_SQUASHFS_DIR)/mksquashfs $(HUMAX_NFS_INSTALL_DIR) $(HUMAX_NFS_TOP_DIR)/image/root.squa -noappend -ef rootfs_excludings
+else
+	sudo $(HUMAX_TOOL_DIR)/$(HUMAX_SQUASHFS_DIR)/mksquashfs $(HUMAX_NFS_INSTALL_DIR) $(HUMAX_NFS_TOP_DIR)/image/root.squa -all-root -noappend -ef rootfs_excludings
+endif
+	@rm -f rootfs_excludings
+
+	@sudo chown -R $(USER) $(HUMAX_NFS_TOP_DIR)/image
+ifeq ($(CONFIG_PROD_HD9000I),y)
+	$(MAKE) -C ../../model/build_image/Gang/gang_img_gen sotal_dbext_image
+endif
+else
+	@echo no squashfs action in product config
+endif
+
+ifeq ($(CONFIG_HUMAX_CRASHREPORT),y)
+	@echo copy map file for Humax crash report
+	sudo rm -rf ./sysmapfiles
+	mkdir sysmapfiles
+	find ./octosvc_make/ -name "*.map" | xargs cp -t ./sysmapfiles
+	find ./appl_make/ -name "*.map" | xargs cp -t ./sysmapfiles
+	@if [ -d ../appl/browser/corsair ]; then \
+		find ../appl/browser/corsair/base-2.0/build/src/build/out -name "*.map" | xargs cp -t ./sysmapfiles;\
+	fi;
+	@echo copy shared library map file for Humax crash report
+	mkdir ./sysmapfiles/lib
+	cp ./_gen_rootfs/root/usr/lib/lib* ./sysmapfiles/lib
+endif
+
+squashfs-tools-clean:
+ifeq ($(CONFIG_TARGET_ROOTFS_SQUASHFS),y)
+	$(call build_squashfs, clean)
+ifeq ($(CONFIG_PROD_HD9000I),y)
+	$(MAKE) -C ../../model/build_image/Gang/gang_img_gen clean
+endif
+else
+	@echo no squashfs action in product config
+endif
+
+squashfs-tools-distclean: squashfs-tools-clean
+
+.PHONY: squashfs-tools squashfs-tools-clean squashfs-tools-distclean
+

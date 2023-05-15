@@ -1,0 +1,19 @@
+{
+	"group": "MataData_Test",
+	"items": [
+		{
+			"title": "get ServiceList",
+			"type" : "query",
+			"desc" : "this is test - get Service list",
+			"input": {
+				"meta": {
+					"target"	: "svclist",
+					"operation"	: "get",
+					"property"	: {
+						"searched": false
+					}
+				}
+			}
+		}
+	]
+}

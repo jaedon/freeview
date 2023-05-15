@@ -1,0 +1,12 @@
+!include ..\..\drmbuild.cmn
+
+TARGETNAME=drmcerts
+TARGETTYPE=LIBRARY
+
+C_DEFINES= $(C_DEFINES)             \
+    -DDRM_BUILDING_DRMCERTS_LIB     \
+
+SOURCES =                   \
+    ..\drmbcertbuilder.c    \
+    ..\drmbcertparser.c     \
+

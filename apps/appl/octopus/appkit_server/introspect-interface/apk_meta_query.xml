@@ -1,0 +1,263 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Meta/Query">   
+    <interface name="Octopus.Appkit.Meta.Query">
+
+    <method name="NewQuery">
+    	<arg type="s" name="field" direction="in" />
+    	<arg type="s" name="comparision" direction="in" />
+    	<arg type="s" name="value" direction="in" />
+    	<arg type="u" name="queryHandle" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="DeleteQuery">
+    	<arg type="u" name="queryHandle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="CloneQuery">
+    	<arg type="u" name="queryHandle" direction="in" />
+    	<arg type="u" name="newHandle" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="And">
+    	<arg type="u" name="queryHandle1" direction="in" />
+    	<arg type="u" name="queryHandle2" direction="in" />
+    	<arg type="u" name="newHandle" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="Or">
+    	<arg type="u" name="queryHandle1" direction="in" />
+    	<arg type="u" name="queryHandle2" direction="in" />
+    	<arg type="u" name="newHandle" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+    
+    <method name="Not">
+    	<arg type="u" name="queryHandle" direction="in" />
+    	<arg type="u" name="newHandle" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+    
+    <method name="New">
+    	<arg type="u" name="target" direction="in" />
+    	<arg type="u" name="metaQhandle" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="Delete">
+    	<arg type="u" name="metaQhandle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="SetQuery">
+    	<arg type="u" name="metaQhandle" direction="in" />
+    	<arg type="u" name="queryHandle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+    <method name="GetQuery">
+    	<arg type="u" name="metaQhandle" direction="in" />
+    	<arg type="u" name="queryHandle" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>       
+    
+    <method name="AddSvcConstraint_uid">
+    	<arg type="u" name="metaQhandle" direction="in" />
+    	<arg type="u" name="svcuid" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>         
+    
+    <method name="AddSvcConstraint_tripleid">
+    	<arg type="u" name="metaQhandle" direction="in" />
+    	<arg type="u" name="onid" direction="in" />
+    	<arg type="u" name="tsid" direction="in" />
+    	<arg type="u" name="svcid" direction="in" />    	    	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>         
+        
+    <method name="ClearSvcConstraint">
+    	<arg type="u" name="metaQhandle" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+    
+    <method name="OrderBy">
+    	<arg type="u" name="metaQhandle" direction="in" />
+    	<arg type="s" name="field" direction="in" />
+    	<arg type="b" name="ascending" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+        
+    <method name="SetFilter">
+    	<arg type="u" name="metaQhandle" direction="in" />
+    	<arg type="u" name="filter" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+        
+    <method name="Search">
+    	<arg type="u" name="metaQhandle" direction="in" />
+    	<arg type="b" name="direct" direction="in" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>         
+        
+    <method name="Abort">
+    	<arg type="u" name="metaQhandle" direction="in" />   	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>          
+        
+    <method name="Result">
+    	<arg type="u" name="metaQhandle" direction="in" />   	
+    	<arg type="a((uixiiiiiuuyb)(ussiaus))" name="resultList" direction="out" />   	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>          
+                
+    <method name="GetEvent_uid">
+    	<arg type="u" name="type" direction="in" />
+    	<arg type="u" name="svcuid" direction="in" />
+    	<arg type="((uixiiiiiuuyb)(ussiaus))" name="eventInfo" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>         
+    
+    <method name="GetEvent_tripleid">
+    	<arg type="u" name="type" direction="in" />
+    	<arg type="u" name="onid" direction="in" />
+    	<arg type="u" name="tsid" direction="in" />
+    	<arg type="u" name="svcid" direction="in" />    	    	
+     	<arg type="((uixiiiiiuuyb)(ussiaus))" name="eventInfo" direction="out" />
+	     	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>         
+        
+    <method name="GetEventWithIds_uid">
+    	<arg type="u" name="svcuid" direction="in" />
+    	<arg type="u" name="eventid" direction="in" />
+    	<arg type="((uixiiiiiuuyb)(ussiaus))" name="eventInfo" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>         
+    
+    <method name="GetEventWithIds_tripleid">
+    	<arg type="u" name="onid" direction="in" />
+    	<arg type="u" name="tsid" direction="in" />
+    	<arg type="u" name="svcid" direction="in" />    	    	
+    	<arg type="u" name="eventid" direction="in" />
+     	<arg type="((uixiiiiiuuyb)(ussiaus))" name="eventInfo" direction="out" />
+	     	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>          
+        
+    <method name="GetIpEvent_uid">
+    	<arg type="u" name="svcuid" direction="in" />
+    	<arg type="u" name="eventid" direction="in" />
+    	<arg type="((uixiiiiiuuyb)(ussiaus))" name="eventInfo" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>         
+    
+    <method name="GetIpEvent_tripleid">
+    	<arg type="u" name="onid" direction="in" />
+    	<arg type="u" name="tsid" direction="in" />
+    	<arg type="u" name="svcid" direction="in" />    	    	
+    	<arg type="u" name="eventid" direction="in" />
+    	<arg type="((uixiiiiiuuyb)(ussiaus))" name="eventInfo" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>         
+
+    <method name="GetPF_uid">
+    	<arg type="u" name="svcuid" direction="in" />
+    	<arg type="(a((uixiiiiiuuyb)(ussiaus)))" name="eventInfo" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>         
+    
+    <method name="GetPF_tripleid">
+    	<arg type="u" name="onid" direction="in" />
+    	<arg type="u" name="tsid" direction="in" />
+    	<arg type="u" name="svcid" direction="in" />    	    	
+    	<arg type="(a((uixiiiiiuuyb)(ussiaus)))" name="eventInfo" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="SetIpEvent">
+    	<arg type="x" name="uid" direction="in" />   	
+    	<arg type="ay" name="data" direction="in" />   	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="ResetIpEvent">
+    	<arg type="x" name="uid" direction="in" />   	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="ResetIpEventTable">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="DeletIpEventByEndTime">
+    	<arg type="u" name="endtime" direction="in" />   	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="SetIpSvc">
+    	<arg type="x" name="uid" direction="in" />   	
+    	<arg type="ay" name="data" direction="in" />   	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="ResetIpSvc">
+    	<arg type="x" name="uid" direction="in" />   	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="ResetIpSvcTable">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="SetIpLogo">
+    	<arg type="x" name="uid" direction="in" />   	
+    	<arg type="ay" name="data" direction="in" />   	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="ResetIpLogo">
+    	<arg type="x" name="uid" direction="in" />   	
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="ResetIpLogoTable">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="SyncIpEventTable">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="SyncIpSvcTable">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="SyncIpLogoTable">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="ResetTVTVEventTable">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="ResetTVTVSvcTable">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+
+    <method name="SyncTVTVSvcTable">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+                
+    <signal name="event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+
+  </interface>
+</node>

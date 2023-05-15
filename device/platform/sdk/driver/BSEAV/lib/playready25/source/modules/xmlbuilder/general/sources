@@ -1,0 +1,12 @@
+!include ..\..\..\drmbuild.cmn
+
+TARGETNAME=drmxmlbuildergeneral
+TARGETTYPE=LIBRARY
+
+C_DEFINES=$(C_DEFINES)    \
+    -DDRM_BUILDING_DRMXMLBUILDERCOMMON_LIB
+
+SOURCES =                         \
+    drmxmlbuildergeneralansi.c    \
+    drmxmlbuildergeneralunicode.c
+

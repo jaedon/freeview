@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Util/Dsmcc">   
+    <interface name="Octopus.Appkit.Util.Dsmcc">
+
+    <method name="Create">
+    	<arg type="u" name="type" direction="in" />
+    	<arg type="(us)" name="info" direction="out" />
+      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="Destroy">
+    	<arg type="u" name="handle" direction="in" />
+      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                        
+
+    <method name="GetCarouselList">
+    	<arg type="u" name="handle" direction="in" />
+    	<arg type="(ua(uua(yy)))" name="list" direction="out" />    	
+      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                        
+
+    <method name="Start">
+    	<arg type="u" name="handleDsmcc" direction="in" />
+    	<arg type="u" name="handleCarousel" direction="in" />
+    	<arg type="s" name="cachePath" direction="in" />    	    	
+      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>    
+
+    <method name="ReStart">
+    	<arg type="u" name="handleDsmcc" direction="in" />
+    	<arg type="u" name="handleCarousel" direction="in" />
+      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method> 
+    
+    <method name="Stop">
+    	<arg type="u" name="handleDsmcc" direction="in" />
+    	<arg type="u" name="handleCarousel" direction="in" />
+      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>     
+
+    <method name="RequestEvent">
+    	<arg type="u" name="handleDsmcc" direction="in" />
+    	<arg type="b" name="all" direction="in" />
+      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+
+    <method name="Open">
+    	<arg type="u" name="handleDsmcc" direction="in" />
+    	<arg type="u" name="handleSession" direction="in" />
+      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+    
+    <method name="Close">
+    	<arg type="u" name="handleDsmcc" direction="in" />
+    	<arg type="u" name="handleSession" direction="in" />
+      <annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>  
+                        
+    <signal name="event">
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+  </interface>
+</node>

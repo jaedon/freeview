@@ -1,0 +1,12 @@
+custom c3 ovc 3 5 0 0 cf 2
+loadrts 1 break 5 pb 
+x1 m2 os 0 0 msf 21 mdf 21 maf ow cf 2 set_bw 1000000 2
+dnr 30 2 80 2 90 2 70 
+mad 1 1 1 0 0 1 18 
+bvncb 
+resizefmtstress 200 
+bvncb
+c3 cw cs cd 
+sleep 
+loadrts 2 break 5
+q

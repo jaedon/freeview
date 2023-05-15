@@ -1,0 +1,42 @@
+# Viaccess
+
+	config MW_CAS_VIACCESS_DRIVER_TEST
+		bool "MW_CAS_VIACCESS_DRIVER_TEST - Include DTA library for driver test"
+		default n
+
+	config MW_CAS_VIACCESS_ENCRYPTED_CW
+		bool "MW_CAS_VIACCESS_ENCRYPTED_CW - Include Secured chipset (Encrypted CW) feature"
+		default y
+
+	config MW_CAS_VIACCESS_MACROVISION
+		bool "MW_CAS_VIACCESS_MACROVISION - Include Viaccess Macrovision feature"
+		default y
+
+	config MW_CAS_VIACCESS_FINGERPRINT
+		bool "MW_CAS_VIACCESS_FINGERPRINT - Include Viaccess fingerprint feature"
+		default y
+
+	config MW_CAS_VIACCESS_CAMLOCK_LEVEL_HIGH
+		bool "MW_CAS_VIACCESSA_CAMLOCK_LEVEL_HIGH - Include Viaccess camlock feature"
+		default y
+
+	config MW_CAS_VIACCESS_CAMLOCK_LEVEL_LOW 
+		bool "MW_CAS_VIACCESS_CAMLOCK_LEVEL_LOW - Include Viaccess camlock feature"
+		default n
+
+	config MW_CAS_VIACCESS_FREECHANNEL_BLOCK
+		bool "MW_CAS_VIACCESS_FREECHANNEL_BLOCK - Include Viaccess free channel block feature"
+		default y
+
+	config MW_CAS_VIACCESS_IPPV
+		bool "MW_CAS_VIACCESS_IPPV - Include Viaccess IPPV feature"
+		default n
+	
+	config MW_CAS_VIACCESS_PVR 
+		bool "MW_CAS_VIACCESS_PVR - Include Viaccess PVR feature"
+		default n
+
+	config MW_CAS_VIACCESS_NET
+		bool "MW_CAS_VIACCESS_NET - Include Viaccess NET feature"
+		default n
+

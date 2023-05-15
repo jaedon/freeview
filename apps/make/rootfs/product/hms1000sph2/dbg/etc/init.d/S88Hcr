@@ -1,0 +1,14 @@
+#!/bin/sh
+
+found=$(find /var/lib/humaxtv_user/hcr/ -name "hcr_*" 2> /dev/null)
+
+if [ "$found" ] 
+then
+	echo "Crash Reported file is found"
+	cat /var/lib/humaxtv_user/hcr/*.log > /tmp/hcrplain
+	# tar cvzf /tmp/hcr.tar.gz /var/lib/humaxtv_user/hcr/*
+	rm -rf /var/lib/humaxtv_user/hcr/*
+else
+	echo "Normal Boot"
+fi
+

@@ -1,0 +1,976 @@
+
+#include "raaga_test_video.h"
+#include "bchp_hifidac_ctrl0.h"
+#include "fmm_ms_useq_coff_video.h"
+
+void RAAGA_TEST_ProgramGpio(BREG_Handle	hReg)
+
+{
+	uint32_t		ui32RegRead=0;
+
+#if (BCHP_CHIP == 35230) || (BCHP_CHIP == 35125) || (BCHP_CHIP == 35233)
+#if 0
+	ui32RegRead = BREG_Read32(hReg ,BCHP_SUN_TOP_CTRL_SW_RESET);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_SW_RESET, aio_sw_reset));
+	ui32RegRead |= BCHP_FIELD_DATA(SUN_TOP_CTRL_SW_RESET, aio_sw_reset, 1);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_SW_RESET, ui32RegRead);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_SW_RESET, 0xFFFFFFFF);
+#endif    
+#else
+	ui32RegRead = BREG_Read32(hReg ,BCHP_SUN_TOP_CTRL_SW_INIT_0_SET);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_SW_INIT_0_SET, aio_sw_init));
+	ui32RegRead |= BCHP_FIELD_DATA(SUN_TOP_CTRL_SW_INIT_0_SET, aio_sw_init, 1);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_SW_INIT_0_SET, ui32RegRead);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_SW_INIT_0_CLEAR, 0xFFFFFFFF);
+#endif    
+
+#if (BCHP_CHIP ==7346)
+	BREG_Write32(hReg, BCHP_CLKGEN_INTERNAL_MUX_SELECT, 0x3);
+	
+	ui32RegRead = BREG_Read32(hReg ,BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_9);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_9, gpio_015));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_9, gpio_015, I2S_CLK0);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_9, gpio_016));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_9, gpio_016, I2S_DATA0);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_9, gpio_019));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_9, gpio_019, I2S_LR0);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_9, ui32RegRead);
+
+	ui32RegRead = BREG_Read32(hReg ,BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_11);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_11, gpio_030));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_11, gpio_030, I2S_CLK0);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_11, gpio_031));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_11, gpio_031, I2S_DATA0);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_11, gpio_032));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_11, gpio_032, I2S_LR0);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_11, ui32RegRead);
+	
+	ui32RegRead = BREG_Read32(hReg ,BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_14);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_14, gpio_054));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_14, gpio_054, I2S_BIDIR_CLK1);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_14, gpio_055));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_14, gpio_055, I2S_BIDIR_DATA1);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_14, gpio_056));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_14, gpio_056, I2S_BIDIR_LR1);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_14, ui32RegRead);
+#elif (BCHP_CHIP == 7422)||(BCHP_CHIP == 7425)
+
+    ui32RegRead = BREG_Read32(hReg,BCHP_AON_PIN_CTRL_PIN_MUX_CTRL_1);
+	ui32RegRead &= ~(BCHP_MASK(AON_PIN_CTRL_PIN_MUX_CTRL_1, aon_gpio_10));
+	ui32RegRead |= BCHP_FIELD_ENUM(AON_PIN_CTRL_PIN_MUX_CTRL_1, aon_gpio_10, I2S_CLK0_OUT);
+	ui32RegRead &= ~(BCHP_MASK(AON_PIN_CTRL_PIN_MUX_CTRL_1, aon_gpio_11));
+	ui32RegRead |= BCHP_FIELD_ENUM(AON_PIN_CTRL_PIN_MUX_CTRL_1, aon_gpio_11, I2S_DATA0_OUT);
+	ui32RegRead &= ~(BCHP_MASK(AON_PIN_CTRL_PIN_MUX_CTRL_1, aon_gpio_12));
+	ui32RegRead |= BCHP_FIELD_ENUM(AON_PIN_CTRL_PIN_MUX_CTRL_1, aon_gpio_12, I2S_LR0_OUT);
+	BREG_Write32(hReg, BCHP_AON_PIN_CTRL_PIN_MUX_CTRL_1, ui32RegRead);
+
+
+	ui32RegRead = BREG_Read32(hReg ,BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_12);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_12, gpio_055));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_12, gpio_055, I2S_DATA1);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_12, gpio_056));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_12, gpio_056, I2S_LR1);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_12, gpio_057));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_12, gpio_057, I2S_CLK1);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_12, ui32RegRead);
+
+#elif (BCHP_CHIP ==7344)
+	BREG_Write32(hReg, BCHP_CLKGEN_INTERNAL_MUX_SELECT, 0xc);
+	
+	ui32RegRead = BREG_Read32(hReg ,BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_6, gpio_03));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_6, gpio_03, I2S_BIDIR_DATA);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_6, gpio_04));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_6, gpio_04, I2S_BIDIR_SYNC);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_6, gpio_05));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_6, gpio_05, I2S_BIDIR_CLK);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6, ui32RegRead);
+
+	ui32RegRead = BREG_Read32(hReg ,BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_8);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_8, gpio_17));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_8, gpio_17, I2S_O_SYNC);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_8, gpio_16));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_8, gpio_16, I2S_O_DATA);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_8, ui32RegRead);
+	
+	ui32RegRead = BREG_Read32(hReg ,BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_14);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_14, gpio_61));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_14, gpio_61, I2S_O_CLK);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_14, ui32RegRead);
+
+#elif (BCHP_CHIP ==7231)
+
+	ui32RegRead = BREG_Read32(hReg ,BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_14);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_14, gpio_125));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_14, gpio_125, I2S_CLK0_OUT);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_14, gpio_126));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_14, gpio_126, I2S_DATA0_OUT);    
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_14, ui32RegRead);
+
+	ui32RegRead = BREG_Read32(hReg ,BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_15);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_15, gpio_127));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_15, gpio_127, I2S_LR0_OUT);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_15, ui32RegRead);
+
+
+	ui32RegRead = BREG_Read32(hReg ,BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_10);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_10, gpio_84));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_10, gpio_84, I2S_CLK0_OUT);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_10, gpio_85));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_10, gpio_85, I2S_DATA0_OUT);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_10, gpio_86));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_10, gpio_86, I2S_LR0_OUT);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_10, ui32RegRead);
+
+
+	ui32RegRead = BREG_Read32(hReg ,BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_14);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_14, gpio_116));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_14, gpio_116, I2S_CLK1_OUT);
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_14, gpio_117));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_14, gpio_117, I2S_DATA1_OUT);  
+	ui32RegRead &= ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_14, gpio_118));
+	ui32RegRead |= BCHP_FIELD_ENUM(SUN_TOP_CTRL_PIN_MUX_CTRL_14, gpio_118, I2S_LR1_OUT);        
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_14, ui32RegRead);
+
+    ui32RegRead = BREG_Read32(hReg,BCHP_AON_PIN_CTRL_PIN_MUX_CTRL_0);
+	ui32RegRead &= ~(BCHP_MASK(AON_PIN_CTRL_PIN_MUX_CTRL_0, aon_gpio_04));
+	ui32RegRead |= BCHP_FIELD_ENUM(AON_PIN_CTRL_PIN_MUX_CTRL_0, aon_gpio_04, I2S_CLK0_OUT);
+	ui32RegRead &= ~(BCHP_MASK(AON_PIN_CTRL_PIN_MUX_CTRL_0, aon_gpio_05));
+	ui32RegRead |= BCHP_FIELD_ENUM(AON_PIN_CTRL_PIN_MUX_CTRL_0, aon_gpio_05, I2S_DATA0_OUT);
+	BREG_Write32(hReg, BCHP_AON_PIN_CTRL_PIN_MUX_CTRL_0, ui32RegRead);
+
+    ui32RegRead = BREG_Read32(hReg,BCHP_AON_PIN_CTRL_PIN_MUX_CTRL_1);
+	ui32RegRead &= ~(BCHP_MASK(AON_PIN_CTRL_PIN_MUX_CTRL_1, aon_gpio_06));
+	ui32RegRead |= BCHP_FIELD_ENUM(AON_PIN_CTRL_PIN_MUX_CTRL_1, aon_gpio_06, I2S_LR0_OUT);
+	BREG_Write32(hReg, BCHP_AON_PIN_CTRL_PIN_MUX_CTRL_1, ui32RegRead);
+#elif (BCHP_CHIP == 35230) || (BCHP_CHIP == 35125) || (BCHP_CHIP == 35233)
+    /* UART Programming only for 35230 */
+#if (BCHP_CHIP == 35230)
+  	/* SUN_TOP_CTRL.TEST_PORT_CTRL.ENCODED_TP_ENABLE = &Hc& */
+	ui32RegRead = BREG_Read32(hReg, BCHP_SUN_TOP_CTRL_TEST_PORT_CTRL);
+	ui32RegRead = (ui32RegRead & ~(BCHP_MASK(SUN_TOP_CTRL_TEST_PORT_CTRL, encoded_tp_enable)))
+					| BCHP_FIELD_DATA(SUN_TOP_CTRL_TEST_PORT_CTRL, encoded_tp_enable, BCHP_SUN_TOP_CTRL_TEST_PORT_CTRL_encoded_tp_enable_SUN);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_TEST_PORT_CTRL, ui32RegRead);
+	
+	/* SUN_TOP_CTRL.TEST_PORT_CTRL.TP_SELECT = 0 */
+	ui32RegRead = BREG_Read32(hReg, BCHP_SUN_TOP_CTRL_TEST_PORT_CTRL);
+	ui32RegRead = (ui32RegRead & ~(BCHP_MASK(SUN_TOP_CTRL_TEST_PORT_CTRL, tp_select)))
+					| BCHP_FIELD_DATA(SUN_TOP_CTRL_TEST_PORT_CTRL, tp_select, 0);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_TEST_PORT_CTRL, ui32RegRead);
+
+	/* SUN_TOP_CTRL.UART_ROUTER_SEL.port_0_cpu_sel = &h000001& */
+	ui32RegRead = BREG_Read32(hReg, BCHP_SUN_TOP_CTRL_UART_ROUTER_SEL);
+	ui32RegRead = (ui32RegRead & ~(BCHP_MASK(SUN_TOP_CTRL_UART_ROUTER_SEL, port_0_cpu_sel)))
+					| BCHP_FIELD_DATA(SUN_TOP_CTRL_UART_ROUTER_SEL, port_0_cpu_sel, BCHP_SUN_TOP_CTRL_UART_ROUTER_SEL_port_0_cpu_sel_AUDIO_FP);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_UART_ROUTER_SEL, ui32RegRead);
+	
+	/* SUN_TOP_CTRL.UART_ROUTER_SEL.port_1_cpu_sel = &h000001& */
+	ui32RegRead = BREG_Read32(hReg, BCHP_SUN_TOP_CTRL_UART_ROUTER_SEL);
+	ui32RegRead = (ui32RegRead & ~(BCHP_MASK(SUN_TOP_CTRL_UART_ROUTER_SEL, port_1_cpu_sel)))
+					| BCHP_FIELD_DATA(SUN_TOP_CTRL_UART_ROUTER_SEL, port_1_cpu_sel, BCHP_SUN_TOP_CTRL_UART_ROUTER_SEL_port_1_cpu_sel_AUDIO_FP);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_UART_ROUTER_SEL, ui32RegRead);
+
+	/*SUN_TOP_CTRL.PIN_MUX_CTRL_8.gpio_4=6 */
+	ui32RegRead = BREG_Read32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_8);
+	ui32RegRead = (ui32RegRead & ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_8, gpio_4)))
+					| BCHP_FIELD_DATA(SUN_TOP_CTRL_PIN_MUX_CTRL_8, gpio_4, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_8_gpio_4_TP_IN_20);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_8, ui32RegRead);
+	
+	/* SUN_TOP_CTRL.PIN_MUX_CTRL_7.i2ssck_in=7 */
+	ui32RegRead = BREG_Read32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_7);
+	ui32RegRead = (ui32RegRead & ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_7, i2ssck_in)))
+					| BCHP_FIELD_DATA(SUN_TOP_CTRL_PIN_MUX_CTRL_7, i2ssck_in, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_7_i2ssck_in_TP_OUT_20);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_7, ui32RegRead);
+
+	/*UART0*/
+	/*SUN_TOP_CTRL.PIN_MUX_CTRL_3.rdb=4 */
+	ui32RegRead = BREG_Read32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_3);
+	ui32RegRead = (ui32RegRead & ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_3, rdb)))
+					| BCHP_FIELD_DATA(SUN_TOP_CTRL_PIN_MUX_CTRL_3, rdb, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_3_rdb_TP_IN_26);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_3, ui32RegRead);
+	
+	/* SUN_TOP_CTRL.PIN_MUX_CTRL_4.tdb=4 */
+	ui32RegRead = BREG_Read32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_4);
+	ui32RegRead = (ui32RegRead & ~(BCHP_MASK(SUN_TOP_CTRL_PIN_MUX_CTRL_4, tdb)))
+					| BCHP_FIELD_DATA(SUN_TOP_CTRL_PIN_MUX_CTRL_4, tdb, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_4_tdb_TP_OUT_00);
+	BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_4, ui32RegRead);
+	
+	/*Spare 28*/
+	BREG_Write32(hReg, 0x00a23570, 0x00000000);
+	BREG_Write32(hReg, 0x00a23574, 0x00000000);
+	BREG_Write32(hReg, 0x00a23578, 0x00000000);
+	BREG_Write32(hReg, 0x00a2357C, 0x00000000);
+	BREG_Write32(hReg, 0x00a2357C, 0x00000000);
+        
+#endif
+
+    /* Remove Mute : This was causing low audio problem during bringup of
+        35230. Leon Helsh suggested this.*/
+    ui32RegRead = 0xFFFFFFF3;      
+    BREG_Write32(hReg, BCHP_GIO_IODIR_LO, ui32RegRead);
+
+
+#ifdef BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssosck_outd_I2SSOSCK_OUTD
+    /* During one interatin of CFE for 35230 the GPIOs which defaulted to I2S
+        out properly were mistakenly made to some other value. This forces the
+        GPIOs back to I2S out */
+
+    /* I2S_D -- BRAP_OutputPort_eI2s4 */
+    ui32RegRead = BREG_Read32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6);
+    
+    ui32RegRead &= ~(BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssosck_outd_MASK |
+             BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssd_outd_MASK    |
+             BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2sws_outd_MASK    |
+             BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssck_outd_MASK);
+    
+    ui32RegRead |= (BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssosck_outd_I2SSOSCK_OUTD 
+                << BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssosck_outd_SHIFT);
+    
+    ui32RegRead |= (BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssd_outd_I2SSD_OUTD 
+                << BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssd_outd_SHIFT);
+    
+    ui32RegRead |= (BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2sws_outd_I2SWS_OUTD 
+                << BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2sws_outd_SHIFT);
+    
+    ui32RegRead |= (BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssck_outd_I2SSCK_OUTD 
+                << BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssck_outd_SHIFT);
+    
+    BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6, ui32RegRead);
+#endif
+
+
+#ifdef BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssosck_outc_I2SSOSCK_OUTC
+   /* I2S_C -- BRAP_OutputPort_eI2s9 */
+    ui32RegRead = BREG_Read32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6);
+   
+    ui32RegRead &= ~(BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssosck_outc_MASK |
+             BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssd_outc_MASK    |
+             BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2sws_outc_MASK    |
+             BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssck_outc_MASK);
+
+    ui32RegRead |= (BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssosck_outc_I2SSOSCK_OUTC 
+                << BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssosck_outc_SHIFT);
+    
+    ui32RegRead |= (BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssd_outc_I2SSD_OUTC 
+                << BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssd_outc_SHIFT);
+    
+    ui32RegRead |= (BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2sws_outc_I2SWS_OUTC 
+                << BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2sws_outc_SHIFT);
+    
+    ui32RegRead |= (BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssck_outc_I2SSCK_OUTC 
+                << BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6_i2ssck_outc_SHIFT);
+    
+    BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_6, ui32RegRead);
+#endif    
+
+#ifdef BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2ssosck_outa_I2SSOSCK_OUTA
+    /* I2S_M (A0, 1, 2) -- BRAP_OutputPort_eI2s0*/
+    ui32RegRead = BREG_Read32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5);
+    
+    ui32RegRead &= ~(BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2ssosck_outa_MASK |
+             BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2ssd_outa2_MASK   |
+             BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2ssd_outa1_MASK   |
+             BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2ssd_outa0_MASK   |
+             BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2sws_outa_MASK    |
+             BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2ssck_outa_MASK);
+    
+    ui32RegRead |= (BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2ssosck_outa_I2SSOSCK_OUTA 
+        << BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2ssosck_outa_SHIFT);
+    
+    ui32RegRead |= (BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2ssd_outa2_I2SSD_OUTA2 
+        << BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2ssd_outa2_SHIFT);
+    
+    ui32RegRead |= (BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2ssd_outa1_I2SSD_OUTA1 
+        << BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2ssd_outa1_SHIFT);
+    
+    ui32RegRead |= (BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2ssd_outa0_I2SSD_OUTA0 
+        << BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2ssd_outa0_SHIFT);
+    
+    ui32RegRead |= (BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2sws_outa_I2SWS_OUTA 
+        << BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2sws_outa_SHIFT);
+    
+    ui32RegRead |= (BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2ssck_outa_I2SSCK_OUTA 
+        << BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5_i2ssck_outa_SHIFT);
+    
+    BREG_Write32(hReg, BCHP_SUN_TOP_CTRL_PIN_MUX_CTRL_5, ui32RegRead);
+#endif
+#elif (BCHP_CHIP ==7358)||(BCHP_CHIP ==7552)  
+    printf("Need add GPIO programmaing for I2S");
+#else 
+#error "GPIO not programmed"
+#endif    
+	return;
+}
+
+
+void BRAAGA_TEST_ProgramHifiDac(BREG_Handle	hReg)
+{
+	uint32_t		ui32RegRead=0;
+	
+	/* Initialize DAC0 */
+#if BCHP_HIFIDAC_CTRL0_RESET	
+    BREG_Write32(hReg, BCHP_HIFIDAC_CTRL0_RESET, 0x1F);
+    BREG_Write32(hReg, BCHP_HIFIDAC_CTRL0_RESET, 0x0);    
+#elif BCHP_HIFIDAC_CTRL0_INIT
+    BREG_Write32(hReg, BCHP_HIFIDAC_CTRL0_INIT , 0x10F);
+	BREG_Write32(hReg, BCHP_HIFIDAC_CTRL0_INIT , 0x0);
+#endif    
+    
+	BREG_Write32(hReg, BCHP_HIFIDAC_CTRL0_CONFIG, 0x29FC8);
+	BREG_Write32(hReg, BCHP_HIFIDAC_CTRL0_MUTECTRL, 0x02000698);
+	BREG_Write32(hReg, BCHP_HIFIDAC_CTRL0_MUTECTRL_DACONLY, 0x0);
+	BREG_Write32(hReg, BCHP_HIFIDAC_RM0_RATE_RATIO, 0x200);
+	BREG_Write32(hReg, BCHP_HIFIDAC_RM0_SAMPLE_INC, 0x650002);
+	BREG_Write32(hReg, BCHP_HIFIDAC_RM0_PHASE_INC, 0xe9045);
+	BREG_Write32(hReg, BCHP_HIFIDAC_RM0_CONTROL, 0x240);
+	BREG_Write32(hReg, BCHP_HIFIDAC_CTRL0_TEST, 0x0);
+	BREG_Write32(hReg, BCHP_HIFIDAC_CTRL0_CURRDAC_CTRL, 0x2020E00);
+	BREG_Write32(hReg, BCHP_HIFIDAC_CTRL0_PEAK_A1, 0x1C402);
+	BREG_Write32(hReg, BCHP_HIFIDAC_CTRL0_PEAK_A2, 0x32CB4);
+	BREG_Write32(hReg, BCHP_HIFIDAC_CTRL0_PEAK_GAIN, 0xAA90);
+
+	ui32RegRead = BREG_Read32(hReg ,BCHP_HIFIDAC_CTRL0_RANGE);
+	ui32RegRead &= ~(BCHP_MASK(HIFIDAC_CTRL0_RANGE, ASRCOUT));
+	ui32RegRead |= BCHP_FIELD_DATA(HIFIDAC_CTRL0_RANGE, ASRCOUT, 0x2);
+	BREG_Write32(hReg, BCHP_HIFIDAC_CTRL0_RANGE, ui32RegRead);
+	return;
+}
+
+void BRAAGA_TEST_ProgramBF(BREG_Handle	hReg)
+{
+	uint32_t	ui32RegAdr=0, i=0;
+	ui32RegAdr = BCHP_AUD_FMM_BF_CTRL_RINGBUF_0_RDADDR;
+	for(; ui32RegAdr<=BCHP_AUD_FMM_BF_CTRL_RINGBUF_27_MI_VALID; ui32RegAdr +=4)
+	{
+ 		BREG_Write32(hReg, ui32RegAdr, 0x0);
+	}
+
+	for(i=0; i<=BCHP_AUD_FMM_BF_CTRL_SOURCECH_CFGi_ARRAY_END; i++)
+	{
+ 		BREG_Write32(hReg, BCHP_AUD_FMM_BF_CTRL_SOURCECH_CFGi_ARRAY_BASE + (i*4), 0x80000420);
+	}
+
+	for(i=0; i<=BCHP_AUD_FMM_BF_CTRL_SOURCECH_GRPi_ARRAY_END; i++)
+	{
+		BREG_Write32(hReg, BCHP_AUD_FMM_BF_CTRL_SOURCECH_GRPi_ARRAY_BASE + (i*4), i);
+	}
+
+	return;
+}
+
+void BRAAGA_TEST_EnableFmmPath(BREG_Handle	hReg)
+{
+	uint32_t		ui32RegRead=0;
+
+    /* Set SRCCH Config */
+	ui32RegRead = 0x80002a03;
+	BREG_Write32(hReg, BCHP_AUD_FMM_BF_CTRL_SOURCECH_CFGi_ARRAY_BASE, ui32RegRead);
+
+    /* Set SRCCH->HIFIDAC Connection */
+#if (BCHP_CHIP == 35230) || (BCHP_CHIP == 35125) || (BCHP_CHIP == 35233)    
+    BREG_Write32(hReg, BCHP_AUD_FMM_IOP_CTRL_MIX_IOP_IDMAP32, 0x3FC0000);       
+#else
+    BREG_Write32(hReg, BCHP_AUD_FMM_IOP_CTRL_FCI_CFGi_ARRAY_BASE + 8, 0);
+#endif
+
+    /* Enable DAC */
+	BREG_Write32(hReg, BCHP_AUD_FMM_OP_CTRL_ENABLE_SET, 0x4);
+
+    /* Enable SRCCH Bit */
+	BREG_Write32(hReg, BCHP_AUD_FMM_BF_CTRL_SOURCECH_CTRLi_ARRAY_BASE, 0x1);
+
+	return;
+}
+
+/* The code below sets up outputs other than HIFIDAC and also other FMM modules 
+like SRC, DP, IOP etc. May be required for later use */
+
+#if 0
+void BRAAGA_TEST_ProgramGenClk(BREG_Handle	hReg)
+{
+#if (BCHP_CHIP != 35230) && (BCHP_CHIP != 35125) && (BCHP_CHIP != 35233)
+	BREG_Write32(hReg, BCHP_CLKGEN_INTERNAL_MUX_SELECT , 0x3);
+#endif
+	return;
+}
+
+
+#if (BCHP_CHIP == 35230) || (BCHP_CHIP == 35125)
+#include "bchp_vcxo_misc.h"
+#include "bchp_raaga_pll.h"
+#include "bchp_audio0_pll.h"
+#include "bchp_audio1_pll.h"
+void BRAAGA_TEST_ProgrameVCXO(BREG_Handle	hReg)
+{
+	uint32_t	ui32RegValue = 0;
+    uint32_t    ui32Offset = 0; /* Useful if we need to program PLL1 */
+    uint8_t     uiOverride = 0;
+
+    /* 48KHz */
+    uint32_t    ui32Pdiv     = 1;
+    uint32_t    ui32Ndiv     = 64;
+    uint32_t    ui32NdivFrac = 0;
+    uint32_t    ui32Mdiv0    = 120;
+    uint32_t    ui32Mdiv1    = 120;
+    uint32_t    ui32Mdiv2    = 60;    
+    uint32_t    ui32Mdiv3    = 0;
+    uint32_t    ui32Mdiv4    = 0;
+    uint32_t    ui32Mdiv5    = 0;    
+    
+    uint32_t    ui32RegvalAudioPllCtrlOut0 = 0;   
+    uint32_t    ui32RegvalAudioPllCtrlOut1 = 0;       
+    uint32_t    ui32RegvalAudioPllCtrlOut2 = 0;   
+    uint32_t    ui32RegvalAudioPllCtrlOut3 = 0;       
+    uint32_t    ui32RegvalAudioPllCtrlOut4 = 0;       
+    uint32_t    ui32RegvalAudioPllCtrlOut5 = 0;    
+
+    /*VCXO - 0*/
+    ui32RegValue = BREG_Read32 (hReg, BCHP_VCXO_MISC_AUDIO_MODE_CTRL);
+    ui32RegValue &= ~ (BCHP_MASK (VCXO_MISC_AUDIO_MODE_CTRL, AUDIO0_REFCLK_SEL));
+    ui32RegValue |= (BCHP_FIELD_ENUM (VCXO_MISC_AUDIO_MODE_CTRL, AUDIO0_REFCLK_SEL, VCXO0_SEL));
+    BREG_Write32 (hReg, BCHP_VCXO_MISC_AUDIO_MODE_CTRL, ui32RegValue);
+    ui32Offset = 0;
+
+    /* Override */
+    ui32RegValue = BREG_Read32 (hReg,BCHP_AUDIO0_PLL_PLL_6CH_CTRL_0 + ui32Offset);
+	uiOverride = (uint8_t) BCHP_GET_FIELD_DATA (ui32RegValue, AUDIO0_PLL_PLL_6CH_CTRL_0, OVERRIDE);
+
+    if (1 == uiOverride)
+    {
+        /* Make Override as 0 */
+        ui32RegValue = BREG_Read32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_0 + ui32Offset);
+        ui32RegValue &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_0, OVERRIDE));
+        ui32RegValue |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_0,OVERRIDE, 0));    
+        BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_0 + ui32Offset, ui32RegValue);
+    }    
+
+    /* Program PDIV */    
+    ui32RegValue = BREG_Read32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_0 + ui32Offset);
+    ui32RegValue &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_0, PDIV));
+    ui32RegValue |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_0,PDIV, ui32Pdiv));    
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_0 + ui32Offset, ui32RegValue);    
+
+    /* Program NDIV INT */
+    ui32RegValue = BREG_Read32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_0 + ui32Offset);
+    ui32RegValue &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_0, NDIV_INT));
+    ui32RegValue |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_0,NDIV_INT, ui32Ndiv));    
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_0 + ui32Offset, ui32RegValue);    
+    
+    /* Program NDIV FRAC */
+    ui32RegValue = BREG_Read32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_1 + ui32Offset);
+    ui32RegValue &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_1, NDIV_FRAC));
+    ui32RegValue |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_1,NDIV_FRAC, ui32NdivFrac));    
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_1 + ui32Offset, ui32RegValue);    
+    
+
+    /* Program MXDIVs */
+    ui32RegvalAudioPllCtrlOut0 = BREG_Read32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH0 + ui32Offset);
+	ui32RegvalAudioPllCtrlOut0 &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH0, MxDIV));
+    ui32RegvalAudioPllCtrlOut0 |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH0, MxDIV, ui32Mdiv0));
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH0 + ui32Offset, ui32RegvalAudioPllCtrlOut0);
+	ui32RegvalAudioPllCtrlOut0 &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH0, LOAD_ENx));
+    ui32RegvalAudioPllCtrlOut0 |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH0, LOAD_ENx, 1));
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH0 + ui32Offset, ui32RegvalAudioPllCtrlOut0);
+
+	ui32RegvalAudioPllCtrlOut1 = BREG_Read32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH1 + ui32Offset);
+    ui32RegvalAudioPllCtrlOut1 &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH1, MxDIV));
+    ui32RegvalAudioPllCtrlOut1 |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH1, MxDIV, ui32Mdiv1));
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH1 + ui32Offset, ui32RegvalAudioPllCtrlOut1);    
+    ui32RegvalAudioPllCtrlOut1 &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH1, LOAD_ENx));
+    ui32RegvalAudioPllCtrlOut1 |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH1, LOAD_ENx, 1));
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH1 + ui32Offset, ui32RegvalAudioPllCtrlOut1);    
+
+	ui32RegvalAudioPllCtrlOut2 = BREG_Read32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH2 + ui32Offset);
+    ui32RegvalAudioPllCtrlOut2 &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH2, MxDIV));
+    ui32RegvalAudioPllCtrlOut2 |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH2, MxDIV, ui32Mdiv2));    
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH2 + ui32Offset, ui32RegvalAudioPllCtrlOut2);    
+    ui32RegvalAudioPllCtrlOut2 &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH2, LOAD_ENx));
+    ui32RegvalAudioPllCtrlOut2 |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH2, LOAD_ENx, 1));    
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH2 + ui32Offset, ui32RegvalAudioPllCtrlOut2);    
+
+    ui32RegvalAudioPllCtrlOut3 = BREG_Read32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH3 + ui32Offset);
+    ui32RegvalAudioPllCtrlOut3 &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH3, MxDIV));
+    ui32RegvalAudioPllCtrlOut3 |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH3, MxDIV, ui32Mdiv3));
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH3 + ui32Offset, ui32RegvalAudioPllCtrlOut3);    
+    ui32RegvalAudioPllCtrlOut3 &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH3, LOAD_ENx));
+    ui32RegvalAudioPllCtrlOut3 |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH3, LOAD_ENx, 1));
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH3 + ui32Offset, ui32RegvalAudioPllCtrlOut3);    
+
+    ui32RegvalAudioPllCtrlOut4 = BREG_Read32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH4 + ui32Offset);
+    ui32RegvalAudioPllCtrlOut4 &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH4, MxDIV));
+    ui32RegvalAudioPllCtrlOut4 |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH4, MxDIV, ui32Mdiv4));    
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH4 + ui32Offset, ui32RegvalAudioPllCtrlOut4);    
+    ui32RegvalAudioPllCtrlOut4 &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH4, LOAD_ENx));
+    ui32RegvalAudioPllCtrlOut4 |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH4, LOAD_ENx, 1));    
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH4 + ui32Offset, ui32RegvalAudioPllCtrlOut4);    
+
+    ui32RegvalAudioPllCtrlOut5 = BREG_Read32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH5 + ui32Offset);
+    ui32RegvalAudioPllCtrlOut5 &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH5, MxDIV));
+    ui32RegvalAudioPllCtrlOut5 |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH5, MxDIV, ui32Mdiv5));    
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH5 + ui32Offset, ui32RegvalAudioPllCtrlOut5);    
+    ui32RegvalAudioPllCtrlOut5 &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH5, LOAD_ENx));
+    ui32RegvalAudioPllCtrlOut5 |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH5, LOAD_ENx, 1));    
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH5 + ui32Offset, ui32RegvalAudioPllCtrlOut5);   
+
+    /* Load Enable 0 */
+    ui32RegvalAudioPllCtrlOut0 = BREG_Read32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH0 + ui32Offset);
+    ui32RegvalAudioPllCtrlOut1 = BREG_Read32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH1 + ui32Offset);
+    ui32RegvalAudioPllCtrlOut2 = BREG_Read32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH2 + ui32Offset);
+    ui32RegvalAudioPllCtrlOut3 = BREG_Read32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH3 + ui32Offset);
+    ui32RegvalAudioPllCtrlOut4 = BREG_Read32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH4 + ui32Offset);
+    ui32RegvalAudioPllCtrlOut5 = BREG_Read32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH5 + ui32Offset);
+
+    ui32RegvalAudioPllCtrlOut0 &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH0, LOAD_ENx));
+    ui32RegvalAudioPllCtrlOut1 &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH1, LOAD_ENx));
+    ui32RegvalAudioPllCtrlOut2 &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH2, LOAD_ENx));
+    ui32RegvalAudioPllCtrlOut3 &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH3, LOAD_ENx));
+    ui32RegvalAudioPllCtrlOut4 &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH4, LOAD_ENx));
+    ui32RegvalAudioPllCtrlOut5 &= ~(BCHP_MASK (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH5, LOAD_ENx));
+
+    ui32RegvalAudioPllCtrlOut0 |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH0, HOLD_CHx, 0));
+    ui32RegvalAudioPllCtrlOut1 |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH1, HOLD_CHx, 0));
+    ui32RegvalAudioPllCtrlOut2 |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH2, HOLD_CHx, 0));    
+    ui32RegvalAudioPllCtrlOut3 |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH3, HOLD_CHx, 0));
+    ui32RegvalAudioPllCtrlOut4 |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH4, HOLD_CHx, 0));    
+    ui32RegvalAudioPllCtrlOut5 |= (BCHP_FIELD_DATA (AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH5, HOLD_CHx, 0));    
+
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH0 + ui32Offset, ui32RegvalAudioPllCtrlOut0);
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH1 + ui32Offset, ui32RegvalAudioPllCtrlOut1);    
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH2 + ui32Offset, ui32RegvalAudioPllCtrlOut2);    
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH3 + ui32Offset, ui32RegvalAudioPllCtrlOut3);    
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH4 + ui32Offset, ui32RegvalAudioPllCtrlOut4);    
+    BREG_Write32 (hReg, BCHP_AUDIO0_PLL_PLL_6CH_CTRL_OUT_CH5 + ui32Offset, ui32RegvalAudioPllCtrlOut5);        
+    
+	return;
+}
+#elif(BCHP_CHIP != 7422)&&(BCHP_CHIP != 7425)&&(BCHP_CHIP != 7231)
+#include "bchp_vcxo_rm.h"
+void BRAAGA_TEST_ProgrameVCXO(BREG_Handle	hReg)
+{
+	uint32_t		ui32RegRead=0;
+
+	BREG_Write32(hReg, BCHP_VCXO_RM_CONTROL, 0x18A0);
+	BREG_Write32(hReg, BCHP_VCXO_RM_RATE_RATIO, 0x20);
+
+	ui32RegRead = BREG_Read32(hReg ,BCHP_VCXO_RM_SAMPLE_INC);
+	ui32RegRead &= ~(BCHP_MASK(VCXO_RM_SAMPLE_INC, NUMERATOR));
+	ui32RegRead |= BCHP_FIELD_DATA(VCXO_RM_SAMPLE_INC, NUMERATOR, 0x1D);
+	ui32RegRead &= ~(BCHP_MASK(VCXO_RM_SAMPLE_INC, SAMPLE_INC));
+	ui32RegRead |= BCHP_FIELD_DATA(VCXO_RM_SAMPLE_INC, SAMPLE_INC, 0x3);
+	BREG_Write32(hReg, BCHP_VCXO_RM_SAMPLE_INC, ui32RegRead);
+
+	BREG_Write32(hReg, BCHP_VCXO_RM_PHASE_INC, 0x83126);
+	BREG_Write32(hReg, BCHP_VCXO_RM_INTEGRATOR, 0x0);
+	BREG_Write32(hReg, BCHP_VCXO_RM_CONTROL, 0x1);
+	BREG_Write32(hReg, BCHP_VCXO_RM_FORMAT, 0x2000064);
+	BREG_Write32(hReg, BCHP_VCXO_RM_OFFSET, 0x10000000);
+	BREG_Write32(hReg, BCHP_VCXO_RM_CONTROL, 0x8A0);
+	return;
+}
+
+#elif (BCHP_CHIP == 7231)
+#include "bchp_pll_vcxo_rm.h"
+void BRAAGA_TEST_ProgrameVCXO(BREG_Handle	hReg)
+{
+	uint32_t		ui32RegRead=0;
+
+	BREG_Write32(hReg, BCHP_PLL_VCXO_RM_CONTROL, 0x18A0);
+	BREG_Write32(hReg, BCHP_PLL_VCXO_RM_RATE_RATIO, 0x20);
+
+	ui32RegRead = BREG_Read32(hReg ,BCHP_PLL_VCXO_RM_SAMPLE_INC);
+	ui32RegRead &= ~(BCHP_MASK(PLL_VCXO_RM_SAMPLE_INC, NUMERATOR));
+	ui32RegRead |= BCHP_FIELD_DATA(PLL_VCXO_RM_SAMPLE_INC, NUMERATOR, 0x1D);
+	ui32RegRead &= ~(BCHP_MASK(PLL_VCXO_RM_SAMPLE_INC, SAMPLE_INC));
+	ui32RegRead |= BCHP_FIELD_DATA(PLL_VCXO_RM_SAMPLE_INC, SAMPLE_INC, 0x3);
+	BREG_Write32(hReg, BCHP_PLL_VCXO_RM_SAMPLE_INC, ui32RegRead);
+
+	BREG_Write32(hReg, BCHP_PLL_VCXO_RM_PHASE_INC, 0x83126);
+	BREG_Write32(hReg, BCHP_PLL_VCXO_RM_INTEGRATOR, 0x0);
+	BREG_Write32(hReg, BCHP_PLL_VCXO_RM_CONTROL, 0x1);
+	BREG_Write32(hReg, BCHP_PLL_VCXO_RM_FORMAT, 0x2000064);
+	BREG_Write32(hReg, BCHP_PLL_VCXO_RM_OFFSET, 0x10000000);
+	BREG_Write32(hReg, BCHP_PLL_VCXO_RM_CONTROL, 0x8A0);
+	return;
+}
+
+#else
+#include "bchp_vcxo_0_rm.h"
+#include "bchp_vcxo_1_rm.h"
+#include "bchp_vcxo_2_rm.h"
+void BRAAGA_TEST_ProgrameVCXO(BREG_Handle	hReg)
+{
+	uint32_t		ui32RegRead=0;
+
+    /*VCXO - 0*/
+	BREG_Write32(hReg, BCHP_VCXO_0_RM_CONTROL, 0x18A0);
+	BREG_Write32(hReg, BCHP_VCXO_0_RM_RATE_RATIO, 0x20);
+
+	ui32RegRead = BREG_Read32(hReg ,BCHP_VCXO_0_RM_SAMPLE_INC);
+	ui32RegRead &= ~(BCHP_MASK(VCXO_0_RM_SAMPLE_INC, NUMERATOR));
+	ui32RegRead |= BCHP_FIELD_DATA(VCXO_0_RM_SAMPLE_INC, NUMERATOR, 0x1D);
+	ui32RegRead &= ~(BCHP_MASK(VCXO_0_RM_SAMPLE_INC, SAMPLE_INC));
+	ui32RegRead |= BCHP_FIELD_DATA(VCXO_0_RM_SAMPLE_INC, SAMPLE_INC, 0x3);
+	BREG_Write32(hReg, BCHP_VCXO_0_RM_SAMPLE_INC, ui32RegRead);
+
+	BREG_Write32(hReg, BCHP_VCXO_0_RM_PHASE_INC, 0x83126);
+	BREG_Write32(hReg, BCHP_VCXO_0_RM_INTEGRATOR, 0x0);
+	BREG_Write32(hReg, BCHP_VCXO_0_RM_CONTROL, 0x1);
+	BREG_Write32(hReg, BCHP_VCXO_0_RM_FORMAT, 0x2000064);
+	BREG_Write32(hReg, BCHP_VCXO_0_RM_OFFSET, 0x10000000);
+	BREG_Write32(hReg, BCHP_VCXO_0_RM_CONTROL, 0x8A0);
+
+    /*VCXO - 1*/
+	BREG_Write32(hReg, BCHP_VCXO_1_RM_CONTROL, 0x18A0);
+	BREG_Write32(hReg, BCHP_VCXO_1_RM_RATE_RATIO, 0x20);
+
+	ui32RegRead = BREG_Read32(hReg ,BCHP_VCXO_1_RM_SAMPLE_INC);
+	ui32RegRead &= ~(BCHP_MASK(VCXO_1_RM_SAMPLE_INC, NUMERATOR));
+	ui32RegRead |= BCHP_FIELD_DATA(VCXO_1_RM_SAMPLE_INC, NUMERATOR, 0x1D);
+	ui32RegRead &= ~(BCHP_MASK(VCXO_1_RM_SAMPLE_INC, SAMPLE_INC));
+	ui32RegRead |= BCHP_FIELD_DATA(VCXO_1_RM_SAMPLE_INC, SAMPLE_INC, 0x3);
+	BREG_Write32(hReg, BCHP_VCXO_1_RM_SAMPLE_INC, ui32RegRead);
+
+	BREG_Write32(hReg, BCHP_VCXO_1_RM_PHASE_INC, 0x83126);
+	BREG_Write32(hReg, BCHP_VCXO_1_RM_INTEGRATOR, 0x0);
+	BREG_Write32(hReg, BCHP_VCXO_1_RM_CONTROL, 0x1);
+	BREG_Write32(hReg, BCHP_VCXO_1_RM_FORMAT, 0x2000064);
+	BREG_Write32(hReg, BCHP_VCXO_1_RM_OFFSET, 0x10000000);
+	BREG_Write32(hReg, BCHP_VCXO_1_RM_CONTROL, 0x8A0);
+
+    /*VCXO - 2*/
+	BREG_Write32(hReg, BCHP_VCXO_2_RM_CONTROL, 0x18A0);
+	BREG_Write32(hReg, BCHP_VCXO_2_RM_RATE_RATIO, 0x20);
+
+	ui32RegRead = BREG_Read32(hReg ,BCHP_VCXO_2_RM_SAMPLE_INC);
+	ui32RegRead &= ~(BCHP_MASK(VCXO_2_RM_SAMPLE_INC, NUMERATOR));
+	ui32RegRead |= BCHP_FIELD_DATA(VCXO_2_RM_SAMPLE_INC, NUMERATOR, 0x1D);
+	ui32RegRead &= ~(BCHP_MASK(VCXO_2_RM_SAMPLE_INC, SAMPLE_INC));
+	ui32RegRead |= BCHP_FIELD_DATA(VCXO_2_RM_SAMPLE_INC, SAMPLE_INC, 0x3);
+	BREG_Write32(hReg, BCHP_VCXO_2_RM_SAMPLE_INC, ui32RegRead);
+
+	BREG_Write32(hReg, BCHP_VCXO_2_RM_PHASE_INC, 0x83126);
+	BREG_Write32(hReg, BCHP_VCXO_2_RM_INTEGRATOR, 0x0);
+	BREG_Write32(hReg, BCHP_VCXO_2_RM_CONTROL, 0x1);
+	BREG_Write32(hReg, BCHP_VCXO_2_RM_FORMAT, 0x2000064);
+	BREG_Write32(hReg, BCHP_VCXO_2_RM_OFFSET, 0x10000000);
+	BREG_Write32(hReg, BCHP_VCXO_2_RM_CONTROL, 0x8A0);
+    
+	return;
+}
+
+#endif
+void BRAAGA_TEST_ProgramFmmMisc(BREG_Handle		hReg)
+{
+	BREG_Write32(hReg, BCHP_AUD_FMM_MISC_SEROUT_OE, 0x707);
+}
+
+void BRAAGA_TEST_ProgramMS(BREG_Handle		hReg)
+{
+	uint32_t ui32Counter=0, ui32RegValue=0;
+    uint32_t regAddr, endAddr;
+
+    regAddr = BCHP_AUD_FMM_MS_CTRL_FW_STREAM_CTRL_0;
+    endAddr = BCHP_AUD_FMM_MS_CTRL_FW_CBITSi_ARRAY_BASE + (BCHP_AUD_FMM_MS_CTRL_FW_CBITSi_ARRAY_END*(BCHP_AUD_FMM_MS_CTRL_FW_CBITSi_ARRAY_ELEMENT_SIZE/8));
+    while ( regAddr <= endAddr )
+	{
+        BREG_Write32(hReg, regAddr, 0);
+        regAddr += 4;
+	}
+
+    for ( ui32Counter = 0; ui32Counter< BCHP_AUD_FMM_MS_CTRL_USEQ_INSTi_ARRAY_END; ui32Counter++)
+    {
+        BREG_Write32 (hReg,BCHP_AUD_FMM_MS_CTRL_USEQ_INSTi_ARRAY_BASE + ui32Counter*4, 0);
+    }
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_USEQ_CTRL, 0x3);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_USEQ_INSTi_ARRAY_BASE + 4, 0x1);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_USEQ_CTRL, 0x2);
+	
+	for(ui32Counter=0; ui32Counter<=BCHP_AUD_FMM_MS_CTRL_USEQ_INSTi_ARRAY_END; ui32Counter++)
+	{
+        ui32RegValue = array[ui32Counter];
+        BREG_Write32 (hReg, 
+                       ( BCHP_AUD_FMM_MS_CTRL_USEQ_INSTi_ARRAY_BASE 
+                       + BCHP_AUD_FMM_MS_CTRL_USEQ_INSTi_ARRAY_START
+                       + (ui32Counter*4)), 
+                      ui32RegValue);
+
+    }
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_USEQ_CTRL, 0x3);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_USEQ_INSTi_ARRAY_BASE + 4, 0x0);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_USEQ_CTRL, 0x0);
+
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_USEQ_BYPASS, 0x0);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_STRM_ENA, 0x3);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_FW_STREAM_CTRL_0, 0x3);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_FW_RAMP_AMOUNT_0, 0x00000895);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_FW_CBIT_CTRL_0, 0x50);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_FW_CBITS0, 0x00008365);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_FW_CBITS1, 0x0000fa07);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_FW_STREAM_CTRL_1, 0x1f);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_FW_RAMP_AMOUNT_1, 0x895);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_FW_CBIT_CTRL_1, 0x50);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_FW_CBITS2, 0x0000001f);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_FW_CBITS3, 0x00000895);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_FW_CBITS4, 0x00000050);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_USEQ_CTRL, 0x0);
+
+	ui32RegValue = BREG_Read32(hReg ,BCHP_AUD_FMM_MS_CTRL_USEQ_BYPASS);
+	ui32RegValue &= ~(BCHP_MASK(AUD_FMM_MS_CTRL_USEQ_BYPASS, STREAM1));
+	ui32RegValue |= BCHP_FIELD_DATA(AUD_FMM_MS_CTRL_USEQ_BYPASS, STREAM1, 0x1);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_USEQ_BYPASS, ui32RegValue);
+
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_HW_SPDIF_CFG_1, 0x1);
+
+	ui32RegValue = BREG_Read32(hReg ,BCHP_AUD_FMM_MS_CTRL_HW_CHANSTAT_LO_1);
+	ui32RegValue &= ~(BCHP_MASK(AUD_FMM_MS_CTRL_HW_CHANSTAT_LO_1, PCM_FREQ));
+	ui32RegValue |= BCHP_FIELD_DATA(AUD_FMM_MS_CTRL_HW_CHANSTAT_LO_1, PCM_FREQ, 0x2);
+	BREG_Write32(hReg, BCHP_AUD_FMM_MS_CTRL_HW_CHANSTAT_LO_1, ui32RegValue);
+
+	return;
+}
+
+void BRAAGA_TEST_ProgramOP(BREG_Handle		hReg)
+{
+#if (BCHP_CHIP == 35230) || (BCHP_CHIP == 35125) || (BCHP_CHIP == 35233)
+    /* DAC is only used */
+#else
+	uint32_t	ui32RegValue=0;
+
+	ui32RegValue = BREG_Read32(hReg ,BCHP_AUD_FMM_OP_CTRL_SPDIF_CFG_0);
+	ui32RegValue &= ~(BCHP_MASK(AUD_FMM_OP_CTRL_SPDIF_CFG_0, DATA_ENABLE));
+	ui32RegValue |= BCHP_FIELD_DATA(AUD_FMM_OP_CTRL_SPDIF_CFG_0, DATA_ENABLE, 0x1);
+	ui32RegValue &= ~(BCHP_MASK(AUD_FMM_OP_CTRL_SPDIF_CFG_0, CLOCK_ENABLE));
+	ui32RegValue |= BCHP_FIELD_DATA(AUD_FMM_OP_CTRL_SPDIF_CFG_0, CLOCK_ENABLE, 0x1);
+	BREG_Write32(hReg, BCHP_AUD_FMM_OP_CTRL_SPDIF_CFG_0, ui32RegValue);
+	
+	ui32RegValue = BREG_Read32(hReg ,BCHP_AUD_FMM_OP_CTRL_I2SS0_CFG);
+	ui32RegValue &= ~(BCHP_MASK(AUD_FMM_OP_CTRL_I2SS0_CFG, DATA_ENABLE));
+	ui32RegValue |= BCHP_FIELD_DATA(AUD_FMM_OP_CTRL_I2SS0_CFG, DATA_ENABLE, 0x1);
+	ui32RegValue &= ~(BCHP_MASK(AUD_FMM_OP_CTRL_I2SS0_CFG, CLOCK_ENABLE));
+	ui32RegValue |= BCHP_FIELD_DATA(AUD_FMM_OP_CTRL_I2SS0_CFG, CLOCK_ENABLE, 0x1);
+	BREG_Write32(hReg, BCHP_AUD_FMM_OP_CTRL_I2SS0_CFG, ui32RegValue);
+	
+	ui32RegValue = BREG_Read32(hReg ,BCHP_AUD_FMM_OP_CTRL_I2SS1_CFG);
+	ui32RegValue &= ~(BCHP_MASK(AUD_FMM_OP_CTRL_I2SS1_CFG, DATA_ENABLE));
+	ui32RegValue |= BCHP_FIELD_DATA(AUD_FMM_OP_CTRL_I2SS1_CFG, DATA_ENABLE, 0x1);
+	ui32RegValue &= ~(BCHP_MASK(AUD_FMM_OP_CTRL_I2SS1_CFG, CLOCK_ENABLE));
+	ui32RegValue |= BCHP_FIELD_DATA(AUD_FMM_OP_CTRL_I2SS1_CFG, CLOCK_ENABLE, 0x1);
+	BREG_Write32(hReg, BCHP_AUD_FMM_OP_CTRL_I2SS1_CFG, ui32RegValue);
+
+	BREG_Write32(hReg, BCHP_AUD_FMM_OP_CTRL_MCLK_CFG_I2S_STEREO0, 0x2E);
+	BREG_Write32(hReg, BCHP_AUD_FMM_OP_CTRL_MCLK_CFG_I2S_STEREO1, 0x2E);
+	BREG_Write32(hReg, BCHP_AUD_FMM_OP_CTRL_MCLK_CFG_SPDIF0, 0x2E);
+
+	BREG_Write32(hReg, BCHP_AUD_FMM_OP_CTRL_STREAM_ROUTE, 0x100);
+	BREG_Write32(hReg, BCHP_AUD_FMM_OP_CTRL_MAI_CFG, 0x3);
+#endif    
+	return;
+}
+
+void BRAAGA_TEST_ProgramDP(BREG_Handle		hReg)
+{
+	int 	i=0;
+	uint32_t	uiValReg=0;
+    uint32_t regAddr, endAddr;
+    
+	/*Init DP*/
+	for(i=0; i<=BCHP_AUD_FMM_DP_CTRL0_PING_COEFFICIENTSi_ARRAY_END; i = i+4)
+	{
+		BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_PING_COEFFICIENTSi_ARRAY_BASE + i*4,0x00800000);
+		BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_PING_COEFFICIENTSi_ARRAY_BASE + (i+1)*4,0);
+		BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_PING_COEFFICIENTSi_ARRAY_BASE + (i+2)*4,0);
+		BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_PING_COEFFICIENTSi_ARRAY_BASE + (i+3)*4,0x00800000);
+	}
+	for(i=0; i<=BCHP_AUD_FMM_DP_CTRL0_PONG_COEFFICIENTSi_ARRAY_END; i = i+4)
+	{
+		BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_PONG_COEFFICIENTSi_ARRAY_BASE + i*4,0x00800000);
+		BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_PONG_COEFFICIENTSi_ARRAY_BASE + (i+1)*4,0);
+		BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_PONG_COEFFICIENTSi_ARRAY_BASE + (i+2)*4,0);
+		BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_PONG_COEFFICIENTSi_ARRAY_BASE + (i+3)*4,0x00800000);
+	}
+
+	for(i=0; i<=BCHP_AUD_FMM_DP_CTRL0_PONG_COEFF_RAMP_STEPi_ARRAY_END; i = i+4)
+	{
+		BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_PONG_COEFF_RAMP_STEPi_ARRAY_BASE + i*4,0x00100000);
+		BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_PONG_COEFF_RAMP_STEPi_ARRAY_BASE + (i+1)*4,0x00100000);
+		BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_PONG_COEFF_RAMP_STEPi_ARRAY_BASE + (i+2)*4,0x00100000);
+		BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_PONG_COEFF_RAMP_STEPi_ARRAY_BASE + (i+3)*4,0x00100000);
+	}	
+	for(i=0; i<=BCHP_AUD_FMM_DP_CTRL0_PING_COEFF_RAMP_STEPi_ARRAY_END; i = i+4)
+	{
+		BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_PING_COEFF_RAMP_STEPi_ARRAY_BASE + i*4,0x00100000);
+		BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_PING_COEFF_RAMP_STEPi_ARRAY_BASE + (i+1)*4,0x00100000);
+		BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_PING_COEFF_RAMP_STEPi_ARRAY_BASE + (i+2)*4,0x00100000);
+		BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_PING_COEFF_RAMP_STEPi_ARRAY_BASE + (i+3)*4,0x00100000);
+	}
+
+#if (BCHP_CHIP ==7422)||(BCHP_CHIP ==7425)
+    regAddr = BCHP_AUD_FMM_DP_CTRL0_MIXER00_0_LT_VOL_LEVEL;
+    endAddr = BCHP_AUD_FMM_DP_CTRL0_MIXER11_1_RT_VOL_LEVEL;
+    while ( regAddr <= endAddr )
+	{
+        BREG_Write32(hReg, regAddr, 0x00800000);
+        regAddr += 4;
+	}
+#endif
+
+#if (BCHP_CHIP ==7346)||(BCHP_CHIP ==7344) ||(BCHP_CHIP ==7231)
+    regAddr = BCHP_AUD_FMM_DP_CTRL0_MIXER00_LT_VOL_LEVEL;
+    endAddr = BCHP_AUD_FMM_DP_CTRL0_MIXER71_RT_VOL_LEVEL;
+    while ( regAddr <= endAddr )
+	{
+        BREG_Write32(hReg, regAddr, 0x00800000);
+        regAddr += 4;
+	}
+#endif
+
+	/* Program Mixer Soft Coefficients */
+	for (i=0;i<=BCHP_AUD_FMM_DP_CTRL0_SOFT_COEFCi_ARRAY_END;i++)
+	{
+		BREG_Write32 (hReg,BCHP_AUD_FMM_DP_CTRL0_SOFT_COEFCi_ARRAY_BASE + (4*i), MIXER_P_Soft_Coeff_Array[i]);
+	}
+	/* Program other soft coefficients */
+	BREG_Write32 (hReg,BCHP_AUD_FMM_DP_CTRL0_SOFT_COEFA, MIXER_P_Soft_Coeff_Array[i]);
+	i++;
+	BREG_Write32 (hReg,BCHP_AUD_FMM_DP_CTRL0_SOFT_COEFB, MIXER_P_Soft_Coeff_Array[i]);
+	i++;
+	BREG_Write32 (hReg,BCHP_AUD_FMM_DP_CTRL0_SOFT_COEFD, MIXER_P_Soft_Coeff_Array[i]);
+	i++;
+	BREG_Write32 (hReg,BCHP_AUD_FMM_DP_CTRL0_SOFT_COEFE, MIXER_P_Soft_Coeff_Array[i]);
+	i++;
+	BREG_Write32 (hReg,BCHP_AUD_FMM_DP_CTRL0_SOFT_COEFF, MIXER_P_Soft_Coeff_Array[i]);
+	i++;
+	BREG_Write32 (hReg,BCHP_AUD_FMM_DP_CTRL0_SOFT_COEF_0_5, MIXER_P_Soft_Coeff_Array[i]);
+	i++;
+	BREG_Write32 (hReg,BCHP_AUD_FMM_DP_CTRL0_SOFT_COEF_0_8, MIXER_P_Soft_Coeff_Array[i]);
+	i++;
+	BREG_Write32 (hReg,BCHP_AUD_FMM_DP_CTRL0_SOFT_COEF_1_25,MIXER_P_Soft_Coeff_Array[i]);
+
+	for(i=0; i<=BCHP_AUD_FMM_DP_CTRL0_PB_FCI_IDi_ARRAY_END; ++i)
+	{
+		if(i<12)
+		{
+			uiValReg = 0x80 + i;
+		}
+		else if(i<24)
+		{
+			uiValReg = 0xc0 + i - 12;
+		}
+		else
+		{
+			uiValReg = 0x100 + (i-24)*2 + 1;
+		}
+		BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_PB_FCI_IDi_ARRAY_BASE + (i*4), uiValReg);
+	}
+	BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_MIXER0_CONFIG, 0x00000000);
+	BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_MIXER1_CONFIG, 0x00100000);
+	BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_MIXER2_CONFIG, 0x00200000);
+	BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_MIXER3_CONFIG, 0x00300000);
+	BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_MIXER4_CONFIG, 0x00400000);
+	BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_MIXER5_CONFIG, 0x00500000);
+	BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_MIXER6_CONFIG, 0x00600000);
+	BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_MIXER7_CONFIG, 0x00700000);
+#if (BCHP_CHIP == 7422)||(BCHP_CHIP == 7425)   
+	BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_MIXER8_CONFIG, 0x00800000);
+	BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_MIXER9_CONFIG, 0x00900000);
+	BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_MIXER10_CONFIG, 0x00A00000);
+	BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_MIXER11_CONFIG, 0x00B00000);
+#endif
+	uiValReg = BREG_Read32(hReg ,BCHP_AUD_FMM_DP_CTRL0_MIXER0_INPUT10_CONFIG);
+	uiValReg &= ~(BCHP_MASK(AUD_FMM_DP_CTRL0_MIXER0_INPUT10_CONFIG, MIXER_INPUT0_ENA));
+	uiValReg |= BCHP_FIELD_ENUM(AUD_FMM_DP_CTRL0_MIXER0_INPUT10_CONFIG, MIXER_INPUT0_ENA, Enable);
+	uiValReg &= ~(BCHP_MASK(AUD_FMM_DP_CTRL0_MIXER0_INPUT10_CONFIG, MIXER_INPUT0_PB_NUMBER));
+	uiValReg |= BCHP_FIELD_DATA(AUD_FMM_DP_CTRL0_MIXER0_INPUT10_CONFIG, MIXER_INPUT0_PB_NUMBER, 0);
+	BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_MIXER0_INPUT10_CONFIG, uiValReg);
+#if 0
+	uiValReg = BREG_Read32(hReg ,BCHP_AUD_FMM_DP_CTRL0_MIXER1_INPUT10_CONFIG);
+	uiValReg &= ~(BCHP_MASK(AUD_FMM_DP_CTRL0_MIXER1_INPUT10_CONFIG, MIXER_INPUT0_ENA));
+	uiValReg |= BCHP_FIELD_ENUM(AUD_FMM_DP_CTRL0_MIXER1_INPUT10_CONFIG, MIXER_INPUT0_ENA, Enable);
+	uiValReg &= ~(BCHP_MASK(AUD_FMM_DP_CTRL0_MIXER1_INPUT10_CONFIG, MIXER_INPUT0_PB_NUMBER));
+	uiValReg |= BCHP_FIELD_DATA(AUD_FMM_DP_CTRL0_MIXER1_INPUT10_CONFIG, MIXER_INPUT0_PB_NUMBER, 0);
+	BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_MIXER1_INPUT10_CONFIG, uiValReg);
+
+	uiValReg = BREG_Read32(hReg ,BCHP_AUD_FMM_DP_CTRL0_MIXER2_INPUT10_CONFIG);
+	uiValReg &= ~(BCHP_MASK(AUD_FMM_DP_CTRL0_MIXER2_INPUT10_CONFIG, MIXER_INPUT0_ENA));
+	uiValReg |= BCHP_FIELD_ENUM(AUD_FMM_DP_CTRL0_MIXER2_INPUT10_CONFIG, MIXER_INPUT0_ENA, Enable);
+	uiValReg &= ~(BCHP_MASK(AUD_FMM_DP_CTRL0_MIXER2_INPUT10_CONFIG, MIXER_INPUT0_PB_NUMBER));
+	uiValReg |= BCHP_FIELD_DATA(AUD_FMM_DP_CTRL0_MIXER2_INPUT10_CONFIG, MIXER_INPUT0_PB_NUMBER, 0);
+	BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_MIXER2_INPUT10_CONFIG, uiValReg);
+
+	uiValReg = BREG_Read32(hReg ,BCHP_AUD_FMM_DP_CTRL0_MIXER3_INPUT10_CONFIG);
+	uiValReg &= ~(BCHP_MASK(AUD_FMM_DP_CTRL0_MIXER3_INPUT10_CONFIG, MIXER_INPUT0_ENA));
+	uiValReg |= BCHP_FIELD_ENUM(AUD_FMM_DP_CTRL0_MIXER3_INPUT10_CONFIG, MIXER_INPUT0_ENA, Enable);
+	uiValReg &= ~(BCHP_MASK(AUD_FMM_DP_CTRL0_MIXER3_INPUT10_CONFIG, MIXER_INPUT0_PB_NUMBER));
+	uiValReg |= BCHP_FIELD_DATA(AUD_FMM_DP_CTRL0_MIXER3_INPUT10_CONFIG, MIXER_INPUT0_PB_NUMBER, 0);
+	BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_MIXER3_INPUT10_CONFIG, uiValReg);
+	
+	uiValReg = BREG_Read32(hReg ,BCHP_AUD_FMM_DP_CTRL0_MIXER4_INPUT10_CONFIG);
+	uiValReg &= ~(BCHP_MASK(AUD_FMM_DP_CTRL0_MIXER4_INPUT10_CONFIG, MIXER_INPUT0_ENA));
+	uiValReg |= BCHP_FIELD_ENUM(AUD_FMM_DP_CTRL0_MIXER4_INPUT10_CONFIG, MIXER_INPUT0_ENA, Enable);
+	uiValReg &= ~(BCHP_MASK(AUD_FMM_DP_CTRL0_MIXER4_INPUT10_CONFIG, MIXER_INPUT0_PB_NUMBER));
+	uiValReg |= BCHP_FIELD_DATA(AUD_FMM_DP_CTRL0_MIXER4_INPUT10_CONFIG, MIXER_INPUT0_PB_NUMBER, 0);
+	BREG_Write32(hReg, BCHP_AUD_FMM_DP_CTRL0_MIXER4_INPUT10_CONFIG, uiValReg);
+#endif
+	return;
+}
+
+void BRAAGA_TEST_GroupIOP(BREG_Handle		hReg)
+{
+	int	i=0;
+#if (BCHP_CHIP != 35230) && (BCHP_CHIP != 35125) && (BCHP_CHIP != 35233)    
+	BREG_Write32(hReg, BCHP_AUD_FMM_IOP_CTRL_CAP_CFGi_ARRAY_BASE, 0x002);
+	BREG_Write32(hReg, BCHP_AUD_FMM_IOP_CTRL_CAP_CFGi_ARRAY_BASE + 4, 0x102);
+	BREG_Write32(hReg, BCHP_AUD_FMM_IOP_CTRL_CAP_CFGi_ARRAY_BASE + 8, 0x202);
+	BREG_Write32(hReg, BCHP_AUD_FMM_IOP_CTRL_CAP_CFGi_ARRAY_BASE + 12, 0x302);
+	BREG_Write32(hReg, BCHP_AUD_FMM_IOP_CTRL_CAP_CFGi_ARRAY_BASE + 16, 0x402);
+
+	for(i=0; i<=BCHP_AUD_FMM_IOP_CTRL_FCI_CFGi_ARRAY_END; ++i)
+	{
+		BREG_Write32(hReg, BCHP_AUD_FMM_IOP_CTRL_FCI_CFGi_ARRAY_BASE + (i*4), 0x3FC);
+	}
+
+	BREG_Write32(hReg, BCHP_AUD_FMM_IOP_CTRL_FCI_CFGi_ARRAY_BASE, 0x3FF);	/*spdif*/
+	BREG_Write32(hReg, BCHP_AUD_FMM_IOP_CTRL_FCI_CFGi_ARRAY_BASE + 4, 0x3FF); /*mai*/
+	BREG_Write32(hReg, BCHP_AUD_FMM_IOP_CTRL_FCI_CFGi_ARRAY_BASE + 8, 0x100); /*dac*/
+	BREG_Write32(hReg, BCHP_AUD_FMM_IOP_CTRL_FCI_CFGi_ARRAY_BASE + 12, 0x3ff); /*i2ss0*/
+	BREG_Write32(hReg, BCHP_AUD_FMM_IOP_CTRL_FCI_CFGi_ARRAY_BASE + 16, 0x3ff); /*i2ss1*/
+#endif
+	return;
+}
+
+void BRAAGA_TEST_ProgramSRC(BREG_Handle	hReg)
+{
+
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_STRM_CFGi_ARRAY_BASE, 0x00);	 
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_STRM_CFGi_ARRAY_BASE + 4, 0x01);	 
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_STRM_CFGi_ARRAY_BASE + 8, 0x02);	
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_STRM_CFGi_ARRAY_BASE + 12, 0x03);	 
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_STRM_CFGi_ARRAY_BASE + 16, 0x04);	 
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_STRM_CFGi_ARRAY_BASE + 20, 0x05);	 
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_STRM_CFGi_ARRAY_BASE + 24, 0x06);	 
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_STRM_CFGi_ARRAY_BASE + 28, 0x07);	 
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_STRM_CFGi_ARRAY_BASE + 32, 0x08);	
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_STRM_CFGi_ARRAY_BASE + 36, 0x09);	
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_STRM_CFGi_ARRAY_BASE + 40, 0x0a);	 
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_STRM_CFGi_ARRAY_BASE + 44, 0x0b);	 
+    
+#if (BCHP_CHIP == 35230) || (BCHP_CHIP == 35125) || (BCHP_CHIP == 35233)
+    /* Nothing to do. All SRCs are bypass by default */
+#else
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_SRC_CFG0, 0x00);	
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_SRC_CFG1, 0x00);	
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_SRC_CFG2, 0x00);	
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_SRC_CFG3, 0x00);	
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_SRC_CFG4, 0x00);
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_SRC_CFG5, 0x00);
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_SRC_CFG6, 0x00);
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_SRC_CFG7, 0x00);
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_SRC_CFG8, 0x00);
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_SRC_CFG9, 0x00);
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_SRC_CFG10, 0x00);
+	BREG_Write32(hReg, BCHP_AUD_FMM_SRC_CTRL0_SRC_CFG11, 0x00);	
+#endif    
+
+	return;
+}
+#endif

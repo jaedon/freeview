@@ -1,0 +1,14 @@
+#############################################
+#				Global CAS Configuration					#
+#############################################
+
+comment "Global CAS Configuration. (CAS_XXX)"
+
+	config CAS_CONAX
+		bool "CAS_CONAX - Include CONAX"
+		default n
+
+		config CAS_CONAX_FINGERPRINT
+			depends on CAS_CONAX
+			bool "CAS_CONAX_FINGERPRINT - Include CONAX_FINGERPRINT"
+			default n

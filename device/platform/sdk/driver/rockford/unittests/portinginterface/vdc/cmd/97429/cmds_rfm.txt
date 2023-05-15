@@ -1,0 +1,9 @@
+ovc
+dacs 15 15 15 15 15 15 15
+rfm
+hdm
+hdm
+rfm
+rfm
+quit
+

@@ -1,0 +1,21 @@
+DFB is a simple DirectFB based graphics benchmark tool. It measures the raw graphics performance
+of the platform by running a series of tests that exercise operations that are commonly used within
+the Netflix UI.
+
+The operations tested by DFB are:
+
+- Color fill
+- Color fill with alpha blending
+- Blit (image copy)
+- Blit with alpha blending
+- Stretch blit (scaling)
+- Stretch blit with alpha blending
+- Text rendering
+
+Each test runs for ten seconds and then outputs the frames per second result to stdout.
+
+## Running
+
+- Copy the files 'benchmark', 'Netlix_Logo.png', and 'Arial Bold.ttf' to the target platform
+- Execute dfb from the command line
+

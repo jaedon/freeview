@@ -1,0 +1,24 @@
+##########################################
+# DI configuration menu
+##########################################
+menu "Driver Interface configuration options"
+	choice 
+		prompt "Driver Interface"
+		default DI20
+
+	config DI20
+		bool "Driver Interface 2.0"	
+	
+	config DI10
+		bool "Driver Interface 1.0"	
+
+	endchoice
+endmenu
+
+menu "COMMON DI CONFIGURATION"
+source "driver/common_di_kconfig/common_di_config.in"
+endmenu
+
+menu "SPECIFIC DI CONFIGURATION"
+source "driver/bcm_specific_di_kconfig/specific_di_config.in"
+endmenu

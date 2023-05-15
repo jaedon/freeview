@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config_root>
+  <config_data>
+    <media_cache_capacity>48MB</media_cache_capacity>
+    <ui_cache_capacity>288KB</ui_cache_capacity>
+    <appboot_key>etc/keys/appboot.key</appboot_key>
+    <binary_hash></binary_hash>
+    <il_secret>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</il_secret>
+    <capabilities>
+      <tile>
+        <maxTilesPerGroup>10</maxTilesPerGroup>
+        <numVisibleTiles>3</numVisibleTiles>
+        <maxNumGroups>10</maxNumGroups>
+        <supportedFields>
+          <description>true</description>
+          <shortText>true</shortText>
+        </supportedFields>
+        <preferredWidth>100</preferredWidth>
+        <preferredHeight>100</preferredHeight>
+      </tile>
+    </capabilities>
+  </config_data>
+</config_root>

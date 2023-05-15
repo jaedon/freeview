@@ -1,0 +1,175 @@
+############################################################
+#     Copyright (c) 2003-2012, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: auto_unittests_97400.txt $
+# $brcm_Revision: Hydra_Software_Devel/21 $
+# $brcm_Date: 9/10/12 9:25a $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /rockford/unittests/nexus/common/auto_unittests_97400.txt $
+# 
+# Hydra_Software_Devel/21   9/10/12 9:25a mward
+# SWCHECKFRAME-80:  Disable general/memory test for 7400, it is old and
+# slow, doesn't quite make the time limit.
+# 
+# Hydra_Software_Devel/20   5/1/12 4:10p mward
+# SWCHECKFRAME-80:  Disable streamer tests for 7400, no streamers
+# connected to 7400 boards in the rack.
+# 
+# Hydra_Software_Devel/19   11/4/11 4:27p slauzon
+# SWCHECKFRAME-80: enabled playback/trick_stress,
+# playback/frameadvance_stress and playback/playback_trick_loop
+# 
+# Hydra_Software_Devel/18   10/13/11 1:15p mward
+# SW7405-5478:  codec_mismatch is intermittent, disable it until fixed .
+# 
+# Hydra_Software_Devel/17   8/18/11 11:13a mward
+# SW7400-3043:  Enable watchdog test after enabling the watchdog reset in
+# nexus_platform_pinmux as recommended.
+# 
+# Hydra_Software_Devel/16   8/8/11 1:41p mward
+# SW7400-2955:  Re-enable message_stress3 for 7400.
+# 
+# Hydra_Software_Devel/15   7/18/11 2:45p mward
+# SW7400-3043:  Disable display/heaps and general/watchdog pending debug
+# of failures.
+# 
+# Hydra_Software_Devel/14   7/15/11 6:43p mward
+# SWCHECKFRAME-80:  Add tests from auto_unittests_97405.txt.
+# 
+# Hydra_Software_Devel/13   7/15/11 6:37p mward
+# SWCHECKFRAME-80: sort the tests for comparison with other platforms.
+# 
+# Hydra_Software_Devel/12   6/21/11 10:22a mward
+# SW7400-2955:  Still no effective workaround for the "livelock" issue on
+# 2.6.18 with this test.  Disabling it for 7400 until I find one.
+# 
+# Hydra_Software_Devel/11   5/24/11 5:04p mward
+# SW7420-1893: Re-enable checkpoint_stress from 97125, 97400 AUTOTEST.
+# 
+# Hydra_Software_Devel/10   5/24/11 3:12p mward
+# SW7420-1893:  checkpoint_stress was in the list twice.
+# 
+# Hydra_Software_Devel/9   5/23/11 1:34p mward
+# SW7420-1893:  Remove checkpoint_stress from 97125 AUTOTEST until
+# pollingCheckpoint gets fixed in Nexus.
+# 
+# Hydra_Software_Devel/8   4/8/11 4:24p mward
+# SW7400-2955:  Re-enable message_stress3 on 7400 after workaround for
+# 2.6.18 scheduler issue.
+# 
+# Hydra_Software_Devel/7   12/2/10 2:27p mward
+# SW7125-716: Re-enable record_overflow_recovery.
+# 
+# Hydra_Software_Devel/6   11/5/10 4:30p mward
+# SW7125-716: record_overflow_recovery is not working disable it until
+# the test is fixed.
+# 
+# Hydra_Software_Devel/5   10/29/10 3:33p mward
+# SW7400-2955:  Disable message_stress3 until it is fixed on this
+# platform.
+# 
+# Hydra_Software_Devel/4   10/29/10 3:19p mward
+# SW7125-480:  Re-enable playback_trick_loop on 97400.
+# 
+# Hydra_Software_Devel/3   10/22/10 4:30p slauzon
+# SWCHECKFRAME-80: added new tests
+# 
+# Hydra_Software_Devel/2   8/16/10 5:06p slauzon
+# SWCHECKFRAME-80: added new graphics2d tests
+# 
+# 
+############################################################
+
+unittests/audio/codec_test
+unittests/display/capture_buffer
+#unittests/display/digital_cc_capture
+unittests/display/display_vbi
+unittests/display/display_vbi_stress  -disable_cgmsb
+#7400 has special limitations on display2 video window. Disable "display/heaps" and keep
+#that test general
+#unittests/display/heaps
+unittests/display/open
+unittests/display/outputs
+#unittests/display/pip_swap
+unittests/display/pq
+unittests/display/resize_window
+unittests/display/synclock_master
+unittests/dma/dma_api_usage
+unittests/dma/dma_bulk
+unittests/dma/dma_callbacks
+unittests/dma/dma_chain
+unittests/dma/dma_crypto
+unittests/dma/dma_mixedmode
+unittests/dma/dma_mixedmode_stress
+unittests/file/playback_with_cancel
+#unittests/file/timeshift_jump
+unittests/frontend/tune_untune
+unittests/general/alloc
+unittests/general/boot
+#unittests/general/memory
+unittests/general/sleep
+unittests/general/watchdog
+unittests/graphics2d/blit 
+unittests/graphics2d/blit_performance
+unittests/graphics2d/blit_stress
+unittests/graphics2d/checkpoint_stress
+unittests/graphics2d/fillrate
+unittests/graphics2d/packet_and_function
+unittests/graphics2d/packet_blit_stress
+unittests/graphics2d/palette_blit2
+unittests/graphics2d/premultiply_alpha1
+unittests/graphics2d/premultiply_alpha2
+unittests/open_tests/display_video_decoder
+unittests/playback/audio_switch
+#unittests/playback/codec_mismatch
+unittests/playback/create_destroy
+unittests/playback/frameadvance_stress
+unittests/playback/playback_list
+unittests/playback/playback_openpidchannel
+unittests/playback/playback_stctrick
+unittests/playback/playback_stop_start
+unittests/playback/playback_trick_loop
+unittests/playback/seek
+unittests/playback/start_stop
+unittests/playback/trick_stress
+unittests/record/allpass_record_from_playback
+unittests/record/multiple_index_only_records
+unittests/record/record2
+unittests/record/record3
+unittests/record/record_append_from_playpump
+unittests/record/record_overflow_recovery  
+#unittests/record/record_play
+#unittests/record/record_stress_test
+#unittests/record/record_with_timestamps
+unittests/record/recpump_overflow_recovery
+unittests/surface/open
+unittests/surface/palette
+unittests/transport/message_dss
+unittests/transport/message_stress1
+unittests/transport/message_stress2
+#unittests/transport/message_stress3
+#unittests/transport/message_stress4
+unittests/transport/open
+unittests/transport/playpump_cc_test
+unittests/transport/recpump
+unittests/transport/set_stc
+unittests/transport/tpit
+#unittests/video_decoder/callbacks
+#unittests/video_decoder/channel_change
+unittests/video_decoder/codec_test
+unittests/video_decoder/dataready
+unittests/video_decoder/decoder_trick
+#unittests/video_decoder/mosaic_decode 
+unittests/video_decoder/mosaic_playback_zorder_list
+unittests/video_decoder/open
+unittests/video_decoder/userdata_capture

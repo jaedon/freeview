@@ -1,0 +1,225 @@
+' Simple XML Licenses Security Level Tests
+
+1306:BVT: Consume a simple XML license with a security level (100) below the current certificate security level (150) (XML)
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 100?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+
+
+1307:BVT: Consume a simple XML license with a security level (150) at the current certificate security level (150) (XML)
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+
+
+1308:BVT: Consume a simple XML license with a security level (200) above the current certificate security level (150) (XML)
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000507-0000-0010-8000-00AA006D2EA4},64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 200?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)=0x8004C00B (DRM_E_RIGHTS_NOT_AVAILABLE)
+
+
+' Chained XML Licenses Security Level Tests
+
+1309:BVT: Consume a chained XML license with a leaf security level (100) below the current certificate security level (150) (XML)
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 100?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4}, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+
+
+1312:BVT: Consume a chained XML license with a root security level (100) below the current certificate security level (150) (XML)
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5}, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 100?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+
+
+1313:FUNC: Consume a chained XML license with a root and leaf security level (100) below the current certificate security level (150) (XML)
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 100?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 100?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+
+
+1314:FUNC: Consume a chained XML license with a leaf security level (150) at the current certificate security level (150) (XML)
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4}, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+
+
+1315:FUNC: Consume a chained XML license with a root security level (150) at the current certificate security level (150) (XML)
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5}, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+
+
+1316:FUNC: Consume a chained XML license with a root and leaf security level (150) at the current certificate security level (150) (XML)
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+
+
+1317:FUNC: Consume a chained XML license with a root (150) at and a leaf below (100) the current certificate security level (150) (XML)
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 100?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+
+
+1318:FUNC: Consume a chained XML license with a leaf (150) at and a root below (100) the current certificate security level (150) (XML)
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 100?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)
+TestManagerCommit
+
+
+1319:FUNC: Attempt to consume a chained XML license with a leaf security level (200) above the current certificate security level (150) (XML)
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS,"<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 200?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>",ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4}, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)=DRM_E_UPLINK_LICENSE_NOT_FOUND
+
+
+1321:BVT: Attempt to consume a chained XML license with a root security level (200) above the current certificate security level (150) (XML)
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5}, 0, NULL, ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 200?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)=0x8004C00B (DRM_E_RIGHTS_NOT_AVAILABLE)
+
+
+1323:FUNC: Attempt to consume a chained XML license with a root and leaf security level (200) above the current certificate security level (150) (XML)
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 200?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 200?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)=0x8004C00B (DRM_E_RIGHTS_NOT_AVAILABLE)
+
+
+1326:FUNC: Attempt to consume a chained XML license with a root (200) above and a leaf below (100) the current certificate security level (150) (XML)
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 100?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 200?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)=0x8004C00B (DRM_E_RIGHTS_NOT_AVAILABLE)
+
+
+1330:BVT: Attempt to consume a chained XML license with a leaf (200) above and a root below (100) the current certificate security level (150) (XML)
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 200?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 100?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)=DRM_E_UPLINK_LICENSE_NOT_FOUND
+
+
+1331:BVT: Attempt to consume a chained XML license with a root (200) above and a leaf at (150) the current certificate security level (150) (XML)
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 200?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)=0x8004C00B (DRM_E_RIGHTS_NOT_AVAILABLE)
+
+
+1332:FUNC: Attempt to consume a chained XML license with a leaf (200) above and a root at (150) the current certificate security level (150) (XML)
+SkipTestIf(!WMDRMSupported)
+TestManagerSetRights(Play)
+TestManagerSetHeader(NORMAL,header1.xml)
+TestManagerInitResponse
+TestManagerAddLicenseToResponse(Acl2BY3ITE0qe11DalmK0D==,{00000508-0000-0010-8000-00AA006D2EA5}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 200?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,2)
+TestManagerAddLicenseToResponse(!3x8NSroVg4eXCzWqPU!BA==,{00000508-0000-0010-8000-00AA006D2EA4}, 64 OP_LICGEN_NO_DEFAULT_RIGHTS, "<ONACTION type=\"Play\"><CONDITION><![CDATA[1]]></CONDITION></ONACTION><ONSELECT><CONDITION><![CDATA[ (!exists(secstate.deleted) && (app.minseclevel >= 150?1:(secstate.drmreason=3;0)))]]></CONDITION></ONSELECT>", ERdtAxucAFKJnAWxuFQYuyVd3BAFR7N!PO8vPJWRPzxV0MaUNCXrSQ==,300RGKoeuuIsIX04ZRKnNVZVP3fFXjykdp0o2hRG,1,Acl2BY3ITE0qe11DalmK0D==)
+TestManagerGenerateResponse
+TestManagerProcessResponse(Dump,Dump,0,0)
+TestManagerBind(0 don't overwrite drmmanager context, Dump, Dump, NULL)=DRM_E_UPLINK_LICENSE_NOT_FOUND

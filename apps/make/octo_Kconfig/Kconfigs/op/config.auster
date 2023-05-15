@@ -1,0 +1,20 @@
+# UK FreeSat
+
+	menu "Select Operator's specific configs"
+
+		config OP_AUS_DTT_DBOOK_DYNAMIC_UPDATE
+			depends on OP_AUS_DTT_DBOOK
+			bool "OP_AUS_DTT_DBOOK_DYNAMIC_UPDATE - Australia dtt dynamic update"
+			default n
+
+		config OP_AUS_DTT_DBOOK_REC
+			depends on OP_AUS_DTT_DBOOK
+			bool "OP_AUS_DTT_DBOOK_REC - Record by crid, etc"
+			default n
+
+		config OP_AUS_MENU
+			depends on OP_AUS_DTT_DBOOK
+			bool "OP_AUS_MENU - AUS specific menu support "
+			default n
+	endmenu
+

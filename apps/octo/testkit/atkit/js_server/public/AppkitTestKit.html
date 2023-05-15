@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<link rel="stylesheet" type="text/css" href="/mystyle.css">
+		<script language="javascript" type="text/javascript" src="/jquery-1.7.1.min.js"></script>
+		<script language="javascript" type="text/javascript" src="/AppkitTestKit.js"></script>
+
+		<!-- Set WebSocket ############################## -->
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			window.onload = startSocketIO;
+		</script>
+		<!-- Set WebSocket ############################## -->
+
+		<script>
+			getManifestList();
+		</script>
+
+		<style type="text/css">
+		</style>          
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script type="text/javascript">
+			google.charts.load('current', {'packages':['corechart']});
+			google.charts.setOnLoadCallback(drawChart);
+
+			var chart_result;
+			var result_data = [
+						['Result', 'Count'],
+						['Success( 0 )',     1],
+						['Fail( 0 )',      1]
+						];
+
+			var options_result = {
+					title: 'TC Result - Total TC( 0 )',
+					pieHole: 0.4,
+					chartArea:{left:50, top:30, width:'80%', height:'80%'}
+				};
+
+			function drawChart() {
+				chart_result = new google.visualization.PieChart(document.getElementById('piechart'));
+				drawResultChart();
+
+			}
+
+			function drawResultChart() {
+				var data = google.visualization.arrayToDataTable(result_data);
+				chart_result.draw(data, options_result);
+			}
+</script>
+
+	<style type="text/css">
+		div
+		#tc{
+			width:1000px;
+			height:450px;
+			border:10px;
+		}
+		#result_div{
+			width:500;
+			height:450;
+			border:1px;
+			solid red;
+			float:left;
+		}
+		#piechart{
+			width:500;
+			height:450;
+			border:1px;
+			solid red;
+			float:left;
+		}
+	</style>
+
+	</head>
+
+	<body>
+		<h1>Appkit Test Kit</h1>
+
+		<hr/>
+
+		<div id='tc'>
+			<FORM action="/upload/tc_app", method="post", enctype="multipart/form-data">
+				<INPUT type="file" name="uploadFile"/>
+				<INPUT type="submit" class='button blue' name="Upload" value="Upload App"/>
+			</FORM>
+			<FORM name='cmdForm'>
+				<INPUT type="TEXT" id='cmd_text' class="text rosy" onkeyPress="javascript: if(event.keyCode == 13){runCmdButtonClicked();}"/>
+				<INPUT type="BUTTON" class="button rosy" value="Run CMD" onclick='runCmdButtonClicked()'/>
+				<INPUT type="BUTTON" class="button rosy" value="Killall Proc" onclick='runKillAllButtonClicked()'/>
+			</FORM>			
+			<FORM name='appList'>
+				<INPUT type="BUTTON" class="button blue" value="Load TC list" onclick='getAppList()'>
+				<select id="tc_select" disabled onchange='loadManifest()'>
+					<option> -- Select Appication --
+				</select>				
+			</FORM>			
+			<FORM>
+				<textarea id='ManifestArea' rows=20 cols=160 placeholder='Manifest Area..' style="font-size:11px;"></textarea>
+				<INPUT type="BUTTON" class="button blue" value="Update Manifest/Checked" onclick='updateMfButtonClicked()'/>
+				<INPUT type="BUTTON" class="button blue" id="btn_run_tc" value="Run App" onclick='runAppButtonClicked()' disabled>
+				<hr/>
+				<textarea id='logArea' readonly='readonly' rows=20 cols=160 placeholder='STB Log Area..' style="font-size:11px;" ></textarea>
+				<INPUT type="BUTTON" class="button blue" value="save" onclick='saveLogButtonClicked()'/>
+				<INPUT type="BUTTON" class="button blue" value="clear" onclick='clearLogButtonClicked()'/>				
+			</FORM>
+		</div>
+
+		<hr/>
+
+		<div id ="result_div">
+			<FORM>
+				<textarea id='resultArea' readonly='readonly' rows=20 cols=80 wrap=off placeholder='Result Area' style="font-size:11px;" ></textarea>
+			</FORM>
+			<FORM>
+				<INPUT type="BUTTON" class="button blue" value="save" onclick='saveResultButtonClicked()'/>
+				<INPUT type="BUTTON" class="button blue" value="clear" onclick='clearResultButtonClicked()'/>
+			</FORM>
+		</div>
+		<div id="piechart"></div>
+
+
+	</body>
+
+</html>

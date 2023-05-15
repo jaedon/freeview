@@ -1,0 +1,16 @@
+
+TARGETTYPE=PROGRAM
+TARGETNAME=DrmManagerTest
+UMTYPE=console
+
+SOURCES = \
+    ../main.c \
+
+
+TARGETLIBS = $(TARGETLIBS) \
+    $(_DRM_REFCODE_LIBS) \
+    $(_DRM_TC_LIBS) \
+    $(_DRM_TEST_DRMMANAGER_LIB) \
+    $(_DRM_TEST_NETIO_LIB)    \
+    $(_DRM_TEST_METERING_LIB) \
+    $(_DRM_TEST_HDS_LIB) \

@@ -1,0 +1,56 @@
+#############################################
+#					MW/EPG Configuration					#
+#############################################
+
+comment "MW/EPG Configuration. (MW_EPG_XXX)"
+
+	config MW_EPG_TVTV
+		bool "MW_EPG_TVTV - Support TVTVEPG"
+		default n
+
+		config TVTVEPG_USE_NAND_STORAGE
+			bool "TVTVEPG_USE_NAND_STORAGE - Support Nand storage for TVTVEPG"
+			depends on MW_EPG_TVTV
+			default n
+
+	config MW_EPG_RAW_SAVE_DATA
+		bool "MW_EPG_RAW_SAVE_DATA_TO_HDD - Save Epg Raw Section data"
+		default n
+
+	config MW_EPG_RAW_SAVE_DATA_TO_HDD
+		bool "MW_EPG_RAW_SAVE_DATA_- TO_HDD"
+		default n
+
+	config MW_EPG_RAW_SAVE_DATA_TO_FLASH
+		bool "MW_EPG_RAW_SAVE_DATA  - TO_FLASH"
+		default n
+		
+	config MW_EPG_DB_SAVE_FLASH
+		bool "MW_EPG_DB_SAVE_FLASH - Save EPG(PF/SC) DB Files to FLASH"
+		default n
+	
+	config MW_EPG_DB_SAVE_HDD
+		bool "MW_EPG_DB_SAVE_HDD - Save EPG(PF/SC) DB Files to HDD"
+		default n
+
+	config MW_EPG_NEXT_EITFILTER_TIMER
+		bool "MW_EPG_NEXT_EITFILTER_TIMER - Eit Monitor by Timer module"
+		depends on MW_EPG_RAWMANAGER
+		default n
+
+	config MW_EPG_FTA_CONTENT_MGM_DES
+		bool "MW_EPG_FTA_CONTENT_MGM_DES - Support FTA CONTENT Management descriptor in EIT"
+		default n
+
+	config MW_EPG_DATACAROUSEL
+		bool "MW_EPG_DATACAROUSEL - Support DSMCC Data Carousel"
+		default n
+
+	config MW_EPG_CIT
+		bool "MW_EPG_CIT - Support CIT"
+		default n
+
+	config MW_EPG_CPT
+		bool "MW_EPG_CPT - Support CPT"
+		default n
+

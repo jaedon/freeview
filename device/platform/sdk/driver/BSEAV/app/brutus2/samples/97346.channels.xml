@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<channellist name="default">
+ <channel type="streamer" >
+    <pid videopid="49" videotype="mpeg2"></pid>
+    <pid audiopid="52" audiotype="ac3"></pid>
+ </channel>
+ <channel type="sds" mode="dvb" freq="1207.0" diseqc="13" tone="true" >
+    <pid videopid="5922" videotype="mpeg2"></pid>
+    <pid audiopid="5923" audiotype="mpeg"></pid>
+ </channel>
+</channellist>

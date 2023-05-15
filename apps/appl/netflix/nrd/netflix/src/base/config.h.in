@@ -1,0 +1,136 @@
+/*
+ * (c) 1997-2015 Netflix, Inc.  All content herein is protected by
+ * U.S. copyright and other applicable intellectual property laws and
+ * may not be copied without the express permission of Netflix, Inc.,
+ * which reserves all rights.  Reuse of any of this content for any
+ * purpose without the permission of Netflix, Inc. is strictly
+ * prohibited.
+ */
+
+#ifndef NRDBASE_CONFIG_H
+#define NRDBASE_CONFIG_H
+
+#define NRDP_PLATFORM_INTERNAL
+
+#define NRDP_PLATFORM_LINUX
+#define NRDP_PLATFORM "linux"
+#define NRDP_PATH_SEPARATOR_CHAR '/'
+
+// Flags for marking the build
+#cmakedefine HAS_BUILD_BRANCH
+#ifdef HAS_BUILD_BRANCH
+# define BUILD_BRANCH "@BUILD_BRANCH@"
+#endif
+#cmakedefine HAS_BUILD_NUMBER
+#ifdef HAS_BUILD_NUMBER
+# define BUILD_NUMBER "@BUILD_NUMBER@"
+#endif
+
+// Flags passed to the compiler
+#define NRDP_CFLAGS "@NRDP_CFLAGS@"
+#define NRDP_CXXFLAGS "@NRDP_CXXFLAGS@"
+#define NRDP_LFLAGS "@NRDP_LFLAGS@"
+
+// Endianness - if no value has been configured, use Endian.h to autodetect
+#cmakedefine NRDP_LITTLE_ENDIAN
+#cmakedefine NRDP_BIG_ENDIAN
+#cmakedefine NRDP_PDP_ENDIAN
+#cmakedefine NRDP_GPU_LITTLE_ENDIAN
+#cmakedefine NRDP_GPU_BIG_ENDIAN
+#cmakedefine NRDP_GPU_PDP_ENDIAN
+
+// defined if NrdLib was built with object count on
+#cmakedefine NRDP_HAS_OBJECTCOUNT
+
+// defined if NrdLib was built with tracing on
+#cmakedefine NRDP_HAS_TRACING
+
+// Thread scheduling type
+#define NRDP_SCHEDULER_TYPE @SCHEDULER_TYPE@
+
+// defined if NrdLib was built with embedded resources functionality
+#cmakedefine NRDP_HAS_COMPILED_RESOURCES
+
+// defined if able to use execinfo.h
+#cmakedefine NRDP_HAS_EXECINFO_H
+
+// defined if able to use PTHREAD_MUTEX_RECURSIVE
+#cmakedefine NRDP_HAS_RECURSIVE_MUTEX
+
+// defined if able to use __cxa_demangle
+#cmakedefine NRDP_HAS_CXA_DEMANGLE
+
+// defined if have syscall(SYS_gettid)
+#cmakedefine NRDP_HAS_GETTID
+
+// defined if have pthread_setname_np(const char *)
+#cmakedefine NRDP_HAS_PTHREAD_SETNAME_1
+
+// defined if have pthread_setname_np(pthread_t *, const char *)
+#cmakedefine NRDP_HAS_PTHREAD_SETNAME_2
+
+// defined if have pthread_setaffinity_np(pthread_t *, cpu_set)
+#cmakedefine NRDP_HAS_PTHREAD_SET_AFFINITY
+
+// defined if NrdLib was built with IPv6 support
+#cmakedefine NRDP_HAS_IPV6
+
+// defined if NrdLib was built performance profiling logging
+#cmakedefine NRDP_HAS_PROFILING_LOG
+
+// defined if NRDP was built with performance profiling markers
+#cmakedefine NRDP_HAS_PERFORMANCE_MARKERS
+
+// defined if able to use timegm()
+#cmakedefine NRDP_HAS_TIMEGM
+
+// defined if able to use struct tm.tm_gmtoff
+#cmakedefine NRDP_HAS_TM_GMTOFF
+
+// defined if able to use struct tm.tm_zone
+#cmakedefine NRDP_HAS_TM_ZONE
+
+// defined if NRDP was built with instrumentation
+#cmakedefine NRDP_HAS_INSTRUMENTATION
+
+// defined if NRDP was built with on instrumentation
+#cmakedefine NRDP_HAS_ON_INSTRUMENTATION
+
+// defined if NRDP was built with switched instrumentation
+#cmakedefine NRDP_HAS_SWITCHED_INSTRUMENTATION
+
+// defined if NRDP was built with test instrumentation
+#cmakedefine NRDP_HAS_TEST_INSTRUMENTATION
+
+// defined if NRDP was built with debug instrumentation
+#cmakedefine NRDP_HAS_DEBUG_INSTRUMENTATION
+
+// defined if the system supports atomic operations
+#cmakedefine NRDP_HAS_ATOMICS
+
+// defined to be platform path separator (i.e. '/' or '\\')
+#cmakedefine NRDP_PATH_SEPARATOR
+
+// defined if crash reporting is enabled
+#cmakedefine NRDP_CRASH_REPORTING_ENABLED
+
+// defined if NRDP was built with breakpad support
+#cmakedefine NRDP_CRASH_REPORTING_BREAKPAD
+
+// defined if NRDP was build with internal crash reporting
+#cmakedefine NRDP_CRASH_REPORTING_INTERNAL
+
+// defined if NRDP use MVC SPLIT mode
+#cmakedefine USE_MVC_SPLIT
+
+// defined if NRDP was built with socketizer support
+#cmakedefine NRDP_HAS_SOCKETIZER
+
+// defined if NRDP was built with C++ ASE
+#cmakedefine NRDP_ASE
+
+// defined if NRDP is allowed to exit
+#cmakedefine NRDP_EXIT
+
+
+#endif //NRDBASE_CONFIG_H

@@ -1,0 +1,17 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmndtmgr
+TARGETTYPE=LIBRARY
+
+SOURCES =                   \
+    ndtencrypt.c            \
+    ndtlicense.c            \
+    ndtmanager_internal.c   \
+    ndtnetmsg.c             \
+    ndtreg.c                \
+

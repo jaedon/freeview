@@ -1,0 +1,110 @@
+<?xml version="1.0" ?>
+<C2UBPXML>
+	<C2Information>
+		<date>
+			<year>2015</year>
+			<month>8</month>
+			<day>19</day>
+		</date>
+		<general>
+			<request_number>172640</request_number>
+			<partner_id>5444:Humax Co., Ltd.</partner_id>
+			<platform_id>16408:HGS-1000S</platform_id>
+			<operator_id>9161:Astra (APS-HD+)</operator_id>
+			<certificate>22922:DZS-003852</certificate>
+			<pibo_ref>D-3-B-APS-O178</pibo_ref>
+			<project_name_cvs>me_humax_XVI</project_name_cvs>
+			<release_version>1_0_1</release_version>
+			<product>CAK_ME</product>
+			<product_version>2_5_1</product_version>
+			<variant>std_cert</variant>
+			<buildtype>project.xml</buildtype>
+			<motivation>Update CAK library to ME7.7.</motivation>
+			<toolchainid>3686</toolchainid>
+			<toolchainos>Linux64</toolchainos>
+			<redelivery presence="false"/>
+			<client_name>katrina.fang@nagra.com</client_name>
+			<dte_name>kade.guo@nagra.com</dte_name>
+		</general>
+		<modules>
+			<cakapi version="1_24_0"/>
+			<cakops version="last"/>
+			<dalapi version="7_3_1"/>
+			<makefiles version="last"/>
+		</modules>
+		<makeby>
+			<acronym>SGM</acronym>
+		</makeby>
+	</C2Information>
+	<project name="me_humax_XVI" revision="1_0_1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../tools/makefiles/src/com/ubp/ubp.xsd">
+		<product name="cak_me" revision="2_5_1">
+			<variant name="std_cert">
+				<obfuscation activated="true"/>
+				<options>
+					<option name="chipcsadlist" presence="true" value="0x08000008, 0x0801000E, 0x08020005, 0x0803000F, 0x08040001, 0x08050007, 0x080600FE, 0x08070000, 0x08080000, 0x08090000, 0x080A0000, 0x080B0000, 0x080C0000, 0x080D0000, 0x080F0000"/>
+					<option name="chipsettype" presence="true" value="05 4525 9616"/>
+					<option name="iccinterfaceT0block" presence="false"/>
+					<option name="iccinterfaceT14block" presence="false"/>
+					<option name="iccinterfaceT1block" presence="true"/>
+					<option name="keyladderlvl1" presence="true"/>
+					<option name="multiroom" presence="false"/>
+					<option name="stbcertificationoverloaded" presence="false"/>
+					<option name="swapcw" presence="false"/>
+					<option name="endianlittle" presence="true"/>
+					<option name="targetid" presence="true" value="00"/>
+				</options>
+				<library_types>
+					<library_type name="debug" presence="true"/>
+					<library_type name="release" presence="true"/>
+				</library_types>
+				<keysets>
+					<keyset name="DOL" presence="true">
+						<file path="./components/cakops/src/com/operators/aps-hd.xml" type="legacy"/>
+					</keyset>
+					<keyset name="NAK" presence="true">
+						<file path="./components/cakops/src/com/operators/cso_test.xml" type="legacy"/>
+					</keyset>
+				</keysets>
+			</variant>
+		</product>
+		<toolchains>
+			<toolchain directory="humax" name="arm-linux-gnueabihf-gcc" version="4.8-1.0">
+				<compiler_flags>
+					<flag>-O2</flag>
+					<flag>-pipe</flag>
+					<flag>-marm</flag>
+					<flag>-march=armv7-a</flag>
+					<flag>-fdata-sections</flag>
+					<flag>-ffunction-sections</flag>
+					<flag>-fno-strict-aliasing</flag>
+					<flag>-fstack-protector-all</flag>
+					<flag>-Wall</flag>
+					<flag>-Wno-unused-value</flag>
+					<flag>-Wno-unused-function</flag>
+					<flag>-Wstrict-prototypes</flag>
+					<flag>-Wno-strict-aliasing</flag>
+					<flag>-Wdeclaration-after-statement</flag>
+					<flag>-Wno-pointer-sign</flag>
+				</compiler_flags>
+				<compiler_defines>
+					<define>_FILE_OFFSET_BITS=64</define>
+					<define>_LARGEFILE_SOURCE</define>
+					<define>_LARGEFILE64_SOURCE</define>
+					<define>BSTD_CPU_ENDIAN_LITTLE</define>
+					<define>LINUX</define>
+				</compiler_defines>
+				<toolarchive location="T:\humax/stbgcc-4.8-1.0" type="directory"/>
+				<tooldir>
+					<folder>stbgcc-4.8-1.0</folder>
+				</tooldir>
+				<binsubdir>
+					<folder>bin</folder>
+				</binsubdir>
+			</toolchain>
+		</toolchains>
+		<archiver archive_file="nagra_me_humax_XVI_1_0_1" name="winzip"/>
+		<targets>
+			<target name="cak_me"/>
+		</targets>
+	</project>
+</C2UBPXML>

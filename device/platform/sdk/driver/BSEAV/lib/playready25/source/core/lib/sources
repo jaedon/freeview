@@ -1,0 +1,30 @@
+!include ..\..\drmbuild.cmn
+
+TARGETNAME=drmcore
+TARGETTYPE=LIBRARY
+
+C_DEFINES= $(C_DEFINES)             \
+    -DDRM_BUILDING_DRMCORE_LIB      \
+
+SOURCES =                         \
+    ..\drmchain.c                 \
+    ..\drmcleanstore.c            \
+    ..\drmdebug.c                 \
+    ..\drmembedding.c             \
+    ..\drmhdrbuilder.c            \
+    ..\drmkeygen.c                \
+    ..\drmlicacqresp.c            \
+    ..\drmliceval.c               \
+    ..\drmrevocation.c            \
+    ..\drmint64.c                 \
+    ..\drmrevocationstore.c       \
+    ..\drmsoapxmlutility.c        \
+    ..\drmlicacqv3.c              \
+    ..\drmbcrlparser.c            \
+    ..\drmmathsafe.c              
+
+!if "$(DRM_BUILD_PLATFORM)" != "XBOX"
+OBJLIBFILES =                                  \
+    $(DRM_PK_SOURCE_LIB_PATH)\drmconstants.lib
+!endif
+

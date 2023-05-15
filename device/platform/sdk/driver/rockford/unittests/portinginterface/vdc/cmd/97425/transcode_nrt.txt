@@ -1,0 +1,20 @@
+custom c2 ovc 2 6 0 1 cf 2 bg ff 14 93 dbg 35 1 BVDC_MCVP 99 
+x1 m2 os 0 0 msf 22 mdf 22 ow pb de /data/videos/cnnticker.mpg 21 21 0 1 
+dnr 30 2 80 2 90 2 70
+mad 1 1 1 0 0 1 18 
+c3 oc 3 5 0 1 cf 2 x1 ch 1 och 0 0 dmn 1 m1 os msf 22 mdf 22 ow set_bw 1000000 2 
+de /data/videos/cnnticker.mpg 21 21 0 1 
+dnr 30 2 80 2 90 2 70
+mad 1 1 1 0 0 1 18 
+bvncb 
+c3 cf 1 break 3 
+c3 cf 2 break 3 
+c3 cf 1 break 3 
+c2 cf 1 break 3
+c2 cf 2 break 3 
+c2 cf 1 break 3
+break 30
+bvncb 
+sleep pb 
+c3 cw 
+c2 cw cs cd q

@@ -1,0 +1,95 @@
+1440:DRT:P0:correct UTF-8 data, read the whole file - ASCII plus 3 bytes of UTF-8 standard header
+TestDRM_UTF8_VerifyBytes(utf8_1.txt,0,0,0)
+
+1441:DRT:P0:correct UTF-8 data, skip UTF-8 standard header and read ASCII till the end of file
+TestDRM_UTF8_VerifyBytes(utf8_1.txt,0,3,0)
+
+1442:DRT:P0:correct UTF-8 data, read only 3 bytes of UTF-8 standard header
+TestDRM_UTF8_VerifyBytes(utf8_1.txt,0,0,2)
+
+1443:DRT:P0:correct UTF-8 data, mixture of ASCII and multibyte
+TestDRM_UTF8_VerifyBytes(utf8_2.txt,0,0,0)
+
+1444:DRT:P0:correct UTF-8 data, start from the middle of multibyte character and expect error
+TestDRM_UTF8_VerifyBytes(utf8_1.txt,0,1,0)=0X8004CA01 DRM_E_UTF_INVALID_CODE
+
+1445:DRT:P0:correct UTF-8 data, stop reading in the middle of multibyte character and expect error
+TestDRM_UTF8_VerifyBytes(utf8_1.txt,5,0,1)=0X8004CA00 DRM_E_UTF_UNEXPECTED_END
+
+1446:DRT:P0:bad data file and expect error
+TestDRM_UTF8_VerifyBytes(utf8_3.txt,14,0,13)=0X8004CA01 DRM_E_UTF_INVALID_CODE
+
+1447:DRT:P0:three bytes that map into a code from invalid unicode range, expect error
+TestDRM_UTF8_VerifyBytes(utf8_3.txt,14,2,4)=0X8004CA01 DRM_E_UTF_INVALID_CODE
+
+1448:DRT:P0:four bytes that map into a code that must instead be presented in three bytes, expect error
+TestDRM_UTF8_VerifyBytes(utf8_3.txt,14,5,8)=0X8004CA01 DRM_E_UTF_INVALID_CODE
+
+1449:DRT:P0:four bytes that map into a code bigger then maximum unicode, expect error
+TestDRM_UTF8_VerifyBytes(utf8_3.txt,14,10,13)=0X8004CA01 DRM_E_UTF_INVALID_CODE
+
+1501:DRT:P0:Round trip for correct UTF-8 sequences
+TestDRM_UTF_RoundtripForSymbolUTF8(0xC2AC0000)
+TestDRM_UTF_RoundtripForSymbolUTF8(0xDFB20000)
+TestDRM_UTF_RoundtripForSymbolUTF8(0xE0A18100)
+TestDRM_UTF_RoundtripForSymbolUTF8(0xE1AC9000)
+TestDRM_UTF_RoundtripForSymbolUTF8(0xF093B2A1)
+TestDRM_UTF_RoundtripForSymbolUTF8(0xF3889BAD)
+TestDRM_UTF_RoundtripForSymbolUTF8(0xF482898F)
+
+1502:DRT:P0:Round trip attempt for incorrect UTF-8 sequences
+TestDRM_UTF_RoundtripForSymbolUTF8(0x82000000)=0X8004CA01 DRM_E_UTF_INVALID_CODE
+TestDRM_UTF_RoundtripForSymbolUTF8(0xF8AC0000)=0X8004CA01 DRM_E_UTF_INVALID_CODE
+TestDRM_UTF_RoundtripForSymbolUTF8(0xE1FCFF00)=0X8004CA01 DRM_E_UTF_INVALID_CODE
+TestDRM_UTF_RoundtripForSymbolUTF8(0xC2FC0000)=0X8004CA01 DRM_E_UTF_INVALID_CODE
+TestDRM_UTF_RoundtripForSymbolUTF8(0xE1C28100)=0X8004CA01 DRM_E_UTF_INVALID_CODE
+TestDRM_UTF_RoundtripForSymbolUTF8(0xC2C10000)=0X8004CA01 DRM_E_UTF_INVALID_CODE
+TestDRM_UTF_RoundtripForSymbolUTF8(0xC0AF0000)=0X8004CA01 DRM_E_UTF_INVALID_CODE
+TestDRM_UTF_RoundtripForSymbolUTF8(0xE09F8000)=0X8004CA01 DRM_E_UTF_INVALID_CODE
+TestDRM_UTF_RoundtripForSymbolUTF8(0xF093B2C1)=0X8004CA01 DRM_E_UTF_INVALID_CODE
+
+1503:DRT:P0:Round trip for ranges of UTF-32 symbols
+TestDRM_UTF_RoundtripForSymbolUTF32(0x00000001, 0x0000D7FF, 0)
+TestDRM_UTF_RoundtripForSymbolUTF32(0x0000D800, 0x0000DFFF, 0X8004CA01 DRM_E_UTF_INVALID_CODE)
+TestDRM_UTF_RoundtripForSymbolUTF32(0x0000E000, 0x0010FFFF, 0)
+TestDRM_UTF_RoundtripForSymbolUTF32(0x00110000, 0x00110000, 0X8004CA01 DRM_E_UTF_INVALID_CODE)
+
+1504:BVT:P0:Test round trip conversion of the file: UTF8->UTF16->UTF32->UTF16->UTF8
+TestDRM_UTF_FileUTF8toUTF16("data", "utf8_1.txt", ".\\data\\utf16_1_temp.txt")
+TestDRM_UTF_FileUTF16toUTF32("data", "utf16_1_temp.txt", ".\\data\\utf32_1_temp.txt")
+TestDRM_UTF_FileUTF32toUTF16("data", "utf32_1_temp.txt", ".\\data\\utf16_1_temp2.txt")
+BinaryCompareFiles("data", "utf16_1_temp.txt", "data", "utf16_1_temp2.txt" )
+TestDRM_UTF_FileUTF16toUTF8("data", "utf16_1_temp2.txt", ".\\data\\utf8_1_temp.txt")
+BinaryCompareFiles("data", "utf8_1.txt", "data", "utf8_1_temp.txt" )
+
+1505:BVT:P0:Test conversion of the file: UTF16le->UTF8->UTF16le->UTF32->UTF16le
+TestDRM_UTF_FileUTF16toUTF8("data", "utf16le.txt", ".\\data\\utf16le_temp1.txt")
+TestDRM_UTF_FileUTF8toUTF16("data", "utf16le_temp1.txt", ".\\data\\utf16le_temp2.txt")
+BinaryCompareFiles("data", "utf16le.txt", "data", "utf16le_temp2.txt" )
+TestDRM_UTF_FileUTF16toUTF32("data", "utf16le.txt", ".\\data\\utf16le_temp1.txt")
+TestDRM_UTF_FileUTF32toUTF16("data", "utf16le_temp1.txt", ".\\data\\utf16le_temp2.txt")
+BinaryCompareFiles("data", "utf16le.txt", "data", "utf16le_temp2.txt" )
+
+1506:DRT:P0:Test conversion for invalid UTF files
+TestDRM_UTF_FileUTF8toUTF16("data", "utf8_invalid1.txt", ".\\data\\temp.txt")=0X8004CA01 (DRM_E_UTF_INVALID_CODE)
+TestDRM_UTF_FileUTF8toUTF16("data", "utf8_invalid2.txt", ".\\data\\temp.txt")=0X8004CA00 (DRM_E_UTF_UNEXPECTED_END)
+TestDRM_UTF_FileUTF8toUTF16("data", "utf8_3.txt", ".\\data\\temp.txt")=0X8004CA01 (DRM_E_UTF_INVALID_CODE)
+TestDRM_UTF_FileUTF8toUTF16("data", "utf8_invalid3.txt", ".\\data\\temp.txt")=0X8004CA01 (DRM_E_UTF_INVALID_CODE)
+TestDRM_UTF_FileUTF8toUTF16("data", "utf8_invalid4.txt", ".\\data\\temp.txt")=0X8004CA01 (DRM_E_UTF_INVALID_CODE)
+TestDRM_UTF_FileUTF8toUTF16("data", "utf8_invalid5.txt", ".\\data\\temp.txt")=0X8004CA01 (DRM_E_UTF_INVALID_CODE)
+TestDRM_UTF_FileUTF16toUTF32("data", "utf16_nolowsurrogate.txt", ".\\data\\temp.txt")=0X8004CA01 (DRM_E_UTF_INVALID_CODE)
+TestDRM_UTF_FileUTF16toUTF32("data", "utf16_unexpectedend.txt", ".\\data\\temp.txt")=0X8004CA00 (DRM_E_UTF_UNEXPECTED_END)
+TestDRM_UTF_FileUTF16toUTF32("data", "utf16_lowsurrogate.txt", ".\\data\\temp.txt")=0X8004CA01 (DRM_E_UTF_INVALID_CODE)
+TestDRM_UTF_FileUTF32toUTF16("data", "utf32_utf16surrogate.txt", ".\\data\\temp.txt")=0X8004CA01 (DRM_E_UTF_INVALID_CODE)
+TestDRM_UTF_FileUTF32toUTF16("data", "utf32_invalidcode.txt", ".\\data\\temp.txt")=0X8004CA01 (DRM_E_UTF_INVALID_CODE)
+
+1507:DRT:P0:Test conversion from ASCII to UTF-16 and back in-place
+TestDRM_UTF_FileASCIItoUTF16("data", "ascii_data1.txt", ".\\data\\temp.txt")
+TestDRM_UTF_FileUTF16toASCII("data", "temp.txt", ".\\data\\temp_ascii.txt")
+BinaryCompareFiles("data", "ascii_data1.txt", "data", "temp_ascii.txt" )
+
+1508:DRT:P0:Test conversion from UTF-16 (ascii range) to ASCII and back in-place
+TestDRM_UTF_FileUTF16toASCII("data", "ascii_data2.txt", ".\\data\\temp_ascii.txt")
+TestDRM_UTF_FileASCIItoUTF16("data", "temp_ascii.txt", ".\\data\\temp.txt")
+BinaryCompareFiles("data", "ascii_data2.txt", "data", "temp.txt" )
+

@@ -1,0 +1,10 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=LIBRARY
+TARGETNAME=ConsoleNDR
+
+SOURCES = \
+        ..\testNDR.c \
+
+TARGETLIBS = $(_DRM_REFCODE_LIBS) \
+             $(_DRM_TC_LIBS)

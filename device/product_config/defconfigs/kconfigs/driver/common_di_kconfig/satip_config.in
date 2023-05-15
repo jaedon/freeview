@@ -1,0 +1,14 @@
+##########################################
+# DI SAT>IP configuration menu
+##########################################
+
+config SATIP
+	bool
+	prompt "SATIP"
+	default n
+
+		config MAX_SATIP_CHANNEL
+			int
+			default 2
+			prompt "MAX_SATIP_CHANNEL"
+			depends on SATIP

@@ -1,0 +1,45 @@
+<RightsPool>
+
+<!-- ============================================================== -->
+<!-- ======================= LIVETV LICENSES ====================== -->
+<!-- ============================================================== -->
+
+<!-- ======================= SIMPLE LICENSES ====================== -->
+  <LicenseRights
+    Type="SIMPLE"
+    TestCaseID="Simple license with 30s RemovalDate"
+    AllowPlay="TRUE"
+    KID="OWjhtr3u9k+rdo1ILY0rag=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+  >
+  </LicenseRights>
+
+<!-- ====================== ROOT/LEAF PAIR(S) ===================== -->
+  <LicenseRights
+    Type="ROOT"
+    TestCaseID="PAIR A - Root with 1 location and 30s RemovalDate"
+    AllowPlay="TRUE"
+    KID="xO9Hj8pjP+uL05xlk2iOvA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+    RemovalDate="30s"
+  >
+    <AuxKey number_of_entries="1">
+    </AuxKey>
+  </LicenseRights>
+  
+  <LicenseRights
+    Type="Leaf"
+    TestCaseID="PAIR A - Permanent Leaf 0"
+    AllowPlay="TRUE"
+    KID="OWjhtr3u9k+rdo1ILY0rag=="
+    UplinkKIDs="xO9Hj8pjP+uL05xlk2iOvA=="
+    ServerSeed="XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I"
+  >
+    <UplinkX number_of_entries="1">
+      <AuxKeyEntry index="0" location="0"/>
+    </UplinkX>
+  </LicenseRights>
+
+</RightsPool>
+

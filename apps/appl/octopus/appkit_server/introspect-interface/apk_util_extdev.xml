@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Util/Extdev">   
+    <interface name="Octopus.Appkit.Util.Extdev">
+
+    <method name="MIC_Start">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="MIC_Stop">
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="MIC_SetVolume">
+    	<arg type="i" name="value" direction="in" />
+    		<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="MIC_GetVolume">
+    	<arg type="i" name="value" direction="out" />
+    		<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <method name="MIC_GetCount">
+    	<arg type="i" name="value" direction="out" />
+    		<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+
+    <signal name="event">
+      <arg type="u" name="type" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+
+  </interface>
+</node>

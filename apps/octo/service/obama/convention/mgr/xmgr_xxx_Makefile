@@ -1,0 +1,7 @@
+#obj-y += xmgr_xxx.o
+#obj-y += pmgr_xxx.o
+
+# Basic include path
+include $(OCTO_PLUGIN_INCLUDE_DIR)/Makefile.include.xmgr
+
+# Additional include path

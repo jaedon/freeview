@@ -1,0 +1,10 @@
+obj-y += common/
+obj-$(CONFIG_HOMMA_USERCP) += usercp/
+obj-$(CONFIG_HOMMA_DMP) += dmp/
+obj-$(CONFIG_HOMMA_DMR) += dmr/
+obj-$(CONFIG_HOMMA_DMS) += dms/
+obj-$(CONFIG_HOMMA_DIAL) += dial/
+obj-$(CONFIG_HOMMA_SATIP) += satip/
+obj-$(CONFIG_HOMMA_WOON) += woon/
+obj-$(CONFIG_HOMMA_AIRPLAY) += airplay/
+obj-$(CONFIG_HOMMA_RC) += rc/

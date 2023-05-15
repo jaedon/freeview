@@ -1,0 +1,20 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=oemhaloemimpl_test
+TARGETTYPE=LIBRARY
+
+C_DEFINES += -DDRM_TEST_EXPOSE_TEST_FUNCTIONS=1 -DPLAYREADY_TEST -DDRM_TEST_USE_OFFSET_CLOCK
+_DRM_C_DEFINES += DRM_TEST_EXPOSE_TEST_FUNCTIONS=1 -DPLAYREADY_TEST -DDRM_TEST_USE_OFFSET_CLOCK
+
+# -fpermissive == Downgrade some diagnostics about nonconformant code from errors to warnings. Thus, using -fpermissive will allow some nonconforming code to compile.
+CFLAGS += -fpermissive
+
+
+SOURCES =                \
+    oemhaloemimpl.c      \
+

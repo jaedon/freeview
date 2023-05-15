@@ -1,0 +1,173 @@
+############################################################
+#     Copyright (c) 2003-2012, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: auto_unittests_97208.txt $
+# $brcm_Revision: Hydra_Software_Devel/16 $
+# $brcm_Date: 9/24/12 1:16p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /rockford/unittests/nexus/common/auto_unittests_97208.txt $
+# 
+# Hydra_Software_Devel/16   9/24/12 1:16p randyjew
+# SWCHECKFRAME-80:  Use same parameters for multiprocess tests as used on
+# 7435 and 7425.
+# 
+# Hydra_Software_Devel/15   7/4/12 10:59a randyjew
+# SWCHECKFRAME-80: Add Multiprocess tests and sync to larger  number of
+# test
+# 
+# Hydra_Software_Devel/14   10/7/11 10:31a randyjew
+# SWCHECKFRAME-80:Remove codec mismatch
+# 
+# Hydra_Software_Devel/13   3/2/11 10:02a randyjew
+# SWCHECKFRAME-80: Add trick stress test
+# 
+# Hydra_Software_Devel/12   1/27/11 2:58p randyjew
+# SWCHECKFRAME-80: add back dataready test
+# 
+# Hydra_Software_Devel/11   1/26/11 4:07p randyjew
+# SWCHECKFRAME-80:Temporaily disable dataready test
+# 
+# Hydra_Software_Devel/10   11/9/10 2:24p randyjew
+# SW7125-716: Add back tests
+# 
+# Hydra_Software_Devel/9   11/5/10 5:28p jrubio
+# SW7125-716: Remove recovery overflow
+# 
+# Hydra_Software_Devel/8   11/4/10 3:50p jrubio
+# SW7335-917:  remove unsupported tests from Autotest
+# 
+# Hydra_Software_Devel/7   11/4/10 11:48a jrubio
+# SW7335-917:  remove unsupported tests from Autotest
+# 
+# Hydra_Software_Devel/6   10/26/10 8:53a slauzon
+# SWCHECKFRAME-80: disabled mosaic tests as they are not supported on
+# this platform
+# 
+# Hydra_Software_Devel/5   10/22/10 4:30p slauzon
+# SWCHECKFRAME-80: added new tests
+# 
+# Hydra_Software_Devel/4   10/21/10 4:41p slauzon
+# SWCHECKFRAME-80: enabled streamer tests
+# 
+# Hydra_Software_Devel/3   9/10/10 8:06p slauzon
+# SW7125-480: commented out playback_trick_loop test.  Temporary measure
+# until SW7125-480 is resolved
+# 
+# Hydra_Software_Devel/2   8/16/10 5:06p slauzon
+# SWCHECKFRAME-80: added new graphics2d tests
+# 
+# 
+############################################################
+
+unittests/audio/codec_test
+unittests/display/capture_buffer
+unittests/display/digital_cc_capture
+unittests/display/display_crc
+unittests/display/display_vbi
+unittests/display/display_vbi_stress  -disable_cgmsb
+unittests/display/graphics_stress
+unittests/display/heaps
+unittests/display/open
+unittests/display/outputs
+unittests/display/pip_swap
+unittests/display/pq
+unittests/display/resize_window
+unittests/display/synclock_master
+unittests/display/video_input_shutdown
+unittests/dma/dma_api_usage
+unittests/dma/dma_bulk
+unittests/dma/dma_callbacks
+unittests/dma/dma_chain
+unittests/dma/dma_crypto
+unittests/dma/dma_mixedmode
+unittests/dma/dma_mixedmode_stress
+unittests/file/playback_with_cancel
+unittests/file/timeshift_jump
+unittests/frontend/tune_untune
+unittests/general/alloc
+unittests/general/boot
+unittests/general/memory
+unittests/general/sleep
+unittests/general/watchdog
+unittests/graphics2d/blit
+unittests/graphics2d/blit_performance
+unittests/graphics2d/blit_stress
+unittests/graphics2d/checkpoint_stress
+unittests/graphics2d/dualcontext_multithreaded_fill
+unittests/graphics2d/fillrate
+unittests/graphics2d/multithreaded_fill
+unittests/graphics2d/packet_and_function
+unittests/graphics2d/packet_blit_stress
+unittests/graphics2d/palette_blit2
+unittests/graphics2d/premultiply_alpha1
+unittests/graphics2d/premultiply_alpha2
+unittests/open_tests/display_video_decoder
+unittests/playback/audio_switch
+#unittests/playback/codec_mismatch
+unittests/playback/create_destroy
+unittests/playback/dqt_trick
+unittests/playback/frameadvance_stress
+unittests/playback/playback_list
+unittests/playback/playback_openpidchannel
+unittests/playback/playback_stctrick
+unittests/playback/playback_stop_start
+unittests/playback/playback_trick_loop
+unittests/playback/seek
+unittests/playback/start_stop
+unittests/playback/trick_stress
+unittests/record/allpass_record_from_playback
+unittests/record/multiple_index_only_records
+unittests/record/record2
+unittests/record/record3
+unittests/record/record_append_from_playpump
+unittests/record/record_overflow_recovery
+unittests/record/record_play
+unittests/record/record_stress_test
+unittests/record/record_stress_test2
+unittests/record/record_with_timestamps
+unittests/record/recpump_overflow_recovery
+unittests/surface/open
+unittests/surface/palette
+unittests/surface_compositor/client_flavors
+unittests/surface_compositor/multibuffered_stress
+unittests/surface_compositor/setsurface_stress
+#unittests/transport/message_dss
+unittests/transport/message_stress1
+unittests/transport/message_stress2
+unittests/transport/message_stress3
+unittests/transport/message_stress4
+unittests/transport/open
+unittests/transport/packetsub1
+unittests/transport/playpump_cc_test
+unittests/transport/recpump
+unittests/transport/set_stc
+unittests/transport/timebase
+unittests/transport/tpit
+unittests/video_decoder/callbacks
+unittests/video_decoder/channel_change
+unittests/video_decoder/codec_test
+unittests/video_decoder/dataready
+unittests/video_decoder/decoder_trick
+#unittests/video_decoder/mosaic_decode
+#unittests/video_decoder/mosaic_playback_zorder_list
+unittests/video_decoder/open
+unittests/video_decoder/userdata_capture
+
+#Multi-process tests
+rockford/unittests/nexus/multiprocess/bad_join
+rockford/unittests/nexus/multiprocess/simple_server -mode protected -timeout 120 | 60 | rockford/unittests/nexus/multiprocess/ir_input_client
+rockford/unittests/nexus/multiprocess/simple_server -mode untrusted -timeout 120 | 60 | rockford/unittests/nexus/multiprocess/simple_client
+rockford/unittests/nexus/multiprocess/simple_server -mode untrusted -timeout 120 | 60 | rockford/unittests/nexus/multiprocess/untrusted_client
+#nexus/examples/multiprocess/decode_server -timeout 120 | 60 | rockford/unittests/nexus/multiprocess/playpump_scatter_gather_client
+rockford/unittests/nexus/multiprocess/stress_server join_stress_client
+rockford/unittests/nexus/multiprocess/stress_server alloc_stress_client

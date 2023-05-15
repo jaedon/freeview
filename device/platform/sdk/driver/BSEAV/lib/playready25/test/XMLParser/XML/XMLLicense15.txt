@@ -1,0 +1,1 @@
+<root><node1 atr1="oneone" atr2="onetwo">node1<node2>node2</node2></node1><node3 atr1="threeone" atr2="threetwo">node3</node3></root>

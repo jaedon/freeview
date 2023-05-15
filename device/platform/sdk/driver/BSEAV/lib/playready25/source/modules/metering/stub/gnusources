@@ -1,0 +1,16 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmmeteringstub
+TARGETTYPE=LIBRARY
+
+SOURCES =                         \
+    drmmeterapistub.c             \
+    drmmetercertstorestub.c       \
+    drmmeterimpstub.c             \
+    meteringutilstub.c
+

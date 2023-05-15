@@ -1,0 +1,15 @@
+prndformattest.pk.txt
+prndnoassettxtest.pk.txt
+prndprotocoltest.pk.txt
+prndtoplevelapitest.pk.txt
+RebindingLicenses.xml
+prndprotocoltest_internal.pk.txt
+$(_DRM_REFCODE_TEST_FILES)\..\LiveTV\LiveTVLicenses.xml
+$(_DRM_REFCODE_TEST_FILES)\..\DrmManager\files\DomainCertChainForEmbeddingTest.dat
+$(_DRM_OEM_FILES)\revpackage.xml
+$(_DRM_OEM_FILES)\devcerttemplate.dat
+$(_DRM_OEM_FILES)\priv.dat
+$(_DRM_OEM_FILES)\bgroupcert.dat
+$(_DRM_OEM_FILES)\zgpriv.dat
+$(_DRM_REFCODE_TEST_FILES)\..\..\pregenerated\certs\PK2.0RTM\bdevcert_2.0.dat
+$(_DRM_TOOLS_FILES)\prndnoassettx.exe

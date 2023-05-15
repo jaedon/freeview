@@ -1,0 +1,101 @@
+<?xml version="1.0" ?>
+<!-- ref. http://dbus.freedesktop.org/doc/dbus-specification.html -->
+<node name="/Octopus/Appkit/Meta/Record">   
+    <interface name="Octopus.Appkit.Meta.Record">
+
+    <!-- BASE -->
+    <method name="GetCID">
+        <arg type="s" name="url" direction="in" />
+    	<arg type="u" name="cid" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>
+  
+    <method name="Count">
+    	<arg type="u" name="count" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                                                            
+                                                                                                                                                                                                                      
+    <method name="GetByIdx">
+        <arg type="u" name="index" direction="in" />
+    	<arg type="(usssuuuuuu)" name="recData" direction="out" />
+      	<annotation name="org.freedesktop.DBus.Method.NoReply" value="error"/>
+    </method>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+
+    <method name="GetByCID">
+        <arg type="u" name="cid" direction="in" />
+        <arg type="(usssuuuuuu)" name="recData" direction="out" />
+    </method>    
+
+    <method name="GetContentsIdByUrl">
+        <arg type="s" name="url" direction="in" />
+        <arg type="u" name="cid" direction="out" />
+    </method>    
+
+    <method name="Release">
+        <arg type="(usssuuuuuu)" name="recData" direction="in" />
+    </method>    
+
+    <method name="GetItems">
+        <arg type="b" name="direct" direction="in" />
+    </method>    
+
+    <method name="Move">
+        <arg type="u" name="cid" direction="in" />
+        <arg type="s" name="path" direction="in" />
+        <arg type="b" name="isDecrypt" direction="in" />
+        <arg type="u" name="token" direction="out" />
+    </method>    
+
+    <method name="CancelFileOperation">
+        <arg type="u" name="cid" direction="in" />
+    </method>    
+
+    <method name="Scan">
+        <arg type="s" name="url" direction="in" />
+    </method>    
+<!-- 
+    <method name="Lock">      
+    </method>    
+
+    <method name="SetSeriesLock">        
+    </method>    
+
+    <method name="Rename">        
+    </method>    
+
+    <method name="Update">        
+    </method>    
+
+    <method name="StopRecording">       
+    </method>    
+-->
+
+    <method name="Copy">
+        <arg type="u" name="cid" direction="in" />
+        <arg type="s" name="path" direction="in" />
+        <arg type="b" name="decrypt" direction="in" />
+    </method>    
+<!-- 
+    <method name="Delete">
+    </method>    
+
+    <method name="AddBookmark">
+    </method>    
+-->    
+    <method name="Cancel">
+    </method>    
+
+    <method name="Clear">       
+    </method>    
+
+    <signal name="event">
+      <arg type="u" name="msgInt" direction="in"/>
+      <arg type="s" name="msgStr" direction="in"/>
+      <arg type="u" name="param1" direction="in"/>
+      <arg type="u" name="param2" direction="in"/>
+      <arg type="u" name="param3" direction="in"/>
+    </signal>
+
+
+  </interface>
+</node>

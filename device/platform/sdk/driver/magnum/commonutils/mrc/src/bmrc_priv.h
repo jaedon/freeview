@@ -1,0 +1,920 @@
+/***************************************************************************
+ *     Copyright (c) 2003-2012, Broadcom Corporation
+ *     All Rights Reserved
+ *     Confidential Property of Broadcom Corporation
+ *
+ *  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+ *  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+ *  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+ *
+ * $brcm_Workfile: bmrc_priv.h $
+ * $brcm_Revision: Hydra_Software_Devel/44 $
+ * $brcm_Date: 10/15/12 6:23p $
+ *
+ * Module Description:
+ *
+ * Revision History:
+ *
+ * $brcm_Log: /magnum/commonutils/mrc/src/bmrc_priv.h $
+ * 
+ * Hydra_Software_Devel/44   10/15/12 6:23p albertl
+ * SW7445-54: Updated client max of 7445 to 256.
+ * 
+ * Hydra_Software_Devel/43   9/11/12 1:35p albertl
+ * SW7435-10: Fixed broken builds for MEMC_GEN with only one MEMC.
+ * 
+ * Hydra_Software_Devel/42   9/11/12 2:13a albertl
+ * SW7435-10: Fixed 8 ARC support.
+ * 
+ * Hydra_Software_Devel/41   9/10/12 4:36p albertl
+ * SW7435-10: Rolled back 7435 8 checker support.
+ * 
+ * Hydra_Software_Devel/40   9/7/12 1:29p albertl
+ * SW7445-10: Changed 7435 to support 8 checkers.
+ * 
+ * Hydra_Software_Devel/39   8/14/12 3:57p albertl
+ * SW7445-10: Added MRC support for 7445.
+ * 
+ * Hydra_Software_Devel/38   7/6/12 5:41p albertl
+ * SW7563-6: Added initial support for 7563.
+ * 
+ * Hydra_Software_Devel/37   5/3/12 4:40p albertl
+ * SW7584-24: Moved BMRC_P_CLIENTS_MAX in 7038 to match other chips.
+ * 
+ * Hydra_Software_Devel/36   5/3/12 4:37p albertl
+ * SW7584-24: Fixed spacing for configurations.
+ * 
+ * Hydra_Software_Devel/35   5/3/12 4:32p albertl
+ * SW7584-24: Corrected checker counts.
+ * 
+ * Hydra_Software_Devel/34   5/3/12 3:27p albertl
+ * SW7584-24: Added support for 7584.
+ * 
+ * Hydra_Software_Devel/33   12/16/11 7:40p bselva
+ * SW7360-6: Added appframework support for 7360 platform
+ * 
+ * Hydra_Software_Devel/33   12/16/11 7:31p bselva
+ * SW7360-6: Added appframework support for 7360 platform
+ * 
+ * Hydra_Software_Devel/33   12/16/11 7:29p bselva
+ * SW7360-6: Added appframework support for 7360 platform
+ * 
+ * Hydra_Software_Devel/32   11/2/11 6:11p albertl
+ * SW7435-21: Added 7435 support to MRC.
+ * 
+ * Hydra_Software_Devel/31   10/3/11 1:53p katrep
+ * SW7429-1:updated for chip bringup
+ * 
+ * Hydra_Software_Devel/30   7/12/11 3:55p albertl
+ * SWDTV-7785: Added 35233 B0 compatibility.
+ * 
+ * Hydra_Software_Devel/29   3/23/11 4:44p albertl
+ * SWDTV-5969: Updated MRC to be compatible with 35233 a0.
+ * 
+ * Hydra_Software_Devel/28   1/5/11 8:16p albertl
+ * SW7422-106, SW7422-168 : Fixed MRC bugs pertaining to handling multiple
+ * MEMCs and rewrote portions of BMRC_Monitor logic.  Client masks now
+ * stored to match hardware.
+ * 
+ * Hydra_Software_Devel/27   12/9/10 9:08p albertl
+ * SWBLURAY-23579: Fix issues with renamed memory controller.
+ * 
+ * Hydra_Software_Devel/26   12/3/10 10:05p albertl
+ * SWBLURAY-23672: Added MRC support to 7640.
+ * 
+ * Hydra_Software_Devel/25   11/15/10 4:35p albertl
+ * SW7231-2:  Changed number of memc to 1 for 7231, 7344, and 7346.
+ * 
+ * Hydra_Software_Devel/24   11/15/10 3:51p albertl
+ * SW35125-23: Added 35125 support to MRC.
+ * 
+ * Hydra_Software_Devel/23   9/15/10 6:43p albertl
+ * SW7358-9: Added initial support for 7135 in MRC.
+ * 
+ * Hydra_Software_Devel/22   9/13/10 2:38p albertl
+ * SW7358-9: Added support for 7346 in MRC.
+ * 
+ * Hydra_Software_Devel/21   8/30/10 4:52p albertl
+ * SW7358-9: Add support for 7358 in MRC.
+ * 
+ * Hydra_Software_Devel/20   8/27/10 6:43p albertl
+ * SW7125-27: Updated for 7425.
+ * 
+ * Hydra_Software_Devel/19   6/29/10 8:33p albertl
+ * SW7422-15: Added 7422 back in.
+ * 
+ * Hydra_Software_Devel/18   6/25/10 5:06p pntruong
+ * SW7422-15: Rolled back support for 7422 for further review.
+ * 
+ * Hydra_Software_Devel/16   11/20/09 6:05p albertl
+ * SW7468-28: Added 7468 support to MRC.
+ * 
+ * Hydra_Software_Devel/15   11/20/09 1:23p albertl
+ * SW7408-24: Added 7408 support.
+ * 
+ * Hydra_Software_Devel/14   9/14/09 7:40p albertl
+ * SW7630-7: Added 7630 support.
+ * 
+ * Hydra_Software_Devel/13   9/10/09 6:32p jhaberf
+ * SW35230-1: Creating 35230 DTV chip build environment
+ * 
+ * Hydra_Software_Devel/12   8/25/09 7:44p albertl
+ * SW7125-10: Initial 7125 support.
+ * 
+ * Hydra_Software_Devel/11   7/10/09 4:23p albertl
+ * PR55875: Changed 35130 to use MEMC_GEN.
+ * 
+ * Hydra_Software_Devel/10   6/16/09 6:58p albertl
+ * PR55764: Fixed build error for 7340.
+ * 
+ * Hydra_Software_Devel/9   6/16/09 6:21p albertl
+ * PR55764, PR55875, PR55993: Refactored MRC to keep chip specific
+ * definitions in bmrc_priv.h and for maintainability.  Updated support
+ * for 7420 b0, 7430, 35130, and 7550.
+ * 
+ * Hydra_Software_Devel/8   3/30/09 5:26p albertl
+ * PR52965: Fixed missing 7635 MRC support.
+ * 
+ * Hydra_Software_Devel/7   2/17/09 6:43p albertl
+ * PR51612: Updated to correct naming conventions.
+ * 
+ * Hydra_Software_Devel/6   1/27/09 8:27p tdo
+ * PR51627: add VDC 7336 PI support
+ *
+ * Hydra_Software_Devel/5   12/3/08 12:49p albertl
+ * PR46761: Changed 7420 to use two MEMCs.
+ *
+ * Hydra_Software_Devel/4   2/29/08 7:10p mward
+ * PR36876:  7118 doesn't support BCHP_MEMC_0_ARC_0_VIOLATION_INFO_CLEAR
+ * either.
+ *
+ * Hydra_Software_Devel/4   2/29/08 7:09p mward
+ * PR36876:  7118 doesn't support BCHP_MEMC_0_ARC_0_VIOLATION_INFO_CLEAR
+ * either.
+ *
+ * Hydra_Software_Devel/4   2/29/08 7:08p mward
+ * PR36876:  7118 doesn't support BCHP_MEMC_0_ARC_0_VIOLATION_INFO_CLEAR
+ * either.
+ *
+ * Hydra_Software_Devel/3   2/26/08 7:49p albertl
+ * PR36876:  Added support for 7335.
+ *
+ * Hydra_Software_Devel/2   2/26/08 12:20a albertl
+ * PR36876:  Fixed compile errors with 7401 and 7403 not supporting
+ * BCHP_MEMC_0_ARC_0_VIOLATION_INFO_CLEAR.
+ *
+ * Hydra_Software_Devel/1   2/25/08 7:09p albertl
+ * PR36876:  Initial revision.
+ *
+ ***************************************************************************/
+
+#ifndef BMRC_PRIV_H
+#define BMRC_PRIV_H
+
+#include "bchp.h"                /* Chip information */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+/* chip specific defines */
+#if (BCHP_CHIP == 3548)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 3556)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 3560)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 64
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 0
+#define BMRC_P_CHECKER_USE_NMBX_ID 1
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 3563)
+#define BMRC_P_MEMC_NUM 2
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 64
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 0
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7038)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 64
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 0
+#define BMRC_P_CHECKER_USE_NMBX_ID 1
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7118)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 64
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 0
+
+#elif (BCHP_CHIP == 7125)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7135)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7325)
+#define BMRC_P_MEMC_NUM 2
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7335)
+#define BMRC_P_MEMC_NUM 2
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 0
+
+#elif (BCHP_CHIP == 7336)
+#define BMRC_P_MEMC_NUM 2
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 0
+
+#elif (BCHP_CHIP == 7340)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7342)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7400)
+#define BMRC_P_MEMC_NUM 3
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 2
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 2
+#define BMRC_P_CLIENTS_MAX 64
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#if (BCHP_VER >= BCHP_VER_B0)
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+#else
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 0
+#endif
+
+#elif (BCHP_CHIP == 7401)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 64
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 0
+
+#elif (BCHP_CHIP == 7403)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 64
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 0
+
+#elif (BCHP_CHIP == 7405)
+#define BMRC_P_MEMC_NUM 2
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7408)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7420)
+#define BMRC_P_MEMC_NUM 2
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#if (BCHP_VER >= BCHP_VER_B0)
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#else
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#endif
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7422)
+#define BMRC_P_MEMC_NUM 2
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7425)
+#define BMRC_P_MEMC_NUM 2
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7435)
+#define BMRC_P_MEMC_NUM 2
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 8
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 8
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 2
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7445)
+#define BMRC_P_MEMC_NUM 3
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 8
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 8
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 8
+#define BMRC_P_CLIENTS_MAX 256
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 3
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7344)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7346)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7231)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7584)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7438)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 64
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 0
+#define BMRC_P_CHECKER_USE_NMBX_ID 1
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7440)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 64
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 0
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 0
+
+#elif (BCHP_CHIP == 7640)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 64
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 0
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 0
+
+#elif (BCHP_CHIP == 7468)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7550)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7601)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 96
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 0
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 0
+
+#elif (BCHP_CHIP == 7635)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 96
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 0
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 0
+
+#elif (BCHP_CHIP == 7630)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 64
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 0
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7563)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 35230)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 35233)
+#if (BCHP_VER == A0)
+#define BMRC_P_MEMC_NUM 2
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#else
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#endif
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 35125)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7358)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7552)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7429)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#elif (BCHP_CHIP == 7360)
+#define BMRC_P_MEMC_NUM 1
+#define BMRC_P_MEMC_0_CHECKER_COUNT_MAX 4
+#define BMRC_P_MEMC_1_CHECKER_COUNT_MAX 0
+#define BMRC_P_MEMC_2_CHECKER_COUNT_MAX 0
+#define BMRC_P_CLIENTS_MAX 128
+#define BMRC_P_CHECKER_USE_MEMC_GEN_VER 1
+#define BMRC_P_CHECKER_USE_NEW_NAME_SUFFIX 1
+#define BMRC_P_CHECKER_USE_NMBX_ID 0
+#define BMRC_P_CHECKER_USE_VIOLATION_INFO_CLEAR 1
+
+#else
+#error "Platform not supported in MRC."
+#endif
+
+
+/* include platform specific header files */
+#if ((BCHP_CHIP == 3560) || (BCHP_CHIP == 3563) || (BCHP_CHIP == 7038) || (BCHP_CHIP == 7118) || \
+       (BCHP_CHIP == 7400) || (BCHP_CHIP == 7401) || (BCHP_CHIP == 7403) || (BCHP_CHIP == 7438))
+#include "bchp_int_id_bvnf_intr2_2.h"
+#endif
+
+#if (BMRC_P_CHECKER_USE_MEMC_GEN_VER)
+#include "bchp_int_id_memc_l2_0.h"
+#if (BMRC_P_MEMC_0_CHECKER_COUNT_MAX > 4)
+#include "bchp_int_id_memc_l2_1_0.h"
+#endif
+
+#if (BMRC_P_MEMC_NUM > 1)
+#include "bchp_int_id_memc_l2_1.h"
+#if (BMRC_P_MEMC_1_CHECKER_COUNT_MAX > 4)
+#include "bchp_int_id_memc_l2_1_1.h"
+#endif
+#endif
+
+#if (BMRC_P_MEMC_NUM > 2)
+#include "bchp_int_id_memc_l2_2.h"
+#if (BMRC_P_MEMC_2_CHECKER_COUNT_MAX > 4)
+#include "bchp_int_id_memc_l2_1_2.h"
+#endif
+#endif
+
+#elif (BCHP_CHIP == 3563)
+#include "bchp_int_id_memc_1_intr2.h"
+
+#elif ((BCHP_CHIP == 7400) && (BCHP_VER < BCHP_VER_B0))
+#include "bchp_int_id_memc16_intr2_0.h"
+
+#elif ((BCHP_CHIP == 7400) && (BCHP_VER >= BCHP_VER_B0)) || (BCHP_CHIP == 7405)
+#include "bchp_int_id_memc16_gfx_l2.h"
+#if (BCHP_CHIP == 7405)
+#include "bchp_int_id_memc64_gfx_l2.h"
+#endif
+
+#elif (BCHP_CHIP == 7325) || (BCHP_CHIP == 7335) || (BCHP_CHIP == 7336) || (BCHP_CHIP == 7420) || \
+      (BCHP_CHIP == 3548) || (BCHP_CHIP == 3556) || (BCHP_CHIP == 35230) || (BCHP_CHIP == 35233)
+#include "bchp_int_id_memc_0_l2.h"
+#if (BMRC_P_MEMC_NUM > 1)
+#include "bchp_int_id_memc_1_l2.h"
+#endif
+
+#elif (BCHP_CHIP == 7440)
+#include "bchp_int_id_arb_top_config_regs.h"
+
+#elif (BCHP_CHIP==7601) || (BCHP_CHIP==7635) || (BCHP_CHIP==7630)
+#include "bchp_int_id_l2_reg_0.h"
+
+#elif (BCHP_CHIP==7640)
+#include "bchp_int_id_pri_arb_arc_l2_regs.h"
+#endif
+
+
+#define BMRC_P_CLIENTS_ARRAY_ELEMENT_SIZE 32
+#define BMRC_P_CLIENTS_ARRAY_SIZE (BMRC_P_CLIENTS_MAX / BMRC_P_CLIENTS_ARRAY_ELEMENT_SIZE)
+
+
+/* chip specific ARC INTR configuration */
+/* memc 0 */
+#if BMRC_P_CHECKER_USE_MEMC_GEN_VER && (BMRC_P_MEMC_NUM > 1)
+#define BMRC_P_MEMC_0_ARC_0_INTR    BCHP_INT_ID_MEMC_L2_0_ARC_0_INTR
+#define BMRC_P_MEMC_0_ARC_1_INTR    BCHP_INT_ID_MEMC_L2_0_ARC_1_INTR
+#define BMRC_P_MEMC_0_ARC_2_INTR    BCHP_INT_ID_MEMC_L2_0_ARC_2_INTR
+#define BMRC_P_MEMC_0_ARC_3_INTR    BCHP_INT_ID_MEMC_L2_0_ARC_3_INTR
+#if (BMRC_P_CHECKER_USE_MEMC_GEN_VER > 1) && (BMRC_P_MEMC_0_CHECKER_COUNT_MAX > 4)
+#define BMRC_P_MEMC_0_ARC_4_INTR    BCHP_INT_ID_MEMC_L2_1_0_ARC_4_INTR
+#define BMRC_P_MEMC_0_ARC_5_INTR    BCHP_INT_ID_MEMC_L2_1_0_ARC_5_INTR
+#define BMRC_P_MEMC_0_ARC_6_INTR    BCHP_INT_ID_MEMC_L2_1_0_ARC_6_INTR
+#define BMRC_P_MEMC_0_ARC_7_INTR    BCHP_INT_ID_MEMC_L2_1_0_ARC_7_INTR
+#else
+#define BMRC_P_MEMC_0_ARC_4_INTR    0
+#define BMRC_P_MEMC_0_ARC_5_INTR    0
+#define BMRC_P_MEMC_0_ARC_6_INTR    0
+#define BMRC_P_MEMC_0_ARC_7_INTR    0
+#endif
+
+#elif ((BCHP_CHIP == 7325) || (BCHP_CHIP == 7335) || (BCHP_CHIP==7336) || (BCHP_CHIP == 7420))
+#define BMRC_P_MEMC_0_ARC_0_INTR    BCHP_INT_ID_MEMC_0_L2_ARC_0_INTR
+#define BMRC_P_MEMC_0_ARC_1_INTR    BCHP_INT_ID_MEMC_0_L2_ARC_1_INTR
+#define BMRC_P_MEMC_0_ARC_2_INTR    BCHP_INT_ID_MEMC_0_L2_ARC_2_INTR
+#define BMRC_P_MEMC_0_ARC_3_INTR    BCHP_INT_ID_MEMC_0_L2_ARC_3_INTR
+#define BMRC_P_MEMC_0_ARC_4_INTR    0
+#define BMRC_P_MEMC_0_ARC_5_INTR    0
+#define BMRC_P_MEMC_0_ARC_6_INTR    0
+#define BMRC_P_MEMC_0_ARC_7_INTR    0
+
+#elif ((BCHP_CHIP == 3563) && (BCHP_VER >= BCHP_VER_C0))
+#define BMRC_P_MEMC_0_ARC_0_INTR    BCHP_INT_ID_BVNF_INTR2_2_ARC_0_INTR
+#define BMRC_P_MEMC_0_ARC_1_INTR    BCHP_INT_ID_BVNF_INTR2_2_ARC_1_INTR
+#define BMRC_P_MEMC_0_ARC_2_INTR    BCHP_INT_ID_BVNF_INTR2_2_ARC_2_INTR
+#define BMRC_P_MEMC_0_ARC_3_INTR    BCHP_INT_ID_BVNF_INTR2_2_ARC_3_INTR
+#define BMRC_P_MEMC_0_ARC_4_INTR    0
+#define BMRC_P_MEMC_0_ARC_5_INTR    0
+#define BMRC_P_MEMC_0_ARC_6_INTR    0
+#define BMRC_P_MEMC_0_ARC_7_INTR    0
+
+#else
+#define BMRC_P_MEMC_0_ARC_0_INTR    BCHP_INT_ID_ARC_0_INTR
+#define BMRC_P_MEMC_0_ARC_1_INTR    BCHP_INT_ID_ARC_1_INTR
+#define BMRC_P_MEMC_0_ARC_2_INTR    BCHP_INT_ID_ARC_2_INTR
+#define BMRC_P_MEMC_0_ARC_3_INTR    BCHP_INT_ID_ARC_3_INTR
+#define BMRC_P_MEMC_0_ARC_4_INTR    0
+#define BMRC_P_MEMC_0_ARC_5_INTR    0
+#define BMRC_P_MEMC_0_ARC_6_INTR    0
+#define BMRC_P_MEMC_0_ARC_7_INTR    0
+#endif
+
+/* memc 1 */
+#if BMRC_P_CHECKER_USE_MEMC_GEN_VER && (BMRC_P_MEMC_NUM > 1)
+#define BMRC_P_MEMC_1_ARC_0_INTR    BCHP_INT_ID_MEMC_L2_1_ARC_0_INTR
+#define BMRC_P_MEMC_1_ARC_1_INTR    BCHP_INT_ID_MEMC_L2_1_ARC_1_INTR
+#define BMRC_P_MEMC_1_ARC_2_INTR    BCHP_INT_ID_MEMC_L2_1_ARC_2_INTR
+#define BMRC_P_MEMC_1_ARC_3_INTR    BCHP_INT_ID_MEMC_L2_1_ARC_3_INTR
+#if (BMRC_P_CHECKER_USE_MEMC_GEN_VER > 1) && (BMRC_P_MEMC_1_CHECKER_COUNT_MAX > 4)
+#define BMRC_P_MEMC_1_ARC_4_INTR    BCHP_INT_ID_MEMC_L2_1_1_ARC_4_INTR
+#define BMRC_P_MEMC_1_ARC_5_INTR    BCHP_INT_ID_MEMC_L2_1_1_ARC_5_INTR
+#define BMRC_P_MEMC_1_ARC_6_INTR    BCHP_INT_ID_MEMC_L2_1_1_ARC_6_INTR
+#define BMRC_P_MEMC_1_ARC_7_INTR    BCHP_INT_ID_MEMC_L2_1_1_ARC_7_INTR
+#else
+#define BMRC_P_MEMC_1_ARC_4_INTR    0
+#define BMRC_P_MEMC_1_ARC_5_INTR    0
+#define BMRC_P_MEMC_1_ARC_6_INTR    0
+#define BMRC_P_MEMC_1_ARC_7_INTR    0
+#endif
+
+#elif (BCHP_CHIP == 7325) || (BCHP_CHIP == 7335) || (BCHP_CHIP==7336) || (BCHP_CHIP == 7420)
+#define BMRC_P_MEMC_1_ARC_0_INTR    BCHP_INT_ID_MEMC_1_L2_ARC_0_INTR
+#define BMRC_P_MEMC_1_ARC_1_INTR    BCHP_INT_ID_MEMC_1_L2_ARC_1_INTR
+#define BMRC_P_MEMC_1_ARC_2_INTR    BCHP_INT_ID_MEMC_1_L2_ARC_2_INTR
+#define BMRC_P_MEMC_1_ARC_3_INTR    BCHP_INT_ID_MEMC_1_L2_ARC_3_INTR
+#define BMRC_P_MEMC_1_ARC_4_INTR    0
+#define BMRC_P_MEMC_1_ARC_5_INTR    0
+#define BMRC_P_MEMC_1_ARC_6_INTR    0
+#define BMRC_P_MEMC_1_ARC_7_INTR    0
+
+#elif (BCHP_CHIP==3563)
+#define BMRC_P_MEMC_1_ARC_0_INTR    BCHP_INT_ID_MEMC_1_INTR2_ARC_0_INTR
+#define BMRC_P_MEMC_1_ARC_1_INTR    BCHP_INT_ID_MEMC_1_INTR2_ARC_1_INTR
+#define BMRC_P_MEMC_1_ARC_2_INTR    BCHP_INT_ID_MEMC_1_INTR2_ARC_2_INTR
+#define BMRC_P_MEMC_1_ARC_3_INTR    BCHP_INT_ID_MEMC_1_INTR2_ARC_3_INTR
+#define BMRC_P_MEMC_1_ARC_4_INTR    0
+#define BMRC_P_MEMC_1_ARC_5_INTR    0
+#define BMRC_P_MEMC_1_ARC_6_INTR    0
+#define BMRC_P_MEMC_1_ARC_7_INTR    0
+
+#elif (BCHP_CHIP==7400)
+#define BMRC_P_MEMC_1_ARC_0_INTR    BCHP_INT_ID_ARC_0_INTR_1
+#define BMRC_P_MEMC_1_ARC_1_INTR    BCHP_INT_ID_ARC_1_INTR_1
+#define BMRC_P_MEMC_1_ARC_2_INTR    0
+#define BMRC_P_MEMC_1_ARC_3_INTR    0
+#define BMRC_P_MEMC_1_ARC_4_INTR    0
+#define BMRC_P_MEMC_1_ARC_5_INTR    0
+#define BMRC_P_MEMC_1_ARC_6_INTR    0
+#define BMRC_P_MEMC_1_ARC_7_INTR    0
+
+#elif (BCHP_CHIP==7405)
+#define BMRC_P_MEMC_1_ARC_0_INTR    BCHP_INT_ID_ARC_0_INTR_1
+#define BMRC_P_MEMC_1_ARC_1_INTR    BCHP_INT_ID_ARC_1_INTR_1
+#define BMRC_P_MEMC_1_ARC_2_INTR    BCHP_INT_ID_ARC_0_INTR_2
+#define BMRC_P_MEMC_1_ARC_3_INTR    BCHP_INT_ID_ARC_1_INTR_2
+#define BMRC_P_MEMC_1_ARC_4_INTR    0
+#define BMRC_P_MEMC_1_ARC_5_INTR    0
+#define BMRC_P_MEMC_1_ARC_6_INTR    0
+#define BMRC_P_MEMC_1_ARC_7_INTR    0
+
+#elif (BMRC_P_MEMC_NUM > 1)
+#error "Port for MEMC 1 interrupts needed."
+
+#else
+#define BMRC_P_MEMC_1_ARC_0_INTR    0
+#define BMRC_P_MEMC_1_ARC_1_INTR    0
+#define BMRC_P_MEMC_1_ARC_2_INTR    0
+#define BMRC_P_MEMC_1_ARC_3_INTR    0
+#define BMRC_P_MEMC_1_ARC_4_INTR    0
+#define BMRC_P_MEMC_1_ARC_5_INTR    0
+#define BMRC_P_MEMC_1_ARC_6_INTR    0
+#define BMRC_P_MEMC_1_ARC_7_INTR    0
+#endif
+
+/* memc 2 */
+#if BMRC_P_CHECKER_USE_MEMC_GEN_VER && (BMRC_P_MEMC_NUM > 2)
+#define BMRC_P_MEMC_2_ARC_0_INTR    BCHP_INT_ID_MEMC_L2_2_ARC_0_INTR
+#define BMRC_P_MEMC_2_ARC_1_INTR    BCHP_INT_ID_MEMC_L2_2_ARC_1_INTR
+#define BMRC_P_MEMC_2_ARC_2_INTR    BCHP_INT_ID_MEMC_L2_2_ARC_2_INTR
+#define BMRC_P_MEMC_2_ARC_3_INTR    BCHP_INT_ID_MEMC_L2_2_ARC_3_INTR
+#if (BMRC_P_CHECKER_USE_MEMC_GEN_VER > 1) && (BMRC_P_MEMC_2_CHECKER_COUNT_MAX > 4)
+#define BMRC_P_MEMC_2_ARC_4_INTR    BCHP_INT_ID_MEMC_L2_1_2_ARC_4_INTR
+#define BMRC_P_MEMC_2_ARC_5_INTR    BCHP_INT_ID_MEMC_L2_1_2_ARC_5_INTR
+#define BMRC_P_MEMC_2_ARC_6_INTR    BCHP_INT_ID_MEMC_L2_1_2_ARC_6_INTR
+#define BMRC_P_MEMC_2_ARC_7_INTR    BCHP_INT_ID_MEMC_L2_1_2_ARC_7_INTR
+#else
+#define BMRC_P_MEMC_2_ARC_4_INTR    0
+#define BMRC_P_MEMC_2_ARC_5_INTR    0
+#define BMRC_P_MEMC_2_ARC_6_INTR    0
+#define BMRC_P_MEMC_2_ARC_7_INTR    0
+#endif
+
+#elif (BCHP_CHIP==7400)
+#define BMRC_P_MEMC_2_ARC_0_INTR    BCHP_INT_ID_ARC_0_INTR_2
+#define BMRC_P_MEMC_2_ARC_1_INTR    BCHP_INT_ID_ARC_1_INTR_2
+#define BMRC_P_MEMC_2_ARC_2_INTR    0
+#define BMRC_P_MEMC_2_ARC_3_INTR    0
+#define BMRC_P_MEMC_2_ARC_4_INTR    0
+#define BMRC_P_MEMC_2_ARC_5_INTR    0
+#define BMRC_P_MEMC_2_ARC_6_INTR    0
+#define BMRC_P_MEMC_2_ARC_7_INTR    0
+
+#elif (BMRC_P_MEMC_NUM > 2)
+#error "Port for MEMC 2 interrupts needed."
+
+#else
+#define BMRC_P_MEMC_2_ARC_0_INTR    0
+#define BMRC_P_MEMC_2_ARC_1_INTR    0
+#define BMRC_P_MEMC_2_ARC_2_INTR    0
+#define BMRC_P_MEMC_2_ARC_3_INTR    0
+#define BMRC_P_MEMC_2_ARC_4_INTR    0
+#define BMRC_P_MEMC_2_ARC_5_INTR    0
+#define BMRC_P_MEMC_2_ARC_6_INTR    0
+#define BMRC_P_MEMC_2_ARC_7_INTR    0
+#endif
+
+
+/* client entry structure */
+typedef struct BMRC_P_ClientEntry
+{
+    const char   *pchClientName;
+    BMRC_Client   eClient;
+    uint16_t      ausClientId[BMRC_P_MEMC_NUM];
+} BMRC_P_ClientEntry;
+
+
+/* client table macros and function prototypes */
+#define BMRC_P_GET_CLIENT_ID(memc, client) \
+    (BMRC_P_astClientTbl[(client)].ausClientId[(memc)])
+
+BMRC_Client BMRC_P_GET_CLIENT_ENUM(uint16_t usMemcId, uint16_t usClientId);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
+/* End of File */

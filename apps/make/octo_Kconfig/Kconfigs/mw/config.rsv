@@ -1,0 +1,9 @@
+################################################
+#					MW/RSV Configuration					#
+################################################
+
+comment "MW/RSV(Reservation) Configuration."
+
+
+	comment "Reservation"
+

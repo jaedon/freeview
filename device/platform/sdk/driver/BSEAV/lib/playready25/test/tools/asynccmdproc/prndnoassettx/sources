@@ -1,0 +1,55 @@
+DRM_SUPPORT_ANTIROLLBACK_CLOCK=0
+DRM_SUPPORT_CERTCACHE=0
+DRM_SUPPORT_CERTPARSERCACHE=0
+DRM_SUPPORT_DEVCERTKEYGEN=0
+DRM_SUPPORT_DEVICEASSETS=0
+DRM_SUPPORT_DEVICESTORE=0
+DRM_SUPPORT_DLA=0
+DRM_SUPPORT_DOMAIN=0
+DRM_SUPPORT_LICENSE_SYNC=0
+DRM_SUPPORT_METERING=0
+DRM_SUPPORT_MOVE=0
+DRM_SUPPORT_PRNDRX=0
+DRM_SUPPORT_PRNDTX=1
+DRM_SUPPORT_SECURE_CLOCK=2
+DRM_SUPPORT_SYMOPT=0
+DRM_SUPPORT_VIEWRIGHTS=0
+DRM_SUPPORT_WMDRM=0
+DRM_SUPPORT_BBXLEGACY=0
+DRM_SUPPORT_BBXSLK=0
+
+
+#  This tool should never link against the PK code coverage DLL.
+#  It should always link against individual libraries according to the above link-time settings.
+#  Un-setting PK_CODECOVERAGE_BUILD here will cause _DRM_REFCODE_LIBS [used below,
+#  and set in file 'reftest.cmn'] to not contain the code coverage DLL's .lib.
+
+!IF "$(PK_CODECOVERAGE_BUILD)" == "1"
+__RESET_CODE_COVERAGE=1
+!ENDIF
+
+PK_CODECOVERAGE_BUILD=
+
+!include ..\..\..\reftest.cmn
+
+!IF "$(__RESET_CODE_COVERAGE)" == "1"
+PK_CODECOVERAGE_BUILD=1
+!ENDIF
+
+
+TARGETNAME=prndnoassettx
+TARGETTYPE=PROGRAM
+
+UMTYPE=console
+UMENTRY=wmain
+
+SOURCES =            \
+    ..\main.c        \
+    prndnoassettx.c  \
+
+
+TARGETLIBS = $(TARGETLIBS)               \
+    $(_DRM_REFCODE_LIBS)                 \
+    $(_DRM_TC_LIBS)                      \
+    $(DRM_PK_TEST_LIB_PATH)\tstutils.lib \
+

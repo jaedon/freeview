@@ -1,0 +1,127 @@
+############################################################
+#     Copyright (c) 2003-2012, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: auto_unittests_97241.txt $
+# $brcm_Revision: Hydra_Software_Devel/1 $
+# $brcm_Date: 2/9/12 1:24p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /rockford/unittests/nexus/common/auto_unittests_97241.txt $
+# 
+# Hydra_Software_Devel/1   2/9/12 1:24p katrep
+# SW7429-1:add 7428,7241
+# 
+# Hydra_Software_Devel/6   2/8/12 1:40p katrep
+# SW7429-1:security is now supported enabled dma tests
+# 
+# Hydra_Software_Devel/5   2/1/12 11:42a katrep
+# SW7429-1:diabled dma tests due unavailability for security on 7429
+# 
+# Hydra_Software_Devel/4   1/31/12 6:50p katrep
+# SW7429-1:enable all the tests
+# 
+############################################################
+
+unittests/audio/codec_test
+unittests/display/capture_buffer
+unittests/display/digital_cc_capture
+unittests/display/display_crc
+unittests/display/display_vbi
+unittests/display/display_vbi_stress  -disable_cgmsb
+unittests/display/graphics_stress
+unittests/display/heaps
+unittests/display/open
+unittests/display/outputs
+unittests/display/pip_swap
+unittests/display/pq
+unittests/display/resize_window
+unittests/display/synclock_master
+unittests/display/video_input_shutdown
+unittests/dma/dma_api_usage
+unittests/dma/dma_bulk
+unittests/dma/dma_callbacks
+unittests/dma/dma_chain
+unittests/dma/dma_crypto
+unittests/dma/dma_mixedmode
+unittests/dma/dma_mixedmode_stress
+unittests/file/playback_with_cancel
+unittests/file/timeshift_jump
+unittests/frontend/tune_untune
+unittests/general/alloc
+unittests/general/boot
+unittests/general/memory
+unittests/general/sleep
+unittests/general/watchdog
+unittests/graphics2d/blit 
+unittests/graphics2d/blit_performance
+unittests/graphics2d/blit_stress
+unittests/graphics2d/checkpoint_stress
+unittests/graphics2d/dualcontext_multithreaded_fill
+unittests/graphics2d/fillrate
+unittests/graphics2d/multithreaded_fill
+unittests/graphics2d/packet_and_function
+unittests/graphics2d/packet_blit_stress
+unittests/graphics2d/palette_blit2
+unittests/graphics2d/premultiply_alpha1
+unittests/graphics2d/premultiply_alpha2
+unittests/open_tests/display_video_decoder
+unittests/playback/audio_switch
+#unittests/playback/codec_mismatch
+unittests/playback/create_destroy
+unittests/playback/dqt_trick
+unittests/playback/frameadvance_stress
+unittests/playback/playback_list
+unittests/playback/playback_openpidchannel
+unittests/playback/playback_stctrick
+unittests/playback/playback_stop_start
+unittests/playback/playback_trick_loop
+unittests/playback/seek
+unittests/playback/start_stop
+unittests/playback/trick_stress
+unittests/record/allpass_record_from_playback
+unittests/record/multiple_index_only_records
+unittests/record/record2
+unittests/record/record3
+unittests/record/record_append_from_playpump
+unittests/record/record_overflow_recovery  
+unittests/record/record_play
+unittests/record/record_stress_test
+unittests/record/record_stress_test2
+unittests/record/record_with_timestamps
+unittests/record/recpump_overflow_recovery
+unittests/surface/open
+unittests/surface/palette
+unittests/surface_compositor/client_flavors
+unittests/surface_compositor/multibuffered_stress
+unittests/surface_compositor/setsurface_stress
+unittests/transport/message_dss
+unittests/transport/message_stress1
+unittests/transport/message_stress2
+unittests/transport/message_stress3
+unittests/transport/message_stress4
+unittests/transport/open
+unittests/transport/packetsub1
+unittests/transport/playpump_cc_test
+unittests/transport/recpump
+unittests/transport/set_stc
+unittests/transport/timebase
+unittests/transport/tpit
+unittests/video_decoder/callbacks
+unittests/video_decoder/channel_change
+unittests/video_decoder/codec_test
+unittests/video_decoder/dataready
+unittests/video_decoder/decoder_trick
+unittests/video_decoder/mosaic_decode 
+unittests/video_decoder/mosaic_playback_zorder_list
+unittests/video_decoder/open
+unittests/video_decoder/userdata_capture
+

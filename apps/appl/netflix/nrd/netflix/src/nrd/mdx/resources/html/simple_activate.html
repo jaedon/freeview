@@ -1,0 +1,535 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" src="../js/startup.js"></script>
+
+<title>Test Registration</title>
+<style type="text/css">
+body {
+    overflow:hidden;
+    margin:none;
+    font-family: sans-serif;
+    background-color: white;
+    margin:50px;
+}
+#output {
+    border: 1px dotted gray;
+    width:950px;
+    font-size:small;
+    color:black;
+    padding:1ex;
+    background:white;
+    top:0;
+    right:0;
+    height:125px;
+}
+#main {
+    top:0;
+    left:0;
+    width:1030px;
+}
+.header {
+    font-size:large;
+    font-weight:bold;
+}
+#focus {
+    border: 2px solid red;
+}
+.key {
+    width: 280px;
+    float:left;
+    clear:left;
+}
+.value {
+    float:left;
+    clear:right;
+}
+.keybutton {
+    border: 1px outset black;
+    padding:4px;
+    text-align:center;
+    background-color:gray;
+}
+.keybutton:hover {
+    cursor:pointer;
+    border: 1px inset black;
+}
+
+#disableRendezvous {
+	display:none;
+	cursor: text;
+	background-color:#eeeeee;
+	border:none;
+}
+
+#startRendezvous {
+	display:block;
+}
+
+</style>
+<script>
+
+function test() {
+    nrdp.addEventListener("background", backgroundHandler);
+    nrdp.addEventListener("config",configEventHandler);
+    nrdp.addEventListener("init", initHandler);
+    nrdp.init();
+}
+
+var debugIndex = 0;
+function addEvt(str) {
+    var output = document.getElementById("output");
+    var line = (++debugIndex) + ": " + str;
+    var currentText = output.innerHTML;
+    output.innerHTML = line + "\n" + currentText;
+}
+
+function updateList() {
+    var list = document.getElementById("list");
+    var out = "";
+    for (var i = 0; i < nrdp.registration.deviceAccounts.length; i++) {
+        if (out) out += ", ";
+        out += nrdp.registration.deviceAccounts[i].accountKey;
+        if (nrdp.registration.deviceAccounts[i].userID)
+            out += " (" + nrdp.registration.deviceAccounts[i].userID + ")";
+    }
+    if (out) {
+        list.innerHTML = out;
+    } else {
+        list.innerHTML = "-";
+    }
+}
+
+function updateCur() {
+    var cur = document.getElementById("cur");
+    if (nrdp.registration.currentDeviceAccount) {
+        cur.innerHTML = nrdp.registration.currentDeviceAccount;
+        last_netflix_id = nrdp.registration.activationTokens.NetflixId;
+        last_secure_netflix_id = nrdp.registration.activationTokens.SecureNetflixId;
+    } else {
+        cur.innerHTML = "-";
+        last_netflix_id = "";
+        last_secure_netflix_id = "";
+    }
+    updateNid();
+    updateReg();
+}
+
+function updateReg() {
+    var reg = document.getElementById("reg");
+    reg.innerHTML = nrdp.registration.registered ? "true" : "false";
+}
+
+function getCookie( name )
+{
+    var c_start = document.cookie.indexOf(name + "=");
+    while (c_start != -1 && (c_start != 0 && document.cookie[c_start - 1] != ' ')) {
+        c_start = document.cookie.indexOf(name + "=", c_start + 1);
+    }
+    if (c_start != -1) {
+        c_start = c_start + name.length + 1;
+        var c_end = document.cookie.indexOf(";", c_start);
+        if (c_end == -1) c_end = document.cookie.length;
+        return document.cookie.substring(c_start, c_end);
+    }
+    return null;
+}
+
+function oldActivate()
+{
+    nrdp.registration._activate("old",
+                                "tokens=" + encodeURIComponent("NetflixId=" + getCookie("NetflixId") +
+                                                               "&SecureNetflixId=" + getCookie("SecureNetflixId")));
+}
+
+var last_netflix_id;
+var last_secure_netflix_id;
+
+function updateNid() {
+    var nid = document.getElementById("nid");
+    nid.innerHTML = last_netflix_id;
+    var secnid = document.getElementById("secnid");
+    secnid.innerHTML = last_secure_netflix_id;
+}
+
+function initHandler(evt) {
+    addEvt("init (" + evt.status + ")");
+
+    if ( evt.status != "READY" ) return;
+
+    nrdp.registration.addEventListener("rendezvous", rendezvousHandler);
+    nrdp.registration.addEventListener("bind", bindHandler);
+    nrdp.registration.addEventListener("activate", activateHandler);
+    nrdp.registration.addEventListener("deactivated", deactivateHandler);
+
+    updateList();
+    updateCur();
+    // updateCur() calls updateReg() and updateNid()
+}
+
+function configEventHandler(evt) {
+    var str = "config event for " + evt.list + " request";
+    addEvt(str);
+}
+
+function backgroundHandler(evt) {
+    var str = "background (" + evt.result;
+    var msg = evt.message ? evt.message.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+    if (evt.result == "ACTION_ID") str += " " + evt.actionID + ", " + msg + ", bcp47:" + evt.bcp47 + ", reason Code:" + evt.reasonCode;
+    str += ")"
+    addEvt(str);
+}
+
+function gotNewCookies(doSet, cookies) {
+    var nid = "", secnid = "";
+
+    if (cookies && cookies[0] && cookies[1]) {
+        var eq, semi;
+
+        eq = cookies[0].indexOf('=') + 1;
+        semi = cookies[0].indexOf(';');
+        nid = cookies[0].substr(eq, semi - eq);
+        eq = cookies[1].indexOf('=') + 1;
+        semi = cookies[1].indexOf(';');
+        secnid = cookies[1].substr(eq, semi - eq);
+
+        if (doSet)
+            nrdp.registration.activationTokens = { NetflixId: nid, SecureNetflixId: secnid };
+    }
+
+    last_netflix_id = nid;
+    last_secure_netflix_id = secnid;
+
+    updateNid();
+}
+
+function rendezvousHandler(evt) {
+    var str = "rendezvous (" + evt.result;
+    var msg = evt.message ? evt.message.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+    if (evt.result == "ACTION_ID") str += ", " + evt.actionID + ", " + msg;
+    if (evt.result == "COMPLETE" && typeof evt.code != "undefined") str += ", code=" + evt.code;
+    str += ")"
+    addEvt(str);
+
+    code = document.getElementById("code");
+    code.innerHTML = ((typeof evt.code != "undefined") ? evt.code : "-");
+
+    //Reset Button
+    enableClick();
+
+    updateReg();
+    gotNewCookies(true, evt.cookies);
+}
+
+function bindHandler(evt) {
+    var str = "bind (" + evt.result;
+    var msg = evt.message ? evt.message.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+    if (evt.result == "ACTION_ID") str += " " + evt.actionID + ", " + msg + ", bcp47:" + evt.bcp47 + ", reason Code:" + evt.reasonCode;
+    str += ")"
+    addEvt(str);
+
+    gotNewCookies(false, evt.cookies);
+}
+
+function activateHandler(evt) {
+    var str = "activate (" + evt.result;
+    var msg = evt.message ? evt.message.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+    if (evt.result == "ACTION_ID") str += " " + evt.actionID + ", " + msg + ", bcp47:" + evt.bcp47 + ", reason Code:" + evt.reasonCode;
+    str += ")"
+    addEvt(str);
+
+    gotNewCookies(true, evt.cookies);
+    updateList();
+    updateReg();
+}
+
+function deactivateHandler(evt) {
+    var str = "deactivated " + evt.accountKey;
+    addEvt(str);
+}
+
+function createDeviceAccount() {
+    nrdp.registration.createDeviceAccount(function(rv) {
+        addEvt("createDeviceAccount " + rv.result);
+        updateList();
+    });
+}
+
+function selectDeviceAccount() {
+    try {
+        var key = document.forms["devicesel"]["devices"].value;
+        nrdp.registration.selectDeviceAccount(key, function() {
+            addEvt("selectDeviceAccount " + key);
+            updateCur();
+        });
+    } catch (e) {
+        alert("invalid device account key");
+    }
+}
+
+function unselectDeviceAccount() {
+    nrdp.registration.unselectDeviceAccount(function() {
+        addEvt("unselectDeviceAccount");
+        updateCur();
+    });
+}
+
+function deactivate() {
+    nrdp.registration.deactivate(nrdp.registration.currentDeviceAccount, function() {
+        addEvt("deactivate");
+        updateList();
+        updateCur();
+    });
+}
+
+function deactivateAll() {
+    nrdp.registration.deactivateAll(function() {
+        addEvt("deactivateAll");
+        updateList();
+        updateCur();
+    });
+}
+
+function getActivationTokens() {
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState == 4) {
+            var nid = document.getElementById("nid");
+            last_netflix_id = nid.value;
+            var secnid = document.getElementById("secnid");
+            last_secure_netflix_id = secnid.value;
+
+            var xmlDoc = xhr.responseXML;
+
+            var new_netflix_id = xmlDoc.getElementsByTagName("netflixid")[0].childNodes[0].nodeValue;
+            var new_secure_netflix_id = xmlDoc.getElementsByTagName("securenetflixid")[0].childNodes[0].nodeValue;
+            nid.value = new_netflix_id;
+            secnid.value = new_secure_netflix_id;
+        }
+    }
+
+    xhr.open("GET", "activationtokens.xml", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send(null);
+}
+
+function setActivationTokens() {
+    var nid = document.getElementById("nid");
+    last_netflix_id = nid.value;
+    var secnid = document.getElementById("secnid");
+    last_secure_netflix_id = secnid.value;
+    var x = {
+        NetflixId: last_netflix_id,
+        SecureNetflixId: last_secure_netflix_id
+    };
+    nrdp.registration.activationTokens = x;
+}
+
+function emailActivate() {
+    var email = document.forms["emailsel"]["email"].value;
+    var pass = document.forms["emailsel"]["pass"].value;
+    try {
+        nrdp.registration.emailActivate(email, pass);
+    } catch (x) {
+        alert("invalid device account key");
+    }
+    return false;
+}
+
+function pullCookies() {
+    last_netflix_id = getCookie("NetflixId");
+    last_secure_netflix_id = getCookie("SecureNetflixId");
+    updateNid();
+}
+
+</script>
+<script type="text/javascript">
+
+function select(td) {
+    if (document.activeElement) document.activeElement.blur();
+    if (td.children[0].tagName == "DIV") {
+        td.children[0].id = "focus";
+    } else if (td.children[0].tagName == "FORM") {
+        td.children[0].id = "focus";
+        td.children[0].elements[0].focus();
+    } else if (td.children[0].tagName == "INPUT") {
+        td.children[0].id = "focus";
+        td.children[0].focus();
+    } else {
+        return false;
+    }
+    return true;
+}
+
+function doIt() {
+    var foc = document.getElementById("focus");
+    if (typeof foc.onclick == "function") {
+        foc.onclick.call(foc);
+    }
+}
+
+function moveHorz(next) {
+    var cur = document.getElementById("focus");
+    var td = cur.parentElement;
+    var mv = td;
+    do {
+        if (next) {
+            mv = mv.nextElementSibling;
+        } else {
+            mv = mv.previousElementSibling;
+        }
+    } while (mv && mv.className != "selectable");
+
+    if (mv && td !== mv && mv.className == "selectable") {
+        if (select(mv)) {
+            cur.id = "";
+        }
+    }
+}
+
+function moveVert(next) {
+    var cur = document.getElementById("focus");
+    var td = cur.parentElement;
+    var tr = td.parentElement;
+    var child = 0;
+    while (td.previousElementSibling) {
+        td = td.previousElementSibling;
+        child++;
+    }
+    var mv = tr;
+    do {
+        if (next) {
+            mv = mv.nextElementSibling;
+        } else {
+            mv = mv.previousElementSibling;
+        }
+    } while (mv && (mv.className == "break" || !(mv.children[child] && mv.children[child].className == "selectable")));
+
+    if (mv && tr != mv && mv.className != "break" && mv.children[child] && mv.children[child].className == "selectable") {
+        if (select(mv.children[child])) {
+            cur.id = "";
+        }
+    }
+}
+
+function stealFocus(e) {
+    var foc = document.getElementById("focus");
+    foc.id = "";
+    e.id = "focus";
+}
+
+function sendEvents() {
+    var date = new Date();
+    var params = "logfile=" + encodeURIComponent("test-registration.html_" + date.toISOString());
+    params += "&logmsg=" + encodeURIComponent(document.getElementById("output").innerHTML);
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://uiboot.netflix.com/log-as.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send(params);
+}
+
+var actions = {
+    "key.up" : function() { moveVert(false); },
+    "key.down" : function() { moveVert(true); },
+    "key.left" : function() { moveHorz(false); },
+    "key.right" : function() { moveHorz(true); },
+    "key.enter" : function() { doIt(); },
+    "key.play" : function() { sendEvents(); }
+};
+
+function keyEvent(evt) {
+    var key = nrdpPartner.Keys[evt.which];
+
+    var action = actions[key];
+    if (action) action();
+}
+
+document.addEventListener("keydown", keyEvent);
+
+function disableClick(){
+var clickState = document.getElementById("startRendezvous");
+clickState.style.display = "none";
+
+var disableState = document.getElementById("disableRendezvous");
+disableState.style.display = "block";
+}
+
+function enableClick(){
+var clickState = document.getElementById("startRendezvous");
+clickState.style.display = "block";
+
+var disableState = document.getElementById("disableRendezvous");
+disableState.style.display = "none";
+}
+
+
+
+</script>
+</head>
+
+<body onload="test();">
+
+<div id="main">
+
+  <table width="100%">
+    <tr>
+      <td class="header">Activation</td>
+      <td class="selectable"><div class="keybutton" id="focus" onclick="window.location='test-mdx-app-target.html' + location.search">Go To MDX Target</div></td>
+      <td class="selectable"><div class="keybutton" onclick="window.location='test-mdx-app-controller.html' + location.search">Go To MDX Controller</div></td>
+      <td class="selectable"><div class="keybutton" onclick="nrdp.exit();return false;">Quit Application</div></td>
+    </tr>
+
+    <tr class="break"><td colspan="3"><hr></td></tr>
+
+    <tr>
+      <td class="selectable"><div class="keybutton" onclick="createDeviceAccount();return false;">Create Device Account</div></td>
+      <td class="selectable"><div class="keybutton" onclick="deactivate();return false;">Deactivate</div></td>
+      <td><div class="key">Device Accounts:</div><div class="value" id="list">-</div></td>
+    </tr>
+
+    <tr>
+      <td class="selectable"><div class="keybutton" onclick="unselectDeviceAccount();return false;">UnSelect Device Account</div></td>
+      <td class="selectable"><div class="keybutton" onclick="deactivateAll();return false;">Deactivate All</div></td>
+      <td><div class="key">Current Device Account:</div><div class="value" id="cur">-</div></td>
+    </tr>
+
+    <tr>
+      <td class="selectable" align="center"><form name="devicesel" onsubmit="selectDeviceAccount();return false;">Select Device Account<br><input name="devices" onfocus="stealFocus(this.parentElement);return false;"><input type="submit" value="Set"></form></td>
+      <td class="selectable"><div class="keybutton" onclick="addEvt('massDeactivationCheck');nrdp.registration.massDeactivationCheck();return false;">Mass Deactivation Check</div></td>
+      <td><div class="key">Registered:</div><div class="value" id="reg">-</div></td>
+    </tr>
+
+
+    <tr class="break"><td colspan="3"><hr></td></tr>
+
+    <form name="emailsel" onsubmit="return emailActivate();">
+    <tr>
+      <td class="selectable">Email: <input name="email" onfocus="stealFocus(this);return false;"></td>
+      <td class="selectable">Password: <input name="pass" type="password" onfocus="stealFocus(this);return false;"></td>
+      <td class="selectable"><div class="keybutton" onclick="emailActivate();return false;">Activate</div></td>
+    </tr>
+    </form>
+
+    <tr class="break"><td colspan="3"><hr></td></tr>
+
+    <tr>
+      <td></td>
+      <td><div class="keybutton" id="settokens" onclick="getActivationTokens();return false;">Get Activation Tokens</div></td>
+      <td><div class="keybutton" id="settokens" onclick="setActivationTokens();return false;">Set Activation Tokens</div></td>
+    </tr>
+
+  </table>
+
+  <hr />
+
+  <div class="key">NetflixId cookie:</div><div class="value"><textarea id="nid" cols="100" rows="7"></textarea></div>
+  <div class="key">SecureNetflixId cookie:</div><div class="value"><textarea id="secnid" cols="100" rows="1"></textarea></div>
+
+</div>
+<div style="clear:both"></div>
+<div><textarea id="output">[events, hit PLAY to send to server]</textarea></div>
+
+</body>
+</html>

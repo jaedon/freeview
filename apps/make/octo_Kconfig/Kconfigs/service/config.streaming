@@ -1,0 +1,38 @@
+#############################################
+#	Configuration	                    #
+#############################################
+
+comment "Streaming Configuration. (STREAMING_XXX)"
+        config TRANSCODING_STREAMING
+                bool "support transcoding streaming"
+                default n
+
+        config STREAMING_HLS_FILE
+		depends on TRANSCODING_STREAMING
+                bool "HLS based file streaming"
+                default n
+
+        config STREAMING_HLS_LIVE
+		depends on TRANSCODING_STREAMING
+                bool "HLS based live streaming"
+                default n
+
+        config STREAMING_HLS_MEDIA
+		depends on TRANSCODING_STREAMING
+                bool "HLS based live streaming"
+                default n
+
+        config  NON_TRANSCODING_STREAMING
+                bool "support non transcoding streaming"
+		default n
+
+        config STREAMING_SATIP
+		depends on NON_TRANSCODING_STREAMING
+                bool "SATIP based to streaming"
+                default n
+
+		config STREAMING_SATIP_TARA
+			depends on STREAMING_SATIP
+			bool "Support TARA's SATIP streaming"
+			default n
+

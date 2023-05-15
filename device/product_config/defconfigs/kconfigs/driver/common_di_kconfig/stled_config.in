@@ -1,0 +1,36 @@
+##########################################
+# DI STLED Configuration Menu
+##########################################
+choice
+	prompt "Select Module"
+	depends on MICOM_NONE && FRONT_DISPLAY
+	default STLED
+	config STLED
+		bool
+		prompt "STLED"
+endchoice
+
+choice
+	prompt "Select 7-Segment Device"
+	depends on STLED
+	default STLED_316S
+	config STLED_316S
+		bool
+		prompt "STLED Device - 316S"
+	config STLED_MC2003
+		bool
+		prompt "STLED Device - MC2003"
+	config STLED_MC2302
+		bool
+		prompt "STLED Device - MC2302"
+endchoice
+
+menu "Configure STLED MC2003"
+	depends on STLED_MC2003
+	source "driver/common_di_kconfig/stled_mc2003_config.in"
+endmenu
+
+menu "Configure STLED MC2302"
+	depends on STLED_MC2302
+	source "driver/common_di_kconfig/stled_mc2302_config.in"
+endmenu

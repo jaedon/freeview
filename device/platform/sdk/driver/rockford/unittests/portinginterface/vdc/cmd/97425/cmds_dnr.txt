@@ -1,0 +1,22 @@
+custom c3 ovc 3 5 0 0 cf 2 bg ff 14 93 
+x1 m2 os 0 0 ow pb de /data/videos/cnnticker.mpg 21 21 0 1 
+dnr 30 2 80 2 90 2 70 
+mad 1 1 1 0 0 1 18 
+c2 oc 2 6 0 0 cf 2 
+x1 ch 1 och 0 0 dmn 1 m1 os ow
+de /data/videos/italyriviera-spiderman2_cc_short.mpg 11 11 0 1 
+dnr 30 2 80 2 90 2 70 
+mad 1 1 1 0 0 1 18 
+c0 oc 0 0 0 cf 1 x0 ch 0 och 0 0 dmn 0 m0 os w0 ow 
+de /data/videos/avatar_AVC_15M.ts 101 101 0 0 cdsp 0 1 0 0 
+dnr 30 2 80 2 90 2 70 mad 1 1 1 0 0 0 anr 2 10 0 0 
+c1 oc 1 1 0 m1 ow m2 w1 ow
+bvncb 
+break 30 
+bvncb 
+c1 w1 cw
+w0 cw 
+c0 cw 
+c2 cw 
+c3 cw 
+cs cd q

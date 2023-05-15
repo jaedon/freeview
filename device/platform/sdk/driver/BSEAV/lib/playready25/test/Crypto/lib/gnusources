@@ -1,0 +1,14 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=CryptoTestAPI
+TARGETTYPE=LIBRARY
+
+SOURCES =              \
+    ..\CryptoTest.c    \
+    ..\tstcryptodata.c \
+

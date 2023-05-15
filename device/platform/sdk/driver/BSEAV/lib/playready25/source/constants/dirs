@@ -1,0 +1,6 @@
+DIRS =              \
+    real            \
+    protected       \
+
+DRM_DIRS =          \
+    real            \

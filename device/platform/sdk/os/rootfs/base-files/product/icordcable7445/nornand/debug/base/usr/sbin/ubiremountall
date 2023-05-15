@@ -1,0 +1,10 @@
+#!/bin/sh
+
+	umount /var/lib/humaxtv
+	umount /var/lib/humaxtv_backup
+	umount /var/lib/humaxtv_user
+	ubidetach -m 10
+	ubiattach -m 10
+	mount -t ubifs ubi1:dbdata /var/lib/humaxtv
+	mount -t ubifs ubi1:dbbackup /var/lib/humaxtv_backup
+	mount -t ubifs ubi1:dbuser /var/lib/humaxtv_user

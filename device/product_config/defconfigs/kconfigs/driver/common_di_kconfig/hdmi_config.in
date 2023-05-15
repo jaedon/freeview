@@ -1,0 +1,83 @@
+##########################################
+# DI HDMI configuration menu
+##########################################
+config HDMI_REFACTORING
+	bool
+	prompt "HDMI_REFACTORING"
+	default n
+
+config HDMI_OUT
+	bool
+	prompt "HDMI_OUT"
+	default y
+
+if HDMI_OUT
+	config WORKAROUND_SHARP_TV_AUDIO_NOISE
+		bool
+		prompt "WORKAROUND_SHARP_TV_AUDIO_NOISE"
+		default n
+		depends on HDMI_OUT
+	
+	config HDCP
+		bool
+		prompt "HDCP"
+		default y
+		depends on HDMI_OUT
+	
+		config HDCP_CERTI_MODE
+			bool
+			prompt "HDCP_CERTI_MODE"
+			default n
+			depends on HDCP
+
+	config HDMI_CEC
+		bool
+		prompt "HDMI CEC"
+		default n
+
+	config HDMI_CUSTOM_PREEMPHASIS
+		bool
+		prompt "HDMI CUSTOM PREEMPHASIS"
+		default n
+
+	config HDMI_OUT_20
+		bool
+		prompt "HDMI_OUT_20"
+		default n
+
+	config HDMI_TIMEBASE_SEPARATE
+		bool
+		prompt "HDMI SEPARATE FROM STC"
+		default n
+
+if HDMI_OUT_20
+	config HDCP_22
+		bool
+		prompt "HDCP_22"
+		default n
+
+	config HDCP_22_PROVISIONING
+		bool
+		prompt "HDCP_22_PROVISIONING"
+		default n
+		depends on HDCP_22
+
+	config HDMI_SCDC_ALWAYS_ON
+		bool
+		prompt "Select y for SI test of HDMI2.0"
+		default n
+endif
+endif
+
+config HDMI_IN
+	bool
+	prompt "HDMI_IN"
+	default n
+
+if HDMI_IN
+	config HDMI_RECEIVER_SII9575
+		bool
+		prompt "HDMI_RECEIVER_SII9575"
+		default n
+		depends on HDMI_IN
+endif

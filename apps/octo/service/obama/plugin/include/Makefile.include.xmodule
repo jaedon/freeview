@@ -1,0 +1,20 @@
+# For DB
+ccflags-y += -I$(OCTO_PLUGIN_INCLUDE_DIR)
+
+# For DB
+ccflags-y += -I$(OCTO_PLUGIN_DIR)/xdb/include
+
+# For TV Service
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/include
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/include
+# SI
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/si/local_include
+# PVR
+#ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/pvr/include
+# CAS
+#ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/cas/include
+# EPG
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/epg/local_include
+# DOWNLOAD
+ccflags-y += -I$(OCTO_TVSERVICE_PLUGIN_DIR)/xsvc/download/include
+

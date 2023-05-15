@@ -1,0 +1,156 @@
+<?xml version="1.0" ?>
+<release_notes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="release.notes.xsd">
+	<project id="$Id: QalEnvRln.xml,v 1.2 2010/02/11 14:12:07 sbsuser Exp $" name="me_humax_XVI">
+		<contact_person comment="tel +41 21 732 04 45" email="dtesen.support@nagra.com" name="DTESEN support"/>
+	</project>
+	<release version="1_0_1">
+		<components>
+			<component name="ca_os.h"/>
+			<component name="ca_mpeg.h"/>
+			<component name="ca_types.h"/>
+			<component name="ca_dmx.h"/>
+			<component name="ca_defs.h"/>
+			<component name="dalapivr.h"/>
+			<component name="ca_cert.h"/>
+			<component name="ca_icc.h"/>
+			<component name="ca_cak.h"/>
+			<component name="cakapivr.h"/>
+			<component name="ca_defsx.h"/>
+			<component name="ca_dsc.h"/>
+			<component name="ca_pconv.h"/>
+			<component name="ca_cectg.h"/>
+			<component name="ca_cect.h"/>
+			<component name="ca_rph.h"/>
+			<component name="ca_sec.h"/>
+			<component name="ca_dvb.h"/>
+			<component comment="This CA_SN 0x10000 pairing is used when the CSO Operator library is linked.  For CAK V6, this key can also be used when the actual Customer Operator library is linked.  This pairing key is provided for use in a development environment only.  Production STB shall never be manufactured with this key and deployed.  This key shall be exchanged security.  For details on obtaining and using actual production pairing keys, please reference the Nagravision Pairing Key Handling Procedures document." name="CSO_TEST_PK_2005_10000.D33"/>
+			<component comment="This CA_SN 0x10000 pairing is used when the Customer Operator library is linked with the CAK V7.  This pairing key is provided for use in a development environment only.  Production STB shall never be manufactured with this key and deployed.  This key shall be exchanged security and destroyed when it's no longer needed.  For details on obtaining and using actual production pairing keys, please reference the Nagravision Pairing Key Handling Procedures document." name="APSHDplus_000k0045.d33"/>
+		</components>
+		<compatibility>
+			<product name="cak_me" version="2.5.1"/>
+			<product name="cakapi" version="1.24.0"/>
+			<product name="cakops" version="1.4.290"/>
+			<product name="dalapi" version="7.3.1"/>
+			<product name="makefiles" version="2.10.19"/>
+			<toolchain name="arm-linux-gnueabihf-gcc" version="4.8-1.0">
+				<compiler_flags>
+					<flag>-O2</flag>
+					<flag>-pipe</flag>
+					<flag>-marm</flag>
+					<flag>-march=armv7-a</flag>
+					<flag>-fdata-sections</flag>
+					<flag>-ffunction-sections</flag>
+					<flag>-fno-strict-aliasing</flag>
+					<flag>-fstack-protector-all</flag>
+					<flag>-Wall</flag>
+					<flag>-Wno-unused-value</flag>
+					<flag>-Wno-unused-function</flag>
+					<flag>-Wstrict-prototypes</flag>
+					<flag>-Wno-strict-aliasing</flag>
+					<flag>-Wdeclaration-after-statement</flag>
+					<flag>-Wno-pointer-sign</flag>
+				</compiler_flags>
+				<compiler_defines>
+					<define>_FILE_OFFSET_BITS=64</define>
+					<define>_LARGEFILE_SOURCE</define>
+					<define>_LARGEFILE64_SOURCE</define>
+					<define>BSTD_CPU_ENDIAN_LITTLE</define>
+					<define>LINUX</define>
+				</compiler_defines>
+			</toolchain>
+		</compatibility>
+		<bug_fixes/>
+		<changes/>
+		<new_features/>
+		<comments/>
+		<keysets>
+			<keyset name="NAK">
+				<key name="cso_test"/>
+			</keyset>
+			<keyset name="DOL">
+				<key name="aps-hd"/>
+			</keyset>
+		</keysets>
+		<libraries>
+			<library name="cak_me.std_cert.debug.arm-linux-gnueabihf-gcc.a" version="D-BLXAC-AOSAB">
+				<operators>
+					<operator name="cak_me.std_cert.debug.arm-linux-gnueabihf-gcc-NAK.a" version="NAKBP"/>
+					<operator name="cak_me.std_cert.debug.arm-linux-gnueabihf-gcc-DOL.a" version="DOLAI"/>
+				</operators>
+			</library>
+			<library name="cak_me.std_cert.release.arm-linux-gnueabihf-gcc.a" version="R-BLXAC-AOSAB">
+				<operators>
+					<operator name="cak_me.std_cert.release.arm-linux-gnueabihf-gcc-NAK.a" version="NAKBP"/>
+					<operator name="cak_me.std_cert.release.arm-linux-gnueabihf-gcc-DOL.a" version="DOLAI"/>
+				</operators>
+			</library>
+		</libraries>
+	</release>
+	<release version="1_0_0">
+		<components>
+			<component name="ca_os.h"/>
+			<component name="ca_mpeg.h"/>
+			<component name="ca_types.h"/>
+			<component name="ca_defs.h"/>
+			<component name="ca_dmx.h"/>
+			<component name="dalapivr.h"/>
+			<component name="ca_cert.h"/>
+			<component name="ca_icc.h"/>
+			<component name="ca_cak.h"/>
+			<component name="cakapivr.h"/>
+			<component name="ca_defsx.h"/>
+			<component name="ca_dsc.h"/>
+			<component name="ca_pconv.h"/>
+			<component name="ca_rph.h"/>
+			<component name="ca_sec.h"/>
+			<component name="ca_dvb.h"/>
+			<component comment="This CA_SN 0x10000 pairing is used when the CSO Operator library is linked.  For CAK V6, this key can also be used when the actual Customer Operator library is linked.  This pairing key is provided for use in a development environment only.  Production STB shall never be manufactured with this key and deployed.  This key shall be exchanged security.  For details on obtaining and using actual production pairing keys, please reference the Nagravision Pairing Key Handling Procedures document." name="CSO_TEST_PK_2005_10000.D33"/>
+			<component comment="This CA_SN 0x10000 pairing is used when the Customer Operator library is linked with the CAK V7.  This pairing key is provided for use in a development environment only.  Production STB shall never be manufactured with this key and deployed.  This key shall be exchanged security and destroyed when it's no longer needed.  For details on obtaining and using actual production pairing keys, please reference the Nagravision Pairing Key Handling Procedures document." name="APSHDplus_000k0045.d33"/>
+		</components>
+		<compatibility>
+			<product name="cak_me" version="2.4.0.B1.2"/>
+			<product name="cakapi" version="1.24.0"/>
+			<product name="cakops" version="1.4.288"/>
+			<product name="dalapi" version="7.3.1"/>
+			<product name="makefiles" version="2.10.19"/>
+			<toolchain name="arm-linux-gnueabihf-gcc" version="4.8-1.0">
+				<compiler_flags>
+					<flag>-O2</flag>
+					<flag>-pipe</flag>
+					<flag>-marm</flag>
+					<flag>-march=armv7-a</flag>
+					<flag>-fdata-sections</flag>
+					<flag>-ffunction-sections</flag>
+					<flag>-fno-strict-aliasing</flag>
+					<flag>-fstack-protector-all</flag>
+					<flag>-Wall</flag>
+					<flag>-Wno-unused-value</flag>
+					<flag>-Wno-unused-function</flag>
+					<flag>-Wstrict-prototypes</flag>
+					<flag>-Wno-strict-aliasing</flag>
+					<flag>-Wdeclaration-after-statement</flag>
+					<flag>-Wno-pointer-sign</flag>
+				</compiler_flags>
+				<compiler_defines>
+					<define>_FILE_OFFSET_BITS=64</define>
+					<define>_LARGEFILE_SOURCE</define>
+					<define>_LARGEFILE64_SOURCE</define>
+					<define>BSTD_CPU_ENDIAN_LITTLE</define>
+					<define>LINUX</define>
+				</compiler_defines>
+			</toolchain>
+		</compatibility>
+		<bug_fixes/>
+		<changes/>
+		<new_features/>
+		<comments/>
+		<keysets>
+			<keyset name="NAK">
+				<key name="cso_test"/>
+			</keyset>
+			<keyset name="DOL">
+				<key name="aps-hd"/>
+			</keyset>
+		</keysets>
+	</release>
+</release_notes>

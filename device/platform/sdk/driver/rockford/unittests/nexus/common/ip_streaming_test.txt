@@ -1,0 +1,25 @@
+############################################################
+#     Copyright (c) 2003-2011, Broadcom Corporation
+#     All Rights Reserved
+#     Confidential Property of Broadcom Corporation
+#
+#  THIS SOFTWARE MAY ONLY BE USED SUBJECT TO AN EXECUTED SOFTWARE LICENSE
+#  AGREEMENT  BETWEEN THE USER AND BROADCOM.  YOU HAVE NO RIGHT TO USE OR
+#  EXPLOIT THIS MATERIAL EXCEPT SUBJECT TO THE TERMS OF SUCH AN AGREEMENT.
+#
+# $brcm_Workfile: ip_streaming_test.txt $
+# $brcm_Revision: Hydra_Software_Devel/1 $
+# $brcm_Date: 10/24/11 4:30p $
+#
+# Module Description:
+#
+# Revision History:
+#
+# $brcm_Log: /rockford/unittests/nexus/common/ip_streaming_test.txt $
+# 
+# Hydra_Software_Devel/1   10/24/11 4:30p slauzon
+# SWCHECKFRAME-80:initial ci
+# 
+############################################################
+
+unittests/video_decoder/channel_change

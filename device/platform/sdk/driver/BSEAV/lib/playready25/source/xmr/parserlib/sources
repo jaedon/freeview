@@ -1,0 +1,15 @@
+!include ..\..\drmbuild.cmn
+
+TARGETNAME=drmxmrparser
+TARGETTYPE=LIBRARY
+
+C_DEFINES= $(C_DEFINES)                 \
+    -DDRM_BUILDING_DRMXMRPARSER_LIB     \
+
+
+SOURCES =                   \
+    ..\drmxmrparser.c
+
+
+OBJLIBFILES = $(DRM_PK_SOURCE_LIB_PATH)\drmxmrcommon.lib
+

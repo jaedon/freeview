@@ -1,0 +1,24 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmblackbox
+TARGETTYPE=LIBRARY
+
+SOURCES =                   \
+    asfmediabuffer.c        \
+    asfsample.c             \
+    drmndtasf.c             \
+    drmorderedlist.c        \
+    leakybucket.c           \
+    mux.c                   \
+    muxstream.c             \
+    ndtasfdrm.c             \
+    ndtasfguids.c           \
+    ndtasf_internal.c       \
+    packetwriter.c          \
+    sendwindow.c            \
+

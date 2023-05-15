@@ -1,0 +1,4 @@
+##ECLIPSE_VERSION:3.7-5
+element * CHECKEDOUT
+element * RAAGA_BDSP_RELEASE_7p6p9p3_20150522
+load /vobs/Raaga

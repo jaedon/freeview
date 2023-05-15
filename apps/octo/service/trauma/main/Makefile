@@ -1,0 +1,9 @@
+obj-y += trauma.o
+obj-y += trauma_rpc.o
+obj-y += trauma_erin.o
+obj-y += trauma_tvportal.o
+obj-y += trauma_statistics.o
+obj-y += trauma_hcr.o
+obj-y += trauma_tool.o
+obj-y += trauma_cmd.o
+ccflags-y += -I$(OCTOSVC_SRC_DIR)/trauma/main

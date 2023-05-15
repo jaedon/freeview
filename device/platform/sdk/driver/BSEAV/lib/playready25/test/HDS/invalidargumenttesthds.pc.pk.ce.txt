@@ -1,0 +1,1029 @@
+-------------------BVT ends here--------------------------
+
+'************************************************************************
+'Invalid argument test cases  
+'A lot of these test cases have lost the original menaining since the 
+'targeted code does not return error code anymore. Instead, it returns 
+'assert when detetcting an invalid argument
+
+9508:Create store with NULL store name 
+'TestHdsCreateStore(NULL,65535,1,Dump,1,0)=-2147024809
+TestHdsCreateStore(HashStoreName.hds,65535,1,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsCloseStore(Dump,0)
+
+9509:Create a store with empty name
+'TestHdsCreateStore(EMPTY,65535,1,Dump,1,0)=-2147024809
+TestHdsCreateStore(HashStoreName.hds,65535,1,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsCloseStore(Dump,0)
+
+9510:Create a store with a long name.  
+TestHdsCreateStore(abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz.hds,65535,1,Dump,1,0)
+TestHdsOpenStore(abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz.hds,Dump,0)
+TestHdsCloseStore(Dump,0)
+
+9511:Create a store with invalid name 
+TestHdsCreateStore(_123#%c://,65535,1,Dump,1,0,NULL,NULL,SkipDelete)=-2147172325(0X8004C01B)
+TestHdsCreateStore(HashStoreName.hds,65535,1,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsCloseStore(Dump,0)
+
+9512:Create a store with 1 or 0 byte block size
+TestHdsCreateStore(HashStoreName.hds,278,1,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsCloseStore(Dump,0)
+TestHdsReinitialize(0)
+TestHdsCreateStore(HashStoreName.hds,300,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsCloseStore(Dump,0)
+TestHdsReinitialize(0)
+TestHdsCreateStore(HashStoreName.hds,320,4,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsCloseStore(Dump,0)
+
+9513:Create a store with large byte block size
+TestHdsCreateStore(HashStoreName.hds,-1,1,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsCloseStore(Dump,0)
+TestHdsReinitialize(0)
+TestHdsCreateStore(HashStoreName.hds,99999,1,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsCloseStore(Dump,0)
+
+9514:Create a store with large byte block size
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsCloseStore(Dump,0)
+
+9515:Create a store with NULL pContext
+'TestHdsCreateStore(HashStoreName.hds,65535,2,NULL,1,1)=-2147024809
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsCloseStore(Dump,0)
+
+9516:Open a store with NULL pContext
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+'TestHdsOpenStore(HashStoreName.hds,NULL,1)=-2147024809
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsCloseStore(Dump,0)
+ 
+9517:Open a store with NULL name
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+'TestHdsOpenStore(NULL,Dump,0)=-2147024809
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsCloseStore(Dump,0)
+
+9518:Open a store with invalid names
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+TestHdsOpenStore(dhdfhfh.hds,Dump,0)=-2147287038
+TestHdsOpenStore(HashStoreName,Dump,0)=-2147287038
+TestHdsOpenStore(HashStoreName.abc,Dump,0)=-2147287038
+TestHdsOpenStore(_123#%c://,Dump,0)=-2147287038
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsCloseStore(Dump,0)
+
+9519:commit changes to a store with NULL context
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+'TestHdsCommitStore(NULL,1)=-2147024809
+TestHdsCommitStore(Dump,0)
+TestHdsCloseStore(Dump,0)
+ 
+9520:close a store with NULL context
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsCommitStore(Dump,0)
+'TestHdsCloseStore(NULL,1)=-2147024809
+TestHdsCloseStore(Dump,0)
+ 
+9521:create a name space when the context is NULL
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+'TestHdsOpenNamespace(NULL,ThisIsANamespace0000000,1, 16, Dump,0,1)=-2147024809
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsCommitStore(Dump,0)
+TestHdsCloseStore(Dump,0)
+ 
+9522:create a name space when the name space is NULL
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+'TestHdsOpenNamespace(Dump,NULL,1, 16, Dump,0,0)=-2147024809
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsCommitStore(Dump,0)
+TestHdsCloseStore(Dump,0)
+ 
+9523:create a name space with long name
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,abcdefghijklmnopqrstuvwxyz01234567889abcdefghijklmnopqrstuvwxyz01234567889abcdefghijklmnopqrstuvwxyz01234567889,1, 16, Dump,0,0)
+TestHdsCommitStore(Dump,0)
+TestHdsCloseStore(Dump,0)
+  
+'invalid test case? Debug and free version behaves differently 
+9524:create a name space when the name is empty
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+'TestHdsCreateNamespace(Dump,EMPTY,16,0)
+'TestHdsOpenNamespace(Dump,EMPTY,Dump,0,0)
+'TestHdsCreateNamespace(Dump,a,16,0)
+'TestHdsOpenNamespace(Dump,a,Dump,0,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsCommitStore(Dump,0)
+TestHdsCloseStore(Dump,0)
+
+9525:create a name space when number of children is 0 or 1
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+'TestHdsCreateNamespace(Dump,ThisIsANamespace0000000,0,0)=-2147024809
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 1, Dump,0,0)
+TestHdsCommitStore(Dump,0)
+TestHdsCloseStore(Dump,0)
+
+9526:create a name space when number of children is a large number
+TestHdsCreateStore(HashStoreName.hds,65535,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 128, Dump,0,0)=0x80070057
+TestHdsCommitStore(Dump,0)
+TestHdsCloseStore(Dump,0)
+
+9527:delete a name space when hds context is NULL 
+TestHdsCreateStore(HashStoreName.hds,65535,4,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+'TestHdsDeleteNamespace(NULL,ThisIsANamespace0000000,1)=-2147024809
+TestHdsDeleteNamespace(Dump,ThisIsANamespace0000000,0) 
+TestHdsCloseStore(Dump,0)
+
+9528:delete a name space when name is NULL 
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+'TestHdsDeleteNamespace(Dump,NULL,0)=-2147024809
+TestHdsDeleteNamespace(Dump,ThisIsANamespace0000000,0) 
+TestHdsCloseStore(Dump,0)
+  
+9529:delete a name space when name is invalid 
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+'TestHdsDeleteNamespace(Dump,EMPTY,0)=-2147172317
+'TestHdsDeleteNamespace(Dump,Invalid,0)=-2147172317 
+TestHdsDeleteNamespace(Dump,ThisIsANamespace0000000,0) 
+TestHdsCloseStore(Dump,0)
+   
+9530:open a name space when name is invalid 
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+TestHdsOpenNamespace(Dump,invalid,2, 8, Dump,0,0)=-2147172317
+TestHdsOpenNamespace(Dump,EMPTY,2, 8, Dump,0,0)=-2147172317
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,2, 8, Dump,0,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9531:open a name space when name is NULL
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+'TestHdsOpenNamespace(Dump,NULL,1, 8, Dump,0,0)=-2147024809
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,2, 8, Dump,0,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+  
+9532:open a name space when hds context is NULL
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+'TestHdsOpenNamespace(NULL,ThisIsANamespace0000000,1, 8, Dump,0,0)=-2147024809
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,2, 8, Dump,0,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+ 
+9533:open a name space when name space context is NULL
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+'TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,2, 8, NULL,0,0)=-2147024809
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,2, 8, Dump,0,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9534:close a name space when name space context is NULL
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+'TestHdsCloseNamespace(NULL,0,0)=-2147024809
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+ 
+9535:open the data slot when name space context is NULL 
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+TestHdsOpenSlot(NULL,4097,ThisAFullHashKey,OneFullUniqueKey,200,Dump,0,2)=-2147024809
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,200,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+  
+9536:open the data slot when eMode is invalid 
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+'TestHdsOpenSlot(Dump,2,ThisAFullHashKey,OneFullUniqueKey,200,Dump,0,0)=-2147024809
+'TestHdsOpenSlot(Dump,4,ThisAFullHashKey,OneFullUniqueKey,200,Dump,0,0)=-2147024809
+TestHdsOpenSlot(Dump,8192,ThisAFullHashKey,OneFullUniqueKey,200,Dump,0,0)=-2147172316
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,200,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+  
+9537:open the data slot when bHashKey is NULL 
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,NULL,OneFullUniqueKey,200,Dump,0,0)=-2147024809
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,200,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+ 
+9538:open the data slot when bHashKey is EMPTY 
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,EMPTY,OneFullUniqueKey,200,Dump,0,0)=0x80070057 DRM_E_INVALIDARG
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,200,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+  
+9539:open the data slot when bHashKey is a long string
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,ThisisalongstringThisisalongstringThisisalongstringThisisalongstringThisisalongstringThisisalongstring,OneFullUniqueKey,200,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,Thatisalongstrin,TwoFullUniqueKey,200,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+  
+9540:open the data slot when bUniqueKey is a long string
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,ThisisalongstringThisisalongstringThisisalongstringThisisalongstringThisisalongstringThisisalongstring,200,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,ThatAFullHashKey,Thatisalongstrin,200,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+  
+9541:open the data slot when bUniqueKey is NULL
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+'TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,NULL,200,Dump,0,0)=-2147024809
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,Thisisalongstrin,200,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+  
+9542:open the data slot when bUniqueKey is empty
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,EMPTY,200,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+  
+9543:open the data slot when pcbSlotSize is NULL
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+'TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,NULL,Dump,0,0)=-2147024809
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,200,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9544:open the data slot when pcbSlotSize is 0, 1, -1
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+'TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,0,Dump,0,0)=-2147024809
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,1,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,TwoFullUniqueKey,-1,Dump,0,0)=-2147188522
+'TestHdsOpenSlot(Dump,8192,ThisAFullHashKey,OneFullUniqueKey,1,Dump,0,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+  
+9545:open the data slot when pcbSlotContext is NULL
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+'TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,200,NULL,0,0)=-2147024809
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,200,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+  
+9547:delete the data slot when pcbNsContext is NULL
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,200,Dump,0,0)
+'TestHdsDeleteSlot(NULL,ThisAFullHashKey,OneFullUniqueKey,0,2)=-2147024809
+TestHdsCloseSlot(Dump,0)
+TestHdsDeleteSlot(Dump,ThisAFullHashKey,OneFullUniqueKey,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,TwoFullUniqueKey,200,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsDeleteSlot(Dump,ThisAFullHashKey,TwoFullUniqueKey,0,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+   
+9847:delete the data slot when Hash key is NULL
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,200,Dump,0,0)
+'TestHdsDeleteSlot(Dump,NULL,OneFullUniqueKey,0,0)=-2147024809
+TestHdsCloseSlot(Dump,0)
+TestHdsDeleteSlot(Dump,ThisAFullHashKey,OneFullUniqueKey,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,TwoFullUniqueKey,200,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsDeleteSlot(Dump,ThisAFullHashKey,TwoFullUniqueKey,0,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+   
+9848:delete the data slot when unique key is NULL
+TestHdsCreateStore(HashStoreName.hds,1000,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 8, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,200,Dump,0,0)
+'TestHdsDeleteSlot(Dump,ThisAFullHashKey,NULL,0,0)=-2147024809
+TestHdsCloseSlot(Dump,0)
+TestHdsDeleteSlot(Dump,ThisAFullHashKey,OneFullUniqueKey,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,TwoFullUniqueKey,200,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsDeleteSlot(Dump,ThisAFullHashKey,TwoFullUniqueKey,0,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+   
+9562:Initialize enumeration query when the name space is NULL
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCommitStore(Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,2, 16, Dump,0,0)
+'TestHdsInitSlotEnum(NULL,NULL,0,Dump,0,2)=-2147024809
+TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0)
+TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,0,ThisAFullHashKey,OneFullUniqueKey,120,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9563:Initialize enumeration query when enum context is NULL
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCommitStore(Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,2, 16, Dump,0,0)
+'TestHdsInitSlotEnum(Dump,NULL,0,NULL,0,0)=-2147024809
+TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0)
+TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,0,ThisAFullHashKey,OneFullUniqueKey,120,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9564:enumerate next when enum context is NULL 
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCommitStore(Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,2, 16, Dump,0,0)
+TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0)
+'TestHdsSlotEnumNext(NULL,Dump,Dump,Dump,0,NULL,NULL,NULL,8)=-2147024809
+TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,0,ThisAFullHashKey,OneFullUniqueKey,120,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9565:enumerate next when slot context is NULL 
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCommitStore(Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,2, 16, Dump,0,0)
+TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0)
+'TestHdsSlotEnumNext(Dump,NULL,Dump,Dump,0,NULL,NULL,NULL,0)=-2147024809
+TestHdsSlotEnumNext(Dump,NULL,Dump,Dump,0,ThisAFullHashKey,OneFullUniqueKey,120,0)=0X80070057 DRM_E_INVALIDARG
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9566:enumerate next when bHashKey is NULL 
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCommitStore(Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,2, 16, Dump,0,0)
+TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0,0)
+TestHdsSlotEnumNext(Dump,Dump,NULL,Dump,0,NULL,OneFullUniqueKey,120,0)=0X80070057 DRM_E_INVALIDARG
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9567:enumerate next when bUniqueKey is NULL 
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCommitStore(Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,2, 16, Dump,0,0)
+TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0)
+TestHdsSlotEnumNext(Dump,Dump,Dump,NULL,0,ThisAFullHashKey,NULL,120,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9568:enumerate next when pcbSize is NULL 
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCommitStore(Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,2, 16, Dump,0,0)
+TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0)
+TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,NULL,ThisAFullHashKey,OneFullUniqueKey,NULL,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9569:enumerate next when cbSize is 1, -1 
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,ThisAFullHashKey,OneFullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCommitStore(Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,2, 16, Dump,0,0)
+TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0)
+TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,1,ThisAFullHashKey,OneFullUniqueKey,120,0)
+TestHdsCloseSlot(Dump,0)
+'TestHdsInitSlotEnum(Dump,NULL,0,Dump,0,0)
+'TestHdsSlotEnumNext(Dump,Dump,Dump,Dump,-1,ThisAFullHashKey,OneFullUniqueKey,120,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9570:resize data slot when slot context is NULL 
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00002FullHashKey,002FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00003FullHashKey,003FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8192,00003FullHashKey,003FullUniqueKey,120,Dump,0,0)
+'TestHdsSlotResize(NULL,450,16)=-2147024809
+'TestHdsSlotResize(Dump,450,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9571:resize data slot when slot size is 0, 1, -1
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00002FullHashKey,002FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00003FullHashKey,003FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8192,00003FullHashKey,003FullUniqueKey,120,Dump,0,0)
+'TestHdsSlotResize(Dump,0,0)=-2147024809
+'TestHdsSlotResize(Dump,1,0)
+'TestHdsSlotResize(Dump,-1,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9756:resize data slot when increase and then decrease the size
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00002FullHashKey,002FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00003FullHashKey,003FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00003FullHashKey,003FullUniqueKey,120,Dump,0,0)
+TestHdsSlotResize(Dump,240,0)
+TestHdsSlotResize(Dump,50,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9757:resize data slot when decrease and then increase the size
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00002FullHashKey,002FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00003FullHashKey,003FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00003FullHashKey,003FullUniqueKey,120,Dump,0,0)
+TestHdsSlotResize(Dump,50,0)
+TestHdsSlotResize(Dump,240,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9758:resize data slot when increased size >block size and then descrease the size 
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00002FullHashKey,002FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00003FullHashKey,003FullUniqueKey,120,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00003FullHashKey,003FullUniqueKey,120,Dump,0,0)
+'TestHdsSlotResize(Dump,501,0)
+'TestHdsSlotResize(Dump,1,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00003FullHashKey,003FullUniqueKey,120,Dump,0,0)
+'TestHdsSlotResize(Dump,501,0)
+'TestHdsSlotResize(Dump,1,0)
+'TestHdsSlotResize(Dump,499,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9572:seek the position when slot context is NULL 
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,001FullUniqueKey,40,Dump,0,0)
+TestHdsSlotWrite(Dump,40,DumpDumpDumpDumpDumpDumpDumpDumpDumpThis,0,0) 
+'TestHdsSlotSeek(NULL,0,2,NULL,16)=-2147024809
+TestHdsSlotSeek(Dump,0,2,NULL,0)
+TestHdsSlotRead(Dump,4,xxxx,0,EMPTY,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9573:seek the position when offset is 1, -1 
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,001FullUniqueKey,40,Dump,0,0)
+TestHdsSlotWrite(Dump,40,DumpDumpDumpDumpDumpDumpDumpDumpDumpThis,0,0) 
+'TestHdsSlotSeek(Dump,1,2,NULL,0)=-2147172313
+TestHdsSlotSeek(Dump,-1,2,NULL,0)
+TestHdsSlotSeek(Dump,0,2,NULL,0)
+TestHdsSlotRead(Dump,4,xxxx,0,EMPTY,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9759:seek the position when offset is larger than the data slot size
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,001FullUniqueKey,40,Dump,0,0)
+TestHdsSlotWrite(Dump,40,ThatDum1Dum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,0) 
+'TestHdsSlotSeek(Dump,-41,2,NULL,0)=-2147172313
+'TestHdsSlotSeek(Dump,-501,2,NULL,0)=-2147172313
+TestHdsSlotSeek(Dump,-40,2,NULL,0)
+TestHdsSlotSeek(Dump,-39,2,NULL,0)
+TestHdsSlotSeek(Dump,-1,2,NULL,0)
+'TestHdsSlotSeek(Dump,41,3,NULL,0)=-2147172313
+'TestHdsSlotSeek(Dump,501,3,NULL,0)=-2147172313
+TestHdsSlotSeek(Dump,40,3,NULL,0)
+TestHdsSlotSeek(Dump,39,3,NULL,0)
+TestHdsSlotSeek(Dump,1,3,NULL,0)
+TestHdsSlotRead(Dump,4,xxxx,0,hatD,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9760:seek the position forward and backward when seek mode is curent 
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,001FullUniqueKey,40,Dump,0,0)
+TestHdsSlotWrite(Dump,40,ThatDum1Dum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,0) 
+TestHdsSlotSeek(Dump,1,3,NULL,0)
+TestHdsSlotRead(Dump,4,xxxx,0,hatD,0) 
+TestHdsSlotSeek(Dump,4,1,NULL,0)
+TestHdsSlotRead(Dump,4,xxxx,0,um2D,0) 
+TestHdsSlotSeek(Dump,27,1,NULL,0)
+TestHdsSlotSeek(Dump,1,3,NULL,0)
+TestHdsSlotRead(Dump,4,xxxx,0,hatD,0) 
+TestHdsSlotSeek(Dump,-6,1,NULL,0)=-2147172313
+TestHdsSlotSeek(Dump,-5,1,NULL,0)
+TestHdsSlotRead(Dump,4,xxxx,0,That,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9761:seek the position forward and backward when slot size is larger than block size
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,520,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,003FullUniqueKey,520,Dump,0,0)
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+TestHdsSlotWrite(Dump,40,0001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,0) 
+TestHdsSlotSeek(Dump,40,1,NULL,0)
+TestHdsSlotWrite(Dump,40,0002DumbDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,0) 
+TestHdsSlotSeek(Dump,-40,2,NULL,0)
+TestHdsSlotWrite(Dump,40,0003DumcDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,0) 
+TestHdsSlotSeek(Dump,4,3,NULL,0)
+TestHdsSlotRead(Dump,4,xxxx,0,Duma,0) 
+TestHdsSlotSeek(Dump,76,1,NULL,0)
+TestHdsSlotRead(Dump,4,xxxx,0,Dumb,0) 
+TestHdsSlotSeek(Dump,-36,2,NULL,0)
+TestHdsSlotRead(Dump,4,xxxx,0,Dumc,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9574:seek the position when seek mode is invalid
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,003FullUniqueKey,140,Dump,0,0)
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+TestHdsSlotWrite(Dump,40,0001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,0) 
+TestHdsSlotSeek(Dump,0,0,NULL,0)=-2147024809
+TestHdsSlotSeek(Dump,0,4,NULL,0)=-2147024809
+TestHdsSlotSeek(Dump,4,3,NULL,0)
+TestHdsSlotRead(Dump,4,xxxx,0,Duma,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+ 
+'9575 is also covered 
+9576:seek the position when wSeekPointer is 0, 1, -1
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,003FullUniqueKey,140,Dump,0,0)
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+TestHdsSlotWrite(Dump,40,0001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,0) 
+TestHdsSlotSeek(Dump,30,3,0,0)
+TestHdsSlotSeek(Dump,2,1,1,0)
+TestHdsSlotSeek(Dump,-2,2,-1,0)
+TestHdsSlotSeek(Dump,0,2,0,0)
+TestHdsSlotSeek(Dump,4,3,NULL,0)
+TestHdsSlotRead(Dump,4,xxxx,0,Duma,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+ 
+9577:read data with NULL slot context 
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,003FullUniqueKey,140,Dump,0,0)
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+TestHdsSlotWrite(Dump,40,0001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,0) 
+TestHdsSlotSeek(Dump,0,3,0,0)
+'TestHdsSlotRead(NULL,4,xxxx,0,0001,16)=-2147024809
+TestHdsSlotRead(Dump,4,xxxx,0,0001,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9578:read data with cbData is 0, 1, -1
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+TestHdsSlotWrite(Dump,40,a001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,0) 
+TestHdsSlotSeek(Dump,0,3,0,0)
+TestHdsSlotRead(Dump,0,xxxx,0,NULL,0)
+TestHdsSlotRead(Dump,1,x,0,a,0)
+TestHdsSlotSeek(Dump,0,3,0,0)
+TestHdsSlotRead(Dump,2,xx,0,a0,0)
+TestHdsSlotSeek(Dump,0,3,0,0)
+TestHdsSlotRead(Dump,40,a001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,a001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0)
+TestHdsSlotSeek(Dump,0,3,0,0)
+TestHdsSlotRead(Dump,-1,a001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,a001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9579:read data with pbData is NULL 
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+TestHdsSlotWrite(Dump,40,a001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,0) 
+TestHdsSlotSeek(Dump,0,3,0,0)
+'TestHdsSlotRead(Dump,4,NULL,0,NULL,0)=-2147024809
+TestHdsSlotRead(Dump,4,xxxx,0,a001,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9580:read data with allocated pbData memory is shorter than cbData
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+TestHdsSlotWrite(Dump,40,a001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,2, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,8192,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsSlotSeek(Dump,0,3,0,0)
+'the store content does not corrupted. Comment out this since it causes abort.
+'TestHdsSlotRead(Dump,40,This,0,NULL,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9581:read data with pcbRead is NULL 
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+TestHdsSlotWrite(Dump,40,a001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,0) 
+TestHdsSlotSeek(Dump,0,3,0,0)
+TestHdsSlotRead(Dump,4,This,NULL,a001,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9582:read data with cbData is 0,1,-1
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+TestHdsSlotWrite(Dump,40,a001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,0) 
+TestHdsSlotSeek(Dump,0,3,0,0)
+TestHdsSlotRead(Dump,4,This,0,NULL,0)
+TestHdsSlotRead(Dump,4,This,1,NULL,0)
+TestHdsSlotRead(Dump,4,This,-1,NULL,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9583:write data with slot context is NULL 
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+'TestHdsSlotWrite(NULL,40,a001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,16)=-2147024809
+TestHdsSlotWrite(Dump,40,a001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9584:write data with cbData is 0, 1, -1
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+TestHdsSlotWrite(Dump,0,a001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,0)
+TestHdsSlotWrite(Dump,1,b001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,0)
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+TestHdsSlotWrite(Dump,141,c001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,0, 40)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9762:write data outside the data slot 
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+TestHdsSlotWrite(Dump,40,a001DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8This,0,0)
+TestHdsSlotWrite(Dump,40,b222DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8That,0,0,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9585:write data outside pbData is NULL 
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+'TestHdsSlotWrite(Dump,40,NULL,0,0)=-2147024809
+TestHdsSlotWrite(Dump,40,b222DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8That,0,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+'this test case could lead to crash
+9586:write data when allocated pbData is shorter than cbData
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+'TestHdsSlotWrite(Dump,30,This,0,0)
+TestHdsSlotWrite(Dump,40,b222DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8That,0,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9588:write data when cbWritten is 0,1, -1
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+TestHdsSlotWrite(Dump,4,b222DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8That,0,0) 
+TestHdsSlotWrite(Dump,4,b222DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8That,1,0) 
+TestHdsSlotWrite(Dump,4,b222DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8That,-1,0) 
+TestHdsSlotWrite(Dump,4,b222DumaDum2Dum3Dum4Dum5Dum6Dum7Dum8That,NULL,0) 
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9589:write and read data when the content contains non-printable characters 
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+TestHdsSlotWrite(Dump,22,lbPgSn1cออpE4OPSbZbg,0,0) 
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+TestHdsSlotRead(Dump,22,1234567890123456789012,0,lbPgSn1cออpE4OPSbZbg,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+
+9590:write data when pbData is longer than cbData
+TestHdsCreateStore(HashStoreName.hds,500,2,Dump,1,0)
+TestHdsOpenStore(HashStoreName.hds,Dump,0)
+TestHdsOpenNamespace(Dump,ThisIsANamespace0000000,1, 16, Dump,0,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,001FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,002FullUniqueKey,140,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,4097,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsOpenSlot(Dump,8193,00001FullHashKey,003FullUniqueKey,40,Dump,0,0)
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+TestHdsSlotWrite(Dump,20,12345678901234567890ab,0,0) 
+TestHdsSlotWrite(Dump,2,xy,0,0) 
+TestHdsSlotSeek(Dump,0,3,NULL,0)
+TestHdsSlotRead(Dump,22,12345678901234567890ab,0,12345678901234567890xy,0)
+TestHdsCloseSlot(Dump,0)
+TestHdsCloseNamespace(Dump,0,0)
+TestHdsCloseStore(Dump,0)
+

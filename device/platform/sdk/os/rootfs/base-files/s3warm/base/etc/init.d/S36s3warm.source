@@ -1,0 +1,5 @@
+#!/bin/sh
+
+export custom_arc=y
+export config="custom_arc=y"
+

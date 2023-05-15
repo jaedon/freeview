@@ -1,0 +1,169 @@
+<html>
+<head>
+<title>GOGI example plugin test page</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<script type="text/javascript">
+function toggleAnimation(embed_name, button)
+{
+  var embed = document.getElementsByName(embed_name)[0]
+
+  if ( embed.isStopped() )
+  {
+    embed.start();
+    button.value = "Stop";
+  }
+  else
+  {
+    embed.stop();
+    button.value = "Start";
+  }
+}
+
+function slowDown(embed_name)
+{
+  var embed = document.getElementsByName(embed_name)[0]
+
+  embed.stop();
+  embed.animation_speed += embed.animation_speed * 0.1;
+  embed.start();
+}
+
+function speedUp(embed_name)
+{
+  var embed = document.getElementsByName(embed_name)[0]
+
+  embed.stop();
+  embed.animation_speed -= embed.animation_speed * 0.1;
+  if ( embed.animation_speed < 25 )
+    embed.animation_speed = 25;
+  embed.start();
+}
+
+function runJavascriptFromPlugin(embed_name, script)
+{
+  var embed = document.getElementsByName(embed_name)[0]
+  embed.run_javascript(script);
+}
+
+function syncXHR()
+{
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "delay.php?delay=30", false);
+  xhr.send(null); 
+  var serverResponse = xhr.responseText;
+  document.getElementById('statusdiv').innerHTML = xhr.readyState + ":" + serverResponse;
+}
+
+</script>
+</head>
+<body>
+<div style="position:fixed" >
+<embed type="application/x-plugintest" alpha_transparent use_paint_buffer="BGRA32">
+</div>
+
+<h1>GOGI example plugin test page</h1>
+<p>
+This page is for testing the GOGI example plugin. Spatial navigation
+in and out of the plugin should work.
+</p>
+
+<p>
+The form below this text is there to have some content other than the
+testplugin itself to navigate within.
+</p>
+
+<p>
+Are the plugins not shown? You can see a list of loaded plugins in <a
+href="opera:plugins">opera:plugins</a>. If the test plugin is not
+listed here, the path to the plugins directory is probably not set
+correctly. Please make sure that you set the Plugin Path parameter
+correctly in the opera.ini file. It should be set to the directory
+where simpleplugin.so resides, typically path-to-sdk-package/plugins.
+You need to restart Opera for this change to take effect.
+</p>
+
+<table>
+  <tr>
+    <td>
+      <form action="" method="post">
+      <h2> Test form </h2>
+      <p>
+      First name: <input type="text" name="firstname"><br>
+      Last name: <input type="text" name="lastname"><br>
+      email: <input type="text" name="email"><br>
+      <input type="radio" name="sex" value="Male"> Male<br>
+      <input type="radio" name="sex" value="Female"> Female<br>
+      <input type="submit" value="Send">
+      <input type="reset">
+      </p>
+      </form>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h2>Test plugin 1</h2>
+      <embed type="application/x-plugintest" do_not_activate>
+    </td>
+    <td>
+      <h2>Test plugin 2</h2>
+      <embed type="application/x-plugintest" width="60" height="200">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h2>Test plugin 3</h2>
+      <embed type="application/x-plugintest" width="250" height="200">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h2>Test plugin 4</h2>
+      <embed type="application/x-plugintest" name="test_plugin_4" width="350" height="150" stipple fps_object="document.getElementsByName('frame_rate_field_4')[0]">
+      <form>
+        <input type="button" onclick="toggleAnimation('test_plugin_4', this)" value="Stop">
+        <input type="button" onclick="speedUp('test_plugin_4')" value="Faster">
+        <input type="button" onclick="slowDown('test_plugin_4')" value="Slower">
+        <input type="button" onclick="runJavascriptFromPlugin('test_plugin_4', 'alert()')" value="Test alert">
+        <input type="button" onclick="runJavascriptFromPlugin('test_plugin_4', 'syncXHR()')" value="Test synchronous XHR">
+        <br>Frame rate:<input type="text" name="frame_rate_field_4" value="000" readonly >fps
+	<div id="statusdiv">Status div</div>
+      </form>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h2>Test plugin 5</h2>
+      <embed type="application/x-plugintest" width="150" height="150" use_paint_buffer="RGB16">
+    </td>
+    <td>
+      <h2>Test plugin 6</h2>
+      <embed type="application/x-plugintest" width="150" height="150" use_paint_buffer="BGR24">
+    </td>
+  </tr>
+</table>
+
+<h1>Test A</h1>
+<p>1
+<br>2
+<br>3
+<br>4
+<br>5
+<br>6
+<br>7
+<br>8
+<br>9
+</p>
+<h2>Test B</h2>
+<p>1
+<br>2
+<br>3
+<br>4
+<br>5
+<br>6
+<br>7
+<br>8
+<br>9
+</p>
+
+</body>
+</html>

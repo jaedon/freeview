@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config_root>
+  <config_data>
+  <!-- Whatever is put in bundleVersion will appear in JS under nrdp.device.SDKVersion.components.platform 
+       NRDJS logging (logsink.js) will then propagate those values to most log blobs.
+  -->
+  <bundleVersion>
+    <platformType>SDK</platformType>
+    <platformVersion>4.2.2</platformVersion>
+    <platformBuildNum>5f99e43</platformBuildNum>
+    <platformBuildTime>1452551655</platformBuildTime>
+  </bundleVersion>
+  </config_data>
+</config_root>

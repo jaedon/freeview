@@ -1,0 +1,18 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=tee
+TARGETTYPE=LIBRARY
+
+SOURCES =                   \
+	tee.c			\
+	teeder.c		\
+	teeimpl.c		\
+	teestate.c		\
+	teestateversion.c	\
+	teeutil.c		\
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<!--        
+  Defines icons which are provided via UPnP advertisement.
+  SAT>IP standard specifies four icons:
+  
+  A SAT>IP device shall provide two JPEG icons and two PNG icons:
+  - the image width and height of the small JPEG and PNG icons must be 48 pixels,
+  - the image width and height of the large JPEG and PNG icons must be 120 pixels.     
+
+  The url is relative to the location of this file.
+-->
+
+<icons>  
+
+  <icon>
+    <url>ServerIcon_small.png</url>
+    <mimetype>image/png</mimetype>
+    <width>48</width>
+    <height>48</height>
+    <depth>32</depth>
+  </icon>
+  
+  <icon>
+    <url>ServerIcon_large.png</url>
+    <mimetype>image/png</mimetype>
+    <width>120</width>
+    <height>120</height>
+    <depth>32</depth>
+  </icon>
+
+  <icon>
+    <url>ServerIcon_small.jpg</url>
+    <mimetype>image/jpeg</mimetype>
+    <width>48</width>
+    <height>48</height>
+    <depth>24</depth>
+  </icon>
+
+  <icon>
+    <url>ServerIcon_large.jpg</url>
+    <mimetype>image/jpeg</mimetype>
+    <width>120</width>
+    <height>120</height>
+    <depth>24</depth>
+  </icon>
+  
+</icons>

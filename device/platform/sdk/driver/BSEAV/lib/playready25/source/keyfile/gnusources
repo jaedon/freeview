@@ -1,0 +1,14 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmkeyfile
+TARGETTYPE=LIBRARY
+
+SOURCES =               \
+    drmkeyfile.c        \
+    drmkeyfilewrite.c   \
+

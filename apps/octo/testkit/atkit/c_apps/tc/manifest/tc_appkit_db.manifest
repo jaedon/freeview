@@ -1,0 +1,36 @@
+{
+	"RUN_ALL": false,
+
+	"RUN_CATEGORY":[
+		"db"
+		],
+
+	"RUN_TC":[
+
+		],
+
+	"TC_LIST": 
+		[
+		{
+			"tc_name": "TC_DB_ValidateIntegerData",
+			"category": ["db"],
+			"argument": {
+				"data_integer": 9
+			},
+			"expect_result": {
+				"result": 0 
+			}
+		},
+		{
+			"tc_name": "TC_DB_ValidateStringData",
+			"category": ["db"],
+			"argument": {
+				"data_string": "hello" 
+			},
+			"expect_result": {
+				"result": 0 
+			}
+		}
+		]
+}
+

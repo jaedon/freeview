@@ -1,0 +1,34 @@
+#!/bin/sh
+# this script sets LD_LIBRARY_PATH environment variable
+# and checks consistence of the system configuration
+
+LD_LIBRARY_PATH=.:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH
+PATH=.:${PATH}
+export PATH
+
+if [ $UID -ne "0" ]; then
+	echo "You need to run $@ as root."
+	exit 1
+fi
+
+TEST=`lsmod bcmdriver|grep bcmdriver >/dev/null && echo 1`
+if [ ! -z $TEST ]; then
+    rmmod bcmdriver || exit;
+fi    
+TEST=`lsmod nexus|grep nexus >/dev/null && echo 1`
+if [ ! -z $TEST ]; then
+    rmmod nexus || exit;
+fi    
+
+if [ -e nexus_firmware.elf -a -d /lib/firmware ]; then
+    echo "copying NFE firmware to /lib/firmware..."
+    cp nexus_fimware.elf /lib/firmware
+fi
+
+insmod nexus.ko config=\"${config}\" || exit;
+
+# Start whatever application is requested
+target=$1;
+shift
+exec env ${config} ${target} "$@"

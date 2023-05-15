@@ -1,0 +1,609 @@
+<Project>
+  <Name>HUMAX_OIPF_Extension</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>HMX_7.3 Configuration and setting APIs</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>oipfConfiguration</Name>
+        <Access>Public</Access>
+        <Location left="413" top="133" />
+        <Size width="476" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public readonly configuration Configuration</Member>
+        <Member type="Field">public readonly LocalSystem localSystem</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Comment">
+        <Text>7.3.1 The application/oipfConfiguration embedded object
+The OITF SHALL implement the “application/oipfConfiguration” object as defined below. This object
+provides an interface to the configuration and user settings facilities within the OITF.</Text>
+        <Location left="89" top="25" />
+        <Size width="1097" height="75" />
+      </Entity>
+      <Entity type="Class">
+        <Name>LocalSystem</Name>
+        <Access>Public</Access>
+        <Location left="707" top="318" />
+        <Size width="561" height="757" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public const int OFF = 0</Member>
+        <Member type="Field">public const int ON = 1</Member>
+        <Member type="Field">public const int PASSIVE_STANDBY = 2</Member>
+        <Member type="Field">public const int ACTIVE_STANDBY = 3</Member>
+        <Member type="Field">public const int PASSIVE_STANDBY_HIBERNATE = 4</Member>
+        <Member type="Field">public readonly String deviceID</Member>
+        <Member type="Field">public readonly Boolean systemReady</Member>
+        <Member type="Field">public readonly String vendorName</Member>
+        <Member type="Field">public readonly String modelName</Member>
+        <Member type="Field">public readonly String softwareVersion</Member>
+        <Member type="Field">public readonly String hardwareVersion</Member>
+        <Member type="Field">public readonly String serialNumber</Member>
+        <Member type="Field">public readonly Integer releaseVersion</Member>
+        <Member type="Field">public readonly Integer majorVersion</Member>
+        <Member type="Field">public readonly Integer minorVersion</Member>
+        <Member type="Field">public readonly String oipfProfile</Member>
+        <Member type="Field">public readonly Boolean pvrEnabled</Member>
+        <Member type="Field">public readonly Boolean ciplusEnabled</Member>
+        <Member type="Field">public readonly Integer powerState</Member>
+        <Member type="Field">public readonly Integer previousPowerState</Member>
+        <Member type="Field">public readonly Integer timeCurrentPowerState</Member>
+        <Member type="Field">public readonly AVOutputCollection outputs</Member>
+        <Member type="Field">public readonly NetworkInterfaceCollection networkInterfaces</Member>
+        <Member type="Field">public readonly TunerCollection tuners</Member>
+        <Member type="Field">public readonly Integer tvStandard</Member>
+        <Member type="Field">public readonly Integer pvrSupport</Member>
+        <Member type="Field">public readonly HMX_OutputCollection hmx_outputs</Member>
+        <Member type="Field">public readonly HMX_AudioCollection hmx_audios</Member>
+        <Member type="Property">public Boolean mute { get; set; }</Member>
+        <Member type="Property">public Integer volume { get; set; }</Member>
+        <Member type="Property">public Boolean standbyState { get; set; }</Member>
+        <Member type="Method">public void onPowerStateChange(Integer powerState)</Member>
+        <Member type="Method">public Boolean setScreenSize(Integer width, Integer height)</Member>
+        <Member type="Method">public Integer setPvrSupport(Integer state)</Member>
+        <Member type="Method">public Boolean setPowerState(Integer type)</Member>
+        <Member type="Method">public Boolean setDigestCredentials(String protocol, String domain, String username, String password)</Member>
+        <Member type="Method">public Boolean clearDigestCredentials(String protocol, String domain)</Member>
+        <Member type="Event">public event EventHandler onPowerStateChange</Member>
+        <Member type="Method">public void getField()</Member>
+        <Member type="Method">public void setField(String key, String value)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AVOutput</Name>
+        <Access>Public</Access>
+        <Location left="121" top="975" />
+        <Size width="387" height="315" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public readonly String name</Member>
+        <Member type="Field">public readonly String type</Member>
+        <Member type="Field">public Boolean enabled</Member>
+        <Member type="Field">public Boolean subtitleEnabled</Member>
+        <Member type="Field">public String videoMode</Member>
+        <Member type="Field">public String digitalAudioMode</Member>
+        <Member type="Field">public String audioRange</Member>
+        <Member type="Field">public readonly StringCollection supportedVideoModes</Member>
+        <Member type="Field">public readonly StringCollection supportedDigitalAudioModes</Member>
+        <Member type="Field">public readonly StringCollection supportedAudioRanges</Member>
+        <Member type="Field">public readonly StringCollection supportedHdVideoFormats</Member>
+        <Member type="Field">public readonly StringCollection supportedAspectRatios</Member>
+        <Member type="Property">public String hdVideoFormat { get; set; }</Member>
+        <Member type="Property">public String tvAspectRatio { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AVOutputCollection</Name>
+        <Access>Public</Access>
+        <Location left="121" top="785" />
+        <Size width="388" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public readonly Integer length</Member>
+        <Member type="Method">public AVOutput item(Integer index)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>SignalInfo</Name>
+        <Access>Public</Access>
+        <Location left="1408" top="1256" />
+        <Size width="301" height="162" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public readonly Number strength</Member>
+        <Member type="Field">public readonly Integer quality</Member>
+        <Member type="Field">public readonly Integer ber</Member>
+        <Member type="Field">public readonly Number snr</Member>
+        <Member type="Field">public readonly Boolean @lock</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Tuner</Name>
+        <Access>Public</Access>
+        <Location left="1408" top="1015" />
+        <Size width="301" height="189" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public readonly Integer id</Member>
+        <Member type="Field">public readonly String name</Member>
+        <Member type="Field">public readonly StringCollection idTypes</Member>
+        <Member type="Field">public Boolean enableTuner</Member>
+        <Member type="Field">public readonly SignalInfo signalInfo</Member>
+        <Member type="Field">public Boolean powerOnExternal</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>TunerCollection</Name>
+        <Access>Public</Access>
+        <Location left="1408" top="825" />
+        <Size width="301" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public readonly Integer length</Member>
+        <Member type="Method">public Tunner item(Integer index)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NetworkInterfaceCollection</Name>
+        <Access>Public</Access>
+        <Location left="1747" top="825" />
+        <Size width="322" height="138" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public readonly Integer length</Member>
+        <Member type="Method">public NetworkInterface item(Integer index)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NetworkInterface</Name>
+        <Access>Public</Access>
+        <Location left="1747" top="1015" />
+        <Size width="322" height="154" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public readonly String ipAddress</Member>
+        <Member type="Field">public readonly String macAddress</Member>
+        <Member type="Field">public readonly Boolean connected</Member>
+        <Member type="Field">public Boolean enabled</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Configuration</Name>
+        <Access>Public</Access>
+        <Location left="89" top="318" />
+        <Size width="434" height="315" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public String preferredSubtitleLanguage { get; set; }</Member>
+        <Member type="Property">public String preferredAudioLanguage { get; set; }</Member>
+        <Member type="Property">public String countryId { get; set; }</Member>
+        <Member type="Property">public Integer regionId { get; set; }</Member>
+        <Member type="Property">public Integer pvrPolicy { get; set; }</Member>
+        <Member type="Property">public Integer pvrSaveEpisodes { get; set; }</Member>
+        <Member type="Property">public Integer pvrSaveDays { get; set; }</Member>
+        <Member type="Property">public Integer pvrStartPadding { get; set; }</Member>
+        <Member type="Property">public Integer pvrEndPadding { get; set; }</Member>
+        <Member type="Property">public Integer preferredTimeShiftMode { get; set; }</Member>
+        <Member type="Method">public String getText(String key)</Member>
+        <Member type="Method">public void setText(String key, String value)</Member>
+        <Member type="Method">public String getField(String key)</Member>
+        <Member type="Method">public void setField(String key, String value)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Comment">
+        <Text>add function , getField()/setField()
+defined key.
+    - "post_code" : post_code string.
+</Text>
+        <Location left="89" top="661" />
+        <Size width="409" height="79" />
+      </Entity>
+      <Entity type="Comment">
+        <Text>add function , getField()/setField()
+defined key.
+    - "loader_version" : loader version string.
+    - "system_id" : humax system id string.
+    - "update_date" : update date string.
+    - "freesat_mode" : on/off string?</Text>
+        <Location left="1337" top="1461" />
+        <Size width="409" height="110" />
+      </Entity>
+      <Entity type="Class">
+        <Name>HMX_Output</Name>
+        <Access>Public</Access>
+        <Location left="599" top="1320" />
+        <Size width="324" height="417" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public Boolean enabled</Member>
+        <Member type="Field">public readonly Boolean scartEnabled</Member>
+        <Member type="Field">public readonly Boolean compositeEnabled</Member>
+        <Member type="Field">public readonly Boolean componentEnabled</Member>
+        <Member type="Field">public readonly Boolean rfEnabled</Member>
+        <Member type="Field">public readonly Boolean hdmiEnabled</Member>
+        <Member type="Field">public readonly Boolean spdifEnabled</Member>
+        <Member type="Field">public readonly Boolean tvscartEnabled</Member>
+        <Member type="Field">public readonly StringCollection supportedTvScartFormats</Member>
+        <Member type="Field">public String tvscartFormat</Member>
+        <Member type="Field">public readonly Boolean vcrscartEnabled</Member>
+        <Member type="Field">public readonly StringCollection supportedVcrScartFormats</Member>
+        <Member type="Field">public String vcrscartFormat</Member>
+        <Member type="Field">public String wss2hdmiMode</Member>
+        <Member type="Field">public String videoStandard</Member>
+        <Member type="Field">public String avAdditionalSignal</Member>
+        <Member type="Field">public String videoDisplayFormat</Member>
+        <Member type="Field">public String tvAspectRatio</Member>
+        <Member type="Field">public String curResolution</Member>
+        <Member type="Field">public readonly StringCollection supportedResolutions</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>HMX_Audio</Name>
+        <Access>Public</Access>
+        <Location left="955" top="1320" />
+        <Size width="336" height="333" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public readonly String name</Member>
+        <Member type="Field">public readonly String type</Member>
+        <Member type="Field">public readonly Boolean enabled</Member>
+        <Member type="Field">public Integer maxVolume</Member>
+        <Member type="Field">public Integer minVolume</Member>
+        <Member type="Field">public Integer lipSyncDelay</Member>
+        <Member type="Field">public String soundMode</Member>
+        <Member type="Field">public String modeDigitalAutioOutput</Member>
+        <Member type="Field">public String codecDigitalAutioOutput</Member>
+        <Member type="Field">public readonly Boolean transcodingEnabled</Member>
+        <Member type="Field">public String modeTranscoding</Member>
+        <Member type="Field">public readonly StringCollection supportedSoundModes</Member>
+        <Member type="Field">public readonly StringCollection supportedDigitalAudioOutputCodecs</Member>
+        <Member type="Field">public readonly StringCollection supportedDigitalAudioOutputModes</Member>
+        <Member type="Field">public readonly StringCollection supportedTranscodingModes</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>HMX_OutputCollection</Name>
+        <Access>Public</Access>
+        <Location left="599" top="1148" />
+        <Size width="324" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public readonly Integer length</Member>
+        <Member type="Method">public HMX_Output item(Integer index)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>HMX_AudioCollection</Name>
+        <Access>Public</Access>
+        <Location left="955" top="1148" />
+        <Size width="336" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public readonly Integer length</Member>
+        <Member type="Method">public HMX_Audio item(Integer index)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Comment" first="1" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>643</X>
+          <Y>108</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Association" first="4" second="3">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="6" second="5">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="8" second="9">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="7" second="6">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="0" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>642</X>
+          <Y>269</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1026</X>
+          <Y>293</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="2" second="4">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>682</X>
+          <Y>739</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="2" second="8">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1296</X>
+          <Y>763</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="2" second="7">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1293</X>
+          <Y>781</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="0" second="10">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>643</X>
+          <Y>269</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Comment" first="11" second="10">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>59</X>
+          <Y>712</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>59</X>
+          <Y>606</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Comment" first="12" second="2">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1360</X>
+          <Y>1406</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1297</X>
+          <Y>1017</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Association" first="2" second="15">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>680</X>
+          <Y>819</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="2" second="16">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>674</X>
+          <Y>837</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="15" second="13">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>753</X>
+          <Y>1295</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="16" second="14">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1118</X>
+          <Y>1295</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>HMX_7.9 Parental rating and parental control APIs</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>ParentalRatingCollection</Name>
+        <Access>Public</Access>
+        <Location left="579" top="823" />
+        <Size width="559" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public readonly Integer length</Member>
+        <Member type="Method">public void addParentalRating(String scheme, String name, Integer value, Integer labels, String region)</Member>
+        <Member type="Method">public ParentalRating item(Integer index)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Comment">
+        <Text>Example usage:
+&lt;!-- This example shows a possible usage scenario for the ParentalRating
+datastructure, i.e. to create a new programme to record and set
+parental rating to MPAA parental rating to PG-13.
+--&gt;
+...
+&lt;script type="text/javascript" language="Javascript1.5"&gt;
+// get a reference to the recorder object
+var recorder = document.getElementById("recorder");
+// create new programme to record
+var myProgramme = recorder.createProgrammeObject();
+// add a new parental rating value to myProgramme, in this case the
+// programme is rated PG-13 for the US using the MPAA Parental rating scheme.
+myProgramme.parentalRatings.addParentalRating(
+"urn:mpeg:mpeg7:cs:MPAAParentalRatingCS:2001", ”PG-13”, 2, 0, “US”
+);
+&lt;/script&gt;
+...
+&lt;object id="recorder" type="application/oipfRecordingScheduler"/&gt;</Text>
+        <Location left="721" top="456" />
+        <Size width="532" height="328" />
+      </Entity>
+      <Entity type="Class">
+        <Name>ParentalRating</Name>
+        <Access>Public</Access>
+        <Location left="84" top="823" />
+        <Size width="163" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public readonly String name</Member>
+        <Member type="Field">public readonly String scheme</Member>
+        <Member type="Field">public readonly Integer value</Member>
+        <Member type="Field">public readonly Integer labels</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ParentalRatingSchemeCollection</Name>
+        <Access>Public</Access>
+        <Location left="84" top="346" />
+        <Size width="455" height="162" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public readonly Integer length</Member>
+        <Member type="Method">public ParentalRatingScheme addParentalRatingScheme(String name, String values)</Member>
+        <Member type="Method">public ParentalRatingScheme getParentalRatingScheme(String name)</Member>
+        <Member type="Method">public ParentalRatingScheme item(Integer index)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ParentalRatingScheme</Name>
+        <Access>Public</Access>
+        <Location left="84" top="558" />
+        <Size width="273" height="189" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public readonly Integer length</Member>
+        <Member type="Field">public readonly ParentalRating threshold</Member>
+        <Member type="Method">public Integer indexOf(String ratingValue)</Member>
+        <Member type="Method">public String iconUri(Integer index)</Member>
+        <Member type="Method">public String item(Integer index)</Member>
+        <Member type="Method">public Integer changeThreshold(String value)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Comment">
+        <Text>The following example shows a possible usage scenario for the application/oipfParentalControlManager,
+i.e. to add a new parental rating scheme to the parentalRatingSchemes collection:
+//get a reference to the parental control manager object
+var pcManager = document.getElementById(“pcmanager”);
+// add a new rating scheme – in this case, the MPAA rating scheme
+pcManager.parentalRatingSchemes.addParentalRatingScheme(
+“urn:mpeg:mpeg7:cs:MPAAParentalRatingCS:2001”, “G,PG,PG-13,R,NC-17,NR” );
+The following example shows a possible usage scenario for the application/oipfParentalControlManager,
+i.e. to temporarily unblock a blocked content item (e.g. after asking the user to enter the parental control pin):
+// If a content item is blocked, the event “onParentalRatingChange” can be captured,
+// and the setParentalControlStatus() method can be used to temporarily unblock the
+// content (e.g. after asking the user to enter the parental control pin)
+function askForPin() { … }
+...
+//get a reference to the A/V player object
+var avPlayer = document.getElementById(“avPlayer”);
+avPlayer.onParentalRatingChange = function() {var
+pin=askForPin();pcManager.setParentalControlStatus(pin, false)};</Text>
+        <Location left="721" top="61" />
+        <Size width="557" height="345" />
+      </Entity>
+      <Entity type="Class">
+        <Name>application_oipfParentalControlManager</Name>
+        <Access>Public</Access>
+        <Location left="84" top="61" />
+        <Size width="400" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public readonly ParentalRatingSchemeCollection parentalRatingSchemes</Member>
+        <Member type="Field">public readonly Boolean isPINEntryLocked</Member>
+        <Member type="Method">public Integer setParentalControlStatus(String pcPIN, Boolean enable)</Member>
+        <Member type="Method">public Boolean getParentalControlStatus()</Member>
+        <Member type="Method">public Boolean getBlockUnrated()</Member>
+        <Member type="Method">public Integer setParentalControlPIN(String oldPcPIN, String newPcPIN)</Member>
+        <Member type="Method">public Integer unlockWithParentalControlPIN(String pcPIN, Object target)</Member>
+        <Member type="Method">public Integer verifyParentalControlPIN(String pcPIN)</Member>
+        <Member type="Method">public Integer setBlockUnrated(String pcPIN, Boolean block)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Association" first="0" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="3" second="4">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Comment" first="5" second="6">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="6" second="3">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="4" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Comment" first="1" second="2">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>TEMP</Name>
+    <Language>CSharp</Language>
+    <Entities />
+    <Relationships />
+  </ProjectItem>
+</Project>

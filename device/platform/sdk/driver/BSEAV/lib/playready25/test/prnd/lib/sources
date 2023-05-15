@@ -1,0 +1,18 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=LIBRARY
+TARGETNAME=prndtestapi
+
+
+# Allow test to access internals of blackbox and oem hal, rather than adding internal functions to blackbox API
+INCLUDES = $(INCLUDES);                         \
+    $(_DRM_SOURCE_PATH)\blackbox;               \
+    $(_DRM_SOURCE_PATH)\modules\prnd\real;      \
+
+
+SOURCES = \
+    ..\prndformattest.c      \
+    ..\prndprotocoltest.c    \
+    ..\prndtoplevelapitest.c \
+    ..\prndnoassettxtest.c   \
+

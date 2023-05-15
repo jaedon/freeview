@@ -1,0 +1,28 @@
+#!/bin/sh
+
+########################################################################
+## Configure ProcFs
+########################################################################
+
+#
+# Set Default Hotplug Handler
+#
+echo /usr/sbin/hotplug_handler > /proc/sys/kernel/hotplug
+
+#
+# Set Panic On Oops
+#
+echo 1 > /proc/sys/kernel/panic_on_oops
+
+# 
+# Set Reboot Time(second) When Panic Occurs
+#
+echo 1 > /proc/sys/kernel/panic
+
+
+
+########################################################################
+## Configure SysFs
+########################################################################
+
+

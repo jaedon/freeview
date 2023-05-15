@@ -1,0 +1,61 @@
+#
+# Copyright (C) 2010 HUMAX Co., Ltd. All rights reserved.
+#
+
+TARGETS += build-image
+
+HUMAX_MODEL_DIR=$(HUMAX_WORK_DIR)/../model
+BUILD_IMAGE_DIR = $(HUMAX_MAKE_DIR)/makeimg/$(CONFIG_PRODUCT_NAME)
+HUMAX_MAKEHDF_DIR = $(HUMAX_TOOL_DIR)/makehdf
+HUMAX_MG_DIR = $(HUMAX_TOOL_DIR)/mg
+HUMAX_SPLITTER_DIR = $(HUMAX_TOOL_DIR)/splitter
+HUMAX_CRC_DIR = $(HUMAX_TOOL_DIR)/crc
+HUMAX_MAKE_FS_UBIFS_DIR = $(HUMAX_TOOL_DIR)/mkfs_ubifs
+HUMAX_ECC_GEN_DIR = $(HUMAX_TOOL_DIR)/eccgen
+
+V=
+
+BUILD_IMAGE_COMPILE_FLAGS = \
+	CONFIG_PRODUCT_NAME=$(CONFIG_PRODUCT_NAME) \
+	CONFIG_NAND_TOTAL_SIZE=$(CONFIG_NAND_TOTAL_SIZE) \
+	CONFIG_NAND_PEB_SIZE=$(CONFIG_NAND_PEB_SIZE) \
+	CONFIG_NAND_LEB_SIZE=$(CONFIG_NAND_LEB_SIZE) \
+	CONFIG_NAND_IO_SIZE=$(CONFIG_NAND_IO_SIZE) \
+	CONFIG_UBIFS_DB_DATA_MAX_FS_SIZE=$(CONFIG_UBIFS_DB_DATA_MAX_FS_SIZE) \
+	CONFIG_UBIFS_DB_BACKUP_MAX_FS_SIZE=$(CONFIG_UBIFS_DB_BACKUP_MAX_FS_SIZE) \
+	CONFIG_UBIFS_DB_USER_MAX_FS_SIZE=$(CONFIG_UBIFS_DB_USER_MAX_FS_SIZE) \
+	BUILD_IMAGE_DIR=$(BUILD_IMAGE_DIR) \
+	HUMAX_MAKEHDF_DIR=$(HUMAX_MAKEHDF_DIR) \
+	HUMAX_MG_DIR=$(HUMAX_MG_DIR) \
+	HUMAX_SPLITTER_DIR=$(HUMAX_SPLITTER_DIR) \
+	HUMAX_CRC_DIR=$(HUMAX_CRC_DIR) \
+	HUMAX_MAKE_FS_UBIFS_DIR=$(HUMAX_MAKE_FS_UBIFS_DIR) \
+	HUMAX_ECC_GEN_DIR=$(HUMAX_ECC_GEN_DIR)
+
+define build_image
+	$(MAKE) -C $(BUILD_IMAGE_DIR) $(BUILD_IMAGE_COMPILE_FLAGS) V=$(V) $(1)
+endef
+
+ifeq ($(CONFIG_PRODUCT_IMAGE_RELEASE),y)
+build-image: build-image-prepare build-image-hdf build-image-gang
+else
+build-image:
+endif
+
+build-image-prepare:
+	cp $(HUMAX_MODEL_DIR)/build_image/Image/* $(BUILD_IMAGE_DIR)/input
+	cp $(HUMAX_NFS_DIR)/image/* $(BUILD_IMAGE_DIR)/input
+
+build-image-hdf:
+	$(call build_image, make_hdf)
+
+build-image-gang:
+	$(call build_image, make_gang)
+
+build-image-clean:
+	$(call build_image, clean)
+
+build-image-distclean : build-image-clean
+
+.PHONY: build-image build-image-prepare build-image-hdf build-image-gang build-image-clean build-image-distclean
+

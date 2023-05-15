@@ -1,0 +1,15 @@
+#!/bin/sh
+if [ -f /var/lib/humaxtv/dlogger/DxAntinfo_t.db ]; then
+    cp /usr/humaxtv/dlogger/DxAntinfo_t.db /var/lib/humaxtv/dlogger ;
+fi
+
+if [ -f /var/lib/humaxtv/dlogger/DxProvider_t.db ]; then
+	cp /usr/humaxtv/dlogger/DxProvider_t.db /var/lib/humaxtv/dlogger ;
+fi
+if [ -f /var/lib/humaxtv/dlogger/DxService_t.db ]; then
+	cp /usr/humaxtv/dlogger/DxService_t.db /var/lib/humaxtv/dlogger ;
+fi
+if [ -f /var/lib/humaxtv/dlogger/DxTransponder_t.db ]; then
+	cp /usr/humaxtv/dlogger/DxTransponder_t.db /var/lib/humaxtv/dlogger ;
+fi
+

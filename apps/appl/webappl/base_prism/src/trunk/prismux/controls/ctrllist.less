@@ -1,0 +1,94 @@
+
+@import "common";
+
+.IMPORT_LIST_CONTROL() {
+  .-list {
+    width: 762px;
+    .-no-item {
+      position:absolute;
+      top:10px;
+      width:762px
+    }
+    .-list-item {
+      height: 46px;
+      line-height: 46px;
+      border-bottom: 4px solid @THEME_COLOR_LINE;
+      background: @THEME_COLOR4;
+      &.-afd-leaf {
+        background: @THEME_COLOR3;
+      }
+    }
+    .-list-anim-bar {
+      position: absolute;
+      width: inherit;
+      height: 4px;
+      background: @THEME_COLOR_LINE;
+      -o-transition: top .5s linear;
+      -webkit-transition: top .5s linear;
+    }
+    .-list-pagenation-prompt {
+      position: absolute;
+      top: 364px;
+      width: inherit;
+      height: 40px;
+      line-height: 40px;
+      .-pagenation-page-down {
+        position: absolute;
+        left: 5px;
+        top: 0px;
+        height: inherit;
+        width: 200px;
+        background: url('@{DEF_IMAGE_BASE_URL}button/btn_bottom_key_pgdn.png') no-repeat center left;
+        opacity: 0;
+        .DEF_ANIMATION_OPACITY;
+        &:after {
+          content: "Page down";
+          margin-left: 54px;
+          line-height: 40px;
+        }
+        &.-show {
+          opacity: 1;
+        }
+      }
+      .-pagenation-page-up {
+        position: absolute;
+        left: 200px;
+        top: 0px;
+        height: inherit;
+        width: 200px;
+        background: url('@{DEF_IMAGE_BASE_URL}button/btn_bottom_key_pgup.png') no-repeat center left;
+        opacity: 0;
+        .DEF_ANIMATION_OPACITY;
+        &:after {
+          content: "Page up";
+          margin-left: 54px;
+          line-height: 40px;
+        }
+        &.-show {
+          opacity: 1;
+        }
+      }
+      strong {
+        font-size: 36px;
+        color: @DEF_COLOR_WHITE;
+      }
+    }
+    &.-list-menu {
+      width: 280px;
+      .-list-item {
+        background: none;
+        height: 46px;
+        padding: 0px 0px 0px 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        border: none;
+        &.-fd {
+          color: @DEF_COLOR_WHITE;
+          background: @THEME_COLOR3;
+        }
+      }
+    }
+  }
+}
+

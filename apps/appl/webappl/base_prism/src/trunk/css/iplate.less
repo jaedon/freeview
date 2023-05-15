@@ -1,0 +1,508 @@
+@SCREEN_WIDTH: 1280px;
+@SCREEN_HEIGHT: 720px;
+@BANNER_LEFT: 110px;
+@BANNER_TOP: 464px;
+@BANNER_WIDTH: 1060px;
+@BANNER_HEIGHT: 174px;
+
+#-iplate {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: @SCREEN_WIDTH;
+  height: @SCREEN_HEIGHT;
+  opacity: 0;
+  &.show {
+    opacity: 1;
+  }
+  #-iplate-dim {
+    position: inherit;
+    width: inherit;
+    height: 575px;
+    top: 145px;
+    background: url(../images/614_BG_LTV.png);
+  }
+  #-iplate-banner {
+    position: inherit;
+    left: @BANNER_LEFT;
+    top: @BANNER_TOP;
+    width: @BANNER_WIDTH;
+    height: @BANNER_HEIGHT;
+    border-top: 1px solid rgba(255, 255, 255, 0.196);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.196);
+    #-iplate-background {
+      position: inherit;
+      width: inherit;
+      height: inherit;
+      background-color: #000000;
+      opacity: 0.8
+    }
+    #-iplate-thumbnail {
+      position: inherit;
+      left: 22px;
+      top: 24px;
+      width: 226px;
+      height: 127px;
+    }
+    #-iplate-lcn {
+      position: inherit;
+      display: inline-block;
+      left: 262px;
+      top: 20px;
+      font-size: 36px;
+      font-family: PrismFontB;
+      color: #ffffff;
+      text-align: left;
+    }
+    #-iplate-splitLine {
+      position: inherit;
+      left: 344px;
+      top: 28px;
+      width: 1px;
+      height: 26px;
+      background: url(../images/614_LTV_Ban_Line.png) no-repeat;
+    }
+    #-iplate-svcname {
+      position: inherit;
+      left: 359px;
+      top: 21px;
+      width: 455px;
+      font-size: 34px;
+      font-family: PrismFontB;
+      color: #ffffff;
+      text-align: left;
+    }
+    #-iplate-now {
+      position: inherit;
+      left: 831px;
+      top: 19px;
+      width: 204px;
+      font-size: 22px;
+      font-family: PrismFontL;
+      color: #bebebe;
+      text-align: right;
+      span {
+        color: #555555;
+      }
+    }
+    #-iplate-evtname {
+      position: inherit;
+      left: 262px;
+      top: 62px;
+      width: 773px;
+      font-size: 28px;
+      font-family: PrismFontL;
+      color: #ffffff;
+      text-align: left;
+    }
+    #-iplate-secondary {
+      position: inherit;
+      left: 262px;
+      top: 97px;
+      width: 550px;
+      font-size: 20px;
+      font-family: PrismFontL;
+      color: #888888;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    #-iplate-group {
+      position: inherit;
+      right: 25px;
+      top: 99px;
+      width: 204px;
+      font-size: 20px;
+      font-family: PrismFontL;
+      color: #ffffff;
+      text-align: right;
+    }
+    #-iplate-starttime {
+      position: inherit;
+      display: inline-block;
+      left: 262px;
+      top: 127px;
+      font-size: 18px;
+      font-family: PrismFontL;
+      text-align: left;
+      span {
+        color: #555555;
+      }
+    }
+    #-iplate-endtime {
+      position: inherit;
+      display: inline-block;
+      left: 532px;
+      top: 127px;
+      font-size: 18px;
+      font-family: PrismFontL;
+      text-align: right;
+    }
+    #-iplate-icons {
+      position: inherit;
+      right: 25px;
+      top: 126px;
+      height: 28px;
+    }
+    #-iplate-arrowleft {
+      position: inherit;
+      left: -6px;
+      top: 78px;
+      width: 14px;
+      height: 19px;
+      background: url(../images/614_LTV_Ban_Arrow_L.png) no-repeat;
+      opacity: 0;
+      &.show {
+        opacity: 1;
+      }
+    }
+    #-iplate-arrowright {
+      position: inherit;
+      left: 1052px;
+      top: 78px;
+      width: 14px;
+      height: 19px;
+      background: url(../images/614_LTV_Ban_Arrow_R.png) no-repeat;
+      opacity: 0;
+      &.show {
+        opacity: 1;
+      }
+    }
+    #-iplate-arrowup {
+      position: inherit;
+      left: 520px;
+      top: -6px;
+      width: 19px;
+      height: 14px;
+      background: url(../images/614_LTV_Ban_Arrow_U.png) no-repeat;
+      opacity: 0;
+      &.show {
+        opacity: 1;
+      }
+    }
+    #-iplate-arrowdown {
+      position: inherit;
+      left: 520px;
+      top: 166px;
+      width: 19px;
+      height: 14px;
+      background: url(../images/614_LTV_Ban_Arrow_D.png) no-repeat;
+      opacity: 0;
+      &.show {
+        opacity: 1;
+      }
+    }
+    #-iplate-progress {
+      position: inherit;
+      position: inherit;
+      left: 262px;
+      top: 149px;
+      width: 310px;
+      height: 3px;
+
+    }
+    #-iplate-progressBG {
+      height: 2px;
+      opacity: 0;
+      background-color: #ffffff;
+      &.show {
+        opacity: 0.3;
+      }
+    }
+    #-iplate-progressBar {
+      position: absolute;;
+      top: -1px;
+      height: 3px;
+      background: #ffff00;
+      opacity: 0;
+      &.show {
+        opacity: 1;
+      }
+    }
+
+    #-iplate-siIcons {
+      position: inherit;
+      left: 615px;
+      top: 126px;
+      width: 420px;
+      >img {
+        position: relative;
+        margin-left: 2px;
+        float: right;
+        &#hd {
+          display: none;
+          width: 36px;
+          height: 28px;
+          background: url(../images/203_Resolition_HD.png) no-repeat;
+        }
+        &#enc {
+          display: none;
+          width: 44px;
+          height: 28px;
+          background: url(../images/614_PD_ENC.png) no-repeat;
+        }
+        &#hd_linkage {
+          display: none;
+          width: 45px;
+          height: 28px;
+          background: url(../images/614_PD_HD.png) no-repeat;
+        }
+        &#guidance {
+          display: none;
+          width: 28px;
+          height: 28px;
+          background: url(../images/614_PD_Guidance.png) no-repeat;
+        }
+        &#recommendation {
+          display: none;
+          width: 37px;
+          height: 28px;
+          background: url(../images/614_PD_Recommendation.png) no-repeat;
+        }
+        &#split {
+          display: none;
+          width: 36px;
+          height: 28px;
+          background: url(../images/614_PD_Split.png) no-repeat;
+        }
+        &#ad {
+          display: none;
+          width: 36px;
+          height: 28px;
+          background: url(../images/614_PD_AD.png) no-repeat;
+        }
+        &#drm {
+          display: none;
+          width: 57px;
+          height: 28px;
+          background: url(../images/211_Lock_DRM.png) no-repeat;
+        }
+        &#lock {
+          display: none;
+          width: 22px;
+          height: 28px;
+          background: url(../images/211_Lock.png) no-repeat;
+        }
+        &#ttx {
+          display: none;
+          width: 28px;
+          height: 28px;
+          background: url(../images/220_Teletext.png) no-repeat;
+        }
+        &#subDVB {
+          display: none;
+          width: 44px;
+          height: 28px;
+          background: url(../images/614_Subtitle.png) no-repeat;
+        }
+        &#subEBU {
+          display: none;
+          width: 44px;
+          height: 28px;
+          background: url(../images/614_Subtitle.png) no-repeat;
+        }
+        &#ma {
+          display: none;
+          width: 35px;
+          height: 28px;
+          background: url(../images/219_MultipleAudio.png) no-repeat;
+        }
+        &#available {
+          display: none;
+          width: 28px;
+          height: 28px;
+        }
+        &#reminder {
+          display: none;
+          width: 28px;
+          height: 28px;
+          background: url(../images/205_REC_Reservation_Watch.png) no-repeat;
+        }
+        &#recording {
+          display: none;
+          width: 28px;
+          height: 28px;
+          background: url(../images/205_REC_Recording.png) no-repeat;
+        }
+        &#schedule {
+          display: none;
+          width: 28px;
+          height: 28px;
+          background: url(../images/205_REC_Reservation_Recording.png) no-repeat;
+        }
+        &#series-schedule {
+          display: none;
+          width: 33px;
+          height: 28px;
+          background: url(../images/205_REC_Reservation_Series.png) no-repeat;
+        }
+        &#recorded {
+          display: none;
+          width: 36px;
+          height: 28px;
+          background: url(../images/205_REC_Recording_Watch.png) no-repeat
+        }
+      }
+      &.-iplate-hd {
+        #hd {
+          display: block;
+        }
+      }
+      &.-iplate-enc {
+        #enc {
+          display: block;
+        }
+      }
+      &.-iplate-hd_linkage {
+        #hd_linkage {
+          display: block;
+        }
+      }
+      &.-iplate-guidance {
+        #guidance {
+          display: block;
+        }
+      }
+      &.-iplate-recommendation {
+        #recommendation {
+          display: block;
+        }
+      }
+      &.-iplate-split {
+        #split {
+          display: block;
+        }
+      }
+      &.-iplate-ad {
+        #ad {
+          display: block;
+        }
+      }
+      &.-iplate-drm {
+        #drm {
+          display: block;
+        }
+      }
+      &.-iplate-lock {
+        #lock {
+          display: block;
+        }
+      }
+      &.-iplate-ttx {
+        #ttx {
+          display: block;
+        }
+      }
+      &.-iplate-subDVB {
+        #subDVB {
+          display: block;
+        }
+      }
+      &.-iplate-subEBU {
+        #subEBU {
+          display: block;
+        }
+      }
+      &.-iplate-ma {
+        #ma {
+          display: block;
+        }
+      }
+      &.-iplate-available {
+        #available {
+          display: block;
+          background: url(../images/205_REC_Play.png) no-repeat;
+        }
+      }
+      &.-iplate-commingsoon {
+        #available {
+          display: block;
+          background: url(../images/614_EPG_Comingsoon.png) no-repeat;
+        }
+      }
+      &.-iplate-reminder {
+        #reminder {
+          display: block;
+        }
+      }
+      &.-iplate-recording {
+        #recording {
+          display: block;
+        }
+      }
+      &.-iplate-schedule {
+        #schedule {
+          display: block;
+        }
+      }
+      &.-iplate-series-schedule {
+        #series-schedule {
+          display: block;
+        }
+      }
+      &.-iplate-recorded {
+        #recorded {
+          display: block;
+        }
+      }
+    }
+  }
+  #-iplate-footer {
+    position: inherit;
+    left: @BANNER_LEFT;
+    top: @BANNER_TOP + @BANNER_HEIGHT;
+    width: @BANNER_WIDTH - 50px;
+    padding: 0 25px 0 25px;
+    >img {
+      position: relative;
+      top: 10px;
+      width: 32px;
+      height: 32px;
+      float: left;
+      &#-iplate-more {
+        margin-right: 6px;
+        background: url(../images/614_LTV_Ban_indi02.png) no-repeat;
+      }
+      &#-iplate-chlist {
+        margin-right: 0px;
+        background: url(../images/614_LTV_Ban_indi03.png) no-repeat;
+      }
+      &#-iplate-livestreaming {
+        display: none;
+        margin-left: 10px;
+        background: url(../images/205_REC_Live.png) no-repeat;
+        &.show {
+          display: block;
+        }
+      }
+      &#-iplate-recordings {
+        display: none;
+        margin-left: 10px;
+        background: url(../images/205_REC_Recording.png) no-repeat;
+        &.show {
+          display: block;
+        }
+      }
+    }
+    >div {
+      position: relative;
+      display: inline-block;
+      top: 13px;
+      margin-right: 28px;
+      font-family: PrismFontL;
+      font-size: 20px;
+      color: #ffffff;
+      float: left;
+    }
+    .align-right {
+      display: none;
+      margin-left: 5px;
+      margin-right: 0px;
+      float: right;
+      &.show {
+        display: inline-block;
+      }
+    }
+  }
+}

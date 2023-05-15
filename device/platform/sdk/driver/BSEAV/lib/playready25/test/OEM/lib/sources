@@ -1,0 +1,8 @@
+!include ..\..\reftest.cmn
+
+TARGETTYPE=LIBRARY
+TARGETNAME=OEMTestAPI
+
+SOURCES = \
+	..\refOEMtest.c \
+

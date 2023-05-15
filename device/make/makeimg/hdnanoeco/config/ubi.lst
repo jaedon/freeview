@@ -1,0 +1,36 @@
+[UBI_ALL
+	"./input/root.squa.wSign"		$00
+	"./input/vmlinuz.wSign"			$210F000
+	"./input/nvram.bin"			$4A1C000
+]
+
+[UBI_CODE
+	"./input/root.squa.wSign"		$00
+	"./input/vmlinuz.wSign"			$210F000
+	"./input/ff.bin"			$250DFFF
+]
+
+[UBI_RAWFS
+	"./input/ff.bin"			$0
+	"./input/ff.bin"			$24fffff
+]
+
+[UBI_NVRAM
+	"./input/nvram.bin"			$0
+]
+
+[MG_NVRAM
+	"./input/nv_pre.bin"			$0
+	"./input/crcprefx.bin"			$F8000
+	"./input/ubi_code.crc"			$F8012
+	"./input/nv_post.bin"			$F8016
+	"./input/crcprefx.bin"			$136000
+	"./input/ubi_code.crc"			$136012
+	"./input/nv_post.bin"			$136016
+]
+
+[RF_K_NVR
+	"./input/root.squa.wSign"		$00
+	"./input/vmlinuz.wSign"			$210F000
+	"./input/ubi_nvram_mg.bin"		$4A1C000
+]

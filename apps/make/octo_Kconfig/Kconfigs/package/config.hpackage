@@ -1,0 +1,9 @@
+################################################
+#				HUMAX shared library Package Configuration				#
+################################################
+
+comment "HUMAX shared library Package Selection. (HPACKAGE_XXX)"
+
+	config HPACKAGE_VKERNEL
+		bool "HPACKAGE_VKERNEL - for shared library vkernel."
+		default y

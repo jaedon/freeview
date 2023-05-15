@@ -1,0 +1,104 @@
+
+menu "Rootfs configuration options"
+config ROOTFS_PVR
+	bool 
+	prompt "Pvr"
+	default n
+
+config ROOTFS_TTY0
+	bool 
+	prompt "Tty0"
+	default n
+
+config ROOTFS_ETH
+	bool 
+	prompt "Ethernet"
+	default n
+
+config ROOTFS_MSDRM
+	bool 
+	prompt "Msdrm"
+	default n
+
+config ROOTFS_TELNETD
+	bool 
+	prompt "Telnet"
+	default n
+	
+config BUSYBOX_COMPILE
+	bool
+	prompt "Compile busybox always"
+	default n
+
+choice
+	prompt "Flash type"
+	default ROOTFS_NAND_ONLY
+	depends on NAND_FLASH
+
+menuconfig ROOTFS_NAND_ONLY
+	bool "Nand only"
+
+menuconfig ROOTFS_NOR_NAND
+	bool "NOR and NAND"
+
+endchoice
+
+config ROOTFS_ONEIMAGE
+	bool
+	prompt "One image"
+	default n
+
+config RAM_ROOTFS
+	bool
+	prompt "RAM Rootfs"
+	default n
+	
+config RAM_ROOTFS_BMEM_INDEX
+	int 
+	prompt "RAM Rootfs bmem index. ex) bmem.0 = 0, bmem.1 = 1"
+	default 0
+	depends on RAM_ROOTFS
+
+config RAM_ROOTFS_BMEM_SIZE
+	int 
+	prompt "RAM Rootfs bmem size(MB)"
+	default 0
+	depends on RAM_ROOTFS
+	
+config RAM_LXC_BMEM_SIZE
+	int
+	prompt "Size of MTD Ram disk for LXC"
+	default 0
+	depends on LXC
+
+config ROOTFS_SQUASHFS
+	bool
+	prompt "SquashFS"
+	default y
+
+	choice
+		prompt "Compression Type"
+		default ROOTFS_SQUASHFS_GZIP_SUPPORT
+		depends on ROOTFS_SQUASHFS
+
+		config ROOTFS_SQUASHFS_GZIP_SUPPORT
+			bool "gzip"
+
+		config ROOTFS_SQUASHFS_LZMA_SUPPORT
+			bool "LZMA"
+			help
+				Since linux kernel 2.6.34 the kernel has added support for LZMA1.
+
+		config ROOTFS_SQUASHFS_XZ_SUPPORT
+			bool "XZ(LZMA2)"
+			help
+			Since linux kernel 2.6.38 the kernel has added support for LZMA2.
+	endchoice
+
+	config ROOTFS_SQUASHFS_BLOCK_SIZE_256K
+	bool
+	prompt "Block Size 256Kbytes"
+	default n
+	depends on ROOTFS_SQUASHFS
+
+endmenu

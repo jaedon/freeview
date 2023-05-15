@@ -1,0 +1,12 @@
+"downloader":{
+	"target":"dsmcc",
+	"operation":"set",
+	"property":{
+		"action" : "start",
+		"param" : {
+			"handle":19951848,
+			"carousel_id":10,
+			"cache_path":"/tmp/cache/10"
+		}
+	}
+}

@@ -1,0 +1,18 @@
+/tmp /home/mheg/root/tmp none defaults,bind 0 0
+/home1/sechdlr/root/media /home/mheg/root/media none defaults,bind 0 0
+/opt /home/mheg/root/opt none defaults,bind 0 0
+/home1/sechdlr/root/mnt /home/mheg/root/mnt none defaults,bind 0 0
+/bin /home/mheg/root/bin none defaults,bind 0 0
+/sbin /home/mheg/root/sbin none defaults,bind 0 0
+/etc /home/mheg/root/etc none defaults,bind 0 0
+/usr/bin /home/mheg/root/usr/bin none defaults,bind 0 0
+/usr/sbin /home/mheg/root/usr/sbin none defaults,bind 0 0
+/usr/local /home/mheg/root/usr/local none defaults,bind 0 0
+/usr/fonts /home/mheg/root/usr/fonts none defaults,bind 0 0
+/var /home/mheg/root/var none rbind,create=dir 0 0
+/dev /home/mheg/root/dev none defaults,bind 0 0
+/dev/nexus /home/mheg/root/dev/nexus tmpfs rw,bind 0 0
+
+none /home/mheg/root/dev/pts devpts defaults 0 0
+none /home/mheg/root/proc proc defaults 0 0
+none /home/mheg/root/sys sysfs defaults 0 0

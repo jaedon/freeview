@@ -1,0 +1,8 @@
+##########################################
+# DI MODEM configuration menu
+##########################################
+
+config MODEM
+	bool
+	prompt "MODEM"
+	default n

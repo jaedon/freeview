@@ -1,0 +1,34 @@
+{
+	"group": "MediaControl_Test",
+	"items": [
+		{
+			"title": "live stop",
+			"type" : "call",
+			"desc" : "this is test - live stop",
+			"input": {
+				"mediactrl": {
+					"target"	: "live",
+					"operation"	: "stop",
+					"property"	: {
+						"destination": "av0"
+					}
+				}
+			}
+		},
+		{
+		  	"title": "live start",
+			"type" : "call",
+			"desc" : "this is test - live start",
+		  	"input": {
+		  		"mediactrl" : {
+		  			"target" : "live",
+		  			"operation" : "start",
+		  			"property" : {
+		  			"destination" : "av0",
+		  			"url" : "HDVB://????"
+		  			}
+		  		}
+		  	}
+		 }
+	]
+}

@@ -1,0 +1,9 @@
+
+TARGETTYPE=LIBRARY
+TARGETNAME=CoreEmbeddingTestAPI
+
+SOURCES = \
+    ../coreembedding.c \
+
+
+

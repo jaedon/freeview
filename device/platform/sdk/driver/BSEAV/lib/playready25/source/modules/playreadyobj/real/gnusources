@@ -1,0 +1,14 @@
+# @@@+++@@@@******************************************************************
+# **
+# ** Microsoft (r) PlayReady (r)
+# ** Copyright (c) Microsoft Corporation. All rights reserved.
+# **
+# @@@+++@@@@******************************************************************
+
+TARGETNAME=drmplayreadyobjreal
+TARGETTYPE=LIBRARY
+
+SOURCES =             \
+    drmplayreadyobj.c \
+    drmprochecksum.c
+

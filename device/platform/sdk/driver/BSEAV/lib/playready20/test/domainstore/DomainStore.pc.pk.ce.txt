@@ -1,0 +1,146 @@
+511000:DRT:P0:Open a domain store then close it.
+TestDRM_DOMST_OpenStore()
+TestDRM_DOMST_CloseStore()
+
+511001:DRT:P0:Close a domain store that has not yet been opened. It should succeed without doing anything.
+TestDRM_DOMST_CloseStore()
+
+
+512000:DRT:P0:Add a key for an accountID, then read it from the domain store and compare with the original key.
+TestDRM_DOMST_OpenStore()
+TestDRM_DOMST_AddKey(data\domainkey1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", 1)
+TestDRM_DOMST_GetKey("NjU0MzIxMDk4NzY1NDMyMQ==", 1)
+TestDRM_DOMST_CompareKey(data\domainkey1.dat)
+TestDRM_DOMST_CloseStore()
+
+512001:DRT:P0:Add a key for an accountID, then delete it, and then try to read it. It should fail with an error code.
+TestDRM_DOMST_OpenStore()
+TestDRM_DOMST_AddKey(data\domainkey1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", 1)
+TestDRM_DOMST_DeleteKey("NjU0MzIxMDk4NzY1NDMyMQ==", 1)
+TestDRM_DOMST_GetKey("NjU0MzIxMDk4NzY1NDMyMQ==", 1) = -2147171069 (DRM_E_DOMAIN_STORE_GET_DATA)
+TestDRM_DOMST_CloseStore()
+
+512002:DRT:P0:Read a key for an account ID that does not exist. It should fail with an error code.
+TestDRM_DOMST_OpenStore()
+TestDRM_DOMST_GetKey("NjU0MzIxMDk4NzY1NDMyMQ==", 1) = -2147171069 (DRM_E_DOMAIN_STORE_GET_DATA)
+TestDRM_DOMST_CloseStore()
+
+512003:DRT:P0:Add the two different keys (with variant length) for an account ID consecutively. It should succeed and the last key added will be the one in the domain store.
+TestDRM_DOMST_OpenStore()
+TestDRM_DOMST_AddKey(data\domainkey1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", 1)
+TestDRM_DOMST_AddKey(data\domainkey2.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", 1)
+TestDRM_DOMST_GetKey("NjU0MzIxMDk4NzY1NDMyMQ==", 1)
+TestDRM_DOMST_CompareKey(data\domainkey2.dat)
+TestDRM_DOMST_CloseStore()
+
+512004:DRT:P0:Add keys for multiple account IDs, read them one by one and verify.
+TestDRM_DOMST_OpenStore()
+TestDRM_DOMST_AddKey(data\domainkey1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", 1)
+TestDRM_DOMST_AddKey(data\domainkey2.dat, "NzY1NDMyMTA5ODc2NTQzMg==", 2)
+TestDRM_DOMST_GetKey("NjU0MzIxMDk4NzY1NDMyMQ==", 1)
+TestDRM_DOMST_CompareKey(data\domainkey1.dat)
+TestDRM_DOMST_GetKey("NzY1NDMyMTA5ODc2NTQzMg==", 2)
+TestDRM_DOMST_CompareKey(data\domainkey2.dat)
+TestDRM_DOMST_CloseStore()
+
+512005:DRT:P0:Add keys for multiple account IDs, delete them one by one. Verify there is no key left in the end.
+TestDRM_DOMST_OpenStore()
+TestDRM_DOMST_AddKey(data\domainkey1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", 1)
+TestDRM_DOMST_AddKey(data\domainkey2.dat, "NzY1NDMyMTA5ODc2NTQzMg==", 2)
+TestDRM_DOMST_DeleteKey("NjU0MzIxMDk4NzY1NDMyMQ==", 1)
+TestDRM_DOMST_DeleteKey("NzY1NDMyMTA5ODc2NTQzMg==", 2)
+TestDRM_DOMST_GetKey("NjU0MzIxMDk4NzY1NDMyMQ==", 1) = -2147171069 (DRM_E_DOMAIN_STORE_GET_DATA)
+TestDRM_DOMST_GetKey("NzY1NDMyMTA5ODc2NTQzMg==", 2) = -2147171069 (DRM_E_DOMAIN_STORE_GET_DATA)
+TestDRM_DOMST_CloseStore()
+
+512006:DRT:P0:Add keys for of different revision of the same account ID, delete them at once. Verify there is no key left in the end.
+TestDRM_DOMST_OpenStore()
+TestDRM_DOMST_AddKey(data\domainkey1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", 1)
+TestDRM_DOMST_AddKey(data\domainkey2.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", 2)
+TestDRM_DOMST_AddKey(data\domainkey1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", 3)
+TestDRM_DOMST_AddKey(data\domainkey2.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", 4)
+TestDRM_DOMST_DeleteKeys("NjU0MzIxMDk4NzY1NDMyMQ==")
+TestDRM_DOMST_GetKey("NjU0MzIxMDk4NzY1NDMyMQ==", 1) = -2147171069 (DRM_E_DOMAIN_STORE_GET_DATA)
+TestDRM_DOMST_GetKey("NzY1NDMyMTA5ODc2NTQzMg==", 2) = -2147171069 (DRM_E_DOMAIN_STORE_GET_DATA)
+TestDRM_DOMST_GetKey("NjU0MzIxMDk4NzY1NDMyMQ==", 3) = -2147171069 (DRM_E_DOMAIN_STORE_GET_DATA)
+TestDRM_DOMST_GetKey("NjU0MzIxMDk4NzY1NDMyMQ==", 4) = -2147171069 (DRM_E_DOMAIN_STORE_GET_DATA)
+TestDRM_DOMST_CloseStore()
+
+513002:DRT:P0:Read a cert for an account ID  that does not exist. It should fail with an error code.
+TestDRM_DOMST_OpenStore()
+TestDRM_DOMST_GetCert("NjU0MzIxMDk4NzY1NDMyMQ==") = -2147171069 (DRM_E_DOMAIN_STORE_GET_DATA)
+TestDRM_DOMST_CloseStore()
+
+516000:DRT:P0:Add a binary cert for an account ID, then read it from the domain store and compare with the original cert.
+TestDRM_DOMST_OpenStore()
+TestDRM_DOMST_AddCert(data\binarydomaincert1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==")
+TestDRM_DOMST_GetCert("NjU0MzIxMDk4NzY1NDMyMQ==")
+TestDRM_DOMST_CompareCert(data\binarydomaincert1.dat)
+TestDRM_DOMST_CloseStore()
+
+516001:DRT:P0:Add a binary cert for an account ID, then delete it, and then try to read it. It should fail with an error code.
+TestDRM_DOMST_OpenStore()
+TestDRM_DOMST_AddCert(data\binarydomaincert1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==")
+TestDRM_DOMST_DeleteCert("NjU0MzIxMDk4NzY1NDMyMQ==")
+TestDRM_DOMST_GetCert("NjU0MzIxMDk4NzY1NDMyMQ==") = -2147171069 (DRM_E_DOMAIN_STORE_GET_DATA)
+TestDRM_DOMST_CloseStore()
+
+516003:DRT:P0:Add the two different binary certs for an account consecutively. It should succeed and the last cert added will be the one in the domain store.
+TestDRM_DOMST_OpenStore()
+TestDRM_DOMST_AddCert(data\binarydomaincert1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==")
+TestDRM_DOMST_AddCert(data\binarydomaincert2.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==")
+TestDRM_DOMST_GetCert("NjU0MzIxMDk4NzY1NDMyMQ==")
+TestDRM_DOMST_CompareCert(data\binarydomaincert2.dat)
+TestDRM_DOMST_CloseStore()
+
+516004:DRT:P0:Add binary certs for multiple account IDs, read them one by one and verify.
+TestDRM_DOMST_OpenStore()
+TestDRM_DOMST_AddCert(data\binarydomaincert1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==")
+TestDRM_DOMST_AddCert(data\binarydomaincert2.dat, "NzY1NDMyMTA5ODc2NTQzMg==", "AH+03juKbUGbHl1V/QIwRA==")
+TestDRM_DOMST_GetCert("NjU0MzIxMDk4NzY1NDMyMQ==")
+TestDRM_DOMST_CompareCert(data\binarydomaincert1.dat)
+TestDRM_DOMST_GetCert("NzY1NDMyMTA5ODc2NTQzMg==")
+TestDRM_DOMST_CompareCert(data\binarydomaincert2.dat)
+TestDRM_DOMST_CloseStore()
+
+516005:DRT:P0:Add binary certs for multiple account IDs, delete them one by one. Verify there is no cert left in the end.
+TestDRM_DOMST_OpenStore()
+TestDRM_DOMST_AddCert(data\binarydomaincert1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==")
+TestDRM_DOMST_AddCert(data\binarydomaincert2.dat, "NzY1NDMyMTA5ODc2NTQzMg==", "AH+03juKbUGbHl1V/QIwRA==")
+TestDRM_DOMST_DeleteCert("NjU0MzIxMDk4NzY1NDMyMQ==")
+TestDRM_DOMST_DeleteCert("NzY1NDMyMTA5ODc2NTQzMg==")
+TestDRM_DOMST_GetCert("NjU0MzIxMDk4NzY1NDMyMQ==") = -2147171069 (DRM_E_DOMAIN_STORE_GET_DATA)
+TestDRM_DOMST_GetCert("NzY1NDMyMTA5ODc2NTQzMg==") = -2147171069 (DRM_E_DOMAIN_STORE_GET_DATA)
+TestDRM_DOMST_CloseStore()
+
+517000:DRT:P0:Enumerate all domain keys.
+TestDRM_DOMST_OpenStore()
+TestDRM_DOMST_AddCert(data\binarydomaincert1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==")
+TestDRM_DOMST_AddKey(data\domainkey1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", 1)
+TestDRM_DOMST_AddCert(data\binarydomaincert2.dat, "NzY1NDMyMTA5ODc2NTQzMg==", "AH+03juKbUGbHl1V/QIwRA==")
+TestDRM_DOMST_AddKey(data\domainkey2.dat, "NzY1NDMyMTA5ODc2NTQzMg==", 1)
+TestDRM_DOMST_InitEnumKey()
+TestDRM_DOMST_EnumNextKey()
+TestDRM_DOMST_GetKey(NULL, NULL)
+TestDRM_DOMST_CompareKey(data\domainkey1.dat)
+TestDRM_DOMST_EnumNextKey()
+TestDRM_DOMST_GetKey(NULL, NULL)
+TestDRM_DOMST_CompareKey(data\domainkey2.dat)
+TestDRM_DOMST_EnumNextKey() = -2147024637 (DRM_E_NOMORE)
+TestDRM_DOMST_CloseStore()
+
+517001:DRT:P0:Enumerate all binary domain certs.
+TestDRM_DOMST_OpenStore()
+TestDRM_DOMST_AddCert(data\binarydomaincert1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", "AH+03juKbUGbHl1V/QIwRA==")
+TestDRM_DOMST_AddKey(data\domainkey1.dat, "NjU0MzIxMDk4NzY1NDMyMQ==", 1)
+TestDRM_DOMST_AddCert(data\binarydomaincert2.dat, "NzY1NDMyMTA5ODc2NTQzMg==", "AH+03juKbUGbHl1V/QIwRA==")
+TestDRM_DOMST_AddKey(data\domainkey2.dat, "NzY1NDMyMTA5ODc2NTQzMg==", 1)
+TestDRM_DOMST_InitEnumCert()
+TestDRM_DOMST_EnumNextCert()
+TestDRM_DOMST_GetCert(NULL)
+TestDRM_DOMST_CompareCert(data\binarydomaincert1.dat)
+TestDRM_DOMST_EnumNextCert()
+TestDRM_DOMST_GetCert(NULL)
+TestDRM_DOMST_CompareCert(data\binarydomaincert2.dat)
+TestDRM_DOMST_EnumNextCert() = -2147024637 (DRM_E_NOMORE)
+TestDRM_DOMST_CloseStore()

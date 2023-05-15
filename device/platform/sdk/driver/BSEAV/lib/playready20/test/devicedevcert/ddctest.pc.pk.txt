@@ -1,0 +1,67 @@
+-------------------BVT ends here--------------------------
+
+11447:FUNC:P1:DRM_DDC_GetDeviceCertificate should fail if devcert template does not exist
+If(WMDRMSupported)
+Test_API_GetDeviceCertificate(10240, 0, NORMAL, 0 DataBuffer)=0X8004D503 DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+EndIf
+
+Test_RemoveDeviceData
+Test_SetDeviceEnv(NULL, priv.dat, NULL, NULL, FALSE)
+If(WMDRMSupported)
+Test_API_GetDeviceCertificate(10240, 0, NORMAL, 0 DataBuffer)=0X8004D503 DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+EndIf
+Test_API_GetBinaryDeviceCertificate(10240, 0, NORMAL, 0 DataBuffer)=0X8004D503 DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+
+12447:FUNC:P1:DRM_DDC_GetDeviceCertificate should fail if devcert template does not exist
+If(WMDRMSupported)
+Test_API_GetDeviceCertificate(10240, 0, NORMAL, 0 DataBuffer)=0X8004D503 DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+EndIf
+
+Test_RemoveDeviceData
+Test_SetDeviceEnv(NULL, priv.dat, NULL, NULL, FALSE)
+Test_API_GetBinaryDeviceCertificate(10240, 0, NORMAL, 0 DataBuffer)=0X8004D503  DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+
+'Disable this test because it should be covered by OEM keyfile-related functions
+'11448:FUNC:P1:DRM_DDC_GetDeviceCertificate should fail if devcert template is larger than the size limit.
+'Test_SetDeviceEnv(dt_oversize.dat, priv.dat, NULL, NULL, FALSE)
+'Test_API_GetDeviceCertificate(10240, 1, NORMAL, 0 DataBuffer)= -2147172286(0X8004C042, DRM_E_INVALIDDEVICECERTIFICATETEMPLATE)
+
+'Disable this test because it requires specially corrupted keyfile
+'11451:FUNC:P1:DRM_DDC_GetDeviceCertificate should fail if private key data is corrupted
+'Test_SetDeviceEnv(devcerttemplate.dat, priv_bad.dat, bgroupcert.dat, priv.dat, FALSE)
+'Test_API_GetDeviceCertificate(10240, 1, NORMAL, 0 DataBuffer)=!DRM_SUCCESS
+'Test_API_GetBinaryDeviceCertificate(10240, 1, NORMAL, 0 DataBuffer)=!DRM_SUCCESS
+
+12451:FUNC:P1:DRM_DDC_GetDeviceCertificate should fail if private key data is corrupted
+Test_SetDeviceEnv(devcerttemplate.dat, priv_bad.dat, bgroupcert.dat, priv.dat, FALSE)
+Test_API_GetBinaryDeviceCertificate(10240, 0, NORMAL, 0 DataBuffer)=0X8004D503  DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+
+'Disable this test because it requires specially corrupted keyfile
+'11456:FUNC:P1:DRM_DDC_GetDeviceCertificate should fail if private key data does not exist
+'Test_API_GetDeviceCertificate(10240, 1, NORMAL, 0 DataBuffer)=-2147172283(0X8004C045, DRM_E_DEVCERTREADERROR)
+'Test_RemoveDeviceData
+'Test_SetDeviceEnv(devcerttemplate.dat, NULL,bgroupcert.dat, NULL, FALSE)
+'Test_API_GetDeviceCertificate(10240, 1, NORMAL, 0 DataBuffer)=!DRM_SUCCESS
+'Test_API_GetBinaryDeviceCertificate(10240, 1, NORMAL, 0 DataBuffer)=!DRM_SUCCESS
+
+12513:FUNC:P1:DRM_DDC_GetDeviceCertificate should fail if private key data does not exist
+If(WMDRMSupported)
+Test_API_GetDeviceCertificate(10240, 0, NORMAL, 0 DataBuffer)=0X8004D503  DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+EndIf
+
+Test_RemoveDeviceData
+Test_SetDeviceEnv(devcerttemplate.dat, NULL,bgroupcert.dat, NULL, FALSE)
+Test_API_GetBinaryDeviceCertificate(10240, 0, NORMAL, 0 DataBuffer)=0X8004D503  DRM_E_KEYFILE_CERTIFICATE_CHAIN_NOT_FOUND
+
+11460:FUNC:P0:Certificates are created with the same robustness versions
+Test_SetRobustnessVersion(1.3.0.100,5)
+Test_SetDeviceEnv(devcerttemplate.dat, priv.dat, bgroupcert150SecVer1.dat, zgpriv150SecVer1.dat, TRUE)
+Test_VerifyXMLDevcert_RobustnessVersion(0 DataBuffer, 1.3.0.100)
+Test_VerifyBinaryDevcert(Devcert, 1.3.0.100, 5)
+
+12460:FUNC:P0:Binary certificates are created with different robustness versions
+Test_SetRobustnessVersion(1.3.0.101,5,1)
+Test_SetRobustnessVersion(1.3.0.100,5,2)
+Test_SetDeviceEnv(devcerttemplate.dat, priv.dat, bgroupcert150SecVer1.dat, zgpriv150SecVer1.dat, TRUE)
+Test_VerifyXMLDevcert_RobustnessVersion(0 DataBuffer, 1.3.0.101)
+Test_VerifyBinaryDevcert(Devcert, 1.3.0.100, 5)

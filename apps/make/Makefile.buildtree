@@ -30,7 +30,7 @@ minifying:
 	@echo 'python $(CURDIR)/prepare_release.py -s $(APP_WEB_BASESRC_DIR) -t $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) 2>&1 | tee prepare_release.py.log'
 	@if [ -d $(APP_WEB_BASESRC_DIR) ]; then \
 		python $(CURDIR)/prepare_release.py -s $(APP_WEB_BASESRC_DIR) -t $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) 2>&1 | tee prepare_release.py.log; \
-		sudo find $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) -name ".svn" | xargs rm -rf; \
+		sudo find $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) -name ".gitignore" | xargs rm -rf; \
 	fi;
 
 
@@ -63,7 +63,7 @@ preparing:
 	@test -d $(HUMAX_BUILDTREE_ROOTFS_DIR) || install -d -m 755 $(HUMAX_BUILDTREE_ROOTFS_DIR)
 	@test -d $(HUMAX_BUILDTREE_STATICLIB_DIR) || install -d -m 755 $(HUMAX_BUILDTREE_STATICLIB_DIR)
 	@test -d $(HUMAX_BUILDTREE_INCLUDE_DIR) || install -d -m 755 $(HUMAX_BUILDTREE_INCLUDE_DIR)
-	@sudo find $(HUMAX_APP_STAGGING_ROOT_DIR) -name ".svn" | xargs rm -rf 
+	@sudo find $(HUMAX_APP_STAGGING_ROOT_DIR) -name ".gitignore" | xargs rm -rf 
 	@if [ ! -d $(HUMAX_BUILDTREE_ROOTFS_DIR)/rootfs.tar.bz2 ]; then \
 		sudo rm  -f $(HUMAX_BUILDTREE_ROOTFS_DIR)/rootfs.tar.bz2;	\
 	fi;

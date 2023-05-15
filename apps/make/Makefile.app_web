@@ -52,7 +52,7 @@ ifneq ($(strip $(CONFIG_USES_NFSROOT)),y)
 ifneq ($(filter y,$(CONFIG_DEBUG_RELEASE_LOG) $(CONFIG_DEVELOP_RELEASE)),)
 	@if [ -d $(APP_WEB_BASESRC_DIR) ]; then \
 		cp -dprf $(APP_WEB_BASESRC_DIR)/*		$(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/;	\
-		sudo find $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) -name ".svn" | xargs rm -rf; \
+		sudo find $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) -name ".gitignore" | xargs rm -rf; \
 	fi;
 else # CONFIG_DEBUG_RELEASE_LOG
 	sudo rm -rf $(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/*
@@ -60,13 +60,13 @@ else # CONFIG_DEBUG_RELEASE_LOG
 	@echo 'python $(CURDIR)/prepare_release.py -s $(APP_WEB_BASESRC_DIR) -t $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) 2>&1 | tee prepare_release.py.log'
 	@if [ -d $(APP_WEB_BASESRC_DIR) ]; then \
 		python $(CURDIR)/prepare_release.py -s $(APP_WEB_BASESRC_DIR) -t $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) 2>&1 | tee prepare_release.py.log; \
-		sudo find $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) -name ".svn" | xargs rm -rf; \
+		sudo find $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) -name ".gitignore" | xargs rm -rf; \
 	fi;
 endif # CONFIG_DEBUG_RELEASE_LOG
 else
 	@if [ -d $(APP_WEB_BASESRC_DIR) ]; then \
 		cp -dprf $(APP_WEB_BASESRC_DIR)/*		$(HUMAX_WEBAPP_STAGGING_TARGET_DIR)/;	\
-		sudo find $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) -name ".svn" | xargs rm -rf; \
+		sudo find $(HUMAX_WEBAPP_STAGGING_TARGET_DIR) -name ".gitignore" | xargs rm -rf; \
 	fi;
 endif
 

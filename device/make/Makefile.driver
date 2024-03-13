@@ -351,7 +351,7 @@ ifeq ($(CONFIG_TNTFS_CHP),"")
 ifeq ($(filter-out 2.6%,$(TNTFS_KERNEL_VER)),)
 ifeq ($(TNTFS_TOOLCHAIN_VERSION),stbgcc-4.5.3-2.4)
 	TNTFS_CHP=7429
-else ifeq ($(TNTFS_TOOLCHAIN_VERSION),stbgcc-4.5.4-2.6)
+else ifeq ($(TNTFS_TOOLCHAIN_VERSION),stbgcc-4.5.4-2.9)
 	TNTFS_CHP=7241
 endif
 else ifeq ($(filter-out 3.3%,$(TNTFS_KERNEL_VER)),)

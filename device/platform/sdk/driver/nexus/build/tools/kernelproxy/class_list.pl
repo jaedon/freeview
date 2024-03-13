@@ -98,6 +98,7 @@
 #
 #############################################################################
 use strict;
+use lib ".";
 use lib "../common";
 use bapi_parse_c;
 use bapi_common;

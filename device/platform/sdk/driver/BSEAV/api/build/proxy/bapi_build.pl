@@ -38,6 +38,7 @@
 #############################################################################
 use strict;
 
+use lib ".";
 use bapi_parse_c;
 use bapi_ioctl_def;
 use bapi_usercall;

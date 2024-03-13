@@ -195,7 +195,7 @@ ifeq ($(config-targets),1)
 # used for 'make defconfig'
 export KBUILD_DEFCONFIG
 
-config %config: scripts_basic FORCE
+%config: scripts_basic FORCE
 	$(Q)mkdir -p include/config
 	$(Q)$(MAKE) $(build)=scripts/kconfig $@ Kconfig=$(Kconfig)
 
@@ -293,7 +293,7 @@ target-dir = $(dir $@)
 %.s: %.c prepare FORCE
 	@echo "=========== def rule : s<-c =========== "
 	$(Q)$(MAKE) $(build)=$(build-dir) $(target-dir)$(notdir $@)
-/ %/: prepare FORCE
+%/: prepare FORCE
 	@echo "=========== def rule : /<-/ =========== "
 	$(Q)$(MAKE) $(build)=$(build-dir)
 

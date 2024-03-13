@@ -1,0 +1,59 @@
+{
+    "version": "2.0.0",
+    "options": {
+        "cwd": "${workspaceRoot}/apps/make"
+    },
+    "tasks": [
+        {
+            "label": "world",
+            "type": "shell",
+            "command": "make world && echo Done",
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "octo",
+            "type": "shell",
+            "command": "make octo && echo Done",
+            "group": "build"
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "make clean && echo Done",
+            "group": "build"
+        },
+        {
+            "label": "distclean",
+            "type": "shell",
+            "command": "make distclean && echo Done",
+            "group": "build"
+        },
+        {
+            "label": "fvp4000t_defconfig",
+            "type": "shell",
+            "command": "make fvp4000t_defconfig && echo Done",
+            "group": "build"
+        },
+        {
+            "label": "fvp4000t_release_defconfig",
+            "type": "shell",
+            "command": "make fvp4000t_release_defconfig && echo Done",
+            "group": "build"
+        }
+    ]
+}

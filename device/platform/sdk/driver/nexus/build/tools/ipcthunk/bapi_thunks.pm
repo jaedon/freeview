@@ -100,6 +100,7 @@
 #############################################################################
 use strict;
 
+use lib ".";
 package bapi_thunks;
 use bapi_common;
 

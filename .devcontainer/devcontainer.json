@@ -1,0 +1,24 @@
+{
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "clangd.arguments": [
+                    "--query-driver=/opt/toolchains/**/bin/arm-linux*",
+                    "--log=verbose",
+                    "--completion-style=detailed"
+                ]
+            },
+
+            "extensions": [
+                "llvm-vs-code-extensions.vscode-clangd"
+            ]
+        }
+    },
+
+    "remoteUser": "vscode"
+}

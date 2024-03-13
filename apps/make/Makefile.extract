@@ -65,7 +65,7 @@ endif
 	-sudo find $(HUMAX_APP_STAGGING_ROOT_DIR)/home -type f -print0 | xargs -0r sudo chmod 700
 	-sudo find $(HUMAX_APP_STAGGING_ROOT_DIR)/bin/busybox -type f | xargs -r sudo chmod 700
 	@echo "---- Delete SVN hidden files.."
-	@sudo find $(HUMAX_APP_STAGGING_ROOT_DIR) -name ".gitignore" | xargs -r rm -rf
+	-sudo find $(HUMAX_APP_STAGGING_ROOT_DIR) -name ".gitignore" | xargs -r sudo rm -rf
 	@echo "---- Copy Linux Kernel"
 	@cp  $(VMLINUZ_SRC_NAME) $(HUMAX_APP_STAGGING_IMG_DIR)/vmlinuz
 endif
@@ -302,7 +302,7 @@ endif
 	@test ! -d $(HUMAX_NFS_INSTALL_DIR)/usr/local || sudo find $(HUMAX_NFS_INSTALL_DIR)/usr/local/bin -type f | xargs -r sudo chmod 700
 	@test ! -d $(HUMAX_NFS_INSTALL_DIR)/usr/local || sudo find $(HUMAX_NFS_INSTALL_DIR)/usr/local/sbin -type f | xargs -r sudo chmod 700
 	@echo "---- Delete SVN hidden files in NFS folder"
-	@sudo find $(HUMAX_NFS_INSTALL_DIR) -name ".gitignore" | xargs -r rm -rf
+	-sudo find $(HUMAX_NFS_INSTALL_DIR) -name ".gitignore" | xargs -r sudo rm -rf
 	@echo "---- Copy Linux Kernel to TFTP Folder."
 	@cp  $(HUMAX_APP_STAGGING_IMG_DIR)/vmlinuz $(HUMAX_TFTP_TOP_DIR)/$(HUMAX_TFTP_TARGET_NAME)
 ifeq ($(CONFIG_ENHANCED_SECURITY),y)
